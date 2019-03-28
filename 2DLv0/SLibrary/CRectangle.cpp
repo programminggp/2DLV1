@@ -3,11 +3,19 @@
 
 //描画処理の定義
 void CRectangle::Render() {
-	Render(0);
+	if (mpTexture) {
+		Render(*mpTexture, 0);
+	}
+	else {
+		Render(0);
+	}
 }
 
 void CRectangle::Render(int index) {
-	if (mTexture.mId) {
+	if (mpTexture) {
+		Render(*mpTexture, index);
+	}
+	else if (mTexture.mId) {
 		mTexture.DrawImage(mX - mW, mX + mW, mY - mH, mY + mH, index);
 	}
 	else {
@@ -24,6 +32,11 @@ void CRectangle::Render(int index) {
 }
 //コンストラクタの定義
 CRectangle::CRectangle()
+: mX(0.0f)
+, mY(0.0f)
+, mW(1.0f)
+, mH(1.0f)
+, mpTexture(0)
 {
 }
 
@@ -32,6 +45,7 @@ CRectangle::CRectangle(float x, float y, float w, float h)
 	, mY(y)//Y座標の代入
 	, mW(w / 2.0f)//幅の代入
 	, mH(h / 2.0f)//高さの代入
+	, mpTexture(0)
 {
 }
 
@@ -159,4 +173,49 @@ void CRectangle::LoadTexture(char* filename, int row, int col) {
 	}
 	mTexture.Load(filename);
 	mTexture.SetParts(row, col);
+}
+
+void CRectangle::Render(CTexture& texture) {
+	Render(texture, 0);
+}
+
+void CRectangle::Render(CTexture& texture, int index) {
+	if (texture.mId) {
+		texture.DrawImage(mX - mW, mX + mW, mY - mH, mY + mH, index);
+	}
+	else {
+		//描画開始(四角形)
+		glBegin(GL_QUADS);
+		//頂点座標の設定
+		glVertex2d(mX - mW, mY + mH);
+		glVertex2d(mX - mW, mY - mH);
+		glVertex2d(mX + mW, mY - mH);
+		glVertex2d(mX + mW, mY + mH);
+		//描画終了
+		glEnd();
+	}
+}
+
+void CRectangle::SetTexture(CTexture *texture) {
+	mpTexture = texture;
+}
+
+void CRectangle::SetPosition(float x, float y) {
+	mX = x;
+	mY = y;
+}
+
+void CRectangle::SetSize(float sx, float sy) {
+	mW = sx;
+	mH = sy;
+}
+
+void CRectangle::Translate(float x, float y) {
+	mX += x;
+	mY += y;
+}
+
+void CRectangle::Scale(float sx, float sy) {
+	mW *= sx;
+	mH *= sy;
 }

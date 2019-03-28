@@ -9,18 +9,21 @@ CRectangleクラス
 長方形プログラムの定義
 */
 class CRectangle : public CTask {
+	CTexture mTexture;
+	CTexture* mpTexture;
 public:
 	float mX;//中心のX座標
 	float mY;//中心のY座標
 	float mW;//幅の半分
 	float mH;//高さの半分
 
-	CTexture mTexture;
-//	int mRow, mCol; //テクスチャ内の行数と列数
+	//	int mRow, mCol; //テクスチャ内の行数と列数
 
 	//描画処理の宣言
 	void Render();
 	void Render(int index);
+	void Render(CTexture& texture);
+	void Render(CTexture& texture, int index);
 	//コンストラクタの宣言
 	CRectangle();
 	CRectangle(float x, float y, float w, float h);
@@ -35,6 +38,14 @@ public:
 	//LoadTexture
 	void LoadTexture(char* filename);
 	void LoadTexture(char* filename, int row, int col);
+	//SetTexture
+	void SetTexture(CTexture *texture);
+	//SetPosition
+	void SetPosition(float x, float y);
+	void SetSize(float sx, float sy);
+	void Translate(float x, float y);
+	void Scale(float sx, float sy);
+
 };
 
 #endif

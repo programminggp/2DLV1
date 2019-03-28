@@ -10,6 +10,7 @@ void CSceneGame::Init() {
 	mPlayer.SetXYWH(0, -200, 64, 64);
 	mBackGround.SetXYWH(0, 0, 1280, 1024);
 	CUI::mFont.Set("Font.tga", 1, 64, 16, 33);
+	mTexEnemy.Load("Enemy.tga");
 }
 
 void CSceneGame::Update() {
@@ -17,7 +18,9 @@ void CSceneGame::Update() {
 	mFrame %= 60;
 	if (mFrame == 0) {
 		CEnemy *e = new CEnemy();
-		e->SetXYWH(0, 300, 48, 72);
+		e->SetPosition(0, 300);
+		e->SetSize(48 / 2, 72 / 2);
+		e->SetTexture(&mTexEnemy);
 		e->Enable();
 	}
 }

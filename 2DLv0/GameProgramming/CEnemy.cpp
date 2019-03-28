@@ -8,7 +8,7 @@
 CEnemy::CEnemy()
 	: mVelocity(VELOCITY)
 {
-	LoadTexture("Enemy.tga");
+//	LoadTexture("Enemy.tga");
 	mPriority = 1;
 	mTag = EENEMY;
 	Enable();

@@ -4,6 +4,7 @@
 #include "CPlayer.h"
 #include "CBackGround.h"
 #include "CBoss.h"
+#include "CTexture.h"
 
 //クラスの定義
 class CSceneGame: public CScene {
@@ -13,6 +14,8 @@ public:
 	CBoss mBoss;
 	CBackGround mBackGround;
 	int mFrame;
+	//テクスチャ
+	CTexture mTexEnemy;
 
 	//メソッド（プログラム）の宣言
 	void Init();
