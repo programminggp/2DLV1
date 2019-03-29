@@ -1,19 +1,18 @@
 #include "CPlayer.h"
 #include "CShootPlayer2.h"
 #include "CUI.h"
+#include "CEffect.h"
 
 #define VELOCITY 5
 #define SHOOTINTERVAL 30
 
-CPlayer* CPlayer::mpInstance = 0;;
-
+CPlayer* CPlayer::mpInstance = 0;
 
 CPlayer::CPlayer()
 	: mHit(0)
 	, mFont("Font.tga", 1, 64, 16, 33)
 	, mShootInterval(0)
 {
-	LoadTexture("Player.tga");
 	mPriority = 1;
 	mTag = EPLAYER;
 	Enable();
@@ -49,11 +48,9 @@ void CPlayer::Update() {
 		if (mShootInterval == 0) {
 			mShootInterval = SHOOTINTERVAL;
 			//’e‚ð”­ŽË‚·‚é
-			CShootPlayer2 *s = new CShootPlayer2();
-			s->SetXYWH(mX, mY, 60, 54);
+			new CShootPlayer2(mX, mY, 60, 54);
 		}
 	}
-//	mEffect.SetXYWH(mX, mY, 128, 128);
 }
 
 void CPlayer::Collision(CTask& r) {
@@ -61,8 +58,6 @@ void CPlayer::Collision(CTask& r) {
 	if (c.mTag == ESHOOTBOSS) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY, 128, 128);
-			//mEffect.mIndex = 0;
-			//mEffect.Enable();
 			mHit++;
 			CUI::mPlayerHit++;
 		}
@@ -70,8 +65,6 @@ void CPlayer::Collision(CTask& r) {
 	if (c.mTag == EBOSS) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY, 128, 128);
-//			mEffect.mIndex = 0;
-//			mEffect.Enable();
 			mHit++;
 			CUI::mPlayerHit++;
 		}

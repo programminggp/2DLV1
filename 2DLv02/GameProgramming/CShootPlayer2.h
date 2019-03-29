@@ -6,6 +6,7 @@
 class CShootPlayer2 : public CCharacter {
 public:
 	CShootPlayer2();
+	CShootPlayer2(float x, float y, float w, float h);
 	void Update();
 	void Collision(CTask& r);
 };

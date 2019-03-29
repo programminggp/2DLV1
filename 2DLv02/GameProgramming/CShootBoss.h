@@ -7,7 +7,6 @@
 class CShootBoss : public CCharacter {
 public:
 	float mXdir;
-//	CEffect mEffect;
 	CShootBoss();
 	void Update();
 	void Collision(CTask& r);

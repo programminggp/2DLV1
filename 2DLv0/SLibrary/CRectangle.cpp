@@ -206,8 +206,8 @@ void CRectangle::SetPosition(float x, float y) {
 }
 
 void CRectangle::SetSize(float sx, float sy) {
-	mW = sx;
-	mH = sy;
+	mW = sx / 2.0f;
+	mH = sy / 2.0f;
 }
 
 void CRectangle::Translate(float x, float y) {

@@ -3,7 +3,6 @@
 
 #include "CCharacter.h"
 #include "CInput.h"
-#include "CShootPlayer.h"
 #include "CFont.h"
 #include "CCollision.h"
 
@@ -11,10 +10,8 @@ class CPlayer : public CCharacter {
 public:
 	static CPlayer* mpInstance;
 	CInput mInput;
-//	CShootPlayer mShoot;
 	CFont mFont;
 	int mHit;
-//	CEffect mEffect;
 	int mShootInterval;
 
 	CPlayer();

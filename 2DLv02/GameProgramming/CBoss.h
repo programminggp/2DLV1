@@ -12,7 +12,6 @@ public:
 	CShootBoss mShootRight;
 	CFont mFont;
 	int mHit;
-//	CEffect mEffect;
 	CBoss();
 	void Update();
 	void Render();

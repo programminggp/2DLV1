@@ -27,19 +27,13 @@ void CShootBoss::Collision(CTask& r) {
 	CCharacter& c = (CCharacter&)r;
 	if (c.mTag == EPLAYER) {
 		if (CCollision::Collision(*this, c)) {
-//			new CEffect(mX, mY - mH, 128, 128);
-//			mEffect.SetXYWH(mX, mY - mH, 128, 128);
-//			mEffect.mIndex = 0;
-//			mEffect.Enable();
+			new CEffect(mX, mY - mH, 128, 128);
 			Disable();
 		}
 	}
 	if (c.mTag == ESHOOTPLAYER) {
 		if (CCollision::Collision(*this, c)) {
-//			new CEffect(mX, mY - mH, 128, 128);
-//			mEffect.SetXYWH(mX, mY - mH, 128, 128);
-//			mEffect.mIndex = 0;
-//			mEffect.Enable();
+			new CEffect(mX, mY - mH, 128, 128);
 			Disable();
 		}
 	}
