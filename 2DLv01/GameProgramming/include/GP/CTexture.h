@@ -17,7 +17,10 @@ struct STgamHeader {
 /*
 テクスチャークラス
 */
+//#include <map>
+
 class CTexture {
+//	static std::map<std::string, CTexture>mTexFile;
 	//ファイル名
 	char* mpName;
 public:

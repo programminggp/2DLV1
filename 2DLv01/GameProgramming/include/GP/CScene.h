@@ -6,6 +6,7 @@ public:
 	virtual ~CScene();
 	virtual void Init();
 	virtual void Update();
+	virtual void Render();
 };
 
 #endif
