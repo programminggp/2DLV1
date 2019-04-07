@@ -5,6 +5,7 @@
 #include "CInput.h"
 #include "CFont.h"
 #include "CCollision.h"
+#include "CTexture.h"
 
 class CPlayer : public CCharacter {
 public:
@@ -13,6 +14,7 @@ public:
 	CFont mFont;
 	int mHit;
 	int mShootInterval;
+	CTexture mTexture;
 
 	CPlayer();
 	void Update();
