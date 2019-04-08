@@ -16,7 +16,7 @@ CPlayer::CPlayer()
 	LoadTexture("Player.tga");
 	mPriority = 1;
 	mTag = EPLAYER;
-	Enable();
+//	Enable();
 	mpInstance = this;
 }
 

@@ -38,6 +38,7 @@ CRectangle::CRectangle()
 , mH(1.0f)
 , mpTexture(0)
 {
+	Enable();
 }
 
 CRectangle::CRectangle(float x, float y, float w, float h)
@@ -47,6 +48,7 @@ CRectangle::CRectangle(float x, float y, float w, float h)
 	, mH(h / 2.0f)//高さの代入
 	, mpTexture(0)
 {
+	Enable();
 }
 
 //中心座標(0,0)で幅と高さを指定するコンストラクタ

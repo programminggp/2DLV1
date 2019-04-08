@@ -15,7 +15,7 @@ CPlayer::CPlayer()
 {
 	mPriority = 1;
 	mTag = EPLAYER;
-	Enable();
+//	Enable();
 	mpInstance = this;
 }
 
