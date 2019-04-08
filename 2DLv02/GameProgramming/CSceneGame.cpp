@@ -15,8 +15,8 @@ void CSceneGame::Init() {
 	mBackGround.SetSize(1280, 1024);
 	CUI::mFont.Set("Font.tga", 1, 64, 16, 33);
 	CTextureManager::mEnemy.Load("Enemy.tga");
-	CTextureManager::mPlayer.Load("Player.tga");
-	mPlayer.SetTexture(&CTextureManager::mPlayer);
+//	CTextureManager::mPlayer.Load("Player.tga");
+//	mPlayer.SetTexture(&CTextureManager::mPlayer);
 	CTextureManager::mEffect.Load("BossExplosion.tga");
 	CTextureManager::mEffect.SetParts(4, 5);
 	CTextureManager::mShootPlayer.Load("ShootPlayer.tga");
