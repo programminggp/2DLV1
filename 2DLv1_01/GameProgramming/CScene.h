@@ -1,8 +1,8 @@
 /*
 インクルードガード
 2重にインクルードさせないようにする仕組み
-#ifndef
-#define
+#ifndef マクロ名
+#define マクロ名
 　～　
 #endif
 */

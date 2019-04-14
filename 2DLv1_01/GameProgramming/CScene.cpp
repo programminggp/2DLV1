@@ -23,8 +23,11 @@ void CScene::Update() {
 	/*
 	四角形の描画
 	*/
-	//描画指定の開始
-	//GL_QUADS 四角形の指定
+	/*
+	描画指定の開始
+	glBegin(mode)
+	mode:GL_QUADS 四角形の描画
+	*/
 	glBegin(GL_QUADS);
 	/*
 	頂点座標の指定
@@ -36,6 +39,9 @@ void CScene::Update() {
 	glVertex2f(-50.0f, -50.0f);
 	glVertex2f(50.0f, -50.0f);
 	glVertex2f(50.0f, 50.0f);
-	//描画指定の終了
+	/*
+	描画指定の終了
+	glEnd()
+	*/
 	glEnd();
 }
