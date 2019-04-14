@@ -15,9 +15,7 @@ CPlayer::CPlayer()
 {
 	mPriority = 1;
 	mTag = EPLAYER;
-	mTexture.Load("Player.tga");
-	SetTexture(&mTexture);
-	Enable();
+//	Enable();
 	mpInstance = this;
 }
 

@@ -13,7 +13,7 @@ CBoss::CBoss()
 	LoadTexture("Boss.tga");
 	mPriority = 1;
 	mTag = EBOSS;
-	Enable();
+//	Enable();
 }
 
 void CBoss::Update() {
