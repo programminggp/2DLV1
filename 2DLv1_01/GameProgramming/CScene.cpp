@@ -30,40 +30,40 @@ void CScene::Update() {
 	//文字列を標準出力（画面）に出力する
 	printf("Update()\n");
 
-	/*
-	四角形の描画
-	*/
+	///*
+	//四角形の描画
+	//*/
 
-	glBegin(GL_QUADS);
-	/*
-	glBegin(GL_QUADS);
+	//glBegin(GL_QUADS);
+	///*
+	//glBegin(GL_QUADS);
 
-	描画指定の開始
-	glBegin(mode)
-	mode:GL_QUADS 四角形の描画
-	*/
+	//描画指定の開始
+	//glBegin(mode)
+	//mode:GL_QUADS 四角形の描画
+	//*/
 
-	glVertex2f(-50.0f, 50.0f);
-	/*
-	glVertex2f(-50.0f, 50.0f);
+	//glVertex2f(-50.0f, 50.0f);
+	///*
+	//glVertex2f(-50.0f, 50.0f);
 
-	頂点座標の指定
-	glVertex2f(x,y)
-	x：X座標
-	y：Y座標
-	*/
-	/*
-	頂点は反時計回りに指定すること
-	*/
+	//頂点座標の指定
+	//glVertex2f(x,y)
+	//x：X座標
+	//y：Y座標
+	//*/
+	///*
+	//頂点は反時計回りに指定すること
+	//*/
 
-	glVertex2f(-50.0f, -50.0f);
-	glVertex2f(50.0f, -50.0f);
-	glVertex2f(50.0f, 50.0f);
+	//glVertex2f(-50.0f, -50.0f);
+	//glVertex2f(50.0f, -50.0f);
+	//glVertex2f(50.0f, 50.0f);
 
-	glEnd();
-	/*
-	glEnd()
+	//glEnd();
+	///*
+	//glEnd()
 
-	描画指定の終了
-	*/
+	//描画指定の終了
+	//*/
 }
