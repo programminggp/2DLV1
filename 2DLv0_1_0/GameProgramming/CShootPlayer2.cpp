@@ -40,3 +40,7 @@ void CShootPlayer2::Collision(CTask& r) {
 		}
 	}
 }
+
+void CShootPlayer2::Render() {
+	CRectangle::Render();
+}

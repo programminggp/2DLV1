@@ -44,3 +44,7 @@ void CShootBoss::Collision(CTask& r) {
 		}
 	}
 }
+
+void CShootBoss::Render() {
+	CRectangle::Render();
+}

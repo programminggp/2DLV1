@@ -6,6 +6,7 @@
 class CBackGround : public CCharacter {
 public:
 	CBackGround();
+	void Render();
 };
 
 

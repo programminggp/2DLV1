@@ -11,6 +11,7 @@ public:
 	CShootBoss();
 	void Update();
 	void Collision(CTask& r);
+	void Render();
 };
 
 

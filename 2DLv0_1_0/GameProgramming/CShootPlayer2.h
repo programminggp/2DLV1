@@ -8,8 +8,7 @@ public:
 	CShootPlayer2();
 	void Update();
 	void Collision(CTask& r);
+	void Render();
 };
-
-
 
 #endif

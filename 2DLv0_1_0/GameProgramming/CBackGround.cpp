@@ -7,3 +7,6 @@ CBackGround::CBackGround() {
 	mTag = EBACKGROUND;
 }
 
+void CBackGround::Render() {
+	CRectangle::Render();
+}
