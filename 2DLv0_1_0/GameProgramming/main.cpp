@@ -5,8 +5,5 @@
 int main(void)
 {
 	CMain2D main;
-
-	CSceneGame *scene = new CSceneGame();
-	main.SetScene(scene);
-	delete scene;
+	main.SetScene(new CSceneGame());
 }

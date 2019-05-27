@@ -1,9 +1,11 @@
 #include "CEffect.h"
 
+CTexture CEffect::mTexture;
+
 CEffect::CEffect()
 	: mIndex(0)
 {
-	LoadTexture("BossExplosion.tga", 4, 5);
+	mpTexture = &mTexture;
 	mPriority = 3;
 	mTag = ENONE;
 }

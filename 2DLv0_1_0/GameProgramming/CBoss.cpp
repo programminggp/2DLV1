@@ -47,7 +47,6 @@ void CBoss::Update() {
 		}
 		mShootRight.Enable();
 	}
-//	mEffect.SetXYWH(mX, mY, 128, 128);
 }
 
 void CBoss::Render() {
@@ -62,8 +61,6 @@ void CBoss::Collision(CTask& r) {
 	if (c.mTag == ESHOOTPLAYER) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY, 128, 128);
-			//mEffect.mIndex = 0;
-			//mEffect.Enable();
 			mHit++;
 			CUI::mEnemyHit++;
 		}

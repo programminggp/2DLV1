@@ -6,8 +6,8 @@
 
 class CShootBoss : public CCharacter {
 public:
+	static CTexture mTexture;
 	float mXdir;
-//	CEffect mEffect;
 	CShootBoss();
 	void Update();
 	void Collision(CTask& r);

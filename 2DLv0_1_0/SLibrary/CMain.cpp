@@ -33,6 +33,10 @@ CMain::CMain()
 CMain::~CMain() {
 //	CTaskManager::Get()->Destroy();
 	glfwTerminate();
+	if (mpScene) {
+		delete mpScene;
+		mpScene = 0;
+	}
 }
 
 #include <stdio.h>

@@ -8,6 +8,7 @@ CRectangleクラス
 長方形プログラムの定義
 */
 class CRectangle {
+protected:
 	CTexture mTexture;
 	CTexture* mpTexture;
 public:

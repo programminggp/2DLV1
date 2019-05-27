@@ -14,8 +14,6 @@ public:
 	CPlayer mPlayer;
 	CBoss mBoss;
 	int mFrame;
-	//テクスチャ
-	CTexture mTexEnemy;
 
 	//メソッド（プログラム）の宣言
 	void Init();

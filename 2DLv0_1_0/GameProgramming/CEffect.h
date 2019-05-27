@@ -5,6 +5,7 @@
 
 class CEffect : public CCharacter {
 public:
+	static CTexture mTexture;
 	int mIndex;
 	CEffect();
 	CEffect(int posx, int posy, int width, int height);

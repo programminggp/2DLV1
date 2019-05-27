@@ -5,6 +5,7 @@
 
 class CEnemy : public CCharacter {
 public:
+	static CTexture mTexture;
 	int mVelocity;
 	CEnemy();
 	void Update();
