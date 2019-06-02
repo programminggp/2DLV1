@@ -5,9 +5,16 @@
 
 //メソッド（プログラム）の定義
 
+CSceneGame::CSceneGame() 
+	:mBoss(-300, 200, 179, 240)
+{
+
+}
+
+
 void CSceneGame::Init() {
 	mFrame = 0;
-	mBoss.SetXYWH(-300, 200, 179, 240);
+//	mBoss.SetXYWH(-300, 200, 179, 240);
 	mPlayer.SetXYWH(0, -200, 64, 64);
 	mBackGround.SetXYWH(0, 0, 1280, 1024);
 	CUI::mFont.Set("Font.tga", 1, 64, 16, 33);

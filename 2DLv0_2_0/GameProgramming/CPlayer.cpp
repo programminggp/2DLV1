@@ -16,7 +16,6 @@ CPlayer::CPlayer()
 	if (mTexture.mId == 0) {
 		mTexture.Load("Player.tga");
 	}
-	mpTexture = &mTexture;
 	mTag = EPLAYER;
 	mpInstance = this;
 }
@@ -80,7 +79,7 @@ void CPlayer::Collision(CTask& r) {
 }
 
 void CPlayer::Render() {
-	CRectangle::Render();
+	CRectangle::Render(&mTexture, 0.0f, 74.0f, 88.0f, 0.0f);
 	char buf[10];
 	sprintf(buf, "%d", mHit);
 //	mFont.Render(buf, mX + mW, mY - mH, 24, 32);

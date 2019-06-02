@@ -5,7 +5,7 @@
 
 CShootPlayer::CShootPlayer()
 {
-	LoadTexture("ShootPlayer.tga");
+//	LoadTexture("ShootPlayer.tga");
 	mPriority = 2;
 	mTag = ESHOOTPLAYER;
 }

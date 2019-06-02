@@ -3,17 +3,17 @@
 
 #include "CCharacter.h"
 #include "CShootBoss.h"
-#include "CFont.h"
 
 class CBoss : public CCharacter {
+	static CTexture mTexture;
 public:
 	int mVelocity;
 	CShootBoss mShootLeft;
 	CShootBoss mShootRight;
-//	CFont mFont;
 	int mHit;
-//	CEffect mEffect;
+
 	CBoss();
+	CBoss(float x, float y, float w, float h);
 	void Update();
 	void Render();
 	void Collision(CTask& r);

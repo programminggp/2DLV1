@@ -4,9 +4,13 @@
 
 #define VELOCITY 10
 
+CTexture CShootPlayer2::mTexture;
+
 CShootPlayer2::CShootPlayer2()
 {
-	LoadTexture("ShootPlayer.tga");
+	if (mTexture.mId == 0) {
+		mTexture.Load("ShootPlayer.tga");
+	}
 	mPriority = 2;
 	mTag = ESHOOTPLAYER;
 	Enable();
@@ -42,5 +46,5 @@ void CShootPlayer2::Collision(CTask& r) {
 }
 
 void CShootPlayer2::Render() {
-	CRectangle::Render();
+	CRectangle::Render(&mTexture, 0.0f, 60.0f, 54.0f, 0.0f);
 }

@@ -8,9 +8,6 @@ CRectangleクラス
 長方形プログラムの定義
 */
 class CRectangle {
-protected:
-	CTexture mTexture;
-	CTexture* mpTexture;
 public:
 	float mX;//中心のX座標
 	float mY;//中心のY座標
@@ -22,9 +19,7 @@ public:
 
 	//描画処理の宣言
 	void Render();
-	void Render(int index);
-	void Render(CTexture& texture);
-	void Render(CTexture& texture, int index);
+	void Render(CTexture*, float let, float right, float bottom, float top);
 	//コンストラクタの宣言
 	CRectangle();
 	CRectangle(float x, float y, float w, float h);
@@ -41,11 +36,6 @@ public:
 	posx:X座標 posy:Y座標 width:幅 height:高さ
 	*/
 	void Set(int posx, int posy, int width, int height);
-	//LoadTexture
-	void LoadTexture(char* filename);
-	void LoadTexture(char* filename, int row, int col);
-	//SetTexture
-	void SetTexture(CTexture *texture);
 	//SetPosition
 	void SetPosition(float x, float y);
 	void SetSize(float sx, float sy);

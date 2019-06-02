@@ -13,7 +13,6 @@ CShootBoss::CShootBoss()
 	if (mTexture.mId == 0) {
 		mTexture.Load("ShootBoss.tga");
 	}
-	mpTexture = &mTexture;
 	mPriority = 2;
 	mTag = ESHOOTBOSS;
 }
@@ -46,5 +45,5 @@ void CShootBoss::Collision(CTask& r) {
 }
 
 void CShootBoss::Render() {
-	CRectangle::Render();
+	CRectangle::Render(&mTexture, 0.0f, 34.0f, 140.0f, 0.0f);
 }

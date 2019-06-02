@@ -5,15 +5,22 @@
 
 #define VELOCITY 2
 
+CTexture CBoss::mTexture;
+
 CBoss::CBoss()
 	: mVelocity(VELOCITY)
 	, mHit(0)
-//	, mFont("Font.tga", 1, 64, 16, 33)
 {
-	LoadTexture("Boss.tga");
-//	mPriority = 1;
+	if (mTexture.mId == 0) {
+		mTexture.Load("Boss.tga");
+	}
 	mTag = EBOSS;
-//	Enable();
+}
+
+CBoss::CBoss(float x, float y, float w, float h)
+	: CBoss()
+{
+	Set(x, y, w, h);
 }
 
 void CBoss::Update() {
@@ -50,7 +57,7 @@ void CBoss::Update() {
 }
 
 void CBoss::Render() {
-	CRectangle::Render();
+	CRectangle::Render(&mTexture, 0.0f, 159.0f, 240.0f, 0.0f);
 	char buf[10];
 	sprintf(buf, "%d", mHit);
 //	mFont.Render(buf, mX - mW, mY + mH - 32, 24, 32);

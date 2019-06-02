@@ -3,53 +3,67 @@
 
 //描画処理の定義
 void CRectangle::Render() {
-	if (mpTexture) {
-		glPushMatrix();
-		glTranslatef(mX, mY, 0.0f);
-		glRotatef(mR, 0.0f, 0.0f, 1.0f);
-		Render(*mpTexture, 0);
-		glPopMatrix();
-	}
-	else {
-		Render(0);
-	}
-}
-
-void CRectangle::Render(int index) {
 	glPushMatrix();
 	glTranslatef(mX, mY, 0.0f);
 	glRotatef(mR, 0.0f, 0.0f, 1.0f);
-	if (mpTexture) {
-		Render(*mpTexture, index);
-	}
-	else if (mTexture.mId) {
-		//		mTexture.DrawImage(mX - mW, mX + mW, mY - mH, mY + mH, index);
-		mTexture.DrawImage(-mW, mW, -mH, mH, index);
-	}
-	else {
-		//描画開始(四角形)
-		glBegin(GL_QUADS);
-		//頂点座標の設定
-		//glVertex2d(mX - mW, mY + mH);
-		//glVertex2d(mX - mW, mY - mH);
-		//glVertex2d(mX + mW, mY - mH);
-		//glVertex2d(mX + mW, mY + mH);
-		glVertex2d(-mW,  mH);
-		glVertex2d(-mW, -mH);
-		glVertex2d( mW, -mH);
-		glVertex2d( mW,  mH);
-		//描画終了
-		glEnd();
-	}
+	//描画開始(四角形)
+	glBegin(GL_QUADS);
+	//頂点座標の設定
+	glVertex2d(-mW, mH);
+	glVertex2d(-mW, -mH);
+	glVertex2d(mW, -mH);
+	glVertex2d(mW, mH);
+	//描画終了
+	glEnd();
 	glPopMatrix();
 }
+
+void CRectangle::Render(CTexture* pTexture, float left, float right, float bottom, float top) {
+	glPushMatrix();
+	glTranslatef(mX, mY, 0.0f);
+	glRotatef(mR, 0.0f, 0.0f, 1.0f);
+	//描画開始(四角形)
+
+	//テクスチャを有効にする
+	glEnable(GL_TEXTURE_2D);
+	//アルファブレンドを有効にする
+	glEnable(GL_BLEND);
+	//ブレンド方法を指定
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//テクスチャを指定
+	glBindTexture(GL_TEXTURE_2D, pTexture->mId);
+
+	float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//色の設定
+	glColor4fv(diffuse);
+
+	glBegin(GL_QUADS);
+	glTexCoord2f(left / pTexture->mHeader.width, (pTexture->mHeader.height - top) / pTexture->mHeader.height);
+	glVertex2d(-mW, mH);
+	glTexCoord2f(left / pTexture->mHeader.width, (pTexture->mHeader.height - bottom) / pTexture->mHeader.height);
+	glVertex2d(-mW, -mH);
+	glTexCoord2f(right / pTexture->mHeader.width, (pTexture->mHeader.height - bottom) / pTexture->mHeader.height);
+	glVertex2d(mW, -mH);
+	glTexCoord2f(right / pTexture->mHeader.width, (pTexture->mHeader.height - top) / pTexture->mHeader.height);
+	glVertex2d(mW, mH);
+	glEnd();
+
+	//テクスチャを解放
+	glBindTexture(GL_TEXTURE_2D, 0);
+	//アルファブレンドを無効
+	glDisable(GL_BLEND);
+	//テクスチャを無効
+	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
+}
+
 //コンストラクタの定義
 CRectangle::CRectangle()
 : mX(0.0f)
 , mY(0.0f)
 , mW(1.0f)
 , mH(1.0f)
-, mpTexture(0)
 , mR(0.0f)
 {
 }
@@ -59,7 +73,6 @@ CRectangle::CRectangle(float x, float y, float w, float h)
 	, mY(y)//Y座標の代入
 	, mW(w / 2.0f)//幅の代入
 	, mH(h / 2.0f)//高さの代入
-	, mpTexture(0)
 	, mR(0.0f)
 {
 }
@@ -104,7 +117,7 @@ float CRectangle::CollisionY(const CRectangle &r) const {
 	//衝突していない
 	return 0;
 }
-//6
+
 /*
 CollisionXメソッド
 自分と四角形rがX軸で重なっているか判定する。
@@ -169,65 +182,17 @@ float CRectangle::CollisionX(const CRectangle &r) const {
 
 
 void CRectangle::SetXYWH(int posx, int posy, int width, int height) {
+	Set(posx, posy, width, height);
+}
+
+void CRectangle::Set(int posx, int posy, int width, int height) {
 	mX = posx;
 	mY = posy;
 	mW = width / 2.0f;
 	mH = height / 2.0f;
 }
 
-void CRectangle::Set(int posx, int posy, int width, int height) {
-	SetXYWH(posx, posy, width, height);
-}
-
-void CRectangle::LoadTexture(char* filename) {
-	if (mTexture.mId) {
-		mTexture.Destory();
-	}
-	mTexture.Load(filename);
-}
-
-void CRectangle::LoadTexture(char* filename, int row, int col) {
-	if (mTexture.mId) {
-		mTexture.Destory();
-	}
-	mTexture.Load(filename);
-	mTexture.SetParts(row, col);
-}
-
-void CRectangle::Render(CTexture& texture) {
-	glPushMatrix();
-	glTranslatef(mX, mY, 0.0f);
-	glRotatef(mR, 0.0f, 0.0f, 1.0f);
-	Render(texture, 0);
-	glPopMatrix();
-}
-
-void CRectangle::Render(CTexture& texture, int index) {
-	if (texture.mId) {
-//		texture.DrawImage(mX - mW, mX + mW, mY - mH, mY + mH, index);
-		texture.DrawImage(-mW, mW, -mH, mH, index);
-	}
-	else {
-		//描画開始(四角形)
-		glBegin(GL_QUADS);
-		//頂点座標の設定
-		//glVertex2d(mX - mW, mY + mH);
-		//glVertex2d(mX - mW, mY - mH);
-		//glVertex2d(mX + mW, mY - mH);
-		//glVertex2d(mX + mW, mY + mH);
-		glVertex2d(-mW, mH);
-		glVertex2d(-mW, -mH);
-		glVertex2d(mW, -mH);
-		glVertex2d(mW, mH);
-		//描画終了
-		glEnd();
-	}
-}
-
-void CRectangle::SetTexture(CTexture *texture) {
-	mpTexture = texture;
-}
-
+//
 void CRectangle::SetPosition(float x, float y) {
 	mX = x;
 	mY = y;

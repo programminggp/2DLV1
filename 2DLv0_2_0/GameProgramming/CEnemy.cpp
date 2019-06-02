@@ -13,7 +13,6 @@ CEnemy::CEnemy()
 	if (mTexture.mId == 0) {
 		mTexture.Load("Enemy.tga");
 	}
-	mpTexture = &mTexture;
 	mPriority = 1;
 	mTag = EENEMY;
 }
@@ -26,7 +25,7 @@ void CEnemy::Update() {
 }
 
 void CEnemy::Render() {
-	CRectangle::Render();
+	CRectangle::Render(&mTexture, 0.0f, 48.0f, 72.0f, 0.0f);
 }
 
 void CEnemy::Collision(CTask& r) {

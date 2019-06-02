@@ -7,8 +7,10 @@ CFont
 •¶Žš‚Ì•\Ž¦
 */
 class CFont : public CRectangle {
+	static CTexture mTexture;
 	int mStartNumIndex;
 	int mStartAlphaIndex;
+	int mCol, mRow;
 public:
 	CFont();
 	/*

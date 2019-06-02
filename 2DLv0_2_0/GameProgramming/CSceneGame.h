@@ -15,6 +15,8 @@ public:
 	CBoss mBoss;
 	int mFrame;
 
+	CSceneGame();
+
 	//メソッド（プログラム）の宣言
 	void Init();
 	void Update();
