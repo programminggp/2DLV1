@@ -27,22 +27,22 @@ void CFont::Render(char *string, int x, int y, int w, int h) {
 		SetXYWH(x + i * w, y, w, h);
 		if (isdigit(string[i])) {
 			int index = string[i] - mStartNumIndex;
-			float row = index / mCol + 1;
+			float row = index / mCol;
 			float col = index % mCol;
 			CRectangle::Render(&mTexture,
-				mTexture.mHeader.width * col++ / mCol,
 				mTexture.mHeader.width * col / mCol,
-				mTexture.mHeader.height * row-- / mRow,
+				mTexture.mHeader.width * (col + 1) / mCol,
+				mTexture.mHeader.height * (row + 1) / mRow,
 				mTexture.mHeader.height * row / mRow);
 		}
 		else if (isalpha(string[i])) {
 			int index = toupper(string[i]) - mStartAlphaIndex;
-			float row = index / mCol + 1;
+			float row = index / mCol;
 			float col = index % mCol;
 			CRectangle::Render(&mTexture,
-				mTexture.mHeader.width * col++ / mCol,
 				mTexture.mHeader.width * col / mCol,
-				mTexture.mHeader.height * row-- / mRow,
+				mTexture.mHeader.width * (col + 1) / mCol,
+				mTexture.mHeader.height * (row+1) / mRow,
 				mTexture.mHeader.height * row / mRow);
 		}
 	}

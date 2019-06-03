@@ -8,6 +8,7 @@ class CBackGround : public CCharacter {
 public:
 	CTexture mTexture;
 	CBackGround();
+	CBackGround(float x, float y, float w, float h);
 	void Render();
 };
 

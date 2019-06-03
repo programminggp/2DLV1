@@ -2,14 +2,15 @@
 #define CSHOOTPLAYER_H
 
 #include "CCharacter.h"
-#include "CEffect.h"
 
 class CShootPlayer : public CCharacter {
 public:
-	CEffect mEffect;
+	static CTexture mTexture;
 	CShootPlayer();
+	CShootPlayer(float x, float y, float w, float h);
 	void Update();
-	void Collision(CTask& r);
+	void Render();
+	void Collision(CCharacter* my, CCharacter* you);
 };
 
 #endif

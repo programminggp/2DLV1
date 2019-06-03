@@ -2,9 +2,12 @@
 #define CCHARACTER_H
 
 #include "CRectangle.h"
-#include "CTask.h"
+//#include "CTask.h"
 
-class CCharacter : public CRectangle, public CTask {
+class CSceneGame;
+
+//class CCharacter : public CRectangle, public CTask {
+class CCharacter : public CRectangle {
 public:
 	enum ETag {
 		ENONE,
@@ -13,14 +16,27 @@ public:
 		EBOSS,
 		ESHOOTPLAYER,
 		ESHOOTBOSS,
+		ESHOOTENEMY,
 		EENEMY
 	};
-	
-	CCharacter() {
-		Enable();
-	}
 
 	ETag mTag;
+
+	enum EState {
+		EENABLED,
+		EDISABLED,
+		EDELETE,
+	};
+
+	EState mState;
+
+	CCharacter();
+	virtual ~CCharacter();
+
+	virtual void Update() {};
+	virtual void Render() {};
+	virtual void Collision(CCharacter* mc, CCharacter* yc) {};
+
 };
 
 #endif

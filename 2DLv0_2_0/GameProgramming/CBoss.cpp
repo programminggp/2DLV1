@@ -28,32 +28,32 @@ void CBoss::Update() {
 	if (mX > 400 - mW || mX < -400 + mW) {
 		mVelocity *= -1;
 	}
-	if (mShootLeft.mStatus != EENABLED) {
-		mShootLeft.SetXYWH(mX - mW / 2, mY - mH / 2, 34, 140);
-		if (CPlayer::mpInstance->mX < mX - mW) {
-			mShootLeft.mXdir = -1;
-		}
-		else if (CPlayer::mpInstance->mX > mX + mW) {
-			mShootLeft.mXdir = 1;
-		}
-		else {
-			mShootLeft.mXdir = 0;
-		}
-		mShootLeft.Enable();
-	}
-	if (mShootRight.mStatus != EENABLED) {
-		mShootRight.SetXYWH(mX + mW / 2, mY - mH / 2, 34, 140);
-		if (CPlayer::mpInstance->mX < mX - mW) {
-			mShootRight.mXdir = -1;
-		}
-		else if (CPlayer::mpInstance->mX > mX + mW) {
-			mShootRight.mXdir = 1;
-		}
-		else {
-			mShootRight.mXdir = 0;
-		}
-		mShootRight.Enable();
-	}
+	//if (mShootLeft.mStatus != EENABLED) {
+	//	mShootLeft.SetXYWH(mX - mW / 2, mY - mH / 2, 34, 140);
+	//	if (CPlayer::mpInstance->mX < mX - mW) {
+	//		mShootLeft.mXdir = -1;
+	//	}
+	//	else if (CPlayer::mpInstance->mX > mX + mW) {
+	//		mShootLeft.mXdir = 1;
+	//	}
+	//	else {
+	//		mShootLeft.mXdir = 0;
+	//	}
+	//	mShootLeft.Enable();
+	//}
+	//if (mShootRight.mStatus != EENABLED) {
+	//	mShootRight.SetXYWH(mX + mW / 2, mY - mH / 2, 34, 140);
+	//	if (CPlayer::mpInstance->mX < mX - mW) {
+	//		mShootRight.mXdir = -1;
+	//	}
+	//	else if (CPlayer::mpInstance->mX > mX + mW) {
+	//		mShootRight.mXdir = 1;
+	//	}
+	//	else {
+	//		mShootRight.mXdir = 0;
+	//	}
+	//	mShootRight.Enable();
+	//}
 }
 
 void CBoss::Render() {
@@ -63,8 +63,8 @@ void CBoss::Render() {
 //	mFont.Render(buf, mX - mW, mY + mH - 32, 24, 32);
 }
 
-void CBoss::Collision(CTask& r) {
-	CCharacter& c = (CCharacter&)r;
+void CBoss::Collision(CCharacter* my, CCharacter* you) {
+	CCharacter& c = (CCharacter&)*you;
 	if (c.mTag == ESHOOTPLAYER) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY, 128, 128);

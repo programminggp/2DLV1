@@ -9,7 +9,8 @@ public:
 	static CTexture mTexture;
 	CShootPlayer2();
 	void Update();
-	void Collision(CTask& r);
+	//	void Collision(CTask& r);
+	void Collision(CCharacter* my, CCharacter* you);
 	void Render();
 };
 

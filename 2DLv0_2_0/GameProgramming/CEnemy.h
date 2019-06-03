@@ -7,10 +7,14 @@ class CEnemy : public CCharacter {
 public:
 	static CTexture mTexture;
 	int mVelocity;
+	int mFire;
+
 	CEnemy();
+	CEnemy(float x, float y, float w, float h);
 	void Update();
 	void Render();
-	void Collision(CTask& r);
+	//	void Collision(CTask& r);
+	void Collision(CCharacter* my, CCharacter* you);
 };
 
 

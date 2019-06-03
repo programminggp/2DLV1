@@ -8,7 +8,7 @@ public:
 	static CTexture mTexture;
 	int mIndex;
 	CEffect();
-	CEffect(int posx, int posy, int width, int height);
+	CEffect(float x, float y, float w, float h);
 	void Update();
 	void Render();
 };

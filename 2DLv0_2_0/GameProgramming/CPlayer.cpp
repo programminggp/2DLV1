@@ -1,7 +1,9 @@
 #include "CPlayer.h"
+#include "CShootPlayer.h"
 #include "CShootPlayer2.h"
 #include "CUI.h"
 #include "CCollision.h"
+#include "CEffect.h"
 
 #define VELOCITY 5
 #define SHOOTINTERVAL 30
@@ -19,6 +21,14 @@ CPlayer::CPlayer()
 	mTag = EPLAYER;
 	mpInstance = this;
 }
+
+
+CPlayer::CPlayer(float x, float y, float w, float h)
+	: CPlayer()
+{
+	Set(x, y, w, h);
+}
+
 
 void CPlayer::Update() {
 	if (mShootInterval > 0) {
@@ -49,16 +59,17 @@ void CPlayer::Update() {
 		if (mShootInterval == 0) {
 			mShootInterval = SHOOTINTERVAL;
 			//’e‚ð”­ŽË‚·‚é
-			CShootPlayer2 *s = new CShootPlayer2();
-			s->SetXYWH(mX, mY, 60, 54);
+//			CShootPlayer2 *s = new CShootPlayer2();
+//			s->SetXYWH(mX, mY, 60, 54);
+			new CShootPlayer(mX, mY, 24, 64);
 		}
 	}
 //	mEffect.SetXYWH(mX, mY, 128, 128);
 }
 
-void CPlayer::Collision(CTask& r) {
-	CCharacter& c = (CCharacter&)r;
-	if (c.mTag == ESHOOTBOSS) {
+void CPlayer::Collision(CCharacter* my, CCharacter* you) {
+	CCharacter& c = (CCharacter&)*you;
+	if (c.mTag == ESHOOTENEMY) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY, 128, 128);
 			//mEffect.mIndex = 0;

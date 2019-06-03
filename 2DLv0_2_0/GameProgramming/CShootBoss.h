@@ -10,7 +10,8 @@ public:
 	float mXdir;
 	CShootBoss();
 	void Update();
-	void Collision(CTask& r);
+	//	void Collision(CTask& r);
+	void Collision(CCharacter* my, CCharacter* you);
 	void Render();
 };
 

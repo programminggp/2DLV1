@@ -11,36 +11,34 @@ CShootPlayer2::CShootPlayer2()
 	if (mTexture.mId == 0) {
 		mTexture.Load("ShootPlayer.tga");
 	}
-	mPriority = 2;
 	mTag = ESHOOTPLAYER;
-	Enable();
 }
 
 void CShootPlayer2::Update() {
 	mY += VELOCITY;
 	if (mY > 300 + mH) {
-		Delete();
+		mState = EDELETE;
 	}
 }
 
-void CShootPlayer2::Collision(CTask& r) {
-	CCharacter& c = (CCharacter&)r;
+void CShootPlayer2::Collision(CCharacter* my, CCharacter* you) {
+	CCharacter& c = (CCharacter&)*you;
+	if (c.mTag == EENEMY) {
+		if (CCollision::Collision(*this, c)) {
+			//			new CEffect(mX, mY + mH, 128, 128);
+			mState = EDELETE;
+		}
+	}
 	if (c.mTag == EBOSS) {
 		if (CCollision::Collision(*this, c)) {
-			//new CEffect(mX, mY + mH, 128, 128);
-			//mEffect.mIndex = 0;
-			//mEffect.Enable();
-			//Disable();
-			Delete();
+			//			new CEffect(mX, mY + mH, 128, 128);
+			mState = EDELETE;
 		}
 	}
 	if (c.mTag == ESHOOTBOSS) {
 		if (CCollision::Collision(*this, c)) {
-			//new CEffect(mX, mY + mH, 128, 128);
-			//mEffect.mIndex = 0;
-			//mEffect.Enable();
-			//Disable();
-			Delete();
+//			new CEffect(mX, mY + mH, 128, 128);
+			mState = EDELETE;
 		}
 	}
 }

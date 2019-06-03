@@ -8,31 +8,32 @@ CEffect::CEffect()
 	if (mTexture.mId == 0) {
 		mTexture.Load("BossExplosion.tga");
 	}
-	mPriority = 3;
+//	mPriority = 3;
 	mTag = ENONE;
 }
 
-CEffect::CEffect(int posx, int posy, int width, int height)
+CEffect::CEffect(float x, float y, float w, float h)
 	: CEffect()
 {
-	SetXYWH(posx, posy, width, height);
+	SetXYWH(x, y, w, h);
 }
 
 
 void CEffect::Update() {
 	if (mIndex++ == 20) {
 		mIndex = 0;
-		Delete();
+		mState = EDELETE;
+//		Delete();
 	}
 }
 
 void CEffect::Render() {
-	int row = mIndex / 5 + 1;
+	int row = mIndex / 5;
 	int col = mIndex % 5;
 	CRectangle::Render(&mTexture,
-		mTexture.mHeader.width * col++ / 5.0f,
 		mTexture.mHeader.width * col / 5.0f,
-		mTexture.mHeader.height * row-- / 4.0f,
+		mTexture.mHeader.width * (col + 1) / 5.0f,
+		mTexture.mHeader.height * (row - 1) / 4.0f,
 		mTexture.mHeader.height * row / 4.0f);
 }
 

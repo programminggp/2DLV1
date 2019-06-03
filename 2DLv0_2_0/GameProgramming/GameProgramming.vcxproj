@@ -20,7 +20,8 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
+    <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -56,8 +57,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <BufferSecurityCheck>false</BufferSecurityCheck>
+      <CompileAsManaged>false</CompileAsManaged>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>NotSet</SubSystem>
@@ -99,6 +102,7 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CShootBoss.cpp" />
+    <ClCompile Include="CShootEnemy.cpp" />
     <ClCompile Include="CShootPlayer.cpp" />
     <ClCompile Include="CShootPlayer2.cpp" />
     <ClCompile Include="CTask.cpp" />
@@ -116,6 +120,7 @@
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CSceneGame.h" />
     <ClInclude Include="CShootBoss.h" />
+    <ClInclude Include="CShootEnemy.h" />
     <ClInclude Include="CShootPlayer.h" />
     <ClInclude Include="CShootPlayer2.h" />
     <ClInclude Include="CTask.h" />
