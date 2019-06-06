@@ -4,8 +4,8 @@
 #include "CCharacter.h"
 
 class CShootEnemy : public CCharacter {
-public:
 	CTexture *mpTexture;
+public:
 	CShootEnemy();
 	CShootEnemy(float x, float y, float w, float h);
 	void Update();

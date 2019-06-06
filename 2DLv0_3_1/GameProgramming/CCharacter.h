@@ -22,13 +22,12 @@ public:
 
 	ETag mTag;
 
-	//enum EState {
-	//	EDISABLED,
-	//	EENABLED,
-	//	false,
-	//};
-
-	bool mEnabled;
+	enum EState {
+		EDISABLED,
+		EENABLED,
+		ECOLLISION,
+	};
+	EState mState;
 
 	CCharacter();
 	virtual ~CCharacter();

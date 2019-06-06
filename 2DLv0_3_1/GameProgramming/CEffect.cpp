@@ -21,8 +21,7 @@ CEffect::CEffect(float x, float y, float w, float h)
 void CEffect::Update() {
 	if (mIndex++ == 20) {
 		mIndex = 0;
-		mEnabled = false;
-//		Delete();
+		mState = EDISABLED;
 	}
 }
 

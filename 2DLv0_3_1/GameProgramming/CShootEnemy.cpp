@@ -23,24 +23,22 @@ CShootEnemy::CShootEnemy(float x, float y, float w, float h)
 void CShootEnemy::Update() {
 	mY -= VELOCITY;
 	if (mY < -300 - mH) {
-		mEnabled = false;
+		mState = EDISABLED;
 	}
 }
 
-void CShootEnemy::Collision(CCharacter* my, CCharacter* you) {
-	if (!mEnabled) return;
-	if (!you->mEnabled) return;
-	CCharacter& c = (CCharacter&)*you;
-	if (c.mTag == EPLAYER) {
-		if (CCollision::Collision(*this, c)) {
-//			new CEffect(mX, mY + mH, 128, 128);
-			mEnabled = false;
-		}
-	}
-	if (c.mTag == ESHOOTPLAYER) {
-		if (CCollision::Collision(*this, c)) {
-//			new CEffect(mX, mY + mH, 128, 128);
-			mEnabled = false;
+void CShootEnemy::Collision(CCharacter* my, CCharacter* yc) {
+	if (!mState) return;
+	if (!yc->mState) return;
+	CCharacter& c = (CCharacter&)*yc;
+	if (CCollision::Collision(*this, c)) {
+		switch(c.mTag) {
+		case EPLAYER:
+		case ESHOOTPLAYER:
+			mState = ECOLLISION;
+			break;
+		default:
+			break;
 		}
 	}
 }

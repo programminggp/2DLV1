@@ -2,6 +2,7 @@
 #include "CPlayer.h"
 #include "CCollision.h"
 #include "CUI.h"
+#include "CEffect.h"
 
 #define VELOCITY 2
 
@@ -9,7 +10,6 @@ CTexture CBoss::mTexture;
 
 CBoss::CBoss()
 	: mVelocity(VELOCITY)
-	, mHit(0)
 {
 	if (mTexture.mId == 0) {
 		mTexture.Load("Boss.tga");
@@ -58,9 +58,6 @@ void CBoss::Update() {
 
 void CBoss::Render() {
 	CRectangle::Render(&mTexture, 0.0f, 159.0f, 240.0f, 0.0f);
-	char buf[10];
-	sprintf(buf, "%d", mHit);
-//	mFont.Render(buf, mX - mW, mY + mH - 32, 24, 32);
 }
 
 void CBoss::Collision(CCharacter* my, CCharacter* you) {
@@ -68,7 +65,6 @@ void CBoss::Collision(CCharacter* my, CCharacter* you) {
 	if (c.mTag == ESHOOTPLAYER) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY, 128, 128);
-			mHit++;
 			CUI::mEnemyHit++;
 		}
 	}

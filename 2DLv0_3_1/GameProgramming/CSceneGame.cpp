@@ -65,7 +65,7 @@ void CSceneGame::Update() {
 	//–³Œø‚ÈƒLƒƒƒ‰íœ
 	std::vector<CCharacter*>::iterator itr = mCharacters.begin();
 	while ( itr != mCharacters.end() ) {
-		if ((*itr)->mEnabled) {
+		if ((*itr)->mState == CCharacter::EENABLED) {
 			itr++;
 		}
 		else {

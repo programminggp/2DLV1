@@ -5,11 +5,10 @@
 #include "CTexture.h"
 
 class CShootPlayer2 : public CCharacter {
-public:
 	CTexture *mpTexture;
+public:
 	CShootPlayer2();
 	void Update();
-	//	void Collision(CTask& r);
 	void Collision(CCharacter* my, CCharacter* you);
 	void Render();
 };

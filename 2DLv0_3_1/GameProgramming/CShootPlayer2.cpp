@@ -14,28 +14,27 @@ CShootPlayer2::CShootPlayer2()
 void CShootPlayer2::Update() {
 	mY += VELOCITY;
 	if (mY > 300 + mH) {
-		mEnabled = false;
+		mState = EDISABLED;
 	}
 }
 
-void CShootPlayer2::Collision(CCharacter* my, CCharacter* you) {
-	CCharacter& c = (CCharacter&)*you;
+void CShootPlayer2::Collision(CCharacter* my, CCharacter* yc) {
+	if (!mState) return;
+	if (!yc->mState) return;
+	CCharacter& c = (CCharacter&)*yc;
 	if (c.mTag == EENEMY) {
 		if (CCollision::Collision(*this, c)) {
-			//			new CEffect(mX, mY + mH, 128, 128);
-			mEnabled = false;
+			mState = ECOLLISION;
 		}
 	}
 	if (c.mTag == EBOSS) {
 		if (CCollision::Collision(*this, c)) {
-			//			new CEffect(mX, mY + mH, 128, 128);
-			mEnabled = false;
+			mState = ECOLLISION;
 		}
 	}
 	if (c.mTag == ESHOOTBOSS) {
 		if (CCollision::Collision(*this, c)) {
-//			new CEffect(mX, mY + mH, 128, 128);
-			mEnabled = false;
+			mState = ECOLLISION;
 		}
 	}
 }

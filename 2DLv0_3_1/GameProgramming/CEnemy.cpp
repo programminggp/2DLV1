@@ -27,7 +27,8 @@ CEnemy::CEnemy(float x, float y, float w, float h)
 
 
 void CEnemy::Update() {
-	if (!mEnabled) return;
+	if (mState == ECOLLISION) mState = EDISABLED;
+	if (!mState) return;
 
 	if (mFire > 0) {
 		mFire--;
@@ -54,17 +55,18 @@ void CEnemy::Update() {
 }
 
 void CEnemy::Render() {
-	if (!mEnabled) return;
+	if (!mState) return;
 	CRectangle::Render(mpTexture, 0.0f, 48.0f, 72.0f, 0.0f);
 }
 
 void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
-	if (!mEnabled) return;
-	if (yc->mTag == ESHOOTPLAYER) {
-		if (CCollision::Collision(*this, *yc)) {
+	if (!mState) return;
+	if (!yc->mState) return;
+	if (CCollision::Collision(*this, *yc)) {
+		if (yc->mTag == ESHOOTPLAYER) {
 			new CEffect(mX, mY, 128, 128);
 			CUI::mEnemyHit++;
-			mEnabled = false;
+			mState = ECOLLISION;
 		}
 	}
 }

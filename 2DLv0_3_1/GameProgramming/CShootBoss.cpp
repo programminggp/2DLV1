@@ -13,7 +13,6 @@ CShootBoss::CShootBoss()
 	if (mTexture.mId == 0) {
 		mTexture.Load("ShootBoss.tga");
 	}
-//	mPriority = 2;
 	mTag = ESHOOTBOSS;
 }
 
@@ -21,12 +20,10 @@ void CShootBoss::Update() {
 	mY += VELOCITY;
 	mX += mXdir * VELOCITYX;
 	if (mY < -300 - mH) {
-		mEnabled = false;
-//		Disable();
+		mState = EDISABLED;
 	}
 	if (mX < -400 - mW || 400 + mW < mX) {
-		mEnabled = false;
-//		Disable();
+		mState = EDISABLED;
 	}
 }
 
@@ -35,15 +32,13 @@ void CShootBoss::Collision(CCharacter* my, CCharacter* yr) {
 	if (c.mTag == EPLAYER) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY - mH, 128, 128);
-			mEnabled = false;
-			//Disable();
+			mState = ECOLLISION;
 		}
 	}
 	if (c.mTag == ESHOOTPLAYER) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY - mH, 128, 128);
-			mEnabled = false;
-			//Disable();
+			mState = ECOLLISION;
 		}
 	}
 }

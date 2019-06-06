@@ -2,7 +2,7 @@
 #include "CSceneGame.h"
 
 CCharacter::CCharacter()
-	: mEnabled(true)
+	: mState(EENABLED)
 {
 //	CSceneGame::mCharacters.push_back(this);
 }

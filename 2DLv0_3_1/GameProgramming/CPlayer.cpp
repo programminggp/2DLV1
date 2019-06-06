@@ -12,8 +12,7 @@
 CPlayer* CPlayer::mpInstance = 0;;
 
 CPlayer::CPlayer()
-	: mHit(0)
-	, mShootInterval(0)
+	: mShootInterval(0)
 {
 	mpTexture = &CTextureManager::mPlayer;
 	mTag = EPLAYER;
@@ -29,6 +28,9 @@ CPlayer::CPlayer(float x, float y, float w, float h)
 
 
 void CPlayer::Update() {
+	if (mState == ECOLLISION) mState = EDISABLED;
+	if (!mState) return;
+
 	if (mShootInterval > 0) {
 		mShootInterval--;
 	}
@@ -57,39 +59,27 @@ void CPlayer::Update() {
 		if (mShootInterval == 0) {
 			mShootInterval = SHOOTINTERVAL;
 			//’e‚ð”­ŽË‚·‚é
-//			CShootPlayer2 *s = new CShootPlayer2();
-//			s->SetXYWH(mX, mY, 60, 54);
 			new CShootPlayer(mX, mY, 24, 64);
 		}
 	}
-//	mEffect.SetXYWH(mX, mY, 128, 128);
 }
 
-void CPlayer::Collision(CCharacter* my, CCharacter* you) {
-	CCharacter& c = (CCharacter&)*you;
-	if (c.mTag == ESHOOTENEMY) {
-		if (CCollision::Collision(*this, c)) {
+void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
+	if (!mState) return;
+	if (!yc->mState) return;
+	if (CCollision::Collision(*this, *yc)) {
+		switch(yc->mTag) {
+		case ESHOOTENEMY:
+		case EENEMY:
 			new CEffect(mX, mY, 128, 128);
-			//mEffect.mIndex = 0;
-			//mEffect.Enable();
-			mHit++;
 			CUI::mPlayerHit++;
-		}
-	}
-	if (c.mTag == EENEMY) {
-		if (CCollision::Collision(*this, c)) {
-			new CEffect(mX, mY, 128, 128);
-//			mEffect.mIndex = 0;
-//			mEffect.Enable();
-			mHit++;
-			CUI::mPlayerHit++;
+			break;
+		default:
+			break;
 		}
 	}
 }
 
 void CPlayer::Render() {
 	CRectangle::Render(mpTexture, 0.0f, 74.0f, 88.0f, 0.0f);
-	char buf[10];
-	sprintf(buf, "%d", mHit);
-//	mFont.Render(buf, mX + mW, mY - mH, 24, 32);
 }

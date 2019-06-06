@@ -4,8 +4,8 @@
 #include "CCharacter.h"
 
 class CShootPlayer : public CCharacter {
-public:
 	CTexture *mpTexture;
+public:
 	CShootPlayer();
 	CShootPlayer(float x, float y, float w, float h);
 	void Update();
