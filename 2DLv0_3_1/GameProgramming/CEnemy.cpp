@@ -34,7 +34,7 @@ void CEnemy::Update() {
 		mFire--;
 	}
 	if (mFire == 0) {
-		if (abs(CPlayer::mpInstance->mX - mX) < 60) {
+		if (abs(CPlayer::mpInstance->mX - mX) < 40) {
 			new CShootEnemy(mX, mY, 24, 64);
 			mFire = ENEMYSHOOTTIME;
 		}
@@ -48,7 +48,8 @@ void CEnemy::Update() {
 		mVelocity *= -1;
 		mY -= mH * 2;
 	}
-	mX += mVelocity;
+//	mX += mVelocity;
+	mY -= mVelocity;
 	if (mY < -300) {
 		mY = 250;
 	}

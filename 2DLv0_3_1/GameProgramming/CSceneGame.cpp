@@ -10,11 +10,24 @@ std::vector<CCharacter*> CSceneGame::mCharacters;
 
 CSceneGame::CSceneGame() 
 {
+	int enemyPos[][2] = {
+		{ -200, 300 },
+		{ -100, 300 },
+		{ 0, 300 },
+		{ 100, 300 },
+		{ 200, 300 },
+
+		{ -150, 200 },
+		{ -50, 200 },
+		{ 50, 200 },
+		{ 150, 200 },
+		{ 250, 200 },
+	};
 	CTextureManager::Load();
 	mBackGround.Set(0, 0, 1280, 1024);
 	mPlayer.Set(0, -200, 64, 64);
 	for (int i = 0; i < 10; i++) {
-		mEnemy[i].Set(i * 60 - 350, 250, 48, 72);
+		mEnemy[i].Set(enemyPos[i][0], enemyPos[i][1], 48, 72);
 	}
 }
 
@@ -34,13 +47,6 @@ void CSceneGame::Init() {
 }
 
 void CSceneGame::Update() {
-	//mFrame++;
-	//mFrame %= 40;
-	//if (mFrame == 0) {
-	//	CEnemy *e = new CEnemy();
-	//	e->SetPosition(-400, 250);
-	//	e->SetSize(48, 72);
-	//}
 	//çXêVèàóù
 	mPlayer.Update();
 	for (int i = 0; i < 10; i++) {

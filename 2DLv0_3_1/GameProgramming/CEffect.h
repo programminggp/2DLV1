@@ -4,9 +4,9 @@
 #include "CCharacter.h"
 
 class CEffect : public CCharacter {
-public:
 	CTexture *mpTexture;
 	int mIndex;
+public:
 	CEffect();
 	CEffect(float x, float y, float w, float h);
 	void Update();
