@@ -26,7 +26,7 @@ CSceneGame::CSceneGame()
 }
 
 CSceneGame::~CSceneGame() {
-	//–³Œø‚ÈƒLƒƒƒ‰íœ
+	//‘S‚Ä‚ÌƒLƒƒƒ‰íœ
 	std::vector<CCharacter*>::iterator itr = mCharacters.begin();
 	while (itr != mCharacters.end()) {
 		delete *itr;
