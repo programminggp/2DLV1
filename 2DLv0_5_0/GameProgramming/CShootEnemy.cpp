@@ -8,7 +8,7 @@
 
 CShootEnemy::CShootEnemy()
 {
-	mpTexture = &CTextureManager::mShoot;
+	mpTexture = &CTextureManager::mTexture;
 	mTag = ESHOOTENEMY;
 	CSceneGame::mCharacters.push_back(this);
 }

@@ -7,7 +7,7 @@
 
 CShootPlayer2::CShootPlayer2()
 {
-	mpTexture = &CTextureManager::mShoot;
+	mpTexture = &CTextureManager::mTexture;
 	mTag = ESHOOTPLAYER;
 }
 

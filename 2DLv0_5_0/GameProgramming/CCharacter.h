@@ -14,7 +14,8 @@ public:
 		ESHOOTPLAYER,
 		ESHOOTBOSS,
 		ESHOOTENEMY,
-		EENEMY
+		EENEMY,
+		EBLOCK,
 	};
 	ETag mTag;
 

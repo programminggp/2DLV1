@@ -93,6 +93,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CBackGround.cpp" />
+    <ClCompile Include="CBlock.cpp" />
     <ClCompile Include="CBoss.cpp" />
     <ClCompile Include="CCharacter.cpp" />
     <ClCompile Include="CCollision.cpp" />
@@ -112,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CBackGround.h" />
+    <ClInclude Include="CBlock.h" />
     <ClInclude Include="CBoss.h" />
     <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CCollision.h" />

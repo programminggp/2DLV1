@@ -5,11 +5,7 @@
 
 class CTextureManager {
 public:
-	static CTexture mBackGround;
-	static CTexture mShoot;
-	static CTexture mEnemy;
-	static CTexture mPlayer;
-	static CTexture mBossExplosion;
+	static CTexture mTexture;
 
 	static void Load();
 };

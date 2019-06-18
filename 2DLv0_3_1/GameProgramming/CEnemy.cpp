@@ -7,7 +7,7 @@
 #include <math.h>
 #include "CTextureManager.h"
 
-#define VELOCITY 4
+#define VELOCITY 3
 
 #define ENEMYSHOOTTIME	60
 

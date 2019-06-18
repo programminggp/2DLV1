@@ -6,7 +6,7 @@
 CEffect::CEffect()
 	: mIndex(0)
 {
-	mpTexture = &CTextureManager::mBossExplosion;
+	mpTexture = &CTextureManager::mTexture;
 	mTag = ENONE;
 	CSceneGame::mCharacters.push_back(this);
 }

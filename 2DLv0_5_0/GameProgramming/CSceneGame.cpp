@@ -1,9 +1,7 @@
 #include "CSceneGame.h"
 #include "CUI.h"
-#include "CEnemy.h"
-#include "CShootBoss.h"
 #include "CTextureManager.h"
-#include "CGround.h"
+#include "CBlock.h"
 
 std::vector<CCharacter*> CSceneGame::mCharacters;
 
@@ -15,14 +13,20 @@ CTexture TexPlayer;
 
 CSceneGame::CSceneGame() 
 {
+	CTextureManager::Load();
 	TexBG.Load("BG.tga");
 	TexTile.Load("Tile.tga");
 	TexPlayer.Load("Player2.tga");
-	new CBackGround(0.0f, 0.0f, 800.0f, 600.0f);
-	for (int i = -364; i < 472; i += 72) {
-		new CGround( i, -264, 72.0f, 72.0f);
+	for (int i = -360; i < 400; i += 80) {
+		for (int j = 280; j > -300; j -= 80) {
+			if (j == 280 || j == -280) {
+				new CBlock(i, j, 80.0f, 80.0f);
+			}
+			else if (i == -360 || i == 360) {
+				new CBlock(i, j, 80.0f, 80.0f);
+			}
+		}
 	}
-	new CPlayer(0.0f, 0.0f, 72.0f, 72.0f);
 }
 
 CSceneGame::~CSceneGame() {

@@ -15,7 +15,6 @@ CEnemy::CEnemy()
 	: mVelocity(VELOCITY)
 	, mFire(ENEMYSHOOTTIME)
 {
-	mpTexture = &CTextureManager::mEnemy;
 	mTag = EENEMY;
 }
 

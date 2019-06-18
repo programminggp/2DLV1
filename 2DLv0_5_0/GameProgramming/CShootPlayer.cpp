@@ -8,7 +8,7 @@
 
 CShootPlayer::CShootPlayer()
 {
-	mpTexture = &CTextureManager::mShoot;
+	mpTexture = &CTextureManager::mTexture;
 	mTag = ESHOOTPLAYER;
 	CSceneGame::mCharacters.push_back(this);
 }
