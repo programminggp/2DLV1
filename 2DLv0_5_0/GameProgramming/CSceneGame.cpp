@@ -2,10 +2,10 @@
 #include "CUI.h"
 #include "CTextureManager.h"
 #include "CBlock.h"
+#include "CBackGround.h"
 
 std::vector<CCharacter*> CSceneGame::mCharacters;
 
-CTexture TexBG;
 CTexture TexTile;
 CTexture TexPlayer;
 
@@ -14,16 +14,29 @@ CTexture TexPlayer;
 CSceneGame::CSceneGame() 
 {
 	CTextureManager::Load();
-	TexBG.Load("BG.tga");
 	TexTile.Load("Tile.tga");
 	TexPlayer.Load("Player2.tga");
-	for (int i = -360; i < 400; i += 80) {
-		for (int j = 280; j > -300; j -= 80) {
-			if (j == 280 || j == -280) {
-				new CBlock(i, j, 80.0f, 80.0f);
+	int map[10][13] = {
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+	};
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 13; j++) {
+			int x = j * 60 - 360;
+			int y = (9 - i) * 60 - 270;
+			if (map[i][j] == 0) {
+				new CBackGround(x, y, 60.0f, 60.0f);
 			}
-			else if (i == -360 || i == 360) {
-				new CBlock(i, j, 80.0f, 80.0f);
+			else  if (map[i][j] == 1) {
+				new CBlock(x, y, 60.0f, 60.0f);
 			}
 		}
 	}

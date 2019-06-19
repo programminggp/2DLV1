@@ -3,7 +3,7 @@
 #include "CSceneGame.h"
 
 CBackGround::CBackGround() {
-	mpTexture = &TexBG;
+	mpTexture = &CTextureManager::mTexture;
 	mTag = EBACKGROUND;
 	CSceneGame::mCharacters.push_back(this);
 }
@@ -16,5 +16,5 @@ CBackGround::CBackGround(float x, float y, float w, float h)
 
 
 void CBackGround::Render() {
-	CRectangle::Render(mpTexture, 0.0f, 1000.0f, 750.0f, 0.0f);
+	CRectangle::Render(mpTexture, 48.0f, 63.0f, 80.0f, 65.0f);
 }
