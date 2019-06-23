@@ -35,7 +35,7 @@ void CEnemy::Update() {
 	}
 	if (mFire == 0) {
 		if (abs(CPlayer::mpInstance->mX - mX) < 40) {
-			new CShootEnemy(mX, mY, 24, 64);
+			new CShootEnemy(mX, mY, 12, 32);
 			mFire = ENEMYSHOOTTIME;
 		}
 	}
@@ -65,7 +65,7 @@ void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
 	if (!yc->mState) return;
 	if (CCollision::Collision(*this, *yc)) {
 		if (yc->mTag == ESHOOTPLAYER) {
-			new CEffect(mX, mY, 128, 128);
+			new CEffect(mX, mY, 64, 64);
 			CUI::mEnemyHit++;
 			mState = ECOLLISION;
 		}

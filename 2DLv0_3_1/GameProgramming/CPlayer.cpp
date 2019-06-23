@@ -59,7 +59,7 @@ void CPlayer::Update() {
 		if (mShootInterval == 0) {
 			mShootInterval = SHOOTINTERVAL;
 			//’e‚ð”­ŽË‚·‚é
-			new CShootPlayer(mX, mY, 24, 64);
+			new CShootPlayer(mX, mY, 12, 32);
 		}
 	}
 }
@@ -71,7 +71,7 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 		switch(yc->mTag) {
 		case ESHOOTENEMY:
 		case EENEMY:
-			new CEffect(mX, mY, 128, 128);
+			new CEffect(mX, mY, 64, 64);
 			CUI::mPlayerHit++;
 			break;
 		default:
