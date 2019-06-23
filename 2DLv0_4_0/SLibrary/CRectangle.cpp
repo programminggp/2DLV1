@@ -188,8 +188,8 @@ void CRectangle::SetXYWH(int posx, int posy, int width, int height) {
 void CRectangle::Set(int posx, int posy, int width, int height) {
 	mX = posx;
 	mY = posy;
-	mW = width / 2.0f;
-	mH = height / 2.0f;
+	mW = width;
+	mH = height;
 }
 
 //
