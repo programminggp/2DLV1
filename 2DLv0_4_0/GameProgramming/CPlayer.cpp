@@ -63,8 +63,8 @@ void CPlayer::Update() {
 		mFx += VELOCITY;
 	}
 	if (mJump) {
-		//Spaceキーが押されているか判定する
-		if (mVelocityY == 0.0f && mInput.Key(' ') == 1) {
+		//Jキーが押されているか判定する
+		if (mVelocityY == 0.0f && mInput.Key('J') == 1) {
 			mJump = false;
 			mVelocityY = 25;
 		}
@@ -101,9 +101,19 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 
 void CPlayer::Render() {
 	if ((int)(mX + 400) % 72 < 36) {
-		CRectangle::Render(mpTexture, 0.0f, 72.0f, 88.0f, 0.0f);
+		if (mFx >= 0.0f) {
+			CRectangle::Render(mpTexture, 0.0f, 72.0f, 88.0f, 0.0f);
+		}
+		else {
+			CRectangle::Render(mpTexture, 72.0f, 0.0f, 88.0f, 0.0f);
+		}
 	}
 	else {
-		CRectangle::Render(mpTexture, 72.0f, 144.0f, 88.0f, 0.0f);
+		if (mFx >= 0.0f) {
+			CRectangle::Render(mpTexture, 72.0f, 144.0f, 88.0f, 0.0f);
+		}
+		else {
+			CRectangle::Render(mpTexture, 144.0f, 72.0f, 88.0f, 0.0f);
+		}
 	}
 }

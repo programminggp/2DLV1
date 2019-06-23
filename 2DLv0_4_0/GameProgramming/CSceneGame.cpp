@@ -6,6 +6,7 @@
 #include "CGround.h"
 
 std::vector<CCharacter*> CSceneGame::mCharacters;
+CCamera CSceneGame::mCamera;
 
 CTexture TexBG;
 CTexture TexTile;
@@ -18,9 +19,9 @@ CSceneGame::CSceneGame()
 	TexBG.Load("BG.tga");
 	TexTile.Load("Tile.tga");
 	TexPlayer.Load("Player2.tga");
-	new CBackGround(0.0f, 0.0f, 400.0f, 300.0f);
-	for (int i = -364; i < 472; i += 72) {
-		new CGround( i, -264, 36.0f, 36.0f);
+	new CBackGround(400.0f, 300.0f, 400.0f, 300.0f);
+	for (int i = 0; i < 872; i += 72) {
+		new CGround( i , 36, 36.0f, 36.0f);
 	}
 	int map[][2] = {
 		{ 0.0f, -120.0f },
@@ -33,9 +34,9 @@ CSceneGame::CSceneGame()
 		{ 144.0f, -192.0f },
 	};
 	for (int i = 0; i < sizeof(map) / sizeof(int) / 2; i++) {
-		new CGround(map[i][0], map[i][1], 36.0f, 36.0f);
+		new CGround(map[i][0]+400, map[i][1]+300, 36.0f, 36.0f);
 	}
-	new CPlayer(-200.0f, -192.0f, 36.0f, 36.0f);
+	new CPlayer(200.0f, -192.0f + 300, 36.0f, 36.0f);
 }
 
 CSceneGame::~CSceneGame() {
@@ -78,6 +79,7 @@ void CSceneGame::Update() {
 }
 
 void CSceneGame::Render() {
+	mCamera.Camera2D(CPlayer::mpInstance->mX + 200, 300.0f, 400.0f, 300.0f);
 	//ï`âÊèàóù
 	for (int i = 0; i < mCharacters.size(); i++) {
 		mCharacters[i]->Render();
