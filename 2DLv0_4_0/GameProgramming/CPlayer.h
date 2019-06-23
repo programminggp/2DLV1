@@ -12,7 +12,7 @@ class CPlayer : public CCharacter {
 	int mShootInterval;
 	float mFx, mFy;
 	bool mJump;
-	float mVolocityY;
+	float mVelocityY;
 public:
 	static CPlayer* mpInstance;
 

@@ -17,7 +17,7 @@ CPlayer::CPlayer()
 	, mFx(0.0f)
 	, mFy(0.0f)
 	, mJump(true)
-	, mVolocityY(0.0f)
+	, mVelocityY(0.0f)
 {
 	mpTexture = &TexPlayer;
 	mTag = EPLAYER;
@@ -64,14 +64,14 @@ void CPlayer::Update() {
 	}
 	if (mJump) {
 		//SpaceƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©”»’è‚·‚é
-		if (mInput.Key(' ') == 1) {
+		if (mVelocityY == 0.0f && mInput.Key(' ') == 1) {
 			mJump = false;
-			mVolocityY = 30;
+			mVelocityY = 25;
 		}
 	}
-	mVolocityY -= 2.0f;
+	mVelocityY -= 2.0f;
 	mX += mFx;
-	mY += mFy + mVolocityY;
+	mY += mFy + mVelocityY;
 }
 
 void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
@@ -80,9 +80,9 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 	if (!yc->mState) return;
 	switch (yc->mTag) {
 	case EGROUND:
-		if (CCollision::Collision(*this, *yc, &x, &y)) {
+		if (CCollision::CollisionCR(*this, *yc, &x, &y)) {
 			if (y != 0.0f) {
-				mVolocityY = 0.0f;
+				mVelocityY = 0.0f;
 			}
 			mJump = true;
 			mX += x;
