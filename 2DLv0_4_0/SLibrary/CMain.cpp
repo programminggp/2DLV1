@@ -2,7 +2,6 @@
 //#include "CTask.h"
 
 
-
 /*ウィンドウサイズ変更時の処理
 void reshape(int width, int height)
 width:画面幅
@@ -10,13 +9,13 @@ height:画面高さ
 */
 void reshape2D(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);	//画面の描画エリアの指定
-	glMatrixMode(GL_PROJECTION);	//行列をプロジェクションモードへ変更
-	glLoadIdentity();				//行列を初期化
-	gluOrtho2D(-width / 2, width / 2, -height / 2, height / 2);	//2Dの画面を設定
-	//	gluPerspective(75.0, (double)width / (double)height, 1.0, 1000.0);	//3Dの画面を設定
+	//glMatrixMode(GL_PROJECTION);	//行列をプロジェクションモードへ変更
+	//glLoadIdentity();				//行列を初期化
+	//gluOrtho2D(-width / 2, width / 2, -height / 2, height / 2);	//2Dの画面を設定
+	////	gluPerspective(75.0, (double)width / (double)height, 1.0, 1000.0);	//3Dの画面を設定
 
-	glMatrixMode(GL_MODELVIEW);		//行列をモデルビューモードへ変更
-	glLoadIdentity();				//行列を初期化
+	//glMatrixMode(GL_MODELVIEW);		//行列をモデルビューモードへ変更
+	//glLoadIdentity();				//行列を初期化
 }
 
 

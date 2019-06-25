@@ -24,7 +24,7 @@ void CFont::SetNumAlphaIndex(int num, int alpha) {
 void CFont::Render(char *string, int x, int y, int w, int h) {
 	int len = strlen(string);
 	for (int i = 0; i < len; i++) {
-		SetXYWH(x + i * w, y, w, h);
+		SetXYWH(x + i * w * 2, y, w, h);
 		if (isdigit(string[i])) {
 			int index = string[i] - mStartNumIndex;
 			float row = index / mCol;

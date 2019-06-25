@@ -16,6 +16,8 @@ CPlayer::CPlayer()
 	: mShootInterval(0)
 	, mFx(0.0f)
 	, mFy(0.0f)
+	, mJump(true)
+	, mVelocityY(0.0f)
 {
 	mpTexture = &TexPlayer;
 	mTag = EPLAYER;
@@ -60,34 +62,58 @@ void CPlayer::Update() {
 		//四角形を右へ移動させる
 		mFx += VELOCITY;
 	}
-	mX += mFx;
-	mY += mFy;
-	//Spaceキーが押されているか判定する
-	if (mInput.Key(' ') == 1) {
+	if (mJump) {
+		//Jキーが押されているか判定する
+		if (mVelocityY == 0.0f && mInput.Key('J') == 1) {
+			mJump = false;
+			mVelocityY = 25;
+		}
 	}
+	mVelocityY -= 2.0f;
+	mX += mFx;
+	mY += mFy + mVelocityY;
 }
 
 void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
+	float x = 0.0f, y = 0.0f;
 	if (!mState) return;
 	if (!yc->mState) return;
-	if (CCollision::Collision(*this, *yc)) {
-		switch(yc->mTag) {
-		case ESHOOTENEMY:
-		case EENEMY:
+	switch (yc->mTag) {
+	case EGROUND:
+		if (CCollision::CollisionCR(*this, *yc, &x, &y)) {
+			if (y != 0.0f) {
+				mVelocityY = 0.0f;
+			}
+			mJump = true;
+			mX += x;
+			mY += y;
+		}
+		break;
+	case ESHOOTENEMY:
+	case EENEMY:
+		if (CCollision::Collision(*this, *yc)) {
 			new CEffect(mX, mY, 128, 128);
 			CUI::mPlayerHit++;
-			break;
-		default:
-			break;
 		}
+		break;
 	}
 }
 
 void CPlayer::Render() {
 	if ((int)(mX + 400) % 72 < 36) {
-		CRectangle::Render(mpTexture, 0.0f, 72.0f, 88.0f, 0.0f);
+		if (mFx >= 0.0f) {
+			CRectangle::Render(mpTexture, 0.0f, 72.0f, 88.0f, 0.0f);
+		}
+		else {
+			CRectangle::Render(mpTexture, 72.0f, 0.0f, 88.0f, 0.0f);
+		}
 	}
 	else {
-		CRectangle::Render(mpTexture, 72.0f, 144.0f, 88.0f, 0.0f);
+		if (mFx >= 0.0f) {
+			CRectangle::Render(mpTexture, 72.0f, 144.0f, 88.0f, 0.0f);
+		}
+		else {
+			CRectangle::Render(mpTexture, 144.0f, 72.0f, 88.0f, 0.0f);
+		}
 	}
 }

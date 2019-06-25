@@ -25,10 +25,10 @@ CSceneGame::CSceneGame()
 		{ 250, 200 },
 	};
 	CTextureManager::Load();
-	mBackGround.Set(0, 0, 1280, 1024);
-	mPlayer.Set(0, -200, 64, 64);
+	mBackGround.Set(0, 0, 640, 512);
+	mPlayer.Set(0, -200, 32, 32);
 	for (int i = 0; i < 10; i++) {
-		mEnemy[i].Set(enemyPos[i][0], enemyPos[i][1], 48, 72);
+		mEnemy[i].Set(enemyPos[i][0], enemyPos[i][1], 24, 36);
 	}
 }
 
@@ -83,6 +83,7 @@ void CSceneGame::Update() {
 }
 
 void CSceneGame::Render() {
+	mCamera.Camera2D(0.0f, 0.0f, 400.0f, 300.0f);
 	//•`‰æˆ—
 	mBackGround.Render();
 	mPlayer.Render();

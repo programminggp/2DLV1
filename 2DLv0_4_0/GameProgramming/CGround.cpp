@@ -3,7 +3,7 @@
 
 CGround::CGround() {
 	mpTexture = &TexTile;
-	mTag = EBACKGROUND;
+	mTag = EGROUND;
 	CSceneGame::mCharacters.push_back(this);
 }
 

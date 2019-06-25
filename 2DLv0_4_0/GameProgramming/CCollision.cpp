@@ -29,3 +29,37 @@ bool CCollision::Collision(const CRectangle& col1, const CRectangle& col2) {
 	return true;
 }
 
+bool CCollision::CollisionCR(const CRectangle& circ, const CRectangle& rect, float *mx, float*my) {
+	float dx = rect.mX - circ.mX;
+	dx = (dx < 0.0f) ? -dx : dx;
+	dx = dx - rect.mW - circ.mW;
+	if (dx < 0.0f) {
+		float dy = rect.mY - circ.mY;
+		dy = (dy < 0.0f) ? -dy : dy;
+		dy = dy - rect.mW - circ.mW;
+		if (dy < 0.0f) {
+			dx = (dx < 0.0f) ? -dx : dx;
+			dy = (dy < 0.0f) ? -dy : dy;
+			if (dx < dy) {
+				if (circ.mX < rect.mX) {
+					*mx -= dx;
+				}
+				else {
+					*mx += dx;
+				}
+			}
+			else {
+				if (circ.mY < rect.mY) {
+					*my -= dy;
+				}
+				else {
+					*my += dy;
+				}
+			}
+			return true;
+		}
+	}
+	return false;
+}
+
+
