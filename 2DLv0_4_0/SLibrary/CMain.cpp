@@ -1,5 +1,6 @@
 #include "CMain.h"
 //#include "CTask.h"
+#include "CCamera.h"
 
 
 /*ウィンドウサイズ変更時の処理
@@ -9,6 +10,8 @@ height:画面高さ
 */
 void reshape2D(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);	//画面の描画エリアの指定
+	CCamera camera;
+	camera.Camera2D(0.0f, 0.0f, width / 2.0f, height / 2.0f);
 	//glMatrixMode(GL_PROJECTION);	//行列をプロジェクションモードへ変更
 	//glLoadIdentity();				//行列を初期化
 	//gluOrtho2D(-width / 2, width / 2, -height / 2, height / 2);	//2Dの画面を設定

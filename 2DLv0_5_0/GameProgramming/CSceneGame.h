@@ -8,9 +8,11 @@
 #include "CEnemy.h"
 #include <vector>
 #include "CInput.h"
+#include "CCamera.h"
 
 //ƒNƒ‰ƒX‚Ì’è‹`
 class CSceneGame: public CScene {
+	CCamera mCamera;
 public:
 	static std::vector<CCharacter*> mCharacters;
 	//•Ï”‚ÌéŒ¾

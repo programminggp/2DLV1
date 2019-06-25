@@ -14,8 +14,8 @@ CTexture TexPlayer;
 CSceneGame::CSceneGame() 
 {
 	CTextureManager::Load();
-	TexTile.Load("Tile.tga");
-	TexPlayer.Load("Player2.tga");
+//	TexTile.Load("Tile.tga");
+//	TexPlayer.Load("Player2.tga");
 	int map[10][13] = {
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
@@ -33,13 +33,14 @@ CSceneGame::CSceneGame()
 			int x = j * 60 - 360;
 			int y = (9 - i) * 60 - 270;
 			if (map[i][j] == 0) {
-				new CBackGround(x, y, 60.0f, 60.0f);
+				new CBackGround(x, y, 30.0f, 30.0f);
 			}
 			else  if (map[i][j] == 1) {
-				new CBlock(x, y, 60.0f, 60.0f);
+				new CBlock(x, y, 30.0f, 30.0f);
 			}
 		}
 	}
+//	mCamera.Camera2D(0.0f, 0.0f, 400.0f, 300.0f);
 }
 
 CSceneGame::~CSceneGame() {

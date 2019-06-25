@@ -39,6 +39,9 @@
     <ClCompile Include="CMain2D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CInput.h">
@@ -60,6 +63,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CMain2D.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -89,6 +89,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CMain.cpp" />
     <ClCompile Include="CMain2D.cpp" />
@@ -98,6 +99,7 @@
     <ClCompile Include="CTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CCamera.h" />
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CMain.h" />
     <ClInclude Include="CMain2D.h" />

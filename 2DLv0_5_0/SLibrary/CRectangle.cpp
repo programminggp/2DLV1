@@ -71,8 +71,8 @@ CRectangle::CRectangle()
 CRectangle::CRectangle(float x, float y, float w, float h)
 	: mX(x)//XÀ•W‚Ì‘ã“ü
 	, mY(y)//YÀ•W‚Ì‘ã“ü
-	, mW(w / 2.0f)//•‚Ì‘ã“ü
-	, mH(h / 2.0f)//‚‚³‚Ì‘ã“ü
+	, mW(w)//•‚Ì‘ã“ü
+	, mH(h)//‚‚³‚Ì‘ã“ü
 	, mR(0.0f)
 {
 }
@@ -188,8 +188,8 @@ void CRectangle::SetXYWH(int posx, int posy, int width, int height) {
 void CRectangle::Set(int posx, int posy, int width, int height) {
 	mX = posx;
 	mY = posy;
-	mW = width / 2.0f;
-	mH = height / 2.0f;
+	mW = width;
+	mH = height;
 }
 
 //
@@ -199,8 +199,8 @@ void CRectangle::SetPosition(float x, float y) {
 }
 
 void CRectangle::SetSize(float sx, float sy) {
-	mW = sx / 2.0f;
-	mH = sy / 2.0f;
+	mW = sx;
+	mH = sy;
 }
 
 void CRectangle::Translate(float x, float y) {
