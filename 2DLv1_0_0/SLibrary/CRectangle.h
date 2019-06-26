@@ -19,7 +19,7 @@ public:
 
 	//描画処理の宣言
 	void Render();
-	void Render(CTexture*, float let, float right, float bottom, float top);
+	void Render(CTexture*, float left, float right, float bottom, float top);
 	//コンストラクタの宣言
 	CRectangle();
 	CRectangle(float x, float y, float w, float h);
@@ -41,6 +41,8 @@ public:
 	void SetSize(float sx, float sy);
 	void Translate(float x, float y);
 	void Scale(float sx, float sy);
+	static void Render(float x, float y, float w, float h, CTexture*, float left, float right, float bottom, float top);
+	static void Render(float x, float y, float w, float h);
 
 };
 

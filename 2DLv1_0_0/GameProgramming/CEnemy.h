@@ -11,6 +11,8 @@ public:
 
 	CEnemy();
 	CEnemy(float x, float y, float w, float h);
+	void Set(float x, float y, float w, float h);
+
 	void Update();
 	void Render();
 	//	void Collision(CTask& r);

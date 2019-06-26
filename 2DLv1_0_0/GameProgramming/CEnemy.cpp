@@ -15,7 +15,6 @@ CEnemy::CEnemy()
 	: mVelocity(VELOCITY)
 	, mFire(ENEMYSHOOTTIME)
 {
-	mpTexture = &TexEnemy;
 	mTag = EENEMY;
 }
 
@@ -25,6 +24,12 @@ CEnemy::CEnemy(float x, float y, float w, float h)
 	Set(x, y, w, h);
 }
 
+void CEnemy::Set(float x, float y, float w, float h) {
+	mX = x;
+	mY = y;
+	mW = w;
+	mH = h;
+}
 
 void CEnemy::Update() {
 	if (mState == ECOLLISION) mState = EDISABLED;
@@ -55,7 +60,8 @@ void CEnemy::Update() {
 
 void CEnemy::Render() {
 	if (!mState) return;
-	CRectangle::Render(mpTexture, 0.0f, 48.0f, 72.0f, 0.0f);
+//	CRectangle::Render(mpTexture, 0.0f, 48.0f, 72.0f, 0.0f);
+	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 48.0f, 72.0f, 0.0f);
 }
 
 void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
@@ -63,8 +69,8 @@ void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
 	if (!yc->mState) return;
 	if (CCollision::Collision(*this, *yc)) {
 		if (yc->mTag == ESHOOTPLAYER) {
-			new CEffect(mX, mY, 64, 64);
-			CUI::mEnemyHit++;
+			//new CEffect(mX, mY, 64, 64);
+			//CUI::mEnemyHit++;
 			mState = ECOLLISION;
 		}
 	}

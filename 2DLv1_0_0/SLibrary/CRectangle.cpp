@@ -212,3 +212,61 @@ void CRectangle::Scale(float sx, float sy) {
 	mW *= sx;
 	mH *= sy;
 }
+
+void CRectangle::Render(float x, float y, float w, float h, CTexture *pTexture, float left, float right, float bottom, float top) {
+	glPushMatrix();
+	glTranslatef(x, y, 0.0f);
+
+	//テクスチャを有効にする
+	glEnable(GL_TEXTURE_2D);
+	//アルファブレンドを有効にする
+	glEnable(GL_BLEND);
+	//ブレンド方法を指定
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//テクスチャを指定
+	glBindTexture(GL_TEXTURE_2D, pTexture->mId);
+
+	float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//色の設定
+	glColor4fv(diffuse);
+
+	//描画開始(四角形)
+	glBegin(GL_QUADS);
+	glTexCoord2f(left / pTexture->mHeader.width, (pTexture->mHeader.height - top) / pTexture->mHeader.height);
+	glVertex2d(-w, h);
+	glTexCoord2f(left / pTexture->mHeader.width, (pTexture->mHeader.height - bottom) / pTexture->mHeader.height);
+	glVertex2d(-w, -h);
+	glTexCoord2f(right / pTexture->mHeader.width, (pTexture->mHeader.height - bottom) / pTexture->mHeader.height);
+	glVertex2d(w, -h);
+	glTexCoord2f(right / pTexture->mHeader.width, (pTexture->mHeader.height - top) / pTexture->mHeader.height);
+	glVertex2d(w, h);
+	glEnd();
+
+	//テクスチャを解放
+	glBindTexture(GL_TEXTURE_2D, 0);
+	//アルファブレンドを無効
+	glDisable(GL_BLEND);
+	//テクスチャを無効
+	glDisable(GL_TEXTURE_2D);
+
+	glPopMatrix();
+}
+
+void CRectangle::Render(float x, float y, float w, float h) {
+	glPushMatrix();
+	glTranslatef(x, y, 0.0f);
+
+	float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//色の設定
+	glColor4fv(diffuse);
+
+	//描画開始(四角形)
+	glBegin(GL_QUADS);
+	glVertex2d(-w, h);
+	glVertex2d(-w, -h);
+	glVertex2d(w, -h);
+	glVertex2d(w, h);
+	glEnd();
+
+	glPopMatrix();
+}

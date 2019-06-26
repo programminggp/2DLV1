@@ -35,9 +35,16 @@ CSceneGame::CSceneGame()
 		{ 250, 200 },
 	};
 	mBackGround.Set(400, 300, 640, 512);
+
 	mPlayer.Set(400, 100, 32, 32);
+	mPlayer.mpTexture = &TexPlayer;
+
 	mEnemy.Set(500, 300, 24, 36);
+	mEnemy.mpTexture = &TexEnemy;
+
 	mBoss.Set(300, 450, 80, 120);
+	mBoss.mpTexture = &TexBoss;
+
 //	CUI::mFont.Set("Font.tga", 1, 64, 16, 33);
 }
 

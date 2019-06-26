@@ -10,7 +10,6 @@
 CBoss::CBoss()
 	: mVelocity(VELOCITY)
 {
-	mpTexture = &TexBoss;
 	mTag = EBOSS;
 }
 
@@ -18,6 +17,13 @@ CBoss::CBoss(float x, float y, float w, float h)
 	: CBoss()
 {
 	Set(x, y, w, h);
+}
+
+void CBoss::Set(float x, float y, float w, float h) {
+	mX = x;
+	mY = y;
+	mW = w;
+	mH = h;
 }
 
 void CBoss::Update() {
@@ -28,15 +34,15 @@ void CBoss::Update() {
 }
 
 void CBoss::Render() {
-	CRectangle::Render(mpTexture, 0.0f, 159.0f, 240.0f, 0.0f);
+	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 159.0f, 240.0f, 0.0f);
 }
 
 void CBoss::Collision(CCharacter* my, CCharacter* you) {
 	CCharacter& c = (CCharacter&)*you;
 	if (c.mTag == ESHOOTPLAYER) {
 		if (CCollision::Collision(*this, c)) {
-			new CEffect(mX, mY, 128, 128);
-			CUI::mEnemyHit++;
+//			new CEffect(mX, mY, 128, 128);
+//			CUI::mEnemyHit++;
 		}
 	}
 }

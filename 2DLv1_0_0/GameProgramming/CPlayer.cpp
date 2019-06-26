@@ -1,9 +1,5 @@
 #include "CPlayer.h"
-#include "CShootPlayer.h"
-#include "CShootPlayer2.h"
-#include "CUI.h"
 #include "CCollision.h"
-#include "CEffect.h"
 #include "CSceneGame.h"
 
 #define VELOCITY 5
@@ -13,8 +9,8 @@ CPlayer* CPlayer::mpInstance = 0;;
 
 CPlayer::CPlayer()
 	: mShootInterval(0)
+	, mpTexture(0)
 {
-	mpTexture = &TexPlayer;
 	mTag = EPLAYER;
 	mpInstance = this;
 }
@@ -24,6 +20,13 @@ CPlayer::CPlayer(float x, float y, float w, float h)
 	: CPlayer()
 {
 	Set(x, y, w, h);
+}
+
+void CPlayer::Set(float x, float y, float w, float h) {
+	mX = x;
+	mY = y;
+	mW = w;
+	mH = h;
 }
 
 
@@ -54,14 +57,14 @@ void CPlayer::Update() {
 		//四角形を右へ移動させる
 		mX += VELOCITY;
 	}
-	//Spaceキーが押されているか判定する
-	if (mInput.Key(' ') == 1) {
-		if (mShootInterval == 0) {
-			mShootInterval = SHOOTINTERVAL;
-			//弾を発射する
-			new CShootPlayer(mX, mY, 12, 32);
-		}
-	}
+	////Spaceキーが押されているか判定する
+	//if (mInput.Key(' ') == 1) {
+	//	if (mShootInterval == 0) {
+	//		mShootInterval = SHOOTINTERVAL;
+	//		//弾を発射する
+	//		new CShootPlayer(mX, mY, 12, 32);
+	//	}
+	//}
 }
 
 void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
@@ -71,8 +74,8 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 		switch(yc->mTag) {
 		case ESHOOTENEMY:
 		case EENEMY:
-			new CEffect(mX, mY, 64, 64);
-			CUI::mPlayerHit++;
+			//new CEffect(mX, mY, 64, 64);
+			//CUI::mPlayerHit++;
 			break;
 		default:
 			break;
@@ -81,5 +84,5 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 }
 
 void CPlayer::Render() {
-	CRectangle::Render(mpTexture, 0.0f, 74.0f, 88.0f, 0.0f);
+	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 74.0f, 88.0f, 0.0f);
 }
