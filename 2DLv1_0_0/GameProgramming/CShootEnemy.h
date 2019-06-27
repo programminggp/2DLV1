@@ -2,6 +2,8 @@
 #define CSHOOTENEMY_H
 
 #include "CCharacter.h"
+#include "CTexture.h"
+
 
 class CShootEnemy : public CCharacter {
 	CTexture *mpTexture;

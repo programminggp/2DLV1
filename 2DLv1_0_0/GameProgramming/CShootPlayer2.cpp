@@ -2,6 +2,7 @@
 #include "CCollision.h"
 #include "CEffect.h"
 #include "CSceneGame.h"
+#include "CRectangle.h"
 
 #define VELOCITY 10
 
@@ -24,21 +25,21 @@ void CShootPlayer2::Collision(CCharacter* my, CCharacter* yc) {
 	CCharacter& c = (CCharacter&)*yc;
 	if (c.mTag == EENEMY) {
 		if (CCollision::Collision(*this, c)) {
-			mState = ECOLLISION;
+			mState = EDISABLED;
 		}
 	}
 	if (c.mTag == EBOSS) {
 		if (CCollision::Collision(*this, c)) {
-			mState = ECOLLISION;
+			mState = EDISABLED;
 		}
 	}
 	if (c.mTag == ESHOOTBOSS) {
 		if (CCollision::Collision(*this, c)) {
-			mState = ECOLLISION;
+			mState = EDISABLED;
 		}
 	}
 }
 
 void CShootPlayer2::Render() {
-	CRectangle::Render(mpTexture, 0.0f, 60.0f, 54.0f, 0.0f);
+	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 60.0f, 54.0f, 0.0f);
 }

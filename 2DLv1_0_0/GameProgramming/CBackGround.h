@@ -5,8 +5,8 @@
 #include "CTexture.h"
 
 class CBackGround : public CCharacter {
-	CTexture *mpTexture;
 public:
+	CTexture *mpTexture;
 	CBackGround();
 	CBackGround(float x, float y, float w, float h);
 	void Render();

@@ -1,4 +1,5 @@
 #include "CPlayer.h"
+#include "CRectangle.h"
 #include "CCollision.h"
 #include "CSceneGame.h"
 
@@ -22,16 +23,9 @@ CPlayer::CPlayer(float x, float y, float w, float h)
 	Set(x, y, w, h);
 }
 
-void CPlayer::Set(float x, float y, float w, float h) {
-	mX = x;
-	mY = y;
-	mW = w;
-	mH = h;
-}
-
 
 void CPlayer::Update() {
-	if (mState == ECOLLISION) mState = EDISABLED;
+	if (mState == EDISABLED) mState = EDISABLED;
 	if (!mState) return;
 
 	if (mShootInterval > 0) {

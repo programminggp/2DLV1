@@ -1,8 +1,8 @@
 #include "CBackGround.h"
 #include "CSceneGame.h"
+#include "CRectangle.h"
 
 CBackGround::CBackGround() {
-	mpTexture = &TexBackGround;
 	mTag = EBACKGROUND;
 }
 
@@ -14,5 +14,5 @@ CBackGround::CBackGround(float x, float y, float w, float h)
 
 
 void CBackGround::Render() {
-	CRectangle::Render(mpTexture, 0.0f, 1280.0f, 1024.0f, 0.0f);
+	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 1280.0f, 1024.0f, 0.0f);
 }

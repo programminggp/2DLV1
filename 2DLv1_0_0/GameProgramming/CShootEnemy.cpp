@@ -2,6 +2,7 @@
 #include "CCollision.h"
 #include "CEffect.h"
 #include "CSceneGame.h"
+#include "CRectangle.h"
 
 #define VELOCITY 10
 
@@ -33,7 +34,7 @@ void CShootEnemy::Collision(CCharacter* my, CCharacter* yc) {
 		switch(c.mTag) {
 		case EPLAYER:
 		case ESHOOTPLAYER:
-			mState = ECOLLISION;
+			mState = EDISABLED;
 			break;
 		default:
 			break;
@@ -42,5 +43,5 @@ void CShootEnemy::Collision(CCharacter* my, CCharacter* yc) {
 }
 
 void CShootEnemy::Render() {
-	CRectangle::Render(mpTexture, 10.0f, 34.0f, 176.0f, 240.0f);
+	CRectangle::Render(mX, mY, mW, mH, mpTexture, 10.0f, 34.0f, 176.0f, 240.0f);
 }

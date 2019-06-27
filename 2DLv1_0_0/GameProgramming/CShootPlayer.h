@@ -2,6 +2,7 @@
 #define CSHOOTPLAYER_H
 
 #include "CCharacter.h"
+#include "CTexture.h"
 
 class CShootPlayer : public CCharacter {
 	CTexture *mpTexture;

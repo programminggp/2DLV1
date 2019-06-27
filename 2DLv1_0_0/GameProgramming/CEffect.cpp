@@ -1,6 +1,6 @@
 #include "CEffect.h"
 #include "CSceneGame.h"
-
+#include "CRectangle.h"
 
 CEffect::CEffect()
 	: mIndex(0)
@@ -12,7 +12,7 @@ CEffect::CEffect()
 CEffect::CEffect(float x, float y, float w, float h)
 	: CEffect()
 {
-	SetXYWH(x, y, w, h);
+	Set(x, y, w, h);
 }
 
 
@@ -26,7 +26,7 @@ void CEffect::Update() {
 void CEffect::Render() {
 	int row = mIndex / 5;
 	int col = mIndex % 5;
-	CRectangle::Render(mpTexture,
+	CRectangle::Render(mX, mY, mW, mH, mpTexture,
 		mpTexture->mHeader.width * col / 5.0f,
 		mpTexture->mHeader.width * (col + 1) / 5.0f,
 		mpTexture->mHeader.height * (row - 1) / 4.0f,

@@ -19,12 +19,6 @@ CBoss::CBoss(float x, float y, float w, float h)
 	Set(x, y, w, h);
 }
 
-void CBoss::Set(float x, float y, float w, float h) {
-	mX = x;
-	mY = y;
-	mW = w;
-	mH = h;
-}
 
 void CBoss::Update() {
 	mX += mVelocity;

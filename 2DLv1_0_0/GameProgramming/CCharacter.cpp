@@ -1,4 +1,5 @@
 #include "CCharacter.h"
+#include "CRectangle.h"
 #include "CSceneGame.h"
 
 CCharacter::CCharacter()
@@ -12,4 +13,15 @@ CCharacter::~CCharacter() {
 	//if (it != CSceneGame::mCharacters.end()) {
 	//	CSceneGame::mCharacters.erase(it);
 	//}
+}
+
+void CCharacter::Set(float x, float y, float w, float h) {
+	mX = x;
+	mY = y;
+	mW = w;
+	mH = h;
+}
+
+void CCharacter::Render() {
+	CRectangle::Render(mX, mY, mW, mH);
 }

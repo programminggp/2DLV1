@@ -1,5 +1,6 @@
 #include "CShootBoss.h"
 #include "CCollision.h"
+#include "CRectangle.h"
 
 #define VELOCITY -5
 #define VELOCITYX 3
@@ -32,17 +33,17 @@ void CShootBoss::Collision(CCharacter* my, CCharacter* yr) {
 	if (c.mTag == EPLAYER) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY - mH, 128, 128);
-			mState = ECOLLISION;
+			mState = EDISABLED;
 		}
 	}
 	if (c.mTag == ESHOOTPLAYER) {
 		if (CCollision::Collision(*this, c)) {
 			new CEffect(mX, mY - mH, 128, 128);
-			mState = ECOLLISION;
+			mState = EDISABLED;
 		}
 	}
 }
 
 void CShootBoss::Render() {
-	CRectangle::Render(&mTexture, 0.0f, 34.0f, 140.0f, 0.0f);
+	CRectangle::Render(mX, mY, mW, mH, &mTexture, 0.0f, 34.0f, 140.0f, 0.0f);
 }

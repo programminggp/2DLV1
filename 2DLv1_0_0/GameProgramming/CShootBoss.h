@@ -3,6 +3,7 @@
 
 #include "CCharacter.h"
 #include "CEffect.h"
+#include "CTexture.h"
 
 class CShootBoss : public CCharacter {
 public:

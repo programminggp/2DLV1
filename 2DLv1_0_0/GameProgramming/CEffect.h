@@ -2,6 +2,7 @@
 #define CEFFECT_H
 
 #include "CCharacter.h"
+#include "CTexture.h"
 
 class CEffect : public CCharacter {
 	CTexture *mpTexture;

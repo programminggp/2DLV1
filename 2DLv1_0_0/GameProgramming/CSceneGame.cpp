@@ -35,6 +35,7 @@ CSceneGame::CSceneGame()
 		{ 250, 200 },
 	};
 	mBackGround.Set(400, 300, 640, 512);
+	mBackGround.mpTexture = &TexBackGround;
 
 	mPlayer.Set(400, 100, 32, 32);
 	mPlayer.mpTexture = &TexPlayer;
