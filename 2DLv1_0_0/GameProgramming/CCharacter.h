@@ -19,7 +19,7 @@ public:
 
 	//ステータス
 	enum EState {
-		EDEL,		//無
+		EDELETE,	//無
 		EDISABLED,	//無効
 		EENABLED,	//有効
 	};

@@ -7,6 +7,8 @@
 #define SHOOTINTERVAL 30
 
 CPlayer* CPlayer::mpInstance = 0;;
+CShootPlayer CPlayer::mShootPlayer[10];
+
 
 CPlayer::CPlayer()
 	: mShootInterval(0)
@@ -51,14 +53,20 @@ void CPlayer::Update() {
 		//四角形を右へ移動させる
 		mX += VELOCITY;
 	}
-	////Spaceキーが押されているか判定する
-	//if (mInput.Key(' ') == 1) {
-	//	if (mShootInterval == 0) {
-	//		mShootInterval = SHOOTINTERVAL;
-	//		//弾を発射する
-	//		new CShootPlayer(mX, mY, 12, 32);
-	//	}
-	//}
+	//Spaceキーが押されているか判定する
+	if (mInput.Key(' ') == 1) {
+		if (mShootInterval == 0) {
+			mShootInterval = SHOOTINTERVAL;
+			//弾を発射する
+			for (int i = 0; i < 10; i++) {
+				if (mShootPlayer[i].mState == EDELETE) {
+					mShootPlayer[i].Set(mX, mY, 12, 32);
+					mShootPlayer[i].mState = EENABLED;
+					break;
+				}
+			}
+		}
+	}
 }
 
 void CPlayer::Collision(CCharacter* my, CCharacter* yc) {

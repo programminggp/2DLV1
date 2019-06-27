@@ -8,8 +8,8 @@
 
 CShootPlayer::CShootPlayer()
 {
-	mpTexture = &TexShoot;
 	mTag = ESHOOTPLAYER;
+	mState = EDELETE;
 }
 
 CShootPlayer::CShootPlayer(float x, float y, float w, float h)
@@ -22,7 +22,7 @@ CShootPlayer::CShootPlayer(float x, float y, float w, float h)
 void CShootPlayer::Update() {
 	mY += VELOCITY;
 	if (mY > 600 + mH) {
-		mState = EDISABLED;
+		mState = EDELETE;
 	}
 }
 

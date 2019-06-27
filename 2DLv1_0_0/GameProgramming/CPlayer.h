@@ -5,6 +5,7 @@
 #include "CInput.h"
 #include "CShootPlayer.h"
 #include "CTexture.h"
+#include "CShootPlayer.h"
 
 class CPlayer : public CCharacter {
 	CInput mInput;
@@ -12,6 +13,7 @@ class CPlayer : public CCharacter {
 public:
 	CTexture *mpTexture;
 	static CPlayer* mpInstance;
+	static CShootPlayer mShootPlayer[10];
 
 	CPlayer();
 	CPlayer(float x, float y, float w, float h);

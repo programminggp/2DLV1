@@ -46,6 +46,10 @@ CSceneGame::CSceneGame()
 	mBoss.Set(300, 450, 80, 120);
 	mBoss.mpTexture = &TexBoss;
 
+	for (int i = 0; i < 10; i++) {
+		CPlayer::mShootPlayer[i].mpTexture = &TexShoot;
+	}
+
 //	CUI::mFont.Set("Font.tga", 1, 64, 16, 33);
 }
 
@@ -61,6 +65,9 @@ void CSceneGame::Update() {
 	mPlayer.Update();
 	mEnemy.Update();
 	mBoss.Update();
+	for (int i = 0; i < 10; i++) {
+		CPlayer::mShootPlayer[i].Update();
+	}
 }
 
 void CSceneGame::Render() {
@@ -70,5 +77,8 @@ void CSceneGame::Render() {
 	mPlayer.Render();
 	mEnemy.Render();
 	mBoss.Render();
-//	CUI::Render();
+	for (int i = 0; i < 10; i++) {
+		CPlayer::mShootPlayer[i].Render();
+	}
+	//	CUI::Render();
 }
