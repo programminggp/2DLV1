@@ -3,17 +3,15 @@
 
 #include "CCharacter.h"
 #include "CInput.h"
-#include "CShootPlayer.h"
+#include "CPlayerShot.h"
 #include "CTexture.h"
-#include "CShootPlayer.h"
 
 class CPlayer : public CCharacter {
 	CInput mInput;
-	int mShootInterval;
+	int mShot;
 public:
 	CTexture *mpTexture;
 	static CPlayer* mpInstance;
-	static CShootPlayer mShootPlayer[10];
 
 	CPlayer();
 	CPlayer(float x, float y, float w, float h);

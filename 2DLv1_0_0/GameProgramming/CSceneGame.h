@@ -6,7 +6,6 @@
 #include "CBoss.h"
 #include "CTexture.h"
 #include "CEnemy.h"
-#include "CInput.h"
 #include "CCamera.h"
 
 //ƒNƒ‰ƒX‚Ì’è‹`
@@ -17,11 +16,7 @@ public:
 	CBackGround mBackGround;
 	CPlayer mPlayer;
 	CEnemy mEnemy;
-
 	CBoss mBoss;
-//	int mFrame;
-	CInput mInput;
-	int mPlayerShootCount;
 
 	CSceneGame();
 

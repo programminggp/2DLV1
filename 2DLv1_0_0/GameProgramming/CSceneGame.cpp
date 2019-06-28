@@ -1,12 +1,13 @@
 #include "CSceneGame.h"
 #include "CUI.h"
-#include "CEnemy.h"
 #include "CShootBoss.h"
+#include "CEnemyShot.h"
+#include "CEffect.h"
 
 //メソッド（プログラム）の定義
 CTexture TexPlayer;
 CTexture TexEnemy;
-CTexture TexShoot;
+CTexture TexShot;
 CTexture TexBackGround;
 CTexture TexExplosion;
 CTexture TexBoss;
@@ -14,7 +15,7 @@ CTexture TexBoss;
 CSceneGame::CSceneGame() 
 {
 	TexBackGround.Load("BackGround.tga");
-	TexShoot.Load("Shoot.tga");
+	TexShot.Load("Shoot.tga");
 	TexEnemy.Load("Enemy.tga");
 	TexPlayer.Load("Player.tga");
 	TexExplosion.Load("Explosion.tga");
@@ -46,8 +47,10 @@ CSceneGame::CSceneGame()
 	mBoss.Set(300, 450, 80, 120);
 	mBoss.mpTexture = &TexBoss;
 
-	for (int i = 0; i < 10; i++) {
-		CPlayer::mShootPlayer[i].mpTexture = &TexShoot;
+	for (int i = 0; i < 5; i++) {
+		CPlayerShot::mShot[i].mpTexture = &TexShot;
+		CEnemyShot::mShot[i].mpTexture = &TexShot;
+		CEffect::mEffect[i].mpTexture = &TexExplosion;
 	}
 
 //	CUI::mFont.Set("Font.tga", 1, 64, 16, 33);
@@ -65,9 +68,14 @@ void CSceneGame::Update() {
 	mPlayer.Update();
 	mEnemy.Update();
 	mBoss.Update();
-	for (int i = 0; i < 10; i++) {
-		CPlayer::mShootPlayer[i].Update();
+	for (int i = 0; i < 5; i++) {
+		CPlayerShot::mShot[i].Update();
+		CEnemyShot::mShot[i].Update();
+		CEffect::mEffect[i].Update();
 	}
+
+	mPlayer.Collision(&mPlayer, &mEnemy);
+
 }
 
 void CSceneGame::Render() {
@@ -77,8 +85,10 @@ void CSceneGame::Render() {
 	mPlayer.Render();
 	mEnemy.Render();
 	mBoss.Render();
-	for (int i = 0; i < 10; i++) {
-		CPlayer::mShootPlayer[i].Render();
+	for (int i = 0; i < 5; i++) {
+		CPlayerShot::mShot[i].Render();
+		CEnemyShot::mShot[i].Render();
+		CEffect::mEffect[i].Render();
 	}
 	//	CUI::Render();
 }

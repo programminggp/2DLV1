@@ -102,9 +102,9 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CShootBoss.cpp" />
-    <ClCompile Include="CShootEnemy.cpp" />
-    <ClCompile Include="CShootPlayer.cpp" />
-    <ClCompile Include="CShootPlayer2.cpp" />
+    <ClCompile Include="CEnemyShot.cpp" />
+    <ClCompile Include="CPlayerShot.cpp" />
+    <ClCompile Include="CPlayerShot2.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -119,9 +119,9 @@
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CSceneGame.h" />
     <ClInclude Include="CShootBoss.h" />
-    <ClInclude Include="CShootEnemy.h" />
-    <ClInclude Include="CShootPlayer.h" />
-    <ClInclude Include="CShootPlayer2.h" />
+    <ClInclude Include="CEnemyShot.h" />
+    <ClInclude Include="CPlayerShot.h" />
+    <ClInclude Include="CPlayerShot2.h" />
     <ClInclude Include="CUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,7 +2,7 @@
 #include "CCollision.h"
 #include "CUI.h"
 #include "CEffect.h"
-#include "CShootEnemy.h"
+#include "CEnemyShot.h"
 #include "CPlayer.h"
 #include <math.h>
 #include "CSceneGame.h"
@@ -13,7 +13,7 @@
 
 CEnemy::CEnemy()
 	: mVelocity(VELOCITY)
-	, mFire(ENEMYSHOOTTIME)
+	, mShot(ENEMYSHOOTTIME)
 {
 	mTag = EENEMY;
 }
@@ -25,18 +25,23 @@ CEnemy::CEnemy(float x, float y, float w, float h)
 }
 
 void CEnemy::Update() {
-	if (mState == EDISABLED) mState = EDISABLED;
+	if (mState == EDISABLED) mState = EDELETE;
 	if (!mState) return;
 
-	//if (mFire > 0) {
-	//	mFire--;
-	//}
-	//if (mFire == 0) {
-	//	if (abs(CPlayer::mpInstance->mX - mX) < 40) {
-	//		new CShootEnemy(mX, mY, 12, 32);
-	//		mFire = ENEMYSHOOTTIME;
-	//	}
-	//}
+	if (mShot > 0) {
+		mShot--;
+	}
+	else {
+//		if (abs(CPlayer::mpInstance->mX - mX) < 40) {
+		for (int i = 0; i < 5; i++) {
+			if (CEnemyShot::mShot[i].mState == EDELETE) {
+				CEnemyShot::mShot[i].Set(mX, mY, 12, 32);
+				CEnemyShot::mShot[i].mState = EENABLED;
+				mShot = ENEMYSHOOTTIME;
+				break;
+			}
+		}
+	}
 
 	mX += mVelocity;
 	if (mX > 800) {
@@ -59,8 +64,8 @@ void CEnemy::Render() {
 void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
 	if (!mState) return;
 	if (!yc->mState) return;
-	if (CCollision::Collision(*this, *yc)) {
-		if (yc->mTag == ESHOOTPLAYER) {
+	if (CCollision::Collision(this, yc)) {
+		if (yc->mTag == EPLAYERSHOT) {
 			//new CEffect(mX, mY, 64, 64);
 			//CUI::mEnemyHit++;
 			mState = EDISABLED;

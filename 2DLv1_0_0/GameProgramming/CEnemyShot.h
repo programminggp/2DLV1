@@ -1,14 +1,16 @@
-#ifndef CSHOOTPLAYER_H
-#define CSHOOTPLAYER_H
+#ifndef CENEMYSHOT_H
+#define CENEMYSHOT_H
 
 #include "CCharacter.h"
 #include "CTexture.h"
 
-class CShootPlayer : public CCharacter {
+
+class CEnemyShot : public CCharacter {
 public:
+	static CEnemyShot mShot[5];
 	CTexture *mpTexture;
-	CShootPlayer();
-	CShootPlayer(float x, float y, float w, float h);
+	CEnemyShot();
+	CEnemyShot(float x, float y, float w, float h);
 	void Update();
 	void Render();
 	void Collision(CCharacter* my, CCharacter* you);

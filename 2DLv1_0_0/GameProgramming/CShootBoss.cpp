@@ -28,16 +28,15 @@ void CShootBoss::Update() {
 	}
 }
 
-void CShootBoss::Collision(CCharacter* my, CCharacter* yr) {
-	CCharacter& c = (CCharacter&)*yr;
-	if (c.mTag == EPLAYER) {
-		if (CCollision::Collision(*this, c)) {
+void CShootBoss::Collision(CCharacter* mc, CCharacter* yc) {
+	if (yc->mTag == EPLAYER) {
+		if (CCollision::Collision(this, yc)) {
 			new CEffect(mX, mY - mH, 128, 128);
 			mState = EDISABLED;
 		}
 	}
-	if (c.mTag == ESHOOTPLAYER) {
-		if (CCollision::Collision(*this, c)) {
+	else if (yc->mTag == EPLAYERSHOT) {
+		if (CCollision::Collision(this, yc)) {
 			new CEffect(mX, mY - mH, 128, 128);
 			mState = EDISABLED;
 		}

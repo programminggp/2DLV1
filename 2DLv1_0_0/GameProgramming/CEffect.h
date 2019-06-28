@@ -5,9 +5,10 @@
 #include "CTexture.h"
 
 class CEffect : public CCharacter {
-	CTexture *mpTexture;
 	int mIndex;
 public:
+	static CEffect mEffect[5];
+	CTexture *mpTexture;
 	CEffect();
 	CEffect(float x, float y, float w, float h);
 	void Update();

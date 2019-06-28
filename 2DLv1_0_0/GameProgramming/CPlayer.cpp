@@ -2,16 +2,16 @@
 #include "CRectangle.h"
 #include "CCollision.h"
 #include "CSceneGame.h"
+#include "CPlayerShot.h"
+#include "CEffect.h"
 
 #define VELOCITY 5
 #define SHOOTINTERVAL 30
 
 CPlayer* CPlayer::mpInstance = 0;;
-CShootPlayer CPlayer::mShootPlayer[10];
-
 
 CPlayer::CPlayer()
-	: mShootInterval(0)
+	: mShot(0)
 	, mpTexture(0)
 {
 	mTag = EPLAYER;
@@ -30,8 +30,8 @@ void CPlayer::Update() {
 	if (mState == EDISABLED) mState = EDISABLED;
 	if (!mState) return;
 
-	if (mShootInterval > 0) {
-		mShootInterval--;
+	if (mShot > 0) {
+		mShot--;
 	}
 	//Sキーが押されているか判定する
 	if (mInput.Key('S') == 1) {
@@ -55,13 +55,13 @@ void CPlayer::Update() {
 	}
 	//Spaceキーが押されているか判定する
 	if (mInput.Key(' ') == 1) {
-		if (mShootInterval == 0) {
-			mShootInterval = SHOOTINTERVAL;
+		if (mShot == 0) {
+			mShot = SHOOTINTERVAL;
 			//弾を発射する
-			for (int i = 0; i < 10; i++) {
-				if (mShootPlayer[i].mState == EDELETE) {
-					mShootPlayer[i].Set(mX, mY, 12, 32);
-					mShootPlayer[i].mState = EENABLED;
+			for (int i = 0; i < 5; i++) {
+				if (CPlayerShot::mShot[i].mState == EDELETE) {
+					CPlayerShot::mShot[i].Set(mX, mY, 12, 32);
+					CPlayerShot::mShot[i].mState = EENABLED;
 					break;
 				}
 			}
@@ -69,13 +69,20 @@ void CPlayer::Update() {
 	}
 }
 
-void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
+void CPlayer::Collision(CCharacter* mc, CCharacter* yc) {
 	if (!mState) return;
 	if (!yc->mState) return;
-	if (CCollision::Collision(*this, *yc)) {
+	if (CCollision::Collision(this, yc)) {
 		switch(yc->mTag) {
-		case ESHOOTENEMY:
+		case EENEMYSHOT:
 		case EENEMY:
+			for (int i = 0; i < 5; i++) {
+				if (CEffect::mEffect[i].mState == EDELETE) {
+					CEffect::mEffect[i].Set(mX, mY, 64, 64);
+					CEffect::mEffect[i].mState = EENABLED;
+					break;
+				}
+			}
 			//new CEffect(mX, mY, 64, 64);
 			//CUI::mPlayerHit++;
 			break;

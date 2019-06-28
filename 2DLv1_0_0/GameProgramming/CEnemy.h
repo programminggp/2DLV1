@@ -8,7 +8,7 @@ class CEnemy : public CCharacter {
 public:
 	CTexture *mpTexture;
 	int mVelocity;
-	int mFire;
+	int mShot;
 
 	CEnemy();
 	CEnemy(float x, float y, float w, float h);

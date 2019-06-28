@@ -2,11 +2,13 @@
 #include "CSceneGame.h"
 #include "CRectangle.h"
 
+CEffect CEffect::mEffect[5];
+
 CEffect::CEffect()
 	: mIndex(0)
 {
-	mpTexture = &TexExplosion;
 	mTag = ENONE;
+	mState = EDELETE;
 }
 
 CEffect::CEffect(float x, float y, float w, float h)
@@ -17,13 +19,15 @@ CEffect::CEffect(float x, float y, float w, float h)
 
 
 void CEffect::Update() {
+	if (!mState) return;
 	if (mIndex++ == 20) {
 		mIndex = 0;
-		mState = EDISABLED;
+		mState = EDELETE;
 	}
 }
 
 void CEffect::Render() {
+	if (!mState) return;
 	int row = mIndex / 5;
 	int col = mIndex % 5;
 	CRectangle::Render(mX, mY, mW, mH, mpTexture,

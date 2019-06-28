@@ -31,10 +31,9 @@ void CBoss::Render() {
 	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 159.0f, 240.0f, 0.0f);
 }
 
-void CBoss::Collision(CCharacter* my, CCharacter* you) {
-	CCharacter& c = (CCharacter&)*you;
-	if (c.mTag == ESHOOTPLAYER) {
-		if (CCollision::Collision(*this, c)) {
+void CBoss::Collision(CCharacter* mc, CCharacter* yc) {
+	if (yc->mTag == EPLAYERSHOT) {
+		if (CCollision::Collision(this, yc)) {
 //			new CEffect(mX, mY, 128, 128);
 //			CUI::mEnemyHit++;
 		}

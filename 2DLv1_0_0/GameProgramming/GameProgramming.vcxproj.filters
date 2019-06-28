@@ -30,9 +30,6 @@
     <ClCompile Include="CBoss.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CShootPlayer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CCharacter.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -40,9 +37,6 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CShootBoss.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="CShootPlayer2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="CUI.cpp">
@@ -57,7 +51,13 @@
     <ClCompile Include="CFont.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="CShootEnemy.cpp">
+    <ClCompile Include="CPlayerShot.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerShot2.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CEnemyShot.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,9 +74,6 @@
     <ClInclude Include="CBoss.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CShootPlayer.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="CCharacter.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -84,9 +81,6 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CShootBoss.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="CShootPlayer2.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CUI.h">
@@ -101,7 +95,13 @@
     <ClInclude Include="CFont.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CShootEnemy.h">
+    <ClInclude Include="CPlayerShot.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerShot2.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnemyShot.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
