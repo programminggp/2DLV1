@@ -25,6 +25,7 @@ CEnemy::CEnemy(float x, float y, float w, float h)
 }
 
 void CEnemy::Update() {
+	mEffect.Update();
 	if (mState == EDISABLED) mState = EDELETE;
 	if (!mState) return;
 
@@ -57,8 +58,10 @@ void CEnemy::Update() {
 }
 
 void CEnemy::Render() {
-	if (!mState) return;
-	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 48.0f, 72.0f, 0.0f);
+	if (mState) {
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 48.0f, 72.0f, 0.0f);
+	}
+	mEffect.Render();
 }
 
 void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
@@ -66,9 +69,11 @@ void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
 	if (!yc->mState) return;
 	if (CCollision::Collision(this, yc)) {
 		if (yc->mTag == EPLAYERSHOT) {
+			mEffect.Set(mX, mY, 64, 64);
+			mEffect.mState = EENABLED;
 			//new CEffect(mX, mY, 64, 64);
 			//CUI::mEnemyHit++;
-			mState = EDISABLED;
+			//mState = EDISABLED;
 		}
 	}
 }

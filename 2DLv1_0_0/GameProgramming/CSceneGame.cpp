@@ -40,9 +40,11 @@ CSceneGame::CSceneGame()
 
 	mPlayer.Set(400, 100, 32, 32);
 	mPlayer.mpTexture = &TexPlayer;
+	mPlayer.mEffect.mpTexture = &TexExplosion;
 
 	mEnemy.Set(500, 300, 24, 36);
 	mEnemy.mpTexture = &TexEnemy;
+	mEnemy.mEffect.mpTexture = &TexExplosion;
 
 	mBoss.Set(300, 450, 80, 120);
 	mBoss.mpTexture = &TexBoss;
@@ -50,7 +52,6 @@ CSceneGame::CSceneGame()
 	for (int i = 0; i < 5; i++) {
 		CPlayerShot::mShot[i].mpTexture = &TexShot;
 		CEnemyShot::mShot[i].mpTexture = &TexShot;
-		CEffect::mEffect[i].mpTexture = &TexExplosion;
 	}
 
 //	CUI::mFont.Set("Font.tga", 1, 64, 16, 33);
@@ -71,10 +72,14 @@ void CSceneGame::Update() {
 	for (int i = 0; i < 5; i++) {
 		CPlayerShot::mShot[i].Update();
 		CEnemyShot::mShot[i].Update();
-		CEffect::mEffect[i].Update();
+//		CEffect::mEffect[i].Update();
 	}
 
 	mPlayer.Collision(&mPlayer, &mEnemy);
+	for (int i = 0; i < 5; i++) {
+		mPlayer.Collision(&mPlayer, &CEnemyShot::mShot[i]);
+		mEnemy.Collision(&mEnemy, &CPlayerShot::mShot[i]);
+	}
 
 }
 
@@ -88,7 +93,7 @@ void CSceneGame::Render() {
 	for (int i = 0; i < 5; i++) {
 		CPlayerShot::mShot[i].Render();
 		CEnemyShot::mShot[i].Render();
-		CEffect::mEffect[i].Render();
+//		CEffect::mEffect[i].Render();
 	}
 	//	CUI::Render();
 }

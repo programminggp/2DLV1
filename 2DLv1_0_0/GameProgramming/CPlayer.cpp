@@ -67,6 +67,7 @@ void CPlayer::Update() {
 			}
 		}
 	}
+	mEffect.Update();
 }
 
 void CPlayer::Collision(CCharacter* mc, CCharacter* yc) {
@@ -76,13 +77,15 @@ void CPlayer::Collision(CCharacter* mc, CCharacter* yc) {
 		switch(yc->mTag) {
 		case EENEMYSHOT:
 		case EENEMY:
-			for (int i = 0; i < 5; i++) {
-				if (CEffect::mEffect[i].mState == EDELETE) {
-					CEffect::mEffect[i].Set(mX, mY, 64, 64);
-					CEffect::mEffect[i].mState = EENABLED;
-					break;
-				}
-			}
+			mEffect.Set(mX, mY, 64, 64);
+			mEffect.mState = EENABLED;
+			//for (int i = 0; i < 5; i++) {
+			//	if (CEffect::mEffect[i].mState == EDELETE) {
+			//		CEffect::mEffect[i].Set(mX, mY, 64, 64);
+			//		CEffect::mEffect[i].mState = EENABLED;
+			//		break;
+			//	}
+			//}
 			//new CEffect(mX, mY, 64, 64);
 			//CUI::mPlayerHit++;
 			break;
@@ -94,4 +97,5 @@ void CPlayer::Collision(CCharacter* mc, CCharacter* yc) {
 
 void CPlayer::Render() {
 	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 74.0f, 88.0f, 0.0f);
+	mEffect.Render();
 }

@@ -3,9 +3,11 @@
 
 #include "CCharacter.h"
 #include "CTexture.h"
+#include "CEffect.h"
 
 class CEnemy : public CCharacter {
 public:
+	CEffect mEffect;
 	CTexture *mpTexture;
 	int mVelocity;
 	int mShot;
