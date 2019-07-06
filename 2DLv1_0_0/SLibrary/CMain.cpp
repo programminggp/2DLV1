@@ -392,6 +392,18 @@ int CMain::Main2D(CScene* pscene)
 		strParameter,
 		strResult))
 	{
+		MessageBox(NULL, TEXT("ライセンスの確認ができませんでした"),
+			TEXT("game.programming.jp"),
+			MB_OK | MB_ICONINFORMATION);
+		//MessageBox(NULL, TEXT("Kitty on your lap"),
+		//	TEXT("メッセージボックス"),
+		//	MB_OK | MB_ICONINFORMATION);
+		return false;
+	}
+	if (strcmp("OK\r\n", strResult.c_str())) {
+		MessageBox(NULL, TEXT("ライセンスの確認ができませんでした"),
+			TEXT("game.programming.jp"),
+			MB_OK | MB_ICONINFORMATION);
 		return false;
 	}
 
