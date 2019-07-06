@@ -79,15 +79,6 @@ void CPlayer::Collision(CCharacter* mc, CCharacter* yc) {
 		case EENEMY:
 			mEffect.Set(mX, mY, 64, 64);
 			mEffect.mState = EENABLED;
-			//for (int i = 0; i < 5; i++) {
-			//	if (CEffect::mEffect[i].mState == EDELETE) {
-			//		CEffect::mEffect[i].Set(mX, mY, 64, 64);
-			//		CEffect::mEffect[i].mState = EENABLED;
-			//		break;
-			//	}
-			//}
-			//new CEffect(mX, mY, 64, 64);
-			//CUI::mPlayerHit++;
 			break;
 		default:
 			break;

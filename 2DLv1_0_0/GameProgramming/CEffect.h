@@ -7,7 +7,7 @@
 class CEffect : public CCharacter {
 	int mIndex;
 public:
-	static CEffect mEffect[5];
+//	static CEffect mEffect[5];
 	CTexture *mpTexture;
 	CEffect();
 	CEffect(float x, float y, float w, float h);

@@ -33,7 +33,6 @@ void CEnemy::Update() {
 		mShot--;
 	}
 	else {
-//		if (abs(CPlayer::mpInstance->mX - mX) < 40) {
 		for (int i = 0; i < 5; i++) {
 			if (CEnemyShot::mShot[i].mState == EDELETE) {
 				CEnemyShot::mShot[i].Set(mX, mY, 12, 32);
@@ -69,11 +68,10 @@ void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
 	if (!yc->mState) return;
 	if (CCollision::Collision(this, yc)) {
 		if (yc->mTag == EPLAYERSHOT) {
-			mEffect.Set(mX, mY, 64, 64);
-			mEffect.mState = EENABLED;
-			//new CEffect(mX, mY, 64, 64);
-			//CUI::mEnemyHit++;
-			//mState = EDISABLED;
+			if (mEffect.mState == EDELETE) {
+				mEffect.Set(mX, mY, 64, 64);
+				mEffect.mState = EENABLED;
+			}
 		}
 	}
 }

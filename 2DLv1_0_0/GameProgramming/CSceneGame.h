@@ -11,28 +11,20 @@
 //クラスの定義
 class CSceneGame: public CScene {
 public:
+	//カメラの作成
 	CCamera mCamera;
-	//変数の宣言
+	//変数の作成
 	CBackGround mBackGround;
 	CPlayer mPlayer;
 	CEnemy mEnemy;
 	CBoss mBoss;
 
+	//コンストラクタ
 	CSceneGame();
 
-	~CSceneGame();
-
 	//メソッド（プログラム）の宣言
-	void Init();
 	void Update();
 	void Render();
 };
-
-extern CTexture TexPlayer;
-extern CTexture TexEnemy;
-extern CTexture TexShoot;
-extern CTexture TexBackGround;
-extern CTexture TexExplosion;
-extern CTexture TexBoss;
 
 #endif

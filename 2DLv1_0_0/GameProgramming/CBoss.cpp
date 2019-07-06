@@ -25,17 +25,21 @@ void CBoss::Update() {
 	if (mX > 800 - mW || mX < 0 + mW) {
 		mVelocity *= -1;
 	}
+	mEffect.Update();
 }
 
 void CBoss::Render() {
 	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 159.0f, 240.0f, 0.0f);
+	mEffect.Render();
 }
 
 void CBoss::Collision(CCharacter* mc, CCharacter* yc) {
 	if (yc->mTag == EPLAYERSHOT) {
 		if (CCollision::Collision(this, yc)) {
-//			new CEffect(mX, mY, 128, 128);
-//			CUI::mEnemyHit++;
+			if (mEffect.mState == EDELETE) {
+				mEffect.Set(yc->mX, mY, 128, 128);
+				mEffect.mState = EENABLED;
+			}
 		}
 	}
 }

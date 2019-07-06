@@ -3,10 +3,12 @@
 
 #include "CCharacter.h"
 #include "CTexture.h"
+#include "CEffect.h"
 
 class CBoss : public CCharacter {
 	int mVelocity;
 public:
+	CEffect mEffect;
 	CTexture* mpTexture;
 
 	CBoss();

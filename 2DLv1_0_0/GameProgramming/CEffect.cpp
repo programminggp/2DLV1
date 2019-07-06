@@ -2,7 +2,7 @@
 #include "CSceneGame.h"
 #include "CRectangle.h"
 
-CEffect CEffect::mEffect[5];
+//CEffect CEffect::mEffect[5];
 
 CEffect::CEffect()
 	: mIndex(0)
