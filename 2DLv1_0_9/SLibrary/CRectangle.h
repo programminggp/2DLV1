@@ -19,7 +19,15 @@ public:
 
 	//描画処理の宣言
 	void Render();
-	void Render(CTexture*, float left, float right, float bottom, float top);
+	/*
+	長方形をテクスチャを張って描画する
+	texture：テクスチャのポインタ
+	left：テクスチャ画像の左X座標
+	right：テクスチャ画像の右X座標
+	bottom：テクスチャ画像の下Y座標
+	top：テクスチャ画像の上Y座標
+	*/
+	void Render(CTexture *texture, float left, float right, float bottom, float top);
 	//コンストラクタの宣言
 	CRectangle();
 	CRectangle(float x, float y, float w, float h);
@@ -42,6 +50,13 @@ public:
 	void Translate(float x, float y);
 	void Scale(float sx, float sy);
 	static void Render(float x, float y, float w, float h, CTexture*, float left, float right, float bottom, float top);
+	/*
+	長方形を描画する
+	x:長方形の中心X座標
+	y:長方形の中心Y座標
+	w:長方形のX軸方向の長さ
+	h:長方形のY軸方向の長さ
+	*/
 	static void Render(float x, float y, float w, float h);
 
 };
