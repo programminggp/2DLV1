@@ -92,37 +92,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CBackGround.cpp" />
-    <ClCompile Include="CBoss.cpp" />
-    <ClCompile Include="CCharacter.cpp" />
-    <ClCompile Include="CCollision.cpp" />
-    <ClCompile Include="CEffect.cpp" />
-    <ClCompile Include="CEnemy.cpp" />
-    <ClCompile Include="CFont.cpp" />
-    <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
-    <ClCompile Include="CShootBoss.cpp" />
-    <ClCompile Include="CEnemyShot.cpp" />
-    <ClCompile Include="CPlayerShot.cpp" />
-    <ClCompile Include="CPlayerShot2.cpp" />
-    <ClCompile Include="CUI.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CBackGround.h" />
-    <ClInclude Include="CBoss.h" />
-    <ClInclude Include="CCharacter.h" />
-    <ClInclude Include="CCollision.h" />
-    <ClInclude Include="CEffect.h" />
-    <ClInclude Include="CEnemy.h" />
-    <ClInclude Include="CFont.h" />
-    <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CSceneGame.h" />
-    <ClInclude Include="CShootBoss.h" />
-    <ClInclude Include="CEnemyShot.h" />
-    <ClInclude Include="CPlayerShot.h" />
-    <ClInclude Include="CPlayerShot2.h" />
-    <ClInclude Include="CUI.h" />
+    <ClInclude Include="include\CCamera.h" />
+    <ClInclude Include="include\CInput.h" />
+    <ClInclude Include="include\CMain.h" />
+    <ClInclude Include="include\CMain2D.h" />
+    <ClInclude Include="include\CRectangle.h" />
+    <ClInclude Include="include\CScene.h" />
+    <ClInclude Include="include\CSound.h" />
+    <ClInclude Include="include\CTexture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

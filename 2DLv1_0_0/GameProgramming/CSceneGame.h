@@ -1,30 +1,44 @@
-#ifndef CSCENEGAME_H
-#define CSCENEGAME_H
-#include "CScene.h"
-#include "CPlayer.h"
-#include "CBackGround.h"
-#include "CBoss.h"
-#include "CTexture.h"
-#include "CEnemy.h"
-#include "CCamera.h"
+#ifndef CSCENEGAME_H	//インクルードガード
+#define CSCENEGAME_H	//インクルードガード
 
-//クラスの定義
+//CSceneクラスのインクルード
+#include "CScene.h"
+
+/*
+クラスの定義
+class クラス名 : public 親クラス名 {
+public:
+    命令
+};
+クラス名：CSceneGame
+親クラス名：CScene
+CSceneクラスを継承して
+CSceneGameクラスを定義する
+*/
 class CSceneGame: public CScene {
 public:
-	//カメラの作成
-	CCamera mCamera;
-	//変数の作成
-	CBackGround mBackGround;
-	CPlayer mPlayer;
-	CEnemy mEnemy;
-	CBoss mBoss;
-
-	//コンストラクタ
+	/*
+	デフォルトコンストラクタの宣言
+	クラス名()
+	クラスのインスタンスの生成時に呼ばれる
+	*/
 	CSceneGame();
 
-	//メソッド（プログラム）の宣言
+	/*
+	メソッドの宣言
+	戻り値の型　メソッド名(引数);
+	戻り値の型：void:戻り値なし
+	メソッド名：Update
+	引数：():引数なし
+	インスタンスの更新処理を記述
+	*/
 	void Update();
+	/*
+	メソッドの宣言
+	Render()
+	インスタンスの描画処理を記述
+	*/
 	void Render();
 };
 
-#endif
+#endif	//インクルードガード
