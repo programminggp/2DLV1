@@ -26,7 +26,7 @@ void CSceneGame::Update() {
 	//変数に代入されている値で命令を実行する
 	CRectangle::Render(x, y, w, h);
 
-/*	//下の長方形を描画する
+	//下の長方形を描画する
 	y = -270.0;	//代入されると前の値は上書きされる
 	CRectangle::Render(x, y, w, h);
 
@@ -40,6 +40,5 @@ void CSceneGame::Update() {
 	//右の長方形を描画する
 	x = 370.0;
 	CRectangle::Render(x, y, w, h);
-	*/
 }
 
