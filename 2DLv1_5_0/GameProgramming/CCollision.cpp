@@ -28,7 +28,7 @@ bool CCollision::Collision(const CCharacter *col1, const CCharacter *col2, float
 	if (absx < absy) {
 		*mx += x;
 	}
-	else {
+	else if (absx > absy) {
 		*my += y;
 	}
 	return true;

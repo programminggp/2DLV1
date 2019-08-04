@@ -18,6 +18,7 @@ public:
 		EENEMYSHOT,
 		EENEMY,
 		EBLOCK,
+		EBOMB,
 	};
 	ETag mTag;
 

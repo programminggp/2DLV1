@@ -3,6 +3,7 @@
 #include "CCollision.h"
 #include "CEffect.h"
 #include "CSceneGame.h"
+#include "CBomb.h"
 
 #define VELOCITY 4
 #define SHOOTINTERVAL 30
@@ -31,13 +32,33 @@ CPlayer::CPlayer(float x, float y, float w, float h)
 void CPlayer::Update() {
 	if (mState == ECOLLISION) mState = EDISABLED;
 	if (!mState) return;
-	mPx = mX;
-	mPy = mY;
-	mFx = mFy = 0.0f;
 
 	if (mShootInterval > 0) {
 		mShootInterval--;
 	}
+
+	//Spaceキーが押されているか判定する
+	if (mInput.Key(' ') == 1 && mShootInterval == 0) {
+		mShootInterval = SHOOTINTERVAL;
+		new CBomb(mX, mY, 30, 30);
+		if (mPy > 0.0f) {
+			mY -= mH;
+		}
+		else if (mPy < 0.0f) {
+			mY += mH;
+		}
+		else if (mPx > 0.0f) {
+			mX -= mW;
+		}
+		else if (mPx < 0.0f) {
+			mX += mW;
+		}
+	}
+
+	mPx = mX;
+	mPy = mY;
+	mFx = mFy = 0.0f;
+
 	//Sキーが押されているか判定する
 	if (mInput.Key('S') == 1) {
 		//四角形を下へ移動させる
@@ -60,9 +81,6 @@ void CPlayer::Update() {
 	}
 	mX += mFx;
 	mY += mFy;
-	//Spaceキーが押されているか判定する
-	if (mInput.Key(' ') == 1) {
-	}
 }
 
 void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
@@ -77,6 +95,7 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 			CUI::mPlayerHit++;
 			break;
 		case EBLOCK:
+		case EBOMB:
 			mX += dx;
 			mY += dy;
 			break;
@@ -95,16 +114,16 @@ void CPlayer::Render() {
 		y %= 4;
 		switch (y) {
 		case 0:
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16-1, 0);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16 - 1, 0.5f);
 			break;
 		case 1:
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 16-1, 0);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 16 - 1, 0.5f);
 			break;
 		case 2:
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16-1, 0);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16 - 1, 0.5f);
 			break;
 		case 3:
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 5, 16 * 6, 16-1, 0);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 5, 16 * 6, 16 - 1, 0.5f);
 			break;
 		}
 	}
@@ -133,16 +152,16 @@ void CPlayer::Render() {
 		x %= 4;
 		switch (x) {
 		case 0:
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16-1, 0);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16 - 1, 0.5f);
 			break;
 		case 1:
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16-1, 0);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16 - 1, 0.5f);
 			break;
 		case 2:
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16-1, 0);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16 - 1, 0.5f);
 			break;
 		case 3:
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 2, 16 * 3, 16-1, 0);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 2, 16 * 3, 16 - 1, 0.5f);
 			break;
 		}
 	}
@@ -166,6 +185,6 @@ void CPlayer::Render() {
 		}
 	}
 	else {
-		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16-1, 0);
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16 - 1, 0.5f);
 	}
 }
