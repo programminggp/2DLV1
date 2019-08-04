@@ -14,7 +14,7 @@ CSceneGame::CSceneGame()
 	TexBomberman.Load("Bomberman.tga");
 	int map[10][13] = {
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
 		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
@@ -28,15 +28,27 @@ CSceneGame::CSceneGame()
 		for (int j = 0; j < 13; j++) {
 			int x = j * 60 - 360;
 			int y = (9 - i) * 60 - 270;
-			if (map[i][j] == 0) {
+			switch (map[i][j]) {
+			case 0:
+			case 2:
 				new CBackGround(x, y, 30.0f, 30.0f);
-			}
-			else  if (map[i][j] == 1) {
+				break;
+			case 1:
 				new CBlock(x, y, 30.0f, 30.0f);
+				break;
 			}
 		}
 	}
-//	mCamera.Camera2D(0.0f, 0.0f, 400.0f, 300.0f);
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 13; j++) {
+			int x = j * 60 - 360;
+			int y = (9 - i) * 60 - 270;
+			if (map[i][j] == 2) {
+				new CPlayer(x, y, 30.0f, 30.0f);
+			}
+		}
+	}
+	//	mCamera.Camera2D(0.0f, 0.0f, 400.0f, 300.0f);
 }
 
 CSceneGame::~CSceneGame() {

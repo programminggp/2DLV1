@@ -10,6 +10,7 @@ class CPlayer : public CCharacter {
 	CInput mInput;
 	int mShootInterval;
 	float mFx, mFy;
+	float mPx, mPy;
 public:
 	static CPlayer* mpInstance;
 

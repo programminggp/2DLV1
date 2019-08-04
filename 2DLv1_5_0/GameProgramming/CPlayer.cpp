@@ -4,7 +4,7 @@
 #include "CEffect.h"
 #include "CSceneGame.h"
 
-#define VELOCITY 5
+#define VELOCITY 4
 #define SHOOTINTERVAL 30
 
 CPlayer* CPlayer::mpInstance = 0;;
@@ -31,7 +31,8 @@ CPlayer::CPlayer(float x, float y, float w, float h)
 void CPlayer::Update() {
 	if (mState == ECOLLISION) mState = EDISABLED;
 	if (!mState) return;
-
+	mPx = mX;
+	mPy = mY;
 	mFx = mFy = 0.0f;
 
 	if (mShootInterval > 0) {
@@ -67,12 +68,17 @@ void CPlayer::Update() {
 void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 	if (!mState) return;
 	if (!yc->mState) return;
-	if (CCollision::Collision(this, yc)) {
+	float dx = 0.0f, dy = 0.0f;
+	if (CCollision::Collision(my, yc, &dx, &dy)) {
 		switch(yc->mTag) {
 		case EENEMYSHOT:
 		case EENEMY:
 			new CEffect(mX, mY, 128, 128);
 			CUI::mPlayerHit++;
+			break;
+		case EBLOCK:
+			mX += dx;
+			mY += dy;
 			break;
 		default:
 			break;
@@ -81,10 +87,85 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 }
 
 void CPlayer::Render() {
-	if ((int)(mX + 400) % 72 < 36) {
-		CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 72.0f, 88.0f, 0.0f);
+	mPx -= mX;
+	mPy -= mY;
+	if (mPy > 0.0f) {
+		int y = mY + 270;
+		y /= 20;
+		y %= 4;
+		switch (y) {
+		case 0:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16-1, 0);
+			break;
+		case 1:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 16-1, 0);
+			break;
+		case 2:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16-1, 0);
+			break;
+		case 3:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 5, 16 * 6, 16-1, 0);
+			break;
+		}
+	}
+	else if (mPy < 0.0f) {
+		int y = mY + 270;
+		y /= 20;
+		y %= 4;
+		switch (y) {
+		case 0:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16*2-1, 16);
+			break;
+		case 1:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 16*2-1, 16);
+			break;
+		case 2:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16*2-1, 16);
+			break;
+		case 3:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 5, 16 * 6, 16*2-1, 16);
+			break;
+		}
+	}
+	else if (mPx > 0.0f) {
+		int x = mX + 360;
+		x /= 20;
+		x %= 4;
+		switch (x) {
+		case 0:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16-1, 0);
+			break;
+		case 1:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16-1, 0);
+			break;
+		case 2:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16-1, 0);
+			break;
+		case 3:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 2, 16 * 3, 16-1, 0);
+			break;
+		}
+	}
+	else if (mPx < 0.0f) {
+		int x = mX + 360;
+		x /= 20;
+		x %= 4;
+		switch (x) {
+		case 0:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16*2-1, 16*1);
+			break;
+		case 1:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16*2-1, 16*1);
+			break;
+		case 2:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16*2-1, 16*1);
+			break;
+		case 3:
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 2, 16 * 3, 16*2-1, 16*1);
+			break;
+		}
 	}
 	else {
-		CRectangle::Render(mX, mY, mW, mH, mpTexture, 72.0f, 144.0f, 88.0f, 0.0f);
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16-1, 0);
 	}
 }
