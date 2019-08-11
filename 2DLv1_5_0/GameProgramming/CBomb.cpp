@@ -49,4 +49,20 @@ void CBomb::Collision(CCharacter* my, CCharacter* yc) {
 
 void CBomb::Render() {
 	CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16 * 4, 16 * 3);
+	int f = mFrame / 20;
+	f %= 4;
+	switch (f) {
+	case 0:
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16 * 4, 16 * 3);
+		break;
+	case 1:
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16 * 4, 16 * 3);
+		break;
+	case 2:
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 2, 16 * 3 - 1, 16 * 4, 16 * 3);
+		break;
+	case 3:
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16 * 4, 16 * 3);
+		break;
+	}
 }

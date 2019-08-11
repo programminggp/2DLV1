@@ -41,18 +41,6 @@ void CPlayer::Update() {
 	if (mInput.Key(' ') == 1 && mShootInterval == 0) {
 		mShootInterval = SHOOTINTERVAL;
 		new CBomb(mX, mY, 30, 30);
-		if (mPy > 0.0f) {
-			mY -= mH;
-		}
-		else if (mPy < 0.0f) {
-			mY += mH;
-		}
-		else if (mPx > 0.0f) {
-			mX -= mW;
-		}
-		else if (mPx < 0.0f) {
-			mX += mW;
-		}
 	}
 
 	mPx = mX;
