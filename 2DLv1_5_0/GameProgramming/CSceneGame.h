@@ -9,6 +9,8 @@
 #include "CInput.h"
 #include "CCamera.h"
 
+#define CHIPSIZE 16
+
 //ƒNƒ‰ƒX‚Ì’è‹`
 class CSceneGame: public CScene {
 	CCamera mCamera;

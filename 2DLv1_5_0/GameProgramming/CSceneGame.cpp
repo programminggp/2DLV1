@@ -7,6 +7,7 @@ std::vector<CCharacter*> CSceneGame::mCharacters;
 
 CTexture TexBomberman;
 
+
 //メソッド（プログラム）の定義
 
 CSceneGame::CSceneGame() 
@@ -26,29 +27,29 @@ CSceneGame::CSceneGame()
 	};
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 13; j++) {
-			int x = j * 60 - 360;
-			int y = (9 - i) * 60 - 270;
+			int x = j * CHIPSIZE * 2 + CHIPSIZE;
+			int y = (-i - 1) * CHIPSIZE * 2 + CHIPSIZE;
 			switch (map[i][j]) {
 			case 0:
 			case 2:
-				new CBackGround(x, y, 30.0f, 30.0f);
+				new CBackGround(x, y, CHIPSIZE, CHIPSIZE);
 				break;
 			case 1:
-				new CBlock(x, y, 30.0f, 30.0f);
+				new CBlock(x, y, CHIPSIZE, CHIPSIZE);
 				break;
 			}
 		}
 	}
 	for (int i = 0; i < 10; i++) {
 		for (int j = 0; j < 13; j++) {
-			int x = j * 60 - 360;
-			int y = (9 - i) * 60 - 270;
+			int x = j * CHIPSIZE * 2 + CHIPSIZE;
+			int y = (-i - 1) * CHIPSIZE * 2 + CHIPSIZE;
 			if (map[i][j] == 2) {
-				new CPlayer(x, y, 30.0f, 30.0f);
+				new CPlayer(x, y, CHIPSIZE, CHIPSIZE);
 			}
 		}
 	}
-	//	mCamera.Camera2D(0.0f, 0.0f, 400.0f, 300.0f);
+	mCamera.Camera2D(400.0f, -300.0f, 400.0f, 300.0f);
 }
 
 CSceneGame::~CSceneGame() {

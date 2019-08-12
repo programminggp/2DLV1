@@ -5,7 +5,7 @@
 #include "CSceneGame.h"
 #include "CBomb.h"
 
-#define VELOCITY 4
+#define VELOCITY 2
 #define SHOOTINTERVAL 30
 
 CPlayer* CPlayer::mpInstance = 0;;
@@ -40,7 +40,7 @@ void CPlayer::Update() {
 	//SpaceÉLÅ[Ç™âüÇ≥ÇÍÇƒÇ¢ÇÈÇ©îªíËÇ∑ÇÈ
 	if (mInput.Key(' ') == 1 && mShootInterval == 0) {
 		mShootInterval = SHOOTINTERVAL;
-		new CBomb(mX, mY, 30, 30);
+		new CBomb(mX, mY, CHIPSIZE, CHIPSIZE);
 	}
 
 	mPx = mX;
