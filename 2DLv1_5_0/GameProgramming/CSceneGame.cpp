@@ -13,7 +13,7 @@ CTexture TexBomberman;
 CSceneGame::CSceneGame() 
 {
 	TexBomberman.Load("Bomberman.tga");
-	int map[10][13] = {
+	int map[11][13] = {
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 		{ 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
@@ -23,9 +23,10 @@ CSceneGame::CSceneGame()
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
 		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 	};
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 11; i++) {
 		for (int j = 0; j < 13; j++) {
 			int x = j * CHIPSIZE * 2 + CHIPSIZE;
 			int y = (-i - 1) * CHIPSIZE * 2 + CHIPSIZE;
@@ -40,7 +41,7 @@ CSceneGame::CSceneGame()
 			}
 		}
 	}
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 11; i++) {
 		for (int j = 0; j < 13; j++) {
 			int x = j * CHIPSIZE * 2 + CHIPSIZE;
 			int y = (-i - 1) * CHIPSIZE * 2 + CHIPSIZE;

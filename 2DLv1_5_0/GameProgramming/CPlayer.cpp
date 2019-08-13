@@ -92,7 +92,7 @@ void CPlayer::Render() {
 	mPx -= mX;
 	mPy -= mY;
 	if (mPy > 0.0f) {
-		int y = mY + 270;
+		int y = -mY;
 		y /= 20;
 		y %= 4;
 		switch (y) {
@@ -111,7 +111,7 @@ void CPlayer::Render() {
 		}
 	}
 	else if (mPy < 0.0f) {
-		int y = mY + 270;
+		int y = -mY;
 		y /= 20;
 		y %= 4;
 		switch (y) {
@@ -130,7 +130,7 @@ void CPlayer::Render() {
 		}
 	}
 	else if (mPx > 0.0f) {
-		int x = mX + 360;
+		int x = mX;
 		x /= 20;
 		x %= 4;
 		switch (x) {
@@ -149,7 +149,7 @@ void CPlayer::Render() {
 		}
 	}
 	else if (mPx < 0.0f) {
-		int x = mX + 360;
+		int x = mX;
 		x /= 20;
 		x %= 4;
 		switch (x) {
