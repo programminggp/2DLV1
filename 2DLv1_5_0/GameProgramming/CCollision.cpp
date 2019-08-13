@@ -6,12 +6,12 @@ bool CCollision::Collision(const CCharacter *col1, const CCharacter *col2, float
 	float x = col1->mX - col2->mX;
 	if (x < 0.0f) x = -x;
 	x = x - col1->mW - col2->mW;
-	if (x > 0.0f) return false;
+	if (x >= 0.0f) return false;
 
 	float y = col1->mY - col2->mY;
 	if (y < 0.0f) y = -y;
 	y = y - col1->mH - col2->mH;
-	if (y > 0.0f) return false;
+	if (y >= 0.0f) return false;
 
 	//ˆÚ“®—Ê‚ð‹‚ß‚é
 	if (col2->mX < col1->mX) {
@@ -39,11 +39,11 @@ bool CCollision::Collision(const CCharacter *col1, const CCharacter *col2) {
 	float x = col1->mX - col2->mX;
 	if (x < 0.0f) x = -x;
 	x = x - col1->mW - col2->mW;
-	if (x > 0.0f) return false;
+	if (x >= 0.0f) return false;
 	float y = col1->mY - col2->mY;
 	if (y < 0.0f) y = -y;
 	y = y - col1->mH - col2->mH;
-	if (y > 0.0f) return false;
+	if (y >= 0.0f) return false;
 	return true;
 }
 

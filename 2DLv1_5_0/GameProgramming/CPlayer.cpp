@@ -77,11 +77,6 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 	float dx = 0.0f, dy = 0.0f;
 	if (CCollision::Collision(my, yc, &dx, &dy)) {
 		switch(yc->mTag) {
-		case EENEMYSHOT:
-		case EENEMY:
-			new CEffect(mX, mY, 128, 128);
-			CUI::mPlayerHit++;
-			break;
 		case EBLOCK:
 		case EBOMB:
 			mX += dx;

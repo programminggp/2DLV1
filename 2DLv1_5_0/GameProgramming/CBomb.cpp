@@ -2,15 +2,16 @@
 #include "CRectangle.h"
 #include "CCollision.h"
 #include "CSceneGame.h"
+#include "CExplosion.h"
 
-#define VELOCITY 4
-#define SHOOTINTERVAL 30
+#define BOMBTIME (60 * 3)
 
 CBomb::CBomb()
 	: mFrame(0)
 {
 	mpTexture = &TexBomberman;
-	mTag = EBOMB;
+//	mTag = EBOMB;
+	mTag = EBACKGROUND;
 	CSceneGame::mCharacters.push_back(this);
 }
 
@@ -23,7 +24,8 @@ CBomb::CBomb(float x, float y, float w, float h)
 
 void CBomb::Update() {
 	mFrame++;
-	if (mFrame > 60 * 4) {
+	if (mFrame > BOMBTIME) {
+		new CExplosion(mX, mY, mW, mH, 2);
 		mState = EDELETE;
 	}
 }
@@ -41,14 +43,20 @@ void CBomb::Collision(CCharacter* my, CCharacter* yc) {
 			mX += dx;
 			mY += dy;
 			break;
+		case EPLAYER:
+			break;
+		case EEXPLOSION:
+			new CExplosion(mX, mY, mW, mH, 2);
+			mState = EDELETE;
+			break;
 		default:
+			mTag = EBOMB;
 			break;
 		}
 	}
 }
 
 void CBomb::Render() {
-	CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16 * 4, 16 * 3);
 	int f = mFrame / 20;
 	f %= 4;
 	switch (f) {

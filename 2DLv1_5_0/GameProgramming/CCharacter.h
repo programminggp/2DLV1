@@ -19,6 +19,7 @@ public:
 		EENEMY,
 		EBLOCK,
 		EBOMB,
+		EEXPLOSION,//Explosion
 	};
 	ETag mTag;
 
