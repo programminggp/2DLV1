@@ -11,6 +11,8 @@ class CPlayer : public CCharacter {
 	int mShootInterval;
 	float mFx, mFy;
 	float mPx, mPy;
+	bool mIsAlive;
+	int mFrame;
 public:
 	static CPlayer* mpInstance;
 

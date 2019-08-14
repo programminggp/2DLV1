@@ -8,14 +8,11 @@
 
 #define VELOCITY 1
 
-#define ENEMYSHOOTTIME	60
-
 CEnemy::CEnemy()
-	: mVelocityX(-1)
-	, mVelocityY(0)
-	, mFire(ENEMYSHOOTTIME)
-	, mIsDead(false)
-	, mFrame(0)
+: mFx(-1)
+, mFy(0)
+, mIsAlive(true)
+, mFrame(0)
 {
 	mpTexture = &TexBomberman;
 	mTag = EENEMY;
@@ -30,34 +27,58 @@ CEnemy::CEnemy(float x, float y, float w, float h)
 
 
 void CEnemy::Update() {
-//	if (!mState) return;
-
-	if (CPlayer::mpInstance->mX < mX) {
-		mVelocityX = -1;
+	if (mIsAlive) {
+		if (CPlayer::mpInstance->mTag == EPLAYER) {
+			if (CPlayer::mpInstance->mX < mX) {
+				mFx = -1;
+			}
+			else if (CPlayer::mpInstance->mX > mX) {
+				mFx = 1;
+			}
+			if (CPlayer::mpInstance->mY < mY) {
+				mFy = -1;
+			}
+			else if (CPlayer::mpInstance->mY > mY) {
+				mFy = 1;
+			}
+		}
+		mX += mFx * VELOCITY;
+		mY += mFy * VELOCITY;
 	}
-	else if (CPlayer::mpInstance->mX > mX) {
-		mVelocityX = 1;
+	else {
+		if (mFrame > 60) {
+			mState = EDELETE;
+		}
 	}
-	if (CPlayer::mpInstance->mY < mY) {
-		mVelocityY = -1;
-	}
-	else if (CPlayer::mpInstance->mY > mY) {
-		mVelocityY = 1;
-	}
-
-	mX += mVelocityX * VELOCITY;
-	mY += mVelocityY * VELOCITY;
-
 	mFrame++;
 }
 
 void CEnemy::Render() {
 	if (!mState) return;
-	if (mVelocityX < 0) {
-		CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 16.0f, 256.0f, 241.0f);
+	if (mIsAlive) {
+		if (mFx < 0) {
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 16.0f, 256.0f, 241.0f);
+		}
+		else {
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 256.0f, 241.0f);
+		}
 	}
 	else {
-		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 256.0f, 241.0f);
+		if (mFrame / 10 == 0) {
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 6, 16 * 7, 256.0f, 241.0f);
+		}
+		else if (mFrame / 10 == 1) {
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 7, 16 * 8, 256.0f, 241.0f);
+		}
+		else if (mFrame / 10 == 2) {
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 8, 16 * 9, 256.0f, 241.0f);
+		}
+		else if (mFrame / 10 == 3) {
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 9, 16 * 10, 255.0f, 241.0f);
+		}
+		else if (mFrame / 10 == 4) {
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 10, 16 * 11, 255.0f, 241.0f);
+		}
 	}
 }
 
@@ -74,9 +95,12 @@ void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
 		case EBLOCK:
 			mX += dx;
 			mY += dy;
-			mVelocityX = -mVelocityX;
+			mFx = -mFx;
 			break;
 		case EEXPLOSION:
+			mIsAlive = false;
+			mTag = EBACKGROUND;
+			mFrame = 0;
 			break;
 		}
 	}

@@ -31,6 +31,10 @@ bool CCollision::Collision(const CCharacter *col1, const CCharacter *col2, float
 	else if (absx > absy) {
 		*my += y;
 	}
+	else {
+		*mx += x;
+//		*my += y;
+	}
 	return true;
 }
 

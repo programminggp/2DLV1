@@ -6,10 +6,10 @@
 
 class CEnemy : public CCharacter {
 	CTexture *mpTexture;
-	bool mIsDead;
+	bool mIsAlive;
 	int mFrame;
-	int mVelocityX;
-	int mVelocityY;
+	int mFx;
+	int mFy;
 public:
 	int mFire;
 
