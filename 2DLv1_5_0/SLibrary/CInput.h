@@ -1,5 +1,6 @@
 #ifndef CINPUT_H
 #define CINPUT_H
+#include "windows.h"
 /*
 CInputクラス
 入力クラスの定義

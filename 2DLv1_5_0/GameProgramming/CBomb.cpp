@@ -10,7 +10,6 @@ CBomb::CBomb()
 	: mFrame(0)
 {
 	mpTexture = &TexBomberman;
-//	mTag = EBOMB;
 	mTag = EBACKGROUND;
 	CSceneGame::mCharacters.push_back(this);
 }
@@ -32,7 +31,6 @@ void CBomb::Update() {
 
 void CBomb::Collision(CCharacter* my, CCharacter* yc) {
 	if (!mState) return;
-	if (!yc->mState) return;
 	float dx = 0.0f, dy = 0.0f;
 	if (CCollision::Collision(my, yc, &dx, &dy)) {
 		switch(yc->mTag) {

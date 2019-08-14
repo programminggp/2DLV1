@@ -104,6 +104,7 @@
     <ClCompile Include="CGround.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
+    <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -120,6 +121,7 @@
     <ClInclude Include="CGround.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CSceneGame.h" />
+    <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

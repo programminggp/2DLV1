@@ -5,8 +5,8 @@
 #include "CTexture.h"
 
 class CBlock : public CCharacter {
-public:
 	CTexture *mpTexture;
+public:
 	CBlock();
 	CBlock(float x, float y, float w, float h);
 	void Render();

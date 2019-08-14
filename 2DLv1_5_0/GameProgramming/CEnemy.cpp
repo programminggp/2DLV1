@@ -1,19 +1,25 @@
 #include "CEnemy.h"
+#include "CSceneGame.h"
 #include "CCollision.h"
 #include "CUI.h"
 #include "CEffect.h"
 #include "CPlayer.h"
 #include <math.h>
 
-#define VELOCITY 4
+#define VELOCITY 1
 
 #define ENEMYSHOOTTIME	60
 
 CEnemy::CEnemy()
-	: mVelocity(VELOCITY)
+	: mVelocityX(-1)
+	, mVelocityY(0)
 	, mFire(ENEMYSHOOTTIME)
+	, mIsDead(false)
+	, mFrame(0)
 {
+	mpTexture = &TexBomberman;
 	mTag = EENEMY;
+	CSceneGame::mCharacters.push_back(this);
 }
 
 CEnemy::CEnemy(float x, float y, float w, float h)
@@ -24,47 +30,54 @@ CEnemy::CEnemy(float x, float y, float w, float h)
 
 
 void CEnemy::Update() {
-	if (mState == ECOLLISION) mState = EDISABLED;
-	if (!mState) return;
+//	if (!mState) return;
 
-	if (mFire > 0) {
-		mFire--;
+	if (CPlayer::mpInstance->mX < mX) {
+		mVelocityX = -1;
 	}
-	if (mFire == 0) {
-		if (abs(CPlayer::mpInstance->mX - mX) < 40) {
-//			new CShootEnemy(mX, mY, 24, 64);
-			mFire = ENEMYSHOOTTIME;
-		}
+	else if (CPlayer::mpInstance->mX > mX) {
+		mVelocityX = 1;
+	}
+	if (CPlayer::mpInstance->mY < mY) {
+		mVelocityY = -1;
+	}
+	else if (CPlayer::mpInstance->mY > mY) {
+		mVelocityY = 1;
 	}
 
-	if (mX > 400) {
-		mVelocity *= -1;
-		mY -= mH * 2;
-	}
-	else if (mX < -400) {
-		mVelocity *= -1;
-		mY -= mH * 2;
-	}
-//	mX += mVelocity;
-	mY -= mVelocity;
-	if (mY < -300) {
-		mY = 250;
-	}
+	mX += mVelocityX * VELOCITY;
+	mY += mVelocityY * VELOCITY;
+
+	mFrame++;
 }
 
 void CEnemy::Render() {
 	if (!mState) return;
-	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 48.0f, 72.0f, 0.0f);
+	if (mVelocityX < 0) {
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 16.0f, 256.0f, 241.0f);
+	}
+	else {
+		CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 256.0f, 241.0f);
+	}
 }
 
 void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
 	if (!mState) return;
 	if (!yc->mState) return;
-	if (CCollision::Collision(this, yc)) {
-		if (yc->mTag == EPLAYERSHOT) {
-			new CEffect(mX, mY, 128, 128);
-			CUI::mEnemyHit++;
-			mState = ECOLLISION;
+	float dx = 0.0f, dy = 0.0f;
+	if (CCollision::Collision(mc, yc, &dx, &dy)) {
+		switch (yc->mTag) {
+		case EENEMY:
+			mX += dx;
+			mY += dy;
+			break;
+		case EBLOCK:
+			mX += dx;
+			mY += dy;
+			mVelocityX = -mVelocityX;
+			break;
+		case EEXPLOSION:
+			break;
 		}
 	}
 }

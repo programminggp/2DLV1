@@ -2,6 +2,7 @@
 #include "CUI.h"
 #include "CBlock.h"
 #include "CBackGround.h"
+#include "CEnemy.h"
 
 std::vector<CCharacter*> CSceneGame::mCharacters;
 
@@ -15,11 +16,11 @@ CSceneGame::CSceneGame()
 	TexBomberman.Load("Bomberman.tga");
 	int map[11][13] = {
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-		{ 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
 		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
-		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+		{ 1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
 		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
@@ -33,6 +34,7 @@ CSceneGame::CSceneGame()
 			switch (map[i][j]) {
 			case 0:
 			case 2:
+			case 3:
 				new CBackGround(x, y, CHIPSIZE, CHIPSIZE);
 				break;
 			case 1:
@@ -47,6 +49,9 @@ CSceneGame::CSceneGame()
 			int y = (-i - 1) * CHIPSIZE * 2 + CHIPSIZE;
 			if (map[i][j] == 2) {
 				new CPlayer(x, y, CHIPSIZE, CHIPSIZE);
+			}
+			if (map[i][j] == 3) {
+				new CEnemy(x, y, CHIPSIZE, CHIPSIZE);
 			}
 		}
 	}
