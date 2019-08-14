@@ -52,7 +52,7 @@ void CPlayer::Update() {
 		mFx = mFy = 0.0f;
 
 		//Sキーが押されているか判定する
-		if (mInput.Key('S') == 1) {
+		if (mInput.Key('S')) {
 			//四角形を下へ移動させる
 			mFy -= VELOCITY;
 		}
@@ -94,6 +94,7 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 			mX += dx;
 			mY += dy;
 			break;
+		case EEXPLOSION:
 		case EENEMY:
 			mTag = EBACKGROUND;
 			mIsAlive = false;
@@ -191,25 +192,25 @@ void CPlayer::Render() {
 	}
 	else {
 		if (mFrame / 10 == 0) {
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16*3, 16*2);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 0, 16 * 1, 16 * 3, 16 * 2);
 		}
 		else if (mFrame / 10 == 1) {
 			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 1, 16 * 2, 16 * 3, 16 * 2);
 		}
 		else if (mFrame / 10 == 2) {
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 2, 16 * 3, 16 * 3, 16 * 2);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 2, 16 * 3, 16 * 3, 16 * 2 + 1);
 		}
 		else if (mFrame / 10 == 3) {
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 16 * 3, 16 * 2);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 3, 16 * 4, 16 * 3, 16 * 2 + 1);
 		}
 		else if (mFrame / 10 == 4) {
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16 * 3, 16 * 2);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 4, 16 * 5, 16 * 3, 16 * 2 + 1);
 		}
 		else if (mFrame / 10 == 5) {
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 5, 16 * 6, 16 * 3, 16 * 2);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 5, 16 * 6, 16 * 3, 16 * 2 + 1);
 		}
 		else if (mFrame / 10 == 6) {
-			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 6, 16 * 7, 16 * 3, 16 * 2);
+			CRectangle::Render(mX, mY, mW, mH, mpTexture, 16 * 6, 16 * 7, 16 * 3, 16 * 2 + 1);
 		}
 	}
 }
