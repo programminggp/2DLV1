@@ -79,7 +79,7 @@ CExplosion::CExplosion(float x, float y, float w, float h, int count, ETagExp ta
 }
 
 void CExplosion::Update() {
-	if (mFrame == 1 && mCount > 0) {
+	if (mFrame == 2 && mCount > 0) {
 		switch (mTagExp) {
 		case EUP:
 			new CExplosion(mX, mY + CHIPSIZE * 2, mW, mH, mCount - 1, EUP);
