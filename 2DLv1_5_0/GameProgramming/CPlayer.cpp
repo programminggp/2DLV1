@@ -4,9 +4,7 @@
 #include "CEffect.h"
 #include "CSceneGame.h"
 #include "CBomb.h"
-
-#define VELOCITY 2
-#define SHOOTINTERVAL 30
+#include "Define.h"
 
 CPlayer* CPlayer::mpInstance = 0;;
 
@@ -41,7 +39,8 @@ void CPlayer::Update() {
 		}
 		else {
 			//Spaceキーが押されているか判定する
-			if (mInput.Key(' ') == 1) {
+			//4　爆弾配置
+			if (mInput.Key(VK_SPACE) == 1) {
 				mShootInterval = SHOOTINTERVAL;
 				new CBomb(mX, mY, CHIPSIZE, CHIPSIZE);
 			}
@@ -52,24 +51,25 @@ void CPlayer::Update() {
 		mFx = mFy = 0.0f;
 
 		//Sキーが押されているか判定する
-		if (mInput.Key('S')) {
+		if (mInput.Key('S') == 1) {
 			//四角形を下へ移動させる
-			mFy -= VELOCITY;
+			mFy -= VELOCITY_P;
 		}
+		//3 プレイヤー移動
 		//Wキーが押されているか判定する
 		if (mInput.Key('W') == 1) {
 			//四角形を上へ移動させる
-			mFy += VELOCITY;
+			mFy += VELOCITY_P;
 		}
 		//Aキーが押されているか判定する
 		if (mInput.Key('A') == 1) {
 			//四角形を左へ移動させる
-			mFx -= VELOCITY;
+			mFx -= VELOCITY_P;
 		}
 		//Dキーが押されているか判定する
 		if (mInput.Key('D') == 1) {
 			//四角形を右へ移動させる
-			mFx += VELOCITY;
+			mFx += VELOCITY_P;
 		}
 		mX += mFx;
 		mY += mFy;
@@ -94,6 +94,7 @@ void CPlayer::Collision(CCharacter* my, CCharacter* yc) {
 			mX += dx;
 			mY += dy;
 			break;
+		//9　敵爆発衝突
 		case EEXPLOSION:
 		case EENEMY:
 			mTag = EBACKGROUND;

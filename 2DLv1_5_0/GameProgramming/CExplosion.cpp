@@ -2,6 +2,7 @@
 #include "CRectangle.h"
 #include "CCollision.h"
 #include "CSceneGame.h"
+#include "Define.h"
 
 #define BOMBTIME 60 * 0.5f
 

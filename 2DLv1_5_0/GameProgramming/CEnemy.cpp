@@ -1,12 +1,9 @@
 #include "CEnemy.h"
 #include "CSceneGame.h"
 #include "CCollision.h"
-#include "CUI.h"
-#include "CEffect.h"
+#include "CRectangle.h"
 #include "CPlayer.h"
-#include <math.h>
-
-#define VELOCITY 1
+#include "Define.h"
 
 CEnemy::CEnemy()
 : mFx(-1)
@@ -42,8 +39,8 @@ void CEnemy::Update() {
 				mFy = 1;
 			}
 		}
-		mX += mFx * VELOCITY;
-		mY += mFy * VELOCITY;
+		mX += mFx * VELOCITY_E;
+		mY += mFy * VELOCITY_E;
 	}
 	else {
 		if (mFrame > 60) {
@@ -97,6 +94,7 @@ void CEnemy::Collision(CCharacter* mc, CCharacter* yc) {
 			mY += dy;
 			mFx = -mFx;
 			break;
+		//8Å@îöî≠è’ìÀ
 		case EEXPLOSION:
 			mIsAlive = false;
 			mTag = EBACKGROUND;

@@ -1,8 +1,9 @@
 #include "CSceneGame.h"
-#include "CUI.h"
 #include "CBlock.h"
 #include "CBackGround.h"
 #include "CEnemy.h"
+#include "CPlayer.h"
+#include "Define.h"
 
 std::vector<CCharacter*> CSceneGame::mCharacters;
 
@@ -11,10 +12,13 @@ CTexture TexBomberman;
 
 //メソッド（プログラム）の定義
 
+#define MAP_ROW		11	//マップの行数
+#define MAP_COL		13	//マップの列数
+
 CSceneGame::CSceneGame() 
 {
 	TexBomberman.Load("Bomberman.tga");
-	int map[11][13] = {
+	int map[MAP_ROW][MAP_COL] = {
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 		{ 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1 },
 		{ 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1 },
@@ -27,29 +31,31 @@ CSceneGame::CSceneGame()
 		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
 	};
-	for (int i = 0; i < 11; i++) {
-		for (int j = 0; j < 13; j++) {
+	for (int i = 0; i < MAP_ROW; i++) {
+		for (int j = 0; j < MAP_COL; j++) {
 			int x = j * CHIPSIZE * 2 + CHIPSIZE;
 			int y = (-i - 1) * CHIPSIZE * 2 + CHIPSIZE;
+			//マップの作成
 			switch (map[i][j]) {
-			case 0:
-			case 2:
-			case 3:
-				new CBackGround(x, y, CHIPSIZE, CHIPSIZE);
-				break;
-			case 1:
+			case 1:		// 1の時はブロックを配置
+				//ブロックの配置
 				new CBlock(x, y, CHIPSIZE, CHIPSIZE);
 				break;
+			//1　マップの作成
+			default:
+				new CBackGround(x, y, CHIPSIZE, CHIPSIZE);
 			}
 		}
 	}
-	for (int i = 0; i < 11; i++) {
-		for (int j = 0; j < 13; j++) {
+	for (int i = 0; i < MAP_ROW; i++) {
+		for (int j = 0; j < MAP_COL; j++) {
 			int x = j * CHIPSIZE * 2 + CHIPSIZE;
 			int y = (-i - 1) * CHIPSIZE * 2 + CHIPSIZE;
+			//2　プレイヤーの配置
 			if (map[i][j] == 2) {
 				new CPlayer(x, y, CHIPSIZE, CHIPSIZE);
 			}
+			//7　敵の配置
 			if (map[i][j] == 3) {
 				new CEnemy(x, y, CHIPSIZE, CHIPSIZE);
 			}
@@ -69,7 +75,6 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
-	CUI::mFont.Set("Font.tga", 1, 64, 16, 33);
 }
 
 void CSceneGame::Update() {
@@ -102,6 +107,4 @@ void CSceneGame::Render() {
 	for (int i = 0; i < mCharacters.size(); i++) {
 		mCharacters[i]->Render();
 	}
-
-	CUI::Render();
 }

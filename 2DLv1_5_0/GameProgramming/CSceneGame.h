@@ -1,15 +1,12 @@
 #ifndef CSCENEGAME_H
 #define CSCENEGAME_H
 #include "CScene.h"
-#include "CPlayer.h"
-#include "CBackGround.h"
-#include "CTexture.h"
-#include "CEnemy.h"
 #include <vector>
 #include "CInput.h"
 #include "CCamera.h"
+#include "CCharacter.h"
+#include "CTexture.h"
 
-#define CHIPSIZE 16
 
 //ƒNƒ‰ƒX‚Ì’è‹`
 class CSceneGame: public CScene {

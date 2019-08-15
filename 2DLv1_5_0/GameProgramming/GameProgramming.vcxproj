@@ -123,6 +123,7 @@
     <ClInclude Include="CSceneGame.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CUI.h" />
+    <ClInclude Include="Define.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

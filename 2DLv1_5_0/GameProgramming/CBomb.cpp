@@ -3,8 +3,7 @@
 #include "CCollision.h"
 #include "CSceneGame.h"
 #include "CExplosion.h"
-
-#define BOMBTIME (60 * 3)
+#include "Define.h"
 
 CBomb::CBomb()
 	: mFrame(0)
@@ -23,8 +22,9 @@ CBomb::CBomb(float x, float y, float w, float h)
 
 void CBomb::Update() {
 	mFrame++;
+	//5Å@îöíeîöîj
 	if (mFrame > BOMBTIME) {
-		new CExplosion(mX, mY, mW, mH, 2);
+		new CExplosion(mX, mY, mW, mH, BOMBSIZE);
 		mState = EDELETE;
 	}
 }
@@ -43,8 +43,9 @@ void CBomb::Collision(CCharacter* my, CCharacter* yc) {
 			break;
 		case EPLAYER:
 			break;
+		//6Å@îöî≠è’ìÀ
 		case EEXPLOSION:
-			new CExplosion(mX, mY, mW, mH, 2);
+			new CExplosion(mX, mY, mW, mH, BOMBSIZE);
 			mState = EDELETE;
 			break;
 		default:
