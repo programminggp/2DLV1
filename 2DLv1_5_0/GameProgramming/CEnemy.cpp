@@ -32,7 +32,7 @@ void CEnemy::Update() {
 			else if (CPlayer::mpInstance->mX > mX) {
 				mFx = 1;
 			}
-			if (CPlayer::mpInstance->mY < mY) {
+			else if (CPlayer::mpInstance->mY < mY) {
 				mFy = -1;
 			}
 			else if (CPlayer::mpInstance->mY > mY) {

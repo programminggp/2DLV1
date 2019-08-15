@@ -6,7 +6,7 @@
 #include "CBomb.h"
 #include "Define.h"
 
-CPlayer* CPlayer::mpInstance = 0;;
+CPlayer* CPlayer::mpInstance = 0;
 
 CPlayer::CPlayer()
 	: mShootInterval(0)

@@ -21,6 +21,9 @@ CBomb::CBomb(float x, float y, float w, float h)
 }
 
 void CBomb::Update() {
+	if (mTag == EPLAYER) {
+		mTag = EBACKGROUND;
+	}
 	mFrame++;
 	//5Å@îöíeîöîj
 	if (mFrame > BOMBTIME) {
@@ -42,20 +45,23 @@ void CBomb::Collision(CCharacter* my, CCharacter* yc) {
 			mY += dy;
 			break;
 		case EPLAYER:
+			if (mTag == EBACKGROUND) {
+				mTag = EPLAYER;
+			}
 			break;
 		//6Å@îöî≠è’ìÀ
 		case EEXPLOSION:
 			new CExplosion(mX, mY, mW, mH, BOMBSIZE);
 			mState = EDELETE;
 			break;
-		default:
-			mTag = EBOMB;
-			break;
 		}
 	}
 }
 
 void CBomb::Render() {
+	if (mTag == EBACKGROUND) {
+		mTag = EBOMB;
+	}
 	int f = mFrame / 20;
 	f %= 4;
 	switch (f) {
