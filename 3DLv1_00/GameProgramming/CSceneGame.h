@@ -5,6 +5,7 @@
 #include "CTriangle.h"
 #include "CRectangle.h"
 #include "CMatrix.h"
+#include "CBox.h"
 
 /*
 ゲームのシーン
@@ -20,6 +21,8 @@ public:
 	CRectangle mRectangle;
 	float mDegree;
 	CMatrix mMatrix;
+
+	CBox mBox;
 
 	//初期化処理のオーバーライド
 	void Init();

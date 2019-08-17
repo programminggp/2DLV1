@@ -15,6 +15,8 @@ void CSceneGame::Init() {
 	mRectangle.SetVertex(0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 1.0f, -1.0f, 0.0f, 1.0f, -1.0f);
 	mRectangle.SetNormal(0.0f, 1.0f, 0.0f);
 	mDegree = 0.0f;
+//	mBox.Set(0.0f, -2.0f, 0.0f, 1.0f, 1.0f, 1.0f);
+	mBox.Set(0.0f, -1.0f, 0.0f, 0.7f, 0.2f, 1.0f);
 }
 
 void CSceneGame::Update() {
@@ -28,6 +30,7 @@ void CSceneGame::Update() {
 	mTriangle[0].Render(mMatrix);
 	mTriangle[1].Render(mMatrix);
 	mRectangle.Render(mMatrix);
+	mBox.Render(mMatrix);
 }
 
 //デストラクタ
