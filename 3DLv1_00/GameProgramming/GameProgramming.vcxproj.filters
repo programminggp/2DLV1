@@ -42,6 +42,12 @@
     <ClCompile Include="CMatrix.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="CModel.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaterial.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Update.h">
@@ -72,6 +78,12 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CMatrix.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaterial.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
