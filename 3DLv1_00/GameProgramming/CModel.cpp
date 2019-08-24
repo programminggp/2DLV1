@@ -4,10 +4,6 @@
 #include "CMatrix.h"
 #include "glut.h"
 
-void Print(CVector &v) {
-	printf("%10f, %10f, %10f\n", v.mX, v.mY, v.mZ);
-}
-
 CModel::CModel()
 : mpVertex(0)
 , mpNormal(0)
@@ -211,5 +207,4 @@ void CModel::Render(const CMatrix &matrix) {
 	glDisableClientState(GL_NORMAL_ARRAY);
 
 	return;
-
 }
