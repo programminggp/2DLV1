@@ -116,6 +116,8 @@ int main(void)
 	//固定シェーダー用
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_NORMALIZE);
+
 	//メッシュシェーダー用
 //	CLight::getLight(0)->setDir(CVector3(0, -1, 1).GetNormalize());
 //	CLight::getLight(0)->setColor(CVector3(0.9f, 0.9f, 0.9f), CVector3(1.0f, 1.0f, 1.0f));

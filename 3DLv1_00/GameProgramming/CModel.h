@@ -10,6 +10,10 @@ public:
 	std::vector<CTriangle*> mTriangles;
 	std::vector<CMaterial*> mMaterials;
 
+	float *mpVertex;
+	float *mpNormal;
+
+	CModel();
 	~CModel();
 
 	void Load(char *obj, char *mtl);
