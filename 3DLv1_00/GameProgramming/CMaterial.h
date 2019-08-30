@@ -1,6 +1,8 @@
 #ifndef CMATERIAL
 #define CMATERIAL
 
+#include "CTexture.h"
+
 class CMaterial {
 public:
 	char *mpName;
@@ -11,9 +13,15 @@ public:
 	float mShinness;
 	int mVertexNo;
 
+	CTexture mTexture;
+
 	CMaterial();
 	~CMaterial();
 	void SetMaterial();
+	void UnSetMaterial();
+
+	void SetTexture(char *file);
+
 };
 
 #endif

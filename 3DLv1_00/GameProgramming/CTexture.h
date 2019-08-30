@@ -57,6 +57,16 @@ public:
 	画像ファイルの読み込み（テクスチャファイルの読み込み）
 	*/
 	void Load(const char* filename) {
+		//テクスチャデータがあれば削除する
+		if (mId) {
+			//テクスチャデータの削除
+			glDeleteTextures(1, &mId);
+			mId = 0;
+		}
+		if (mpName) {
+			delete[] mpName;
+			mpName = 0;
+		}
 		//画像データ
 		unsigned char* data;
 		//ファイルポインタの作成

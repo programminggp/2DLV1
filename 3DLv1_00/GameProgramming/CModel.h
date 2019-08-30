@@ -12,6 +12,7 @@ public:
 
 	float *mpVertex;
 	float *mpNormal;
+	float *mpTextureCoords;
 
 	CModel();
 	~CModel();

@@ -7,6 +7,7 @@
 CModel::CModel()
 : mpVertex(0)
 , mpNormal(0)
+, mpTextureCoords(0)
 {}
 
 CModel::~CModel() {
@@ -21,6 +22,9 @@ CModel::~CModel() {
 	}
 	if (mpNormal) {
 		delete[] mpNormal;
+	}
+	if (mpTextureCoords) {
+		delete[] mpTextureCoords;
 	}
 }
 
@@ -74,6 +78,9 @@ void CModel::Load(char *obj, char *mtl) {
 			material->mSpecular[3] = atof(buf[1]);
 			material->mEmission[3] = atof(buf[1]);
 		}
+		else if (strcmp(buf[0], "map_Kd") == 0) {
+			material->SetTexture(buf[1]);
+		}
 	}
 	//ダミーのマテリアルの追加
 	material = new CMaterial();
@@ -88,8 +95,10 @@ void CModel::Load(char *obj, char *mtl) {
 	}
 	std::vector<CVector*> vertexes;
 	std::vector<CVector*> normals;
+	std::vector<CVector*> texcoords;
 
 	int materiaId = 0;
+	int vt = 0;
 	while (fgets(buffer, sizeof(buffer), fp) != NULL) {
 		sscanf(buffer, "%s %s %s %s\n", buf[0], buf[1], buf[2], buf[3]);
 		if (strcmp(buf[0], "v") == 0) {
@@ -98,28 +107,61 @@ void CModel::Load(char *obj, char *mtl) {
 		else if (strcmp(buf[0], "vn") == 0) {
 			normals.push_back(new CVector(atof(buf[1]), atof(buf[2]), atof(buf[3])));
 		}
+		else if (strcmp(buf[0], "vt") == 0) {
+			texcoords.push_back(new CVector(atof(buf[1]), atof(buf[2]), 0.0f));
+		}
 		else if (strcmp(buf[0], "f") == 0) {
-			int v[3], n[3];
-			sscanf(buf[1], "%d//%d", &v[0], &n[0]);
-			sscanf(buf[2], "%d//%d", &v[1], &n[1]);
-			sscanf(buf[3], "%d//%d", &v[2], &n[2]);
-			CTriangle *triangle = new CTriangle(*vertexes[v[0] - 1], *vertexes[v[1] - 1], *vertexes[v[2] - 1]);
-			triangle->mNormal[0].mX = normals[n[0] - 1]->mX;
-			triangle->mNormal[0].mY = normals[n[0] - 1]->mY;
-			triangle->mNormal[0].mZ = normals[n[0] - 1]->mZ;
-			triangle->mNormal[1].mX = normals[n[1] - 1]->mX;
-			triangle->mNormal[1].mY = normals[n[1] - 1]->mY;
-			triangle->mNormal[1].mZ = normals[n[1] - 1]->mZ;
-			triangle->mNormal[2].mX = normals[n[2] - 1]->mX;
-			triangle->mNormal[2].mY = normals[n[2] - 1]->mY;
-			triangle->mNormal[2].mZ = normals[n[2] - 1]->mZ;
-			triangle->mMaterialId = materiaId;
-			mTriangles.push_back(triangle);
+			int v[3], n[3], t[3];
+			if (vt) {
+				sscanf(buf[1], "%d/%d/%d", &v[0], &t[0], &n[0]);
+				sscanf(buf[2], "%d/%d/%d", &v[1], &t[1], &n[1]);
+				sscanf(buf[3], "%d/%d/%d", &v[2], &t[2], &n[2]);
+				CTriangle *triangle = new CTriangle(*vertexes[v[0] - 1], *vertexes[v[1] - 1], *vertexes[v[2] - 1]);
+				triangle->mNormal[0].mX = normals[n[0] - 1]->mX;
+				triangle->mNormal[0].mY = normals[n[0] - 1]->mY;
+				triangle->mNormal[0].mZ = normals[n[0] - 1]->mZ;
+				triangle->mNormal[1].mX = normals[n[1] - 1]->mX;
+				triangle->mNormal[1].mY = normals[n[1] - 1]->mY;
+				triangle->mNormal[1].mZ = normals[n[1] - 1]->mZ;
+				triangle->mNormal[2].mX = normals[n[2] - 1]->mX;
+				triangle->mNormal[2].mY = normals[n[2] - 1]->mY;
+				triangle->mNormal[2].mZ = normals[n[2] - 1]->mZ;
+				triangle->mMaterialId = materiaId;
+				triangle->mUv[0].mX = texcoords[t[0] - 1]->mX;
+				triangle->mUv[0].mY = texcoords[t[0] - 1]->mY;
+				triangle->mUv[0].mZ = texcoords[t[0] - 1]->mZ;
+				triangle->mUv[1].mX = texcoords[t[1] - 1]->mX;
+				triangle->mUv[1].mY = texcoords[t[1] - 1]->mY;
+				triangle->mUv[1].mZ = texcoords[t[1] - 1]->mZ;
+				triangle->mUv[2].mX = texcoords[t[2] - 1]->mX;
+				triangle->mUv[2].mY = texcoords[t[2] - 1]->mY;
+				triangle->mUv[2].mZ = texcoords[t[2] - 1]->mZ;
+				mTriangles.push_back(triangle);
+			}
+			else {
+				sscanf(buf[1], "%d//%d", &v[0], &n[0]);
+				sscanf(buf[2], "%d//%d", &v[1], &n[1]);
+				sscanf(buf[3], "%d//%d", &v[2], &n[2]);
+				CTriangle *triangle = new CTriangle(*vertexes[v[0] - 1], *vertexes[v[1] - 1], *vertexes[v[2] - 1]);
+				triangle->mNormal[0].mX = normals[n[0] - 1]->mX;
+				triangle->mNormal[0].mY = normals[n[0] - 1]->mY;
+				triangle->mNormal[0].mZ = normals[n[0] - 1]->mZ;
+				triangle->mNormal[1].mX = normals[n[1] - 1]->mX;
+				triangle->mNormal[1].mY = normals[n[1] - 1]->mY;
+				triangle->mNormal[1].mZ = normals[n[1] - 1]->mZ;
+				triangle->mNormal[2].mX = normals[n[2] - 1]->mX;
+				triangle->mNormal[2].mY = normals[n[2] - 1]->mY;
+				triangle->mNormal[2].mZ = normals[n[2] - 1]->mZ;
+				triangle->mMaterialId = materiaId;
+				mTriangles.push_back(triangle);
+			}
 		}
 		else if (strcmp(buf[0], "usemtl") == 0) {
+			vt = 0;
 			//ダミーマテリアルの前まで検索
 			for (materiaId = 0; materiaId < mMaterials.size() - 1; materiaId++) {
 				if (strcmp(mMaterials[materiaId]->mpName, buf[1]) == 0) {
+					vt = mMaterials[materiaId]->mTexture.mId;
 					break;
 				}
 			}
@@ -135,9 +177,15 @@ void CModel::Load(char *obj, char *mtl) {
 		delete normals[i];
 	}
 
+	for (int i = 0; i < texcoords.size(); i++) {
+		delete texcoords[i];
+	}
+
 	mpVertex = new float[mTriangles.size() * 9];
 	mpNormal = new float[mTriangles.size() * 9];
-	int v = 0;
+	mpTextureCoords = new float[mTriangles.size() * 6];
+
+	int v = 0, t = 0;
 	for (int m = 0; m < mMaterials.size(); m++) {
 		for (int i = 0; i < mTriangles.size(); i++) {
 			if (mTriangles[i]->mMaterialId == m) {
@@ -160,6 +208,13 @@ void CModel::Load(char *obj, char *mtl) {
 				mpNormal[v++] = mTriangles[i]->mNormal[2].mX;
 				mpNormal[v++] = mTriangles[i]->mNormal[2].mY;
 				mpNormal[v++] = mTriangles[i]->mNormal[2].mZ;
+
+				mpTextureCoords[t++] = mTriangles[i]->mUv[0].mX;
+				mpTextureCoords[t++] = mTriangles[i]->mUv[0].mY;
+				mpTextureCoords[t++] = mTriangles[i]->mUv[1].mX;
+				mpTextureCoords[t++] = mTriangles[i]->mUv[1].mY;
+				mpTextureCoords[t++] = mTriangles[i]->mUv[2].mX;
+				mpTextureCoords[t++] = mTriangles[i]->mUv[2].mY;
 			}
 		}
 		mMaterials[m]->mVertexNo = v / 3;
@@ -187,6 +242,7 @@ void CModel::Render(const CMatrix &matrix) {
 	/* 頂点データ，法線データの場所を指定する */
 	glVertexPointer(3, GL_FLOAT, 0, mpVertex);
 	glNormalPointer(GL_FLOAT, 0, mpNormal);
+	glTexCoordPointer(2, GL_FLOAT, 0, mpTextureCoords);
 
 	glPushMatrix();
 	glMultMatrixf(&matrix.mM[0][0]);
@@ -197,6 +253,7 @@ void CModel::Render(const CMatrix &matrix) {
 		/* 頂点配列の図形を描画する */
 		mMaterials[i]->SetMaterial();
 		glDrawArrays(GL_TRIANGLES, first, count);
+		mMaterials[i]->UnSetMaterial();
 		first += count;
 	}
 

@@ -6,6 +6,7 @@ class CTriangle {
 public:
 	CVector mV[3];
 	CVector mNormal[3];
+	CVector mUv[3];
 	int mMaterialId;
 	CTriangle();
 	CTriangle(CVector v0, CVector v1, CVector v2);

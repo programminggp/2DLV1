@@ -5,7 +5,7 @@
 //CSceneGame::CSceneGame() {}
 
 void CSceneGame::Init() {
-	mCameraEye.Set(1.0f, 3.0f, 5.0f);
+	mCameraEye.Set(1.0f, 3.0f, 25.0f);
 	mCameraCenter.Set(0.0f, 0.0f, 0.0f);
 	mCameraUp.Set(0.0f, 1.0f, 0.0f);
 	mTriangle[0].SetVertex(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
@@ -17,8 +17,9 @@ void CSceneGame::Init() {
 	mDegree = 0.0f;
 //	mBox.Set(0.0f, -2.0f, 0.0f, 1.0f, 1.0f, 1.0f);
 	mBox.Set(0.0f, -1.0f, 0.0f, 0.7f, 0.2f, 1.0f);
-//	mModel.Load("f14.obj", "f14.mtl");
-	mModel.Load("mini.obj", "mini.mtl");
+	mModel.Load("f14.obj", "f14.mtl");
+//	mModel.Load("mini.obj", "mini.mtl");
+	mSky.Load("sky.obj", "sky.mtl");
 }
 
 void CSceneGame::Update() {
@@ -37,6 +38,7 @@ void CSceneGame::Update() {
 	mModel.Render(mMatrix);
 	mMatrix.mM[3][1] = 0.0f;
 	mModel.Render(mMatrix);
+	mSky.Render(CMatrix());
 }
 
 //デストラクタ

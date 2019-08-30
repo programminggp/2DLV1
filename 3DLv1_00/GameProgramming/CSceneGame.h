@@ -27,6 +27,8 @@ public:
 
 	CModel mModel;
 
+	CModel mSky;
+
 	//初期化処理のオーバーライド
 	void Init();
 	//更新処理のオーバーライド

@@ -20,9 +20,34 @@ void CMaterial::SetMaterial() {
 //	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mSpecular);
 //	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, mEmission);
 //	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mShinness);
-	glMaterialfv(GL_FRONT, GL_AMBIENT, mAmbient);
+//	glMaterialfv(GL_FRONT, GL_AMBIENT, mAmbient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
-	//glMaterialfv(GL_FRONT, GL_SPECULAR, mSpecular);
-	//glMaterialfv(GL_FRONT, GL_EMISSION, mEmission);
-	//glMaterialf(GL_FRONT, GL_SHININESS, mShinness);
+//	glMaterialfv(GL_FRONT, GL_SPECULAR, mSpecular);
+//	glMaterialfv(GL_FRONT, GL_EMISSION, mEmission);
+//	glMaterialf(GL_FRONT, GL_SHININESS, mShinness);
+	if (mTexture.mId) {
+		//テクスチャを使用可能にする
+		glEnable(GL_TEXTURE_2D);
+		//テクスチャをバインドする
+		glBindTexture(GL_TEXTURE_2D, mTexture.mId);
+		//テクスチャマッピングのデータを有効にする
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	}
 }
+
+void CMaterial::UnSetMaterial() {
+	if (mTexture.mId) {
+		//テクスチャのバインドを解く
+		glBindTexture(GL_TEXTURE_2D, 0);
+		//テクスチャを無効にする
+		glDisable(GL_TEXTURE_2D);
+		//テクスチャマッピングのデータを無効にする
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	}
+}
+
+void CMaterial::SetTexture(char *file) {
+	mTexture.Load(file);
+}
+
+
