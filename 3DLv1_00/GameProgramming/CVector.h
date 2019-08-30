@@ -9,7 +9,7 @@ public:
 	CVector();
 	CVector(float x, float y, float z);
 	void Set(float x, float y, float z);
-	CVector operator * (const CMatrix &m) const;
+	CVector operator*(const CMatrix &m);
 };
 
 #endif

@@ -5,7 +5,7 @@
 //CSceneGame::CSceneGame() {}
 
 void CSceneGame::Init() {
-	mCameraEye.Set(1.0f, 3.0f, 25.0f);
+	mCameraEye.Set(1.0f, 3.0f, 5.0f);
 	mCameraCenter.Set(0.0f, 0.0f, 0.0f);
 	mCameraUp.Set(0.0f, 1.0f, 0.0f);
 	mTriangle[0].SetVertex(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
@@ -30,14 +30,22 @@ void CSceneGame::Update() {
 				mCameraUp.mX, mCameraUp.mY, mCameraUp.mZ);
 	float mDiffuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
-	mTriangle[0].Render(mMatrix);
-	mTriangle[1].Render(mMatrix);
-	mRectangle.Render(mMatrix);
-	mBox.Render(mMatrix);
-	mMatrix.mM[3][1] = -5.0f;
+//	mTriangle[0].Render(mMatrix);
+//	mTriangle[1].Render(mMatrix);
+//	mRectangle.Render(mMatrix);
+//	mBox.Render(mMatrix);
+
+	CMatrix scale, rotate, translate;
+	scale.Scale(0.2f, 0.2f, 0.2f);
+	rotate.RotateY(mDegree);
+	translate.Translate(2.0f, 3.0f, -4.0f);
+
+	mMatrix = scale * rotate * translate;
 	mModel.Render(mMatrix);
-	mMatrix.mM[3][1] = 0.0f;
+
+	mMatrix = scale * translate * rotate;
 	mModel.Render(mMatrix);
+
 	mSky.Render(CMatrix());
 }
 

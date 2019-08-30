@@ -15,7 +15,7 @@ void CVector::Set(float x, float y, float z) {
 	mZ = z;
 }
 
-CVector CVector::operator * (const CMatrix &m) const {
+CVector CVector::operator*(const CMatrix &m) {
 	CVector v;
 
 	v.mX = mX * m.mM[0][0] + mY * m.mM[1][0] + mZ * m.mM[2][0] + m.mM[3][0];
