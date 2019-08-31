@@ -26,9 +26,13 @@ void CSceneGame::Init() {
 void CSceneGame::Update() {
 	mDegree++;
 	mMatrix.RotateY(mDegree);
-	gluLookAt(	mCameraEye.mX, mCameraEye.mY, mCameraEye.mZ, 
-				mCameraCenter.mX, mCameraCenter.mY, mCameraCenter.mZ,
-				mCameraUp.mX, mCameraUp.mY, mCameraUp.mZ);
+	//gluLookAt(	mCameraEye.mX, mCameraEye.mY, mCameraEye.mZ, 
+	//			mCameraCenter.mX, mCameraCenter.mY, mCameraCenter.mZ,
+	//			mCameraUp.mX, mCameraUp.mY, mCameraUp.mZ);
+
+	mCamera.mEye = mCamera.mEye * CMatrix().RotateY(1);
+	mCamera.Render();
+
 	float mDiffuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
 //	mTriangle[0].Render(mMatrix);
