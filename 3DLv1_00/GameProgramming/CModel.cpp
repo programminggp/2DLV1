@@ -225,19 +225,18 @@ void CModel::Load(char *obj, char *mtl) {
 }
 
 void CModel::Render(const CMatrix &matrix) {
-	//glPushMatrix();
-	//glMultMatrixf(&matrix.mM[0][0]);
-	//for (int i = 0; i < mTriangles.size(); i++) {
-	//	mMaterials[mTriangles[i]->mMaterialId]->SetMaterial();
-	//	mTriangles[i]->Render(matrix);
-	//	mTriangles[i]->Render();
-	//}
-	//glPopMatrix();
-	//return;
+	for (int i = 0; i < mTriangles.size(); i++) {
+		mMaterials[mTriangles[i]->mMaterialId]->SetMaterial();
+		mTriangles[i]->Render(matrix);
+		mMaterials[mTriangles[i]->mMaterialId]->UnSetMaterial();
+	}
+	return;
 
 	/* 頂点データ，法線データの配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
+	//テクスチャマッピングのデータを有効にする
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	/* 頂点データ，法線データの場所を指定する */
 	glVertexPointer(3, GL_FLOAT, 0, mpVertex);
@@ -262,6 +261,8 @@ void CModel::Render(const CMatrix &matrix) {
 	/* 頂点データ，法線データの配列を無効にする */
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	//テクスチャマッピングのデータを無効にする
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	return;
 }

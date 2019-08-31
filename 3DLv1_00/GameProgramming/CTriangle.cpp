@@ -50,23 +50,29 @@ void CTriangle::Render() {
 void CTriangle::Render(const CMatrix &matrix) {
 	CMatrix m = matrix;
 	CVector V[3], Normal[3];
+
 	V[0] = mV[0] * m;
 	V[1] = mV[1] * m;
 	V[2] = mV[2] * m;
+
 	m.mM[3][0] = m.mM[3][1] = m.mM[3][2] = 0.0f;
 	Normal[0] = mNormal[0] * m;
 	Normal[1] = mNormal[1] * m;
 	Normal[2] = mNormal[2] * m;
-//	glNormal3f(Normal.mX, Normal.mY, Normal.mZ);
+
 	glBegin(GL_TRIANGLES);
+
 	glNormal3f(Normal[0].mX, Normal[0].mY, Normal[0].mZ);
+	glTexCoord2f(mUv[0].mX, mUv[0].mY);
 	glVertex3f(V[0].mX, V[0].mY, V[0].mZ);
+
 	glNormal3f(Normal[1].mX, Normal[1].mY, Normal[1].mZ);
+	glTexCoord2f(mUv[1].mX, mUv[1].mY);
 	glVertex3f(V[1].mX, V[1].mY, V[1].mZ);
+
 	glNormal3f(Normal[2].mX, Normal[2].mY, Normal[2].mZ);
+	glTexCoord2f(mUv[2].mX, mUv[2].mY);
 	glVertex3f(V[2].mX, V[2].mY, V[2].mZ);
-	//glVertex3f(V[0].mX, V[0].mY, V[0].mZ);
-	//glVertex3f(V[1].mX, V[1].mY, V[1].mZ);
-	//glVertex3f(V[2].mX, V[2].mY, V[2].mZ);
+
 	glEnd();
 }

@@ -30,8 +30,6 @@ void CMaterial::SetMaterial() {
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
 		glBindTexture(GL_TEXTURE_2D, mTexture.mId);
-		//テクスチャマッピングのデータを有効にする
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 }
 
@@ -41,8 +39,6 @@ void CMaterial::UnSetMaterial() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//テクスチャを無効にする
 		glDisable(GL_TEXTURE_2D);
-		//テクスチャマッピングのデータを無効にする
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 }
 

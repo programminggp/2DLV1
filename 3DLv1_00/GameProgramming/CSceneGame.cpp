@@ -20,6 +20,7 @@ void CSceneGame::Init() {
 	mModel.Load("f14.obj", "f14.mtl");
 //	mModel.Load("mini.obj", "mini.mtl");
 	mSky.Load("sky.obj", "sky.mtl");
+	CMatrix().print();
 }
 
 void CSceneGame::Update() {
@@ -37,13 +38,14 @@ void CSceneGame::Update() {
 
 	CMatrix scale, rotate, translate;
 	scale.Scale(0.2f, 0.2f, 0.2f);
-	rotate.RotateY(mDegree);
+	rotate.RotateZ(mDegree);
 	translate.Translate(2.0f, 3.0f, -4.0f);
 
 	mMatrix = scale * rotate * translate;
-	mModel.Render(mMatrix);
+//	mModel.Render(mMatrix);
 
-	mMatrix = scale * translate * rotate;
+	translate.Translate(0.0f, 0.0f, 0.0f);
+	mMatrix = scale * rotate * translate;
 	mModel.Render(mMatrix);
 
 	mSky.Render(CMatrix());
