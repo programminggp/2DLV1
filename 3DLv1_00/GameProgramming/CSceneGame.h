@@ -10,6 +10,7 @@
 #include "CCamera.h"
 #include "CCharacter.h"
 #include "CPlayer.h"
+#include "CBullet.h"
 
 /*
 ゲームのシーン
@@ -36,6 +37,8 @@ public:
 	CCharacter mCharacter;
 
 	CPlayer mPlayer;
+
+	CBullet mBullet;
 
 	//初期化処理のオーバーライド
 	void Init();

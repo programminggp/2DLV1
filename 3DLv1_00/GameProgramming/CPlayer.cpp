@@ -7,9 +7,11 @@ void CPlayer::Update() {
 	}
 	if (CKey::Push('A')) {
 		mRotation.mY++;
+//		mRotation.mZ--;
 	}
 	if (CKey::Push('D')) {
 		mRotation.mY--;
+//		mRotation.mZ++;
 	}
 	if (CKey::Push('W')) {
 		mRotation.mX++;

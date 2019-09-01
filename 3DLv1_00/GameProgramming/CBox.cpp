@@ -1,9 +1,11 @@
 #include "CBox.h"
 
 void CBox::Render(const CMatrix &m) {
+	mMaterial.SetMaterial();
 	for (int i = 0; i < 12; i++) {
 		mT[i].Render(m);
 	}
+	mMaterial.UnSetMaterial();
 }
 
 void CBox::Set(float x, float y, float z, float w, float h, float d) {

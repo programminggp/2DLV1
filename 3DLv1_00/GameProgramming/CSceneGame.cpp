@@ -1,6 +1,7 @@
 #include "CSceneGame.h"
 #include "glut.h"
 #include "CTriangle.h"
+#include "CKey.h"
 
 //CSceneGame::CSceneGame() {}
 
@@ -23,6 +24,8 @@ void CSceneGame::Init() {
 	CMatrix().print();
 	mCharacter.Init(&mModel, 8.0f, 1.0f, 2.0f, -60.0f, 90.0f, 0.0f, 0.2f, 0.2f, 0.2f);
 	mPlayer.Init(&mModel, 0.0f, 1.0f, -8.0f, 0.0f, 0.0f, 0.0f, 0.2f, 0.2f, 0.2f);
+	mBullet.Set(0.0f, 0.0f, 0.0f, 0.1f, 0.1f, 0.3f);
+	mBullet.SetDiffuse(1.0f, 1.0f, 0.0f, 1.0f);
 }
 
 void CSceneGame::Update() {
@@ -33,6 +36,11 @@ void CSceneGame::Update() {
 	//			mCameraUp.mX, mCameraUp.mY, mCameraUp.mZ);
 
 	mPlayer.Update();
+	if (CKey::Push(VK_SPACE)) {
+		mBullet.mPosition = mPlayer.mPosition;
+		mBullet.mRotation = mPlayer.mRotation;
+	}
+	mBullet.Update();
 
 //	mCamera.mEye = mCamera.mEye * CMatrix().RotateY(1);
 	mCamera.mEye = mPlayer.mPosition + CVector(0.0f, 2.0f, -6.0f) * mPlayer.mMatrixRotation;
@@ -65,6 +73,7 @@ void CSceneGame::Update() {
 	mCharacter.Render();
 
 	mPlayer.Render();
+	mBullet.Render();
 
 }
 
