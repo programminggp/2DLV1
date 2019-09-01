@@ -9,6 +9,7 @@
 #include "CModel.h"
 #include "CCamera.h"
 #include "CCharacter.h"
+#include "CPlayer.h"
 
 /*
 ゲームのシーン
@@ -33,6 +34,8 @@ public:
 	CCamera mCamera;
 
 	CCharacter mCharacter;
+
+	CPlayer mPlayer;
 
 	//初期化処理のオーバーライド
 	void Init();

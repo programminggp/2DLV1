@@ -29,3 +29,7 @@ CVector CVector::Multi(const CMatrix &m) {
 CVector CVector::operator*(const CMatrix &m) {
 	return Multi(m);
 }
+
+CVector CVector::operator + (const CVector &v) {
+	return CVector(mX + v.mX, mY + v.mY, mZ + v.mZ);
+}

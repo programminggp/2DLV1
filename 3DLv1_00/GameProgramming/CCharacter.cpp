@@ -20,10 +20,10 @@ void CCharacter::Init(CModel *model, float px, float py, float pz, float rx, flo
 
 void CCharacter::Update() {
 	mMatrix = CMatrix().Scale(mScale.mX, mScale.mY, mScale.mZ);
-	mMatrix = mMatrix * CMatrix().RotateZ(mRotation.mZ);
-	mMatrix = mMatrix * CMatrix().RotateX(mRotation.mX);
-	mMatrix = mMatrix * CMatrix().RotateY(mRotation.mY);
-	mMatrix = mMatrix * CMatrix().Translate(mPosition.mX, mPosition.mY, mPosition.mZ);
+	mMatrixRotation = CMatrix().RotateZ(mRotation.mZ);
+	mMatrixRotation = mMatrixRotation * CMatrix().RotateX(mRotation.mX);
+	mMatrixRotation = mMatrixRotation * CMatrix().RotateY(mRotation.mY);
+	mMatrix = mMatrix * mMatrixRotation * CMatrix().Translate(mPosition.mX, mPosition.mY, mPosition.mZ);
 }
 
 void CCharacter::Render() {

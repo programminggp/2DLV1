@@ -11,6 +11,7 @@ public:
 	CVector mRotation;
 	CVector mScale;
 	CMatrix mMatrix;
+	CMatrix mMatrixRotation;
 	CModel* mpModel;
 
 	CCharacter();

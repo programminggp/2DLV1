@@ -116,6 +116,9 @@ int main(void)
 	//固定シェーダー用
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	float lightPosition[] = {0.0f, 100.0f, 100.0f, 1.0f};
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+
 	glEnable(GL_NORMALIZE);
 
 	//メッシュシェーダー用

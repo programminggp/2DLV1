@@ -22,6 +22,7 @@ void CSceneGame::Init() {
 	mSky.Load("sky.obj", "sky.mtl");
 	CMatrix().print();
 	mCharacter.Init(&mModel, 8.0f, 1.0f, 2.0f, -60.0f, 90.0f, 0.0f, 0.2f, 0.2f, 0.2f);
+	mPlayer.Init(&mModel, 0.0f, 1.0f, -8.0f, 0.0f, 0.0f, 0.0f, 0.2f, 0.2f, 0.2f);
 }
 
 void CSceneGame::Update() {
@@ -31,15 +32,20 @@ void CSceneGame::Update() {
 	//			mCameraCenter.mX, mCameraCenter.mY, mCameraCenter.mZ,
 	//			mCameraUp.mX, mCameraUp.mY, mCameraUp.mZ);
 
-	mCamera.mEye = mCamera.mEye * CMatrix().RotateY(1);
+	mPlayer.Update();
+
+//	mCamera.mEye = mCamera.mEye * CMatrix().RotateY(1);
+	mCamera.mEye = mPlayer.mPosition + CVector(0.0f, 2.0f, -6.0f) * mPlayer.mMatrixRotation;
+	mCamera.mCenter = mPlayer.mPosition;
+	mCamera.mUp = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotation;
 	mCamera.Render();
 
 	float mDiffuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
-//	mTriangle[0].Render(mMatrix);
-//	mTriangle[1].Render(mMatrix);
-//	mRectangle.Render(mMatrix);
-//	mBox.Render(mMatrix);
+	//mTriangle[0].Render(mMatrix);
+	//mTriangle[1].Render(mMatrix);
+	//mRectangle.Render(mMatrix);
+	//mBox.Render(mMatrix);
 
 	CMatrix scale, rotate, translate;
 	scale.Scale(0.2f, 0.2f, 0.2f);
@@ -47,16 +53,18 @@ void CSceneGame::Update() {
 	translate.Translate(2.0f, 3.0f, -4.0f);
 
 	mMatrix = scale * rotate * translate;
-//	mModel.Render(mMatrix);
+	mModel.Render(mMatrix);
 
 	translate.Translate(0.0f, 0.0f, 0.0f);
 	mMatrix = scale * rotate * translate;
-	mModel.Render(mMatrix);
+//	mModel.Render(mMatrix);
 
 	mSky.Render(CMatrix());
 
 	mCharacter.Update();
 	mCharacter.Render();
+
+	mPlayer.Render();
 
 }
 

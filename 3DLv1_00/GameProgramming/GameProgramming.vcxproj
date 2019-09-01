@@ -85,9 +85,11 @@
     <ClCompile Include="CBox.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCharacter.cpp" />
+    <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="CModel.cpp" />
+    <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
@@ -100,9 +102,11 @@
     <ClInclude Include="CBox.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCharacter.h" />
+    <ClInclude Include="CKey.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMatrix.h" />
     <ClInclude Include="CModel.h" />
+    <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneGame.h" />
