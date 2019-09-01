@@ -7,7 +7,7 @@
 CModel::CModel()
 : mpVertex(0)
 , mpNormal(0)
-, mpTextureCoords(0)
+, mpTextureCoord(0)
 {}
 
 CModel::~CModel() {
@@ -23,8 +23,8 @@ CModel::~CModel() {
 	if (mpNormal) {
 		delete[] mpNormal;
 	}
-	if (mpTextureCoords) {
-		delete[] mpTextureCoords;
+	if (mpTextureCoord) {
+		delete[] mpTextureCoord;
 	}
 }
 
@@ -183,7 +183,7 @@ void CModel::Load(char *obj, char *mtl) {
 
 	mpVertex = new float[mTriangles.size() * 9];
 	mpNormal = new float[mTriangles.size() * 9];
-	mpTextureCoords = new float[mTriangles.size() * 6];
+	mpTextureCoord = new float[mTriangles.size() * 6];
 
 	int v = 0, t = 0;
 	for (int m = 0; m < mMaterials.size(); m++) {
@@ -209,12 +209,12 @@ void CModel::Load(char *obj, char *mtl) {
 				mpNormal[v++] = mTriangles[i]->mNormal[2].mY;
 				mpNormal[v++] = mTriangles[i]->mNormal[2].mZ;
 
-				mpTextureCoords[t++] = mTriangles[i]->mUv[0].mX;
-				mpTextureCoords[t++] = mTriangles[i]->mUv[0].mY;
-				mpTextureCoords[t++] = mTriangles[i]->mUv[1].mX;
-				mpTextureCoords[t++] = mTriangles[i]->mUv[1].mY;
-				mpTextureCoords[t++] = mTriangles[i]->mUv[2].mX;
-				mpTextureCoords[t++] = mTriangles[i]->mUv[2].mY;
+				mpTextureCoord[t++] = mTriangles[i]->mUv[0].mX;
+				mpTextureCoord[t++] = mTriangles[i]->mUv[0].mY;
+				mpTextureCoord[t++] = mTriangles[i]->mUv[1].mX;
+				mpTextureCoord[t++] = mTriangles[i]->mUv[1].mY;
+				mpTextureCoord[t++] = mTriangles[i]->mUv[2].mX;
+				mpTextureCoord[t++] = mTriangles[i]->mUv[2].mY;
 			}
 		}
 		mMaterials[m]->mVertexNo = v / 3;
@@ -225,12 +225,12 @@ void CModel::Load(char *obj, char *mtl) {
 }
 
 void CModel::Render(const CMatrix &matrix) {
-	for (int i = 0; i < mTriangles.size(); i++) {
-		mMaterials[mTriangles[i]->mMaterialId]->SetMaterial();
-		mTriangles[i]->Render(matrix);
-		mMaterials[mTriangles[i]->mMaterialId]->UnSetMaterial();
-	}
-	return;
+	//for (int i = 0; i < mTriangles.size(); i++) {
+	//	mMaterials[mTriangles[i]->mMaterialId]->SetMaterial();
+	//	mTriangles[i]->Render(matrix);
+	//	mMaterials[mTriangles[i]->mMaterialId]->UnSetMaterial();
+	//}
+	//return;
 
 	/* 頂点データ，法線データの配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -241,7 +241,7 @@ void CModel::Render(const CMatrix &matrix) {
 	/* 頂点データ，法線データの場所を指定する */
 	glVertexPointer(3, GL_FLOAT, 0, mpVertex);
 	glNormalPointer(GL_FLOAT, 0, mpNormal);
-	glTexCoordPointer(2, GL_FLOAT, 0, mpTextureCoords);
+	glTexCoordPointer(2, GL_FLOAT, 0, mpTextureCoord);
 
 	glPushMatrix();
 	glMultMatrixf(&matrix.mM[0][0]);

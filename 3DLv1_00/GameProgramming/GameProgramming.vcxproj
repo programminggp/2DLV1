@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="CBox.cpp" />
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCharacter.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="CModel.cpp" />
@@ -98,6 +99,7 @@
   <ItemGroup>
     <ClInclude Include="CBox.h" />
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMatrix.h" />
     <ClInclude Include="CModel.h" />

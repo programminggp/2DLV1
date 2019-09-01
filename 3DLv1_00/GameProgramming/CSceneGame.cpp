@@ -21,6 +21,7 @@ void CSceneGame::Init() {
 //	mModel.Load("mini.obj", "mini.mtl");
 	mSky.Load("sky.obj", "sky.mtl");
 	CMatrix().print();
+	mCharacter.Init(&mModel, 8.0f, 1.0f, 2.0f, -60.0f, 90.0f, 0.0f, 0.2f, 0.2f, 0.2f);
 }
 
 void CSceneGame::Update() {
@@ -53,6 +54,10 @@ void CSceneGame::Update() {
 	mModel.Render(mMatrix);
 
 	mSky.Render(CMatrix());
+
+	mCharacter.Update();
+	mCharacter.Render();
+
 }
 
 //デストラクタ

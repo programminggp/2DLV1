@@ -8,6 +8,7 @@
 #include "CBox.h"
 #include "CModel.h"
 #include "CCamera.h"
+#include "CCharacter.h"
 
 /*
 ゲームのシーン
@@ -30,6 +31,8 @@ public:
 	CModel mSky;
 
 	CCamera mCamera;
+
+	CCharacter mCharacter;
 
 	//初期化処理のオーバーライド
 	void Init();
