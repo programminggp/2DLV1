@@ -11,6 +11,7 @@
 #include "CCharacter.h"
 #include "CPlayer.h"
 #include "CBullet.h"
+#include "CTaskManager.h"
 
 /*
 ゲームのシーン
@@ -48,5 +49,7 @@ public:
 	//デストラクタの宣言
 	~CSceneGame();
 };
+
+extern CTaskManager TaskManager;
 
 #endif

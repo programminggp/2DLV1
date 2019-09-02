@@ -1,5 +1,13 @@
 #include "CBullet.h"
 
+#define LIFE 120
+
+CBullet::CBullet()
+: mLife(LIFE)
+{
+
+}
+
 void CBullet::Set(float x, float y, float z, float w, float h, float d) {
 	mBox.Set(x, y, z, w, h, d);
 }
@@ -12,8 +20,14 @@ void CBullet::SetDiffuse(float r, float g, float b, float a) {
 }
 
 void CBullet::Update() {
-	mPosition = mPosition + CVector(0.0f, 0.0f, 0.8f) * mMatrixRotation;
-	CCharacter::Update();
+	if (mLife > 0) {
+		mLife--;
+		mPosition = mPosition + CVector(0.0f, 0.0f, 0.8f) * mMatrixRotation;
+		CCharacter::Update();
+	}
+	else {
+		mEnabled = false;
+	}
 }
 
 void CBullet::Render() {

@@ -4,8 +4,9 @@
 #include "CVector.h"
 #include "CMatrix.h"
 #include "CModel.h"
+#include "CTask.h"
 
-class CCharacter {
+class CCharacter : public CTask {
 public:
 	CVector mPosition;
 	CVector mRotation;
