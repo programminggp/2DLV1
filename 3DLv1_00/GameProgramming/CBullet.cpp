@@ -22,8 +22,8 @@ void CBullet::SetDiffuse(float r, float g, float b, float a) {
 void CBullet::Update() {
 	if (mLife > 0) {
 		mLife--;
-		mPosition = mPosition + CVector(0.0f, 0.0f, 0.8f) * mMatrixRotation;
 		CCharacter::Update();
+		mPosition = mPosition + CVector(0.0f, 0.0f, 0.8f) * mMatrixRotation;
 	}
 	else {
 		mEnabled = false;

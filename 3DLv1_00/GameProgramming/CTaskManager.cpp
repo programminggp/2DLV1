@@ -5,6 +5,22 @@ CTaskManager::CTaskManager()
 , mpTail(0) {}
 
 void CTaskManager::Add(CTask *task) {
+	if (mpTail) {
+		mpTail->mpNext = task;
+		task->mpPrev = mpTail;
+		task->mpNext = 0;
+		mpTail = task;
+		//CTask *c = mpTail->mpPrev;
+		//while (c) {
+		//	if (c->mPriority < task->mPriority) {
+
+		//	}
+		//	else {
+
+		//	}
+		//}
+		return;
+	}
 	if (mpHead) {
 		CTask *c = mpHead;
 		while (c) {

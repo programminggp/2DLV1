@@ -3,6 +3,7 @@
 #include "CTriangle.h"
 #include "CKey.h"
 #include "CTaskManager.h"
+#include "CEnemy.h"
 
 CTaskManager TaskManager;
 
@@ -21,20 +22,23 @@ void CSceneGame::Init() {
 	mDegree = 0.0f;
 //	mBox.Set(0.0f, -2.0f, 0.0f, 1.0f, 1.0f, 1.0f);
 	mBox.Set(0.0f, -1.0f, 0.0f, 0.7f, 0.2f, 1.0f);
-	mModel.Load("f16.obj", "f16.mtl");
-	//mModel.Load("f14.obj", "f14.mtl");
-	//	mModel.Load("mini.obj", "mini.mtl");
+	//mModel.Load("f16.obj", "f16.mtl");
+	mModel.Load("f14.obj", "f14.mtl");
+	//mModel.Load("mini.obj", "mini.mtl");
 	mSky.Load("sky.obj", "sky.mtl");
+	mF16.Load("f16.obj", "f16.mtl");
 	CMatrix().print();
 	mCharacter.Init(&mModel, 8.0f, 1.0f, 2.0f, -60.0f, 90.0f, 0.0f, 0.2f, 0.2f, 0.2f);
 	mPlayer.Init(&mModel, 0.0f, 1.0f, -8.0f, 0.0f, 0.0f, 0.0f, 0.2f, 0.2f, 0.2f);
 	//mBullet.Set(0.0f, 0.0f, 0.0f, 0.1f, 0.1f, 0.3f);
 	//mBullet.SetDiffuse(1.0f, 1.0f, 0.0f, 1.0f);
+	new CEnemy(&mF16, 0.0f, 5.0f, 4.0f, 0.0f, 90.0f, -30.0f, 0.2f, 0.2f, 0.2f);
+	new CEnemy(&mF16, 0.0f, 7.0f, 6.0f, 0.0f, 90.0f, -30.0f, 0.2f, 0.2f, 0.2f);
 }
 
 void CSceneGame::Update() {
-	mDegree++;
-	mMatrix.RotateY(mDegree);
+	//mDegree++;
+	//mMatrix.RotateY(mDegree);
 	//gluLookAt(	mCameraEye.mX, mCameraEye.mY, mCameraEye.mZ, 
 	//			mCameraCenter.mX, mCameraCenter.mY, mCameraCenter.mZ,
 	//			mCameraUp.mX, mCameraUp.mY, mCameraUp.mZ);
@@ -54,29 +58,29 @@ void CSceneGame::Update() {
 	mCamera.mUp = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotation;
 	mCamera.Render();
 
-	float mDiffuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
+	//float mDiffuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	//glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
 	//mTriangle[0].Render(mMatrix);
 	//mTriangle[1].Render(mMatrix);
 	//mRectangle.Render(mMatrix);
 	//mBox.Render(mMatrix);
 
-	CMatrix scale, rotate, translate;
-	scale.Scale(0.2f, 0.2f, 0.2f);
-	rotate.RotateZ(mDegree);
-	translate.Translate(2.0f, 3.0f, -4.0f);
+	//CMatrix scale, rotate, translate;
+	//scale.Scale(0.2f, 0.2f, 0.2f);
+	//rotate.RotateZ(mDegree);
+	//translate.Translate(2.0f, 3.0f, -4.0f);
 
-	mMatrix = scale * rotate * translate;
-	mModel.Render(mMatrix);
+	//mMatrix = scale * rotate * translate;
+	//mModel.Render(mMatrix);
 
-	translate.Translate(0.0f, 0.0f, 0.0f);
-	mMatrix = scale * rotate * translate;
+	//translate.Translate(0.0f, 0.0f, 0.0f);
+	//mMatrix = scale * rotate * translate;
 //	mModel.Render(mMatrix);
 
 	mSky.Render(CMatrix());
 
-	mCharacter.Update();
-	mCharacter.Render();
+	//mCharacter.Update();
+	//mCharacter.Render();
 
 	mPlayer.Render();
 //	mBullet.Render();
@@ -88,5 +92,5 @@ void CSceneGame::Update() {
 
 //デストラクタ
 CSceneGame::~CSceneGame() {
-
+	TaskManager.Destory();
 }
