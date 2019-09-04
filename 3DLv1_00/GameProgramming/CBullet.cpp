@@ -5,7 +5,6 @@
 CBullet::CBullet()
 : mLife(LIFE)
 {
-
 }
 
 void CBullet::Set(float x, float y, float z, float w, float h, float d) {

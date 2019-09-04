@@ -5,48 +5,75 @@ CTaskManager::CTaskManager()
 , mpTail(0) {}
 
 void CTaskManager::Add(CTask *task) {
-	if (mpTail) {
-		mpTail->mpNext = task;
-		task->mpPrev = mpTail;
-		task->mpNext = 0;
-		mpTail = task;
-		//CTask *c = mpTail->mpPrev;
-		//while (c) {
-		//	if (c->mPriority < task->mPriority) {
-
-		//	}
-		//	else {
-
-		//	}
-		//}
-		return;
-	}
 	if (mpHead) {
-		CTask *c = mpHead;
-		while (c) {
-			if (task->mPriority >= c->mPriority) {
-				if (c->mpPrev) {
-					c->mpPrev->mpNext = task;
-					task->mpNext = c;
-					task->mpPrev = c->mpPrev;
-					c->mpPrev = task;
+		CTask *c = mpTail;
+		while (c != mpHead) {
+//		do {
+			if (c->mPriority >= task->mPriority) {
+				if (c == mpTail) {
+					mpTail->mpNext = task;
+					task->mpPrev = mpTail;
+					//task->mpNext = 0;
+					mpTail = task;
 					return;
 				}
 				else {
-					task->mpNext = c;
-					c->mpPrev = task;
-					task->mpPrev = 0;
-					mpHead = task;
+					task->mpNext = c->mpNext;
+					task->mpPrev = c;
+					c->mpNext->mpPrev = task;
+					c->mpNext = task;
 					return;
 				}
 			}
-			c = c->mpNext;
+			c = c->mpPrev;
+		}// while (c != mpHead);
+		if (c->mPriority < task->mPriority) {
+			task->mpNext = mpHead;
+//			task->mpPrev = 0;
+			mpHead->mpPrev = task;
+			mpHead = task;
 		}
-		mpTail->mpNext = task;
-		task->mpPrev = mpTail;
-		task->mpNext = 0;
-		mpTail = task;
+		else {
+			if (c == mpTail) {
+				mpTail->mpNext = task;
+				task->mpPrev = mpTail;
+				//task->mpNext = 0;
+				mpTail = task;
+			}
+			else {
+				task->mpNext = c->mpNext;
+				task->mpPrev = c;
+				c->mpNext->mpPrev = task;
+				c->mpNext = task;
+			}
+		}
 	}
+	//if (mpHead) {
+	//	CTask *c = mpHead;
+	//	while (c) {
+	//		if (task->mPriority >= c->mPriority) {
+	//			if (c->mpPrev) {
+	//				c->mpPrev->mpNext = task;
+	//				task->mpNext = c;
+	//				task->mpPrev = c->mpPrev;
+	//				c->mpPrev = task;
+	//				return;
+	//			}
+	//			else {
+	//				task->mpNext = c;
+	//				c->mpPrev = task;
+	//				task->mpPrev = 0;
+	//				mpHead = task;
+	//				return;
+	//			}
+	//		}
+	//		c = c->mpNext;
+	//	}
+	//	mpTail->mpNext = task;
+	//	task->mpPrev = mpTail;
+	//	task->mpNext = 0;
+	//	mpTail = task;
+	//}
 	else {
 		mpHead = task;
 		task->mpPrev = 0;
@@ -57,17 +84,28 @@ void CTaskManager::Add(CTask *task) {
 
 void CTaskManager::Update() {
 	CTask *c = mpHead;
-	while (c) {
+	//while (c) {
+	//	c->Update();
+	//	c = c->mpNext;
+	//}
+	while(c != mpTail) {
 		c->Update();
 		c = c->mpNext;
 	}
+	if (c) {
+		c->Update();
+	}
+
 }
 
 void CTaskManager::Render() {
 	CTask *c = mpHead;
-	while (c) {
+	while (c != mpTail) {
 		c->Render();
 		c = c->mpNext;
+	}
+	if (c) {
+		c->Render();
 	}
 }
 
@@ -87,18 +125,18 @@ void CTaskManager::Delete() {
 }
 
 void CTaskManager::Delete(CTask *task) {
-	if (task->mpPrev == 0) {
+	if (mpHead == task) {
 		mpHead = task->mpNext;
 		delete task;
-		if (mpHead) {
-			mpHead->mpPrev = 0;
-		}
-		else {
-			mpTail = 0;
-		}
+		//if (mpHead) {
+		//	mpHead->mpPrev = 0;
+		//}
+		//else {
+		//	mpTail = 0;
+		//}
 		return;
 	}
-	if (task->mpNext == 0) {
+	if (mpTail == task) {
 		mpTail = task->mpPrev;
 		mpTail->mpNext = 0;
 		delete task;
