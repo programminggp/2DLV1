@@ -21,8 +21,9 @@ void CSceneGame::Init() {
 	mDegree = 0.0f;
 //	mBox.Set(0.0f, -2.0f, 0.0f, 1.0f, 1.0f, 1.0f);
 	mBox.Set(0.0f, -1.0f, 0.0f, 0.7f, 0.2f, 1.0f);
-	mModel.Load("f14.obj", "f14.mtl");
-//	mModel.Load("mini.obj", "mini.mtl");
+	mModel.Load("f16.obj", "f16.mtl");
+	//mModel.Load("f14.obj", "f14.mtl");
+	//	mModel.Load("mini.obj", "mini.mtl");
 	mSky.Load("sky.obj", "sky.mtl");
 	CMatrix().print();
 	mCharacter.Init(&mModel, 8.0f, 1.0f, 2.0f, -60.0f, 90.0f, 0.0f, 0.2f, 0.2f, 0.2f);
