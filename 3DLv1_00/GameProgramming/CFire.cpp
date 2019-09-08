@@ -1,14 +1,14 @@
 #include "CFire.h"
 
 void CFire::SetSize(float w, float h) {
-	//mT[0].SetVertex(-w, -h, 0.0f, w, -h, 0.0f, w, h, 0.0f);
-	//mT[1].SetVertex(-w, -h, 0.0f, w, h, 0.0f, -w, h, 0.0f);
-	//mT[0].SetNormal(0.0f, 0.0f, 1.0f);
-	//mT[1].SetNormal(0.0f, 0.0f, 1.0f);
-	mT[0].SetVertex(0.0f, -h, -w, 0.0f, -h, w, 0.0f, h, w);
-	mT[1].SetVertex(0.0f, -h, -w, 0.0f, h, w, 0.0f, h, -w);
-	mT[0].SetNormal(-1.0f, 0.0f, 0.0f);
-	mT[1].SetNormal(-1.0f, 0.0f, 0.0f);
+	mT[0].SetVertex(-w, -h, 0.0f, w, -h, 0.0f, w, h, 0.0f);
+	mT[1].SetVertex(-w, -h, 0.0f, w, h, 0.0f, -w, h, 0.0f);
+	mT[0].SetNormal(0.0f, 0.0f, 1.0f);
+	mT[1].SetNormal(0.0f, 0.0f, 1.0f);
+	//mT[0].SetVertex(0.0f, -h, -w, 0.0f, -h, w, 0.0f, h, w);
+	//mT[1].SetVertex(0.0f, -h, -w, 0.0f, h, w, 0.0f, h, -w);
+	//mT[0].SetNormal(-1.0f, 0.0f, 0.0f);
+	//mT[1].SetNormal(-1.0f, 0.0f, 0.0f);
 }
 
 void CFire::Render() {

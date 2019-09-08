@@ -12,6 +12,7 @@ public:
 	CVector Multi(const CMatrix &m);
 	CVector operator*(const CMatrix &m);
 	CVector operator+(const CVector &v);
+	CVector operator*(const float f);
 };
 
 #endif

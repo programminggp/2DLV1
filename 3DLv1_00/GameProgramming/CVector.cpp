@@ -33,3 +33,7 @@ CVector CVector::operator*(const CMatrix &m) {
 CVector CVector::operator + (const CVector &v) {
 	return CVector(mX + v.mX, mY + v.mY, mZ + v.mZ);
 }
+
+CVector CVector::operator*(const float f) {
+	return CVector(mX * f, mY * f, mZ * f);
+}
