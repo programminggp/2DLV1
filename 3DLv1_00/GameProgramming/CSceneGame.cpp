@@ -4,6 +4,9 @@
 #include "CKey.h"
 #include "CTaskManager.h"
 #include "CEnemy.h"
+#include "CFire.h"
+
+CFire Fire;
 
 CTaskManager TaskManager;
 
@@ -34,6 +37,10 @@ void CSceneGame::Init() {
 	//mBullet.SetDiffuse(1.0f, 1.0f, 0.0f, 1.0f);
 	new CEnemy(&mF16, 0.0f, 5.0f, 4.0f, 0.0f, 90.0f, -30.0f, 0.2f, 0.2f, 0.2f);
 	new CEnemy(&mF16, 0.0f, 7.0f, 6.0f, 0.0f, 90.0f, -30.0f, 0.2f, 0.2f, 0.2f);
+
+	Fire.mPosition = CVector(0.0f, 1.0f, 3.0f);
+	Fire.mRotation.mY = -90.0f;
+	Fire.SetTexture("fire.tga");
 }
 
 void CSceneGame::Update() {
@@ -87,6 +94,9 @@ void CSceneGame::Update() {
 
 	TaskManager.Delete();
 	TaskManager.Render();
+
+	Fire.Update();
+	Fire.Render();
 
 }
 

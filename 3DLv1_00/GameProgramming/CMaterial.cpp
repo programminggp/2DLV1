@@ -30,11 +30,17 @@ void CMaterial::SetMaterial() {
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
 		glBindTexture(GL_TEXTURE_2D, mTexture.mId);
+		//アルファブレンドを有効にする
+		glEnable(GL_BLEND);
+		//ブレンド方法を指定
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 }
 
 void CMaterial::UnSetMaterial() {
 	if (mTexture.mId) {
+		//アルファブレンドを無効
+		glDisable(GL_BLEND);
 		//テクスチャのバインドを解く
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//テクスチャを無効にする

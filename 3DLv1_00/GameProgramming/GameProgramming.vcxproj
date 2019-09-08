@@ -87,6 +87,7 @@
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCharacter.cpp" />
     <ClCompile Include="CEnemy.cpp" />
+    <ClCompile Include="CFire.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMatrix.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CEnemy.h" />
+    <ClInclude Include="CFire.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMatrix.h" />
