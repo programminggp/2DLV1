@@ -68,12 +68,13 @@ void CTaskManager::Delete() {
 		else {
 			del = c;
 			c = c->mpNext;
-			Delete(del);
+			Remove(del);
+			delete del;
 		}
 	}
 }
 
-void CTaskManager::Delete(CTask *task) {
+void CTaskManager::Remove(CTask *task) {
 	if (mpHead == task) {
 		if (mpTail == task) {
 			mpHead = mpTail = 0;
@@ -82,18 +83,15 @@ void CTaskManager::Delete(CTask *task) {
 			mpHead = task->mpNext;
 			mpHead->mpPrev = 0;
 		}
-		delete task;
 		return;
 	}
 	if (mpTail == task) {
 		mpTail = task->mpPrev;
 		mpTail->mpNext = 0;
-		delete task;
 		return;
 	}
 	task->mpPrev->mpNext = task->mpNext;
 	task->mpNext->mpPrev = task->mpPrev;
-	delete task;
 }
 
 void CTaskManager::Destory() {
@@ -102,6 +100,7 @@ void CTaskManager::Destory() {
 	while (c) {
 		del = c;
 		c = c->mpNext;
-		Delete(del);
+		Remove(del);
+		delete del;
 	}
 }

@@ -12,7 +12,7 @@ public:
 	void Update();
 	void Render();
 	void Delete();
-	void Delete(CTask *task);
+	void Remove(CTask *task);
 	void Destory();
 };
 
