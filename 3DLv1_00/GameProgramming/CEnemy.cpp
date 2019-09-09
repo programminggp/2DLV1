@@ -1,5 +1,6 @@
 #include "CEnemy.h"
 #include "CSceneGame.h"
+#include "CFire.h"
 
 #define VELOCITY_ENEMY 0.3f
 
@@ -14,4 +15,13 @@ void CEnemy::Update() {
 	mPosition = mPosition + CVector(0.0f, 0.0f, VELOCITY_ENEMY) * mMatrixRotation;
 	mRotation.mY += 0.5f;
 	CCharacter::Update();
+}
+
+void CEnemy::Collision(CCollider *m, CCollider *y) {
+	if (CCollider::Collision(m, y)) {
+		CFire *f = new CFire();
+		f->mPosition = y->mpParent->mPosition;
+		f->SetTexture("fire.tga");
+		TaskManager.Add(f);
+	}
 }

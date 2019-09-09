@@ -9,6 +9,7 @@ class CFire : public CCharacter {
 public:
 	CTriangle mT[2];
 	CMaterial mMaterial;
+	int mLife;
 	void SetSize(float w, float h);
 	void Render();
 	void SetTexture(char *tga);

@@ -25,14 +25,14 @@ void CSceneGame::Init() {
 	mRectangle.SetNormal(0.0f, 1.0f, 0.0f);
 	mDegree = 0.0f;
 //	mBox.Set(0.0f, -2.0f, 0.0f, 1.0f, 1.0f, 1.0f);
-	mBox.Set(0.0f, -1.0f, 0.0f, 0.7f, 0.2f, 1.0f);
+//	mBox.Set(0.0f, -1.0f, 0.0f, 0.7f, 0.2f, 1.0f);
 	//mModel.Load("f16.obj", "f16.mtl");
 	mModel.Load("f14.obj", "f14.mtl");
 	//mModel.Load("mini.obj", "mini.mtl");
 	mSky.Load("sky.obj", "sky.mtl");
 	mF16.Load("f16.obj", "f16.mtl");
 	CMatrix().print();
-	mCharacter.Init(&mModel, 8.0f, 1.0f, 2.0f, -60.0f, 90.0f, 0.0f, 0.2f, 0.2f, 0.2f);
+//	mCharacter.Init(&mModel, 8.0f, 1.0f, 2.0f, -60.0f, 90.0f, 0.0f, 0.2f, 0.2f, 0.2f);
 	mPlayer.Init(&mModel, 0.0f, 1.0f, -8.0f, 0.0f, 0.0f, 0.0f, 0.2f, 0.2f, 0.2f);
 	//mBullet.Set(0.0f, 0.0f, 0.0f, 0.1f, 0.1f, 0.3f);
 	//mBullet.SetDiffuse(1.0f, 1.0f, 0.0f, 1.0f);
@@ -67,9 +67,11 @@ void CSceneGame::Update() {
 	//else if (Fire.mRotation.mX < -90.0f) {
 	//	Fire.mRotation.mX = -90.0f - (Fire.mRotation.mX + 90.0f);
 	//}
-	Fire.Update();
+//	Fire.Update();
 
 	TaskManager.Update();
+	CollisionManager.Update();
+
 
 //	mCamera.mEye = mCamera.mEye * CMatrix().RotateY(1);
 	mCamera.mEye = mPlayer.mPosition + CVector(0.0f, 2.0f, -6.0f) * mPlayer.mMatrixRotation;
@@ -110,7 +112,7 @@ void CSceneGame::Update() {
 	Fire.Update();
 	Fire.Render();
 
-	CollisionManager.Render();
+//	CollisionManager.Render();
 }
 
 //デストラクタ

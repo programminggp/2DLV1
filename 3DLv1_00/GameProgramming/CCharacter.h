@@ -6,6 +6,8 @@
 #include "CModel.h"
 #include "CTask.h"
 
+class CCollider;
+
 class CCharacter : public CTask {
 public:
 	CVector mPosition;
@@ -21,6 +23,7 @@ public:
 	void Init(CModel *model, float px, float py, float pz, float rx, float ry, float rz, float sx, float sy, float sz);
 	void Update();
 	void Render();
+	virtual void Collision(CCollider *, CCollider *);
 };
 
 #endif

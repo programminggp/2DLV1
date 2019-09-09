@@ -4,6 +4,7 @@
 #include "CTask.h"
 
 class CTaskManager {
+protected:
 	CTask *mpHead;
 	CTask *mpTail;
 public:

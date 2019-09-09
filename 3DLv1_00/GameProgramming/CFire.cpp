@@ -1,6 +1,8 @@
 #include "CFire.h"
 #include "CPlayer.h"
 
+#define LIFE 10
+
 void CFire::SetSize(float w, float h) {
 	mT[0].SetVertex(-w, -h, 0.0f, w, -h, 0.0f, w, h, 0.0f);
 	mT[1].SetVertex(-w, -h, 0.0f, w, h, 0.0f, -w, h, 0.0f);
@@ -13,6 +15,12 @@ void CFire::SetSize(float w, float h) {
 }
 
 void CFire::Update() {
+	if (mLife > 0) {
+		mLife--;
+	}
+	else {
+		mEnabled = false;
+	}
 	if (CPlayer::mpPlayer) {
 		CVector dir = CPlayer::mpPlayer->mPosition + mPosition * -1;
 		mRotation.mY = atan2f(dir.mX, dir.mZ) / 2.0f / 3.14f * 360.0f;
@@ -59,7 +67,9 @@ void CFire::SetDiffuse(float r, float g, float b, float a) {
 	mMaterial.mDiffuse[3] = a;
 }
 
-CFire::CFire() {
+CFire::CFire()
+	: mLife(LIFE)
+{
 	SetSize(1.0f, 1.0f);
-	SetDiffuse(10.f, 1.0f, 1.0f, 1.0);
+	SetDiffuse(1.0f, 1.0f, 1.0f, 1.0);
 }

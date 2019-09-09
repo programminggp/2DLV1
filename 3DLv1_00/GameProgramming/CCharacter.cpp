@@ -29,3 +29,7 @@ void CCharacter::Update() {
 void CCharacter::Render() {
 	mpModel->Render(mMatrix);
 }
+
+void CCharacter::Collision(CCollider *m, CCollider *y) {
+
+}

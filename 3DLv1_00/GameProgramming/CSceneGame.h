@@ -29,18 +29,18 @@ public:
 	float mDegree;
 	CMatrix mMatrix;
 
-	CBox mBox;
+//	CBox mBox;
 
 	CModel mModel;
 	CModel mSky;
 
 	CCamera mCamera;
 
-	CCharacter mCharacter;
+//	CCharacter mCharacter;
 
 	CPlayer mPlayer;
 
-	CBullet mBullet;
+//	CBullet mBullet;
 
 	CModel mF16;
 
