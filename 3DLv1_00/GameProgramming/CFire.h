@@ -14,6 +14,7 @@ public:
 	void SetTexture(char *tga);
 	void SetDiffuse(float r, float g, float b, float a);
 	CFire();
+	void Update();
 };
 
 #endif

@@ -58,15 +58,15 @@ void CSceneGame::Update() {
 	//}
 //	mBullet.Update();
 
-	CVector dir = mPlayer.mPosition + Fire.mPosition * -1;
-	Fire.mRotation.mY = atan2f(dir.mX, dir.mZ) / 2.0f / 3.14f * 360.0f;
-	Fire.mRotation.mX = -atan2f(dir.mY, dir.mZ) / 2.0f / 3.14f * 360.0f;
-	if (Fire.mRotation.mX > 90.0f) {
-		Fire.mRotation.mX = 90.0f - (Fire.mRotation.mX - 90.0f);
-	}
-	else if (Fire.mRotation.mX < -90.0f) {
-		Fire.mRotation.mX = -90.0f - (Fire.mRotation.mX + 90.0f);
-	}
+	//CVector dir = mPlayer.mPosition + Fire.mPosition * -1;
+	//Fire.mRotation.mY = atan2f(dir.mX, dir.mZ) / 2.0f / 3.14f * 360.0f;
+	//Fire.mRotation.mX = -atan2f(dir.mY, dir.mZ) / 2.0f / 3.14f * 360.0f;
+	//if (Fire.mRotation.mX > 90.0f) {
+	//	Fire.mRotation.mX = 90.0f - (Fire.mRotation.mX - 90.0f);
+	//}
+	//else if (Fire.mRotation.mX < -90.0f) {
+	//	Fire.mRotation.mX = -90.0f - (Fire.mRotation.mX + 90.0f);
+	//}
 	Fire.Update();
 
 	TaskManager.Update();

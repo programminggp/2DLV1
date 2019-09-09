@@ -3,6 +3,16 @@
 #include "CBullet.h"
 #include "CSceneGame.h"
 
+CPlayer *CPlayer::mpPlayer = 0;
+
+CPlayer::CPlayer() {
+	mpPlayer = this;
+}
+
+CPlayer::~CPlayer() {
+	mpPlayer = 0;
+}
+
 void CPlayer::Update() {
 
 	if (CKey::Push('I')) {
