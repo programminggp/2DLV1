@@ -5,10 +5,21 @@
 CBullet::CBullet()
 : mLife(LIFE)
 {
+	mCollider.mpParent = this;
 }
 
 void CBullet::Set(float x, float y, float z, float w, float h, float d) {
+	mT[0].mV[0] = CVector(x + w, y, z + d);
+	mT[0].mV[1] = CVector(x + w, y, z - d);
+	mT[0].mV[2] = CVector(x - w, y, z - d);
+	mT[0].SetNormal(0.0f, 1.0f, 0.0f);
+	mT[1].mV[0] = CVector(x + w, y, z + d);
+	mT[1].mV[1] = CVector(x - w, y, z - d);
+	mT[1].mV[2] = CVector(x - w, y, z + d);
+	mT[1].SetNormal(0.0f, 1.0f, 0.0f);
 	mBox.Set(x, y, z, w, h, d);
+	mCollider.mRadius = d;
+	mCollider.mV[0] = CVector(0.0f, 0.0f, 0.0f);
 }
 
 void CBullet::SetDiffuse(float r, float g, float b, float a) {
@@ -30,5 +41,10 @@ void CBullet::Update() {
 }
 
 void CBullet::Render() {
-	mBox.Render(mMatrix);
+	float c[] = { 1.0f, 1.0f, 0.0f, 1.0f };
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
+
+	mT[0].Render(mMatrix);
+	mT[1].Render(mMatrix);
+	//mBox.Render(mMatrix);
 }

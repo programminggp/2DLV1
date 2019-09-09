@@ -12,6 +12,7 @@
 #include "CPlayer.h"
 #include "CBullet.h"
 #include "CTaskManager.h"
+#include "CCollisionManager.h"
 
 /*
 ƒQ[ƒ€‚ÌƒV[ƒ“
@@ -53,5 +54,6 @@ public:
 };
 
 extern CTaskManager TaskManager;
+extern CCollisionManager CollisionManager;
 
 #endif

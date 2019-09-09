@@ -86,6 +86,8 @@
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCharacter.cpp" />
+    <ClCompile Include="CCollider.cpp" />
+    <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CEnemy.cpp" />
     <ClCompile Include="CFire.cpp" />
     <ClCompile Include="CKey.cpp" />
@@ -107,6 +109,8 @@
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCharacter.h" />
+    <ClInclude Include="CCollider.h" />
+    <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CFire.h" />
     <ClInclude Include="CKey.h" />

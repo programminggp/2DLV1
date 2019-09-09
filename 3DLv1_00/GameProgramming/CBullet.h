@@ -3,11 +3,14 @@
 
 #include "CCharacter.h"
 #include "CBox.h"
+#include "CCollider.h"
 
 class CBullet : public CCharacter {
 public:
+	CTriangle mT[2];
 	CBox mBox;
 	int mLife;
+	CCollider mCollider;
 
 	CBullet();
 

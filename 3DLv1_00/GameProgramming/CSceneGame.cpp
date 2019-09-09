@@ -2,7 +2,6 @@
 #include "glut.h"
 #include "CTriangle.h"
 #include "CKey.h"
-#include "CTaskManager.h"
 #include "CEnemy.h"
 #include "CFire.h"
 #include <math.h>
@@ -10,6 +9,7 @@
 CFire Fire;
 
 CTaskManager TaskManager;
+CCollisionManager CollisionManager;
 
 //CSceneGame::CSceneGame() {}
 
@@ -110,6 +110,7 @@ void CSceneGame::Update() {
 	Fire.Update();
 	Fire.Render();
 
+	CollisionManager.Render();
 }
 
 //デストラクタ
