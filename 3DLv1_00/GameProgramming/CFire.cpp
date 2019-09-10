@@ -72,4 +72,5 @@ CFire::CFire()
 {
 	SetSize(1.0f, 1.0f);
 	SetDiffuse(1.0f, 1.0f, 1.0f, 1.0);
+	Update();
 }
