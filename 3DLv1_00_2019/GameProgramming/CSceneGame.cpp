@@ -3,8 +3,12 @@
 #include "glut.h"
 //CVectorクラスのインクルード
 #include "CVector.h"
+//CMatrixクラスのインクルード
+#include "CMatrix.h"
 
 void CSceneGame::Init() {
+	CMatrix mMatrix;
+	mMatrix.Print();
 }
 
 void CSceneGame::Update() {
@@ -38,9 +42,9 @@ void CSceneGame::Update() {
 	glVertex3f(v0.mX, v0.mY, v0.mZ);
 	glVertex3f(v1.mX, v1.mY, v1.mZ);
 	glVertex3f(v2.mX, v2.mY, v2.mZ);
-	/*
+
 	//法線と頂点の設定
-	n.mY = 0.0f; n.mZ = 1.0f;
+	n.Set(0.0f, 0.0f, 1.0f);
 	v0.Set(0.5f, 0.0f, 0.0f);
 	v1.Set(0.0f, 1.0f, 0.0f);
 	v2.Set(-0.5f, 0.0f, 0.0f);
@@ -51,7 +55,7 @@ void CSceneGame::Update() {
 	glVertex3f(v2.mX, v2.mY, v2.mZ);
 
 	//法線と頂点の設定
-	n.mX = 1.0f; n.mZ = 0.0f;
+	n.Set(1.0f, 0.0f, 0.0f);
 	v0.Set(0.0f, 0.5f, 0.0f);
 	v1.Set(0.0f, 0.0f, 1.0f);
 	v2.Set(0.0f, -0.5f, 0.0f);
@@ -60,7 +64,7 @@ void CSceneGame::Update() {
 	glVertex3f(v0.mX, v0.mY, v0.mZ);
 	glVertex3f(v1.mX, v1.mY, v1.mZ);
 	glVertex3f(v2.mX, v2.mY, v2.mZ);
-*/
+
 	//描画終了
 	glEnd();
 }
