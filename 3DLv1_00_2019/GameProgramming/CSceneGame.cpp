@@ -8,10 +8,17 @@
 
 void CSceneGame::Init() {
 	CMatrix mMatrix;
+	//回転行列の作成
+	mMatrix.RotateZ(30);
 	mMatrix.Print();
 }
 
 void CSceneGame::Update() {
+	static int degree = 0;
+	degree++;
+	CMatrix mMatrix;
+	mMatrix.RotateY(degree);
+
 	//頂点1､頂点2､頂点3,法線データの作成
 	CVector v0, v1, v2, n;
 
@@ -33,6 +40,11 @@ void CSceneGame::Update() {
 	//glBegin(形)
 	//GL_TRIANGLES：三角形
 	glBegin(GL_TRIANGLES);
+
+	//n = n.Multi(mMatrix);
+	//v0 = v0.Multi(mMatrix);
+	//v1 = v1.Multi(mMatrix);
+	//v2 = v2.Multi(mMatrix);
 
 	//法線（面の向き）の設定
 	//glNormal3f(X座標, Y座標, Z座標)

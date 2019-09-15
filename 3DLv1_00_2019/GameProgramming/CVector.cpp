@@ -14,4 +14,13 @@ void CVector::Set(float x, float y, float z) {
 	mZ = z;
 }
 
+//çsóÒÇ∆ÇÃä|ÇØéZ
+//Multi(çsóÒ)
+CVector CVector::Multi(const CMatrix &m) {
+	CVector v;
+	v.mX = mX * m.mM[0][0] + mY * m.mM[1][0] + mZ * m.mM[2][0] + m.mM[3][0];
+	v.mY = mX * m.mM[0][1] + mY * m.mM[1][1] + mZ * m.mM[2][1] + m.mM[3][1];
+	v.mZ = mX * m.mM[0][2] + mY * m.mM[1][2] + mZ * m.mM[2][2] + m.mM[3][2];
+	return v;
+}
 
