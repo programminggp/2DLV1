@@ -5,6 +5,8 @@
 #include "CVector.h"
 //CMatrixクラスのインクルード
 #include "CMatrix.h"
+//CTriangleクラスのインクルード
+#include "CTriangle.h"
 
 void CSceneGame::Init() {
 	CMatrix mMatrix;
@@ -98,4 +100,28 @@ void CSceneGame::Update() {
 
 	//描画終了
 	glEnd();
+
+	//三角形クラスのインスタンス作成
+	CTriangle t0;
+	//法線と頂点の設定
+	t0.SetVertex(CVector(1.0f, 0.0f, 0.5f), CVector(2.0f, 0.0f, 0.0f), CVector(1.0f, 0.0f, -0.5f));
+	t0.SetNormal(CVector(0.0f, 1.0f, 0.0f));
+	//三角形の描画
+	t0.Render(matrix.RotateY(degree));
+
+	CTriangle t1;
+	//法線と頂点の設定
+	t1.SetVertex(CVector(0.5f, 1.0f, 0.0f), CVector(0.0f, 2.0f, 0.0f), CVector(-0.5f, 1.0f, 0.0f));
+	t1.SetNormal(CVector(0.0f, 0.0f, 1.0f));
+	//三角形の描画
+//	t1.Render();
+	t1.Render(matrix.RotateZ(degree));
+
+	CTriangle t2;
+	//法線と頂点の設定
+	t2.SetVertex(CVector(0.0f, 0.5f, 1.0f), CVector(0.0f, 0.0f, 2.0f), CVector(0.0f, -0.5f, 1.0f));
+	t2.SetNormal(CVector(1.0f, 0.0f, 0.0f));
+	//三角形の描画
+//	t2.Render();
+	t2.Render(matrix.RotateX(degree));
 }

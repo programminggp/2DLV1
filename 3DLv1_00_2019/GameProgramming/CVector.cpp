@@ -27,3 +27,21 @@ CVector CVector::Multi(const CMatrix &m) {
 	return v;//戻り値を返す
 }
 
+//デフォルトコンストラクタ
+CVector::CVector()
+: mX(0.0f), mY(0.0f), mZ(0.0f)
+{
+}
+//コンストラクタ
+//CVector(X座標, Y座標, Z座標)
+CVector::CVector(float x, float y, float z)
+: mX(x), mY(y), mZ(z)
+{
+}
+//*演算子のオーバーロード
+//CVector * CMatrix の演算結果を返す
+CVector CVector::operator*(const CMatrix &m) {
+	//掛け算の結果を返す
+	return Multi(m);
+}
+

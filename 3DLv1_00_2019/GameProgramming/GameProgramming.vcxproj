@@ -86,6 +86,7 @@
     <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
+    <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="CVector.cpp" />
     <ClCompile Include="Update.cpp" />
     <ClCompile Include="main.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CVector.h" />
     <ClInclude Include="Update.h" />
   </ItemGroup>
