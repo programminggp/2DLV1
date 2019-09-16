@@ -17,10 +17,13 @@ void CVector::Set(float x, float y, float z) {
 //行列との掛け算
 //Multi(行列)
 CVector CVector::Multi(const CMatrix &m) {
-	CVector v;
+	CVector v;	//戻り値用作成
+	//1行1列目の計算
 	v.mX = mX * m.mM[0][0] + mY * m.mM[1][0] + mZ * m.mM[2][0] + m.mM[3][0];
+	//1行2列目の計算
 	v.mY = mX * m.mM[0][1] + mY * m.mM[1][1] + mZ * m.mM[2][1] + m.mM[3][1];
+	//1行3列目の計算
 	v.mZ = mX * m.mM[0][2] + mY * m.mM[1][2] + mZ * m.mM[2][2] + m.mM[3][2];
-	return v;
+	return v;//戻り値を返す
 }
 

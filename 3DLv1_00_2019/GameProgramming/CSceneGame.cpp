@@ -14,10 +14,10 @@ void CSceneGame::Init() {
 }
 
 void CSceneGame::Update() {
-	static int degree = 0;
-	degree++;
-	CMatrix mMatrix;
-	mMatrix.RotateY(degree);
+	//static変数の作成
+	static int degree = 0;//回転角度の作成
+	degree++;//角度に1加算
+	CMatrix matrix;//行列作成
 
 	//頂点1､頂点2､頂点3,法線データの作成
 	CVector v0, v1, v2, n;
@@ -41,10 +41,13 @@ void CSceneGame::Update() {
 	//GL_TRIANGLES：三角形
 	glBegin(GL_TRIANGLES);
 
-	//n = n.Multi(mMatrix);
-	//v0 = v0.Multi(mMatrix);
-	//v1 = v1.Multi(mMatrix);
-	//v2 = v2.Multi(mMatrix);
+	//Y軸中心に角度だけ回転させる行列を設定
+	matrix.RotateY(degree);
+	//法線と頂点を回転させる
+	n = n.Multi(matrix);
+	v0 = v0.Multi(matrix);
+	v1 = v1.Multi(matrix);
+	v2 = v2.Multi(matrix);
 
 	//法線（面の向き）の設定
 	//glNormal3f(X座標, Y座標, Z座標)
@@ -60,6 +63,14 @@ void CSceneGame::Update() {
 	v0.Set(0.5f, 0.0f, 0.0f);
 	v1.Set(0.0f, 1.0f, 0.0f);
 	v2.Set(-0.5f, 0.0f, 0.0f);
+
+	matrix.RotateZ(degree);
+	//法線と頂点を回転させる
+	n = n.Multi(matrix);
+	v0 = v0.Multi(matrix);
+	v1 = v1.Multi(matrix);
+	v2 = v2.Multi(matrix);
+
 	//三角形2の描画
 	glNormal3f(n.mX, n.mY, n.mZ);
 	glVertex3f(v0.mX, v0.mY, v0.mZ);
@@ -71,6 +82,14 @@ void CSceneGame::Update() {
 	v0.Set(0.0f, 0.5f, 0.0f);
 	v1.Set(0.0f, 0.0f, 1.0f);
 	v2.Set(0.0f, -0.5f, 0.0f);
+
+	matrix.RotateX(degree);
+	//法線と頂点を回転させる
+	n = n.Multi(matrix);
+	v0 = v0.Multi(matrix);
+	v1 = v1.Multi(matrix);
+	v2 = v2.Multi(matrix);
+
 	//三角形3の描画
 	glNormal3f(n.mX, n.mY, n.mZ);
 	glVertex3f(v0.mX, v0.mY, v0.mZ);
