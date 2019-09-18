@@ -9,10 +9,10 @@
 #include "CTriangle.h"
 
 void CSceneGame::Init() {
-	CMatrix mMatrix;
-	//回転行列の作成
-	mMatrix.RotateZ(30);
-	mMatrix.Print();
+	CMatrix matrix;
+	//平行移動行列の作成
+	matrix.Translate(1.0f, 2.0f, 3.0f);
+	matrix.Print();
 }
 
 void CSceneGame::Update() {
@@ -46,7 +46,7 @@ void CSceneGame::Update() {
 	//Y軸中心に角度だけ回転させる行列を設定
 	matrix.RotateY(degree);
 	//法線と頂点を回転させる
-	n = n.Multi(matrix);
+	//n = n.Multi(matrix);
 	v0 = v0.Multi(matrix);
 	v1 = v1.Multi(matrix);
 	v2 = v2.Multi(matrix);
@@ -107,7 +107,7 @@ void CSceneGame::Update() {
 	t0.SetVertex(CVector(1.0f, 0.0f, 0.5f), CVector(2.0f, 0.0f, 0.0f), CVector(1.0f, 0.0f, -0.5f));
 	t0.SetNormal(CVector(0.0f, 1.0f, 0.0f));
 	//三角形の描画
-	t0.Render(matrix.RotateY(degree));
+	t0.Render(matrix.Translate(degree*0.01, 0.0f, 0.0f));
 
 	CTriangle t1;
 	//法線と頂点の設定
@@ -115,7 +115,9 @@ void CSceneGame::Update() {
 	t1.SetNormal(CVector(0.0f, 0.0f, 1.0f));
 	//三角形の描画
 //	t1.Render();
-	t1.Render(matrix.RotateZ(degree));
+	matrix.Translate(0.0f, degree*0.01, 0.0f);
+//	t1.Render(matrix.RotateZ(degree));
+	t1.Render(matrix);
 
 	CTriangle t2;
 	//法線と頂点の設定
@@ -123,5 +125,7 @@ void CSceneGame::Update() {
 	t2.SetNormal(CVector(1.0f, 0.0f, 0.0f));
 	//三角形の描画
 //	t2.Render();
-	t2.Render(matrix.RotateX(degree));
+	matrix.Translate(0.0f, 0.0f, degree*0.01);
+//	t2.Render(matrix.RotateX(degree));
+	t2.Render(matrix);
 }

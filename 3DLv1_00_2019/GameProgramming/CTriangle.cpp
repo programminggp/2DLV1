@@ -33,7 +33,13 @@ void CTriangle::Render(const CMatrix &m) {
 	V[0] = mV[0] * m;
 	V[1] = mV[1] * m;
 	V[2] = mV[2] * m;
-	N = mN * m;
+	//法線は平行移動はさせない
+	//行列をコピー
+	CMatrix nm = m;
+	//移動要素を0にする
+	nm.mM[3][0] = nm.mM[3][1] = nm.mM[3][2] = 0.0f;
+	//回転のみ計算する
+	N = mN * nm;
 	//演算後の座標で描画する
 	glBegin(GL_TRIANGLES);
 	glNormal3f(N.mX, N.mY, N.mZ);

@@ -56,7 +56,7 @@ CMatrix CMatrix::RotateY(float degree) {
 	mM[0][0] = mM[2][2] = cosf(rad);
 	mM[0][2] = -sinf(rad);
 	mM[2][0] = -mM[0][2];
-	//行列を返す
+	//この行列を返す
 	return *this;
 }
 
@@ -75,5 +75,16 @@ CMatrix CMatrix::RotateZ(float degree) {
 	mM[0][0] = mM[1][1] = cosf(rad);
 	mM[0][1] = sinf(rad);
 	mM[1][0] = -mM[0][1];
+	return *this;
+}
+
+//平行移動行列の作成
+//Translate(移動量X, 移動量Y, 移動量Z)
+CMatrix CMatrix::Translate(float x, float y, float z) {
+	Identity();
+	mM[3][0] = x;
+	mM[3][1] = y;
+	mM[3][2] = z;
+	//この行列を返す
 	return *this;
 }

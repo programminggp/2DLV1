@@ -24,6 +24,9 @@ public:
 	//回転行列（Z軸）の作成
 	//RotateZ(角度)
 	CMatrix RotateZ(float degree);
+	//平行移動行列の作成
+	//Translate(移動量X, 移動量Y, 移動量Z)
+	CMatrix Translate(float x, float y, float z);
 };
 
 #endif
