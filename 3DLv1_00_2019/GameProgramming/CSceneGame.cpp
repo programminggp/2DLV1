@@ -7,6 +7,8 @@
 #include "CMatrix.h"
 //CTriangleクラスのインクルード
 #include "CTriangle.h"
+//数学関数のインクルード
+#include <math.h>
 
 void CSceneGame::Init() {
 	CMatrix matrix;
@@ -104,28 +106,31 @@ void CSceneGame::Update() {
 	//三角形クラスのインスタンス作成
 	CTriangle t0;
 	//法線と頂点の設定
-	t0.SetVertex(CVector(1.0f, 0.0f, 0.5f), CVector(2.0f, 0.0f, 0.0f), CVector(1.0f, 0.0f, -0.5f));
+	t0.SetVertex(CVector(0.0f, 0.0f, 0.5f), CVector(1.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, -0.5f));
 	t0.SetNormal(CVector(0.0f, 1.0f, 0.0f));
 	//三角形の描画
-	t0.Render(matrix.Translate(degree*0.01, 0.0f, 0.0f));
+//	t0.Render(matrix.Translate(degree*0.01, 0.0f, 0.0f));
+	t0.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) +1.5));
 
 	CTriangle t1;
 	//法線と頂点の設定
-	t1.SetVertex(CVector(0.5f, 1.0f, 0.0f), CVector(0.0f, 2.0f, 0.0f), CVector(-0.5f, 1.0f, 0.0f));
+	t1.SetVertex(CVector(0.5f, 0.0f, 0.0f), CVector(0.0f, 1.0f, 0.0f), CVector(-0.5f, 0.0f, 0.0f));
 	t1.SetNormal(CVector(0.0f, 0.0f, 1.0f));
 	//三角形の描画
 //	t1.Render();
 	matrix.Translate(0.0f, degree*0.01, 0.0f);
 //	t1.Render(matrix.RotateZ(degree));
-	t1.Render(matrix);
+//	t1.Render(matrix);
+	t1.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5));
 
 	CTriangle t2;
 	//法線と頂点の設定
-	t2.SetVertex(CVector(0.0f, 0.5f, 1.0f), CVector(0.0f, 0.0f, 2.0f), CVector(0.0f, -0.5f, 1.0f));
+	t2.SetVertex(CVector(0.0f, 0.5f, 0.0f), CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, -0.5f, 0.0f));
 	t2.SetNormal(CVector(1.0f, 0.0f, 0.0f));
 	//三角形の描画
 //	t2.Render();
 	matrix.Translate(0.0f, 0.0f, degree*0.01);
 //	t2.Render(matrix.RotateX(degree));
-	t2.Render(matrix);
+//	t2.Render(matrix);
+	t2.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5));
 }

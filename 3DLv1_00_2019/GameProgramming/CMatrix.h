@@ -27,6 +27,10 @@ public:
 	//•½sˆÚ“®s—ñ‚Ìì¬
 	//Translate(ˆÚ“®—ÊX, ˆÚ“®—ÊY, ˆÚ“®—ÊZ)
 	CMatrix Translate(float x, float y, float z);
+	//Šg‘åk¬s—ñ‚Ìì¬
+	//Scale(”{—¦X, ”{—¦Y, ”{—¦Z)
+	CMatrix Scale(float x, float y, float z);
+
 };
 
 #endif

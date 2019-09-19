@@ -88,3 +88,14 @@ CMatrix CMatrix::Translate(float x, float y, float z) {
 	//‚±‚Ìs—ñ‚ğ•Ô‚·
 	return *this;
 }
+
+//Šg‘åk¬s—ñ‚Ìì¬
+//Scale(”{—¦X, ”{—¦Y, ”{—¦Z)
+CMatrix CMatrix::Scale(float x, float y, float z) {
+	Identity();
+	mM[0][0] = x;
+	mM[1][1] = y;
+	mM[2][2] = z;
+	//‚±‚Ìs—ñ‚ğ•Ô‚·
+	return *this;
+}
