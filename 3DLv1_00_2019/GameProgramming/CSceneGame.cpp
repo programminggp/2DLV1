@@ -110,7 +110,10 @@ void CSceneGame::Update() {
 	t0.SetNormal(CVector(0.0f, 1.0f, 0.0f));
 	//三角形の描画
 //	t0.Render(matrix.Translate(degree*0.01, 0.0f, 0.0f));
-	t0.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) +1.5));
+//	t0.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) +1.5));
+	//回転行列と移動行列を掛けて合成行列を作る
+	matrix = matrix.RotateY(degree) * matrix.Translate(2.0f, 0.0f, 0.0f);
+	t0.Render(matrix);
 
 	CTriangle t1;
 	//法線と頂点の設定
@@ -121,7 +124,9 @@ void CSceneGame::Update() {
 	matrix.Translate(0.0f, degree*0.01, 0.0f);
 //	t1.Render(matrix.RotateZ(degree));
 //	t1.Render(matrix);
-	t1.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5));
+//	t1.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5));
+	matrix = matrix.RotateZ(degree) * matrix.Translate(0.0f, 2.0f, 0.0f);
+	t1.Render(matrix);
 
 	CTriangle t2;
 	//法線と頂点の設定
@@ -129,8 +134,11 @@ void CSceneGame::Update() {
 	t2.SetNormal(CVector(1.0f, 0.0f, 0.0f));
 	//三角形の描画
 //	t2.Render();
-	matrix.Translate(0.0f, 0.0f, degree*0.01);
+//	matrix.Translate(0.0f, 0.0f, degree*0.01);
 //	t2.Render(matrix.RotateX(degree));
 //	t2.Render(matrix);
-	t2.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5));
+//	t2.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5));
+	matrix = matrix.RotateX(degree) * matrix.Translate(0.0f, 0.0f, 2.0f);
+	t2.Render(matrix);
+
 }

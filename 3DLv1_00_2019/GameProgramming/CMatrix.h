@@ -30,6 +30,9 @@ public:
 	//拡大縮小行列の作成
 	//Scale(倍率X, 倍率Y, 倍率Z)
 	CMatrix Scale(float x, float y, float z);
+	//*演算子のオーバーロード
+	//CMatrix * CMatrix の演算結果を返す
+	CMatrix operator*(const CMatrix &m);
 
 };
 
