@@ -9,12 +9,19 @@
 #include "CTriangle.h"
 //数学関数のインクルード
 #include <math.h>
+//モデルクラスのインクルード
+#include "CModel.h"
+
+//モデルクラスのインスタンス作成
+CModel Model;
 
 void CSceneGame::Init() {
 	CMatrix matrix;
 	//平行移動行列の作成
 	matrix.Translate(1.0f, 2.0f, 3.0f);
 	matrix.Print();
+	//モデルファイルの入力
+	Model.Load("f14.obj", "f14.mtl");
 }
 
 void CSceneGame::Update() {
