@@ -11,7 +11,7 @@ void CModel::Load(char *model, char *mtl) {
 	//ファイルのオープン
 	//fopen(ファイル名,モード)
 	//オープンできない時はNULLを返す
-	fp = fopen(mtl, "r");
+	fp = fopen(model, "r");
 	//ファイルオープンエラーの判定
 	//fpがNULLの時はエラー
 	if (fp == NULL) {
@@ -37,7 +37,7 @@ void CModel::Load(char *model, char *mtl) {
 	//ファイルのオープン
 	//fopen(ファイル名,モード)
 	//オープンできない時はNULLを返す
-	fp = fopen(model, "r");
+	fp = fopen(mtl, "r");
 	//ファイルオープンエラーの判定
 	//fpがNULLの時はエラー
 	if (fp == NULL) {
