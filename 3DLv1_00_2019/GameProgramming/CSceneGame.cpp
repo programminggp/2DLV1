@@ -25,6 +25,12 @@ void CSceneGame::Init() {
 }
 
 void CSceneGame::Update() {
+	//視点の設定
+	//gluLookAt(視点X, 視点Y, 視点Z, 中心X, 中心Y, 中心Z, 上向X, 上向Y, 上向Z)
+	gluLookAt(11.0f, 12.0f, 13.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	Model.Render();
+	return;
+
 	//static変数の作成
 	static int degree = 0;//回転角度の作成
 	degree++;//角度に1加算

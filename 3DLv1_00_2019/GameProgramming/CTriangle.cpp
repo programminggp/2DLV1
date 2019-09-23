@@ -12,15 +12,23 @@ void CTriangle::SetVertex(const CVector &v0, const CVector &v1, const CVector &v
 //法線設定
 //SetNormal(法線ベクトル)
 void CTriangle::SetNormal(const CVector &n) {
-	mN = n;
+	mN[0] = mN[1] = mN[2] = n;
+}
+
+void CTriangle::SetNormal(const CVector &v0, const CVector &v1, const CVector &v2) {
+	mN[0] = v0;
+	mN[1] = v1;
+	mN[2] = v2;
 }
 
 //描画
 void CTriangle::Render() {
 	glBegin(GL_TRIANGLES);
-	glNormal3f(mN.mX, mN.mY, mN.mZ);
+	glNormal3f(mN[0].mX, mN[0].mY, mN[0].mZ);
 	glVertex3f(mV[0].mX, mV[0].mY, mV[0].mZ);
+	glNormal3f(mN[1].mX, mN[1].mY, mN[1].mZ);
 	glVertex3f(mV[1].mX, mV[1].mY, mV[1].mZ);
+	glNormal3f(mN[2].mX, mN[2].mY, mN[2].mZ);
 	glVertex3f(mV[2].mX, mV[2].mY, mV[2].mZ);
 	glEnd();
 }
@@ -39,12 +47,16 @@ void CTriangle::Render(const CMatrix &m) {
 	//移動要素を0にする
 	nm.mM[3][0] = nm.mM[3][1] = nm.mM[3][2] = 0.0f;
 	//回転のみ計算する
-	N = mN * nm;
+	N = mN[0] * nm;
 	//演算後の座標で描画する
 	glBegin(GL_TRIANGLES);
 	glNormal3f(N.mX, N.mY, N.mZ);
 	glVertex3f(V[0].mX, V[0].mY, V[0].mZ);
+	N = mN[1] * nm;
+	glNormal3f(N.mX, N.mY, N.mZ);
 	glVertex3f(V[1].mX, V[1].mY, V[1].mZ);
+	N = mN[2] * nm;
+	glNormal3f(N.mX, N.mY, N.mZ);
 	glVertex3f(V[2].mX, V[2].mY, V[2].mZ);
 	glEnd();
 }
