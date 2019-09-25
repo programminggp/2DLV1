@@ -18,7 +18,7 @@ public:
 	std::vector<CMaterial> mMaterials;
 	//モデルファイルの入力
 	//Load(モデルファイル名, マテリアルファイル名)
-	void Load(char *model,char *mtl);
+	void Load(char *obj, char *mtl);
 	//描画
 	void Render();
 	void Render(const CMatrix &m);

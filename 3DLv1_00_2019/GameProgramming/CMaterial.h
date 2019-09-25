@@ -6,14 +6,14 @@
 */
 class CMaterial {
 public:
+	//マテリアル名
 	char mName[64];
-	//diffuse
+	//拡散光の色RGBA
 	float mDiffuse[4];
-	//
+	//デフォルトコンストラクタ
 	CMaterial();
-	//マテリアルの適用
-	void SetMaterial();
+	//マテリアルを有効にする
+	void Enabled();
 };
-
 
 #endif

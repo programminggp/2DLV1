@@ -8,11 +8,11 @@
 
 //モデルファイルの入力
 //Load(モデルファイル名, マテリアルファイル名)
-void CModel::Load(char *model, char *mtl) {
+void CModel::Load(char *obj, char *mtl) {
 	//ファイルポインタ変数の作成
 	FILE *fp;
 
-	//入力エリアを作成する
+	//入力エリアを作成を移動
 	char buf[256];
 
 	//ファイルのオープン
@@ -23,7 +23,7 @@ void CModel::Load(char *model, char *mtl) {
 	//fpがNULLの時はエラー
 	if (fp == NULL) {
 		//コンソールにエラー出力して戻る
-		printf("%s file open error\n", model);
+		printf("%s file open error\n", mtl);
 		return;
 	}
 
@@ -66,12 +66,12 @@ void CModel::Load(char *model, char *mtl) {
 	//ファイルのオープン
 	//fopen(ファイル名,モード)
 	//オープンできない時はNULLを返す
-	fp = fopen(model, "r");
+	fp = fopen(obj, "r");
 	//ファイルオープンエラーの判定
 	//fpがNULLの時はエラー
 	if (fp == NULL) {
 		//コンソールにエラー出力して戻る
-		printf("%s file open error\n", model);
+		printf("%s file open error\n", obj);
 		return;
 	}
 
@@ -122,7 +122,7 @@ void CModel::Load(char *model, char *mtl) {
 			//atof(文字列)　文字列からfloat型の値を返す
 			normal.push_back(CVector(atof(str[1]), atof(str[2]), atof(str[3])));
 		}
-		//先頭がusemtlの時、マテリアルインデックスを設定する
+		//先頭がusemtlの時、マテリアルインデックスを取得する
 		else if (strcmp(str[0], "usemtl") == 0) {
 			//可変長配列を後から比較
 			for (idx = mMaterials.size() - 1; idx > 0;  idx--) {
@@ -147,7 +147,7 @@ void CModel::Render() {
 	//可変長配列の大きさだけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
 		//マテリアルの適用
-		mMaterials[mTriangles[i].mMaterialIdx].SetMaterial();
+		mMaterials[mTriangles[i].mMaterialIdx].Enabled();
 		//可変長配列に添え字でアクセスする
 		mTriangles[i].Render();
 	}
@@ -157,7 +157,7 @@ void CModel::Render(const CMatrix &m) {
 	//可変長配列の大きさだけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
 		//マテリアルの適用
-		mMaterials[mTriangles[i].mMaterialIdx].SetMaterial();
+		mMaterials[mTriangles[i].mMaterialIdx].Enabled();
 		//可変長配列に添え字でアクセスする
 		mTriangles[i].Render(m);
 	}
