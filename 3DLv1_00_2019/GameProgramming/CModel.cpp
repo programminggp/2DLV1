@@ -12,6 +12,57 @@ void CModel::Load(char *model, char *mtl) {
 	//ファイルポインタ変数の作成
 	FILE *fp;
 
+	//入力エリアを作成する
+	char buf[256];
+
+	//ファイルのオープン
+	//fopen(ファイル名,モード)
+	//オープンできない時はNULLを返す
+	fp = fopen(mtl, "r");
+	//ファイルオープンエラーの判定
+	//fpがNULLの時はエラー
+	if (fp == NULL) {
+		//コンソールにエラー出力して戻る
+		printf("%s file open error\n", model);
+		return;
+	}
+
+	//マテリアルインデックス
+	int idx = 0;
+	//ファイルからデータを入力
+	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		//データを分割する
+		char str[4][64];
+		//文字列からデータを4つ変数へ代入する
+		sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
+		//先頭がnewmtlの時、マテリアルを追加する
+		if (strcmp(str[0], "newmtl") == 0) {
+			CMaterial material;
+			//マテリアル名のコピー
+			strncpy(material.mName, str[1], sizeof(material.mName) - 1);
+			//マテリアルの可変長配列に追加
+			mMaterials.push_back(material);
+			//配列の長さを取得
+			idx = mMaterials.size() - 1;
+		}
+		//先頭がKdの時、Diffuseを設定する
+		else if (strcmp(str[0], "Kd") == 0) {
+			mMaterials[idx].mDiffuse[0] = atof(str[1]);
+			mMaterials[idx].mDiffuse[1] = atof(str[2]);
+			mMaterials[idx].mDiffuse[2] = atof(str[3]);
+		}
+		//先頭がdの時、α値を設定する
+		else if (strcmp(str[0], "d") == 0) {
+			mMaterials[idx].mDiffuse[3] = atof(str[1]);
+		}
+		//入力した値をコンソールに出力する
+		//		printf("%s", buf);
+	}
+
+	//ファイルのクローズ
+	fclose(fp);
+
+
 	//ファイルのオープン
 	//fopen(ファイル名,モード)
 	//オープンできない時はNULLを返す
@@ -25,8 +76,6 @@ void CModel::Load(char *model, char *mtl) {
 	}
 
 	//ファイルからデータを入力
-	//入力エリアを作成する
-	char buf[256];
 	//頂点データの保存(CVector型)
 	std::vector<CVector> vertex;
 	//法線データの保存(CVector型)
@@ -62,6 +111,8 @@ void CModel::Load(char *model, char *mtl) {
 			CTriangle t;
 			t.SetVertex(vertex[v[0]-1], vertex[v[1]-1], vertex[v[2]-1]);
 			t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
+			//マテリアル番号の設定
+			t.mMaterialIdx = idx;
 			//可変長配列mTrianglesに三角形を追加
 			mTriangles.push_back(t);
 		}
@@ -71,6 +122,17 @@ void CModel::Load(char *model, char *mtl) {
 			//atof(文字列)　文字列からfloat型の値を返す
 			normal.push_back(CVector(atof(str[1]), atof(str[2]), atof(str[3])));
 		}
+		//先頭がusemtlの時、マテリアルインデックスを設定する
+		else if (strcmp(str[0], "usemtl") == 0) {
+			//可変長配列を後から比較
+			for (idx = mMaterials.size() - 1; idx > 0;  idx--) {
+				//同じ名前のマテリアルがあればループ終了
+				if (strcmp(mMaterials[idx].mName, str[1]) == 0) {
+					break;
+				}
+			}
+		}
+
 		//入力した値をコンソールに出力する
 //		printf("%s", buf);
 	}
@@ -78,36 +140,25 @@ void CModel::Load(char *model, char *mtl) {
 	//ファイルのクローズ
 	fclose(fp);
 
-	//ファイルのオープン
-	//fopen(ファイル名,モード)
-	//オープンできない時はNULLを返す
-	fp = fopen(mtl, "r");
-	//ファイルオープンエラーの判定
-	//fpがNULLの時はエラー
-	if (fp == NULL) {
-		//コンソールにエラー出力して戻る
-		printf("%s file open error\n", model);
-		return;
-	}
-
-	//ファイルからデータを入力
-	//ファイルから1行入力
-	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
-	//ファイルの最後になるとNULLを返す
-	while (fgets(buf, sizeof(buf), fp) != NULL) {
-		//入力した値をコンソールに出力する
-		printf("%s", buf);
-	}
-
-	//ファイルのクローズ
-	fclose(fp);
 }
 
 //描画
 void CModel::Render() {
 	//可変長配列の大きさだけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
+		//マテリアルの適用
+		mMaterials[mTriangles[i].mMaterialIdx].SetMaterial();
 		//可変長配列に添え字でアクセスする
 		mTriangles[i].Render();
+	}
+}
+
+void CModel::Render(const CMatrix &m) {
+	//可変長配列の大きさだけ繰り返し
+	for (int i = 0; i < mTriangles.size(); i++) {
+		//マテリアルの適用
+		mMaterials[mTriangles[i].mMaterialIdx].SetMaterial();
+		//可変長配列に添え字でアクセスする
+		mTriangles[i].Render(m);
 	}
 }

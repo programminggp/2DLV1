@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CKey.cpp" />
+    <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="CModel.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
@@ -94,6 +95,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CKey.h" />
+    <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMatrix.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CScene.h" />
