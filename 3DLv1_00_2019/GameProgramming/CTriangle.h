@@ -11,6 +11,7 @@ class CTriangle {
 public:
 	CVector mV[3]; //頂点座標
 	CVector mN[3]; //法線
+	CVector mUv[3]; //テクスチャマッピング
 	int mMaterialIdx; //マテリアル番号
 	//頂点座標設定
 	//SetVertex(頂点1, 頂点2, 頂点3)

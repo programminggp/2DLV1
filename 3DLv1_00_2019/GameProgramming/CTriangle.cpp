@@ -25,10 +25,13 @@ void CTriangle::SetNormal(const CVector &v0, const CVector &v1, const CVector &v
 void CTriangle::Render() {
 	glBegin(GL_TRIANGLES);
 	glNormal3f(mN[0].mX, mN[0].mY, mN[0].mZ);
+	glTexCoord2f(mUv[0].mX, mUv[0].mY);
 	glVertex3f(mV[0].mX, mV[0].mY, mV[0].mZ);
 	glNormal3f(mN[1].mX, mN[1].mY, mN[1].mZ);
+	glTexCoord2f(mUv[1].mX, mUv[1].mY);
 	glVertex3f(mV[1].mX, mV[1].mY, mV[1].mZ);
 	glNormal3f(mN[2].mX, mN[2].mY, mN[2].mZ);
+	glTexCoord2f(mUv[2].mX, mUv[2].mY);
 	glVertex3f(mV[2].mX, mV[2].mY, mV[2].mZ);
 	glEnd();
 }
