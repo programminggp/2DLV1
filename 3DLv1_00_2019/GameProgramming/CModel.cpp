@@ -194,6 +194,7 @@ void CModel::Render() {
 	}
 }
 
+//Render(合成行列)
 void CModel::Render(const CMatrix &m) {
 	//可変長配列の大きさだけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
@@ -201,5 +202,7 @@ void CModel::Render(const CMatrix &m) {
 		mMaterials[mTriangles[i].mMaterialIdx].Enabled();
 		//可変長配列に添え字でアクセスする
 		mTriangles[i].Render(m);
+		//マテリアルを無効
+		mMaterials[mTriangles[i].mMaterialIdx].Disabled();
 	}
 }

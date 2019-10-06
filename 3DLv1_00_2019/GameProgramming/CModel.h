@@ -21,6 +21,7 @@ public:
 	void Load(char *obj, char *mtl);
 	//•`‰æ
 	void Render();
+	//Render(‡¬s—ñ)
 	void Render(const CMatrix &m);
 };
 

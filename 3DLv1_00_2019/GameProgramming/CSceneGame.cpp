@@ -11,10 +11,15 @@
 #include <math.h>
 //モデルクラスのインクルード
 #include "CModel.h"
+//キャラクタクラスのインクルード
+#include "CCharacter.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
 CModel BackGround; //背景モデル
+//キャラクタの作成
+CCharacter Character;
+CCharacter Character2;
 
 void CSceneGame::Init() {
 	CMatrix matrix;
@@ -24,6 +29,14 @@ void CSceneGame::Init() {
 	//モデルファイルの入力
 	Model.Load("f14.obj", "f14.mtl");
 	BackGround.Load("sky.obj", "sky.mtl");
+	//キャラクタの設定
+	Character.mpModel = &Model;
+	//スケールに1倍を設定
+	Character.mScale = CVector(1.0f, 1.0f, 1.0f);
+	//キャラクタの設定
+	Character2.mpModel = &Model;
+	//スケールに1倍を設定
+	Character2.mScale = CVector(1.0f, 1.0f, 1.0f);
 }
 
 void CSceneGame::Update() {
@@ -33,8 +46,15 @@ void CSceneGame::Update() {
 	//視点の設定
 	//gluLookAt(視点X, 視点Y, 視点Z, 中心X, 中心Y, 中心Z, 上向X, 上向Y, 上向Z)
 	gluLookAt(11.0f, 12.0f, 83.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-	Model.Render();
-//	Model.Render(CMatrix().RotateY(degree));
+	//Y軸で回転させる
+	Character.mRotation.mY++;
+	Character2.mPosition = CVector(0.0f, 0.0f, 55.0f);
+	//更新処理
+	Character.Update();
+	Character2.Update();
+	//描画処理
+	Character.Render();
+	Character2.Render();
 	BackGround.Render();
 	return;
 
