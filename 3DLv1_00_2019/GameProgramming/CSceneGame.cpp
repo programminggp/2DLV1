@@ -13,13 +13,16 @@
 #include "CModel.h"
 //キャラクタクラスのインクルード
 #include "CCharacter.h"
+//プレイヤークラスのインクルード
+#include "CPlayer.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
 CModel BackGround; //背景モデル
 //キャラクタの作成
 CCharacter Character;
-CCharacter Character2;
+//CCharacter Character2;
+CPlayer Player;
 
 void CSceneGame::Init() {
 	CMatrix matrix;
@@ -34,9 +37,11 @@ void CSceneGame::Init() {
 	//スケールに1倍を設定
 	Character.mScale = CVector(1.0f, 1.0f, 1.0f);
 	//キャラクタの設定
-	Character2.mpModel = &Model;
+	Player.mpModel = &Model;
 	//スケールに1倍を設定
-	Character2.mScale = CVector(1.0f, 1.0f, 1.0f);
+	Player.mScale = CVector(1.0f, 1.0f, 1.0f);
+	//位置(0.0, 0.0, 55.0)にする
+	Player.mPosition = CVector(0.0f, 0.0f, 55.0f);
 }
 
 void CSceneGame::Update() {
@@ -48,13 +53,12 @@ void CSceneGame::Update() {
 	gluLookAt(11.0f, 12.0f, 83.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 	//Y軸で回転させる
 	Character.mRotation.mY++;
-	Character2.mPosition = CVector(0.0f, 0.0f, 55.0f);
 	//更新処理
 	Character.Update();
-	Character2.Update();
+	Player.Update();
 	//描画処理
 	Character.Render();
-	Character2.Render();
+	Player.Render();
 	BackGround.Render();
 	return;
 
