@@ -17,10 +17,6 @@ void CCharacter::Update() {
 }
 //•`‰æˆ—
 void CCharacter::Render() {
-	//s—ñ‚Ì‘Ş”ğ
-	glPushMatrix();
 	//ƒ‚ƒfƒ‹‚Ì•`‰æ
 	mpModel->Render(mMatrix);
-	//s—ñ‚ğŒ³‚É–ß‚·
-	glPopMatrix();
 }

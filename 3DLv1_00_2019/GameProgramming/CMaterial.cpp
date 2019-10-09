@@ -5,7 +5,7 @@
 
 //デフォルトコンストラクタ
 CMaterial::CMaterial()
-: mpTexture(0)
+: mpTexture(0), mVertexNum(0)
 {
 	//名前を0で埋め
 	memset(mName, 0, sizeof(mName));

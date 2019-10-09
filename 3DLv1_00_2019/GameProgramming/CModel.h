@@ -16,6 +16,14 @@ public:
 	std::vector<CTriangle> mTriangles;
 	//三角形の可変長配列
 	std::vector<CMaterial> mMaterials;
+	//頂点配列
+	float *mpVertex; //頂点座標
+	float *mpNormal; //法線
+	float *mpTextureCoord; //テクスチャマッピング
+	//デフォルトコンストラクタ
+	CModel();
+	//デストラクタ
+	~CModel();
 	//モデルファイルの入力
 	//Load(モデルファイル名, マテリアルファイル名)
 	void Load(char *obj, char *mtl);

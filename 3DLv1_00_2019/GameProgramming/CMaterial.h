@@ -16,6 +16,8 @@ public:
 	float mDiffuse[4];
 	//テクスチャのスマートポインタ
 	std::shared_ptr<CTexture> mpTexture;
+	//マテリアル毎の頂点数
+	int mVertexNum;
 
 	//デフォルトコンストラクタ
 	CMaterial();
