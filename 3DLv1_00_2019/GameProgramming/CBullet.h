@@ -1,9 +1,13 @@
 #ifndef CBULLET_H
 #define CBULLET_H
-
+//キャラクタクラスのインクルード
 #include "CCharacter.h"
+//三角形クラスのインクルード
 #include "CTriangle.h"
-
+/*
+バレットクラス
+三角形を飛ばす
+*/
 class CBullet : public CCharacter {
 public:
 	//三角形
@@ -16,6 +20,5 @@ public:
 	//描画
 	void Render();
 };
-
 
 #endif

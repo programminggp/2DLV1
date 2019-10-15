@@ -2,7 +2,7 @@
 #include "CPlayer.h"
 //キー入力クラスのインクルード
 #include "CKey.h"
-
+//バレットクラスのインクルード
 #include "CBullet.h"
 extern CBullet Bullet;
 
