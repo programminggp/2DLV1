@@ -46,6 +46,9 @@ void CSceneGame::Init() {
 	Player.mPosition = CVector(0.0f, 0.0f, 55.0f);
 }
 
+#include "CBullet.h"
+CBullet Bullet;
+
 void CSceneGame::Update() {
 	//static•Ï”‚Ìì¬
 	static int degree = 0;//‰ñ“]Šp“x‚Ìì¬
@@ -75,6 +78,10 @@ void CSceneGame::Update() {
 	Character.Render();
 	Player.Render();
 	BackGround.Render();
+
+	Bullet.Update();
+	Bullet.Render();
+
 	return;
 
 	CMatrix matrix;//s—ñì¬

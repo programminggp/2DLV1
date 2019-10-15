@@ -3,6 +3,9 @@
 //キー入力クラスのインクルード
 #include "CKey.h"
 
+#include "CBullet.h"
+extern CBullet Bullet;
+
 //更新処理
 void CPlayer::Update() {
 	//Aキー入力で回転
@@ -29,6 +32,12 @@ void CPlayer::Update() {
 	if (CKey::Push('W')) {
 		//X軸の回転値を加算
 		mRotation.mX += 1;
+	}
+	//Wキー入力で上向き
+	if (CKey::Push(VK_SPACE)) {
+		Bullet.Set(0.1f, 1.5f);
+		Bullet.mPosition = mPosition;
+ 		Bullet.mRotation = mRotation;
 	}
 	//CCharacterの更新
 	CCharacter::Update();
