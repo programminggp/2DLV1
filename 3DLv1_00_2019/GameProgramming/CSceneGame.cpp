@@ -39,7 +39,9 @@ void CSceneGame::Init() {
 	//キャラクタの設定
 	Player.mpModel = &Model;
 	//スケールに1倍を設定
-	Player.mScale = CVector(1.0f, 1.0f, 1.0f);
+//	Player.mScale = CVector(1.0f, 1.0f, 1.0f);
+	//スケールを0.2倍を変更
+	Player.mScale = CVector(0.2f, 0.2f, 0.2f);
 	//位置(0.0, 0.0, 55.0)にする
 	Player.mPosition = CVector(0.0f, 0.0f, 55.0f);
 }
@@ -50,12 +52,25 @@ void CSceneGame::Update() {
 	degree++;//角度に1加算
 	//視点の設定
 	//gluLookAt(視点X, 視点Y, 視点Z, 中心X, 中心Y, 中心Z, 上向X, 上向Y, 上向Z)
-	gluLookAt(11.0f, 12.0f, 83.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	//gluLookAt(11.0f, 12.0f, 83.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
 	//Y軸で回転させる
 	Character.mRotation.mY++;
 	//更新処理
 	Character.Update();
 	Player.Update();
+
+	//カメラのパラメータを作成する
+	CVector e, c, u;//視点、注視点、上方向
+	//視点を求める
+	e = CVector(0.0f, 10.0f, -30.0f) * Player.mMatrix;
+	//注視点を求める
+	c = Player.mPosition;
+	//上方向を求める
+	u = CVector(0.0f, 1.0f, 0.0f) * Player.mMatrixRotate;
+	//カメラの設定
+	gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+
 	//描画処理
 	Character.Render();
 	Player.Render();

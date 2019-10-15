@@ -20,6 +20,16 @@ void CPlayer::Update() {
 		//Y軸の回転値を減算
 		mRotation.mY -= 1;
 	}
+	//Sキー入力で上向き
+	if (CKey::Push('S')) {
+		//X軸の回転値を減算
+		mRotation.mX -= 1;
+	}
+	//Wキー入力で上向き
+	if (CKey::Push('W')) {
+		//X軸の回転値を加算
+		mRotation.mX += 1;
+	}
 	//CCharacterの更新
 	CCharacter::Update();
 }
