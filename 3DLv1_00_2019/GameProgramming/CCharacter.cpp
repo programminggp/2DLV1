@@ -1,5 +1,7 @@
 //キャラクタクラスインクルード
 #include "CCharacter.h"
+//
+#include "CTaskManager.h"
 
 //更新処理
 void CCharacter::Update() {
@@ -19,4 +21,15 @@ void CCharacter::Update() {
 void CCharacter::Render() {
 	//モデルの描画
 	mpModel->Render(mMatrix);
+}
+
+//22
+CCharacter::CCharacter() {
+	//タスクリストに追加
+	TaskManager.Add(this);
+}
+//22
+CCharacter::~CCharacter() {
+	//タスクリストから削除
+	TaskManager.Remove(this);
 }

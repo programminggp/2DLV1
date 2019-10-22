@@ -99,3 +99,18 @@ void CTaskManager::Render() {
 		pos = pos->mpNext;
 	}
 }
+
+//ƒ^ƒXƒN‚Ìíœ
+void CTaskManager::Delete() {
+	//æ“ª‚©‚çÅŒã‚Ü‚ÅŒJ‚è•Ô‚µ
+	CTask *pos = mpHead;
+	while (pos) {
+		CTask *del = pos;
+		//Ÿ‚Ö
+		pos = pos->mpNext;
+		//mEnabled‚ªfalse‚È‚çíœ
+		if (del->mEnabled == false) {
+			delete del;
+		}
+	}
+}

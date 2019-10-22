@@ -21,10 +21,6 @@
 //モデルクラスのインスタンス作成
 CModel Model;
 CModel BackGround; //背景モデル
-//キャラクタの作成
-CCharacter Character;
-//CCharacter Character2;
-CPlayer Player;
 
 void CSceneGame::Init() {
 	CMatrix matrix;
@@ -48,8 +44,8 @@ void CSceneGame::Init() {
 	Player.mPosition = CVector(0.0f, 0.0f, 55.0f);
 }
 
-#include "CBullet.h"
-CBullet Bullet;
+//22#include "CBullet.h"
+//22CBullet Bullet;
 
 void CSceneGame::Update() {
 	//static変数の作成
@@ -62,8 +58,8 @@ void CSceneGame::Update() {
 	//Y軸で回転させる
 	Character.mRotation.mY++;
 	//更新処理
-	Character.Update();
-	Player.Update();
+//	Character.Update();
+//	Player.Update();
 
 	//タスクマネージャの更新
 	TaskManager.Update();
@@ -80,10 +76,12 @@ void CSceneGame::Update() {
 	gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
 	//描画処理
-	Character.Render();
-	Player.Render();
+//	Character.Render();
+//	Player.Render();
 	BackGround.Render();
 
+	//タスクリストの削除
+	TaskManager.Delete();
 	//タスクマネージャの描画
 	TaskManager.Render();
 

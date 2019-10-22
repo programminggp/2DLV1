@@ -1,4 +1,6 @@
 #include "CBullet.h"
+//
+#include "CTaskManager.h"
 
 //幅と奥行きの設定
 //Set(幅, 奥行)
@@ -13,9 +15,16 @@ void CBullet::Set(float w, float d) {
 
 //更新
 void CBullet::Update() {
-	CCharacter::Update();
-	//位置更新
-	mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;
+	//生存時間の判定
+	if (mLife-- > 0) {
+		CCharacter::Update();
+		//位置更新
+		mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;
+	}
+	else {
+		//無効にする
+		mEnabled = false;
+	}
 }
 
 //描画
@@ -25,4 +34,10 @@ void CBullet::Render() {
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
 	//三角形描画
 	mT.Render(mMatrix);
+}
+//22
+CBullet::CBullet()
+: mLife(50)
+{
+	Set(0.1f, 1.5f);
 }

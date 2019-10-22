@@ -18,13 +18,17 @@ public:
 	//リストに追加
 	//Add(タスクのポインタ)
 	void Add(CTask *task);
-	//リストから削除
-	//Remove(タスクのポインタ)
-	void Remove(CTask *task);
 	//更新
 	void Update();
 	//描画
 	void Render();
+	//22
+	//リストから削除
+	//Remove(タスクのポインタ)
+	void Remove(CTask *task);
+	//22
+	//タスクの削除
+	void Delete();
 };
 
 //タスクマネージャyの外部参照

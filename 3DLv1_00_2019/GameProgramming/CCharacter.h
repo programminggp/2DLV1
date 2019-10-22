@@ -22,6 +22,9 @@ public:
 	CMatrix mMatrixTranslate; //平行移動行列
 	CMatrix mMatrixRotate; //回転行列
 	CMatrix mMatrixScale; //拡大縮小行列
+	//22
+	CCharacter();
+	~CCharacter();
 	//更新処理
 	void Update();
 	//描画処理

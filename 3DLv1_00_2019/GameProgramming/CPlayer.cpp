@@ -4,7 +4,7 @@
 #include "CKey.h"
 //バレットクラスのインクルード
 #include "CBullet.h"
-extern CBullet Bullet;
+//22extern CBullet Bullet;
 //タスクマネージャのインクルード
 #include "CTaskManager.h"
 
@@ -39,10 +39,9 @@ void CPlayer::Update() {
 	if (CKey::Push(VK_SPACE)) {
 		CBullet *bullet = new CBullet();
 		bullet->Set(0.1f, 1.5f);
-		bullet->mPosition = mPosition;
+		bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
  		bullet->mRotation = mRotation;
-		bullet->mPriority = mRotation.mY;
-		TaskManager.Add(bullet);
+//		TaskManager.Add(bullet);
 	}
 	//CCharacterの更新
 	CCharacter::Update();
