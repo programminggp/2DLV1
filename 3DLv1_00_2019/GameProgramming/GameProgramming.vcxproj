@@ -91,6 +91,7 @@
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
+    <ClCompile Include="CTaskManager.cpp" />
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="CVector.cpp" />
     <ClCompile Include="Update.cpp" />
@@ -108,6 +109,8 @@
     <ClInclude Include="CSceneGame.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSound.h" />
+    <ClInclude Include="CTask.h" />
+    <ClInclude Include="CTaskManager.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CVector.h" />

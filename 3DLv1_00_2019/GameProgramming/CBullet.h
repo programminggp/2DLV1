@@ -5,7 +5,7 @@
 //三角形クラスのインクルード
 #include "CTriangle.h"
 /*
-バレットクラス
+弾クラス
 三角形を飛ばす
 */
 class CBullet : public CCharacter {

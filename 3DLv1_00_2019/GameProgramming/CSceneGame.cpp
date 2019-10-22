@@ -15,6 +15,8 @@
 #include "CCharacter.h"
 //プレイヤークラスのインクルード
 #include "CPlayer.h"
+//タスクマネージャのインクルード
+#include "CTaskManager.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
@@ -63,6 +65,9 @@ void CSceneGame::Update() {
 	Character.Update();
 	Player.Update();
 
+	//タスクマネージャの更新
+	TaskManager.Update();
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
@@ -79,8 +84,8 @@ void CSceneGame::Update() {
 	Player.Render();
 	BackGround.Render();
 
-	Bullet.Update();
-	Bullet.Render();
+	//タスクマネージャの描画
+	TaskManager.Render();
 
 	return;
 

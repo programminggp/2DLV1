@@ -6,11 +6,13 @@
 #include "CModel.h"
 //マトリクスクラスのインクルード
 #include "CMatrix.h"
+//タスククラスのインクルード
+#include "CTask.h"
 /*
 キャラクタークラス
 ゲームキャラクタの基本的な機能を定義する
 */
-class CCharacter {
+class CCharacter : public CTask {
 public:
 	CVector mPosition; //位置
 	CVector mRotation; //回転

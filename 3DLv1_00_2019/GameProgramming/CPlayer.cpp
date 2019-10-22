@@ -5,6 +5,8 @@
 //バレットクラスのインクルード
 #include "CBullet.h"
 extern CBullet Bullet;
+//タスクマネージャのインクルード
+#include "CTaskManager.h"
 
 //更新処理
 void CPlayer::Update() {
@@ -33,11 +35,14 @@ void CPlayer::Update() {
 		//X軸の回転値を加算
 		mRotation.mX += 1;
 	}
-	//Wキー入力で上向き
+	//スペースキー入力で弾発射
 	if (CKey::Push(VK_SPACE)) {
-		Bullet.Set(0.1f, 1.5f);
-		Bullet.mPosition = mPosition;
- 		Bullet.mRotation = mRotation;
+		CBullet *bullet = new CBullet();
+		bullet->Set(0.1f, 1.5f);
+		bullet->mPosition = mPosition;
+ 		bullet->mRotation = mRotation;
+		bullet->mPriority = mRotation.mY;
+		TaskManager.Add(bullet);
 	}
 	//CCharacterの更新
 	CCharacter::Update();
