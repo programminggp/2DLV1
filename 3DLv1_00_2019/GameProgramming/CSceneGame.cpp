@@ -17,10 +17,13 @@
 #include "CPlayer.h"
 //タスクマネージャのインクルード
 #include "CTaskManager.h"
+//エネミークラスのインクルード
+#include "CEnemy.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
 CModel BackGround; //背景モデル
+CModel ModelEnemy;//エネミーモデル
 
 void CSceneGame::Init() {
 	CMatrix matrix;
@@ -42,6 +45,12 @@ void CSceneGame::Init() {
 	Player.mScale = CVector(0.2f, 0.2f, 0.2f);
 	//位置(0.0, 0.0, 55.0)にする
 	Player.mPosition = CVector(0.0f, 0.0f, 55.0f);
+
+	//エネミーモデルの入力
+	ModelEnemy.Load("f16.obj", "f16.mtl");
+	//敵機の配置
+	new CEnemy(&ModelEnemy, CVector(-10, 7, 55), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+	new CEnemy(&ModelEnemy, CVector(-12, 9, 55), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
 }
 
 //22#include "CBullet.h"

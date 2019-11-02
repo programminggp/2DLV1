@@ -53,7 +53,7 @@ void CTaskManager::Add(CTask *task) {
 		task->mpNext = mpHead;
 		mpHead->mpPrev = task;
 		mpHead = task;
-		mpHead->mpPrev = 0;
+		task->mpPrev = 0;
 	}
 }
 
