@@ -4,6 +4,8 @@
 #include "CCharacter.h"
 //三角形クラスのインクルード
 #include "CTriangle.h"
+//コライダクラスのインクルード
+#include "CCollider.h"
 /*
 弾クラス
 三角形を飛ばす
@@ -15,6 +17,8 @@ public:
 	//22
 	//生存時間
 	int mLife;
+	//コライダ
+	CCollider mCollider;
 	CBullet();
 	//幅と奥行きの設定
 	//Set(幅, 奥行)

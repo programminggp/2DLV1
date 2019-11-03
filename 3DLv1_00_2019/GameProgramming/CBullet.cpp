@@ -38,6 +38,6 @@ void CBullet::Render() {
 //22
 CBullet::CBullet()
 : mLife(50)
+, mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 0.1f)
 {
-	Set(0.1f, 1.5f);
 }

@@ -14,6 +14,7 @@
 */
 class CCharacter : public CTask {
 public:
+	CCharacter *mpParent;	//e
 	CVector mPosition; //ˆÊ’u
 	CVector mRotation; //‰ñ“]
 	CVector mScale; //Šg‘åk¬

@@ -48,8 +48,8 @@ void CSceneGame::Init() {
 
 	//エネミーモデルの入力
 	ModelEnemy.Load("f16.obj", "f16.mtl");
-	//敵機の配置
-	new CEnemy(&ModelEnemy, CVector(-10, 7, 55), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+	//敵機の生成
+	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
 	new CEnemy(&ModelEnemy, CVector(-12, 9, 55), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
 }
 

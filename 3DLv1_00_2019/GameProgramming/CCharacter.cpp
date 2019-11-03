@@ -16,6 +16,10 @@ void CCharacter::Update() {
 	mMatrixTranslate.Translate(mPosition.mX, mPosition.mY, mPosition.mZ);
 	//合成行列の設定
 	mMatrix = mMatrixScale * mMatrixRotate * mMatrixTranslate;
+	//親がいれば、親の行列と合成
+	if (mpParent) {
+		mMatrix = mMatrix * mpParent->mMatrix;
+	}
 }
 //描画処理
 void CCharacter::Render() {
@@ -24,7 +28,9 @@ void CCharacter::Render() {
 }
 
 //22
-CCharacter::CCharacter() {
+CCharacter::CCharacter()
+: mpParent(0)
+{
 	//タスクリストに追加
 	TaskManager.Add(this);
 }
