@@ -10,7 +10,7 @@
 */
 class CCollider : public CTask, public CTransform {
 public:
-	CCharacter *mpParent;
+	CCharacter *mpParent;//e
 	float mRadius;	//”¼Œa
 	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	//CCollider(e, ˆÊ’u, ‰ñ“], Šgk, ”¼Œa)
@@ -18,6 +18,8 @@ public:
 	~CCollider();
 	//•`‰æ
 	void Render();
+	//
+	static bool Collision(CCollider *m, CCollider *y);
 };
 
 #endif
