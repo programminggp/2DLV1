@@ -41,3 +41,13 @@ CBullet::CBullet()
 , mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 0.1f)
 {
 }
+
+void CBullet::Collision(CCollider *m, CCollider *y) {
+	CVector mpos = CVector() * m->mMatrix * m->mpParent->mMatrix;
+	CVector ypos = CVector() * y->mMatrix * y->mpParent->mMatrix;
+	mpos = mpos - ypos;
+	if (m->mRadius + y->mRadius > mpos.Length()) {
+		mEnabled = false;
+//		printf("Bullet Hit!\n");
+	}
+}

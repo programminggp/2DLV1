@@ -19,6 +19,8 @@
 #include "CTaskManager.h"
 //エネミークラスのインクルード
 #include "CEnemy.h"
+//
+#include "CCollisionManager.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
@@ -72,6 +74,8 @@ void CSceneGame::Update() {
 
 	//タスクマネージャの更新
 	TaskManager.Update();
+	//
+	CollisionManager.Collision();
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -93,6 +97,8 @@ void CSceneGame::Update() {
 	TaskManager.Delete();
 	//タスクマネージャの描画
 	TaskManager.Render();
+	//
+	CollisionManager.Render();
 
 	return;
 

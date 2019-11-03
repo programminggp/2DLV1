@@ -21,3 +21,13 @@ void CEnemy::Update() {
 	//‰ñ“]‚³‚¹‚é
 	mRotation.mY += 0.5f;
 }
+
+void CEnemy::Collision(CCollider *m, CCollider *y) {
+	CVector mpos = CVector() * m->mMatrix * m->mpParent->mMatrix;
+	CVector ypos = CVector() * y->mMatrix * y->mpParent->mMatrix;
+	mpos = mpos - ypos;
+	if (m->mRadius + y->mRadius > mpos.Length()) {
+		mEnabled = false;
+		printf("CEnemy Hit!\n");
+	}
+}

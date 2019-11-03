@@ -1,4 +1,5 @@
 #include "CVector.h"
+#include <math.h>
 /*
 //コンストラクタ
 //各値を0に初期化
@@ -44,4 +45,11 @@ CVector CVector::operator*(const CMatrix &m) {
 	//掛け算の結果を返す
 	return Multi(m);
 }
-
+//
+CVector CVector::operator-(const CVector &v) {
+	return CVector(mX - v.mX, mY - v.mY, mZ - v.mZ);
+}
+//
+float CVector::Length() {
+	return sqrtf(mX * mX + mY * mY + mZ * mZ);
+}

@@ -17,6 +17,8 @@ public:
 	CEnemy(CModel *model, CVector position, CVector rotation, CVector scale);
 	//XVˆ—
 	void Update();
+	//
+	void Collision(CCollider *m, CCollider *y);
 };
 
 #endif

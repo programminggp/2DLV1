@@ -8,6 +8,8 @@
 #include "CMatrix.h"
 //タスククラスのインクルード
 #include "CTask.h"
+//#include "CCollider.h"
+class CCollider;
 /*
 キャラクタークラス
 ゲームキャラクタの基本的な機能を定義する
@@ -30,6 +32,7 @@ public:
 	void Update();
 	//描画処理
 	void Render();
+	virtual void Collision(CCollider *mycol, CCollider *youcol) {}
 };
 
 #endif
