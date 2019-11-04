@@ -1,6 +1,6 @@
 #include "CTransform.h"
 
-//
+//行列更新処理
 void CTransform::Update() {
 	//拡大縮小行列の設定
 	mMatrixScale.Scale(mScale.mX, mScale.mY, mScale.mZ);

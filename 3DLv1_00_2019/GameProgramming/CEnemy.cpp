@@ -25,6 +25,5 @@ void CEnemy::Update() {
 void CEnemy::Collision(CCollider *m, CCollider *y) {
 	if (CCollider::Collision(m, y)) {
 		mEnabled = false;
-		printf("CEnemy Hit!\n");
 	}
 }

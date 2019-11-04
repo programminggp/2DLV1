@@ -34,6 +34,7 @@ void CBullet::Render() {
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
 	//三角形描画
 	mT.Render(mMatrix);
+//	mCollider.Render();
 }
 //22
 CBullet::CBullet()
@@ -41,9 +42,12 @@ CBullet::CBullet()
 , mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 0.1f)
 {
 }
-
+//衝突処理
+//Collision(コライダ1, コライダ2)
 void CBullet::Collision(CCollider *m, CCollider *y) {
+	//コライダのmとyが衝突しているか判定
 	if (CCollider::Collision(m, y)) {
+		//衝突している時は無効にする
 		mEnabled = false;
 //		printf("Bullet Hit!\n");
 	}

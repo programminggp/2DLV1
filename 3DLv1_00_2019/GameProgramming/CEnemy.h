@@ -17,8 +17,13 @@ public:
 	CEnemy(CModel *model, CVector position, CVector rotation, CVector scale);
 	//XVˆ—
 	void Update();
-	//
+	//Õ“Ëˆ—
 	void Collision(CCollider *m, CCollider *y);
+
+	//void Render() {
+	//	CCharacter::Render();
+	//	mCollider.Render();
+	//}
 };
 
 #endif

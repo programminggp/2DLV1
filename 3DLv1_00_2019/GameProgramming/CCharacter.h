@@ -9,6 +9,7 @@
 //タスククラスのインクルード
 #include "CTask.h"
 //#include "CCollider.h"
+//コライダクラスの宣言
 class CCollider;
 /*
 キャラクタークラス
@@ -32,6 +33,7 @@ public:
 	void Update();
 	//描画処理
 	void Render();
+	//衝突処理
 	virtual void Collision(CCollider *mycol, CCollider *youcol) {}
 };
 

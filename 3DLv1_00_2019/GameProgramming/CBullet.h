@@ -27,7 +27,7 @@ public:
 	void Update();
 	//•`‰æ
 	void Render();
-	//
+	//Õ“Ëˆ—
 	void Collision(CCollider *m, CCollider *y);
 };
 

@@ -74,7 +74,7 @@ void CSceneGame::Update() {
 
 	//タスクマネージャの更新
 	TaskManager.Update();
-	//
+	//コリジョンマネージャの衝突処理
 	CollisionManager.Collision();
 
 	//カメラのパラメータを作成する
@@ -97,7 +97,7 @@ void CSceneGame::Update() {
 	TaskManager.Delete();
 	//タスクマネージャの描画
 	TaskManager.Render();
-	//
+	//コライダの描画
 	CollisionManager.Render();
 
 	return;

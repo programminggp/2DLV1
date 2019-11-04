@@ -24,9 +24,10 @@ public:
 	//*演算子のオーバーロード
 	//CVector * CMatrix の演算結果を返す
 	CVector operator*(const CMatrix &m);
-	//
+	//-演算しのオーバーロード
+	//CVector - CVector の演算結果を返す
 	CVector operator-(const CVector &v);
-	//
+	//ベクトルの長さを返す
 	float Length();
 };
 
