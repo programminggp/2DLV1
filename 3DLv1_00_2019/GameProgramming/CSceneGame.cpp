@@ -21,6 +21,8 @@
 #include "CEnemy.h"
 //
 #include "CCollisionManager.h"
+//
+#include "CCamera.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
@@ -53,6 +55,8 @@ void CSceneGame::Init() {
 	//敵機の生成
 	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
 	new CEnemy(&ModelEnemy, CVector(-12, 9, 55), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+	//
+	BillBoard.Set(CVector(13.0f, 6.0f, 10.0f), 2.0f, 2.0f);
 }
 
 //22#include "CBullet.h"
@@ -86,7 +90,10 @@ void CSceneGame::Update() {
 	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f) * Player.mMatrixRotate;
 	//カメラの設定
-	gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+	//gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+	//
+	Camera.Set(e, c, u);
+	Camera.Render();
 
 	//描画処理
 //	Character.Render();

@@ -29,6 +29,8 @@ public:
 	CVector operator-(const CVector &v);
 	//ƒxƒNƒgƒ‹‚Ì’·‚³‚ð•Ô‚·
 	float Length();
+	//
+	CVector Normalize();
 };
 
 #endif

@@ -3,7 +3,8 @@
 #include "CScene.h"
 //22
 #include "CPlayer.h"
-
+//
+#include "CBillBoard.h"
 /*
 ゲームのシーン
 */
@@ -12,6 +13,8 @@ public:
 	//キャラクタの作成
 	CCharacter Character;
 	CPlayer Player;
+	//
+	CBillBoard BillBoard;
 
 	//初期化処理のオーバーライド
 	void Init();

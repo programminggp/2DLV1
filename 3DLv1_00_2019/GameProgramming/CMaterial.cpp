@@ -16,6 +16,8 @@ CMaterial::CMaterial()
 void CMaterial::Enabled() {
 	//拡散光の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
+	if (mpTexture == 0)
+		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
 		//テクスチャを使用可能にする
@@ -30,6 +32,8 @@ void CMaterial::Enabled() {
 }
 //マテリアルを無効にする
 void CMaterial::Disabled() {
+	if (mpTexture == 0)
+		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
 		//アルファブレンドを無効
