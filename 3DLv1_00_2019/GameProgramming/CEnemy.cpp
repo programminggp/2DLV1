@@ -1,4 +1,8 @@
 #include "CEnemy.h"
+#include "CEffect.h"
+
+//スマートポインタの外部参照
+extern std::shared_ptr<CTexture> TextureExp;
 
 //コンストラクタ
 //CEnemy(モデル, 位置, 回転, 拡縮)
@@ -24,6 +28,7 @@ void CEnemy::Update() {
 
 void CEnemy::Collision(CCollider *m, CCollider *y) {
 	if (CCollider::Collision(m, y)) {
-		mEnabled = false;
+		new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+//		mEnabled = false;
 	}
 }

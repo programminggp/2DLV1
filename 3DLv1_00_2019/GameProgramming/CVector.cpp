@@ -54,7 +54,10 @@ CVector CVector::operator-(const CVector &v) {
 float CVector::Length() {
 	return sqrtf(mX * mX + mY * mY + mZ * mZ);
 }
-//
+//大きさ1のベクトルを返す（正規化）
+/*
 CVector CVector::Normalize() {
+	//ベクトルの大きさで割ったベクトルを返す
 	return CVector(mX / Length(), mY / Length(), mZ / Length());
 }
+*/

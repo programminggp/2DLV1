@@ -16,6 +16,7 @@ CMaterial::CMaterial()
 void CMaterial::Enabled() {
 	//拡散光の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
+	//テクスチャが無い時、戻る
 	if (mpTexture == 0)
 		return;
 	//テクスチャ有り
@@ -32,6 +33,7 @@ void CMaterial::Enabled() {
 }
 //マテリアルを無効にする
 void CMaterial::Disabled() {
+	//テクスチャが無い時、戻る
 	if (mpTexture == 0)
 		return;
 	//テクスチャ有り

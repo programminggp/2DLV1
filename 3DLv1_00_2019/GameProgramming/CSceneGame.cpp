@@ -23,11 +23,17 @@
 #include "CCollisionManager.h"
 //
 #include "CCamera.h"
+//ビルボードクラスのインクルード
+#include "CBillBoard.h"
+#include "CEffect.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
 CModel BackGround; //背景モデル
 CModel ModelEnemy;//エネミーモデル
+
+//スマートポインタの生成
+std::shared_ptr<CTexture> TextureExp(new CTexture());
 
 void CSceneGame::Init() {
 	CMatrix matrix;
@@ -55,8 +61,11 @@ void CSceneGame::Init() {
 	//敵機の生成
 	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
 	new CEnemy(&ModelEnemy, CVector(-12, 9, 55), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+	//ビルボードの生成
+	new CBillBoard(CVector(13.0f, 6.0f, 10.0f), 2.0f, 2.0f);
 	//
-	BillBoard.Set(CVector(13.0f, 6.0f, 10.0f), 2.0f, 2.0f);
+	TextureExp->Load("exp.tga");
+//	new CEffect(CVector(13.0f, 10.0f, 10.0f), 1.0f, 1.0f, TextureExp, 4, 4, 3);
 }
 
 //22#include "CBullet.h"
@@ -91,7 +100,7 @@ void CSceneGame::Update() {
 	u = CVector(0.0f, 1.0f, 0.0f) * Player.mMatrixRotate;
 	//カメラの設定
 	//gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
-	//
+	//カメラクラスの設定
 	Camera.Set(e, c, u);
 	Camera.Render();
 

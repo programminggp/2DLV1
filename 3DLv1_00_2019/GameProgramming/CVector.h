@@ -29,8 +29,8 @@ public:
 	CVector operator-(const CVector &v);
 	//ベクトルの長さを返す
 	float Length();
-	//
-	CVector Normalize();
+	//大きさ1のベクトルを返す（正規化）
+//	CVector Normalize();
 };
 
 #endif
