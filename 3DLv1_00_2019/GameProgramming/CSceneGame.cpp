@@ -63,7 +63,7 @@ void CSceneGame::Init() {
 	new CEnemy(&ModelEnemy, CVector(-12, 9, 55), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
 	//ビルボードの生成
 	new CBillBoard(CVector(13.0f, 6.0f, 10.0f), 2.0f, 2.0f);
-	//
+	//爆発テクスチャの読み込み
 	TextureExp->Load("exp.tga");
 //	new CEffect(CVector(13.0f, 10.0f, 10.0f), 1.0f, 1.0f, TextureExp, 4, 4, 3);
 }

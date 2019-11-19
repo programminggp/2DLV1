@@ -1,4 +1,5 @@
 #include "CEnemy.h"
+//エフェクトクラスのインクルード
 #include "CEffect.h"
 
 //スマートポインタの外部参照
@@ -28,7 +29,8 @@ void CEnemy::Update() {
 
 void CEnemy::Collision(CCollider *m, CCollider *y) {
 	if (CCollider::Collision(m, y)) {
+		//エフェクト生成
 		new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
-//		mEnabled = false;
+//削除		mEnabled = false;
 	}
 }
