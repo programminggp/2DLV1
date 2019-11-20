@@ -10,6 +10,7 @@
 */
 class CEnemy : public CCharacter {
 public:
+	int mHp;
 	//コライダ
 	CCollider mCollider;
 	//コンストラクタ

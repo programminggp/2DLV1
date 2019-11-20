@@ -114,7 +114,7 @@ void CSceneGame::Update() {
 	//タスクマネージャの描画
 	TaskManager.Render();
 	//コライダの描画
-	CollisionManager.Render();
+//	CollisionManager.Render();
 
 	return;
 

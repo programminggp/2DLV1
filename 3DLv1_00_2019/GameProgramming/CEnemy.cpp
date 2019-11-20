@@ -9,7 +9,8 @@ extern std::shared_ptr<CTexture> TextureExp;
 //CEnemy(モデル, 位置, 回転, 拡縮)
 CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 : mCollider(this, CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f),
-CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f)
+CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f),
+mHp(20)
 {
 	//モデル、位置、回転、拡縮を設定する
 	mpModel = model;	//モデルの設定
@@ -25,12 +26,21 @@ void CEnemy::Update() {
 	mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;
 	//回転させる
 	mRotation.mY += 0.5f;
+
+	if (mHp < 0) {
+		mHp--;
+		mRotation.mX += 0.1;
+		if (mHp % 10 == 0) {
+			new CEffect(mPosition, 1.5f, 1.5f, TextureExp, 4, 4, 2);
+		}
+	}
 }
 
 void CEnemy::Collision(CCollider *m, CCollider *y) {
 	if (CCollider::Collision(m, y)) {
 		//エフェクト生成
 		new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+		mHp--;
 //削除		mEnabled = false;
 	}
 }
