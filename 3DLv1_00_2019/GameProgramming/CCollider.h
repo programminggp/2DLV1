@@ -10,6 +10,12 @@
 */
 class CCollider : public CTransform, public CTask {
 public:
+	enum ETag {
+		EBODY,
+		ESEARCH,
+		EPOINT,
+	};
+	ETag mTag;
 	CCharacter *mpParent;//親
 	float mRadius;	//半径
 	//コンストラクタ

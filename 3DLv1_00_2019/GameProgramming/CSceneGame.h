@@ -10,7 +10,7 @@
 class CSceneGame : public CScene {
 public:
 	//キャラクタの作成
-	CCharacter Character;
+//	CCharacter Character;
 	CPlayer Player;
 
 	//初期化処理のオーバーライド

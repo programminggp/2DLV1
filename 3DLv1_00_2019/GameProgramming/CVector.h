@@ -31,6 +31,8 @@ public:
 	float Length();
 	//大きさ1のベクトルを返す（正規化）
 //	CVector Normalize();
+	//内積
+	float Dot(const CVector &v);
 };
 
 #endif

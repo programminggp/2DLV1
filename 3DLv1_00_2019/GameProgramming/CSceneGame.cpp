@@ -31,6 +31,8 @@
 CModel Model;
 CModel BackGround; //背景モデル
 CModel ModelEnemy;//エネミーモデル
+//30
+CModel ModelAirBase;//航空基地
 
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
@@ -43,10 +45,12 @@ void CSceneGame::Init() {
 	//モデルファイルの入力
 	Model.Load("f14.obj", "f14.mtl");
 	BackGround.Load("sky.obj", "sky.mtl");
+	//30
+	ModelAirBase.Load("airbase.obj", "airbase.mtl");
 	//キャラクタの設定
-	Character.mpModel = &Model;
+//	Character.mpModel = &Model;
 	//スケールに1倍を設定
-	Character.mScale = CVector(1.0f, 1.0f, 1.0f);
+//	Character.mScale = CVector(1.0f, 1.0f, 1.0f);
 	//キャラクタの設定
 	Player.mpModel = &Model;
 	//スケールに1倍を設定
@@ -54,15 +58,20 @@ void CSceneGame::Init() {
 	//スケールを0.2倍を変更
 	Player.mScale = CVector(0.2f, 0.2f, 0.2f);
 	//位置(0.0, 0.0, 55.0)にする
-	Player.mPosition = CVector(0.0f, 0.0f, 55.0f);
+	Player.mPosition = CVector(-19.5f, 0.0f, -55.0f);
 
 	//エネミーモデルの入力
 	ModelEnemy.Load("f16.obj", "f16.mtl");
 	//敵機の生成
-	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-	new CEnemy(&ModelEnemy, CVector(-12, 9, 55), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+//	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 15.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+//	new CEnemy(&ModelEnemy, CVector(-12.0f, 9.0f, 15.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+
+
+//	new CEnemy(&ModelEnemy, CVector(10.0f, 7.0f, -15.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+	new CEnemy(&ModelEnemy, CVector(0.0f, 9.0f, 55.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+
 	//ビルボードの生成
-	new CBillBoard(CVector(13.0f, 6.0f, 10.0f), 2.0f, 2.0f);
+//	new CBillBoard(CVector(13.0f, 6.0f, 10.0f), 2.0f, 2.0f);
 	//爆発テクスチャの読み込み
 	TextureExp->Load("exp.tga");
 //	new CEffect(CVector(13.0f, 10.0f, 10.0f), 1.0f, 1.0f, TextureExp, 4, 4, 3);
@@ -80,7 +89,7 @@ void CSceneGame::Update() {
 	//gluLookAt(11.0f, 12.0f, 83.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 	//Y軸で回転させる
-	Character.mRotation.mY++;
+//	Character.mRotation.mY++;
 	//更新処理
 //	Character.Update();
 //	Player.Update();
@@ -107,14 +116,17 @@ void CSceneGame::Update() {
 	//描画処理
 //	Character.Render();
 //	Player.Render();
-	BackGround.Render();
+	//30
+	BackGround.Render(CMatrix().Scale(2.0f, 2.0f, 2.0f));
+	//30
+	ModelAirBase.Render(CMatrix().Scale(0.1f, 0.1f, 0.1f) * CMatrix().Translate(0.0f, -1.5f, 70.0f));
 
 	//タスクリストの削除
 	TaskManager.Delete();
 	//タスクマネージャの描画
 	TaskManager.Render();
 	//コライダの描画
-//	CollisionManager.Render();
+	CollisionManager.Render();
 
 	return;
 

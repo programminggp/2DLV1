@@ -23,13 +23,18 @@ void CCharacter::Update() {
 }
 //描画処理
 void CCharacter::Render() {
-	//モデルの描画
-	mpModel->Render(mMatrix);
+	//?
+	if (mpModel) {
+		//モデルの描画
+		mpModel->Render(mMatrix);
+	}
 }
 
 //22
 CCharacter::CCharacter()
 : mpParent(0)
+//?
+, mpModel(0)
 {
 	//タスクリストに追加
 	TaskManager.Add(this);

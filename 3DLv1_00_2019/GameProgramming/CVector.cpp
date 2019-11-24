@@ -61,3 +61,8 @@ CVector CVector::Normalize() {
 	return CVector(mX / Length(), mY / Length(), mZ / Length());
 }
 */
+
+//ì‡êœ
+float CVector::Dot(const CVector &v) {
+	return mX*v.mX + mY*v.mY + mZ * v.mZ;
+}
