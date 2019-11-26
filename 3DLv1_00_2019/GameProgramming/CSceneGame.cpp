@@ -32,12 +32,20 @@ CModel Model;
 CModel BackGround; //背景モデル
 CModel ModelEnemy;//エネミーモデル
 //30
-CModel ModelAirBase;//航空基地
+CModel ModelAirBase;//航空基地モデル
 
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
 
+//
+CPoint CSceneGame::mPoint[3];
+
 void CSceneGame::Init() {
+	//
+	mPoint[0].Set(CVector(35.0f, 5.0f, -150.0f));
+	mPoint[1].Set(CVector(-100.0f, 60.0f, 0.0f));
+	mPoint[2].Set(CVector(0.0f, 50.0f, 50.0f));
+
 	CMatrix matrix;
 	//平行移動行列の作成
 	matrix.Translate(1.0f, 2.0f, 3.0f);

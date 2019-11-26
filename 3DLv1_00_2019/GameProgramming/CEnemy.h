@@ -19,8 +19,8 @@ public:
 	CCollider mCollider;
 	CCollider mSearch1;
 	CCollider mSearch2;
-	CVector mTarget;
-	CPoint mPoint[3];
+	CPoint *mpPoint;
+	int mPointCnt;
 	//コンストラクタ
 	//CEnemy(モデル, 位置, 回転, 拡縮)
 	CEnemy(CModel *model, CVector position, CVector rotation, CVector scale);

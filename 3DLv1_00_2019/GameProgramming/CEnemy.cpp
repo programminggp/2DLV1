@@ -1,6 +1,8 @@
 #include "CEnemy.h"
 //エフェクトクラスのインクルード
 #include "CEffect.h"
+//
+#include "CSceneGame.h"
 
 //スマートポインタの外部参照
 extern std::shared_ptr<CTexture> TextureExp;
@@ -16,7 +18,8 @@ CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 5.0f),
 mSearch2(this, CVector(0.0f, 0.0f, 200.0f), CVector(0.0f, 0.0f, 0.0f),
 CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f),
 mHp(20),
-mRx(-0.1f)
+mRx(-0.1f),
+mPointCnt(0)
 {
 	//モデル、位置、回転、拡縮を設定する
 	mpModel = model;	//モデルの設定
@@ -27,14 +30,11 @@ mRx(-0.1f)
 	mCollider.mTag = CCollider::EBODY;
 	mSearch1.mTag = CCollider::ESEARCH;
 	mSearch2.mTag = CCollider::ESEARCH;
-	mPoint[0].Set(CVector(35.0f, 5.0f, -150.0f));
-	mPoint[1].Set(CVector(-100.0f, 60.0f, 0.0f));
-	mPoint[2].Set(CVector(0.0f, 30.0f, 100.0f));
-	mTarget = mPoint[0].mPosition;
+	mpPoint = &CSceneGame::mPoint[mPointCnt];
 }
 //更新処理
 void CEnemy::Update() {
-	CVector dir = mTarget - mPosition;
+	CVector dir = mpPoint->mPosition - mPosition;
 	CVector left = CVector(1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 	CVector up = CVector(0.0f, 1.0f, 0.0f) * CMatrix().RotateX(mRotation.mX) * CMatrix().RotateY(mRotation.mY);
 
@@ -82,11 +82,20 @@ void CEnemy::Update() {
 
 void CEnemy::Collision(CCollider *m, CCollider *y) {
 	if (y->mTag == CCollider::ESEARCH) return;
-	if (y->mTag == CCollider::EPOINT) return;
 	if (CCollider::Collision(m, y)) {
-		//エフェクト生成
-		new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
-		mHp--;
+		switch (y->mTag) {
+		case CCollider::EPOINT:
+			if (y->mpParent == mpPoint) {
+				mPointCnt++;
+				mPointCnt %= 3;
+				mpPoint = &CSceneGame::mPoint[mPointCnt];
+			}
+			break;
+		default:
+			//エフェクト生成
+			new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+			mHp--;
+		}
 //削除		mEnabled = false;
 	}
 }
