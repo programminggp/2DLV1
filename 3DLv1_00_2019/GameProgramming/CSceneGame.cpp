@@ -37,14 +37,12 @@ CModel ModelAirBase;//航空基地モデル
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
 
-//
-CPoint CSceneGame::mPoint[3];
-
 void CSceneGame::Init() {
-	//
-	mPoint[0].Set(CVector(35.0f, 5.0f, -150.0f));
-	mPoint[1].Set(CVector(-100.0f, 60.0f, 0.0f));
-	mPoint[2].Set(CVector(0.0f, 50.0f, 50.0f));
+	//ポイントの設定
+	CEnemy::mPoint[0].Set(CVector(35.0f, 5.0f, 100.0f), 10.0f);
+//	CEnemy::mPoint[1].Set(CVector(-45.0f, 25.0f, 150.0f), 10.0f);
+	CEnemy::mPoint[1].Set(CVector(45.0f, 25.0f, 0.0f), 10.0f);
+	CEnemy::mPoint[2].Set(CVector(-35.0f, 45.0f, 50.0f), 10.0f);
 
 	CMatrix matrix;
 	//平行移動行列の作成
@@ -66,17 +64,18 @@ void CSceneGame::Init() {
 	//スケールを0.2倍を変更
 	Player.mScale = CVector(0.2f, 0.2f, 0.2f);
 	//位置(0.0, 0.0, 55.0)にする
-	Player.mPosition = CVector(-19.5f, 0.0f, -55.0f);
+//	Player.mPosition = CVector(-19.5f, 0.0f, -55.0f);
+	Player.mPosition = CVector(0.0f, 0.0f, 55.0f);
 
 	//エネミーモデルの入力
 	ModelEnemy.Load("f16.obj", "f16.mtl");
 	//敵機の生成
-//	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 15.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-//	new CEnemy(&ModelEnemy, CVector(-12.0f, 9.0f, 15.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+	new CEnemy(&ModelEnemy, CVector(-12.0f, 9.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
 
 
 //	new CEnemy(&ModelEnemy, CVector(10.0f, 7.0f, -15.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-	new CEnemy(&ModelEnemy, CVector(0.0f, 9.0f, 55.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+//	new CEnemy(&ModelEnemy, CVector(0.0f, 9.0f, 55.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2, 0.2, 0.2));
 
 	//ビルボードの生成
 //	new CBillBoard(CVector(13.0f, 6.0f, 10.0f), 2.0f, 2.0f);
@@ -125,9 +124,10 @@ void CSceneGame::Update() {
 //	Character.Render();
 //	Player.Render();
 	//30
-	BackGround.Render(CMatrix().Scale(2.0f, 2.0f, 2.0f));
+//	BackGround.Render(CMatrix().Scale(2.0f, 2.0f, 2.0f));
+	BackGround.Render(CMatrix());
 	//30
-	ModelAirBase.Render(CMatrix().Scale(0.1f, 0.1f, 0.1f) * CMatrix().Translate(0.0f, -1.5f, 70.0f));
+//	ModelAirBase.Render(CMatrix().Scale(0.1f, 0.1f, 0.1f) * CMatrix().Translate(0.0f, -1.5f, 70.0f));
 
 	//タスクリストの削除
 	TaskManager.Delete();

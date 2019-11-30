@@ -17,7 +17,13 @@ class CCollider;
 */
 class CCharacter : public CTask {
 public:
-	CCharacter *mpParent;	//親
+	//種類
+	enum ETag {
+		ENONE,	//初期値
+		EPOINT,	//ポイント
+	};
+	ETag mTag;
+//	CCharacter *mpParent;	//親
 	CVector mPosition; //位置
 	CVector mRotation; //回転
 	CVector mScale; //拡大縮小

@@ -3,8 +3,6 @@
 #include "CScene.h"
 //22
 #include "CPlayer.h"
-//
-#include "CPoint.h"
 
 /*
 ゲームのシーン
@@ -14,9 +12,6 @@ public:
 	//キャラクタの作成
 //	CCharacter Character;
 	CPlayer Player;
-
-	//
-	static CPoint mPoint[3];
 
 	//初期化処理のオーバーライド
 	void Init();

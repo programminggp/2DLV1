@@ -6,7 +6,7 @@
 //CCollider(êe, à íu, âÒì], ägèk, îºåa)
 CCollider::CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius)
 //?SearchEnemy
-: mTag(EBODY)
+//: mTag(EBODY)
 {
 	//êeê›íË
 	mpParent = parent;

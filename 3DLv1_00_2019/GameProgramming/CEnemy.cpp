@@ -7,16 +7,21 @@
 //スマートポインタの外部参照
 extern std::shared_ptr<CTexture> TextureExp;
 
+//誘導ポイント
+CPoint CEnemy::mPoint[3];
+
+#define TURN_DEG 0.3f
+
 //コンストラクタ
 //CEnemy(モデル, 位置, 回転, 拡縮)
 CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 : mCollider(this, CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f),
 CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f),
 //?SearchEnemy
-mSearch1(this, CVector(0.0f, 0.0f, 100.0f), CVector(0.0f, 0.0f, 0.0f),
-CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 5.0f),
-mSearch2(this, CVector(0.0f, 0.0f, 200.0f), CVector(0.0f, 0.0f, 0.0f),
-CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f),
+//mSearch1(this, CVector(0.0f, 0.0f, 115.0f), CVector(0.0f, 0.0f, 0.0f),
+//CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 7.0f),
+//mSearch2(this, CVector(0.0f, 0.0f, 200.0f), CVector(0.0f, 0.0f, 0.0f),
+//CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f),
 mHp(20),
 mRx(-0.1f),
 mPointCnt(0)
@@ -26,52 +31,36 @@ mPointCnt(0)
 	mPosition = position;	//位置の設定
 	mRotation = rotation;	//回転の設定
 	mScale = scale;	//拡縮の設定
-	//?SearchEnemy
-	mCollider.mTag = CCollider::EBODY;
-	mSearch1.mTag = CCollider::ESEARCH;
-	mSearch2.mTag = CCollider::ESEARCH;
-	mpPoint = &CSceneGame::mPoint[mPointCnt];
+	mpPoint = &mPoint[mPointCnt];
 }
 //更新処理
 void CEnemy::Update() {
-	CVector dir = mpPoint->mPosition - mPosition;
-	CVector left = CVector(1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
-	CVector up = CVector(0.0f, 1.0f, 0.0f) * CMatrix().RotateX(mRotation.mX) * CMatrix().RotateY(mRotation.mY);
+	//?
+	//CVector dir = mpPoint->mPosition - mPosition;
+	//CVector left = CVector(1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
+	//CVector up = CVector(0.0f, 1.0f, 0.0f) * CMatrix().RotateX(mRotation.mX) * CMatrix().RotateY(mRotation.mY);
 
-	if (left.Dot(dir) > 0.0f) {
-		mRotation.mY += 0.2f;
-	}
-	else if (left.Dot(dir) < 0.0f) {
-		mRotation.mY -= 0.2f;
-	}
-	if (up.Dot(dir) > 0.0f) {
-		mRotation.mX -= 0.2f;
-	}
-	else if (up.Dot(dir) < 0.0f) {
-		mRotation.mX += 0.2f;
-	}
+	//if (left.Dot(dir) > 0.0f) {
+	//	mRotation.mY += TURN_DEG;
+	//}
+	//else if (left.Dot(dir) < 0.0f) {
+	//	mRotation.mY -= TURN_DEG;
+	//}
+	//if (up.Dot(dir) > 0.0f) {
+	//	mRotation.mX -= TURN_DEG;
+	//}
+	//else if (up.Dot(dir) < 0.0f) {
+	//	mRotation.mX += TURN_DEG;
+	//}
 
 	//行列を更新
 	CCharacter::Update();
 	//位置を移動
 	mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;
+	//回転させる
+	mRotation.mY += 0.5f;
 
-	if (mHp >= 0) {
-		//if (mRotation.mX < -45.0f) {
-		//	mRx *= -1.0f;
-		//}
-		//else if(mRotation.mX > 45.0f){
-		//	mRx *= -1.0f;
-		//}
-		//mRotation.mX += mRx;
-
-		////回転させる
-		//mRotation.mY += 0.2f;
-		//if (mRotation.mY > 360.0f) {
-		//	mRotation.mY -= 360.0f;
-		//}
-	}
-	else {
+	if (mHp < 0) {
 		mHp--;
 		mRotation.mX = 20;
 		if (mHp % 10 == 0) {
@@ -81,14 +70,15 @@ void CEnemy::Update() {
 }
 
 void CEnemy::Collision(CCollider *m, CCollider *y) {
-	if (y->mTag == CCollider::ESEARCH) return;
+//	if (y->mpParent->mTag == CCollider::ESEARCH) return;
 	if (CCollider::Collision(m, y)) {
-		switch (y->mTag) {
-		case CCollider::EPOINT:
+		switch (y->mpParent->mTag) {
+		case EPOINT:
 			if (y->mpParent == mpPoint) {
 				mPointCnt++;
-				mPointCnt %= 3;
-				mpPoint = &CSceneGame::mPoint[mPointCnt];
+//				mPointCnt %= 3;
+				mPointCnt %= (sizeof(mPoint) / sizeof(mPoint[0]));
+				mpPoint = &mPoint[mPointCnt];
 			}
 			break;
 		default:
