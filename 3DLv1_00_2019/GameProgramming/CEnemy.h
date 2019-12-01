@@ -12,7 +12,7 @@
 キャラクタクラスを継承
 */
 class CEnemy : public CCharacter {
-	float mRx;
+//	float mRx;
 public:
 	int mHp;
 	//コライダ
@@ -22,8 +22,8 @@ public:
 	//?
 	//誘導ポイント
 	static CPoint mPoint[3];
-	CPoint *mpPoint;
-	int mPointCnt;
+	CPoint *mpPoint;//目指すポイント
+	int mPointCnt;//ポイントのカウンタ
 	//コンストラクタ
 	//CEnemy(モデル, 位置, 回転, 拡縮)
 	CEnemy(CModel *model, CVector position, CVector rotation, CVector scale);

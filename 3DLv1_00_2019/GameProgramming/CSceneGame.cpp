@@ -71,7 +71,7 @@ void CSceneGame::Init() {
 	ModelEnemy.Load("f16.obj", "f16.mtl");
 	//ìGã@ÇÃê∂ê¨
 	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-	new CEnemy(&ModelEnemy, CVector(-12.0f, 9.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
+//	new CEnemy(&ModelEnemy, CVector(-12.0f, 9.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
 
 
 //	new CEnemy(&ModelEnemy, CVector(10.0f, 7.0f, -15.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
