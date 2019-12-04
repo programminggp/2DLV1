@@ -17,11 +17,12 @@ public:
 	int mHp;
 	//コライダ
 	CCollider mCollider;
-//	CCollider mSearch1;
+	CCollider mSearch;
 //	CCollider mSearch2;
 	//?
 	//誘導ポイント
-	static CPoint mPoint[3];
+	static CPoint *mPoint;
+	static int mPointSize;//ポイントの数
 	CPoint *mpPoint;//目指すポイント
 	int mPointCnt;//ポイントのカウンタ
 	//コンストラクタ

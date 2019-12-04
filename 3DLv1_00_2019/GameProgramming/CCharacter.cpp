@@ -45,3 +45,9 @@ CCharacter::~CCharacter() {
 	//タスクリストから削除
 	TaskManager.Remove(this);
 }
+//
+//void CCharacter::ChangePriority(int priority) {
+//	TaskManager.Remove(this);
+//	mPriority = priority;
+//	TaskManager.Add(this);
+//}

@@ -24,11 +24,11 @@ void CTaskManager::Add(CTask *task) {
 		task->mpNext = 0;
 	}
 	else {
-		////リストの最後から前に探索
+		//リストの最後から前に探索
 		//CTask *pos = mpTail;
 		//while (pos) {
-		//	//優先度が以下なら後に追加
-		//	if (pos->mPriority >= task->mPriority) {
+		//	//優先度が小さければ追加
+		//	if (pos->mPriority > task->mPriority) {
 		//		//posの次がtask
 		//		//次を設定
 		//		task->mpNext = pos->mpNext;
@@ -49,6 +49,7 @@ void CTaskManager::Add(CTask *task) {
 		//	//前へ
 		//	pos = pos->mpPrev;
 		//}
+
 		//リストの先頭にする
 		task->mpNext = mpHead;
 		mpHead->mpPrev = task;

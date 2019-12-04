@@ -21,6 +21,7 @@ public:
 	enum ETag {
 		ENONE,	//初期値
 		EPOINT,	//ポイント
+		EPLAYER,//プレイヤー
 	};
 	ETag mTag;
 //	CCharacter *mpParent;	//親
@@ -41,6 +42,8 @@ public:
 	void Render();
 	//衝突処理
 	virtual void Collision(CCollider *mycol, CCollider *youcol) {}
+	//
+	//void ChangePriority(int priority);
 };
 
 #endif

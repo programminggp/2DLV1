@@ -10,13 +10,13 @@
 */
 class CCollider : public CTransform, public CTask {
 public:
-	////コライダの種類
-	//enum ETag {
-	//	EBODY,
-	//	ESEARCH,
-	//	EPOINT,
-	//};
-	//ETag mTag;
+	//コライダの種類
+	enum ETag {
+		ENONE,
+		EBODY,//機体
+		ESEARCH,//サーチ
+	};
+	ETag mTag;
 	CCharacter *mpParent;//親
 	float mRadius;	//半径
 	//コンストラクタ

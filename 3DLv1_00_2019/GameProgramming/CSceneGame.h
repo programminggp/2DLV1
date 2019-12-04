@@ -13,6 +13,7 @@ public:
 //	CCharacter Character;
 	CPlayer Player;
 
+	~CSceneGame();
 	//初期化処理のオーバーライド
 	void Init();
 	//更新処理のオーバーライド

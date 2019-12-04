@@ -37,8 +37,15 @@ CModel ModelAirBase;//航空基地モデル
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
 
+CSceneGame::~CSceneGame() {
+	delete[] CEnemy::mPoint;
+}
+
+
 void CSceneGame::Init() {
 	//ポイントの設定
+	CEnemy::mPointSize = 3;//ポイント数の設定
+	CEnemy::mPoint = new CPoint[CEnemy::mPointSize];
 	CEnemy::mPoint[0].Set(CVector(35.0f, 5.0f, 100.0f), 10.0f);
 //	CEnemy::mPoint[1].Set(CVector(-45.0f, 25.0f, 150.0f), 10.0f);
 	CEnemy::mPoint[1].Set(CVector(45.0f, 25.0f, 0.0f), 10.0f);

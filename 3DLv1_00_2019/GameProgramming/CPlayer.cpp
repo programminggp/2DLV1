@@ -8,6 +8,14 @@
 //タスクマネージャのインクルード
 #include "CTaskManager.h"
 
+CPlayer::CPlayer()
+:mCollider(this,  CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f),
+CVector(5.0f, 5.0f, 5.0f), 0.8f)
+{
+	mTag = EPLAYER;//種類はプレイヤー
+	mCollider.mTag = CCollider::EBODY;//種類は機体
+}
+
 //更新処理
 void CPlayer::Update() {
 	//Aキー入力で回転
