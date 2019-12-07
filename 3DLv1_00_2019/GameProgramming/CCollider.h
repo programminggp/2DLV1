@@ -17,11 +17,28 @@ public:
 		ESEARCH,//サーチ
 	};
 	ETag mTag;
+	//コライダタイプ
+	enum EType {
+		ESPHERE,
+		ETRIANGLE,
+	};
+	EType mType;
+	//頂点
+	CVector mV[3];
 	CCharacter *mpParent;//親
 	float mRadius;	//半径
+	//?
+	//デフォルトコンストラクタ
+	CCollider();
 	//コンストラクタ
 	//CCollider(親, 位置, 回転, 拡縮, 半径)
 	CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius);
+	//コンストラクタ（三角コライダ）
+	//CCollider(親, 頂点1, 頂点2, 頂点3)
+	CCollider(CCharacter *parent, const CVector &v0, const CVector &v1, const CVector &v2);
+	//三角コライダの設定
+	//SetTriangle(親, 頂点1, 頂点2, 頂点3)
+	void SetTriangle(CCharacter *parent, const CVector &v0, const CVector &v1, const CVector &v2);
 	~CCollider();
 	//描画
 	void Render();

@@ -17,8 +17,7 @@ public:
 	int mHp;
 	//コライダ
 	CCollider mCollider;
-	CCollider mSearch;
-//	CCollider mSearch2;
+//	CCollider mSearch;
 	//?
 	//誘導ポイント
 	static CPoint *mPoint;

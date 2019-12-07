@@ -5,8 +5,7 @@
 //コンストラクタ
 //CCollider(親, 位置, 回転, 拡縮, 半径)
 CCollider::CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius)
-//?SearchEnemy
-: mTag(ENONE)
+: CCollider()
 {
 	//親設定
 	mpParent = parent;
@@ -30,11 +29,41 @@ CCollider::~CCollider() {
 void CCollider::Render() {
 	glPushMatrix();
 	glMultMatrixf((mMatrix * mpParent->mMatrix).mM[0]);
+
+	//アルファブレンドを有効にする
+	glEnable(GL_BLEND);
+	//ブレンド方法を指定
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//ライトオフ
+	glDisable(GL_LIGHTING);
+
 	//DIFFUSE赤色設定
-	float c[] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	float c[] = { 1.0f, 0.0f, 0.0f, 0.5f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
-	//球描画
-	glutWireSphere(mRadius, 16, 16);
+	glColor4fv(c);
+
+	//?
+	//コライダタイプの判定
+	switch (mType) {
+	case ESPHERE:
+		//球描画
+		glutWireSphere(mRadius, 16, 16);
+		break;
+	case ETRIANGLE:
+		//三角形描画
+		glBegin(GL_TRIANGLES);
+		glVertex3f(mV[0].mX, mV[0].mY, mV[0].mZ);
+		glVertex3f(mV[1].mX, mV[1].mY, mV[1].mZ);
+		glVertex3f(mV[2].mX, mV[2].mY, mV[2].mZ);
+		glEnd();
+		break;
+	}
+
+	//ライトオン
+	glEnable(GL_LIGHTING);
+	//アルファブレンド無効
+	glDisable(GL_ALPHA);
+
 	glPopMatrix();
 }
 
@@ -56,3 +85,36 @@ bool CCollider::Collision(CCollider *m, CCollider *y) {
 	//衝突していない
 	return false;
 }
+
+//?
+CCollider::CCollider()
+: mpParent(0)
+, mTag(ENONE)
+, mType(ESPHERE)
+{
+
+}
+
+//コンストラクタ（三角コライダ）
+//CCollider(親, 頂点1, 頂点2, 頂点3)
+CCollider::CCollider(CCharacter *parent, const CVector &v0, const CVector &v1, const CVector &v2)
+: CCollider()
+{
+	//
+	SetTriangle(parent, v0, v1, v2);
+}
+
+void CCollider::SetTriangle(CCharacter *parent, const CVector &v0, const CVector &v1, const CVector &v2) {
+	mType = ETRIANGLE;
+	mpParent = parent;//親設定
+	//三角形頂点設定
+	mV[0] = v0;
+	mV[1] = v1;
+	mV[2] = v2;
+	//スケール1倍
+	mScale = CVector(1.0f, 1.0f, 1.0f);
+	CTransform::Update();//行列更新
+	//コリジョンリストに追加
+	CollisionManager.Add(this);
+}
+

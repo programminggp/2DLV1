@@ -89,6 +89,10 @@ void CSceneGame::Init() {
 	//爆発テクスチャの読み込み
 	TextureExp->Load("exp.tga");
 //	new CEffect(CVector(13.0f, 10.0f, 10.0f), 1.0f, 1.0f, TextureExp, 4, 4, 3);
+
+	//?
+//	mMap.mpModel = &BackGround;
+//	mMap.SetTriangleCollider();
 }
 
 //22#include "CBullet.h"

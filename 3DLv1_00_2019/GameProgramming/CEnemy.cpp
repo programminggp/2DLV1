@@ -21,12 +21,9 @@ CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 : mCollider(this, CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f),
 CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f)
 //?SearchEnemy
-, mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f),
-CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
-//mSearch2(this, CVector(0.0f, 0.0f, 200.0f), CVector(0.0f, 0.0f, 0.0f),
-//CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f),
+//, mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f),
+//CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
 ,mHp(20)
-//mRx(-0.1f),
 , mPointCnt(0)
 {
 	//モデル、位置、回転、拡縮を設定する
@@ -38,7 +35,7 @@ CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
 	mpPoint = &mPoint[mPointCnt];//目指すポイントのポインタを設定
 	//
 	mCollider.mTag = CCollider::EBODY;
-	mSearch.mTag = CCollider::ESEARCH;
+//	mSearch.mTag = CCollider::ESEARCH;
 }
 //更新処理
 void CEnemy::Update() {
