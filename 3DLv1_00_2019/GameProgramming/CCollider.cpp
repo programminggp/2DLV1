@@ -58,7 +58,7 @@ void CCollider::Render() {
 		glEnd();
 		break;
 	case ELINE:
-//		glLineWidth(2);
+		//線分描画
 		glBegin(GL_LINES);
 		glVertex3f(mV[0].mX, mV[0].mY, mV[0].mZ);
 		glVertex3f(mV[1].mX, mV[1].mY, mV[1].mZ);
@@ -125,18 +125,18 @@ void CCollider::SetTriangle(CCharacter *parent, const CVector &v0, const CVector
 	CollisionManager.Add(this);
 }
 
-//コンストラクタ（線コライダ）
+//コンストラクタ（線分コライダ）
 //CCollider(親, 頂点1, 頂点2)
 CCollider::CCollider(CCharacter *parent, const CVector &v0, const CVector &v1) {
 	SetLine(parent, v0, v1);
 }
 
-//線コライダの設定
+//線分コライダの設定
 //SetLine(親, 頂点1, 頂点2)
 void CCollider::SetLine(CCharacter *parent, const CVector &v0, const CVector &v1) {
 	mType = ELINE;
 	mpParent = parent;//親設定
-	//線の頂点設定
+	//線分の頂点設定
 	mV[0] = v0;
 	mV[1] = v1;
 	//スケール1倍
