@@ -21,6 +21,7 @@ public:
 	enum EType {
 		ESPHERE,
 		ETRIANGLE,
+		ELINE, //線コライダ
 	};
 	EType mType;
 	//頂点
@@ -36,9 +37,15 @@ public:
 	//コンストラクタ（三角コライダ）
 	//CCollider(親, 頂点1, 頂点2, 頂点3)
 	CCollider(CCharacter *parent, const CVector &v0, const CVector &v1, const CVector &v2);
+	//コンストラクタ（線コライダ）
+	//CCollider(親, 頂点1, 頂点2)
+	CCollider(CCharacter *parent, const CVector &v0, const CVector &v1);
 	//三角コライダの設定
 	//SetTriangle(親, 頂点1, 頂点2, 頂点3)
 	void SetTriangle(CCharacter *parent, const CVector &v0, const CVector &v1, const CVector &v2);
+	//線コライダの設定
+	//SetLine(親, 頂点1, 頂点2)
+	void SetLine(CCharacter *parent, const CVector &v0, const CVector &v1);
 	~CCollider();
 	//描画
 	void Render();

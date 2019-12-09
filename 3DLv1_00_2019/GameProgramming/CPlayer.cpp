@@ -13,7 +13,11 @@ CPlayer::CPlayer()
 //CVector(5.0f, 5.0f, 5.0f), 0.8f)
 {
 	mTag = EPLAYER;//種類はプレイヤー
-//	mCollider.mTag = CCollider::EBODY;//種類は機体
+	mLine[0].SetLine(this, CVector(0.0f, 0.0f, -14.0f), CVector(0.0f, 0.0f, 15.0f));
+	mLine[1].SetLine(this, CVector(0.0f, 0.0f, -8.0f), CVector(9.0f, 0.0f, -8.0f));
+	mLine[2].SetLine(this, CVector(0.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f));
+	mLine[3].SetLine(this, CVector(0.0f, 5.0f, -8.0f), CVector(0.0f, -3.0f, -8.0f));
+	//	mCollider.mTag = CCollider::EBODY;//種類は機体
 }
 
 //更新処理
