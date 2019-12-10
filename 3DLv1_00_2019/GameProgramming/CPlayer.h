@@ -17,6 +17,9 @@ public:
 	CPlayer();
 	//XVˆ—
 	void Update();
+	//Õ“Ëˆ—
+	void Collision(CCollider *mc, CCollider *yc);
+
 };
 
 #endif

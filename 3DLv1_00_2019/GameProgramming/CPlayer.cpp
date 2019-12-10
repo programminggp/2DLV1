@@ -63,3 +63,17 @@ void CPlayer::Update() {
 	//CCharacter‚ÌXV
 	CCharacter::Update();
 }
+
+//Õ“Ëˆ—
+void CPlayer::Collision(CCollider *mc, CCollider *yc) {
+	switch (mc->mType) {
+	case CCollider::ELINE:
+		if (yc->mType == CCollider::ETRIANGLE) {
+			CVector adjust;
+			CCollider::CollisionTriangleLine(yc, mc, &adjust);
+			mPosition = mPosition + adjust;
+			CCharacter::Update();
+		}
+		break;
+	}
+}
