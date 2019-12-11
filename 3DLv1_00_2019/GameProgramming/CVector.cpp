@@ -60,14 +60,16 @@ float CVector::Dot(const CVector &v) {
 	return mX*v.mX + mY*v.mY + mZ * v.mZ;
 }
 
-//大きさ1のベクトルを返す（正規化）
+//正規化
+//大きさ1のベクトルを返す
 CVector CVector::Normalize() {
 	//ベクトルの大きさで割ったベクトルを返す（長さ1のベクトル）
-	return CVector(mX / Length(), mY / Length(), mZ / Length());
+//	return CVector(mX / Length(), mY / Length(), mZ / Length());
+	return *this * (1.0f/ Length());
 }
 //外積
 CVector CVector::Cross(const CVector &v) {
-	return CVector(mY*v.mZ - mZ*v.mY, mZ*v.mX - mX*v.mZ, mX*v.mY - mY*v.mX).Normalize();
+	return CVector(mY*v.mZ - mZ*v.mY, mZ*v.mX - mX*v.mZ, mX*v.mY - mY*v.mX);
 }
 //*演算子のオーバーロード
 //CVector * float の演算結果を返す

@@ -2,7 +2,6 @@
 
 CMap::CMap()
 :
-//mCollider(this, CVector(-5.0f, 10.0f, 80.0f), CVector(5.0f, 5.0f, 80.0f), CVector(-5.0f, 5.0f, 80.0f))
 mpTriangleColider(0)
 {
 	mCollider.SetTriangle(this, CVector(-5.0f, 10.0f, 80.0f), CVector(5.0f, 5.0f, 80.0f), CVector(-5.0f, 5.0f, 80.0f));

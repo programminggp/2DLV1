@@ -32,7 +32,8 @@ public:
 	//内積
 	//Dot(ベクトル)
 	float Dot(const CVector &v);
-	//大きさ1のベクトルを返す（正規化）
+	//正規化
+	//大きさ1のベクトルを返す
 	CVector Normalize();
 	//外積
 	//Cross(ベクトル)

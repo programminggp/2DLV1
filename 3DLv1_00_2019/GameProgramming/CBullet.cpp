@@ -47,10 +47,10 @@ CBullet::CBullet()
 void CBullet::Collision(CCollider *m, CCollider *y) {
 	//ƒRƒ‰ƒCƒ_‚Ìm‚Æy‚ªÕ“Ë‚µ‚Ä‚¢‚é‚©”»’è
 	if (CCollider::Collision(m, y)) {
-		if (y->mTag == CCollider::EBODY) {
+//		if (y->mTag == CCollider::EBODY) {
 			//Õ“Ë‚µ‚Ä‚¢‚é‚Í–³Œø‚É‚·‚é
 			mEnabled = false;
-		}
+//		}
 //		printf("Bullet Hit!\n");
 	}
 }

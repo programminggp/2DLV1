@@ -66,12 +66,17 @@ void CPlayer::Update() {
 
 //衝突処理
 void CPlayer::Collision(CCollider *mc, CCollider *yc) {
+	//自身のコライダタイプの判定
 	switch (mc->mType) {
-	case CCollider::ELINE:
+	case CCollider::ELINE://線分コライダ
+		//相手のコライダが三角コライダの時
 		if (yc->mType == CCollider::ETRIANGLE) {
-			CVector adjust;
+			CVector adjust;//調整用ベクトル
+			//三角形と線分の衝突判定
 			CCollider::CollisionTriangleLine(yc, mc, &adjust);
+			//位置の更新
 			mPosition = mPosition + adjust;
+			//行列の更新
 			CCharacter::Update();
 		}
 		break;
