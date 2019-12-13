@@ -176,7 +176,14 @@ bool CCollider::CollisionTriangleLine(CCollider *t, CCollider *l, CVector *a) {
 
 	//線分は面と交差している
 	//調整値計算（衝突しない位置まで戻す）
-	*a = normal * abs(dote);
+	if (dots < 0.0f) {
+		//始点が面の向こう側
+		*a = normal * -dots;
+	}
+	else {
+		//終点が面の向こう側
+		*a = normal * -dote;
+	}
 	return true;
 
 
