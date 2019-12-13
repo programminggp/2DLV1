@@ -175,23 +175,10 @@ bool CCollider::CollisionTriangleLine(CCollider *t, CCollider *l, CVector *a) {
 	}
 
 	//線分は面と交差している
-	//調整値計算（衝突しない位置まで戻す）
-	if (dots < 0.0f) {
-		//始点が面の向こう側
-		*a = normal * -dots;
-	}
-	else {
-		//終点が面の向こう側
-		*a = normal * -dote;
-	}
-	return true;
-
 
 	//面と線分の交点を求める
-	dots = abs(dots);//プラスにする
-	dote = abs(dote);//プラスにする
 	//交点の計算
-	CVector cross = sv + (ev - sv) * (dots / (dots + dote));
+	CVector cross = sv + (ev - sv) * (abs(dots) / (abs(dots) + abs(dote)));
 
 	//交点が三角形内なら衝突している
 	//頂点1頂点2ベクトルと頂点1交点ベクトルとの外積を求め、
@@ -215,6 +202,21 @@ bool CCollider::CollisionTriangleLine(CCollider *t, CCollider *l, CVector *a) {
 		*a = CVector(0.0f, 0.0f, 0.0f);
 		return false;
 	}
+
+	//調整値計算（衝突しない位置まで戻す）
+	if (dots < 0.0f) {
+		//始点が面の向こう側
+		*a = normal * -dots;
+	}
+	else {
+		//終点が面の向こう側
+		*a = normal * -dote;
+	}
+	return true;
+
+
+	//dots = abs(dots);//プラスにする
+	//dote = abs(dote);//プラスにする
 
 	//線分は三角形と衝突している
 	//調整値計算（衝突しない位置まで戻す）
