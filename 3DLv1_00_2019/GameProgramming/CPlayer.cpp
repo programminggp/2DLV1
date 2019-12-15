@@ -33,6 +33,11 @@ void CPlayer::Update() {
 		mRotation.mY += 1;
 	}
 	//Iキー入力で前進
+	if (CKey::Push('U')) {
+		//Z軸方向に1進んだ値を回転移動させる
+		mPosition = CVector(0.0f, 0.0f, 5.0f) * mMatrix;
+	}
+	//Iキー入力で前進
 	if (CKey::Push('I')) {
 		//Z軸方向に1進んだ値を回転移動させる
 		mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;

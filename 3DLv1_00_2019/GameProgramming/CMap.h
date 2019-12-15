@@ -7,9 +7,9 @@
 class CMap : public CCharacter {
 public:
 	//Šm”F—p
-	CCollider mCollider;
+	CCollider mCollider[14];
 	//
-	CCollider *mpTriangleColider;
+//	CCollider *mpTriangleColider;
 	//
 	CMap();
 	~CMap();

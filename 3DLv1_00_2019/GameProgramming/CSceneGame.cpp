@@ -92,6 +92,7 @@ void CSceneGame::Init() {
 
 	//?
 //	mMap.mpModel = &BackGround;
+//	mMap.mScale = CVector(2.0f, 2.0f, 2.0f);
 //	mMap.SetTriangleCollider();
 }
 
@@ -136,8 +137,11 @@ void CSceneGame::Update() {
 //	Character.Render();
 //	Player.Render();
 	//30
+//	glDisable(GL_LIGHTING);
 //	BackGround.Render(CMatrix().Scale(2.0f, 2.0f, 2.0f));
+//	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	BackGround.Render(CMatrix());
+//	glEnable(GL_LIGHTING);
 	//30
 //	ModelAirBase.Render(CMatrix().Scale(0.1f, 0.1f, 0.1f) * CMatrix().Translate(0.0f, -1.5f, 70.0f));
 
