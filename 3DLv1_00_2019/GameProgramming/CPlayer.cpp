@@ -9,10 +9,12 @@
 #include "CTaskManager.h"
 
 CPlayer::CPlayer()
-//:mCollider(this,  CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f),
-//CVector(5.0f, 5.0f, 5.0f), 0.8f)
+:mCollider(this,  CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f),
+CVector(5.0f, 5.0f, 5.0f), 0.8f)
 {
 	mTag = EPLAYER;//種類はプレイヤー
+	mCollider.mTag = CCollider::EBODY;//種類は機体
+
 	//線分コライダの設定
 	//前後
 	mLine[0].SetLine(this, CVector(0.0f, 0.0f, -14.0f), CVector(0.0f, 0.0f, 17.0f));
@@ -22,7 +24,6 @@ CPlayer::CPlayer()
 	mLine[2].SetLine(this, CVector(0.0f, 0.0f, -8.0f), CVector(9.0f, 0.0f, -8.0f));
 	//右
 	mLine[3].SetLine(this, CVector(0.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f));
-	//	mCollider.mTag = CCollider::EBODY;//種類は機体
 }
 
 //更新処理
@@ -70,17 +71,17 @@ void CPlayer::Update() {
 }
 
 //衝突処理
-void CPlayer::Collision(CCollider *mc, CCollider *yc) {
+void CPlayer::Collision(CCollider *m, CCollider *y) {
 	//自身のコライダタイプの判定
-	switch (mc->mType) {
+	switch (m->mType) {
 	case CCollider::ELINE://線分コライダ
 		//相手のコライダが三角コライダの時
-		if (yc->mType == CCollider::ETRIANGLE) {
+		if (y->mType == CCollider::ETRIANGLE) {
 			CVector adjust;//調整用ベクトル
 			//三角形と線分の衝突判定
-			CCollider::CollisionTriangleLine(yc, mc, &adjust);
+			CCollider::CollisionTriangleLine(y, m, &adjust);
 			//位置の更新
-			mPosition = mPosition + adjust;
+			mPosition = mPosition - adjust * -1;
 			//行列の更新
 			CCharacter::Update();
 		}

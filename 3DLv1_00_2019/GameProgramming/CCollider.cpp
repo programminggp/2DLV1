@@ -96,8 +96,8 @@ bool CCollider::Collision(CCollider *m, CCollider *y) {
 //?
 CCollider::CCollider()
 : mpParent(0)
-, mTag(ENONE)
 , mType(ESPHERE)
+, mTag(ENONE)
 {
 
 }
@@ -212,14 +212,5 @@ bool CCollider::CollisionTriangleLine(CCollider *t, CCollider *l, CVector *a) {
 		//終点が面の向こう側
 		*a = normal * -dote;
 	}
-	return true;
-
-
-	//dots = abs(dots);//プラスにする
-	//dote = abs(dote);//プラスにする
-
-	//線分は三角形と衝突している
-	//調整値計算（衝突しない位置まで戻す）
-	*a = normal * dote;
 	return true;
 }

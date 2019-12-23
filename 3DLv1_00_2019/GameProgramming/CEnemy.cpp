@@ -21,11 +21,14 @@ CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 : mCollider(this, CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f),
 CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f)
 //?SearchEnemy
-//, mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f),
-//CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
+, mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f),
+CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
 ,mHp(20)
 , mPointCnt(0)
 {
+	//
+	mCollider.mTag = CCollider::EBODY;
+	mSearch.mTag = CCollider::ESEARCH;
 	//モデル、位置、回転、拡縮を設定する
 	mpModel = model;	//モデルの設定
 	mPosition = position;	//位置の設定
@@ -33,9 +36,6 @@ CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f)
 	mScale = scale;	//拡縮の設定
 	mPointCnt = 0;	//最初のポイントを設定
 	mpPoint = &mPoint[mPointCnt];//目指すポイントのポインタを設定
-	//
-	mCollider.mTag = CCollider::EBODY;
-//	mSearch.mTag = CCollider::ESEARCH;
 }
 //更新処理
 void CEnemy::Update() {
@@ -77,38 +77,42 @@ void CEnemy::Update() {
 }
 
 void CEnemy::Collision(CCollider *m, CCollider *y) {
-	if (CCollider::Collision(m, y)) {
-		//コライダがサーチか判定
-		if (m->mTag == CCollider::ESEARCH) {
-			//衝突したコライダの親の種類を判定
-			switch (y->mpParent->mTag) {
-			case EPLAYER://プレイヤーの時
-				CBullet *bullet = new CBullet();
-				bullet->Set(0.1f, 1.5f);
-				bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
-				bullet->mRotation = mRotation;
-				break;
-			}
-		}
-		else  {
-			//衝突したコライダの親の種類を判定
-			switch (y->mpParent->mTag) {
-			case EPOINT://ポイントの時
-				//衝突したポインタと目指しているポインタが同じ時
-				if (y->mpParent == mpPoint) {
-					mPointCnt++;//次のポイントにする
-					//最後だったら最初にする
-					mPointCnt %= mPointSize;
-					//次のポイントのポインタを設定
-					mpPoint = &mPoint[mPointCnt];
+	//共に球コライダの時
+	if (m->mType == CCollider::ESPHERE
+		&& y->mType == CCollider::ESPHERE) {
+		if (CCollider::Collision(m, y)) {
+			//コライダがサーチか判定
+			if (m->mTag == CCollider::ESEARCH) {
+				//衝突したコライダの親の種類を判定
+				switch (y->mpParent->mTag) {
+				case EPLAYER://プレイヤーの時
+					CBullet *bullet = new CBullet();
+					bullet->Set(0.1f, 1.5f);
+					bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
+					bullet->mRotation = mRotation;
+					break;
 				}
-				break;
-			default:
-				//エフェクト生成
-				new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
-				//			mHp--;
 			}
+			else  {
+				//衝突したコライダの親の種類を判定
+				switch (y->mpParent->mTag) {
+				case EPOINT://ポイントの時
+					//衝突したポインタと目指しているポインタが同じ時
+					if (y->mpParent == mpPoint) {
+						mPointCnt++;//次のポイントにする
+						//最後だったら最初にする
+						mPointCnt %= mPointSize;
+						//次のポイントのポインタを設定
+						mpPoint = &mPoint[mPointCnt];
+					}
+					break;
+				default:
+					//エフェクト生成
+					new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+					//			mHp--;
+				}
+			}
+			//削除		mEnabled = false;
 		}
-//削除		mEnabled = false;
 	}
 }

@@ -45,12 +45,16 @@ CBullet::CBullet()
 //衝突処理
 //Collision(コライダ1, コライダ2)
 void CBullet::Collision(CCollider *m, CCollider *y) {
-	//コライダのmとyが衝突しているか判定
-	if (CCollider::Collision(m, y)) {
-//		if (y->mTag == CCollider::EBODY) {
-			//衝突している時は無効にする
-			mEnabled = false;
-//		}
-//		printf("Bullet Hit!\n");
+	//共に球コライダの時
+	if (m->mType == CCollider::ESPHERE
+		&& y->mType == CCollider::ESPHERE) {
+		//コライダのmとyが衝突しているか判定
+		if (CCollider::Collision(m, y)) {
+			//機体の時
+			if (y->mTag == CCollider::EBODY) {
+				//衝突している時は無効にする
+				mEnabled = false;
+			}
+		}
 	}
 }

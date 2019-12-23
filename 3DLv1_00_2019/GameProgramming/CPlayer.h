@@ -12,7 +12,7 @@ class CPlayer : public CCharacter {
 public:
 	//コライダ
 	CCollider mLine[4];//線分コライダ
-//	CCollider mCollider;
+	CCollider mCollider;
 	//デフォルトコンストラクタ
 	CPlayer();
 	//更新処理
