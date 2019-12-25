@@ -22,6 +22,7 @@ public:
 		ENONE,	//初期値
 		EPOINT,	//ポイント
 		EPLAYER,//プレイヤー
+		EAIRBASE,//空軍基地
 	};
 	ETag mTag;
 //	CCharacter *mpParent;	//親

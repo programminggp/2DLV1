@@ -85,6 +85,7 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 			if (m->mTag == CCollider::ESEARCH) {
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag) {
+				case EAIRBASE://空軍基地
 				case EPLAYER://プレイヤーの時
 					CBullet *bullet = new CBullet();
 					bullet->Set(0.1f, 1.5f);

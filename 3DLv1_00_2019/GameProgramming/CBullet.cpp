@@ -41,6 +41,9 @@ CBullet::CBullet()
 : mLife(50)
 , mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 0.1f)
 {
+	//?
+	//
+	mCollider.mTag = CCollider::EBODY;
 }
 //衝突処理
 //Collision(コライダ1, コライダ2)
