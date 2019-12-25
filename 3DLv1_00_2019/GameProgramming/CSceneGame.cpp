@@ -26,7 +26,7 @@
 //ビルボードクラスのインクルード
 #include "CBillBoard.h"
 #include "CEffect.h"
-
+//空軍基地
 #include "CAirBase.h"
 
 //モデルクラスのインスタンス作成
@@ -34,7 +34,7 @@ CModel Model;
 CModel BackGround; //背景モデル
 CModel ModelEnemy;//エネミーモデル
 //30
-CModel ModelAirBase;//航空基地モデル
+CModel ModelAirBase;//空軍基地モデル
 
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
@@ -48,9 +48,7 @@ void CSceneGame::Init() {
 	//ポイントの設定
 	CEnemy::mPointSize = 3;//ポイント数の設定
 	CEnemy::mPoint = new CPoint[CEnemy::mPointSize];
-//	CEnemy::mPoint[0].Set(CVector(35.0f, 5.0f, 100.0f), 10.0f);
 	CEnemy::mPoint[0].Set(CVector(35.0f, 25.0f, 100.0f), 10.0f);
-//	CEnemy::mPoint[1].Set(CVector(45.0f, 5.0f, -150.0f), 10.0f);
 	CEnemy::mPoint[1].Set(CVector(35.0f, 5.0f, 0.0f), 10.0f);
 	CEnemy::mPoint[2].Set(CVector(-35.0f, 45.0f, 50.0f), 10.0f);
 
@@ -61,38 +59,20 @@ void CSceneGame::Init() {
 	//モデルファイルの入力
 	Model.Load("f14.obj", "f14.mtl");
 	BackGround.Load("sky.obj", "sky.mtl");
-	//30
-	ModelAirBase.Load("airbase.obj", "airbase.mtl");
-	//キャラクタの設定
-//	Character.mpModel = &Model;
-	//スケールに1倍を設定
-//	Character.mScale = CVector(1.0f, 1.0f, 1.0f);
+
 	//キャラクタの設定
 	Player.mpModel = &Model;
-	//スケールに1倍を設定
-//	Player.mScale = CVector(1.0f, 1.0f, 1.0f);
 	//スケールを0.2倍を変更
 	Player.mScale = CVector(0.2f, 0.2f, 0.2f);
 	//位置(0.0, 0.0, 55.0)にする
 	Player.mPosition = CVector(-19.5f, 1.0f, -55.0f);
-//	Player.mPosition = CVector(0.0f, 0.0f, 55.0f);
 
 	//エネミーモデルの入力
 	ModelEnemy.Load("f16.obj", "f16.mtl");
+
 	//敵機の生成
-	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 200.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-	//new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-	//	new CEnemy(&ModelEnemy, CVector(-12.0f, 9.0f, 55.0f), CVector(0.0f, 0.0f, -30.0f), CVector(0.2, 0.2, 0.2));
-
-
-//	new CEnemy(&ModelEnemy, CVector(10.0f, 7.0f, -15.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-//	new CEnemy(&ModelEnemy, CVector(0.0f, 9.0f, 55.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2, 0.2, 0.2));
-
-	//ビルボードの生成
-//	new CBillBoard(CVector(13.0f, 6.0f, 10.0f), 2.0f, 2.0f);
 	//爆発テクスチャの読み込み
 	TextureExp->Load("exp.tga");
-//	new CEffect(CVector(13.0f, 10.0f, 10.0f), 1.0f, 1.0f, TextureExp, 4, 4, 3);
 
 	//?
 //	mMap.mpModel = &BackGround;
@@ -100,64 +80,47 @@ void CSceneGame::Init() {
 //	mMap.SetTriangleCollider();
 
 	//?
-	//
+	//36
+	//空軍基地モデルの読み込み
+	ModelAirBase.Load("airbase.obj", "airbase.mtl");
+	//空軍基地クラスのインスタンスを生成
 	new CAirBase(&ModelAirBase, CVector(0.0f, 0.0f, 180.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 }
 
-//22#include "CBullet.h"
-//22CBullet Bullet;
 
 void CSceneGame::Update() {
 	//static変数の作成
 	static int degree = 0;//回転角度の作成
 	degree++;//角度に1加算
-	if (degree < 1500 && degree % 300 == 0) {
+
+	//static変数の作成
+	static int frame = 0;//フレーム数のカウント
+	frame++;//フレーム数に1加算
+	if (frame < 1000 && frame % 150 == 0) {
 		//敵機の生成
 		new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 200.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
 	}
-
-	//視点の設定
-	//gluLookAt(視点X, 視点Y, 視点Z, 中心X, 中心Y, 中心Z, 上向X, 上向Y, 上向Z)
-	//gluLookAt(11.0f, 12.0f, 83.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-
-	//Y軸で回転させる
-//	Character.mRotation.mY++;
-	//更新処理
-//	Character.Update();
-//	Player.Update();
 
 	//タスクマネージャの更新
 	TaskManager.Update();
 	//コリジョンマネージャの衝突処理
 	CollisionManager.Collision();
 
+	//描画処理
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 	e = CVector(-2.0f, 10.0f, -30.0f) * Player.mMatrix;
-//	e = CVector(0.0f, 10.0f*0.2, -30.0f*0.2) * Player.mMatrixTranslate;
 	//注視点を求める
 	c = Player.mPosition;
 	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f) * Player.mMatrixRotate;
-	//カメラの設定
-	//gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
 	Camera.Render();
 
-	//描画処理
-//	Character.Render();
-//	Player.Render();
-	//30
-//	glDisable(GL_LIGHTING);
-//	BackGround.Render(CMatrix().Scale(2.0f, 2.0f, 2.0f));
-//	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	BackGround.Render(CMatrix());
-//	glEnable(GL_LIGHTING);
-	//30
-//	ModelAirBase.Render(CMatrix().Scale(0.1f, 0.1f, 0.1f) * CMatrix().Translate(0.0f, -1.5f, 70.0f));
-//	ModelAirBase.Render(CMatrix().Scale(0.1f, 0.1f, 0.1f) * CMatrix().Translate(0.0f, 0.0f, 180.0f));
 
 	//タスクリストの削除
 	TaskManager.Delete();

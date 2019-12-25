@@ -3,10 +3,12 @@
 
 #include "CCharacter.h"
 #include "CCollider.h"
-
+/*
+航空基地クラス
+*/
 class CAirBase : public CCharacter {
 public:
-	//コライダ
+	//管制塔にコライダ
 	CCollider mCollider;
 	//コンストラクタ
 	//CAirBase(モデル, 位置, 回転, 拡縮)

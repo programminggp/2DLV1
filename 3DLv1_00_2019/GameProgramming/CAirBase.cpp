@@ -29,7 +29,6 @@ void CAirBase::Collision(CCollider *m, CCollider *y) {
 		if (y->mTag == CCollider::EBODY) {
 			if (CCollider::Collision(m, y)) {
 				//エフェクト生成
-//				new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
 				new CEffect(y->mPosition * y->mMatrix * y->mpParent->mMatrix, 5.0f, 5.0f, TextureExp, 4, 4, 1);
 			}
 		}
