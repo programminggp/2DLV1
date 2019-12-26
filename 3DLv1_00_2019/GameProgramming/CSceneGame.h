@@ -25,10 +25,11 @@ public:
 	void Init();
 	//更新処理のオーバーライド
 	void Update();
-	//スタート画面
-	void StartScreen();
-	//UI
-	void UIScreen();
+
+	//2D描画スタート
+	void Start2D(float left, float right, float bottom, float top);
+	//2D描画終了
+	void End2D();
 };
 
 #endif

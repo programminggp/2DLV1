@@ -137,11 +137,23 @@ void CSceneGame::Update() {
 	//コライダの描画
 	CollisionManager.Render();
 
+	//2D描画開始
+	Start2D(0, 800, 0, 600);
+
 	if (frame < 150) {
-		StartScreen();
+		//2D描画
+		CText::DrawString("MISSION START", 170, 400, 20, 20);
 	}
 
-	UIScreen();
+	CText::DrawString("PLAYER DAMAGE ", 20, 50, 10, 12);
+	CText::DrawString("AIRBASE DAMAGE", 20, 20, 10, 12);
+	char buf[10];
+	sprintf(buf, "%d", mpAirBase->mDamage);
+	CText::DrawString(buf, 320, 20, 10, 12);
+
+	//2D描画終了
+	End2D();
+
 	return;
 
 /*
@@ -267,8 +279,9 @@ void CSceneGame::Update() {
 */
 
 }
-//スタート画面
-void CSceneGame::StartScreen() {
+
+//2D描画スタート
+void CSceneGame::Start2D(float left, float right, float bottom, float top) {
 	//モデルビュー行列の退避
 	glPushMatrix();
 	//モデルビュー行列の初期化
@@ -281,44 +294,12 @@ void CSceneGame::StartScreen() {
 	glPushMatrix();
 	//プロジェクション行列の初期化
 	glLoadIdentity();
-	//2D画面へ設定 left:0 right:800 botttom:0 top:600
-	gluOrtho2D(0, 800, 0, 600);
-
-	//2D描画
-	CText::DrawString("MISSION START", 200, 400, 20, 20);
-
-	//プロジェクション行列を戻す
-	glPopMatrix();
-	//モデルビューモードへ切り替え
-	glMatrixMode(GL_MODELVIEW);
-	//モデルビュー行列を戻す
-	glPopMatrix();
+	//2D画面へ設定
+	gluOrtho2D(left, right, bottom, top);
 }
 
-//UI
-void CSceneGame::UIScreen() {
-	//モデルビュー行列の退避
-	glPushMatrix();
-	//モデルビュー行列の初期化
-	glLoadIdentity();
-
-	//モデルビュー行列から
-	//プロジェクション行列へ切り替え
-	glMatrixMode(GL_PROJECTION);
-	//プロジェクション行列の退避
-	glPushMatrix();
-	//プロジェクション行列の初期化
-	glLoadIdentity();
-	//2D画面へ設定 left:0 right:800 botttom:0 top:600
-	gluOrtho2D(0, 800, 0, 600);
-
-	//2D描画
-	CText::DrawString("AIRBASE DAMAGE", 20, 20, 10, 12);
-	CText::DrawString("PLAYER DAMAGE ", 20, 50, 10, 12);
-	char buf[10];
-	sprintf(buf, "%d", mpAirBase->mDamage);
-	CText::DrawString(buf, 320, 20, 10, 12);
-
+//2D描画終了
+void CSceneGame::End2D() {
 	//プロジェクション行列を戻す
 	glPopMatrix();
 	//モデルビューモードへ切り替え
