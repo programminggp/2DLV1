@@ -28,6 +28,8 @@
 #include "CEffect.h"
 //空軍基地
 #include "CAirBase.h"
+//
+#include "CText.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
@@ -45,6 +47,12 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
+	//テキストフォントの読み込み
+	CText::mFont.Load("FontG.tga");
+	CText::mFont.SetRowCol(1, 4096 / 64);
+//	CText::mFont.Load("Font.tga");
+//	CText::mFont.SetRowCol(8, 16);
+
 	//ポイントの設定
 	CEnemy::mPointSize = 3;//ポイント数の設定
 	CEnemy::mPoint = new CPoint[CEnemy::mPointSize];
@@ -84,7 +92,7 @@ void CSceneGame::Init() {
 	//空軍基地モデルの読み込み
 	ModelAirBase.Load("airbase.obj", "airbase.mtl");
 	//空軍基地クラスのインスタンスを生成
-	new CAirBase(&ModelAirBase, CVector(0.0f, 0.0f, 180.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
+	mpAirBase = new CAirBase(&ModelAirBase, CVector(0.0f, 0.0f, 180.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 }
 
 
@@ -129,8 +137,14 @@ void CSceneGame::Update() {
 	//コライダの描画
 	CollisionManager.Render();
 
+	if (frame < 150) {
+		StartScreen();
+	}
+
+	UIScreen();
 	return;
 
+/*
 	CMatrix matrix;//行列作成
 
 	//頂点1､頂点2､頂点3,法線データの作成
@@ -250,5 +264,65 @@ void CSceneGame::Update() {
 //	t2.Render(matrix.Scale(sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5, sinf(degree*0.01) + 1.5));
 	matrix = matrix.RotateX(degree) * matrix.Translate(0.0f, 0.0f, 2.0f);
 	t2.Render(matrix);
+*/
 
+}
+//スタート画面
+void CSceneGame::StartScreen() {
+	//モデルビュー行列の退避
+	glPushMatrix();
+	//モデルビュー行列の初期化
+	glLoadIdentity();
+
+	//モデルビュー行列から
+	//プロジェクション行列へ切り替え
+	glMatrixMode(GL_PROJECTION);
+	//プロジェクション行列の退避
+	glPushMatrix();
+	//プロジェクション行列の初期化
+	glLoadIdentity();
+	//2D画面へ設定 left:0 right:800 botttom:0 top:600
+	gluOrtho2D(0, 800, 0, 600);
+
+	//2D描画
+	CText::DrawString("MISSION START", 200, 400, 20, 20);
+
+	//プロジェクション行列を戻す
+	glPopMatrix();
+	//モデルビューモードへ切り替え
+	glMatrixMode(GL_MODELVIEW);
+	//モデルビュー行列を戻す
+	glPopMatrix();
+}
+
+//UI
+void CSceneGame::UIScreen() {
+	//モデルビュー行列の退避
+	glPushMatrix();
+	//モデルビュー行列の初期化
+	glLoadIdentity();
+
+	//モデルビュー行列から
+	//プロジェクション行列へ切り替え
+	glMatrixMode(GL_PROJECTION);
+	//プロジェクション行列の退避
+	glPushMatrix();
+	//プロジェクション行列の初期化
+	glLoadIdentity();
+	//2D画面へ設定 left:0 right:800 botttom:0 top:600
+	gluOrtho2D(0, 800, 0, 600);
+
+	//2D描画
+	CText::DrawString("AIRBASE DAMAGE", 20, 20, 10, 12);
+	CText::DrawString("PLAYER DAMAGE ", 20, 50, 10, 12);
+	char buf[10];
+	sprintf(buf, "%d", mpAirBase->mDamage);
+	CText::DrawString(buf, 320, 20, 10, 12);
+
+	//プロジェクション行列を戻す
+	glPopMatrix();
+	//モデルビューモードへ切り替え
+	glMatrixMode(GL_MODELVIEW);
+	//モデルビュー行列を戻す
+	glPopMatrix();
 }

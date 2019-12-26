@@ -5,12 +5,16 @@
 #include "CPlayer.h"
 //?
 #include "CMap.h"
+//
+#include "CAirBase.h"
 
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
 public:
+	//
+	CAirBase *mpAirBase;
 	//キャラクタの作成
 //	CCharacter Character;
 	CPlayer Player;
@@ -21,6 +25,10 @@ public:
 	void Init();
 	//更新処理のオーバーライド
 	void Update();
+	//スタート画面
+	void StartScreen();
+	//UI
+	void UIScreen();
 };
 
 #endif

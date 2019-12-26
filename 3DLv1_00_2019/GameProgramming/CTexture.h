@@ -26,16 +26,29 @@ public:
 	STgaheader mHeader;
 	//ファイル名
 	char* mpName;
+	//?
+	//
+	int mRows;
+	int mCols;
+	//
+	void SetRowCol(int row = 1, int col = 1) {
+		mRows = row;
+		mCols = col;
+	}
+
 	/*
 	デフォルトコンストラクタ
 	*/
 	CTexture()
 		: mId(0)
-		, mpName(0) {}
+		, mpName(0) {
+		SetRowCol();
+	}
 	CTexture(char *file)
 		: mId(0)
 		, mpName(0) {
 		Load(file);
+		SetRowCol();
 	}
 	/*
 	デストラクタ（このインスタンスが破棄されるときに実行される）
@@ -135,6 +148,9 @@ public:
 		//色の設定
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
 
+		glDisable(GL_LIGHTING);
+		glColor3f(1.0f, 1.0f, 1.0f);
+
 		glBegin(GL_TRIANGLES);
 		glTexCoord2f(tleft / mHeader.width, (mHeader.height - ttop) / mHeader.height);
 		glVertex2d(left, top);
@@ -150,6 +166,8 @@ public:
 		glVertex2d(right, top);
 		glEnd();
 
+		glEnable(GL_LIGHTING);
+
 		//テクスチャを解放
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//アルファブレンドを無効
@@ -157,7 +175,17 @@ public:
 		//テクスチャを無効
 		glDisable(GL_TEXTURE_2D);
 	}
-
+	//DrawImage(左座標, 右座標, 下座標, 上座標, コマ数)
+	void DrawImage(int left, int right, int bottom, int top, int frame)  const {
+		int col = frame % mCols;
+		int row = frame / mCols + 1;
+		DrawImage(left, right, bottom, top,
+			mHeader.width * col++ / mCols,
+			mHeader.width * col / mCols,
+			mHeader.height * row-- / mRows,
+			mHeader.height * row / mRows
+			);
+	}
 };
 
 #endif

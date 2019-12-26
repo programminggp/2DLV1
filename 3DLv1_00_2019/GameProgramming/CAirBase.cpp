@@ -11,6 +11,7 @@ extern std::shared_ptr<CTexture> TextureExp;
 CAirBase::CAirBase(CModel *model, CVector position, CVector rotation, CVector scale)
 : mCollider(this, CVector(350.0f, 1.0f, -1800.0f), CVector(0.0f, 0.0f, 0.0f),
 CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 5.0f)
+, mDamage(0)
 {
 	mCollider.mTag = CCollider::EBODY;
 	mTag = EAIRBASE;
@@ -28,6 +29,7 @@ void CAirBase::Collision(CCollider *m, CCollider *y) {
 		&& y->mType == CCollider::ESPHERE) {
 		if (y->mTag == CCollider::EBODY) {
 			if (CCollider::Collision(m, y)) {
+				mDamage++;
 				//エフェクト生成
 				new CEffect(y->mPosition * y->mMatrix * y->mpParent->mMatrix, 5.0f, 5.0f, TextureExp, 4, 4, 1);
 			}

@@ -8,6 +8,9 @@
 */
 class CAirBase : public CCharacter {
 public:
+	//ダメージ
+	int mDamage;
+
 	//管制塔にコライダ
 	CCollider mCollider;
 	//コンストラクタ
