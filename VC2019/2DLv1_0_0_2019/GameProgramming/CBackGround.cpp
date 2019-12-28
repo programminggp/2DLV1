@@ -14,5 +14,5 @@ CBackGround::CBackGround(float x, float y, float w, float h)
 
 
 void CBackGround::Render() {
-	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 1280.0f, 1024.0f, 0.0f);
+	CRectangle::Render(mRect.mX, mRect.mY, mRect.mW, mRect.mH, mpTexture, 0.0f, 1280.0f, 1024.0f, 0.0f);
 }

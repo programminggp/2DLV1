@@ -1,9 +1,13 @@
 #ifndef CCHARACTER_H
 #define CCHARACTER_H
 
+#include "CRectangle.h"
+
 class CCharacter {
 public:
 	float mX, mY, mW, mH;
+	CRectangle mRect;
+
 	//É^ÉO
 	enum ETag {
 		ENONE,
