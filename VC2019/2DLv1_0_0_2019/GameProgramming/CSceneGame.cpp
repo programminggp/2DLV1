@@ -95,5 +95,5 @@ void CSceneGame::Render() {
 		CEnemyShot::mShot[i].Render();
 //		CEffect::mEffect[i].Render();
 	}
-
+	//	CUI::Render();
 }

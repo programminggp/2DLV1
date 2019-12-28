@@ -20,6 +20,7 @@ public:
 	//描画処理の宣言
 	void Render();
 	void Render(CTexture*, float left, float right, float bottom, float top);
+	void Render(CTexture*, int left, int right, int bottom, int top);
 	//コンストラクタの宣言
 	CRectangle();
 	CRectangle(float x, float y, float w, float h);
