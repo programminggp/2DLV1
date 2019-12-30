@@ -36,22 +36,22 @@ void CPlayer::Update() {
 	//Sキーが押されているか判定する
 	if (mInput.Key('S') == 1) {
 		//四角形を下へ移動させる
-		mRect.mY -= VELOCITY;
+		mY -= VELOCITY;
 	}
 	//Wキーが押されているか判定する
 	if (mInput.Key('W') == 1) {
 		//四角形を上へ移動させる
-		mRect.mY += VELOCITY;
+		mY += VELOCITY;
 	}
 	//Aキーが押されているか判定する
 	if (mInput.Key('A') == 1) {
 		//四角形を左へ移動させる
-		mRect.mX -= VELOCITY;
+		mX -= VELOCITY;
 	}
 	//Dキーが押されているか判定する
 	if (mInput.Key('D') == 1) {
 		//四角形を右へ移動させる
-		mRect.mX += VELOCITY;
+		mX += VELOCITY;
 	}
 	//Spaceキーが押されているか判定する
 	if (mInput.Key(' ') == 1) {
@@ -60,7 +60,7 @@ void CPlayer::Update() {
 			//弾を発射する
 			for (int i = 0; i < 5; i++) {
 				if (CPlayerShot::mShot[i].mState == EDELETE) {
-					CPlayerShot::mShot[i].Set(mRect.mX, mRect.mY, 12, 32);
+					CPlayerShot::mShot[i].Set(mX, mY, 12, 32);
 					CPlayerShot::mShot[i].mState = EENABLED;
 					break;
 				}
@@ -77,7 +77,7 @@ void CPlayer::Collision(CCharacter* mc, CCharacter* yc) {
 		switch(yc->mTag) {
 		case EENEMYSHOT:
 		case EENEMY:
-			mEffect.Set(mRect.mX, mRect.mY, 64, 64);
+			mEffect.Set(mX, mY, 64, 64);
 			mEffect.mState = EENABLED;
 			//for (int i = 0; i < 5; i++) {
 			//	if (CEffect::mEffect[i].mState == EDELETE) {
@@ -97,6 +97,6 @@ void CPlayer::Collision(CCharacter* mc, CCharacter* yc) {
 
 void CPlayer::Render() {
 //	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 74.0f, 88.0f, 0.0f);
-	mRect.Render(mpTexture, 0, 74, 88, 0);
+	CRectangle::Render(mpTexture, 0, 74, 88, 0);
 	mEffect.Render();
 }

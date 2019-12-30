@@ -20,13 +20,13 @@ void CCharacter::Set(float x, float y, float w, float h) {
 	mY = y;
 	mW = w;
 	mH = h;
-	mRect.mX = x;
-	mRect.mY = y;
-	mRect.mW = w;
-	mRect.mH = h;
+	//mRect.mX = x;
+	//mRect.mY = y;
+	//mRect.mW = w;
+	//mRect.mH = h;
 }
 
 void CCharacter::Render() {
 //	CRectangle::Render(mX, mY, mW, mH);
-	mRect.Render();
+	CRectangle::Render();
 }

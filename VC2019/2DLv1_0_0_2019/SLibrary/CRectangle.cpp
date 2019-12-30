@@ -33,9 +33,8 @@ void CRectangle::Render(CTexture* pTexture, float left, float right, float botto
 	//テクスチャを指定
 	glBindTexture(GL_TEXTURE_2D, pTexture->mId);
 
-	float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	//色の設定
-	glColor4fv(diffuse);
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	glBegin(GL_QUADS);
 	glTexCoord2f(left,  top);
@@ -47,17 +46,6 @@ void CRectangle::Render(CTexture* pTexture, float left, float right, float botto
 	glTexCoord2f(right, top);
 	glVertex2d(mW, mH);
 	glEnd();
-
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(left / pTexture->mHeader.width, (pTexture->mHeader.height - top) / pTexture->mHeader.height);
-	//glVertex2d(-mW, mH);
-	//glTexCoord2f(left / pTexture->mHeader.width, (pTexture->mHeader.height - bottom) / pTexture->mHeader.height);
-	//glVertex2d(-mW, -mH);
-	//glTexCoord2f(right / pTexture->mHeader.width, (pTexture->mHeader.height - bottom) / pTexture->mHeader.height);
-	//glVertex2d(mW, -mH);
-	//glTexCoord2f(right / pTexture->mHeader.width, (pTexture->mHeader.height - top) / pTexture->mHeader.height);
-	//glVertex2d(mW, mH);
-	//glEnd();
 
 	//テクスチャを解放
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -75,45 +63,11 @@ void CRectangle::Render(CTexture* pTexture, int left, int right, int bottom, int
 		right / (float)pTexture->mHeader.width,
 		(pTexture->mHeader.height - bottom) / (float)pTexture->mHeader.height,
 		(pTexture->mHeader.height - top) / (float)pTexture->mHeader.height
-		);
+	);
+}
 
-	//glPushMatrix();
-	//glTranslatef(mX, mY, 0.0f);
-	//glRotatef(mR, 0.0f, 0.0f, 1.0f);
-	////描画開始(四角形)
-
-	////テクスチャを有効にする
-	//glEnable(GL_TEXTURE_2D);
-	////アルファブレンドを有効にする
-	//glEnable(GL_BLEND);
-	////ブレンド方法を指定
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	////テクスチャを指定
-	//glBindTexture(GL_TEXTURE_2D, pTexture->mId);
-
-	//float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	////色の設定
-	//glColor4fv(diffuse);
-
-	//glBegin(GL_QUADS);
-	//glTexCoord2f(left / (float)pTexture->mHeader.width, (pTexture->mHeader.height - top) / (float)pTexture->mHeader.height);
-	//glVertex2d(-mW, mH);
-	//glTexCoord2f(left / (float)pTexture->mHeader.width, (pTexture->mHeader.height - bottom) / (float)pTexture->mHeader.height);
-	//glVertex2d(-mW, -mH);
-	//glTexCoord2f(right / (float)pTexture->mHeader.width, (pTexture->mHeader.height - bottom) / (float)pTexture->mHeader.height);
-	//glVertex2d(mW, -mH);
-	//glTexCoord2f(right / (float)pTexture->mHeader.width, (pTexture->mHeader.height - top) / (float)pTexture->mHeader.height);
-	//glVertex2d(mW, mH);
-	//glEnd();
-
-	////テクスチャを解放
-	//glBindTexture(GL_TEXTURE_2D, 0);
-	////アルファブレンドを無効
-	//glDisable(GL_BLEND);
-	////テクスチャを無効
-	//glDisable(GL_TEXTURE_2D);
-
-	//glPopMatrix();
+void CRectangle::Render(CTexture* pTexture) {
+	Render(pTexture, 0.0f, 1.0f, 0.0f, 1.0f);
 }
 
 //コンストラクタの定義

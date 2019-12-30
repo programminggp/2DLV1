@@ -21,6 +21,7 @@ public:
 	void Render();
 	void Render(CTexture*, float left, float right, float bottom, float top);
 	void Render(CTexture*, int left, int right, int bottom, int top);
+	void Render(CTexture*);
 	//コンストラクタの宣言
 	CRectangle();
 	CRectangle(float x, float y, float w, float h);

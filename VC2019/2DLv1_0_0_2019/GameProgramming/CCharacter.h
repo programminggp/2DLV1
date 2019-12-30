@@ -3,10 +3,10 @@
 
 #include "CRectangle.h"
 
-class CCharacter {
+class CCharacter : public CRectangle {
 public:
-	float mX, mY, mW, mH;
-	CRectangle mRect;
+//	float mX, mY, mW, mH;
+//	CRectangle mRect;
 
 	//É^ÉO
 	enum ETag {

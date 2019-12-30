@@ -4,6 +4,6 @@
 
 int main(void)
 {
-	CMain2D main;
+	CMain2D main(800, 600);
 	main.SetScene(new CSceneGame());
 }

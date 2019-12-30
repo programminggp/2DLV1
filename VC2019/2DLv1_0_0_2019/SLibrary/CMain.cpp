@@ -285,7 +285,7 @@ int CMain::Init2D(int width, int height) {
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(width, height, "C9n Game Programming", NULL, NULL);
+	window = glfwCreateWindow(width, height, "49n Game Programming", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -325,7 +325,7 @@ int CMain::Init2D(int width, int height) {
 	//	CLight::getLight(0)->setDir(CVector3(0, -1, 1).GetNormalize());
 	//	CLight::getLight(0)->setColor(CVector3(0.9f, 0.9f, 0.9f), CVector3(1.0f, 1.0f, 1.0f));
 
-	printf("Copyright 2019 C9n Game Programming\n");
+	printf("Copyright 2019 49n Game Programming\n");
 
 	return 0;
 }
@@ -371,7 +371,7 @@ void CMain::idle() {
 	display();
 }
 
-int CMain::Main2D(CScene* pscene)
+int CMain::Main(CScene* pscene)
 {
 /////////////////////////////////////////////////////////////////
 //	tstring strUserAgent = _T("HttpRequestTest");

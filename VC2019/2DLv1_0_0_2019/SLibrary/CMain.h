@@ -27,7 +27,7 @@ public:
 	CMain();
 	virtual ~CMain();
 	int Init2D(int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT);
-	int Main2D(CScene* pscene);
+	int Main(CScene* pscene);
 };
 
 #endif

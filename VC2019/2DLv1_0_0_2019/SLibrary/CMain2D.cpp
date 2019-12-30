@@ -9,5 +9,5 @@ CMain2D::CMain2D(int width, int height) {
 }
 
 int CMain2D::SetScene(CScene* pscene) {
-	return Main2D(pscene);
+	return Main(pscene);
 }

@@ -14,7 +14,7 @@
     <ProjectGuid>{DF73E167-5D9E-4E9C-8FD9-294004BDE7BB}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>SLibrary</RootNamespace>
-    <ProjectName>GPLibrary</ProjectName>
+    <ProjectName>49nLib</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
