@@ -17,7 +17,8 @@ CSceneGame::CSceneGame()
 	TexBackGround.Load("BackGround.tga");
 	TexShot.Load("Shoot.tga");
 	TexEnemy.Load("Enemy.tga");
-	TexPlayer.Load("Player.tga");
+//	TexPlayer.Load("Player.tga");
+	TexPlayer.Load("4_fighters_sprites.tga");
 	TexExplosion.Load("Explosion.tga");
 	TexBoss.Load("Boss.tga");
 

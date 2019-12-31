@@ -12,7 +12,7 @@ struct STgamHeader {
 	unsigned short	width;	//幅
 	unsigned short	height;	//高さ
 	unsigned char	depth;	//ビットの深さ
-	unsigned char	dummy2;
+	unsigned char	discripter;
 };
 /*
 テクスチャークラス
@@ -56,6 +56,7 @@ public:
 	ttop:画像上座標
 	*/
 	void DrawImage(float left, float right, float bottom, float top, float tleft, float tright, float tbottom, float ttop);
+	void DrawImage(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop);
 	void DrawImage(float left, float right, float bottom, float top, int index);
 	void Destory();
 	void SetParts(int row, int col);

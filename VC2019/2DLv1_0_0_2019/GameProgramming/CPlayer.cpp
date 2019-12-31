@@ -97,6 +97,14 @@ void CPlayer::Collision(CCharacter* mc, CCharacter* yc) {
 
 void CPlayer::Render() {
 //	CRectangle::Render(mX, mY, mW, mH, mpTexture, 0.0f, 74.0f, 88.0f, 0.0f);
-	CRectangle::Render(mpTexture, 0, 74, 88, 0);
+//	CRectangle::Render(mpTexture, 0, 74, 88, 0);
+	static int frame = 0;
+	++frame %= 20;
+	if (frame < 10) {
+		CRectangle::Render(mpTexture, 1, 46, 63, 0);
+	}
+	else {
+		CRectangle::Render(mpTexture, 47, 92, 63, 0);
+	}
 	mEffect.Render();
 }
