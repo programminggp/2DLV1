@@ -14,7 +14,8 @@ CTexture TexBoss;
 
 CSceneGame::CSceneGame() 
 {
-	TexBackGround.Load("BackGround.tga");
+//	TexBackGround.Load("BackGround.tga");
+	TexBackGround.Load("bg_space_seamless.tga");
 	TexShot.Load("Shoot.tga");
 	TexEnemy.Load("Enemy.tga");
 //	TexPlayer.Load("Player.tga");
