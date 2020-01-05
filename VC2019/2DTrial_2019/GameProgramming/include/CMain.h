@@ -6,8 +6,8 @@
 #include "GLFW/glfw3.h"
 #include "CScene.h"
 
-#define WINDOW_WIDTH 800	//ウィンドウの幅
-#define WINDOW_HEIGHT 600	//ウィンドウの高さ
+//#define WINDOW_WIDTH 800	//ウィンドウの幅
+//#define WINDOW_HEIGHT 600	//ウィンドウの高さ
 
 class CMain {
 	//
@@ -24,9 +24,11 @@ class CMain {
 	GLFWwindow* window;
 	CScene* mpScene;
 public:
+	static int mWindowWidth;
+	static int mWindowHeight;
 	CMain();
 	virtual ~CMain();
-	int Init2D(int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT);
+	int Init2D(int width = 800, int height = 600);
 	int Main(CScene* pscene);
 };
 

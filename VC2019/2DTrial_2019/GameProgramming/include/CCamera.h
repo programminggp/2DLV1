@@ -14,6 +14,22 @@ public:
 	*/
 	void Camera2D(float x, float y, float w, float h);
 	void Camera2D();
+	/*
+	2D画面左座標の取得
+	*/
+	float GetLeft2D();
+	/*
+	2D画面右座標の取得
+	*/
+	float GetRight2D();
+	/*
+	2D画面下座標の取得
+	*/
+	float GetBottom2D();
+	/*
+	2D画面上座標の取得
+	*/
+	float GetTop2D();
 };
 
 
