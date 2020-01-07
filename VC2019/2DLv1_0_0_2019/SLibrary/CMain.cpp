@@ -2,6 +2,9 @@
 //#include "CTask.h"
 #include "CCamera.h"
 
+int CMain::mWindowWidth = 0;
+int CMain::mWindowHeight = 0;
+
 //////////////////////////////WinInet http connection
 #include <windows.h>
 #include <Wininet.h>
@@ -284,6 +287,8 @@ int CMain::Init2D(int width, int height) {
 	if (!glfwInit())
 		return -1;
 
+	mWindowHeight = height;
+	mWindowWidth = width;
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(width, height, "49n Game Programming", NULL, NULL);
 	if (!window)
@@ -325,7 +330,7 @@ int CMain::Init2D(int width, int height) {
 	//	CLight::getLight(0)->setDir(CVector3(0, -1, 1).GetNormalize());
 	//	CLight::getLight(0)->setColor(CVector3(0.9f, 0.9f, 0.9f), CVector3(1.0f, 1.0f, 1.0f));
 
-	printf("Copyright 2019 49n Game Programming\n");
+	printf("Copyright 2020 49n Game Programming\n");
 
 	return 0;
 }
@@ -394,12 +399,19 @@ int CMain::Main(CScene* pscene)
 	{
 		return false;
 	}
+	else {
+		setlocale(LC_ALL, "Japanese");
+		//	_tprintf(_T("%s"), strResult.c_str());
+		//printf("%s", strResult.c_str());
+		if (!strstr(strResult.c_str(), "OK")) {
+			printf("No License\n");
+			return false;
+		}
 
-	setlocale(LC_ALL, "Japanese");
-//	_tprintf(_T("%s"), strResult.c_str());
-	printf("%s", strResult.c_str());
+	}
+
 ////////////////////////////////////////////////////
-Skip:
+//Skip:
 	mpScene = pscene;
 
 	mpScene->Init();

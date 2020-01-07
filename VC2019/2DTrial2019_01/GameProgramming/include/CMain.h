@@ -6,6 +6,8 @@
 #include "GLFW/glfw3.h"
 #include "CScene.h"
 
+//#define WINDOW_WIDTH 800	//ウィンドウの幅
+//#define WINDOW_HEIGHT 600	//ウィンドウの高さ
 
 class CMain {
 	//

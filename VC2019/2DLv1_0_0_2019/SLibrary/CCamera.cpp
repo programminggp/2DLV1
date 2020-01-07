@@ -16,3 +16,19 @@ void CCamera::Camera2D(float x, float y, float w, float h) {
 	mH = h;
 	Camera2D();
 }
+
+float CCamera::GetLeft2D() {
+	return mX - mW;
+}
+
+float CCamera::GetRight2D() {
+	return mX + mW;
+}
+
+float CCamera::GetBottom2D() {
+	return mY - mH;
+}
+
+float CCamera::GetTop2D() {
+	return mY + mH;
+}
