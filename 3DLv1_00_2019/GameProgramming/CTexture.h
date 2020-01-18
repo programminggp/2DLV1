@@ -28,9 +28,10 @@ public:
 	char* mpName;
 	//?
 	//
-	int mRows;
-	int mCols;
-	//
+	int mRows;//行数
+	int mCols;//列数
+	//行数列数の設定
+	//SetRowCol(行数, 列数)
 	void SetRowCol(int row = 1, int col = 1) {
 		mRows = row;
 		mCols = col;
@@ -176,7 +177,7 @@ public:
 		glDisable(GL_TEXTURE_2D);
 	}
 	//DrawImage(左座標, 右座標, 下座標, 上座標, コマ数)
-	void DrawImage(int left, int right, int bottom, int top, int frame)  const {
+	void DrawImage(int left, int right, int bottom, int top, int frame)  {
 		int col = frame % mCols;
 		int row = frame / mCols + 1;
 		DrawImage(left, right, bottom, top,

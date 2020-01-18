@@ -8,9 +8,6 @@ DrawChar
 ch:文字データ x:X座標 y:Y座標 w:幅 h:高さ
 */
 void CText::DrawChar(char ch, int x, int y, int w, int h) {
-	//int u = ch % 16 * 16;
-	//int v = (ch - ' ') / 16 * 16;
-	//mFont.DrawImage(x - w, x + w, y - h, y + h, u, u + 15, v + 15, v);
 	mFont.DrawImage(x - w, x + w, y - h, y + h, ch - ' ');
 }
 // s:文字列データ x:先頭文字のX座標 y:先頭文字のY座標

@@ -18,7 +18,7 @@ public:
 	//キャラクタの作成
 //	CCharacter Character;
 	CPlayer Player;
-//	CMap mMap;//マップのインスタンス
+	CMap mMap;//マップのインスタンス
 
 	~CSceneGame();
 	//初期化処理のオーバーライド
@@ -27,6 +27,7 @@ public:
 	void Update();
 
 	//2D描画スタート
+	//Start2D(左座標, 右座標, 下座標, 上座標)
 	void Start2D(float left, float right, float bottom, float top);
 	//2D描画終了
 	void End2D();

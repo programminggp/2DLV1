@@ -47,7 +47,7 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
-	//テキストフォントの読み込み
+	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 //	CText::mFont.Load("Font.tga");
@@ -135,7 +135,7 @@ void CSceneGame::Update() {
 	//タスクマネージャの描画
 	TaskManager.Render();
 	//コライダの描画
-	CollisionManager.Render();
+//	CollisionManager.Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
@@ -147,9 +147,9 @@ void CSceneGame::Update() {
 
 	CText::DrawString("PLAYER DAMAGE ", 20, 50, 10, 12);
 	CText::DrawString("AIRBASE DAMAGE", 20, 20, 10, 12);
-	char buf[10];
-	sprintf(buf, "%d", mpAirBase->mDamage);
-	CText::DrawString(buf, 320, 20, 10, 12);
+	//char buf[10];
+	//sprintf(buf, "%d", mpAirBase->mDamage);
+	//CText::DrawString(buf, 320, 20, 10, 12);
 
 	//2D描画終了
 	End2D();
@@ -281,6 +281,7 @@ void CSceneGame::Update() {
 }
 
 //2D描画スタート
+//Start2D(左座標, 右座標, 下座標, 上座標)
 void CSceneGame::Start2D(float left, float right, float bottom, float top) {
 	//モデルビュー行列の退避
 	glPushMatrix();
@@ -294,7 +295,7 @@ void CSceneGame::Start2D(float left, float right, float bottom, float top) {
 	glPushMatrix();
 	//プロジェクション行列の初期化
 	glLoadIdentity();
-	//2D画面へ設定
+	//2D描画の設定
 	gluOrtho2D(left, right, bottom, top);
 }
 

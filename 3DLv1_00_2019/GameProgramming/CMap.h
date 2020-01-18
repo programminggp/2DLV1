@@ -12,9 +12,11 @@ public:
 //	CCollider *mpTriangleColider;
 	//
 	CMap();
+	/*
 	~CMap();
 	//
 	void SetTriangleCollider();
+	*/
 };
 
 #endif
