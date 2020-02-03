@@ -36,6 +36,7 @@ CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
 	mScale = scale;	//拡縮の設定
 	mPointCnt = 0;	//最初のポイントを設定
 	mpPoint = &mPoint[mPointCnt];//目指すポイントのポインタを設定
+	mTag = EENEMY;
 }
 //更新処理
 void CEnemy::Update() {
@@ -87,10 +88,12 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 				switch (y->mpParent->mTag) {
 				case EAIRBASE://空軍基地
 				case EPLAYER://プレイヤーの時
-					CBullet *bullet = new CBullet();
-					bullet->Set(0.1f, 1.5f);
-					bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
-					bullet->mRotation = mRotation;
+					if (y->mTag == CCollider::EBODY) {
+						CBullet *bullet = new CBullet();
+						bullet->Set(0.1f, 1.5f);
+						bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
+						bullet->mRotation = mRotation;
+					}
 					break;
 				}
 			}
@@ -107,10 +110,14 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 						mpPoint = &mPoint[mPointCnt];
 					}
 					break;
+				case EMISSILE:
+					mEnabled = false;
 				default:
-					//エフェクト生成
-					new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
-					//			mHp--;
+					if (y->mTag == CCollider::EBODY) {
+						//エフェクト生成
+						new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+						//			mHp--;
+					}
 				}
 			}
 			//削除		mEnabled = false;

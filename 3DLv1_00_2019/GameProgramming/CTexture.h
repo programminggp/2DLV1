@@ -149,7 +149,7 @@ public:
 		//色の設定
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
 
-		glDisable(GL_LIGHTING);
+		//glDisable(GL_LIGHTING);
 		glColor3f(1.0f, 1.0f, 1.0f);
 
 		glBegin(GL_TRIANGLES);
@@ -167,7 +167,7 @@ public:
 		glVertex2d(right, top);
 		glEnd();
 
-		glEnable(GL_LIGHTING);
+//		glEnable(GL_LIGHTING);
 
 		//テクスチャを解放
 		glBindTexture(GL_TEXTURE_2D, 0);

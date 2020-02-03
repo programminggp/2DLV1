@@ -95,9 +95,11 @@
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMatrix.cpp" />
+    <ClCompile Include="CMissile.cpp" />
     <ClCompile Include="CModel.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CPoint.cpp" />
+    <ClCompile Include="CRes.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CTaskManager.cpp" />
@@ -122,9 +124,11 @@
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMatrix.h" />
+    <ClInclude Include="CMissile.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CPoint.h" />
+    <ClInclude Include="CRes.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneGame.h" />
     <ClInclude Include="CSceneManager.h" />

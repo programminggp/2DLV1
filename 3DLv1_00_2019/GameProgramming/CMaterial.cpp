@@ -14,6 +14,10 @@ CMaterial::CMaterial()
 }
 //マテリアルを有効にする
 void CMaterial::Enabled() {
+	//アルファブレンドを有効にする
+	glEnable(GL_BLEND);
+	//ブレンド方法を指定
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//拡散光の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
 	//テクスチャが無い時、戻る
@@ -25,21 +29,17 @@ void CMaterial::Enabled() {
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
 		glBindTexture(GL_TEXTURE_2D, mpTexture->mId);
-		//アルファブレンドを有効にする
-		glEnable(GL_BLEND);
-		//ブレンド方法を指定
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 }
 //マテリアルを無効にする
 void CMaterial::Disabled() {
+	//アルファブレンドを無効
+	glDisable(GL_BLEND);
 	//テクスチャが無い時、戻る
 	if (mpTexture == 0)
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
-		//アルファブレンドを無効
-		glDisable(GL_BLEND);
 		//テクスチャのバインドを解く
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//テクスチャを無効にする

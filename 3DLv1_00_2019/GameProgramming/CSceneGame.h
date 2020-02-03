@@ -18,7 +18,7 @@ public:
 	//キャラクタの作成
 //	CCharacter Character;
 	CPlayer Player;
-	CMap mMap;//マップのインスタンス
+//	CMap mMap;//マップのインスタンス
 
 	~CSceneGame();
 	//初期化処理のオーバーライド

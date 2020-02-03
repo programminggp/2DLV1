@@ -23,6 +23,8 @@ public:
 		EPOINT,	//ポイント
 		EPLAYER,//プレイヤー
 		EAIRBASE,//空軍基地
+		EMISSILE,//ミサイル
+		EENEMY, //敵
 	};
 	ETag mTag;
 //	CCharacter *mpParent;	//親

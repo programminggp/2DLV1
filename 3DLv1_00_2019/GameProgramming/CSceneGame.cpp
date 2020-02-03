@@ -30,6 +30,8 @@
 #include "CAirBase.h"
 //
 #include "CText.h"
+//
+#include "CRes.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
@@ -47,6 +49,9 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
+	//
+	CRes::mMissileM.Load("missile.obj", "missile.mtl");
+
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
@@ -111,8 +116,6 @@ void CSceneGame::Update() {
 
 	//タスクマネージャの更新
 	TaskManager.Update();
-	//コリジョンマネージャの衝突処理
-	CollisionManager.Collision();
 
 	//描画処理
 
@@ -127,6 +130,9 @@ void CSceneGame::Update() {
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
 	Camera.Render();
+
+	//コリジョンマネージャの衝突処理
+	CollisionManager.Collision();
 
 	BackGround.Render(CMatrix());
 
@@ -297,6 +303,10 @@ void CSceneGame::Start2D(float left, float right, float bottom, float top) {
 	glLoadIdentity();
 	//2D描画の設定
 	gluOrtho2D(left, right, bottom, top);
+	//Depthテストオフ
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glColor3f(1.0f, 1.0f, 1.0f);
 }
 
 //2D描画終了
@@ -307,4 +317,8 @@ void CSceneGame::End2D() {
 	glMatrixMode(GL_MODELVIEW);
 	//モデルビュー行列を戻す
 	glPopMatrix();
+	//Depthテストオン
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+
 }

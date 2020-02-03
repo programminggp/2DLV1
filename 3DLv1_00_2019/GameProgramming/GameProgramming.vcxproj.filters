@@ -90,6 +90,12 @@
     <ClCompile Include="CText.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="CMissile.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CRes.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Update.h">
@@ -174,6 +180,12 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CText.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CMissile.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CRes.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

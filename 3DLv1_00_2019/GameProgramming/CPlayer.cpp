@@ -7,13 +7,23 @@
 //22extern CBullet Bullet;
 //タスクマネージャのインクルード
 #include "CTaskManager.h"
+//?
+#include "CMissile.h"
+#include "CRes.h"
+//?
+#include "CBillBoard.h"
 
 CPlayer::CPlayer()
 :mCollider(this,  CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f),
 CVector(5.0f, 5.0f, 5.0f), 0.8f)
+, mFire(0)
+, mSearch(this, CVector(0.0f, 0.0f, 80.0f), CVector(0.0f, 0.0f, 0.0f),
+CVector(5.0f, 5.0f, 5.0f), 80.0f)
+, mpTarget(0)
 {
 	mTag = EPLAYER;//種類はプレイヤー
 	mCollider.mTag = CCollider::EBODY;//種類は機体
+	mSearch.mTag = CCollider::ESEARCH;
 
 	//線分コライダの設定
 	//前後
@@ -28,6 +38,9 @@ CVector(5.0f, 5.0f, 5.0f), 0.8f)
 
 //更新処理
 void CPlayer::Update() {
+	if (mFire > 0) {
+		mFire--;
+	}
 	//Aキー入力で回転
 	if (CKey::Push('A')) {
 		//Y軸の回転値を増加
@@ -61,13 +74,27 @@ void CPlayer::Update() {
 	//スペースキー入力で弾発射
 	if (CKey::Push(VK_SPACE)) {
 		CBullet *bullet = new CBullet();
-		bullet->Set(0.1f, 1.5f);
+		bullet->Set(0.05f, 1.5f);
 		bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
  		bullet->mRotation = mRotation;
 //		TaskManager.Add(bullet);
 	}
+	//スペースキー入力で弾発射
+	if (CKey::Push('M') && mFire == 0) {
+		mFire = 60;
+		if (mpTarget) {
+			CMissile *m = new CMissile(&CRes::mMissileM, CVector(6.0f, -2.0f, 0.0f) * mMatrix, mRotation, CVector(0.2f, 0.2f, 0.2f));
+			m->mpPoint = mpTarget;
+		}
+		else {
+			new CMissile(&CRes::mMissileM, CVector(6.0f, -2.0f, 0.0f) * mMatrix, mRotation, CVector(0.2f, 0.2f, 0.2f));
+		}
+		//		TaskManager.Add(bullet);
+	}
 	//CCharacterの更新
 	CCharacter::Update();
+	mpTarget = 0;
+
 }
 
 //衝突処理
@@ -84,6 +111,45 @@ void CPlayer::Collision(CCollider *m, CCollider *y) {
 			mPosition = mPosition - adjust * -1;
 			//行列の更新
 			CCharacter::Update();
+		}
+		break;
+	case CCollider::ESPHERE://球コライダ
+		//相手のコライダが球コライダの時
+		if (y->mType == CCollider::ESPHERE) {
+			if (CCollider::Collision(m, y)) {
+				switch (m->mTag) {
+				case CCollider::ESEARCH:
+					if (y->mpParent->mTag == EENEMY) {
+						CBillBoard b(y->mpParent->mPosition,1.0f, 1.0f);
+						if (mpTarget == 0) {
+							mpTarget = y->mpParent;
+							b.mMaterial.mDiffuse[0] = 1.0f;
+							b.mMaterial.mDiffuse[1] = 0.0f;
+							b.mMaterial.mDiffuse[2] = 0.0f;
+							b.mMaterial.mDiffuse[3] = 0.5f;
+							b.Update();
+							b.Render();
+						}
+						else if (mpTarget == y->mpParent) {
+							b.mMaterial.mDiffuse[0] = 1.0f;
+							b.mMaterial.mDiffuse[1] = 0.0f;
+							b.mMaterial.mDiffuse[2] = 0.0f;
+							b.mMaterial.mDiffuse[3] = 0.5f;
+							b.Update();
+							b.Render();
+						}
+						else {
+							b.mMaterial.mDiffuse[0] = 0.0f;
+							b.mMaterial.mDiffuse[1] = 1.0f;
+							b.mMaterial.mDiffuse[2] = 0.0f;
+							b.mMaterial.mDiffuse[3] = 0.5f;
+							b.Update();
+							b.Render();
+						}
+					}
+					break;
+				}
+			}
 		}
 		break;
 	}
