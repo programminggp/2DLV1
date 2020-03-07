@@ -4,23 +4,46 @@
 CTaskManager TaskManager;
 
 CTaskManager::CTaskManager()
-: mpHead(0), mpTail(0)
-{}
+//: mpHead(0)//, mpTail(0)
+{
+	mpHead = new CTask();
+}
 
 CTaskManager::~CTaskManager() {
-
+	delete mpHead;
 }
 
 //リストに追加
 //Add(タスクのポインタ)
 void CTaskManager::Add(CTask *task) {
+	CTask *current = mpHead->mpNext;
+	CTask *prev = mpHead;
+	while (current) {
+		if (task->mPriority >= current->mPriority) {
+			break;
+		}
+		prev = current;
+		current = current->mpNext;
+	}
+	if (current) {
+		prev->mpNext = task;
+		current->mpPrev = task;
+		task->mpPrev = prev;
+		task->mpNext = current;
+	}
+	else {
+		prev->mpNext = task;
+		task->mpPrev = prev;
+		task->mpNext = 0;
+	}
+	return;
 	//リストが空（先頭が0）
 	if (mpHead == 0) {
 		//リストの先頭にする
 		mpHead = task;
 		task->mpPrev = 0;
 		//リストの最後にする
-		mpTail = task;
+		//mpTail = task;
 		task->mpNext = 0;
 	}
 	else {
@@ -70,7 +93,7 @@ void CTaskManager::Remove(CTask *task) {
 	}
 	//taskが最後の時
 	if (task->mpNext == 0) {
-		mpTail = task->mpPrev;
+//		mpTail = task->mpPrev;
 	}
 	else {
 		task->mpNext->mpPrev = task->mpPrev;
@@ -80,7 +103,7 @@ void CTaskManager::Remove(CTask *task) {
 //更新
 void CTaskManager::Update() {
 	//先頭から最後まで繰り返し
-	CTask *pos = mpHead;
+	CTask *pos = mpHead->mpNext;
 	while (pos) {
 		//更新処理を呼ぶ
 		pos->Update();
@@ -92,7 +115,7 @@ void CTaskManager::Update() {
 //描画
 void CTaskManager::Render() {
 	//先頭から最後まで繰り返し
-	CTask *pos = mpHead;
+	CTask *pos = mpHead->mpNext;
 	while (pos) {
 		//描画処理を呼ぶ
 		pos->Render();
@@ -104,7 +127,7 @@ void CTaskManager::Render() {
 //タスクの削除
 void CTaskManager::Delete() {
 	//先頭から最後まで繰り返し
-	CTask *pos = mpHead;
+	CTask *pos = mpHead->mpNext;
 	while (pos) {
 		CTask *del = pos;
 		//次へ

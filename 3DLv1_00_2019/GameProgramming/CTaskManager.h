@@ -10,7 +10,7 @@
 class CTaskManager {
 public:
 	CTask *mpHead;	//先頭ポインタ
-	CTask *mpTail;	//最後ポインタ
+//	CTask *mpTail;	//最後ポインタ
 	//デフォルトコンストラクタ
 	CTaskManager();
 	//デストラクタ

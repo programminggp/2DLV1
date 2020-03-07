@@ -7,10 +7,11 @@ CCollisionManager CollisionManager;
 //衝突処理
 void CCollisionManager::Collision() {
 	//現在位置を先頭にする
-	CCollider *pos = (CCollider*)mpHead;
+	CCollider *pos = (CCollider*)mpHead->mpNext;
 	//最後まできたら終了する
-	while (pos != mpTail) {
-		//現在位置の次を求める
+//?	while (pos != mpTail) {
+	while (pos) {
+			//現在位置の次を求める
 		CCollider *next = (CCollider*)pos->mpNext;
 		//次が0になったら終了
 		while (next) {
