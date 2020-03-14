@@ -1,5 +1,5 @@
 #include "CRes.h"
 
-CModel CRes::mMissileM;
+CModel CRes::sMissileM;
 
-CModel CRes::BackGround; //”wŒiƒ‚ƒfƒ‹
+CModel CRes::sBackGround; //”wŒiƒ‚ƒfƒ‹

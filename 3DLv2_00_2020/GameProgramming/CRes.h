@@ -5,9 +5,9 @@
 
 class CRes {
 public:
-	static CModel mMissileM;
+	static CModel sMissileM;
 	//モデルクラスのインスタンス作成
-	static CModel BackGround; //背景モデル
+	static CModel sBackGround; //背景モデル
 
 
 };

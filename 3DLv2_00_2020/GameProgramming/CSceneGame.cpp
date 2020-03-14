@@ -22,7 +22,7 @@ void CSceneGame::Init() {
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 	//モデルファイルの入力
-	CRes::BackGround.Load("sky.obj", "sky.mtl");
+	CRes::sBackGround.Load("sky.obj", "sky.mtl");
 }
 
 
@@ -39,7 +39,7 @@ void CSceneGame::Update() {
 	Camera.Set(e, c, u);
 	Camera.Render();
 
-	CRes::BackGround.Render(CMatrix());
+	CRes::sBackGround.Render(CMatrix());
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
