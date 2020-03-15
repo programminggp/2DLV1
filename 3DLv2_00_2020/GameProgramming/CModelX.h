@@ -19,6 +19,8 @@ public:
 	{}
 	//ファイル読み込み
 	void Load(char* file);
+	//単語の取り出し
+	void GetToken();
 };
 
 #endif
