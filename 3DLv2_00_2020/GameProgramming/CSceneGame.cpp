@@ -8,7 +8,6 @@
 //
 #include "CRes.h"
 
-
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
 
@@ -18,6 +17,8 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
+	//3Dモデルファイルの読み込み
+	CRes::sModelX.Load(MODEL_FILE);
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
