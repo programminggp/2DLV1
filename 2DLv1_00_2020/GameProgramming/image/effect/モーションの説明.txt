@@ -1,0 +1,11 @@
+explosion　ラスボス手下の爆発モーション
+fog　森ボスの霧
+hole　地形変化時の穴
+poison_1　毒をばらまくモーション
+poison_2　地面に散らばった毒
+Range attack_1　超範囲攻撃時のラスボスの後ろに浮かんでいるだけの火の玉(ボスの後ろに配置)
+Range attack_2　ばらまく時の火の玉(ボスの手前に配置)
+Range attack_3　ばらまいた後の地面にある炎
+Terrain changes_1　地形変化のモーション(ボスの後ろに配置)
+Terrain changes_2　地形変化のモーション(ボスの手前に配置)
+warp　森ボスのワープモーション

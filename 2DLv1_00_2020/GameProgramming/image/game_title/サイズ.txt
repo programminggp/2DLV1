@@ -1,0 +1,9 @@
+GAME_START　幅512　高さ128
+
+game_title　幅512　高さ256
+
+game_title_01　幅512　高さ128
+
+game_title_02　128
+
+game_title_03　幅1280　高さ720

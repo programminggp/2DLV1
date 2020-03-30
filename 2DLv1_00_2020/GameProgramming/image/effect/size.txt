@@ -1,0 +1,21 @@
+hole　256px
+
+fog 幅1024px　高さ512px
+
+warp 幅512px　高さ1024px
+
+poison_1　512px
+
+poison_2　256px
+
+Range attack_1　512px
+
+Range attack_2　幅1280px　高さ512px
+
+Range attack_3　256px
+
+Terrain changes_1　幅512px　高さ256px
+
+Terrain changes_2　幅512px　高さ256px
+
+explpsion　256px
