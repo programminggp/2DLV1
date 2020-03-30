@@ -1,12 +1,6 @@
 #ifndef CSCENEGAME_H
 #define CSCENEGAME_H
 #include "CScene.h"
-//22
-#include "CPlayer.h"
-//?
-#include "CMap.h"
-//
-#include "CAirBase.h"
 
 /*
 ÉQÅ[ÉÄÇÃÉVÅ[Éì

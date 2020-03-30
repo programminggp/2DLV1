@@ -8,7 +8,6 @@
 //
 #include "CRes.h"
 
-
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
 
@@ -18,11 +17,13 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
+	//3Dモデルファイルの読み込み
+	CRes::sModelX.Load(MODEL_FILE);
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 	//モデルファイルの入力
-	CRes::BackGround.Load("sky.obj", "sky.mtl");
+	CRes::sBackGround.Load("sky.obj", "sky.mtl");
 }
 
 
@@ -39,7 +40,7 @@ void CSceneGame::Update() {
 	Camera.Set(e, c, u);
 	Camera.Render();
 
-	CRes::BackGround.Render(CMatrix());
+	CRes::sBackGround.Render(CMatrix());
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

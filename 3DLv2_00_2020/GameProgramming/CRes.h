@@ -1,16 +1,13 @@
 #ifndef CRES_H
 #define CRES_H
-
 #include "CModel.h"
+#include "CModelX.h"
 
 class CRes {
 public:
-	static CModel mMissileM;
 	//モデルクラスのインスタンス作成
-	static CModel BackGround; //背景モデル
-
-
+	static CModel sBackGround; //背景モデル
+	static CModelX sModelX;
 };
-
 
 #endif
