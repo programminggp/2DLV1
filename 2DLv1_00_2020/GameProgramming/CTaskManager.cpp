@@ -81,8 +81,9 @@ void CTaskManager::Add(CTask*task){
 			task->mpPrev->mpNext = task;
 
 		}
-
 	}
+
+	AddR(task);
 }
 
 void CTaskManager::AddR(CTask*task){
