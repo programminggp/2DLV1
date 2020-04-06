@@ -84,7 +84,7 @@
   <ItemGroup>
     <ClCompile Include="CRect.cpp" />
     <ClCompile Include="CRes.cpp" />
-    <ClCompile Include="CKey.cpp" />
+    <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
@@ -94,7 +94,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CKey.h" />
+    <ClInclude Include="CInput.h" />
     <ClInclude Include="CRect.h" />
     <ClInclude Include="CRes.h" />
     <ClInclude Include="CScene.h" />

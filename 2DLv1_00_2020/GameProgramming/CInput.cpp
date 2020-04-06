@@ -1,6 +1,8 @@
-#include "CKey.h"
+#include "CInput.h"
+//GetKeyState関数のヘッダファイル
+#include <Windows.h>
 
-bool CKey::Push(char key) {
+bool CInput::Key(char key) {
 	/*
 	GetKeyState関数は引数のキーが押されている状態だと
 	先頭ビットが1の16ビットの値を返します。
@@ -12,9 +14,9 @@ bool CKey::Push(char key) {
 	return (GetKeyState(key) & 0x8000) == 0x8000;
 }
 
-bool CKey::Flg[256];
+bool CInput::Flg[256];
 
-bool CKey::Once(char key) {
+bool CInput::KeyOP(char key) {
 	//キーが押されているか
 	if ((GetKeyState(key) & 0x8000)) {
 		//!演算子：否定
