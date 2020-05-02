@@ -36,8 +36,7 @@ void CSceneGame::Update() {
 	//2Dï`âÊäJén
 	Start2D(0, 800, 0, 600);
 
-	CText::DrawString("PLAYER DAMAGE ", 20, 50, 10, 12);
-	CText::DrawString("AIRBASE DAMAGE", 20, 20, 10, 12);
+	CText::DrawString("3D PROGRAMMING", 20, 20, 10, 12);
 
 	//2Dï`âÊèIóπ
 	End2D();
