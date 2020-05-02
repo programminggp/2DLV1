@@ -1,0 +1,15 @@
+specialskill_02  幅512　高さ64
+
+specialskill_01 幅512　高さ64
+
+player_HP_02　幅512　高さ128
+
+player_HP_01　幅512　高さ128
+
+enemy_HP_02　幅256　高さ32
+
+enemy_HP_01　幅256　高さ32
+
+boss_HP_02　幅512　高さ32
+
+boss_HP_01　幅512　高さ32
