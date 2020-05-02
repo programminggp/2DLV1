@@ -13,6 +13,7 @@ public:
 	//•¶š‚Ì•`‰æ
 	static void DrawChar(char ch, int x, int y, int w, int h);
 	//•¶š—ñ‚Ì•`‰æ
+	//DrawString(•¶š—ñ, ‰æ–ÊXÀ•W, ‰æ–ÊYÀ•W, •¶š•, •¶š‚‚³)
 	static void DrawString(char *s, int x, int y, int w, int h);
 };
 

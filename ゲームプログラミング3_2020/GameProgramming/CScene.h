@@ -21,6 +21,7 @@ public:
 	//2D描画終了
 	void End2D();
 	//カメラの設定
+	//Camera3D(視点X座標, 視点Y座標, 視点Z座標, 注視点X座標, 注視点Y座標, 注視点Z座標, 上方向X, 上方向Y, 上方向Z)
 	void Camera3D(float ex, float ey, float ez, float cx, float cy, float cz, float ux, float uy, float uz);
 };
 

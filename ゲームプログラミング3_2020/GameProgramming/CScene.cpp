@@ -37,7 +37,6 @@ void CScene::End2D() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 }
-
 void CScene::Camera3D(float ex, float ey, float ez, float cx, float cy, float cz, float tx, float ty, float tz) {
 	gluLookAt(ex, ey, ez, cx, cy, cz, tx, ty, tz);
 }
