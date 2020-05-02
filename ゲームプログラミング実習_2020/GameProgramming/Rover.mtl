@@ -1,0 +1,410 @@
+# Blender MTL File: '1987Camel Trophy Range Rover.blend'
+# Material Count: 42
+
+newmtl Handle1Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.053333 0.053333 0.053333
+Ks 0.013333 0.013333 0.013333
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Head1Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.310588 0.298039 0.307451
+Ks 0.145398 0.139524 0.143929
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Hinge1Mtl.003
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.084706 0.131765 0.166274
+Ks 0.042353 0.065882 0.083137
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Hook1Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.200000 0.200000 0.200000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Hook1Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Hook1Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Hook1Tex.png
+
+newmtl Lightpart1Mtl.003
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.778039 0.778039 0.778039
+Ks 0.486275 0.486275 0.486275
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part134Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.053333 0.053333 0.053333
+Ks 0.001046 0.001046 0.001046
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part13Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.084706 0.131765 0.166274
+Ks 0.039654 0.061684 0.077840
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part164Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.511373 0.508235 0.517647
+Ks 0.239393 0.237924 0.242330
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part169Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Part169Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part169Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part169Tex.png
+
+newmtl Part170Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part171Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.310588 0.298039 0.307451
+Ks 0.006090 0.005844 0.006028
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part173Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.053333 0.053333 0.053333
+Ks 0.030065 0.030065 0.030065
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part177Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Part177Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part177Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part177Tex.png
+
+newmtl Part1Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.000000 0.000000
+Ks 0.374510 0.000000 0.000000
+Ni 1.000000
+d 0.803922
+illum 2
+
+newmtl Part251Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Part251Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part251Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part251Tex.png
+
+newmtl Part25Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.778039 0.778039 0.778039
+Ks 0.364229 0.364229 0.364229
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part290Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.668235 0.360784 0.191373
+Ks 0.312826 0.168896 0.089589
+Ni 1.000000
+d 0.803922
+illum 2
+
+newmtl Part291Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.778039 0.778039 0.778039
+Ks 0.364229 0.364229 0.364229
+Ni 1.000000
+d 0.803922
+illum 2
+
+newmtl Part295Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Part295Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part295Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part295Tex.png
+
+newmtl Part2Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.057222 0.057222 0.057222
+Ks 0.024967 0.024967 0.024967
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part2Mtl.002
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.024967 0.024967 0.024967
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part2Mtl.003
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.024967 0.024967 0.024967
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part2Mtl.004
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.024967 0.024967 0.024967
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part2Mtl.005
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.000000 0.000000 0.000000
+Ks 0.024967 0.024967 0.024967
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part308Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.511373 0.508235 0.517647
+Ks 0.127843 0.127059 0.129412
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part39Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Part39Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part39Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part39Tex.png
+
+newmtl Part40Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.000000 0.000000
+Ks 0.374510 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part4Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.329412 0.200784 0.125490
+Ks 0.006459 0.003937 0.002461
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part54Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.053333 0.053333 0.053333
+Ks 0.024967 0.024967 0.024967
+Ni 1.000000
+d 0.501961
+illum 2
+
+newmtl Part55Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Part55Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part55Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Part55Tex.png
+
+newmtl Part67Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.000000
+Ks 0.374510 0.374510 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part6Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.549020 0.000000
+Ks 0.200000 0.137255 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part70Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.310588 0.298039 0.307451
+Ks 0.175086 0.168012 0.173318
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part7Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.549020 0.000000
+Ks 0.374510 0.257017 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part85Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.389020 0.288627 0.219608
+Ks 0.061023 0.045275 0.034448
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Part8Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.329412 0.200784 0.125490
+Ks 0.082353 0.050196 0.031373
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl SteerMesh1Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\SteerMesh1Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\SteerMesh1Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\SteerMesh1Tex.png
+
+newmtl Wedge17Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.122353 0.219608 0.141177
+Ks 0.057278 0.102807 0.066090
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Wedge71Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.053333 0.053333 0.053333
+Ks 0.008366 0.008366 0.008366
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Wedge83Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.445490 0.329412
+Ks 0.012549 0.008735 0.006459
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Wheel2Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Wheel2Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Wheel2Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Wheel2Tex.png
+
+newmtl Wheel6Mtl.001
+Ns 1000.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.374510 0.374510 0.374510
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\crazycarboy\Documents\Obj, MTL Files\Wheel6Tex.png
+map_Ka C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Wheel6Tex.png
+map_d C:\\Users\\crazycarboy\\Documents\\Obj, MTL Files\\Wheel6Tex.png
