@@ -97,6 +97,7 @@
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CTaskManager.cpp" />
     <ClCompile Include="CText.cpp" />
+    <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="CVector.cpp" />
