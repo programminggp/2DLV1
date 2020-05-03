@@ -1,12 +1,18 @@
 #ifndef CSCENEGAME_H
 #define CSCENEGAME_H
 #include "CScene.h"
+//1
+#include "CModel.h"
 
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
 public:
+	//1
+	CModel mSky;
+	CModel mRock;
+	CModel mRover;
 
 	~CSceneGame();
 	//初期化処理のオーバーライド
