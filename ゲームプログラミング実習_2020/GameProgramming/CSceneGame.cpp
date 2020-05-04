@@ -36,9 +36,9 @@ void CSceneGame::Update() {
 
 
 	//1
-	mSky.Render(CMatrix().Scale(1.0f, 1.0f, 1.0f));
-	mRock.Render(CMatrix().Scale(4.0f, 4.0f, 4.0f));
-//	mRover.Render(CMatrix().Scale(1.0f, 1.0f, 1.0f));
+	mSky.Render();
+	mRock.Render(CMatrix().Scale(5.0f, 5.0f, 5.0f));
+//	mRover.Render(CMatrix().Translate(-20.0f, 0.0f, 10.0f));
 
 	//2D•`‰æŠJŽn
 	Start2D(0, 800, 0, 600);
