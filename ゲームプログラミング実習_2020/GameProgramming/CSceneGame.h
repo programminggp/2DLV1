@@ -3,6 +3,8 @@
 #include "CScene.h"
 //1
 #include "CModel.h"
+//4
+#include "CPlayer.h"
 
 /*
 ゲームのシーン
@@ -13,6 +15,8 @@ public:
 	CModel mSky;
 	CModel mRock;
 	CModel mRover;
+	//4
+	CPlayer mPlayer;
 
 	~CSceneGame();
 	//初期化処理のオーバーライド

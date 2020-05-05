@@ -36,6 +36,7 @@ CCharacter::CCharacter()
 //?
 : mpModel(0)
 , mTag(ENONE)
+, mScale(1.0f, 1.0f, 1.0f)
 {
 	//タスクリストに追加
 	TaskManager.Add(this);
