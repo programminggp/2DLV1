@@ -14,3 +14,9 @@ void CPlayer::Update() {
 	}
 	CCharacter::Update();
 }
+
+CPlayer::CPlayer()
+//ƒRƒ‰ƒCƒ_‚Ì‰Šúİ’è
+: mColBody(this, CVector(0.0f, 4.0f, -1.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 9.0f)
+{
+}

@@ -5,6 +5,8 @@
 #include "CText.h"
 //4
 #include "CTaskManager.h"
+//06
+#include "CCollisionManager.h"
 
 CSceneGame::~CSceneGame() {
 
@@ -27,7 +29,8 @@ void CSceneGame::Init() {
 void CSceneGame::Update() {
 	//4
 	TaskManager.Update();
-
+	//06
+	CollisionManager.Update();
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -49,6 +52,8 @@ void CSceneGame::Update() {
 
 	//4
 	TaskManager.Render();
+	//06
+	CollisionManager.Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
