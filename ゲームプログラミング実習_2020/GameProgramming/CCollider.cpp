@@ -28,7 +28,11 @@ CCollider::~CCollider() {
 //描画
 void CCollider::Render() {
 	glPushMatrix();
+	CMatrix m;
+	CVector v = mpParent->mScale;
+	m.Scale( 1 / v.mX, 1 / v.mY, 1 / v.mZ);
 	glMultMatrixf((mMatrix * mpParent->mMatrix).mM[0]);
+	glMultMatrixf(m.mM[0]);
 
 	//アルファブレンドを有効にする
 	glEnable(GL_BLEND);

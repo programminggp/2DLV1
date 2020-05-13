@@ -7,6 +7,8 @@
 #include "CTaskManager.h"
 //06
 #include "CCollisionManager.h"
+//07
+#include "CRock.h"
 
 CSceneGame::~CSceneGame() {
 
@@ -23,6 +25,9 @@ void CSceneGame::Init() {
 	mRover.Load("Rover1.obj", "Rover1.mtl");
 	//4
 	mPlayer.mpModel = &mRover;
+	//07
+	new CRock(&mRock, CVector(-20.0f, 0.0f, 10.0f), CVector());
+	new CRock(&mRock, CVector(10.0f, 0.0f, 20.0f), CVector());
 }
 
 
@@ -30,7 +35,10 @@ void CSceneGame::Update() {
 	//4
 	TaskManager.Update();
 	//06
-	CollisionManager.Update();
+	CollisionManager.Collision();
+	//07
+	TaskManager.Delete();
+
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -47,8 +55,8 @@ void CSceneGame::Update() {
 
 	//1
 	mSky.Render();
-	mRock.Render(CMatrix().Scale(5.0f, 5.0f, 5.0f));
-	mRover.Render(CMatrix().Translate(-20.0f, 0.0f, 10.0f));
+//	mRock.Render(CMatrix().Scale(5.0f, 5.0f, 5.0f));
+//	mRover.Render(CMatrix().Translate(-20.0f, 0.0f, 10.0f));
 
 	//4
 	TaskManager.Render();
