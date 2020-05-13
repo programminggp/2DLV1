@@ -43,9 +43,10 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(-2.0f, 10.0f, -30.0f);
+	//08
+	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
 	//注視点を求める
-	c = CVector();
+	c = CVector() * mPlayer.mMatrix;
 	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f);
 
