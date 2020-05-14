@@ -7,7 +7,7 @@
 
 class CRock : public CCharacter {
 public:
-	CCollider mBody;
+	CCollider mColBody;
 	CRock(CModel *model, const CVector &position, const CVector &rotation);
 	void Collision(CCollider *mycol, CCollider *youcol);
 };
