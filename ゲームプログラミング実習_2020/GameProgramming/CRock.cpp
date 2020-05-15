@@ -12,6 +12,6 @@ CRock::CRock(CModel *model, const CVector &position, const CVector &rotation, co
 
 void CRock::Collision(CCollider *mycol, CCollider *youcol) {
 	if (CCollider::Collision(mycol, youcol)) {
-//		mEnabled = false;
+		mEnabled = false;
 	}
 }
