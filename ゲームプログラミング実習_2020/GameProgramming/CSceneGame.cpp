@@ -26,8 +26,10 @@ void CSceneGame::Init() {
 	//4
 	mPlayer.mpModel = &mRover;
 	//07
+	//岩の生成　モデルmRock　位置|-20.0 0.0 10.0|　回転|0.0 0.0 0.0|　拡大|5.0 5.0 5.0|
 	new CRock(&mRock, CVector(-20.0f, 0.0f, 10.0f), CVector(), CVector(5.0f, 5.0f, 5.0f));
-	new CRock(&mRock, CVector(10.0f, 0.0f, 20.0f), CVector(), CVector(5.0f, 5.0f, 5.0f));
+	//岩の生成　モデルmRock　位置|20.0 0.0 -10.0|　回転|0.0 0.0 0.0|　拡大|5.0 5.0 5.0|
+	new CRock(&mRock, CVector(20.0f, 0.0f, -10.0f), CVector(), CVector(5.0f, 5.0f, 5.0f));
 }
 
 
