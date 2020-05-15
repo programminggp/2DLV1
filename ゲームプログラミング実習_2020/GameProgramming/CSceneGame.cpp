@@ -26,8 +26,8 @@ void CSceneGame::Init() {
 	//4
 	mPlayer.mpModel = &mRover;
 	//07
-	new CRock(&mRock, CVector(-20.0f, 0.0f, 10.0f), CVector());
-	new CRock(&mRock, CVector(10.0f, 0.0f, 20.0f), CVector());
+	new CRock(&mRock, CVector(-20.0f, 0.0f, 10.0f), CVector(), CVector(5.0f, 5.0f, 5.0f));
+	new CRock(&mRock, CVector(10.0f, 0.0f, 20.0f), CVector(), CVector(5.0f, 5.0f, 5.0f));
 }
 
 
