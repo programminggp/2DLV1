@@ -9,6 +9,8 @@
 #include "CCollisionManager.h"
 //07
 #include "CRock.h"
+//10
+#include "CCube.h"
 
 CSceneGame::~CSceneGame() {
 
@@ -23,6 +25,8 @@ void CSceneGame::Init() {
 	mSky.Load("sky.obj", "sky.mtl");
 	mRock.Load("Rock1.obj", "Rock1.mtl");
 	mRover.Load("Rover1.obj", "Rover1.mtl");
+	//10
+	mCube.Load("cube.obj", "cube.mtl");
 	//4
 	mPlayer.mpModel = &mRover;
 	//07
@@ -32,6 +36,8 @@ void CSceneGame::Init() {
 	//岩の生成　モデルmRock　位置|20.0 0.0 40.0|
 	//回転|0.0 0.0 0.0|　拡大|5.0 5.0 5.0|
 	new CRock(&mRock, CVector(20.0f, 0.0f, 40.0f), CVector(), CVector(5.0f, 5.0f, 5.0f));
+	//10
+	new CCube(&mCube, CVector(0.0f, 0.0f, 60.0f), CVector(),CVector(10.0f, 10.0f, 1.0f));
 }
 
 
@@ -67,6 +73,9 @@ void CSceneGame::Update() {
 	TaskManager.Render();
 	//06
 	CollisionManager.Render();
+
+	//10
+//	mCube.Render(CMatrix().Scale(10,10,10));
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

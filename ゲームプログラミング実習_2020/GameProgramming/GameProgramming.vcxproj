@@ -87,6 +87,7 @@
     <ClCompile Include="CCharacter.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
+    <ClCompile Include="CCube.cpp" />
     <ClCompile Include="CEffect.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMaterial.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCollisionManager.h" />
+    <ClInclude Include="CCube.h" />
     <ClInclude Include="CEffect.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CMaterial.h" />
