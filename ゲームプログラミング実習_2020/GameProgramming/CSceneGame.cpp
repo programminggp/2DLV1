@@ -10,7 +10,7 @@
 //07
 #include "CRock.h"
 //10
-#include "CCube.h"
+#include "CObj.h"
 
 CSceneGame::~CSceneGame() {
 
@@ -37,7 +37,7 @@ void CSceneGame::Init() {
 	//âÒì]|0.0 0.0 0.0|Å@ägëÂ|5.0 5.0 5.0|
 	new CRock(&mRock, CVector(20.0f, 0.0f, 40.0f), CVector(), CVector(5.0f, 5.0f, 5.0f));
 	//10
-	new CCube(&mCube, CVector(0.0f, 0.0f, 60.0f), CVector(),CVector(10.0f, 10.0f, 1.0f));
+	new CObj(&mCube, CVector(0.0f, 0.0f, 60.0f), CVector(), CVector(10.0f, 10.0f, 1.0f));
 }
 
 
