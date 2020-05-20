@@ -27,6 +27,7 @@ void CSceneGame::Init() {
 	mRover.Load("Rover1.obj", "Rover1.mtl");
 	//10
 	mCube.Load("cube.obj", "cube.mtl");
+	mSphere.Load("sphere.obj", "sphere.mtl");
 	//4
 	mPlayer.mpModel = &mRover;
 	//07
@@ -75,7 +76,9 @@ void CSceneGame::Update() {
 	CollisionManager.Render();
 
 	//10
-//	mCube.Render(CMatrix().Scale(10,10,10));
+	mCube.Render(CMatrix().Translate(15, 0, 0));
+	mCube.Render(CMatrix().Scale(100, 0.1, 100));
+	mSphere.Render(CMatrix().Translate(15, 10, 0));
 
 	//2D•`‰æŠJŽn
 	Start2D(0, 800, 0, 600);

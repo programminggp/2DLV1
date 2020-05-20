@@ -20,3 +20,15 @@ CPlayer::CPlayer()
 : mColBody(this, CVector(0.0f, 4.0f, -1.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 9.0f)
 {
 }
+
+void CPlayer::Collision(CCollider *mycol, CCollider *youcol) {
+	CVector adjust;
+	if (mycol->mType == CCollider::ESPHERE) {
+		if (youcol->mType == CCollider::ETRIANGLE) {
+			if (CCollider::CollisionTriangleSphere(youcol, mycol, &adjust)) {
+				mPosition = mPosition + adjust;
+				CCharacter::Update();
+			}
+		}
+	}
+}

@@ -15,6 +15,8 @@ public:
 
 	void Update();
 
+	void Collision(CCollider *mycol, CCollider *youcol);
+
 };
 
 #endif

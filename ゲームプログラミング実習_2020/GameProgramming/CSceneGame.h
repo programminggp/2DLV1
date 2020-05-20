@@ -17,6 +17,7 @@ public:
 	CModel mRover;
 	//10
 	CModel mCube;
+	CModel mSphere;
 	//4
 	CPlayer mPlayer;
 
