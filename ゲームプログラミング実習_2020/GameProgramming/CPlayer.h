@@ -7,6 +7,9 @@
 
 class CPlayer : public CCharacter {
 public:
+	//12
+	float mVelovcityJump;
+	
 	//06
 	//ƒRƒ‰ƒCƒ_‚Ì’Ç‰Á
 	CCollider mColBody;

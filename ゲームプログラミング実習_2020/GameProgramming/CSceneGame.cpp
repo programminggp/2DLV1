@@ -28,6 +28,7 @@ void CSceneGame::Init() {
 	//10
 	mCube.Load("cube.obj", "cube.mtl");
 	mSphere.Load("sphere.obj", "sphere.mtl");
+	mPlane.Load("plane.obj", "plane.mtl");
 	//4
 	mPlayer.mpModel = &mRover;
 	//07
@@ -39,6 +40,8 @@ void CSceneGame::Init() {
 	new CRock(&mRock, CVector(20.0f, 0.0f, 40.0f), CVector(), CVector(5.0f, 5.0f, 5.0f));
 	//10
 	new CObj(&mCube, CVector(0.0f, 0.0f, 60.0f), CVector(), CVector(10.0f, 10.0f, 1.0f));
+	//12
+	new CObj(&mPlane, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(200.0f, 1.0f, 200.0f));
 }
 
 

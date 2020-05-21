@@ -18,6 +18,7 @@ public:
 	//10
 	CModel mCube;
 	CModel mSphere;
+	CModel mPlane;
 	//4
 	CPlayer mPlayer;
 
