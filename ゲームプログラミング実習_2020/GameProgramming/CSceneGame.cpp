@@ -75,10 +75,10 @@ void CSceneGame::Update() {
 	//06
 	CollisionManager.Render();
 
-	//10
-	mCube.Render(CMatrix().Translate(15, 0, 0));
-	mCube.Render(CMatrix().Scale(100, 0.1, 100));
-	mSphere.Render(CMatrix().Translate(15, 10, 0));
+	////10
+	//mCube.Render(CMatrix().Translate(15, 0, 0));
+	//mCube.Render(CMatrix().Scale(100, 0.1, 100));
+	//mSphere.Render(CMatrix().Translate(15, 10, 0));
 
 	//2D•`‰æŠJŽn
 	Start2D(0, 800, 0, 600);
