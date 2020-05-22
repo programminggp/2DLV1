@@ -3,7 +3,8 @@
 #include "CCamera.h"
 //
 #include "CText.h"
-
+//
+#include "CRes.h"
 
 CSceneGame::~CSceneGame() {
 
@@ -11,6 +12,9 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
+	//3Dモデルファイルの読み込み
+	CRes::sModelX.Load(MODEL_FILE);
+
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
