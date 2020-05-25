@@ -10,7 +10,29 @@
 
 #include <vector>	//vectorクラスのインクルード（動的配列）
 #include "CMatrix.h"	//マトリクスクラスのインクルード
+#include "CVector.h"
+
 class CModelX;	// CModelXクラスの宣言
+
+
+//CMeshクラスの定義
+class CMesh {
+public:
+	int mVertexNum;	//頂点数
+	CVector *mpVertex;	//頂点データ
+	//コンストラクタ
+	CMesh()
+		: mVertexNum(0)
+		, mpVertex(0)
+	{}
+	//デストラクタ
+	~CMesh() {
+		SAFE_DELETE_ARRAY(mpVertex);
+	}
+	//読み込み処理
+	void Init(CModelX *model);
+};
+
 
 //CModelXFrameクラスの定義
 class CModelXFrame {
@@ -19,6 +41,9 @@ public:
 	CMatrix mTransformMatrix;	//変換行列
 	char* mpName;	//フレーム名前
 	int mIndex;		//フレーム番号
+
+	CMesh mMesh;	//Meshデータ
+
 	//コンストラクタ
 	CModelXFrame(CModelX* model);
 	//デストラクタ
@@ -57,6 +82,8 @@ public:
 	void SkipNode();
 	//浮動小数点データの取得
 	float GetFloatToken();
+	//整数データの取得
+	int GetIntToken();
 
 };
 

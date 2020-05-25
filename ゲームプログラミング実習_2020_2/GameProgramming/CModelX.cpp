@@ -147,6 +147,9 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 			}
 			model->GetToken(); // }
 		}
+		else if (strcmp(model->mToken, "Mesh") == 0) {
+			mMesh.Init(model);
+		}
 		else {
 			//上記以外の要素は読み飛ばす
 			model->SkipNode();
@@ -154,8 +157,8 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 	}
 	//デバッグバージョンのみ有効
 #ifdef _DEBUG
-	printf("%s\n", mpName);
-	mTransformMatrix.Print();
+//	printf("%s\n", mpName);
+//	mTransformMatrix.Print();
 #endif
 }
 /*
@@ -169,3 +172,41 @@ float CModelX::GetFloatToken() {
 	return atof(mToken);
 }
 
+/*
+GetIntToken
+単語を整数型のデータで返す
+*/
+int CModelX::GetIntToken() {
+	GetToken();
+	return atoi(mToken);
+}
+
+/*
+Init
+Meshのデータを取り込む
+*/
+void CMesh::Init(CModelX *model) {
+	model->GetToken();	// { or 名前
+	if (!strchr(model->mToken, '{')) {
+		//名前の場合、次が{
+		model->GetToken();	// {
+	}
+	//頂点数の取得
+	mVertexNum = model->GetIntToken();
+	//頂点数分エリア確保
+	mpVertex = new CVector[mVertexNum];
+	//頂点数分データを取り込む
+	for (int i = 0; i < mVertexNum; i++) {
+		mpVertex[i].mX = model->GetFloatToken();
+		mpVertex[i].mY = model->GetFloatToken();
+		mpVertex[i].mZ = model->GetFloatToken();
+	}
+#ifdef _DEBUG
+	printf("VertexNUm:%d\n", mVertexNum);
+	for (int i = 0; i < mVertexNum; i++) {
+		printf("%10f", mpVertex[i].mX);
+		printf("%10f", mpVertex[i].mY);
+		printf("%10f\n", mpVertex[i].mZ);
+	}
+#endif
+}
