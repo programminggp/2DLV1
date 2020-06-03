@@ -11,6 +11,8 @@
 #include "CRock.h"
 //10
 #include "CObj.h"
+//
+#include "CImage.h"
 
 CSceneGame::~CSceneGame() {
 
@@ -28,6 +30,7 @@ void CSceneGame::Init() {
 	//10
 	mCube.Load("cube.obj", "cube.mtl");
 	mSphere.Load("sphere.obj", "sphere.mtl");
+//	mPlane.Load("plane.obj", "plane.mtl");
 	mPlane.Load("plane.obj", "plane.mtl");
 	//4
 	mPlayer.mpModel = &mRover;
@@ -42,6 +45,9 @@ void CSceneGame::Init() {
 	new CObj(&mCube, CVector(0.0f, 0.0f, 60.0f), CVector(), CVector(10.0f, 10.0f, 1.0f));
 	//12
 	new CObj(&mPlane, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(200.0f, 1.0f, 200.0f));
+	//
+	std::shared_ptr<CTexture> grass(new CTexture("grass.tga"));
+	new CImage(grass, CVector(30.0f, 10.0f, 30.0f), CVector(-60.0f, 180.0f, 0.0f), CVector(5.0f, 10.0f, 1.0f));
 }
 
 
