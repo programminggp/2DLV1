@@ -45,9 +45,9 @@ void CSceneGame::Init() {
 	new CObj(&mCube, CVector(0.0f, 0.0f, 60.0f), CVector(), CVector(10.0f, 10.0f, 1.0f));
 	//12
 	new CObj(&mPlane, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(200.0f, 1.0f, 200.0f));
-	//
+	//13
 	std::shared_ptr<CTexture> grass(new CTexture("grass.tga"));
-	new CImage(grass, CVector(30.0f, 10.0f, 30.0f), CVector(-60.0f, 180.0f, 0.0f), CVector(5.0f, 10.0f, 1.0f));
+	new CImage(grass, CVector(30.0f, 10.0f, 30.0f), CVector(-120.0f, 0.0f, 0.0f), CVector(10.0f, 20.0f, 1.0f));
 }
 
 
