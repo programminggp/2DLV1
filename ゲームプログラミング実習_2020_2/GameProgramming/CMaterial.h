@@ -4,6 +4,9 @@
 #include "CTexture.h"
 //shared_ptrのインクルード
 #include <memory>
+//
+#include "CModelX.h"
+
 /*
 マテリアルクラス
 マテリアルのデータを扱う
@@ -18,6 +21,21 @@ public:
 	std::shared_ptr<CTexture> mpTexture;
 	//マテリアル毎の頂点数
 	int mVertexNum;
+
+	//09
+	float mPower;
+	float mSpecular[3];
+	float mEmissive[3];
+	//テクスチャファイル名
+	char *mpTextureFilename;
+
+	CMaterial(CModelX *model);
+	~CMaterial() {
+		if (mpTextureFilename) {
+			delete[] mpTextureFilename;
+		}
+		mpTextureFilename = 0;
+	}
 
 	//デフォルトコンストラクタ
 	CMaterial();

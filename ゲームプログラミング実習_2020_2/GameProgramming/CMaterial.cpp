@@ -6,6 +6,7 @@
 //デフォルトコンストラクタ
 CMaterial::CMaterial()
 : mpTexture(0), mVertexNum(0)
+, mpTextureFilename(0)
 {
 	//名前を0で埋め
 	memset(mName, 0, sizeof(mName));
@@ -45,4 +46,55 @@ void CMaterial::Disabled() {
 		//テクスチャを無効にする
 		glDisable(GL_TEXTURE_2D);
 	}
+}
+
+/*
+Materialデータの読み込みと設定
+*/
+CMaterial::CMaterial(CModelX *model)
+: mpTextureFilename(0)
+{
+	model->GetToken(); // { ? Name
+	if (strcmp(model->mToken, "{") != 0) {
+		//{でないときはマテリアル名
+		strcpy(mName, model->mToken);
+		model->GetToken(); // {
+	}
+
+	mDiffuse[0] = model->GetFloatToken();
+	mDiffuse[1] = model->GetFloatToken();
+	mDiffuse[2] = model->GetFloatToken();
+	mDiffuse[3] = model->GetFloatToken();
+
+	mPower = model->GetFloatToken();
+
+	mSpecular[0] = model->GetFloatToken();
+	mSpecular[1] = model->GetFloatToken();
+	mSpecular[2] = model->GetFloatToken();
+
+	mEmissive[0] = model->GetFloatToken();
+	mEmissive[1] = model->GetFloatToken();
+	mEmissive[2] = model->GetFloatToken();
+
+	model->GetToken(); // TextureFilename or }
+
+	if (strcmp(model->mToken, "TextureFilename") == 0) {
+		//テクスチャありの場合、テクスチャファイル名取得
+		model->GetToken(); // {
+		model->GetToken(); // filename
+		mpTextureFilename = new char[strlen(model->mToken) + 1];
+		strcpy(mpTextureFilename, model->mToken);
+		model->GetToken(); // }
+		model->GetToken(); // }
+	}
+
+#ifdef _DEBUG
+	printf("%s\nDiffuse :%9f%9f%9f%9f\nPower : %9f\nSpecular :%9f%9f%9f\nEmissive :%9f%9f%9f\n",
+		mName,
+		mDiffuse[0], mDiffuse[1], mDiffuse[2], mDiffuse[3],
+		mPower,
+		mSpecular[0], mSpecular[1], mSpecular[2],
+		mEmissive[0], mEmissive[1], mEmissive[2]);
+#endif
+
 }
