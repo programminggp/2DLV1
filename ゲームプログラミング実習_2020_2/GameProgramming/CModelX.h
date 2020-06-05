@@ -42,6 +42,7 @@ public:
 	}
 	//読み込み処理
 	void Init(CModelX *model);
+	void Render();
 };
 
 
@@ -67,6 +68,7 @@ public:
 		//名前のエリアを解放する
 		SAFE_DELETE_ARRAY(mpName);
 	}
+	void Render();
 };
 /*
 CModelX
@@ -95,6 +97,7 @@ public:
 	float GetFloatToken();
 	//整数データの取得
 	int GetIntToken();
+	void Render();
 
 };
 
