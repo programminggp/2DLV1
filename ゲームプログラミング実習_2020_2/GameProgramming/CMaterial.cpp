@@ -87,14 +87,4 @@ CMaterial::CMaterial(CModelX *model)
 		model->GetToken(); // }
 		model->GetToken(); // }
 	}
-
-#ifdef _DEBUG
-	printf("%s\nDiffuse :%9f%9f%9f%9f\nPower : %9f\nSpecular :%9f%9f%9f\nEmissive :%9f%9f%9f\n",
-		mName,
-		mDiffuse[0], mDiffuse[1], mDiffuse[2], mDiffuse[3],
-		mPower,
-		mSpecular[0], mSpecular[1], mSpecular[2],
-		mEmissive[0], mEmissive[1], mEmissive[2]);
-#endif
-
 }
