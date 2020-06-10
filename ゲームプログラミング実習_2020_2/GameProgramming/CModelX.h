@@ -17,6 +17,22 @@ class CMaterial;
 class CModelX;	// CModelXクラスの宣言
 
 /*
+CAnimation
+アニメーションクラス
+*/
+class CAnimation {
+public:
+	char *mpFrameName;//フレーム名
+	int mFrameIndex;	//フレーム番号
+
+	CAnimation(CModelX *model);
+
+	~CAnimation() {
+		SAFE_DELETE_ARRAY(mpFrameName);
+	}
+};
+
+/*
 CAnimationSet
 アニメーションセット
 */
@@ -24,11 +40,17 @@ class CAnimationSet {
 public:
 	//アニメーションセット名
 	char *mpName;
+	//アニメーション
+	std::vector<CAnimation*> mAnimation;
 
 	CAnimationSet(CModelX *model);
 
 	~CAnimationSet() {
 		SAFE_DELETE_ARRAY(mpName);
+		//アニメーション要素の削除
+		for (int i = 0; i < mAnimation.size(); i++) {
+			delete mAnimation[i];
+		}
 	}
 };
 
@@ -159,6 +181,7 @@ public:
 	//整数データの取得
 	int GetIntToken();
 	void Render();
+	CModelXFrame* FindFrame(char* name);
 
 };
 
