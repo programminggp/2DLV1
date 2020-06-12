@@ -151,6 +151,8 @@ public:
 
 	CMesh mMesh;	//Meshデータ
 
+	CMatrix mCombinedMatrix;	//合成行列
+
 	//コンストラクタ
 	CModelXFrame(CModelX* model);
 	//デストラクタ
@@ -164,6 +166,8 @@ public:
 		SAFE_DELETE_ARRAY(mpName);
 	}
 	void Render();
+	//合成行列の作成
+	void AnimateCombined(CMatrix* parent);
 };
 /*
 CModelX
