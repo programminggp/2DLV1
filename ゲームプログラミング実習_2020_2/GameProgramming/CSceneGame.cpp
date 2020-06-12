@@ -27,6 +27,14 @@ void CSceneGame::Init() {
 
 
 void CSceneGame::Update() {
+
+	//最初のアニメーションの現在時間を45にする
+	CRes::sModelX.mAnimationSet[0]->mTime = 45;
+	//最初のアニメーションの重みを1.0（100%)にする
+	CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
+	//フレームの変換行列をアニメーションで更新する
+	CRes::sModelX.AnimateFrame();
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める

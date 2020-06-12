@@ -56,6 +56,10 @@ public:
 	//アニメーション
 	std::vector<CAnimation*> mAnimation;
 
+	float mTime;	//現在時間
+	float mWeight;	//重み
+	float mMaxTime;	//最大時間
+
 	CAnimationSet(CModelX *model);
 
 	~CAnimationSet() {
@@ -195,6 +199,7 @@ public:
 	int GetIntToken();
 	void Render();
 	CModelXFrame* FindFrame(char* name);
+	void AnimateFrame();
 
 };
 
