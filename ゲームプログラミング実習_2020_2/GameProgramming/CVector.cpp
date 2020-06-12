@@ -81,3 +81,11 @@ CVector CVector::operator*(const float &f) {
 CVector CVector::operator + (const CVector &v) {
 	return CVector(mX + v.mX, mY + v.mY, mZ + v.mZ);
 }
+
+//+=演算子のオーバーロード
+//CVector += CVector の演算を行う
+void  CVector::operator+=(const CVector &v) {
+	mX += v.mX;
+	mY += v.mY;
+	mZ += v.mZ;
+}

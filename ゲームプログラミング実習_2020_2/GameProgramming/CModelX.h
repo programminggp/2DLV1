@@ -111,6 +111,9 @@ public:
 	//スキンウェイト
 	std::vector<CSkinWeights*> mSkinWeights;
 
+	CVector *mpAnimateVertex;	//アニメーション用頂点
+	CVector *mpAnimateNormal;	//アニメーション用法線
+
 	//コンストラクタ
 	CMesh()
 		: mVertexNum(0)
@@ -123,6 +126,9 @@ public:
 		, mMaterialNum(0)
 		, mMaterialIndexNum(0)
 		, mpMaterialIndex(0)
+		//
+		, mpAnimateVertex(0)
+		, mpAnimateNormal(0)
 	{}
 	//デストラクタ
 	~CMesh() {
@@ -134,10 +140,14 @@ public:
 		for (int i = 0; i < mSkinWeights.size(); i++) {
 			delete mSkinWeights[i];
 		}
+		SAFE_DELETE_ARRAY(mpAnimateVertex);
+		SAFE_DELETE_ARRAY(mpAnimateNormal);
 	}
 	//読み込み処理
 	void Init(CModelX *model);
 	void Render();
+	//頂点にアニメーション適用
+	void AnimateVertex(CModelX *model);
 };
 
 
@@ -204,6 +214,10 @@ public:
 	void Render();
 	CModelXFrame* FindFrame(char* name);
 	void AnimateFrame();
+	//スキンウェイトのフレーム番号設定
+	void SetSkinWeightFrameIndex();
+	//頂点にアニメーションを適用
+	void AnimateVertex();
 
 };
 
