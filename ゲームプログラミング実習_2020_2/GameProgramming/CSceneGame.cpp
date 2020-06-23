@@ -8,6 +8,7 @@
 
 #include "glut.h"
 #include <Windows.h>
+#include "CMaterial.h"
 
 CMatrix Matrix;
 
@@ -80,6 +81,8 @@ void CSceneGame::Update() {
 	glMultMatrixf(Matrix.mF);
 	//モデル描画
 	CRes::sModelX.Render();
+	//テクスチャテスト
+	CRes::sModelX.mMaterial[0]->mpTexture->DrawImage(-5, 5, -5, 5, 0, 128, 128, 0);
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

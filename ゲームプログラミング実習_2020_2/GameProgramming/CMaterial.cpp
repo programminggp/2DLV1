@@ -87,6 +87,14 @@ CMaterial::CMaterial(CModelX *model)
 		model->GetToken(); // filename
 		mpTextureFilename = new char[strlen(model->mToken) + 1];
 		strcpy(mpTextureFilename, model->mToken);
+
+		//スマートポインタの生成
+		std::shared_ptr<CTexture> t(new CTexture());
+		//スマートポインタの代入
+		mpTexture = t;
+		//テクスチャファイルの読み込み
+		t->Load(mpTextureFilename);
+
 		model->GetToken(); // }
 		model->GetToken(); // }
 	}
