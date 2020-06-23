@@ -82,7 +82,7 @@ void CSceneGame::Update() {
 	//モデル描画
 	CRes::sModelX.Render();
 	//テクスチャテスト
-	CRes::sModelX.mMaterial[0]->mpTexture->DrawImage(-5, 5, -5, 5, 0, 128, 128, 0);
+//	CRes::sModelX.mMaterial[0]->mpTexture->DrawImage(-5, 5, -5, 5, 0, 128, 128, 0);
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

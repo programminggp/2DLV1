@@ -2,6 +2,7 @@
 #define CMODELX_H
 
 #define MODEL_FILE "ラグナ.x"	//入力ファイル名
+//#define MODEL_FILE "sample.blend.x"	//入力ファイル名
 
 //領域解放をマクロ化
 #define SAFE_DELETE_ARRAY(a) { if(a) delete[] a; a = 0;}
@@ -113,6 +114,8 @@ public:
 
 	CVector *mpAnimateVertex;	//アニメーション用頂点
 	CVector *mpAnimateNormal;	//アニメーション用法線
+	//テクスチャ座標データ
+	float *mpTextureCoords;
 
 	//コンストラクタ
 	CMesh()
@@ -129,6 +132,7 @@ public:
 		//
 		, mpAnimateVertex(0)
 		, mpAnimateNormal(0)
+		, mpTextureCoords(0)
 	{}
 	//デストラクタ
 	~CMesh() {
@@ -142,6 +146,7 @@ public:
 		}
 		SAFE_DELETE_ARRAY(mpAnimateVertex);
 		SAFE_DELETE_ARRAY(mpAnimateNormal);
+		SAFE_DELETE_ARRAY(mpTextureCoords);
 	}
 	//読み込み処理
 	void Init(CModelX *model);
