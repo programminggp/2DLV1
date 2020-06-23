@@ -1,7 +1,7 @@
 #ifndef CMODELX_H	//インクルードガード
 #define CMODELX_H
 
-#define MODEL_FILE "sample.blend.x"	//入力ファイル名
+#define MODEL_FILE "ラグナ.x"	//入力ファイル名
 
 //領域解放をマクロ化
 #define SAFE_DELETE_ARRAY(a) { if(a) delete[] a; a = 0;}
@@ -190,6 +190,7 @@ public:
 	std::vector<CModelXFrame*> mFrame;	//フレームの配列
 	//アニメーションセットの配列
 	std::vector<CAnimationSet*> mAnimationSet;
+	std::vector<CMaterial*> mMaterial;	//マテリアルの配列
 
 	CModelX() 
 		: mpPointer(0)
@@ -199,6 +200,10 @@ public:
 		delete mFrame[0];
 		for (int i = 0; i < mAnimationSet.size(); i++) {
 			delete mAnimationSet[i];
+		}
+		//マテリアルの解放
+		for (int i = 0; i < mMaterial.size(); i++) {
+			delete mMaterial[i];
 		}
 	}
 	//ファイル読み込み
@@ -218,6 +223,8 @@ public:
 	void SetSkinWeightFrameIndex();
 	//頂点にアニメーションを適用
 	void AnimateVertex();
+	//マテリアルの検索
+	CMaterial* FindMaterial(char* name);
 
 };
 
