@@ -79,3 +79,11 @@ void CXCharacter::Update(CMatrix &matrix) {
 void CXCharacter::Render() {
 	mpModel->Render();
 }
+
+//更新処理
+void CXCharacter::Update() {
+	//変換行列の更新
+	CTransform::Update();
+	//アニメーションを更新する
+	Update(mMatrix);
+}

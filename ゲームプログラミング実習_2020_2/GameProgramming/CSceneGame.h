@@ -2,7 +2,7 @@
 #define CSCENEGAME_H
 #include "CScene.h"
 
-#include "CXCharacter.h"
+#include "CXPlayer.h"
 
 /*
 ゲームのシーン
@@ -10,7 +10,7 @@
 class CSceneGame : public CScene {
 public:
 	//キャラクタのインスタンス
-	CXCharacter mCharacter;
+	CXPlayer mPlayer;
 
 	~CSceneGame();
 	//初期化処理のオーバーライド

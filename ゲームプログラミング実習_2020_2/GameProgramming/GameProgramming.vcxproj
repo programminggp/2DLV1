@@ -104,6 +104,7 @@
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="CVector.cpp" />
     <ClCompile Include="CXCharacter.cpp" />
+    <ClCompile Include="CXPlayer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +132,7 @@
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CVector.h" />
     <ClInclude Include="CXCharacter.h" />
+    <ClInclude Include="CXPlayer.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

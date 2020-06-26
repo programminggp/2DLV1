@@ -3,8 +3,9 @@
 
 #include "CModelX.h"
 #include "CMatrix.h"
+#include "CTransform.h"
 
-class CXCharacter {
+class CXCharacter : public CTransform {
 public:
 	CModelX *mpModel;	//モデルデータ
 	int mAnimationIndex;	//アニメーション番号
@@ -19,6 +20,8 @@ public:
 	void Update(CMatrix &m);
 	//描画処理
 	void Render();
+	//
+	void Update();
 };
 
 #endif
