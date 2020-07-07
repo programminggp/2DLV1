@@ -160,6 +160,9 @@ void CSceneGame::Update() {
 	//2D描画終了
 	End2D();
 
+	//ミニマップ描画
+	RenderMiniMap();
+
 	return;
 
 /*
@@ -322,3 +325,25 @@ void CSceneGame::End2D() {
 	glEnable(GL_LIGHTING);
 
 }
+
+/*マップ上からの視点*/
+void CSceneGame::RenderMiniMap() {
+
+	glPushMatrix();
+	glViewport(600, 450, 200, 150); //画面の描画エリアの指定
+	glLoadIdentity();
+	gluLookAt(0, 100, 0, 0, 0, 0, 0, 0, 1);
+
+	glDisable(GL_DEPTH_TEST);
+
+	BackGround.Render(CMatrix());
+	//タスクマネージャの描画
+	TaskManager.Render();
+
+
+	glPopMatrix();
+	glViewport(0, 0, 800, 600); //画面の描画エリアの指定
+
+	glEnable(GL_DEPTH_TEST);
+}
+

@@ -31,6 +31,8 @@ public:
 	void Start2D(float left, float right, float bottom, float top);
 	//2D描画終了
 	void End2D();
+	//ミニマップ描画
+	void RenderMiniMap();
 };
 
 #endif
