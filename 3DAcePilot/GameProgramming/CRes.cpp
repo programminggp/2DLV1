@@ -1,3 +1,4 @@
 #include "CRes.h"
 
-CModel CRes::mMissileM;
+CModel CRes::sMissileM;
+CModel CRes::sC5;

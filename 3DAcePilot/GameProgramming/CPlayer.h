@@ -15,7 +15,9 @@ public:
 	CCollider mCollider;
 	CCollider mSearch;
 	CCharacter *mpTarget;
-	int mFire;
+	int mFireMissile;
+	int mFireBullet;
+	float mVelocity;
 	//デフォルトコンストラクタ
 	CPlayer();
 	//更新処理

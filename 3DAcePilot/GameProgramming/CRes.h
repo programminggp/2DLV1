@@ -5,7 +5,8 @@
 
 class CRes {
 public:
-	static CModel mMissileM;
+	static CModel sMissileM;
+	static CModel sC5;
 
 
 };
