@@ -7,6 +7,8 @@
 #include "CMap.h"
 //
 #include "CAirBase.h"
+//
+#include "CPoint.h"
 
 /*
 ゲームのシーン
@@ -19,6 +21,7 @@ public:
 //	CCharacter Character;
 	CPlayer Player;
 //	CMap mMap;//マップのインスタンス
+	CPoint *mpEnemyPoint;
 
 	~CSceneGame();
 	//初期化処理のオーバーライド

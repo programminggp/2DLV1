@@ -25,5 +25,7 @@ void CCollisionManager::Collision() {
 		}
 		//Œ»ÝˆÊ’u‚ðŽŸ‚É‚·‚é
 		pos = (CCollider*)pos->mpNext;
+		if (pos->mPriority < 0)
+			break;
 	}
 }

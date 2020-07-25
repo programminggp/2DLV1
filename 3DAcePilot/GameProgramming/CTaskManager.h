@@ -29,6 +29,8 @@ public:
 	//22
 	//タスクの削除
 	void Delete();
+
+	void ChangePriority(CTask *task, int priority);
 };
 
 //タスクマネージャyの外部参照

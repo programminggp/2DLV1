@@ -1,4 +1,4 @@
-#include "CEnemy.h"
+#include "CC5.h"
 //エフェクトクラスのインクルード
 #include "CEffect.h"
 //
@@ -9,21 +9,14 @@
 //スマートポインタの外部参照
 extern std::shared_ptr<CTexture> TextureExp;
 
-//誘導ポイント
-CPoint *CEnemy::mPoint;
-int CEnemy::mPointSize = 0;
+#define TURN_DEG 0.2f
 
-#define TURN_DEG 0.3f
-
-//コンストラクタ
-//CEnemy(モデル, 位置, 回転, 拡縮)
-CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
-: mCollider(this, CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f)
-, mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
+CC5::CC5(CModel *model, CVector position, CVector rotation, CVector scale)
+:mCollider(this, CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f)
+, mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
 , mHp(20)
-, mPointCnt(0)
+, mpPoint(0)
 {
-	//
 	mCollider.mTag = CCollider::EBODY;
 	mSearch.mTag = CCollider::ESEARCH;
 	//モデル、位置、回転、拡縮を設定する
@@ -31,14 +24,20 @@ CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 	mPosition = position;	//位置の設定
 	mRotation = rotation;	//回転の設定
 	mScale = scale;	//拡縮の設定
-	mPointCnt = 0;	//最初のポイントを設定
-	mpPoint = &mPoint[mPointCnt];//目指すポイントのポインタを設定
 	mTag = EENEMY;
 }
+
 //更新処理
-void CEnemy::Update() {
+void CC5::Update() {
 	//ポイントへのベクトルを求める
-	CVector dir = mpPoint->mPosition - mPosition;
+	CVector dir;
+
+	if (mpPoint) {
+		dir = mpPoint->mPosition - mPosition;
+	}
+	else {
+		dir = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
+	}
 	//左方向のベクトルを求める
 	CVector left = CVector(1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 	//上方向のベクトルを求める
@@ -63,7 +62,7 @@ void CEnemy::Update() {
 	//位置を移動
 	mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;
 	//回転させる
-//	mRotation.mY += 0.5f;
+	//	mRotation.mY += 0.5f;
 
 	if (mHp < 0) {
 		mHp--;
@@ -74,7 +73,7 @@ void CEnemy::Update() {
 	}
 }
 
-void CEnemy::Collision(CCollider *m, CCollider *y) {
+void CC5::Collision(CCollider *m, CCollider *y) {
 	//共に球コライダの時
 	if (m->mType == CCollider::ESPHERE
 		&& y->mType == CCollider::ESPHERE) {
@@ -100,16 +99,10 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 				case EPOINT://ポイントの時
 					//衝突したポインタと目指しているポインタが同じ時
 					if (y->mpParent == mpPoint) {
-						mPointCnt++;//次のポイントにする
-						//最後だったら最初にする
-						mPointCnt %= mPointSize;
-						//次のポイントのポインタを設定
-						mpPoint = &mPoint[mPointCnt];
 					}
 					break;
 				case EMISSILE:
 					mHp -= 10;
-//					mEnabled = false;
 				default:
 					if (y->mTag == CCollider::EBODY) {
 						//エフェクト生成
@@ -118,7 +111,6 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 					}
 				}
 			}
-			//削除		mEnabled = false;
 		}
 	}
 }

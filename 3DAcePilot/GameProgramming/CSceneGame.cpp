@@ -32,6 +32,10 @@
 #include "CText.h"
 //
 #include "CRes.h"
+//
+#include "CC5.h"
+//
+#include "CObj.h"
 
 //モデルクラスのインスタンス作成
 CModel Model;
@@ -43,7 +47,7 @@ CModel ModelAirBase;//空軍基地モデル
 std::shared_ptr<CTexture> TextureExp(new CTexture());
 
 CSceneGame::~CSceneGame() {
-	delete[] CEnemy::mPoint;
+//	delete[] mpEnemyPoint;
 }
 
 void CSceneGame::Init() {
@@ -60,11 +64,13 @@ void CSceneGame::Init() {
 	CText::mFont.SetRowCol(1, 4096 / 64);
 
 	//ポイントの設定
-	CEnemy::mPointSize = 3;//ポイント数の設定
-	CEnemy::mPoint = new CPoint[CEnemy::mPointSize];
-	CEnemy::mPoint[0].Set(CVector(35.0f, 25.0f, 100.0f), 10.0f);
-	CEnemy::mPoint[1].Set(CVector(35.0f, 5.0f, 0.0f), 10.0f);
-	CEnemy::mPoint[2].Set(CVector(-35.0f, 45.0f, 50.0f), 10.0f);
+	//CEnemy::mPointSize = 3;//ポイント数の設定
+	//mpEnemyPoint = new CPoint[CEnemy::mPointSize];
+	//mpEnemyPoint[0].Set(CVector(35.0f, 25.0f, 100.0f), 10.0f);
+	//mpEnemyPoint[1].Set(CVector(35.0f, 5.0f, 0.0f), 10.0f);
+	//mpEnemyPoint[2].Set(CVector(-35.0f, 45.0f, 50.0f), 10.0f);
+	//CEnemy::mPoint = mpEnemyPoint;
+
 
 	//キャラクタの設定
 	Player.mpModel = &Model;
@@ -84,6 +90,13 @@ void CSceneGame::Init() {
 //	ModelAirBase.Load("airbase.obj", "airbase.mtl");
 	//空軍基地クラスのインスタンスを生成
 //	mpAirBase = new CAirBase(&ModelAirBase, CVector(0.0f, 0.0f, 180.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
+
+	new CObj(&BackGround, CVector(), CVector(), CVector(2.0f, 2.0f, 2.0f));
+
+	CC5 *cc5;
+	cc5 = new CC5(&CRes::sC5, CVector(-100.0f, 10.0f, 400.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+	cc5 = new CC5(&CRes::sC5, CVector(50.0f, 50.0f, 450.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+
 }
 
 
@@ -120,7 +133,7 @@ void CSceneGame::Update() {
 	//コリジョンマネージャの衝突処理
 	CollisionManager.Collision();
 
-	BackGround.Render(CMatrix());
+//	BackGround.Render(CMatrix());
 
 	//タスクリストの削除
 	TaskManager.Delete();

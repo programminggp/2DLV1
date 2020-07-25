@@ -138,3 +138,9 @@ void CTaskManager::Delete() {
 		}
 	}
 }
+
+void CTaskManager::ChangePriority(CTask *task, int priority) {
+	Remove(task);
+	task->mPriority = priority;
+	Add(task);
+}

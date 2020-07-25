@@ -24,6 +24,8 @@ public:
 	static int mPointSize;//ポイントの数
 	CPoint *mpPoint;//目指すポイント
 	int mPointCnt;//ポイントのカウンタ
+
+
 	//コンストラクタ
 	//CEnemy(モデル, 位置, 回転, 拡縮)
 	CEnemy(CModel *model, CVector position, CVector rotation, CVector scale);
