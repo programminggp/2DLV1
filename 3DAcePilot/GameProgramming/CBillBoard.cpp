@@ -3,10 +3,14 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-CBillBoard::CBillBoard() {
+CBillBoard::CBillBoard()
+: CCharacter(-1)
+{
 }
 
-CBillBoard::CBillBoard(CVector pos, float w, float h) {
+CBillBoard::CBillBoard(CVector pos, float w, float h)
+: CCharacter(-1)
+{
 	Set(pos, w, h);
 }
 

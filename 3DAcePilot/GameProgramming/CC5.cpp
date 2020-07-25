@@ -12,12 +12,16 @@ extern std::shared_ptr<CTexture> TextureExp;
 #define TURN_DEG 0.2f
 
 CC5::CC5(CModel *model, CVector position, CVector rotation, CVector scale)
-:mCollider(this, CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.8f)
-, mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 10.0f)
+:mCollider(this, CVector(0.0f, 5.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 1.8f)
+, mCollider2(this, CVector(0.0f, 5.0f, 25.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 1.8f)
+, mCollider3(this, CVector(0.0f, 5.0f, -25.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 1.8f)
+, mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.0f)
 , mHp(20)
 , mpPoint(0)
 {
 	mCollider.mTag = CCollider::EBODY;
+	mCollider2.mTag = CCollider::EBODY;
+	mCollider3.mTag = CCollider::EBODY;
 	mSearch.mTag = CCollider::ESEARCH;
 	//モデル、位置、回転、拡縮を設定する
 	mpModel = model;	//モデルの設定
@@ -66,9 +70,9 @@ void CC5::Update() {
 
 	if (mHp < 0) {
 		mHp--;
-		mRotation.mX = 20;
+		mRotation.mX = 30;
 		if (mHp % 10 == 0) {
-			new CEffect(mPosition, 1.5f, 1.5f, TextureExp, 4, 4, 2);
+			new CEffect(mPosition, 2.5f, 2.5f, TextureExp, 4, 4, 2);
 		}
 	}
 }
@@ -103,12 +107,15 @@ void CC5::Collision(CCollider *m, CCollider *y) {
 					break;
 				case EMISSILE:
 					mHp -= 10;
-				default:
+				case EBULLET:
 					if (y->mTag == CCollider::EBODY) {
 						//エフェクト生成
-						new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+						new CEffect(y->mpParent->mPosition, 2.0f, 2.0f, TextureExp, 4, 4, 1);
 						mHp--;
 					}
+					break;
+				default:
+					;
 				}
 			}
 		}

@@ -40,6 +40,16 @@ CCharacter::CCharacter()
 	//タスクリストに追加
 	TaskManager.Add(this);
 }
+
+CCharacter::CCharacter(int priority)
+: mpModel(0)
+, mTag(ENONE)
+{
+	mPriority = priority;
+	//タスクリストに追加
+	TaskManager.Add(this);
+}
+
 //22
 CCharacter::~CCharacter() {
 	//タスクリストから削除

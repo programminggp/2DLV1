@@ -25,6 +25,7 @@ public:
 		EAIRBASE,//空軍基地
 		EMISSILE,//ミサイル
 		EENEMY, //敵
+		EBULLET,
 	};
 	ETag mTag;
 //	CCharacter *mpParent;	//親
@@ -38,6 +39,7 @@ public:
 	CMatrix mMatrixScale; //拡大縮小行列
 	//22
 	CCharacter();
+	CCharacter(int priority);
 	~CCharacter();
 	//更新処理
 	void Update();

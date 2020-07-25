@@ -77,7 +77,9 @@ void CSceneGame::Init() {
 	//スケールを0.2倍を変更
 	Player.mScale = CVector(0.1f, 0.1f, 0.1f);
 	//位置(0.0, 0.0, 55.0)にする
-	Player.mPosition = CVector(-20.0f, 30.0f, -100.0f);
+//	Player.mPosition = CVector(-20.0f, 30.0f, -100.0f);
+	Player.mPosition = CVector(-20.0f, 30.0f, 400.0f);
+	Player.mRotation.mY = 180.0f;
 
 	//エネミーモデルの入力
 //	ModelEnemy.Load("f16.obj", "f16.mtl");
@@ -133,14 +135,12 @@ void CSceneGame::Update() {
 	//コリジョンマネージャの衝突処理
 	CollisionManager.Collision();
 
-//	BackGround.Render(CMatrix());
-
 	//タスクリストの削除
 	TaskManager.Delete();
 	//タスクマネージャの描画
 	TaskManager.Render();
 	//コライダの描画
-	CollisionManager.Render();
+//	CollisionManager.Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
@@ -150,8 +150,9 @@ void CSceneGame::Update() {
 		CText::DrawString("MISSION START", 170, 400, 20, 20);
 	}
 
-	CText::DrawString("PLAYER DAMAGE ", 20, 50, 10, 12);
-	CText::DrawString("AIRBASE DAMAGE", 20, 20, 10, 12);
+//	CText::DrawString("PLAYER DAMAGE ", 20, 50, 10, 12);
+	CText::DrawString("SPACE:SHOT", 20, 50, 8, 12);
+	CText::DrawString("W:DOWN S:UP A:LEFT D:RIGHT I:SPEEDUP K:SPEEDDOWN", 20, 20, 8, 12);
 
 	//2D描画終了
 	End2D();

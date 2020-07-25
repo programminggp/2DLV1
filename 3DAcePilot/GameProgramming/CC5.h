@@ -17,6 +17,8 @@ public:
 	int mHp;
 	//コライダ
 	CCollider mCollider;
+	CCollider mCollider2;
+	CCollider mCollider3;
 	CCollider mSearch;
 	//コンストラクタ
 	//CC5(モデル, 位置, 回転, 拡縮)

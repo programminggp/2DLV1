@@ -17,12 +17,10 @@
 #define POWER_UP 0.02f
 
 CPlayer::CPlayer()
-:mCollider(this,  CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f),
-CVector(5.0f, 5.0f, 5.0f), 0.8f)
+:mCollider(this,  CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f, 1.0f, 1.0f), 0.8f)
 , mFireMissile(0)
 , mFireBullet(0)
-, mSearch(this, CVector(0.0f, 0.0f, 80.0f), CVector(0.0f, 0.0f, 0.0f),
-CVector(5.0f, 5.0f, 5.0f), 80.0f)
+, mSearch(this, CVector(0.0f, 0.0f, 400.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f, 1.0f, 1.0f), 40.0f)
 , mpTarget(0)
 , mVelocity(VELOCITY_INIT)
 {
@@ -74,7 +72,6 @@ void CPlayer::Update() {
 			mVelocity = VELOCITY_INIT;
 		}
 	}
-	mPosition = CVector(0.0f, 0.0f, mVelocity) * mMatrix;
 	//Dキー入力で回転
 	if (CKey::Push('D')) {
 		//Y軸の回転値を減算
@@ -97,6 +94,7 @@ void CPlayer::Update() {
 		bullet->Set(0.05f, 1.5f);
 		bullet->mPosition = CVector(0.0f, 0.0f, 20.0f) * mMatrix;
  		bullet->mRotation = mRotation;
+		bullet->mTag = EBULLET;
 //		TaskManager.Add(bullet);
 	}
 	//スペースキー入力で弾発射
@@ -113,6 +111,7 @@ void CPlayer::Update() {
 	}
 	//CCharacterの更新
 	CCharacter::Update();
+	mPosition = CVector(0.0f, 0.0f, mVelocity) * mMatrix;
 	mpTarget = 0;
 
 }
