@@ -134,6 +134,14 @@ int main(void)
 
 		/* Poll for and process events */
 		glfwPollEvents();
+
+		//ESCキーで終了
+		int state = glfwGetKey(window, GLFW_KEY_ESCAPE);
+		if (state == GLFW_PRESS)
+		{
+			//ウィンドウ破棄
+			glfwDestroyWindow(window);
+		}
 	}
 
 	glfwTerminate();

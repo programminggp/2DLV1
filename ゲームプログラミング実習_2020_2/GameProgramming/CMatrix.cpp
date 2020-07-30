@@ -125,22 +125,6 @@ CMatrix CMatrix::SetQuaternion(float x, float y, float z, float w) {
 	mM[2][0] = 2 * x*z - 2 * w*y;		mM[2][1] = 2 * y*z + 2 * w*x;		mM[2][2] = -x*x - y*y + z*z + w*w;	mM[2][3] = 0;
 	mM[3][0] = 0;						mM[3][1] = 0;						mM[3][2] = 0;						mM[3][3] = 1;
 	return *this;
-	//Orijinal Right Hand
-	//mM[0][0] = x*x - y*y - z*z + w*w;	mM[0][1] = 2 * x*y + 2 * w*z;		mM[0][2] = 2 * x*z - 2 * w*y;		mM[0][3] = 0;
-	//mM[1][0] = 2 * x*y - 2 * w*z;		mM[1][1] = -x*x + y*y - z*z + w*w;	mM[1][2] = 2 * y*z + 2 * w*x;		mM[1][3] = 0;
-	//mM[2][0] = 2 * x*z + 2 * w*y;		mM[2][1] = 2 * y*z - 2 * w*x;		mM[2][2] = -x*x - y*y + z*z + w*w;	mM[2][3] = 0;
-	//mM[3][0] = 0;						mM[3][1] = 0;						mM[3][2] = 0;						mM[3][3] = 1;
-	//return *this;
-	//m.mM[0][0] = 1 - 2 * mY*mY - 2 * mZ*mZ;	m.mM[0][1] = 2 * mX*mY + 2 * mW*mZ;		m.mM[0][2] = 2 * mX*mZ - 2 * mW*mY;		m.mM[0][3] = 0;
-	//m.mM[1][0] = 2 * mX*mY - 2 * mW*mZ;		m.mM[1][1] = 1 - 2 * mX*mX - 2 * mZ*mZ;	m.mM[1][2] = 2 * mY*mZ + 2 * mW*mX;		m.mM[1][3] = 0;
-	//m.mM[2][0] = 2 * mX*mZ + 2 * mW*mY;		m.mM[2][1] = 2 * mY*mZ - 2 * mW*mX;		m.mM[2][2] = 1 - 2 * mX*mX - 2 * mY*mY;	m.mM[2][3] = 0;
-	//m.mM[3][0] = 0;							m.mM[3][1] = 0;							m.mM[3][2] = 0;							m.mM[3][3] = 1;
-//
-	//m00 = 1 - 2 * y*y - 2 * z*z;	m01 = 2 * x*y + 2 * w*z;		m02 = 2 * x*z - 2 * w*y;		m03 = 0;
-	//m10 = 2 * x*y - 2 * w*z;		m11 = 1 - 2 * x*x - 2 * z*z;	m12 = 2 * y*z + 2 * w*x;		m13 = 0;
-	//m20 = 2 * x*z + 2 * w*y;		m21 = 2 * y*z - 2 * w*x;		m22 = 1 - 2 * x*x - 2 * y*y;	m23 = 0;
-	//m30 = 0;						m31 = 0;						m32 = 0;						m33 = 1;
-
 }
 //*演算子のオーバーロード
 //CMatrix * float の演算結果を返す

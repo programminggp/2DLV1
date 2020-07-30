@@ -1,5 +1,7 @@
 #include "CPlayer.h"
 #include "CKey.h"
+#include "CInput.h"
+
 //12
 #define G (9.8f / 60.0f) //重力加速度
 #define JUMPV0 (4.0f)	//ジャンプ初速
@@ -23,6 +25,10 @@ void CPlayer::Update() {
 	mPosition = mPosition + CVector(0.0f, 1.0f, 0.0f) * mVelovcityJump;
 
 	CCharacter::Update();
+
+	if (CInput::GetMouseButton(VK_LBUTTON)) {
+		printf("Push Mouse LButton\n");
+	}
 }
 
 CPlayer::CPlayer()

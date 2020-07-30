@@ -90,6 +90,9 @@
     <ClCompile Include="CImage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="CInput.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSceneGame.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="CImage.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CInput.h">
+      <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
