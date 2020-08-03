@@ -58,19 +58,12 @@ void CSceneGame::Init() {
 	//モデルファイルの入力
 	Model.Load("f14.obj", "f14.mtl");
 	BackGround.Load("sky.obj", "sky.mtl");
+	//エネミーモデルの入力
+	ModelEnemy.Load("f16.obj", "f16.mtl");
 
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
-
-	//ポイントの設定
-	//CEnemy::mPointSize = 3;//ポイント数の設定
-	//mpEnemyPoint = new CPoint[CEnemy::mPointSize];
-	//mpEnemyPoint[0].Set(CVector(35.0f, 25.0f, 100.0f), 10.0f);
-	//mpEnemyPoint[1].Set(CVector(35.0f, 5.0f, 0.0f), 10.0f);
-	//mpEnemyPoint[2].Set(CVector(-35.0f, 45.0f, 50.0f), 10.0f);
-	//CEnemy::mPoint = mpEnemyPoint;
-
 
 	//キャラクタの設定
 	Player.mpModel = &Model;
@@ -81,8 +74,6 @@ void CSceneGame::Init() {
 	Player.mPosition = CVector(-20.0f, 30.0f, 400.0f);
 	Player.mRotation.mY = 180.0f;
 
-	//エネミーモデルの入力
-//	ModelEnemy.Load("f16.obj", "f16.mtl");
 
 	//敵機の生成
 	//爆発テクスチャの読み込み
@@ -96,8 +87,11 @@ void CSceneGame::Init() {
 	new CObj(&BackGround, CVector(), CVector(), CVector(2.0f, 2.0f, 2.0f));
 
 	CC5 *cc5;
-	cc5 = new CC5(&CRes::sC5, CVector(-100.0f, 10.0f, 400.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-	cc5 = new CC5(&CRes::sC5, CVector(50.0f, 50.0f, 450.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+	cc5 = new CC5(&CRes::sC5, CVector(-100.0f, 10.0f, 300.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+	cc5 = new CC5(&CRes::sC5, CVector(50.0f, 50.0f, 380.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+
+	CEnemy *e;
+	e = new CEnemy(&ModelEnemy, CVector(-100.0f, 20.0f, 350.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.1f, 0.1f, 0.1f));
 
 }
 
@@ -140,7 +134,7 @@ void CSceneGame::Update() {
 	//タスクマネージャの描画
 	TaskManager.Render();
 	//コライダの描画
-//	CollisionManager.Render();
+	CollisionManager.Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
@@ -158,7 +152,7 @@ void CSceneGame::Update() {
 	End2D();
 
 	//ミニマップ描画
-//	RenderMiniMap();
+	RenderMiniMap();
 
 	return;
 

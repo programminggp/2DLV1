@@ -20,10 +20,12 @@ public:
 	CCollider mSearch;
 	//?
 	//誘導ポイント
-	static CPoint *mPoint;
-	static int mPointSize;//ポイントの数
-	CPoint *mpPoint;//目指すポイント
+	//static CPoint *mPoint;
+	//static int mPointSize;//ポイントの数
+	CVector *mpPoint;//目指すポイント
+	CVector mPoint;
 	int mPointCnt;//ポイントのカウンタ
+	int mFireBullet;
 
 
 	//コンストラクタ

@@ -11,7 +11,9 @@ void CCollisionManager::Collision() {
 	//最後まできたら終了する
 //?	while (pos != mpTail) {
 	while (pos) {
-			//現在位置の次を求める
+		if (pos->mPriority < 0)
+			break;
+		//現在位置の次を求める
 		CCollider *next = (CCollider*)pos->mpNext;
 		//次が0になったら終了
 		while (next) {
@@ -25,7 +27,5 @@ void CCollisionManager::Collision() {
 		}
 		//現在位置を次にする
 		pos = (CCollider*)pos->mpNext;
-		if (pos->mPriority < 0)
-			break;
 	}
 }

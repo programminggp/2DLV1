@@ -10,6 +10,7 @@
 extern std::shared_ptr<CTexture> TextureExp;
 
 #define TURN_DEG 0.2f
+#define VELOCITY 1.2f
 
 CC5::CC5(CModel *model, CVector position, CVector rotation, CVector scale)
 :mCollider(this, CVector(0.0f, 5.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 1.8f)
@@ -35,13 +36,13 @@ CC5::CC5(CModel *model, CVector position, CVector rotation, CVector scale)
 void CC5::Update() {
 	//ポイントへのベクトルを求める
 	CVector dir;
-
 	if (mpPoint) {
-		dir = mpPoint->mPosition - mPosition;
+		dir = *mpPoint - mPosition;
 	}
 	else {
 		dir = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
 	}
+
 	//左方向のベクトルを求める
 	CVector left = CVector(1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 	//上方向のベクトルを求める
@@ -64,7 +65,7 @@ void CC5::Update() {
 	//行列を更新
 	CCharacter::Update();
 	//位置を移動
-	mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;
+	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
 	//回転させる
 	//	mRotation.mY += 0.5f;
 
@@ -100,11 +101,6 @@ void CC5::Collision(CCollider *m, CCollider *y) {
 			else  {
 				//衝突したコライダの親の種類を判定
 				switch (y->mpParent->mTag) {
-				case EPOINT://ポイントの時
-					//衝突したポインタと目指しているポインタが同じ時
-					if (y->mpParent == mpPoint) {
-					}
-					break;
 				case EMISSILE:
 					mHp -= 10;
 				case EBULLET:

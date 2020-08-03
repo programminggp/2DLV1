@@ -10,6 +10,7 @@
 */
 class CPlayer : public CCharacter {
 public:
+	static CPlayer *sPlayer;
 	//コライダ
 	CCollider mLine[4];//線分コライダ
 	CCollider mCollider;

@@ -16,6 +16,8 @@
 #define VELOCITY_INIT 1.0f
 #define POWER_UP 0.02f
 
+CPlayer *CPlayer::sPlayer = 0;
+
 CPlayer::CPlayer()
 :mCollider(this,  CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f, 1.0f, 1.0f), 0.8f)
 , mFireMissile(0)
@@ -24,6 +26,8 @@ CPlayer::CPlayer()
 , mpTarget(0)
 , mVelocity(VELOCITY_INIT)
 {
+	sPlayer = this;
+
 	mTag = EPLAYER;//種類はプレイヤー
 	mCollider.mTag = CCollider::EBODY;//種類は機体
 	mSearch.mTag = CCollider::ESEARCH;

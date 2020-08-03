@@ -13,7 +13,7 @@
 */
 class CC5 : public CCharacter {
 public:
-	CPoint *mpPoint;//目指すポイント
+	CVector *mpPoint;//目指すポイント
 	int mHp;
 	//コライダ
 	CCollider mCollider;
