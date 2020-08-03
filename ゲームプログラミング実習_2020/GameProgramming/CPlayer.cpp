@@ -1,10 +1,13 @@
 #include "CPlayer.h"
 #include "CKey.h"
 #include "CInput.h"
+#include "CSound.h"
 
 //12
 #define G (9.8f / 60.0f) //重力加速度
 #define JUMPV0 (4.0f)	//ジャンプ初速
+
+extern CSound Sound;
 
 void CPlayer::Update() {
 	if (CKey::Push('A')) {
@@ -20,6 +23,7 @@ void CPlayer::Update() {
 	//12
 	if (CKey::Push('K')) {
 		mVelovcityJump = JUMPV0;
+		Sound.Play();
 	}
 	mVelovcityJump -= G;
 	mPosition = mPosition + CVector(0.0f, 1.0f, 0.0f) * mVelovcityJump;

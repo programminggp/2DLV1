@@ -13,6 +13,10 @@
 #include "CObj.h"
 //
 #include "CImage.h"
+//
+#include "CSound.h"
+
+CSound Sound;
 
 CSceneGame::~CSceneGame() {
 
@@ -20,6 +24,8 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
+	Sound.Load("jump.mp3");
+
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
