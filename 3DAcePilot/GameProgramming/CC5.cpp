@@ -75,6 +75,9 @@ void CC5::Update() {
 		if (mHp % 10 == 0) {
 			new CEffect(mPosition, 2.5f, 2.5f, TextureExp, 4, 4, 2);
 		}
+		if (mHp < -500) {
+			mEnabled = false;
+		}
 	}
 }
 

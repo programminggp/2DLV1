@@ -13,11 +13,12 @@ extern std::shared_ptr<CTexture> TextureExp;
 //CPoint *CEnemy::mPoint;
 //int CEnemy::mPointSize = 0;
 
-#define TURN_DEG 0.6f
+#define TURN_DEG 1.0f
 
-#define VELOCITY 3.4f
+#define VELOCITY 0.4f
+#define VELOCITY_LOW 0.2f
 
-#define POINTCOUNT 120
+#define POINTCOUNT 100
 
 //コンストラクタ
 //CEnemy(モデル, 位置, 回転, 拡縮)
@@ -28,6 +29,7 @@ CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 , mPointCnt(0)
 , mpPoint(0)
 , mFireBullet(0)
+, mVelocity(VELOCITY)
 {
 	//
 	mCollider.mTag = CCollider::EBODY;
@@ -64,6 +66,14 @@ void CEnemy::Update() {
 	}
 	dir = mPoint - mPosition;
 
+	mVelocity = dir.Length() / 100.0f;
+	if (mVelocity > VELOCITY) {
+		mVelocity = VELOCITY;
+	}
+	else if (mVelocity < VELOCITY_LOW) {
+		mVelocity = VELOCITY_LOW;
+	}
+
 	//左方向のベクトルを求める
 	CVector left = CVector(1.0f, 0.0f, 0.0f) * mMatrix - CVector() * mMatrix;
 	left = left.Normalize();
@@ -95,13 +105,17 @@ void CEnemy::Update() {
 	//行列を更新
 	CCharacter::Update();
 	//位置を移動
-	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
+//	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
+	mPosition = mPosition + CVector(0.0f, 0.0f, mVelocity) * mMatrixRotate;
 
 	if (mHp < 0) {
 		mHp--;
-		mRotation.mX = 25;
+		mRotation.mX = 55;
 		if (mHp % 10 == 0) {
 			new CEffect(mPosition, 2.5f, 2.5f, TextureExp, 4, 4, 2);
+		}
+		if (mHp < -500) {
+			mEnabled = false;
 		}
 	}
 }

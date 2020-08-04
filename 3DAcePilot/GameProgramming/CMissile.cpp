@@ -5,7 +5,7 @@
 //スマートポインタの外部参照
 extern std::shared_ptr<CTexture> TextureExp;
 
-#define VELOCITY 5.0f
+#define VELOCITY 0.6f
 #define TURN_DEG 1.5f
 
 //コンストラクタ
@@ -96,7 +96,8 @@ void CMissile::Update() {
 	//	}
 	}
 
-	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
+//	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
+	mPosition = mPosition + CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
 	CCharacter::Update();
 	if (mLife-- < 0) {
 		mEnabled = false;

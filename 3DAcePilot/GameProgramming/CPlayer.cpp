@@ -12,12 +12,16 @@
 #include "CRes.h"
 //?
 #include "CBillBoard.h"
+//
+#include "CEffect.h"
 
 #define VELOCITY_INIT 1.0f
 #define POWER_UP 0.02f
 #define POWER_MAX 4.0f
 
 CPlayer *CPlayer::sPlayer = 0;
+//スマートポインタの外部参照
+extern std::shared_ptr<CTexture> TextureExp;
 
 CPlayer::CPlayer()
 :mCollider(this,  CVector(0.0f, 0.0f, -5.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f, 1.0f, 1.0f), 0.8f)
@@ -142,7 +146,14 @@ void CPlayer::Collision(CCollider *m, CCollider *y) {
 		if (y->mType == CCollider::ESPHERE) {
 			if (CCollider::Collision(m, y)) {
 				switch (m->mTag) {
+				case CCollider::EBODY:
+					if (y->mpParent->mTag == EBULLET) {
+						//エフェクト生成
+						new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+					}
+					break;
 				case CCollider::ESEARCH:
+					return;
 					if (y->mpParent->mTag == EENEMY) {
 						CBillBoard b(y->mpParent->mPosition,1.0f, 1.0f);
 						if (mpTarget == 0) {

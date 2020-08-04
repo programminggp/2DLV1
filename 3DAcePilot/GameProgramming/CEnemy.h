@@ -27,6 +27,7 @@ public:
 	int mPointCnt;//ポイントのカウンタ
 	int mFireBullet;
 
+	float mVelocity;
 
 	//コンストラクタ
 	//CEnemy(モデル, 位置, 回転, 拡縮)

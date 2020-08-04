@@ -97,13 +97,9 @@ void CSceneGame::Init() {
 
 
 void CSceneGame::Update() {
-	//static変数の作成
-	//static int degree = 0;//回転角度の作成
-	//degree++;//角度に1加算
-
 	////static変数の作成
 	static int frame = 0;//フレーム数のカウント
-	frame++;//フレーム数に1加算
+	frame++;
 	//if (frame < 1000 && frame % 150 == 0) {
 	//	//敵機の生成
 	//	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 200.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
