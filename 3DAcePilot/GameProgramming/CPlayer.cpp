@@ -15,6 +15,7 @@
 
 #define VELOCITY_INIT 1.0f
 #define POWER_UP 0.02f
+#define POWER_MAX 4.0f
 
 CPlayer *CPlayer::sPlayer = 0;
 
@@ -65,8 +66,8 @@ void CPlayer::Update() {
 	if (CKey::Push('I')) {
 		//ZŽ²•ûŒü‚É1i‚ñ‚¾’l‚ð‰ñ“]ˆÚ“®‚³‚¹‚é
 		mVelocity += POWER_UP;
-		if (mVelocity > VELOCITY_INIT * 3) {
-			mVelocity = VELOCITY_INIT * 3;
+		if (mVelocity > POWER_MAX) {
+			mVelocity = POWER_MAX;
 		}
 	}
 	if (CKey::Push('K')) {

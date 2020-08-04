@@ -13,18 +13,18 @@ extern std::shared_ptr<CTexture> TextureExp;
 //CPoint *CEnemy::mPoint;
 //int CEnemy::mPointSize = 0;
 
-#define TURN_DEG 0.4f
+#define TURN_DEG 0.6f
 
-#define VELOCITY 4.4f
+#define VELOCITY 3.4f
 
-#define POINTTIME 120
+#define POINTCOUNT 120
 
 //コンストラクタ
 //CEnemy(モデル, 位置, 回転, 拡縮)
 CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 : mCollider(this, CVector(0.0f, 0.0f, 1.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f, 1.0f, 1.0f), 0.4f)
 , mSearch(this, CVector(0.0f, 0.0f, 200.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f, 1.0f, 1.0f), 20.0f)
-, mHp(20)
+, mHp(2)
 , mPointCnt(0)
 , mpPoint(0)
 , mFireBullet(0)
@@ -60,17 +60,14 @@ void CEnemy::Update() {
 		else {
 			mPoint = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
 		}
-//		mPointCnt = rand() % 120;
-		mPointCnt = POINTTIME;
+		mPointCnt = POINTCOUNT;
 	}
 	dir = mPoint - mPosition;
 
 	//左方向のベクトルを求める
-//	CVector left = CVector(1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 	CVector left = CVector(1.0f, 0.0f, 0.0f) * mMatrix - CVector() * mMatrix;
 	left = left.Normalize();
 	//上方向のベクトルを求める
-//	CVector up = CVector(0.0f, 1.0f, 0.0f) * CMatrix().RotateX(mRotation.mX) * CMatrix().RotateY(mRotation.mY);
 	CVector up = CVector(0.0f, 1.0f, 0.0f) * mMatrix - CVector() * mMatrix;
 	up = up.Normalize();
 	CVector z = CVector(0.0f, 0.0f, 1.0f) * mMatrix - CVector() * mMatrix;
@@ -88,31 +85,17 @@ void CEnemy::Update() {
 		if (z.Dot(dir) > 0.0) {
 			mRotation.mX -= TURN_DEG;
 		}
-		//if (z.Dot(dir) > 0.0) {
-		//	mRotation.mX += TURN_DEG;
-		//}
-		//else {
-		//	mRotation.mX -= TURN_DEG;
-		//}
 	}
 	else if (up.Dot(dir) < 0.0f) {
 		if (z.Dot(dir) > 0.0) {
 			mRotation.mX += TURN_DEG;
 		}
-		//if (z.Dot(dir) > 0.0) {
-		//	mRotation.mX -= TURN_DEG;
-		//}
-		//else {
-		//	mRotation.mX += TURN_DEG;
-		//}
 	}
 
 	//行列を更新
 	CCharacter::Update();
 	//位置を移動
 	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
-	//回転させる
-//	mRotation.mY += 0.5f;
 
 	if (mHp < 0) {
 		mHp--;

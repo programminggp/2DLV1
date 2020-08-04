@@ -71,7 +71,7 @@ void CSceneGame::Init() {
 	Player.mScale = CVector(0.1f, 0.1f, 0.1f);
 	//位置(0.0, 0.0, 55.0)にする
 //	Player.mPosition = CVector(-20.0f, 30.0f, -100.0f);
-	Player.mPosition = CVector(-20.0f, 30.0f, 400.0f);
+	Player.mPosition = CVector(-20.0f, 30.0f, 350.0f);
 	Player.mRotation.mY = 180.0f;
 
 
@@ -133,8 +133,11 @@ void CSceneGame::Update() {
 	TaskManager.Delete();
 	//タスクマネージャの描画
 	TaskManager.Render();
+
+#ifdef _DEBUG
 	//コライダの描画
 	CollisionManager.Render();
+#endif
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
