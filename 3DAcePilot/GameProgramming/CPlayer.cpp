@@ -4,20 +4,13 @@
 #include "CKey.h"
 //バレットクラスのインクルード
 #include "CBullet.h"
-//22extern CBullet Bullet;
 //タスクマネージャのインクルード
 #include "CTaskManager.h"
-//?
-#include "CMissile.h"
 #include "CRes.h"
-//?
+#include "CMissile.h"
 #include "CBillBoard.h"
-//
 #include "CEffect.h"
-
-#define VELOCITY_INIT 1.0f
-#define POWER_UP 0.02f
-#define POWER_MAX 4.0f
+#include "Define.h"
 
 CPlayer *CPlayer::sPlayer = 0;
 //スマートポインタの外部参照
@@ -29,7 +22,7 @@ CPlayer::CPlayer()
 , mFireBullet(0)
 , mSearch(this, CVector(0.0f, 0.0f, 400.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f, 1.0f, 1.0f), 40.0f)
 , mpTarget(0)
-, mVelocity(VELOCITY_INIT)
+, mVelocity(PLAYER_POWER_MIN)
 {
 	sPlayer = this;
 
@@ -50,79 +43,71 @@ CPlayer::CPlayer()
 
 //更新処理
 void CPlayer::Update() {
-	if (mFireMissile > 0) {
-		mFireMissile--;
-	}
-	if (mFireBullet > 0) {
-		mFireBullet--;
-	}
 	//Aキー入力で回転
 	if (CKey::Push('A')) {
 		//Y軸の回転値を増加
 		mRotation.mY += 1;
-	}
-	//Iキー入力で前進
-	if (CKey::Push('U')) {
-		//Z軸方向に1進んだ値を回転移動させる
-		mPosition = CVector(0.0f, 0.0f, 5.0f) * mMatrix;
-	}
-	//Iキー入力で前進
-	if (CKey::Push('I')) {
-		//Z軸方向に1進んだ値を回転移動させる
-		mVelocity += POWER_UP;
-		if (mVelocity > POWER_MAX) {
-			mVelocity = POWER_MAX;
-		}
-	}
-	if (CKey::Push('K')) {
-		//Z軸方向に1進んだ値を回転移動させる
-		mVelocity -= POWER_UP;
-		if (mVelocity < VELOCITY_INIT) {
-			mVelocity = VELOCITY_INIT;
-		}
 	}
 	//Dキー入力で回転
 	if (CKey::Push('D')) {
 		//Y軸の回転値を減算
 		mRotation.mY -= 1;
 	}
-	//Sキー入力で上向き
-	if (CKey::Push('S')) {
-		//X軸の回転値を減算
-		mRotation.mX -= 1;
-	}
 	//Wキー入力で上向き
 	if (CKey::Push('W')) {
 		//X軸の回転値を加算
 		mRotation.mX += 1;
 	}
-	//スペースキー入力で弾発射
-	if (CKey::Push(VK_SPACE) && mFireBullet == 0) {
-		mFireBullet = 10;
-		CBullet *bullet = new CBullet();
-		bullet->Set(0.05f, 1.5f);
-		bullet->mPosition = CVector(0.0f, 0.0f, 20.0f) * mMatrix;
- 		bullet->mRotation = mRotation;
-		bullet->mTag = EBULLET;
-//		TaskManager.Add(bullet);
+	//Sキー入力で上向き
+	if (CKey::Push('S')) {
+		//X軸の回転値を減算
+		mRotation.mX -= 1;
 	}
-	//スペースキー入力で弾発射
-	if (CKey::Push('M') && mFireMissile == 0) {
-		mFireMissile = 60;
-		if (mpTarget) {
-			CMissile *m = new CMissile(&CRes::sMissileM, CVector(6.0f, -2.0f, 0.0f) * mMatrix, mRotation, CVector(0.2f, 0.2f, 0.2f));
-			m->mpPoint = mpTarget;
+	//Iキー入力で出力UP
+	if (CKey::Push('I')) {
+		mVelocity += POWER_UP;
+		if (mVelocity > PLAYER_POWER_MAX) {
+			mVelocity = PLAYER_POWER_MAX;
 		}
-		else {
+	}
+	//Kキー入力で出力DOWN
+	if (CKey::Push('K')) {
+		mVelocity -= POWER_UP;
+		if (mVelocity < PLAYER_POWER_MIN) {
+			mVelocity = PLAYER_POWER_MIN;
+		}
+	}
+
+	//攻撃
+	//スペースキー入力で弾発射
+	if (mFireBullet > 0) {
+		mFireBullet--;
+	}
+	else {
+		if (CKey::Push(VK_SPACE)) {
+			CBullet *bullet = new CBullet();
+			bullet->Set(0.05f, 1.5f);
+			bullet->mPosition = CVector(0.0f, 0.0f, 20.0f) * mMatrix;
+			bullet->mRotation = mRotation;
+			bullet->mTag = EBULLET;
+			mFireBullet = PLAYER_BULLET_INTERVAL;
+		}
+	}
+	//Mキーでミサイル発射
+	if (mFireMissile > 0) {
+		mFireMissile--;
+	}
+	else {
+		//スペースキー入力で弾発射
+		if (CKey::Push('M')) {
 			new CMissile(&CRes::sMissileM, CVector(6.0f, -2.0f, 0.0f) * mMatrix, mRotation, CVector(0.2f, 0.2f, 0.2f));
+			mFireMissile = PLAYER_MISSILE_INTERVAL;
 		}
-		//		TaskManager.Add(bullet);
 	}
+
 	//CCharacterの更新
 	CCharacter::Update();
-	mPosition = CVector(0.0f, 0.0f, mVelocity) * mMatrix;
-	mpTarget = 0;
-
+	mPosition = mPosition + CVector(0.0f, 0.0f, mVelocity) * mMatrixRotate;
 }
 
 //衝突処理
@@ -148,8 +133,13 @@ void CPlayer::Collision(CCollider *m, CCollider *y) {
 				switch (m->mTag) {
 				case CCollider::EBODY:
 					if (y->mpParent->mTag == EBULLET) {
+						//敵の弾に当たった時
 						//エフェクト生成
 						new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+						CVector v = mPosition - y->mpParent->mPosition;
+						v = v.Normalize() * 0.5;
+						mPosition = mPosition + v;
+						CCharacter::Update();
 					}
 					break;
 				case CCollider::ESEARCH:

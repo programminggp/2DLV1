@@ -145,6 +145,7 @@
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CVector.h" />
+    <ClInclude Include="Define.h" />
     <ClInclude Include="Update.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

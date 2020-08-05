@@ -1,11 +1,10 @@
 #include "CMissile.h"
-
 //エフェクトクラスのインクルード
 #include "CEffect.h"
 //スマートポインタの外部参照
 extern std::shared_ptr<CTexture> TextureExp;
 
-#define VELOCITY 0.6f
+#define MISSILE_VELOCITY 0.6f	//ミサイル速さ
 #define TURN_DEG 1.5f
 
 //コンストラクタ
@@ -76,28 +75,9 @@ void CMissile::Update() {
 			}
 		}
 
-	//	//左方向のベクトルを求める
-	//	CVector left = CVector(1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
-	//	//上方向のベクトルを求める
-	//	CVector up = CVector(0.0f, 1.0f, 0.0f) * CMatrix().RotateX(mRotation.mX) * CMatrix().RotateY(mRotation.mY);
-	//	//左右の回転処理（Y軸）
-	//	if (left.Dot(dir) > 0.0f) {
-	//		mRotation.mY += 1.5f;
-	//	}
-	//	else if (left.Dot(dir) < 0.0f) {
-	//		mRotation.mY -= 1.5f;
-	//	}
-	//	//上下の回転処理（X軸）
-	//	if (up.Dot(dir) > 0.0f) {
-	//		mRotation.mX -= 1.5f;
-	//	}
-	//	else if (up.Dot(dir) < 0.0f) {
-	//		mRotation.mX += 1.5f;
-	//	}
 	}
 
-//	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
-	mPosition = mPosition + CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
+	mPosition = mPosition + CVector(0.0f, 0.0f, MISSILE_VELOCITY) * mMatrixRotate;
 	CCharacter::Update();
 	if (mLife-- < 0) {
 		mEnabled = false;

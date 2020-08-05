@@ -132,7 +132,7 @@ void CSceneGame::Update() {
 
 #ifdef _DEBUG
 	//コライダの描画
-	CollisionManager.Render();
+//	CollisionManager.Render();
 #endif
 
 	//2D描画開始
@@ -143,15 +143,14 @@ void CSceneGame::Update() {
 		CText::DrawString("MISSION START", 170, 400, 20, 20);
 	}
 
-//	CText::DrawString("PLAYER DAMAGE ", 20, 50, 10, 12);
-	CText::DrawString("SPACE:SHOT", 20, 50, 8, 12);
+	CText::DrawString("SPACE:SHOT M:MISSIL", 20, 50, 8, 12);
 	CText::DrawString("W:DOWN S:UP A:LEFT D:RIGHT I:SPEEDUP K:SPEEDDOWN", 20, 20, 8, 12);
 
 	//2D描画終了
 	End2D();
 
 	//ミニマップ描画
-	RenderMiniMap();
+//	RenderMiniMap();
 
 	return;
 

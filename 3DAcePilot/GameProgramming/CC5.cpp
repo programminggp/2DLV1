@@ -1,23 +1,21 @@
 #include "CC5.h"
 //エフェクトクラスのインクルード
 #include "CEffect.h"
-//
 #include "CSceneGame.h"
-//
 #include "CBullet.h"
+#include "Define.h"
+
+#define TURN_DEG	0.2f	//旋回性能
 
 //スマートポインタの外部参照
 extern std::shared_ptr<CTexture> TextureExp;
-
-#define TURN_DEG 0.2f
-#define VELOCITY 1.2f
 
 CC5::CC5(CModel *model, CVector position, CVector rotation, CVector scale)
 :mCollider(this, CVector(0.0f, 5.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 1.8f)
 , mCollider2(this, CVector(0.0f, 5.0f, 25.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 1.8f)
 , mCollider3(this, CVector(0.0f, 5.0f, -25.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 1.8f)
 , mSearch(this, CVector(0.0f, 0.0f, 60.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f / scale.mX, 1.0f / scale.mY, 1.0f / scale.mZ), 0.0f)
-, mHp(20)
+, mHp(C5_HP)
 , mpPoint(0)
 {
 	mCollider.mTag = CCollider::EBODY;
@@ -65,9 +63,7 @@ void CC5::Update() {
 	//行列を更新
 	CCharacter::Update();
 	//位置を移動
-	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
-	//回転させる
-	//	mRotation.mY += 0.5f;
+	mPosition = CVector(0.0f, 0.0f, C5_POWER) * mMatrix;
 
 	if (mHp < 0) {
 		mHp--;

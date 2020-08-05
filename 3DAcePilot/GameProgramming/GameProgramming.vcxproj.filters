@@ -200,5 +200,8 @@
     <ClInclude Include="CObj.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

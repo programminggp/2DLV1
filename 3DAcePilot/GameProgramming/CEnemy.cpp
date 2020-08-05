@@ -1,24 +1,12 @@
 #include "CEnemy.h"
-//エフェクトクラスのインクルード
 #include "CEffect.h"
-//
-#include "CSceneGame.h"
-//
+#include "CPlayer.h"
 #include "CBullet.h"
+
+#include "Define.h"
 
 //スマートポインタの外部参照
 extern std::shared_ptr<CTexture> TextureExp;
-
-//誘導ポイント
-//CPoint *CEnemy::mPoint;
-//int CEnemy::mPointSize = 0;
-
-#define TURN_DEG 1.0f
-
-#define VELOCITY 0.4f
-#define VELOCITY_LOW 0.2f
-
-#define POINTCOUNT 100
 
 //コンストラクタ
 //CEnemy(モデル, 位置, 回転, 拡縮)
@@ -27,11 +15,10 @@ CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 , mSearch(this, CVector(0.0f, 0.0f, 200.0f), CVector(0.0f, 0.0f, 0.0f),CVector(1.0f, 1.0f, 1.0f), 20.0f)
 , mHp(2)
 , mPointCnt(0)
-, mpPoint(0)
+, mpTarget(0)
 , mFireBullet(0)
-, mVelocity(VELOCITY)
+, mVelocity(ENEMY_POWER)
 {
-	//
 	mCollider.mTag = CCollider::EBODY;
 	mSearch.mTag = CCollider::ESEARCH;
 	//モデル、位置、回転、拡縮を設定する
@@ -40,8 +27,7 @@ CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 	mRotation = rotation;	//回転の設定
 	mScale = scale;	//拡縮の設定
 	mTag = EENEMY;
-	mpPoint = &CPlayer::sPlayer->mPosition;
-
+	mpTarget = &CPlayer::sPlayer->mPosition;
 }
 //更新処理
 void CEnemy::Update() {
@@ -56,22 +42,22 @@ void CEnemy::Update() {
 		mPointCnt--;
 	}
 	else {
-		if (mpPoint) {
-			mPoint = *mpPoint;
+		if (mpTarget) {
+			mPoint = *mpTarget;
 		}
 		else {
 			mPoint = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
 		}
-		mPointCnt = POINTCOUNT;
+		mPointCnt = ENEMY_POINTCOUNT;
 	}
 	dir = mPoint - mPosition;
 
 	mVelocity = dir.Length() / 100.0f;
-	if (mVelocity > VELOCITY) {
-		mVelocity = VELOCITY;
+	if (mVelocity > ENEMY_POWER) {
+		mVelocity = ENEMY_POWER;
 	}
-	else if (mVelocity < VELOCITY_LOW) {
-		mVelocity = VELOCITY_LOW;
+	else if (mVelocity < ENEMY_VELOCITY_LOW) {
+		mVelocity = ENEMY_VELOCITY_LOW;
 	}
 
 	//左方向のベクトルを求める
@@ -85,27 +71,26 @@ void CEnemy::Update() {
 
 	//左右の回転処理（Y軸）
 	if (left.Dot(dir) > 0.0f) {
-		mRotation.mY += TURN_DEG;
+		mRotation.mY += ENEMY_TURN_DEG;
 	}
 	else if (left.Dot(dir) < 0.0f) {
-		mRotation.mY -= TURN_DEG;
+		mRotation.mY -= ENEMY_TURN_DEG;
 	}
 	//上下の回転処理（X軸）
 	if (up.Dot(dir) > 0.0f) {
 		if (z.Dot(dir) > 0.0) {
-			mRotation.mX -= TURN_DEG;
+			mRotation.mX -= ENEMY_TURN_DEG;
 		}
 	}
 	else if (up.Dot(dir) < 0.0f) {
 		if (z.Dot(dir) > 0.0) {
-			mRotation.mX += TURN_DEG;
+			mRotation.mX += ENEMY_TURN_DEG;
 		}
 	}
 
 	//行列を更新
 	CCharacter::Update();
 	//位置を移動
-//	mPosition = CVector(0.0f, 0.0f, VELOCITY) * mMatrix;
 	mPosition = mPosition + CVector(0.0f, 0.0f, mVelocity) * mMatrixRotate;
 
 	if (mHp < 0) {
@@ -151,7 +136,6 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 				switch (y->mpParent->mTag) {
 				case EMISSILE:
 					mHp -= 10;
-//					mEnabled = false;
 				case EBULLET:
 					if (y->mTag == CCollider::EBODY) {
 						//エフェクト生成
@@ -160,7 +144,6 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 					}
 				}
 			}
-			//削除		mEnabled = false;
 		}
 	}
 }
