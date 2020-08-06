@@ -106,7 +106,7 @@ void CC5::Collision(CCollider *m, CCollider *y) {
 					if (y->mTag == CCollider::EBODY) {
 						//10
 						//エフェクト生成
-						new CEffect(y->mpParent->mPosition, 2.0f, 2.0f, TextureExp, 4, 4, 1);
+
 						mHp--;
 					}
 					break;

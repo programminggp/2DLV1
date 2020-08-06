@@ -52,28 +52,23 @@ void CSceneGame::Init() {
 
 	//1
 	//背景モデルの生成
-	Sky.Load("sky.obj", "sky.mtl");
-	new CObj(&Sky, CVector(), CVector(), CVector(2.0f, 2.0f, 2.0f));
+	
 
 	//2
 	//プレイヤーの設定
-	F14.Load("f14.obj", "f14.mtl");
-	Player.mpModel = &F14;
-	Player.mScale = CVector(0.1f, 0.1f, 0.1f);
+
 
 	//6
 	//C5輸送機の生成
-	C5.Load("c5.obj", "c5.mtl");
-	new CC5(&C5, CVector(-100.0f, 10.0f, 300.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+
 
 	//11
 	//敵機の生成
-	F16.Load("f16.obj", "f16.mtl");
-	new CEnemy(&F16, CVector(-100.0f, 20.0f, 350.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.1f, 0.1f, 0.1f));
+
 
 	//12
 	//輸送機追加
-	new CC5(&C5, CVector(50.0f, 50.0f, 380.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
+
 }
 
 
@@ -100,9 +95,6 @@ void CSceneGame::Update() {
 	c = CVector(0.0f, 4.0f, 0.0f);
 	u = CVector(0.0f, 1.0f, 0.0f);
 
-	e = CVector(-2.0f, 5.0f, -22.0f) * Player.mMatrix;
-	c = CVector(0.0f, 4.0f, 0.0f) * Player.mMatrix;
-	u = CVector(0.0f, 1.0f, 0.0f) * Player.mMatrixRotate;
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
 	Camera.Render();

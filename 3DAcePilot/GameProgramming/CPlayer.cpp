@@ -47,37 +47,37 @@ void CPlayer::Update() {
 	if (CKey::Push('A')) {
 		//3
 		//Y軸の回転値を増加
-		mRotation.mY += 1;
+
 	}
 	//Dキー入力で回転
 	if (CKey::Push('D')) {
 		//3
 		//Y軸の回転値を減算
-		mRotation.mY -= 1;
+
 	}
 	//Wキー入力で上向き
 	if (CKey::Push('W')) {
 		//3
 		//X軸の回転値を加算
-		mRotation.mX += 1;
+
 	}
 	//Sキー入力で上向き
 	if (CKey::Push('S')) {
 		//3
 		//X軸の回転値を減算
-		mRotation.mX -= 1;
+
 	}
 	//7
 	//Iキー入力で出力UP
-	if (CKey::Push('I')) {
-		mVelocity += POWER_UP;
+	if (false) {
+
 		if (mVelocity > PLAYER_POWER_MAX) {
 			mVelocity = PLAYER_POWER_MAX;
 		}
 	}
 	//Kキー入力で出力DOWN
-	if (CKey::Push('K')) {
-		mVelocity -= POWER_UP;
+	if (false) {
+
 		if (mVelocity < PLAYER_POWER_MIN) {
 			mVelocity = PLAYER_POWER_MIN;
 		}
@@ -92,7 +92,7 @@ void CPlayer::Update() {
 		//8
 		//スペースキー入力で弾発射
 		if (CKey::Push(VK_SPACE)) {
-			new CBullet(CVector(0.0f, 0.0f, 20.0f) * mMatrix, mRotation);
+
 			mFireBullet = PLAYER_BULLET_INTERVAL;
 		}
 	}
@@ -104,7 +104,7 @@ void CPlayer::Update() {
 		//9
 		//Mキー入力でミサイル発射
 		if (CKey::Push('M')) {
-			new CMissile(&CRes::sMissileM, CVector(6.0f, -2.0f, 0.0f) * mMatrix, mRotation, CVector(0.2f, 0.2f, 0.2f));
+
 			mFireMissile = PLAYER_MISSILE_INTERVAL;
 		}
 	}
@@ -113,7 +113,7 @@ void CPlayer::Update() {
 	CCharacter::Update();
 	//4
 	//移動させる
-	mPosition = mPosition + CVector(0.0f, 0.0f, mVelocity) * mMatrixRotate;
+
 }
 
 //衝突処理
