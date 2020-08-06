@@ -19,80 +19,61 @@
 #include "CTaskManager.h"
 //エネミークラスのインクルード
 #include "CEnemy.h"
-//
 #include "CCollisionManager.h"
-//
 #include "CCamera.h"
-//ビルボードクラスのインクルード
 #include "CBillBoard.h"
 #include "CEffect.h"
-//空軍基地
-#include "CAirBase.h"
-//
 #include "CText.h"
-//
 #include "CRes.h"
-//
 #include "CC5.h"
-//
 #include "CObj.h"
 
 //モデルクラスのインスタンス作成
-CModel Model;
-CModel BackGround; //背景モデル
-CModel ModelEnemy;//エネミーモデル
-CModel ModelAirBase;//空軍基地モデル
+CModel F14;
+CModel Sky; //背景モデル
+CModel F16;//エネミーモデル
+CModel C5;
 
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
 
 CSceneGame::~CSceneGame() {
-//	delete[] mpEnemyPoint;
 }
 
 void CSceneGame::Init() {
 	//ミサイル
 	CRes::sMissileM.Load("missile.obj", "missile.mtl");
-	//C5輸送機
-	CRes::sC5.Load("c5.obj", "c5.mtl");
+	//爆発テクスチャの読み込み
+	TextureExp->Load("exp.tga");
 	//モデルファイルの入力
-	Model.Load("f14.obj", "f14.mtl");
-	BackGround.Load("sky.obj", "sky.mtl");
-	//エネミーモデルの入力
-	ModelEnemy.Load("f16.obj", "f16.mtl");
-
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
 
-	//キャラクタの設定
-	Player.mpModel = &Model;
-	//スケールを0.2倍を変更
+	//1
+	//背景モデルの生成
+	Sky.Load("sky.obj", "sky.mtl");
+	new CObj(&Sky, CVector(), CVector(), CVector(2.0f, 2.0f, 2.0f));
+
+	//2
+	//プレイヤーの設定
+	F14.Load("f14.obj", "f14.mtl");
+	Player.mpModel = &F14;
 	Player.mScale = CVector(0.1f, 0.1f, 0.1f);
-	//位置(0.0, 0.0, 55.0)にする
-//	Player.mPosition = CVector(-20.0f, 30.0f, -100.0f);
-	Player.mPosition = CVector(-20.0f, 30.0f, 350.0f);
-	Player.mRotation.mY = 180.0f;
 
+	//6
+	//C5輸送機の生成
+	C5.Load("c5.obj", "c5.mtl");
+	new CC5(&C5, CVector(-100.0f, 10.0f, 300.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
 
+	//11
 	//敵機の生成
-	//爆発テクスチャの読み込み
-	TextureExp->Load("exp.tga");
+	F16.Load("f16.obj", "f16.mtl");
+	new CEnemy(&F16, CVector(-100.0f, 20.0f, 350.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.1f, 0.1f, 0.1f));
 
-	//空軍基地モデルの読み込み
-//	ModelAirBase.Load("airbase.obj", "airbase.mtl");
-	//空軍基地クラスのインスタンスを生成
-//	mpAirBase = new CAirBase(&ModelAirBase, CVector(0.0f, 0.0f, 180.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
-
-	new CObj(&BackGround, CVector(), CVector(), CVector(2.0f, 2.0f, 2.0f));
-
-	CC5 *cc5;
-	cc5 = new CC5(&CRes::sC5, CVector(-100.0f, 10.0f, 300.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-	cc5 = new CC5(&CRes::sC5, CVector(50.0f, 50.0f, 380.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-
-	CEnemy *e;
-	e = new CEnemy(&ModelEnemy, CVector(-100.0f, 20.0f, 350.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.1f, 0.1f, 0.1f));
-
+	//12
+	//輸送機追加
+	new CC5(&C5, CVector(50.0f, 50.0f, 380.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
 }
 
 
@@ -100,10 +81,6 @@ void CSceneGame::Update() {
 	////static変数の作成
 	static int frame = 0;//フレーム数のカウント
 	frame++;
-	//if (frame < 1000 && frame % 150 == 0) {
-	//	//敵機の生成
-	//	new CEnemy(&ModelEnemy, CVector(-10.0f, 7.0f, 200.0f), CVector(0.0f, 180.0f, -30.0f), CVector(0.2f, 0.2f, 0.2f));
-	//}
 
 	//タスクマネージャの更新
 	TaskManager.Update();
@@ -116,11 +93,15 @@ void CSceneGame::Update() {
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
-	//視点を求める
+
+	//5
+	//カメラのパラメータを設定する
+	e = CVector(-2.0f, 5.0f, -22.0f) * CMatrix().Scale(0.3f, 0.5f, 0.36f);
+	c = CVector(0.0f, 4.0f, 0.0f);
+	u = CVector(0.0f, 1.0f, 0.0f);
+
 	e = CVector(-2.0f, 5.0f, -22.0f) * Player.mMatrix;
-	//注視点を求める
 	c = CVector(0.0f, 4.0f, 0.0f) * Player.mMatrix;
-	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f) * Player.mMatrixRotate;
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
@@ -128,11 +109,6 @@ void CSceneGame::Update() {
 
 	//タスクマネージャの描画
 	TaskManager.Render();
-
-#ifdef _DEBUG
-	//コライダの描画
-//	CollisionManager.Render();
-#endif
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
@@ -147,9 +123,6 @@ void CSceneGame::Update() {
 
 	//2D描画終了
 	End2D();
-
-	//ミニマップ描画
-//	RenderMiniMap();
 
 	return;
 
@@ -202,7 +175,7 @@ void CSceneGame::RenderMiniMap() {
 
 	glDisable(GL_DEPTH_TEST);
 
-	BackGround.Render(CMatrix());
+	Sky.Render(CMatrix());
 	//タスクマネージャの描画
 	TaskManager.Render();
 

@@ -20,6 +20,8 @@ public:
 	//コライダ
 	CCollider mCollider;
 	CBullet();
+	CBullet(CVector &pos, CVector &rot);
+
 	//幅と奥行きの設定
 	//Set(幅, 奥行)
 	void Set(float w, float d);

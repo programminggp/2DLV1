@@ -120,11 +120,7 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 					{
 						if (mFireBullet == 0)
 						{
-							CBullet *bullet = new CBullet();
-							bullet->Set(0.1f, 1.5f);
-							bullet->mPosition = CVector(0.0f, 0.0f, 20.0f) * mMatrix;
-							bullet->mRotation = mRotation;
-							bullet->mTag = EBULLET;
+							new CBullet(CVector(0.0f, 0.0f, 20.0f) * mMatrix, mRotation);
 							mFireBullet = 15;
 						}
 					}

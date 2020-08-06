@@ -11,6 +11,8 @@ void CBullet::Set(float w, float d) {
 	mT.SetVertex(CVector(w, 0.0f, 0.0f), CVector(0.0f, 0.0f, -d), CVector(-w, 0.0f, 0.0f));
 	//三角形の法線設定
 	mT.SetNormal(CVector(0.0f, 1.0f, 0.0f));
+	//
+	CCharacter::Update();
 }
 
 //更新
@@ -19,7 +21,7 @@ void CBullet::Update() {
 	if (mLife-- > 0) {
 		CCharacter::Update();
 		//位置更新
-		mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;
+		mPosition = CVector(0.0f, 0.0f, 0.7f) * mMatrix;
 	}
 	else {
 		//無効にする
@@ -38,13 +40,24 @@ void CBullet::Render() {
 }
 //22
 CBullet::CBullet()
-: mLife(50)
+: mLife(70)
 , mCollider(this, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 0.1f)
 {
 	//?
 	//
 	mCollider.mTag = CCollider::EBODY;
+	mTag = EBULLET;
+	Set(0.05f, 1.5f);
 }
+
+CBullet::CBullet(CVector &pos, CVector &rot)
+: CBullet()
+{
+	mPosition = pos;
+	mRotation = rot;
+	Set(0.05f, 1.5f);
+}
+
 //衝突処理
 //Collision(コライダ1, コライダ2)
 void CBullet::Collision(CCollider *m, CCollider *y) {
