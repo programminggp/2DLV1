@@ -137,7 +137,7 @@ void CPlayer::Collision(CCollider *m, CCollider *y) {
 						//エフェクト生成
 						new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
 						CVector v = mPosition - y->mpParent->mPosition;
-						v = v.Normalize() * 0.5;
+						v = v.Normalize() * 0.9;
 						mPosition = mPosition + v;
 						CCharacter::Update();
 					}

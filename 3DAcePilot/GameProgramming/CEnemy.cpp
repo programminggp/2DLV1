@@ -17,7 +17,7 @@ CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 , mPointCnt(0)
 , mpTarget(0)
 , mFireBullet(0)
-, mVelocity(ENEMY_POWER)
+, mVelocity(ENEMY_POWER_MAX)
 {
 	mCollider.mTag = CCollider::EBODY;
 	mSearch.mTag = CCollider::ESEARCH;
@@ -53,11 +53,11 @@ void CEnemy::Update() {
 	dir = mPoint - mPosition;
 
 	mVelocity = dir.Length() / 100.0f;
-	if (mVelocity > ENEMY_POWER) {
-		mVelocity = ENEMY_POWER;
+	if (mVelocity > ENEMY_POWER_MAX) {
+		mVelocity = ENEMY_POWER_MAX;
 	}
-	else if (mVelocity < ENEMY_VELOCITY_LOW) {
-		mVelocity = ENEMY_VELOCITY_LOW;
+	else if (mVelocity < ENEMY_POWER_MIN) {
+		mVelocity = ENEMY_POWER_MIN;
 	}
 
 	//¶•ûŒü‚ÌƒxƒNƒgƒ‹‚ð‹‚ß‚é

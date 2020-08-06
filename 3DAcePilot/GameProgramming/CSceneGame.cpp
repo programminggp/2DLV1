@@ -107,6 +107,10 @@ void CSceneGame::Update() {
 
 	//タスクマネージャの更新
 	TaskManager.Update();
+	//コリジョンマネージャの衝突処理
+	CollisionManager.Collision();
+	//タスクリストの削除
+	TaskManager.Delete();
 
 	//描画処理
 
@@ -122,11 +126,6 @@ void CSceneGame::Update() {
 	Camera.Set(e, c, u);
 	Camera.Render();
 
-	//コリジョンマネージャの衝突処理
-	CollisionManager.Collision();
-
-	//タスクリストの削除
-	TaskManager.Delete();
 	//タスクマネージャの描画
 	TaskManager.Render();
 
