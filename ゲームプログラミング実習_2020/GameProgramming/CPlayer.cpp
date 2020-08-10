@@ -21,9 +21,10 @@ void CPlayer::Update() {
 		mPosition = CVector(0.0f, 0.0f, 0.5f) * mMatrix;
 	}
 	//12
-	if (CKey::Push('K')) {
+	if (CKey::Push('K') && mVelovcityJump <= 0) {
+		mAudio.Play();
 		mVelovcityJump = JUMPV0;
-		Sound.Play();
+//		Sound.Play();
 	}
 	mVelovcityJump -= G;
 	mPosition = mPosition + CVector(0.0f, 1.0f, 0.0f) * mVelovcityJump;

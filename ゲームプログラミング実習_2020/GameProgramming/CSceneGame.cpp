@@ -24,7 +24,7 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
-	Sound.Load("jump.wav");
+//	Sound.Load("jump.wav");
 
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");

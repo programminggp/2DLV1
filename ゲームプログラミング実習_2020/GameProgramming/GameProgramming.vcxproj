@@ -106,6 +106,7 @@
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="CVector.cpp" />
+    <ClCompile Include="CXAudio2.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +136,7 @@
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CVector.h" />
+    <ClInclude Include="CXAudio2.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
