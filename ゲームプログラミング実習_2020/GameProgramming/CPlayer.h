@@ -5,12 +5,8 @@
 //06
 #include "CCollider.h"
 
-#include "CXAudio2.h"
-
 class CPlayer : public CCharacter {
 public:
-	CXAudio2 mAudio;
-	CXAudio2 mAudio2;
 	//12
 	float mVelovcityJump;
 	

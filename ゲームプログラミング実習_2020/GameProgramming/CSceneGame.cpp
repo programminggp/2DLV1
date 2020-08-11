@@ -16,7 +16,8 @@
 //
 #include "CSound.h"
 
-CSound Sound;
+CSound2 Sound;
+CSound2 Bgm;
 
 CSceneGame::~CSceneGame() {
 
@@ -24,7 +25,6 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
-//	Sound.Load("jump.wav");
 
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
@@ -54,6 +54,10 @@ void CSceneGame::Init() {
 	//13
 	std::shared_ptr<CTexture> grass(new CTexture("brick.tga"));
 	new CImage(grass, CVector(30.0f, 10.0f, 30.0f), CVector(-120.0f, 0.0f, 0.0f), CVector(10.0f, 20.0f, 1.0f));
+
+	Sound.Load("jump.wav");
+	Bgm.Load("mario.wav");
+	Bgm.Repeat();
 }
 
 

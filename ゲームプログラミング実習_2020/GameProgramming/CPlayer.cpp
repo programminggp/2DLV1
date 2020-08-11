@@ -7,7 +7,7 @@
 #define G (9.8f / 60.0f) //重力加速度
 #define JUMPV0 (4.0f)	//ジャンプ初速
 
-extern CSound Sound;
+extern CSound2 Sound;
 
 void CPlayer::Update() {
 	if (CKey::Push('A')) {
@@ -22,9 +22,8 @@ void CPlayer::Update() {
 	}
 	//12
 	if (CKey::Push('K') && mVelovcityJump <= 0) {
-		mAudio.Play();
+		Sound.Play();
 		mVelovcityJump = JUMPV0;
-//		Sound.Play();
 	}
 	mVelovcityJump -= G;
 	mPosition = mPosition + CVector(0.0f, 1.0f, 0.0f) * mVelovcityJump;
