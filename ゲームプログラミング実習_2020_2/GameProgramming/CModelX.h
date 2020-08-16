@@ -153,6 +153,7 @@ public:
 	void Render();
 	//頂点にアニメーション適用
 	void AnimateVertex(CModelX *model);
+	void AnimateVertex(CMatrix*);
 };
 
 
@@ -230,6 +231,7 @@ public:
 	void AnimateVertex();
 	//マテリアルの検索
 	CMaterial* FindMaterial(char* name);
+	void AnimateVertex(CMatrix*);
 
 };
 

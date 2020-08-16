@@ -22,6 +22,11 @@ void CSceneGame::Init() {
 	CRes::sModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
 	mPlayer.Init(&CRes::sModelX);
+	//敵の初期設定
+	mEnemy.Init(&CRes::sModelX);
+	//敵の配置
+	mEnemy.mPosition = CVector(7.0f, 0.0f, 0.0f);
+	mEnemy.mScale = CVector(1.0f, 1.0f, 1.0f);
 
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
@@ -37,6 +42,8 @@ void CSceneGame::Update() {
 
 	//キャラクタークラスの更新
 	mPlayer.Update();
+	//敵の更新
+	mEnemy.Update();
 
 //	//最初のアニメーションの現在時間を45にする
 //	CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
@@ -91,6 +98,8 @@ void CSceneGame::Update() {
 	//モデル描画
 //	CRes::sModelX.Render();
 	mPlayer.Render();
+	//敵描画
+	mEnemy.Render();
 
 	//テクスチャテスト
 //	CRes::sModelX.mMaterial[0]->mpTexture->DrawImage(-5, 5, -5, 5, 0, 128, 128, 0);
