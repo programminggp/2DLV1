@@ -16,6 +16,8 @@
 //
 #include "CSound.h"
 
+#include "CKey.h"
+
 CSound Sound;
 CSound Bgm;
 
@@ -62,6 +64,14 @@ void CSceneGame::Init() {
 
 
 void CSceneGame::Update() {
+	if (CKey::Push('B')) {
+		Bgm.Repeat();
+	}
+	if (CKey::Push('S')) {
+		Bgm.Stop();
+	}
+
+
 	//4
 	TaskManager.Update();
 	//06
