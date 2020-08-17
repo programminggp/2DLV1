@@ -16,8 +16,8 @@
 //
 #include "CSound.h"
 
-CSound2 Sound;
-CSound2 Bgm;
+CSound Sound;
+CSound Bgm;
 
 CSceneGame::~CSceneGame() {
 

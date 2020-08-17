@@ -7,7 +7,7 @@
 #define G (9.8f / 60.0f) //重力加速度
 #define JUMPV0 (4.0f)	//ジャンプ初速
 
-extern CSound2 Sound;
+extern CSound Sound;
 
 void CPlayer::Update() {
 	if (CKey::Push('A')) {
