@@ -4,6 +4,8 @@
 #include "CCharacter.h"
 //トランスフォームクラスのインクルード
 #include "CTransform.h"
+//
+#include "CXCharacter.h"
 /*
 コライダクラス
 衝突判定データ
@@ -28,12 +30,18 @@ public:
 	CVector mV[3];
 	CCharacter *mpParent;//親
 	float mRadius;	//半径
+	//25
+	//ボーンの合成行列のポインタ
+	CMatrix *mpCombinedMatrix;
 	//?
 	//デフォルトコンストラクタ
 	CCollider();
 	//コンストラクタ
 	//CCollider(親, 位置, 回転, 拡縮, 半径)
 	CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius);
+	////25
+	////CCollider(親, 位置, 回転, 拡縮, 半径, 合成行列)
+	//CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius, CMatrix *combined);
 	//コンストラクタ（三角コライダ）
 	//CCollider(親, 頂点1, 頂点2, 頂点3)
 	CCollider(CCharacter *parent, const CVector &v0, const CVector &v1, const CVector &v2);

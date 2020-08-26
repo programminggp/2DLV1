@@ -100,7 +100,7 @@ void CXCharacter::Render() {
 //更新処理
 void CXCharacter::Update() {
 	//変換行列の更新
-	CTransform::Update();
+	CCharacter::Update();
 	//アニメーションを更新する
 	Update(mMatrix);
 }

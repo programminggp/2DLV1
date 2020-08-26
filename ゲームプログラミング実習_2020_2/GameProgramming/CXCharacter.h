@@ -3,9 +3,9 @@
 
 #include "CModelX.h"
 #include "CMatrix.h"
-#include "CTransform.h"
+#include "CCharacter.h"
 
-class CXCharacter : public CTransform {
+class CXCharacter : public CCharacter {
 public:
 	CModelX *mpModel;	//モデルデータ
 	int mAnimationIndex;	//アニメーション番号

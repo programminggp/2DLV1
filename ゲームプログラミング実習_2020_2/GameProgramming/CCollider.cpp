@@ -20,6 +20,14 @@ CCollider::CCollider(CCharacter *parent, CVector position, CVector rotation, CVe
 	CollisionManager.Add(this);
 }
 
+////CCollider(親, 位置, 回転, 拡縮, 半径, 合成行列)
+//CCollider::CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius, CMatrix *combined)
+//: CCollider(parent, position, rotation, scale, radius)
+//{
+//	mpCombinedMatrix = combined;
+//}
+
+
 CCollider::~CCollider() {
 	//コリジョンリストから削除
 	CollisionManager.Remove(this);
@@ -31,7 +39,17 @@ void CCollider::Render() {
 	CMatrix m;
 
 	glPushMatrix();
-	glMultMatrixf((mMatrix * mpParent->mMatrix).mM[0]);
+
+	if (mpCombinedMatrix)
+	{
+		CVector pos = CVector() * mMatrix * *mpCombinedMatrix;
+		m.Translate(pos.mX, pos.mY, pos.mZ);
+		glMultMatrixf(m.mM[0]);
+	}
+	else
+	{
+		glMultMatrixf((mMatrix * mpParent->mMatrix).mM[0]);
+	}
 
 	//アルファブレンドを有効にする
 	glEnable(GL_BLEND);
@@ -91,6 +109,15 @@ bool CCollider::Collision(CCollider *m, CCollider *y) {
 	//原点×コライダの変換行列×親の変換行列
 	CVector mpos = CVector() * m->mMatrix * m->mpParent->mMatrix;
 	CVector ypos = CVector() * y->mMatrix * y->mpParent->mMatrix;
+
+	//ボーンの合成行列で求める
+	if (m->mpCombinedMatrix) {
+		mpos = CVector() * m->mMatrix * *m->mpCombinedMatrix;
+	}
+	if (y->mpCombinedMatrix) {
+		ypos = CVector() * y->mMatrix * *y->mpCombinedMatrix;
+	}
+
 	//中心から中心へのベクトルを求める
 	mpos = mpos - ypos;
 	//中心の距離が半径の合計より小さいと衝突
@@ -107,6 +134,7 @@ CCollider::CCollider()
 : mpParent(0)
 , mType(ESPHERE)
 , mTag(ENONE)
+, mpCombinedMatrix(0)
 {
 
 }
@@ -235,7 +263,15 @@ bool CCollider::CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a) 
 	//面の法線を、外積を正規化して求める
 	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
 
-	sv = s->mV[0] * s->mMatrix * s->mpParent->mMatrix + normal * s->mRadius;
+	//
+	if (s->mpCombinedMatrix)
+	{
+		sv = s->mV[0] * s->mMatrix * *s->mpCombinedMatrix + normal * s->mRadius;
+	}
+	else
+	{
+		sv = s->mV[0] * s->mMatrix * s->mpParent->mMatrix + normal * s->mRadius;
+	}
 	ev = sv - normal * s->mRadius * 2;
 
 	//三角の頂点から線分始点へのベクトルを求める

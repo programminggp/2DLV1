@@ -9,6 +9,8 @@
 #include "glut.h"
 #include <Windows.h>
 #include "CMaterial.h"
+//
+#include "CCollisionManager.h"
 
 CMatrix Matrix;
 
@@ -100,6 +102,8 @@ void CSceneGame::Update() {
 	mPlayer.Render();
 	//敵描画
 	mEnemy.Render();
+	//コライダの描画
+	CollisionManager.Render();
 
 	//テクスチャテスト
 //	CRes::sModelX.mMaterial[0]->mpTexture->DrawImage(-5, 5, -5, 5, 0, 128, 128, 0);
