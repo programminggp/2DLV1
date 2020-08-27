@@ -18,3 +18,32 @@ void CXEnemy::Init(CModelX *model)
 	//Œ•
 	mColSphereSword.mpCombinedMatrix = &mpCombinedMatrix[21];
 }
+
+void CXEnemy::Collision(CCollider *m, CCollider *y)
+{
+	switch (m->mType)
+	{
+	case CCollider::ESPHERE:
+		switch (y->mType)
+		{
+		case CCollider::ESPHERE:
+			if (CCollider::Collision(m, y))
+			{
+				switch (y->mpParent->mTag)
+				{
+				case EPLAYER:
+					switch (y->mTag)
+					{
+					case CCollider::ESWORD:
+						ChangeAnimation(11, false, 30);	//ƒ_ƒEƒ“
+						break;
+					}
+					break;
+				}
+			}
+			break;
+		}
+		break;
+	}
+}
+

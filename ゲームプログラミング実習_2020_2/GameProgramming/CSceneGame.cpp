@@ -46,6 +46,8 @@ void CSceneGame::Update() {
 	mPlayer.Update();
 	//敵の更新
 	mEnemy.Update();
+	//衝突処理
+	CollisionManager.Collision();
 
 //	//最初のアニメーションの現在時間を45にする
 //	CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;

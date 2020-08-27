@@ -9,16 +9,20 @@ CXPlayer::CXPlayer()
 , mColSphereSword(this, CVector(-10.0f, 10.0f, 50.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.3f)
 {
 	mScale = CVector(1.0f, 1.0f, 1.0f);
+	//タグにプレイヤーを設定します
+	mTag = EPLAYER;
 }
 
 void CXPlayer::Update() {
 	switch (mAnimationIndex) {
 	case 3:
+		mColSphereSword.mTag = CCollider::ESWORD;
 		if (mAnimationFrame >= mAnimationFrameSize) {
 			ChangeAnimation(4, false, 30);
 		}
 		break;
 	case 4:
+		mColSphereSword.mTag = CCollider::ENONE;
 		if (mAnimationFrame >= mAnimationFrameSize) {
 			ChangeAnimation(0, true, 60);
 		}
@@ -57,4 +61,5 @@ void CXPlayer::Init(CModelX *model)
 	mColSphereHead.mpCombinedMatrix = &mpCombinedMatrix[11];
 	//剣
 	mColSphereSword.mpCombinedMatrix = &mpCombinedMatrix[21];
+	mColSphereSword.mTag = CCollider::ENONE;
 }

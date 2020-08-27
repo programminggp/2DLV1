@@ -13,6 +13,8 @@ public:
 
 	CXEnemy();
 	void Init(CModelX *model);
+	//Õ“Ëˆ—
+	void Collision(CCollider *m, CCollider *y);
 };
 
 #endif

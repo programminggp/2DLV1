@@ -17,6 +17,7 @@ public:
 		ENONE,
 		EBODY,//機体
 		ESEARCH,//サーチ
+		ESWORD,	//剣
 	};
 	ETag mTag;
 	//コライダタイプ
