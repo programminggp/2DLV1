@@ -37,13 +37,13 @@ void CModel::Load(char *obj, char *mtl) {
 		sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
 		//先頭がnewmtlの時、マテリアルを追加する
 		if (strcmp(str[0], "newmtl") == 0) {
-			CMaterial material;
+			CMaterial *material = new CMaterial();
 			//スマートポインタの生成
-			std::shared_ptr<CTexture> t(new CTexture());
+//			std::shared_ptr<CTexture> t(new CTexture());
 			//スマートポインタの代入
-			material.mpTexture = t;
+//			material.mpTexture = t;
 			//マテリアル名のコピー
-			strncpy(material.mName, str[1], sizeof(material.mName) - 1);
+			strncpy(material->mName, str[1], sizeof(material->mName) - 1);
 			//マテリアルの可変長配列に追加
 			mMaterials.push_back(material);
 			//配列の長さを取得
@@ -51,17 +51,17 @@ void CModel::Load(char *obj, char *mtl) {
 		}
 		//先頭がKdの時、Diffuseを設定する
 		else if (strcmp(str[0], "Kd") == 0) {
-			mMaterials[idx].mDiffuse[0] = atof(str[1]);
-			mMaterials[idx].mDiffuse[1] = atof(str[2]);
-			mMaterials[idx].mDiffuse[2] = atof(str[3]);
+			mMaterials[idx]->mDiffuse[0] = atof(str[1]);
+			mMaterials[idx]->mDiffuse[1] = atof(str[2]);
+			mMaterials[idx]->mDiffuse[2] = atof(str[3]);
 		}
 		//先頭がdの時、α値を設定する
 		else if (strcmp(str[0], "d") == 0) {
-			mMaterials[idx].mDiffuse[3] = atof(str[1]);
+			mMaterials[idx]->mDiffuse[3] = atof(str[1]);
 		}
 		//先頭がmap_Kdの時、テクスチャを入力する
 		else if (strcmp(str[0], "map_Kd") == 0) {
-			mMaterials[idx].mpTexture->Load(str[1]);
+			mMaterials[idx]->SetTexture(str[1]);
 		}
 		//入力した値をコンソールに出力する
 		//		printf("%s", buf);
@@ -160,7 +160,7 @@ void CModel::Load(char *obj, char *mtl) {
 			//可変長配列を後から比較
 			for (idx = mMaterials.size() - 1; idx > 0;  idx--) {
 				//同じ名前のマテリアルがあればループ終了
-				if (strcmp(mMaterials[idx].mName, str[1]) == 0) {
+				if (strcmp(mMaterials[idx]->mName, str[1]) == 0) {
 					break;
 				}
 			}
@@ -226,7 +226,7 @@ void CModel::Load(char *obj, char *mtl) {
 			}
 		}
 		//頂点数を設定
-		mMaterials[i].mVertexNum = v / 3;
+		mMaterials[i]->mVertexNum = v / 3;
 	}
 }
 
@@ -235,11 +235,11 @@ void CModel::Render() {
 	//可変長配列の大きさだけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
 		//マテリアルの適用
-		mMaterials[mTriangles[i].mMaterialIdx].Enabled();
+		mMaterials[mTriangles[i].mMaterialIdx]->Enabled();
 		//可変長配列に添え字でアクセスする
 		mTriangles[i].Render();
 		//マテリアルを無効
-		mMaterials[mTriangles[i].mMaterialIdx].Disabled();
+		mMaterials[mTriangles[i].mMaterialIdx]->Disabled();
 	}
 }
 
@@ -268,13 +268,13 @@ void CModel::Render(const CMatrix &m) {
 	//マテリアル毎に描画する
 	for (int i = 0; i < mMaterials.size(); i++) {
 		//マテリアルを適用する
-		mMaterials[i].Enabled();
+		mMaterials[i]->Enabled();
 		//描画位置からのデータで三角形を描画します
-		glDrawArrays(GL_TRIANGLES, first, mMaterials[i].mVertexNum - first);
+		glDrawArrays(GL_TRIANGLES, first, mMaterials[i]->mVertexNum - first);
 		//マテリアルを無効にする
-		mMaterials[i].Disabled();
+		mMaterials[i]->Disabled();
 		//描画位置を移動
-		first = mMaterials[i].mVertexNum;
+		first = mMaterials[i]->mVertexNum;
 	}
 	//行列を戻す
 	glPopMatrix();
@@ -307,5 +307,10 @@ CModel::~CModel() {
 	if (mpTextureCoord) {
 		//テクスチャマッピング配列削除
 		delete[] mpTextureCoord;
+	}
+
+	for (int i = 0; i < mMaterials.size(); i++)
+	{
+		delete mMaterials[i];
 	}
 }

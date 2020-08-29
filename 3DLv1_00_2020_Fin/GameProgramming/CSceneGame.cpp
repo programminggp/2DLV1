@@ -41,7 +41,8 @@ CModel ModelEnemy;//エネミーモデル
 CModel ModelAirBase;//空軍基地モデル
 
 //スマートポインタの生成
-std::shared_ptr<CTexture> TextureExp(new CTexture());
+//std::shared_ptr<CTexture> TextureExp(new CTexture());
+CMaterial MaterialExp;
 
 CSceneGame::~CSceneGame() {
 	delete[] CEnemy::mPoint;
@@ -85,7 +86,8 @@ void CSceneGame::Init() {
 
 	//敵機の生成
 	//爆発テクスチャの読み込み
-	TextureExp->Load("exp.tga");
+	//TextureExp->Load("exp.tga");
+	MaterialExp.SetTexture("exp.tga");
 
 	//?
 //	mMap.mpModel = &BackGround;
@@ -141,7 +143,7 @@ void CSceneGame::Update() {
 	//タスクマネージャの描画
 	TaskManager.Render();
 	//コライダの描画
-//	CollisionManager.Render();
+	CollisionManager.Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

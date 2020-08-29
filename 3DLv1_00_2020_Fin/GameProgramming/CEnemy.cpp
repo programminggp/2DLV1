@@ -7,8 +7,7 @@
 #include "CBullet.h"
 
 //スマートポインタの外部参照
-extern std::shared_ptr<CTexture> TextureExp;
-
+extern CMaterial MaterialExp;
 //誘導ポイント
 CPoint *CEnemy::mPoint;
 int CEnemy::mPointSize = 0;
@@ -72,7 +71,7 @@ void CEnemy::Update() {
 		mHp--;
 		mRotation.mX = 20;
 		if (mHp % 10 == 0) {
-			new CEffect(mPosition, 1.5f, 1.5f, TextureExp, 4, 4, 2);
+			new CEffect(mPosition, 1.5f, 1.5f, &MaterialExp, 4, 4, 2);
 		}
 	}
 }
@@ -115,7 +114,7 @@ void CEnemy::Collision(CCollider *m, CCollider *y) {
 				default:
 					if (y->mTag == CCollider::EBODY) {
 						//エフェクト生成
-						new CEffect(mPosition, 1.0f, 1.0f, TextureExp, 4, 4, 1);
+ 						new CEffect(mPosition, 1.0f, 1.0f, &MaterialExp, 4, 4, 1);
 						//			mHp--;
 					}
 				}

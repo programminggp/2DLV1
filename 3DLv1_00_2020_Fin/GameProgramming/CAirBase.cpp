@@ -3,8 +3,7 @@
 //エフェクトクラスのインクルード
 #include "CEffect.h"
 //スマートポインタの外部参照
-extern std::shared_ptr<CTexture> TextureExp;
-
+extern CMaterial MaterialExp;
 
 //コンストラクタ
 //CAirBase(モデル, 位置, 回転, 拡縮)
@@ -31,7 +30,7 @@ void CAirBase::Collision(CCollider *m, CCollider *y) {
 			if (CCollider::Collision(m, y)) {
 				mDamage++;
 				//エフェクト生成
-				new CEffect(y->mPosition * y->mMatrix * y->mpParent->mMatrix, 5.0f, 5.0f, TextureExp, 4, 4, 1);
+				new CEffect(y->mPosition * y->mMatrix * y->mpParent->mMatrix, 5.0f, 5.0f, &MaterialExp, 4, 4, 1);
 			}
 		}
 	}

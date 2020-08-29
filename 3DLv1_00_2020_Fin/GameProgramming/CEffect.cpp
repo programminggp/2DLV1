@@ -1,9 +1,9 @@
 #include "CEffect.h"
 
-CEffect::CEffect(const CVector &pos, float w, float h, std::shared_ptr<CTexture> texture, int row, int col, int fps)
+CEffect::CEffect(const CVector &pos, float w, float h, CMaterial* pmaterial, int row, int col, int fps)
 : CBillBoard(pos, w, h), mRows(row), mCols(col), mFps(fps), mFrame(0)
 {
-	mMaterial.mpTexture = texture;
+	mpMaterial = pmaterial;
 //	ChangePriority(-1);
 }
 

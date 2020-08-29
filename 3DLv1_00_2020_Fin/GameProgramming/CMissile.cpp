@@ -3,7 +3,7 @@
 //エフェクトクラスのインクルード
 #include "CEffect.h"
 //スマートポインタの外部参照
-extern std::shared_ptr<CTexture> TextureExp;
+extern CMaterial MaterialExp;
 
 
 //コンストラクタ
@@ -33,7 +33,7 @@ void CMissile::Collision(CCollider *m, CCollider *y) {
 			if (CCollider::Collision(m, y)) {
 				if (y->mpParent->mTag != EPLAYER) {
 					//エフェクト生成
-					new CEffect(y->mPosition * y->mMatrix * y->mpParent->mMatrix, 5.0f, 5.0f, TextureExp, 4, 4, 1);
+					new CEffect(y->mPosition * y->mMatrix * y->mpParent->mMatrix, 5.0f, 5.0f, &MaterialExp, 4, 4, 1);
 					mEnabled = false;
 				}
 			}

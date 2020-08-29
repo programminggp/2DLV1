@@ -10,6 +10,7 @@ public:
 	//三角形2つ
 	CTriangle mT[2];
 	//マテリアル
+	CMaterial *mpMaterial;
 	CMaterial mMaterial;
 	//コンストラクタ
 	CBillBoard();

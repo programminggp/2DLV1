@@ -19,8 +19,9 @@ public:
 
 	//コンストラクタ
 	//CEffect(位置, 幅, 高さ, テクスチャ, 行数, 列数, フレーム数)
-	CEffect(const CVector &pos, float w, float h, std::shared_ptr<CTexture> texture, int row=1, int col=1, int fps=1);
-	//更新
+	//CEffect(const CVector &pos, float w, float h, CTexture* texture, int row=1, int col=1, int fps=1);
+	CEffect::CEffect(const CVector &pos, float w, float h, CMaterial* pmaterial, int row, int col, int fps);
+		//更新
 	void Update();
 };
 

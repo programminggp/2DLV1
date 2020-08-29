@@ -3,14 +3,19 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-CBillBoard::CBillBoard() {
+CBillBoard::CBillBoard()
+: mpMaterial(0)
+{
 }
 
-CBillBoard::CBillBoard(CVector pos, float w, float h) {
+CBillBoard::CBillBoard(CVector pos, float w, float h)
+: mpMaterial(0)
+{
 	Set(pos, w, h);
 }
 
-void CBillBoard::Set(CVector pos, float w, float h) {
+void CBillBoard::Set(CVector pos, float w, float h)
+{
 	//位置
 	mPosition = pos;
 	//大きさの設定
@@ -23,7 +28,10 @@ void CBillBoard::Set(CVector pos, float w, float h) {
 	mT[0].SetNormal(CVector(0.0f, 0.0f, 1.0f));
 	mT[1].SetNormal(CVector(0.0f, 0.0f, 1.0f));
 	//色を白色を設定
-	mMaterial.mDiffuse[0] = mMaterial.mDiffuse[1] = mMaterial.mDiffuse[2] = mMaterial.mDiffuse[3] = 1.0f;
+	if (mpMaterial)
+	{
+		mpMaterial->mDiffuse[0] = mpMaterial->mDiffuse[1] = mpMaterial->mDiffuse[2] = mpMaterial->mDiffuse[3] = 1.0f;
+	}
 }
 
 void CBillBoard::Update() {
@@ -45,14 +53,23 @@ void CBillBoard::Render() {
 	//ライトオフ
 	glDisable(GL_LIGHTING);
 	//描画色の設定
-	glColor4fv(mMaterial.mDiffuse);
+	if (mpMaterial)
+		glColor4fv(mpMaterial->mDiffuse);
+	else
+		glColor4fv(mMaterial.mDiffuse);
 	//マテリアル適用
-	mMaterial.Enabled();
+	if (mpMaterial)
+		mpMaterial->Enabled();
+	else
+		mMaterial.Enabled();
 	//三角形の描画
 	mT[0].Render();
 	mT[1].Render();
 	//マテリアル解除
-	mMaterial.Disabled();
+	if (mpMaterial)
+		mpMaterial->Disabled();
+	else
+		mMaterial.Disabled();
 	//ライトオン
 	glEnable(GL_LIGHTING);
 	//行列を戻す

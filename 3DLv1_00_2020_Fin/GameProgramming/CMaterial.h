@@ -14,17 +14,20 @@ public:
 	char mName[64];
 	//拡散光の色RGBA
 	float mDiffuse[4];
-	//テクスチャのスマートポインタ
-	std::shared_ptr<CTexture> mpTexture;
+	//テクスチャのポインタ
+	CTexture *mpTexture;
 	//マテリアル毎の頂点数
 	int mVertexNum;
 
 	//デフォルトコンストラクタ
 	CMaterial();
+	~CMaterial();
 	//マテリアルを有効にする
 	void Enabled();
 	//マテリアルを無効にする
 	void Disabled();
+	//
+	void SetTexture(char *file);
 };
 
 #endif
