@@ -20,7 +20,8 @@ public:
 	std::vector<CMaterial> mMaterials;
 	//頂点配列
 //	float *mpVertex; //頂点座標
-	CVertex *mpVertex; //頂点座標
+//	CVertex *mpVertex; //頂点座標
+	std::vector<CVertex> mVertex;
 	float *mpNormal; //法線
 	float *mpTextureCoord; //テクスチャマッピング
 	//デフォルトコンストラクタ

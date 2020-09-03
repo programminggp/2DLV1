@@ -181,7 +181,7 @@ void CModel::Load(char *obj, char *mtl) {
 
 	//頂点配列の作成
 	//全ての座標の値を順番に保存する
-	mpVertex = new CVertex[mTriangles.size() * 3];
+//	mpVertex = new CVertex[mTriangles.size() * 3];
 	//全ての法線の値を順番に保存する
 //	mpNormal = new float[mTriangles.size() * 9];
 	//全てのテクスチャマッピングの値を順番に保存する
@@ -194,34 +194,39 @@ void CModel::Load(char *obj, char *mtl) {
 		for (int j = 0; j < mTriangles.size(); j++) {
 			//マテリアル番号が一致する時
 			if (i == mTriangles[j].mMaterialIdx) {
+				CVertex vertex;
 				//頂点配列に設定する
 				//頂点座標
-				mpVertex[v].mPosition.mX = mTriangles[j].mV[0].mX;
-				mpVertex[v].mPosition.mY = mTriangles[j].mV[0].mY;
-				mpVertex[v].mPosition.mZ = mTriangles[j].mV[0].mZ;
-				mpVertex[v].mNormal.mX = mTriangles[j].mN[0].mX;
-				mpVertex[v].mNormal.mY = mTriangles[j].mN[0].mY;
-				mpVertex[v].mNormal.mZ = mTriangles[j].mN[0].mZ;
-				mpVertex[v].mTexCoord[0] = mTriangles[j].mUv[0].mX;
-				mpVertex[v++].mTexCoord[1] = mTriangles[j].mUv[0].mY;
+				vertex.mPosition.mX = mTriangles[j].mV[0].mX;
+				vertex.mPosition.mY = mTriangles[j].mV[0].mY;
+				vertex.mPosition.mZ = mTriangles[j].mV[0].mZ;
+				vertex.mNormal.mX = mTriangles[j].mN[0].mX;
+				vertex.mNormal.mY = mTriangles[j].mN[0].mY;
+				vertex.mNormal.mZ = mTriangles[j].mN[0].mZ;
+				vertex.mTexCoord[0] = mTriangles[j].mUv[0].mX;
+				vertex.mTexCoord[1] = mTriangles[j].mUv[0].mY;
+				mVertex.push_back(vertex);
 
-				mpVertex[v].mPosition.mX = mTriangles[j].mV[1].mX;
-				mpVertex[v].mPosition.mY = mTriangles[j].mV[1].mY;
-				mpVertex[v].mPosition.mZ = mTriangles[j].mV[1].mZ;
-				mpVertex[v].mNormal.mX = mTriangles[j].mN[1].mX;
-				mpVertex[v].mNormal.mY = mTriangles[j].mN[1].mY;
-				mpVertex[v].mNormal.mZ = mTriangles[j].mN[1].mZ;
-				mpVertex[v].mTexCoord[0] = mTriangles[j].mUv[1].mX;
-				mpVertex[v++].mTexCoord[1] = mTriangles[j].mUv[1].mY;
+				vertex.mPosition.mX = mTriangles[j].mV[1].mX;
+				vertex.mPosition.mY = mTriangles[j].mV[1].mY;
+				vertex.mPosition.mZ = mTriangles[j].mV[1].mZ;
+				vertex.mNormal.mX = mTriangles[j].mN[1].mX;
+				vertex.mNormal.mY = mTriangles[j].mN[1].mY;
+				vertex.mNormal.mZ = mTriangles[j].mN[1].mZ;
+				vertex.mTexCoord[0] = mTriangles[j].mUv[1].mX;
+				vertex.mTexCoord[1] = mTriangles[j].mUv[1].mY;
+				mVertex.push_back(vertex);
 
-				mpVertex[v].mPosition.mX = mTriangles[j].mV[2].mX;
-				mpVertex[v].mPosition.mY = mTriangles[j].mV[2].mY;
-				mpVertex[v].mPosition.mZ = mTriangles[j].mV[2].mZ;
-				mpVertex[v].mNormal.mX = mTriangles[j].mN[2].mX;
-				mpVertex[v].mNormal.mY = mTriangles[j].mN[2].mY;
-				mpVertex[v].mNormal.mZ = mTriangles[j].mN[2].mZ;
-				mpVertex[v].mTexCoord[0] = mTriangles[j].mUv[2].mX;
-				mpVertex[v++].mTexCoord[1] = mTriangles[j].mUv[2].mY;
+				vertex.mPosition.mX = mTriangles[j].mV[2].mX;
+				vertex.mPosition.mY = mTriangles[j].mV[2].mY;
+				vertex.mPosition.mZ = mTriangles[j].mV[2].mZ;
+				vertex.mNormal.mX = mTriangles[j].mN[2].mX;
+				vertex.mNormal.mY = mTriangles[j].mN[2].mY;
+				vertex.mNormal.mZ = mTriangles[j].mN[2].mZ;
+				vertex.mTexCoord[0] = mTriangles[j].mUv[2].mX;
+				vertex.mTexCoord[1] = mTriangles[j].mUv[2].mY;
+				mVertex.push_back(vertex);
+				v += 3;
 			}
 		}
 		//頂点数を設定
@@ -257,11 +262,11 @@ void CModel::Render(const CMatrix &m) {
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	//頂点座標の配列を指定する
-	glVertexPointer(3, GL_FLOAT, sizeof(CVertex), mpVertex);
+	glVertexPointer(3, GL_FLOAT, sizeof(CVertex), &mVertex[0]);
 	//法線の配列を指定する
-	glNormalPointer(GL_FLOAT, sizeof(CVertex), (void*)(&mpVertex[0].mNormal));
+	glNormalPointer(GL_FLOAT, sizeof(CVertex), (void*)(&mVertex[0].mNormal));
 	//テクスチャコードの配列を指定する
-	glTexCoordPointer(2, GL_FLOAT, sizeof(CVertex), (void*)(mpVertex[0].mTexCoord));
+	glTexCoordPointer(2, GL_FLOAT, sizeof(CVertex), (void*)(mVertex[0].mTexCoord));
 
 	int first = 0; //描画位置
 	//マテリアル毎に描画する
@@ -290,15 +295,15 @@ void CModel::Render(const CMatrix &m) {
 
 //デフォルトコンストラクタ
 CModel::CModel()
-: mpVertex(0), mpNormal(0), mpTextureCoord(0)
+: mpNormal(0), mpTextureCoord(0)
 {
 }
 //デストラクタ
 CModel::~CModel() {
-	if (mpVertex) {
-		//頂点座標配列削除
-		delete[] mpVertex;
-	}
+	//if (mpVertex) {
+	//	//頂点座標配列削除
+	//	delete[] mpVertex;
+	//}
 	if (mpNormal) {
 		//法線配列削除
 		delete[] mpNormal;

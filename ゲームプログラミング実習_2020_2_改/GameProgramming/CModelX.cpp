@@ -35,6 +35,7 @@ void CModelX::Load(char *file) {
 
 //	printf("%s", buf);
 	//文字列の最後まで繰り返し
+	mpPointer = buf;
 	while (*mpPointer != '\0') {
 		GetToken();	//単語の取得
 		//template 読み飛ばし
@@ -45,20 +46,50 @@ void CModelX::Load(char *file) {
 		else if (strcmp(mToken, "Material") == 0) {
 			new CMaterial(this);
 		}
+	}
+	mpPointer = buf;
+	while (*mpPointer != '\0') {
+		GetToken();	//単語の取得
+		//template 読み飛ばし
+		if (strcmp(mToken, "template") == 0) {
+			SkipNode();
+		}
 		//単語がFrameの場合
 		else if (strcmp(mToken, "Frame") == 0) {
 			//フレームを作成する
 			new CModelXFrame(this);
+		}
+	}
+	mpPointer = buf;
+	while (*mpPointer != '\0') {
+		GetToken();	//単語の取得
+		//template 読み飛ばし
+		if (strcmp(mToken, "template") == 0) {
+			SkipNode();
 		}
 		//単語がAnimationSetの場合
 		else if (strcmp(mToken, "AnimationSet") == 0) {
 			new CAnimationSet(this);
 		}
 	}
+	mpPointer = buf;
+	while (*mpPointer != '\0') {
+		GetToken();	//単語の取得
+		//template 読み飛ばし
+		if (strcmp(mToken, "template") == 0) {
+			SkipNode();
+		}
+		//Material の時
+		else if (strcmp(mToken, "Mesh") == 0) {
+			CMesh *m = new CMesh();
+			m->Init(this);
+			mMesh.push_back(m);
+		}
+	}
 
 	SAFE_DELETE_ARRAY(buf);	//確保した領域を開放する
 	//スキンウェイトのフレーム番号設定
-	SetSkinWeightFrameIndex();
+//	SetSkinWeightFrameIndex();
 
 }
 
@@ -166,7 +197,7 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 			model->GetToken(); // }
 		}
 		else if (strcmp(model->mToken, "Mesh") == 0) {
-			mMesh.Init(model);
+//			mMesh.Init(model);
 		}
 		else {
 			//上記以外の要素は読み飛ばす
@@ -219,6 +250,10 @@ void CMesh::Init(CModelX *model) {
 		mpVertex[i].mX = model->GetFloatToken();
 		mpVertex[i].mY = model->GetFloatToken();
 		mpVertex[i].mZ = model->GetFloatToken();
+		//m
+		CVertex vertex;
+		vertex.mPosition = mpVertex[i];
+		mVertex.push_back(vertex);
 	}
 
 #ifdef _DEBUG
@@ -267,12 +302,18 @@ void CMesh::Init(CModelX *model) {
 				model->GetToken(); // 3
 				ni = model->GetIntToken();
 				mpNormal[i] = pNormal[ni];
+				//m
+				mVertex[mpVertexIndex[i]].mNormal = pNormal[ni];
 
-				ni = model->GetIntToken();
+ 				ni = model->GetIntToken();
 				mpNormal[i + 1] = pNormal[ni];
+				//m
+				mVertex[mpVertexIndex[i + 1]].mNormal = pNormal[ni];
 
 				ni = model->GetIntToken();
 				mpNormal[i + 2] = pNormal[ni];
+				//m
+				mVertex[mpVertexIndex[i + 2]].mNormal = pNormal[ni];
 			}
 			delete[] pNormal;
 			model->GetToken();	// }
@@ -307,8 +348,46 @@ void CMesh::Init(CModelX *model) {
 		}
 		//SkinWeightsのとき
 		else if (strcmp(model->mToken, "SkinWeights") == 0) {
+			CSkinWeights *s = new CSkinWeights(model);
+			s->mFrameIndex = model->FindFrame(s->mpFrameName)->mIndex;
 			//CSkinWeightsクラスのインスタンスを作成し、配列に追加
-			mSkinWeights.push_back(new CSkinWeights(model));
+			mSkinWeights.push_back(s);
+			for (int i = 0; i < s->mIndexNum; i++)
+			{
+				if (mVertex[s->mpIndex[i]].mBoneIndex[0] == 0.0f &&
+					mVertex[s->mpIndex[i]].mBoneWeight[0] == 1.0f)
+				{
+					mVertex[s->mpIndex[i]].mBoneIndex[0] = s->mFrameIndex;
+					mVertex[s->mpIndex[i]].mBoneWeight[0] = s->mpWeight[i];
+				}
+				else
+				{
+					int j;
+					for (j = 3; j >= 0; j--)
+					{
+						if (mVertex[s->mpIndex[i]].mBoneWeight[j] < s->mpWeight[i]) {
+							mVertex[s->mpIndex[i]].mBoneWeight[j] =
+								mVertex[s->mpIndex[i]].mBoneWeight[j - 1];
+							mVertex[s->mpIndex[i]].mBoneIndex[j] =
+								mVertex[s->mpIndex[i]].mBoneIndex[j - 1];
+						}
+						else
+						{
+							if (j != 3)
+							{
+								mVertex[s->mpIndex[i]].mBoneWeight[j + 1] = s->mpWeight[i];
+								mVertex[s->mpIndex[i]].mBoneIndex[j + 1] = s->mFrameIndex;
+							}
+							break;
+						}
+					}
+					if (j < 0) 
+					{
+						mVertex[s->mpIndex[i]].mBoneIndex[0] = s->mFrameIndex;
+						mVertex[s->mpIndex[i]].mBoneWeight[0] = s->mpWeight[i];
+					}
+				}
+			}
 		}
 		//テクスチャ座標の時
 		else if (strcmp(model->mToken, "MeshTextureCoords") == 0) {
@@ -319,6 +398,11 @@ void CMesh::Init(CModelX *model) {
 			mpTextureCoords = new float[textureCoordsNum];
 			for (int i = 0; i < textureCoordsNum; i++) {
 				mpTextureCoords[i] = model->GetFloatToken();
+				mpTextureCoords[++i] = model->GetFloatToken();
+
+				//m
+				mVertex[i / 2].mTexCoord[0] = mpTextureCoords[i - 1];
+				mVertex[i / 2].mTexCoord[1] = mpTextureCoords[i];
 			}
 			model->GetToken();	// }
 		}

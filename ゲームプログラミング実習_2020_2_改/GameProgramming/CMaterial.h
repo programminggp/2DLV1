@@ -4,8 +4,8 @@
 #include "CTexture.h"
 //shared_ptrのインクルード
 #include <memory>
-//
-#include "CModelX.h"
+
+class CModelX;
 
 /*
 マテリアルクラス

@@ -77,7 +77,8 @@ void CSceneGame::Init() {
 	//キャラクタの設定
 	Player.mpModel = &Model;
 	//スケールを0.2倍を変更
-	Player.mScale = CVector(0.2f, 0.2f, 0.2f);
+//	Player.mScale = CVector(0.2f, 0.2f, 0.2f);
+	Player.mScale = CVector(1.0f, 1.0f, 1.0f);
 	//位置(0.0, 0.0, 55.0)にする
 	Player.mPosition = CVector(-19.5f, 1.0f, -55.0f);
 
@@ -124,7 +125,8 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(-2.0f, 10.0f, -30.0f) * Player.mMatrix;
+//	e = CVector(-2.0f, 10.0f, -30.0f) * Player.mMatrix;
+	e = CVector(-2.0f, 10.0f, -30.0f) + Player.mPosition;
 	//注視点を求める
 	c = Player.mPosition;
 	//上方向を求める

@@ -12,10 +12,13 @@
 #include <vector>	//vectorクラスのインクルード（動的配列）
 #include "CMatrix.h"	//マトリクスクラスのインクルード
 #include "CVector.h"
+
 //09
 class CMaterial;
 
 class CModelX;	// CModelXクラスの宣言
+
+class CModel;
 /*
 CAnimationKey
 アニメーションキークラス
@@ -93,9 +96,10 @@ public:
 		SAFE_DELETE_ARRAY(mpWeight);
 	}
 };
-
+//class CModel;
+#include "CModel.h"
 //CMeshクラスの定義
-class CMesh {
+class CMesh : CModel {
 public:
 	int mVertexNum;	//頂点数
 	CVector *mpVertex;	//頂点データ
@@ -197,6 +201,7 @@ public:
 	//アニメーションセットの配列
 	std::vector<CAnimationSet*> mAnimationSet;
 	std::vector<CMaterial*> mMaterial;	//マテリアルの配列
+	std::vector<CMesh*> mMesh;
 
 	CModelX() 
 		: mpPointer(0)
@@ -210,6 +215,9 @@ public:
 		//マテリアルの解放
 		for (int i = 0; i < mMaterial.size(); i++) {
 			delete mMaterial[i];
+		}
+		for (int i = 0; i < mMesh.size(); i++) {
+			delete mMesh[i];
 		}
 	}
 	//ファイル読み込み
