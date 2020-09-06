@@ -196,9 +196,9 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 			}
 			model->GetToken(); // }
 		}
-		else if (strcmp(model->mToken, "Mesh") == 0) {
+//		else if (strcmp(model->mToken, "Mesh") == 0) {
 //			mMesh.Init(model);
-		}
+//		}
 		else {
 			//上記以外の要素は読み飛ばす
 			model->SkipNode();
@@ -235,6 +235,7 @@ Init
 Meshのデータを取り込む
 */
 void CMesh::Init(CModelX *model) {
+	mpModel = model;
 	model->GetToken();	// { or 名前
 	if (!strchr(model->mToken, '{')) {
 		//名前の場合、次が{
@@ -243,17 +244,17 @@ void CMesh::Init(CModelX *model) {
 	//頂点数の取得
 	mVertexNum = model->GetIntToken();
 	//頂点数分エリア確保
-	mpVertex = new CVector[mVertexNum];
+	mpVertex = new CVertex[mVertexNum];
 	mpAnimateVertex = new CVector[mVertexNum];
 	//頂点数分データを取り込む
 	for (int i = 0; i < mVertexNum; i++) {
-		mpVertex[i].mX = model->GetFloatToken();
-		mpVertex[i].mY = model->GetFloatToken();
-		mpVertex[i].mZ = model->GetFloatToken();
+		mpVertex[i].mPosition.mX = model->GetFloatToken();
+		mpVertex[i].mPosition.mY = model->GetFloatToken();
+		mpVertex[i].mPosition.mZ = model->GetFloatToken();
 		//m
-		CVertex vertex;
-		vertex.mPosition = mpVertex[i];
-		mVertex.push_back(vertex);
+		//CVertex vertex;
+		//vertex.mPosition = mpVertex[i];
+		//mVertex.push_back(vertex);
 	}
 
 #ifdef _DEBUG
@@ -303,17 +304,17 @@ void CMesh::Init(CModelX *model) {
 				ni = model->GetIntToken();
 				mpNormal[i] = pNormal[ni];
 				//m
-				mVertex[mpVertexIndex[i]].mNormal = pNormal[ni];
+				mpVertex[mpVertexIndex[i]].mNormal = pNormal[ni];
 
  				ni = model->GetIntToken();
 				mpNormal[i + 1] = pNormal[ni];
 				//m
-				mVertex[mpVertexIndex[i + 1]].mNormal = pNormal[ni];
+				mpVertex[mpVertexIndex[i + 1]].mNormal = pNormal[ni];
 
 				ni = model->GetIntToken();
 				mpNormal[i + 2] = pNormal[ni];
 				//m
-				mVertex[mpVertexIndex[i + 2]].mNormal = pNormal[ni];
+				mpVertex[mpVertexIndex[i + 2]].mNormal = pNormal[ni];
 			}
 			delete[] pNormal;
 			model->GetToken();	// }
@@ -334,13 +335,14 @@ void CMesh::Init(CModelX *model) {
 			for (int i = 0; i < mMaterialNum; i++) {
 				model->GetToken();	// Material
 				if (strcmp(model->mToken, "Material") == 0) {
-					mMaterial.push_back(new CMaterial(model));
+					CMaterial *m = new CMaterial(model);
+					mMaterials.push_back(*m);
 				}
 				else {
 					// {  既出
 					model->GetToken();	//MaterialName
-					mMaterial.push_back(
-						model->FindMaterial(model->mToken));
+					mMaterials.push_back(
+						*model->FindMaterial(model->mToken));
 					model->GetToken();	// }
 				}
 			}
@@ -354,37 +356,37 @@ void CMesh::Init(CModelX *model) {
 			mSkinWeights.push_back(s);
 			for (int i = 0; i < s->mIndexNum; i++)
 			{
-				if (mVertex[s->mpIndex[i]].mBoneIndex[0] == 0.0f &&
-					mVertex[s->mpIndex[i]].mBoneWeight[0] == 1.0f)
+				if (mpVertex[s->mpIndex[i]].mBoneIndex[0] == 0.0f &&
+					mpVertex[s->mpIndex[i]].mBoneWeight[0] == 1.0f)
 				{
-					mVertex[s->mpIndex[i]].mBoneIndex[0] = s->mFrameIndex;
-					mVertex[s->mpIndex[i]].mBoneWeight[0] = s->mpWeight[i];
+					mpVertex[s->mpIndex[i]].mBoneIndex[0] = s->mFrameIndex;
+					mpVertex[s->mpIndex[i]].mBoneWeight[0] = s->mpWeight[i];
 				}
 				else
 				{
 					int j;
 					for (j = 3; j >= 0; j--)
 					{
-						if (mVertex[s->mpIndex[i]].mBoneWeight[j] < s->mpWeight[i]) {
-							mVertex[s->mpIndex[i]].mBoneWeight[j] =
-								mVertex[s->mpIndex[i]].mBoneWeight[j - 1];
-							mVertex[s->mpIndex[i]].mBoneIndex[j] =
-								mVertex[s->mpIndex[i]].mBoneIndex[j - 1];
+						if (mpVertex[s->mpIndex[i]].mBoneWeight[j] < s->mpWeight[i]) {
+							mpVertex[s->mpIndex[i]].mBoneWeight[j] =
+								mpVertex[s->mpIndex[i]].mBoneWeight[j - 1];
+							mpVertex[s->mpIndex[i]].mBoneIndex[j] =
+								mpVertex[s->mpIndex[i]].mBoneIndex[j - 1];
 						}
 						else
 						{
 							if (j != 3)
 							{
-								mVertex[s->mpIndex[i]].mBoneWeight[j + 1] = s->mpWeight[i];
-								mVertex[s->mpIndex[i]].mBoneIndex[j + 1] = s->mFrameIndex;
+								mpVertex[s->mpIndex[i]].mBoneWeight[j + 1] = s->mpWeight[i];
+								mpVertex[s->mpIndex[i]].mBoneIndex[j + 1] = s->mFrameIndex;
 							}
 							break;
 						}
 					}
 					if (j < 0) 
 					{
-						mVertex[s->mpIndex[i]].mBoneIndex[0] = s->mFrameIndex;
-						mVertex[s->mpIndex[i]].mBoneWeight[0] = s->mpWeight[i];
+						mpVertex[s->mpIndex[i]].mBoneIndex[0] = s->mFrameIndex;
+						mpVertex[s->mpIndex[i]].mBoneWeight[0] = s->mpWeight[i];
 					}
 				}
 			}
@@ -401,8 +403,8 @@ void CMesh::Init(CModelX *model) {
 				mpTextureCoords[++i] = model->GetFloatToken();
 
 				//m
-				mVertex[i / 2].mTexCoord[0] = mpTextureCoords[i - 1];
-				mVertex[i / 2].mTexCoord[1] = mpTextureCoords[i];
+				mpVertex[i / 2].mTexCoord[0] = mpTextureCoords[i - 1];
+				mpVertex[i / 2].mTexCoord[1] = mpTextureCoords[i];
 			}
 			model->GetToken();	// }
 		}
@@ -410,6 +412,25 @@ void CMesh::Init(CModelX *model) {
 			//以外のノードは読み飛ばし
 			model->SkipNode();
 		}
+	}
+	//int i = 0;
+	//for (int m = 0; m < mMaterialNum; m++)
+	//{
+	//	for (int mi = 0; mi < mMaterialIndexNum; mi++)
+	//	{
+	//		if (mpMaterialIndex[mi] == m)
+	//		{
+	//			mVertex.push_back(mpVertex[mi * 3]);
+	//			mVertex.push_back(mpVertex[mi * 3 + 1]);
+	//			mVertex.push_back(mpVertex[mi * 3 + 2]);
+	//			i += 3;
+	//		}
+	//	}
+	//	mMaterials[m].mVertexNum = i;
+	//}
+	for (int i = 0; i < mFaceNum * 3; i++)
+	{
+		mVertex.push_back(mpVertex[mpVertexIndex[i]]);
 	}
 
 #ifdef _DEBUG
@@ -426,6 +447,8 @@ Render
 画面に描画する
 */
 void CMesh::Render() {
+	CModel::Render(CMatrix());
+	return;
 	/* 頂点データ，法線データの配列を有効にする */
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -439,10 +462,10 @@ void CMesh::Render() {
 	/* 頂点のインデックスの場所を指定して図形を描画する */
 	for (int i = 0; i < mFaceNum; i++) {
 		//マテリアルを適用する
-		mMaterial[mpMaterialIndex[i]]->Enabled();
+		mMaterials[mpMaterialIndex[i]].Enabled();
 		glDrawElements(GL_TRIANGLES, 3,
 			GL_UNSIGNED_INT, (mpVertexIndex + i * 3));
-		mMaterial[mpMaterialIndex[i]]->Disabled();
+		mMaterials[mpMaterialIndex[i]].Disabled();
 	}
 	//glDrawElements(GL_TRIANGLES, 3 * mFaceNum,
 	//	GL_UNSIGNED_INT, mpVertexIndex);
@@ -456,16 +479,21 @@ Render
 メッシュの面数が0以外なら描画する
 */
 void CModelXFrame::Render() {
-	if (mMesh.mFaceNum != 0)
-		mMesh.Render();
+//	if (mMesh.mFaceNum != 0)
+//		mMesh.Render();
 }
 /*
 Render
 全てのフレームの描画処理を呼び出す
 */
 void CModelX::Render() {
-	for (int i = 0; i < mFrame.size(); i++) {
-		mFrame[i]->Render();
+	//for (int i = 0; i < mFrame.size(); i++) {
+	//	mFrame[i]->Render();
+	//}
+	for (int i = 0; i < mMesh.size(); i++)
+	{
+//		mMesh[i]->AnimateVertex(this);
+		mMesh[i]->Render();
 	}
 }
 /*
@@ -775,18 +803,18 @@ SetSkinWeightFrameIndex
 */
 void CModelX::SetSkinWeightFrameIndex() {
 	//フレーム数分繰り返し
-	for (int i = 0; i < mFrame.size(); i++) {
-		//メッシュに面があれば
-		if (mFrame[i]->mMesh.mFaceNum > 0) {
-			//スキンウェイト分繰り返し
-			for (int j = 0; j < mFrame[i]->mMesh.mSkinWeights.size(); j++) {
-				//フレーム名のフレームを取得する
-				CModelXFrame* frame = FindFrame(mFrame[i]->mMesh.mSkinWeights[j]->mpFrameName);
-				//フレーム番号を設定する
-				mFrame[i]->mMesh.mSkinWeights[j]->mFrameIndex = frame->mIndex;
-			}
-		}
-	}
+	//for (int i = 0; i < mFrame.size(); i++) {
+	//	//メッシュに面があれば
+	//	if (mFrame[i]->mMesh.mFaceNum > 0) {
+	//		//スキンウェイト分繰り返し
+	//		for (int j = 0; j < mFrame[i]->mMesh.mSkinWeights.size(); j++) {
+	//			//フレーム名のフレームを取得する
+	//			CModelXFrame* frame = FindFrame(mFrame[i]->mMesh.mSkinWeights[j]->mpFrameName);
+	//			//フレーム番号を設定する
+	//			mFrame[i]->mMesh.mSkinWeights[j]->mFrameIndex = frame->mIndex;
+	//		}
+	//	}
+	//}
 }
 /* AnimateVertex 頂点にアニメーションを適用 */
 void CMesh::AnimateVertex(CModelX *model) {
@@ -806,8 +834,10 @@ void CMesh::AnimateVertex(CModelX *model) {
 			//重み取得
 			float weight = mSkinWeights[i]->mpWeight[j];
 			//頂点と法線を更新する
-			mpAnimateVertex[index] += mpVertex[index] * mSkinningMatrix * weight;
-			mpAnimateNormal[index] += mpNormal[index] * mSkinningMatrix * weight;
+			//mpAnimateVertex[index] += mpVertex[index] * mSkinningMatrix * weight;
+			//mpAnimateNormal[index] += mpNormal[index] * mSkinningMatrix * weight;
+			mpAnimateVertex[index] += mVertex[index].mPosition * mSkinningMatrix * weight;
+			mpAnimateNormal[index] += mVertex[index].mNormal * mSkinningMatrix * weight;
 		}
 	}
 	//法線を正規化する
@@ -821,13 +851,13 @@ AnimateVertex
 */
 void CModelX::AnimateVertex() {
 	//フレーム数分繰り返し
-	for (int i = 0; i < mFrame.size(); i++) {
-		//メッシュに面があれば
-		if (mFrame[i]->mMesh.mFaceNum > 0) {
-			//頂点をアニメーションで更新する
-			mFrame[i]->mMesh.AnimateVertex(this);
-		}
-	}
+	//for (int i = 0; i < mFrame.size(); i++) {
+	//	//メッシュに面があれば
+	//	if (mFrame[i]->mMesh.mFaceNum > 0) {
+	//		//頂点をアニメーションで更新する
+	//		mFrame[i]->mMesh.AnimateVertex(this);
+	//	}
+	//}
 }
 /*
 FindMaterial
@@ -848,17 +878,93 @@ CMaterial* CModelX::FindMaterial(char* name) {
 }
 
 void CModelX::AnimateVertex(CMatrix *mat) {
-	//フレーム数分繰り返し
-	for (int i = 0; i < mFrame.size(); i++) {
-		//メッシュに面があれば
-		if (mFrame[i]->mMesh.mFaceNum > 0) {
-			//頂点をアニメーションで更新する
-			mFrame[i]->mMesh.AnimateVertex(mat);
-		}
+	////フレーム数分繰り返し
+	//for (int i = 0; i < mFrame.size(); i++) {
+	//	//メッシュに面があれば
+	//	if (mFrame[i]->mMesh.mFaceNum > 0) {
+	//		//頂点をアニメーションで更新する
+	//		mFrame[i]->mMesh.AnimateVertex(mat);
+	//	}
+	//}
+	for (int i = 0; i < mMesh.size(); i++)
+	{
+		mMesh[i]->AnimateVertex(mat);
 	}
 }
 
 void CMesh::AnimateVertex(CMatrix *mat) {
+	CMatrix *skinMatrix = new CMatrix[mpModel->mFrame.size()];
+	for (int i = 0; i < mpModel->mFrame.size(); i++)
+	{
+		skinMatrix[i] = mat[i];
+	}
+	for (int i = 0; i < mSkinWeights.size(); i++)
+	{
+		skinMatrix[mSkinWeights[i]->mFrameIndex] = mSkinWeights[i]->mOffset * skinMatrix[mSkinWeights[i]->mFrameIndex];
+	}
+	int i = 0;
+	for (int m = 0; m < mMaterials.size(); m++)
+	{
+		for (int mi = 0; mi < mMaterialIndexNum ; mi++)
+		{
+			if (mpMaterialIndex[mi] == m)
+			{
+				int vi = mi * 3;
+				mVertex[i].mPosition =
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3];
+				mVertex[i].mNormal =
+					mpVertex[mpVertexIndex[vi]].mNormal * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3];
+				mVertex[i].mNormal = mVertex[i].mNormal.Normalize();
+				vi++;
+				i++;
+				mVertex[i].mPosition =
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3];
+				mVertex[i].mNormal =
+					mpVertex[mpVertexIndex[vi]].mNormal * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3];
+				mVertex[i].mNormal = mVertex[i].mNormal.Normalize();
+				vi++;
+				i++;
+				mVertex[i].mPosition =
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] +
+					mpVertex[mpVertexIndex[vi]].mPosition * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3];
+				mVertex[i].mNormal =
+					mpVertex[mpVertexIndex[vi]].mNormal * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[0]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[0] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[1]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[1] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[2]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[2] +
+					mpVertex[mpVertexIndex[i]].mNormal * skinMatrix[(int)mVertex[i].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3] -
+					CVector() * skinMatrix[(int)mpVertex[mpVertexIndex[vi]].mBoneIndex[3]] * mpVertex[mpVertexIndex[vi]].mBoneWeight[3];
+				mVertex[i].mNormal = mVertex[i].mNormal.Normalize();
+				i++;
+			}
+		}
+		mMaterials[m].mVertexNum = i;
+	}
+	return;
 	//アニメーション用の頂点エリアクリア
 	memset(mpAnimateVertex, 0, sizeof(CVector)* mVertexNum);
 	memset(mpAnimateNormal, 0, sizeof(CVector)* mNormalNum);
@@ -875,8 +981,10 @@ void CMesh::AnimateVertex(CMatrix *mat) {
 			//重み取得
 			float weight = mSkinWeights[i]->mpWeight[j];
 			//頂点と法線を更新する
-			mpAnimateVertex[index] += mpVertex[index] * mSkinningMatrix * weight;
-			mpAnimateNormal[index] += mpNormal[index] * mSkinningMatrix * weight;
+			//mpAnimateVertex[index] += mpVertex[index] * mSkinningMatrix * weight;
+			//mpAnimateNormal[index] += mpNormal[index] * mSkinningMatrix * weight;
+			mpAnimateVertex[index] += mVertex[index].mPosition * mSkinningMatrix * weight;
+			mpAnimateNormal[index] += mVertex[index].mNormal * mSkinningMatrix * weight;
 		}
 	}
 	//法線を正規化する

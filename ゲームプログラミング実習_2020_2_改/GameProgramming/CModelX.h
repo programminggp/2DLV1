@@ -100,9 +100,10 @@ public:
 #include "CModel.h"
 //CMeshクラスの定義
 class CMesh : CModel {
+	CModelX* mpModel;
 public:
 	int mVertexNum;	//頂点数
-	CVector *mpVertex;	//頂点データ
+	CVertex *mpVertex;	//頂点データ
 	int mFaceNum;	//面数
 	int *mpVertexIndex;	//面を構成する頂点番号
 	int mNormalNum;	//法線数
@@ -112,7 +113,7 @@ public:
 	int mMaterialNum;	//マテリアル数
 	int mMaterialIndexNum;//マテリアル番号数（面数）
 	int *mpMaterialIndex;	  //マテリアル番号
-	std::vector<CMaterial*> mMaterial;//マテリアルデータ
+//	std::vector<CMaterial*> mMaterial;//マテリアルデータ
 	//スキンウェイト
 	std::vector<CSkinWeights*> mSkinWeights;
 
@@ -123,7 +124,8 @@ public:
 
 	//コンストラクタ
 	CMesh()
-		: mVertexNum(0)
+		: mpModel(0)
+		, mVertexNum(0)
 		, mpVertex(0)
 		, mFaceNum(0)
 		, mpVertexIndex(0)
@@ -169,7 +171,7 @@ public:
 	char* mpName;	//フレーム名前
 	int mIndex;		//フレーム番号
 
-	CMesh mMesh;	//Meshデータ
+	//CMesh mMesh;	//Meshデータ
 
 	CMatrix mCombinedMatrix;	//合成行列
 
@@ -208,17 +210,18 @@ public:
 	{}
 
 	~CModelX() {
-		delete mFrame[0];
-		for (int i = 0; i < mAnimationSet.size(); i++) {
-			delete mAnimationSet[i];
+		for (int i = 0; i < mMesh.size(); i++) {
+			delete mMesh[i];
 		}
 		//マテリアルの解放
 		for (int i = 0; i < mMaterial.size(); i++) {
 			delete mMaterial[i];
 		}
-		for (int i = 0; i < mMesh.size(); i++) {
-			delete mMesh[i];
-		}
+		for (int i = 0; i < mAnimationSet.size(); i++) {
+			delete mAnimationSet[i];
+		}		
+		delete mFrame[0];
+
 	}
 	//ファイル読み込み
 	void Load(char* file);

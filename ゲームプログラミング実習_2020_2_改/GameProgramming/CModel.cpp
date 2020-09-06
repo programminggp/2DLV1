@@ -59,6 +59,7 @@ void CModel::Load(char *obj, char *mtl) {
 		else if (strcmp(str[0], "d") == 0) {
 			mMaterials[idx].mDiffuse[3] = atof(str[1]);
 		}
+
 		//先頭がmap_Kdの時、テクスチャを入力する
 		else if (strcmp(str[0], "map_Kd") == 0) {
 			mMaterials[idx].mpTexture->Load(str[1]);
