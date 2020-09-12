@@ -10,8 +10,9 @@ void CXCharacter::Init(CModelX *model) {
 	mAnimationIndex = 0;
 	//繰り返し再生する
 	mAnimationLoopFlg = true;
-	//1アニメーション60フレーム
-	mAnimationFrameSize = 60.0f;
+	//1アニメーション目の最大フレーム数
+//	mAnimationFrameSize = 60.0f;
+	mAnimationFrameSize = model->mAnimationSet[0]->mMaxTime;
 	//アニメーションのフレームを最初にする
 	mAnimationFrame = 0.0f;
 	mpModel->mAnimationSet[mAnimationIndex]->mTime =

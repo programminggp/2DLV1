@@ -169,6 +169,11 @@ public:
 
 	CMatrix mCombinedMatrix;	//合成行列
 
+	CModelXFrame()
+		: mpName(0)
+		, mIndex(0) {}
+
+
 	//コンストラクタ
 	CModelXFrame(CModelX* model);
 	//デストラクタ
