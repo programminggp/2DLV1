@@ -39,10 +39,16 @@ public:
 	int mKeyNum;	//キー数（時間数）
 	CAnimationKey *mpKey;	//キーの配列
 
+	CAnimation()
+		: mpFrameName(0)
+		, mpKey(0)
+	{}
+
 	CAnimation(CModelX *model);
 
 	~CAnimation() {
 		SAFE_DELETE_ARRAY(mpFrameName);
+		SAFE_DELETE_ARRAY(mpKey);
 	}
 };
 
@@ -60,6 +66,8 @@ public:
 	float mTime;	//現在時間
 	float mWeight;	//重み
 	float mMaxTime;	//最大時間
+
+	CAnimationSet(){}
 
 	CAnimationSet(CModelX *model);
 
@@ -237,7 +245,8 @@ public:
 	//マテリアルの検索
 	CMaterial* FindMaterial(char* name);
 	void AnimateVertex(CMatrix*);
-
+	//アニメーションを抜き出す
+	void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name);
 };
 
 #endif

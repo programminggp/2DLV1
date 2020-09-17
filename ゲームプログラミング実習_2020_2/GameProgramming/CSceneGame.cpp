@@ -22,6 +22,18 @@ CSceneGame::~CSceneGame() {
 void CSceneGame::Init() {
 	//3Dモデルファイルの読み込み
 	CRes::sKnight.Load("knight\\knight_low.x");
+	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:移動
+	CRes::sKnight.SeparateAnimationSet(0, 1530, 1830, "idle1");//2:待機
+	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");
+	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");
+	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");
+	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");
+	CRes::sKnight.SeparateAnimationSet(0, 440, 520, "attack1");//7:Attack1
+	CRes::sKnight.SeparateAnimationSet(0, 520, 615, "attack2");//8:Attack2
+	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");
+	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");
+	CRes::sKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
+
 	//3Dモデルファイルの読み込み
 	CRes::sModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
@@ -33,6 +45,8 @@ void CSceneGame::Init() {
 	mEnemy.mPosition = CVector(7.0f, 0.0f, 0.0f);
 	mEnemy.mScale = CVector(1.0f, 1.0f, 1.0f);
 	mEnemy.mAnimationFrameSize = 1024;
+	//
+	mEnemy.ChangeAnimation(2, true, 200);
 
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");

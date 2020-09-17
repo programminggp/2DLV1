@@ -833,3 +833,27 @@ void CMesh::AnimateVertex(CMatrix *mat) {
 		mpAnimateNormal[i] = mpAnimateNormal[i].Normalize();
 	}
 }
+
+void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name)
+{
+	CAnimationSet *anim = mAnimationSet[idx];
+	CAnimationSet *as = new CAnimationSet();
+	as->mpName = new char[strlen(name) + 1];
+	strcpy(as->mpName, name);
+	as->mMaxTime = end - start;
+	for (int i = 0; i < anim->mAnimation.size(); i++) {
+		CAnimation* animation = new CAnimation();
+		animation->mpFrameName = new char[strlen(anim->mAnimation[i]->mpFrameName) + 1];
+		strcpy(animation->mpFrameName, anim->mAnimation[i]->mpFrameName);
+		animation->mFrameIndex = anim->mAnimation[i]->mFrameIndex;
+		animation->mKeyNum = end - start + 1;
+		animation->mpKey = new CAnimationKey[animation->mKeyNum];
+		animation->mKeyNum = 0;
+		for (int j = start; j <= end && j < anim->mAnimation[i]->mKeyNum; j++) {
+			animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
+			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum++;
+		}
+		as->mAnimation.push_back(animation);
+	}
+	mAnimationSet.push_back(as);
+}
