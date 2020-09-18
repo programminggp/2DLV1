@@ -1,9 +1,12 @@
 #include "CXEnemy.h"
 
 CXEnemy::CXEnemy()
-: mColSphereBody(this, CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
-, mColSphereHead(this, CVector(0.0f, 5.0f, -3.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f)
-, mColSphereSword(this, CVector(-10.0f, 10.0f, 50.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.3f)
+//M
+: mColSphereBody(this, CVector(0.5f, -1.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.0f)
+, mColSphereHead(this, CVector(0.0f, 1.f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 1.5f)
+, mColSphereSword0(this, CVector(0.7f, 3.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f )
+, mColSphereSword1(this, CVector(0.5f, 2.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f )
+, mColSphereSword2(this, CVector(0.3f, 1.5f, -0.2f), CVector(), CVector(1.0f, 1.0f, 1.0f), 0.5f )
 {
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 }
@@ -12,11 +15,14 @@ void CXEnemy::Init(CModelX *model)
 {
 	CXCharacter::Init(model);
 	//合成行列の設定
-	mColSphereBody.mpCombinedMatrix = &mpCombinedMatrix[8];
+	//M
+	mColSphereBody.mpCombinedMatrix = &mpCombinedMatrix[1];
 	//頭
-	mColSphereHead.mpCombinedMatrix = &mpCombinedMatrix[11];
+	mColSphereHead.mpCombinedMatrix = &mpCombinedMatrix[1];
 	//剣
-	mColSphereSword.mpCombinedMatrix = &mpCombinedMatrix[21];
+	mColSphereSword0.mpCombinedMatrix = &mpCombinedMatrix[26];
+	mColSphereSword1.mpCombinedMatrix = &mpCombinedMatrix[26];
+	mColSphereSword2.mpCombinedMatrix = &mpCombinedMatrix[26];
 }
 
 void CXEnemy::Collision(CCollider *m, CCollider *y)
@@ -35,7 +41,8 @@ void CXEnemy::Collision(CCollider *m, CCollider *y)
 					switch (y->mTag)
 					{
 					case CCollider::ESWORD:
-						ChangeAnimation(11, false, 30);	//ダウン
+						//M
+						ChangeAnimation(11, false, 100);	//ダウン
 						break;
 					}
 					break;
