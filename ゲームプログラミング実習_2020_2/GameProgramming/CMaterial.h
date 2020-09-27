@@ -1,11 +1,11 @@
 #ifndef CMATERIAL_H
 #define CMATERIAL_H
-//テクスチャクラスのインクルード
-#include "CTexture.h"
 //shared_ptrのインクルード
 #include <memory>
 //
 #include "CModelX.h"
+//テクスチャクラスのインクルード
+#include "CTexture.h"
 
 /*
 マテリアルクラス

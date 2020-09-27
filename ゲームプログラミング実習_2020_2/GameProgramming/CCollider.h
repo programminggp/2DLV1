@@ -5,7 +5,7 @@
 //トランスフォームクラスのインクルード
 #include "CTransform.h"
 //
-#include "CXCharacter.h"
+//#include "CXCharacter.h"
 /*
 コライダクラス
 衝突判定データ

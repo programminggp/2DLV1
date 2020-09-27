@@ -69,6 +69,10 @@ void CXCharacter::Update(CMatrix &matrix) {
 			mAnimationFrame = 0.0f;
 			mpModel->mAnimationSet[mAnimationIndex]->mTime = mAnimationFrame;
 		}
+		else {
+			mpModel->mAnimationSet[mAnimationIndex]->mTime =
+				mpModel->mAnimationSet[mAnimationIndex]->mMaxTime;
+		}
 	}
 
 	for (int i = 0; i < mpModel->mAnimationSet.size(); i++)
@@ -93,9 +97,7 @@ void CXCharacter::Update(CMatrix &matrix) {
 描画する
 */
 void CXCharacter::Render() {
-	// 頂点にアニメーションを適用する
-	mpModel->AnimateVertex(mpCombinedMatrix);
-	mpModel->Render();
+	mpModel->RenderShader(mpCombinedMatrix);
 }
 
 //更新処理

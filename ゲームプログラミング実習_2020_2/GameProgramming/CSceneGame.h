@@ -15,6 +15,8 @@ public:
 	//敵のインスタンス
 	CXEnemy mEnemy;
 
+	CXEnemy mDummy[3];
+
 	~CSceneGame();
 	//初期化処理のオーバーライド
 	void Init();

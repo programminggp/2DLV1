@@ -6,11 +6,12 @@
 //
 #include "CRes.h"
 
-#include "glut.h"
 #include <Windows.h>
 #include "CMaterial.h"
 //
 #include "CCollisionManager.h"
+//
+#include "glut.h"
 
 CMatrix Matrix;
 
@@ -48,6 +49,22 @@ void CSceneGame::Init() {
 	//
 	mEnemy.ChangeAnimation(2, true, 200);
 
+	mDummy[0].Init(&CRes::sKnight);
+	mDummy[0].mPosition = CVector(7.0f, 0.0f, 4.0f);
+	mDummy[0].mScale = CVector(1.0f, 1.0f, 1.0f);
+	mDummy[0].mAnimationFrameSize = 1024;
+	mDummy[1].Init(&CRes::sKnight);
+	mDummy[1].mPosition = CVector(5.0f, 0.0f, 2.0f);
+	mDummy[1].mScale = CVector(1.0f, 1.0f, 1.0f);
+	mDummy[1].mAnimationFrameSize = 1024;
+	mDummy[2].Init(&CRes::sKnight);
+	mDummy[2].mPosition = CVector(3.0f, 0.0f, 0.0f);
+	mDummy[2].mScale = CVector(1.0f, 1.0f, 1.0f);
+	mDummy[2].mAnimationFrameSize = 1024;
+	mDummy[0].ChangeAnimation(1, true, 200);
+	mDummy[1].ChangeAnimation(2, true, 200);
+	mDummy[2].ChangeAnimation(3, true, 200);
+
 	//テキストフォントの読み込みと設定
 	CText::mFont.Load("FontG.tga");
 	CText::mFont.SetRowCol(1, 4096 / 64);
@@ -60,6 +77,11 @@ void CSceneGame::Update() {
 	mPlayer.Update();
 	//敵の更新
 	mEnemy.Update();
+
+	mDummy[0].Update();
+	mDummy[1].Update();
+	mDummy[2].Update();
+
 	//衝突処理
 	CollisionManager.Collision();
 
@@ -98,6 +120,12 @@ void CSceneGame::Update() {
 	mPlayer.Render();
 	//敵描画
 	mEnemy.Render();
+
+	mDummy[0].Render();
+	mDummy[1].Render();
+	mDummy[2].Render();
+
+
 	//コライダの描画
 	CollisionManager.Render();
 
