@@ -21,6 +21,9 @@ CSceneGame::~CSceneGame() {
 
 
 void CSceneGame::Init() {
+	// Free Monster 
+	mFMonster.Set(CVector(-5.0f, 0.0f, 0.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
+
 	//3Dモデルファイルの読み込み
 	CRes::sKnight.Load("knight\\knight_low.x");
 	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:移動
@@ -82,6 +85,8 @@ void CSceneGame::Update() {
 	mDummy[1].Update();
 	mDummy[2].Update();
 
+	mFMonster.Update();
+
 	//衝突処理
 	CollisionManager.Collision();
 
@@ -120,6 +125,8 @@ void CSceneGame::Update() {
 	mPlayer.Render();
 	//敵描画
 	mEnemy.Render();
+	//
+	mFMonster.Render();
 
 	mDummy[0].Render();
 	mDummy[1].Render();
