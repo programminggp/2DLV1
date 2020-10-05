@@ -6,8 +6,9 @@
 
 class CFreeMonster : public CXCharacter
 {
-public:
 	static CModelX *spModel;
+	static int sCount;
+public:
 	CFreeMonster();
 	void Set(const CVector &pos, const CVector &rot, const CVector &scale);
 	~CFreeMonster();

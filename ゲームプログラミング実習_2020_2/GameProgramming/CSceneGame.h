@@ -20,6 +20,7 @@ public:
 
 	//
 	CFreeMonster mFMonster;
+	CFreeMonster mFMonster2;
 
 	~CSceneGame();
 	//初期化処理のオーバーライド
