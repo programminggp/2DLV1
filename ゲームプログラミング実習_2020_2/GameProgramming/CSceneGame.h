@@ -5,6 +5,7 @@
 #include "CXPlayer.h"
 #include "CXEnemy.h"
 #include "CFreeMonster.h"
+#include "CFelguard.h"
 
 /*
 ゲームのシーン
@@ -21,6 +22,8 @@ public:
 	//
 	CFreeMonster mFMonster;
 	CFreeMonster mFMonster2;
+	//
+	CFelguard mFelguard;
 
 	~CSceneGame();
 	//初期化処理のオーバーライド

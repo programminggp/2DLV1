@@ -89,6 +89,7 @@
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CEffect.cpp" />
+    <ClCompile Include="CFelguard.cpp" />
     <ClCompile Include="CFreeMonster.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CMaterial.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CEffect.h" />
+    <ClInclude Include="CFelguard.h" />
     <ClInclude Include="CFreeMonster.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CMaterial.h" />

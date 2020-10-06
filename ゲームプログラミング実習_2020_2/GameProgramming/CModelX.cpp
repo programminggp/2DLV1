@@ -861,8 +861,15 @@ void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name)
 		animation->mKeyNum = end - start + 1;
 		animation->mpKey = new CAnimationKey[animation->mKeyNum];
 		animation->mKeyNum = 0;
-		for (int j = start; j <= end && j < anim->mAnimation[i]->mKeyNum; j++) {
-			animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
+		for (int j = start; j <= end ; j++) {
+			if (j < anim->mAnimation[i]->mKeyNum)
+			{
+				animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
+			}
+			else
+			{
+				animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[anim->mAnimation[i]->mKeyNum - 1];
+			}
 			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum++;
 		}
 		as->mAnimation.push_back(animation);
