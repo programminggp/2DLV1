@@ -6,18 +6,18 @@ CTaskManager TaskManager;
 CTaskManager::CTaskManager()
 //: mpHead(0)//, mpTail(0)
 {
-	mpHead = new CTask();
+//	mpHead = new CTask();
 }
 
 CTaskManager::~CTaskManager() {
-	delete mpHead;
+//	delete mpHead;
 }
 
 //リストに追加
 //Add(タスクのポインタ)
 void CTaskManager::Add(CTask *task) {
-	CTask *current = mpHead->mpNext;
-	CTask *prev = mpHead;
+	CTask *current = mHead.mpNext;
+	CTask *prev = &mHead;
 	while (current) {
 		if (task->mPriority >= current->mPriority) {
 			break;
@@ -38,15 +38,15 @@ void CTaskManager::Add(CTask *task) {
 	}
 	return;
 	//リストが空（先頭が0）
-	if (mpHead == 0) {
-		//リストの先頭にする
-		mpHead = task;
-		task->mpPrev = 0;
-		//リストの最後にする
-		//mpTail = task;
-		task->mpNext = 0;
-	}
-	else {
+	//if (mpHead == 0) {
+	//	//リストの先頭にする
+	//	mpHead = task;
+	//	task->mpPrev = 0;
+	//	//リストの最後にする
+	//	//mpTail = task;
+	//	task->mpNext = 0;
+	//}
+	//else {
 		//リストの最後から前に探索
 		//CTask *pos = mpTail;
 		//while (pos) {
@@ -74,23 +74,23 @@ void CTaskManager::Add(CTask *task) {
 		//}
 
 		//リストの先頭にする
-		task->mpNext = mpHead;
-		mpHead->mpPrev = task;
-		mpHead = task;
-		task->mpPrev = 0;
-	}
+	//	task->mpNext = mpHead;
+	//	mpHead->mpPrev = task;
+	//	mpHead = task;
+	//	task->mpPrev = 0;
+	//}
 }
 
 //リストから削除
 //Remove(タスクのポインタ)
 void CTaskManager::Remove(CTask *task) {
 	//taskが先頭の時
-	if (task->mpPrev == 0) {
-		mpHead = task->mpNext;
-	}
-	else {
+	//if (task->mpPrev == 0) {
+	//	mpHead = task->mpNext;
+	//}
+	//else {
 		task->mpPrev->mpNext = task->mpNext;
-	}
+	//}
 	//taskが最後の時
 	if (task->mpNext == 0) {
 //		mpTail = task->mpPrev;
@@ -103,7 +103,7 @@ void CTaskManager::Remove(CTask *task) {
 //更新
 void CTaskManager::Update() {
 	//先頭から最後まで繰り返し
-	CTask *pos = mpHead->mpNext;
+	CTask *pos = mHead.mpNext;
 	while (pos) {
 		//更新処理を呼ぶ
 		pos->Update();
@@ -115,7 +115,7 @@ void CTaskManager::Update() {
 //描画
 void CTaskManager::Render() {
 	//先頭から最後まで繰り返し
-	CTask *pos = mpHead->mpNext;
+	CTask *pos = mHead.mpNext;
 	while (pos) {
 		//描画処理を呼ぶ
 		pos->Render();
@@ -127,7 +127,7 @@ void CTaskManager::Render() {
 //タスクの削除
 void CTaskManager::Delete() {
 	//先頭から最後まで繰り返し
-	CTask *pos = mpHead->mpNext;
+	CTask *pos = mHead.mpNext;
 	while (pos) {
 		CTask *del = pos;
 		//次へ

@@ -7,7 +7,7 @@ CCollisionManager CollisionManager;
 //Õ“Ëˆ—
 void CCollisionManager::Collision() {
 	//Œ»İˆÊ’u‚ğæ“ª‚É‚·‚é
-	CCollider *pos = (CCollider*)mpHead->mpNext;
+	CCollider *pos = (CCollider*)mHead.mpNext;
 	//ÅŒã‚Ü‚Å‚«‚½‚çI—¹‚·‚é
 //?	while (pos != mpTail) {
 	while (pos) {
