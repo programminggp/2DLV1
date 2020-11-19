@@ -17,24 +17,31 @@ CTaskManager::~CTaskManager() {
 //Add(タスクのポインタ)
 void CTaskManager::Add(CTask *task) {
 	CTask *current = mHead.mpNext;
-	CTask *prev = &mHead;
-	while (current) {
-		if (task->mPriority >= current->mPriority) {
-			break;
-		}
-		prev = current;
-		current = current->mpNext;
-	}
+	//CTask *prev = &mHead;
+	//while (current) {
+	//	if (task->mPriority >= current->mPriority) {
+	//		break;
+	//	}
+	//	prev = current;
+	//	current = current->mpNext;
+	//}
 	if (current) {
-		prev->mpNext = task;
-		current->mpPrev = task;
-		task->mpPrev = prev;
+		//currentの前に追加
+		//taskの次をcurrent
 		task->mpNext = current;
+		//taskの前をcurrentの前に
+		task->mpPrev = current->mpPrev;
+		//taskの前の次をtaskに
+		task->mpPrev->mpNext = task;
+		//currentの前をtaskに
+		current->mpPrev = task;
 	}
 	else {
-		prev->mpNext = task;
-		task->mpPrev = prev;
-		task->mpNext = 0;
+		//先頭に追加
+		//先頭の次をtaskに
+		mHead.mpNext = task;
+		//taskの前を先頭に
+		task->mpPrev = &mHead;
 	}
 	return;
 	//リストが空（先頭が0）

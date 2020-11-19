@@ -26,7 +26,6 @@ void CSceneGame::Init() {
 	mFMonster2.Set(CVector(-5.0f, 0.0f, -5.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 	// Felguard
 	mFelguard.Set(CVector(-3.0f, 0.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
-	mFelguard.mAnimationFrameSize = 700;
 
 	//3Dモデルファイルの読み込み
 	CRes::sKnight.Load("knight\\knight_low.x");
