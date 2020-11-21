@@ -36,6 +36,9 @@ public:
 	//正規化
 	//大きさ1のベクトルを返す
 	CVector Normalize();
+	//+演算しのオーバーロード
+	//CVector + CVector の演算結果を返す
+	CVector operator+(const CVector &v);
 
 };
 #endif
