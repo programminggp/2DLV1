@@ -19,8 +19,8 @@
 
 void CSceneGame::Init() {
 	//三角コライダの確認
-	mColliderTriangle.Set(NULL, NULL, CVector(-50.0f, 0.0f, -50.0f), CVector(-50.0f, 0.0f, 50.0f), CVector(50.0f, 0.0f, -50.0f));
-	mColliderTriangle2.Set(NULL, NULL, CVector(50.0f, 0.0f, -50.0f), CVector(-50.0f, 0.0f, 50.0f), CVector(50.0f, 0.0f, 50.0f));
+//	mColliderTriangle.Set(NULL, NULL, CVector(-50.0f, 0.0f, -50.0f), CVector(-50.0f, 0.0f, 50.0f), CVector(50.0f, 0.0f, -50.0f));
+//	mColliderTriangle2.Set(NULL, NULL, CVector(50.0f, 0.0f, -50.0f), CVector(-50.0f, 0.0f, 50.0f), CVector(50.0f, 0.0f, 50.0f));
 
 	//C5モデルの読み込み
 	mModelC5.Load("c5.obj", "c5.mtl");
@@ -46,6 +46,8 @@ void CSceneGame::Init() {
 
 	//ビルボードの生成
 	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
+	//
+	mColliderMesh.Set(&mBackGround);
 }
 
 void CSceneGame::Update() {

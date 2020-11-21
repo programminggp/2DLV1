@@ -10,11 +10,15 @@
 #include "CPlayer.h"
 //
 #include "CColliderTriangle.h"
+//
+#include "CColliderMesh.h"
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
 public:
+	//
+	CColliderMesh mColliderMesh;
 	//三角コライダの作成
 	CColliderTriangle mColliderTriangle;
 	CColliderTriangle mColliderTriangle2;

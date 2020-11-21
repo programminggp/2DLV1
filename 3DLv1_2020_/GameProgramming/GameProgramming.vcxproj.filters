@@ -90,6 +90,9 @@
     <ClCompile Include="CColliderLine.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="CColliderMesh.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Update.h">
@@ -168,6 +171,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CColliderLine.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CColliderMesh.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
