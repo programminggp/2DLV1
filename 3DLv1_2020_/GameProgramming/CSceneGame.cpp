@@ -46,8 +46,9 @@ void CSceneGame::Init() {
 
 	//ビルボードの生成
 	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
-	//
-	mColliderMesh.Set(&mBackGround);
+	//背景モデルから三角コライダを生成
+	//親インスタンスと行列はなし
+	mColliderMesh.Set(NULL, NULL, &mBackGround);
 }
 
 void CSceneGame::Update() {

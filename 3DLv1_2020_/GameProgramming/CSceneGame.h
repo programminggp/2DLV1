@@ -17,11 +17,11 @@
 */
 class CSceneGame : public CScene {
 public:
-	//
+	//モデルからコライダを生成
 	CColliderMesh mColliderMesh;
 	//三角コライダの作成
-	CColliderTriangle mColliderTriangle;
-	CColliderTriangle mColliderTriangle2;
+	//削除CColliderTriangle mColliderTriangle;
+	//削除CColliderTriangle mColliderTriangle2;
 	//C5モデル
 	CModel mModelC5;
 	CModel mBackGround;
