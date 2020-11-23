@@ -41,6 +41,10 @@ public:
 	//retrun:true（衝突している）false(衝突していない)
 	//調整値:衝突しない位置まで戻す値
 	static bool CollisionTriangleLine(CCollider *triangle, CCollider *line, CVector *adjust);
+	//CollisionTriangleSphere(三角コライダ, 球コライダ, 調整値)
+	//retrun:true（衝突している）false(衝突していない)
+	//調整値:衝突しない位置まで戻す値
+	static bool CollisionTriangleSphere(CCollider *triangle, CCollider *sphere, CVector *adjust);
 
 };
 
