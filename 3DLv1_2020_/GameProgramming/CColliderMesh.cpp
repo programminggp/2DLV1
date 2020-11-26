@@ -24,5 +24,6 @@ void CColliderMesh::Set(CCharacter *parent, CMatrix *matrix, CModel *model)
 			, model->mTriangles[i].mV[0]
 			, model->mTriangles[i].mV[1]
 			, model->mTriangles[i].mV[2]);
+		mpColliderTriangles[i].ChangePriority();
 	}
 }

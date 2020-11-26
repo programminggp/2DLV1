@@ -1,5 +1,8 @@
 #include "CEnemy.h"
 #include "CEffect.h"
+#include "CTaskManager.h"
+#include "CCollisionManager.h"
+
 
 //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 //CEnemy(ƒ‚ƒfƒ‹, ˆÊ’u, ‰ñ“], Šgk)
@@ -14,6 +17,11 @@ CEnemy::CEnemy(CModel *model, CVector position,
 	mPosition = position;	//ˆÊ’u‚ÌÝ’è
 	mRotation = rotation;	//‰ñ“]‚ÌÝ’è
 	mScale = scale;	//Šgk‚ÌÝ’è
+
+	//—Dæ“x‚ð1‚É•ÏX‚·‚é
+	mPriority = 1;
+	CTaskManager::Get()->Remove(this); //íœ‚µ‚Ä
+	CTaskManager::Get()->Add(this); //’Ç‰Á‚·‚é
 }
 
 //XVˆ—
@@ -47,4 +55,14 @@ void CEnemy::Collision(CCollider *m, CCollider *o) {
 		}
 		break;
 	}
+}
+
+void CEnemy::TaskCollision()
+{
+	mCollider1.ChangePriority();
+	mCollider2.ChangePriority();
+	mCollider3.ChangePriority();
+	CCollisionManager::Get()->Collision(&mCollider1, COLLISIONRANGE);
+	CCollisionManager::Get()->Collision(&mCollider2, COLLISIONRANGE);
+	CCollisionManager::Get()->Collision(&mCollider3, COLLISIONRANGE);
 }

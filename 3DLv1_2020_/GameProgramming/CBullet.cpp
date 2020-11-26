@@ -1,4 +1,5 @@
 #include "CBullet.h"
+#include "CCollisionManager.h"
 
 CBullet::CBullet()
 : mLife(50)
@@ -49,3 +50,9 @@ void CBullet::Collision(CCollider *m, CCollider *o) {
 		mEnabled = false;
 	}
 }
+void CBullet::TaskCollision()
+{
+	mCollider.ChangePriority();
+	CCollisionManager::Get()->Collision(&mCollider, COLLISIONRANGE);
+}
+

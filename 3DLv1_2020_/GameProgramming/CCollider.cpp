@@ -151,3 +151,13 @@ bool CCollider::CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a)
 	return CollisionTriangleLine(t, &line, a);
 }
 
+//—Dæ“x‚Ì•ÏX
+void CCollider::ChangePriority()
+{
+	//Ž©•ª‚ÌÀ•W~e‚Ì•ÏŠ·s—ñ‚ðŠ|‚¯‚é
+	CVector pos = mPosition * *mpMatrix;
+	//ƒxƒNƒgƒ‹‚Ì’·‚³‚ª—Dæ“x
+	mPriority = pos.Length();
+	CCollisionManager::Get()->Remove(this); //ˆê’Uíœ
+	CCollisionManager::Get()->Add(this); //’Ç‰Á
+}

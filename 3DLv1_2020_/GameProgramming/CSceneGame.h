@@ -25,6 +25,7 @@ public:
 	//C5モデル
 	CModel mModelC5;
 	CModel mBackGround;
+	CMatrix mBackGroundMatrix;
 	//モデルクラスのインスタンス作成
 	CModel mModel;
 	//

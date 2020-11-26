@@ -2,6 +2,9 @@
 #define CCOLLISIONMANAGER_H
 
 #include "CTaskManager.h"
+#include "CCollider.h"
+
+#define COLLISIONRANGE 30 //Õ“Ëˆ—”ÍˆÍ‚æ‚è—£‚ê‚Ä‚¢‚éƒRƒ‰ƒCƒ_‚ÍÕ“Ëˆ—‚µ‚È‚¢
 
 class CCollisionManager : public CTaskManager
 {
@@ -12,6 +15,7 @@ public:
 	static CCollisionManager* Get();
 	//Õ“Ëˆ—
 	void Collision();
+	void Collision(CCollider *collider, int range);
 };
 
 #endif

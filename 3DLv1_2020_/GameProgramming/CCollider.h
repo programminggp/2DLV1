@@ -45,7 +45,8 @@ public:
 	//retrun:true（衝突している）false(衝突していない)
 	//調整値:衝突しない位置まで戻す値
 	static bool CollisionTriangleSphere(CCollider *triangle, CCollider *sphere, CVector *adjust);
-
+	//優先度の変更
+	virtual void ChangePriority();
 };
 
 #endif

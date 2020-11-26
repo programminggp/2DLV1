@@ -33,6 +33,8 @@ public:
 	void Remove(CTask *task);
 	//タスクの削除
 	void Delete();
+	//衝突処理
+	void TaskCollision();
 };
 //タスクマネージャyの外部参照
 //extern CTaskManager TaskManager;

@@ -22,7 +22,8 @@ public:
 	void Update();
 	//Õ“Ëˆ—
 	void Collision(CCollider *m, CCollider *o);
-
+	//Õ“Ëˆ—
+	void TaskCollision();
 };
 
 #endif

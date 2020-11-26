@@ -18,6 +18,9 @@
 #include "CCamera.h"
 
 void CSceneGame::Init() {
+
+	mBackGroundMatrix.Translate(0.0f, 0.0f, -500.0f);
+
 	//三角コライダの確認
 //	mColliderTriangle.Set(NULL, NULL, CVector(-50.0f, 0.0f, -50.0f), CVector(-50.0f, 0.0f, 50.0f), CVector(50.0f, 0.0f, -50.0f));
 //	mColliderTriangle2.Set(NULL, NULL, CVector(50.0f, 0.0f, -50.0f), CVector(-50.0f, 0.0f, 50.0f), CVector(50.0f, 0.0f, 50.0f));
@@ -37,25 +40,31 @@ void CSceneGame::Init() {
 
 	mPlayer.mpModel = &mModel;
 	mPlayer.mScale = CVector(0.1f, 0.1f, 0.1f);
-	mPlayer.mPosition = CVector(0.0f, 0.0f, -3.0f);
+	//
+	mPlayer.mPosition = CVector(0.0f, 0.0f, -3.0f) * mBackGroundMatrix;
+	//mPlayer.mPosition = CVector(0.0f, 0.0f, -503.0f);
 	mPlayer.mRotation = CVector(0.0f, 180.0f, 0.0f);
 
 	//敵機のインスタンス作成
-	new CEnemy(&mModelC5, CVector(0.0f, 10.0f, -100.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
-	new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -130.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy(&mModelC5, CVector(0.0f, 10.0f, -100.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -130.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
+	//new CEnemy(&mModelC5, CVector(0.0f, 10.0f, -600.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
+	//new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -630.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 
 	//ビルボードの生成
 	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
 	//背景モデルから三角コライダを生成
 	//親インスタンスと行列はなし
-	mColliderMesh.Set(NULL, NULL, &mBackGround);
+	//mColliderMesh.Set(NULL, NULL, &mBackGround);
+	mColliderMesh.Set(NULL, &mBackGroundMatrix, &mBackGround);
 }
 
 void CSceneGame::Update() {
 
 	CTaskManager::Get()->Update();
 	//コリジョンマネージャの衝突処理
-	CCollisionManager::Get()->Collision();
+//削除	CCollisionManager::Get()->Collision();
+	CTaskManager::Get()->TaskCollision();
 
 
 	if (CKey::Push('L'))
@@ -103,7 +112,7 @@ void CSceneGame::Update() {
 	Camera.Render();
 	//	mPlayer.Render();
 
-	mBackGround.Render();
+	mBackGround.Render(mBackGroundMatrix);
 
 //	mPlayer.bullet.Update();
 //	mPlayer.bullet.Render();
