@@ -72,26 +72,30 @@ void CSceneGame::Init() {
 	mDummy[2].ChangeAnimation(3, true, 200);
 
 	//テキストフォントの読み込みと設定
-	CText::mFont.Load("FontG.tga");
-	CText::mFont.SetRowCol(1, 4096 / 64);
+//	CText::mFont.Load("FontG.tga");
+//	CText::mFont.SetRowCol(1, 4096 / 64);
+	CText::mFont.Load("FontGreen.tga");
+	CText::mFont.SetRowCol(2, 4096 / 64);
 }
 
 
 void CSceneGame::Update() {
 
-	//キャラクタークラスの更新
-	mPlayer.Update();
-	//敵の更新
-	mEnemy.Update();
+	TaskManager.Update();
 
-	mDummy[0].Update();
-	mDummy[1].Update();
-	mDummy[2].Update();
+	////キャラクタークラスの更新
+	//mPlayer.Update();
+	////敵の更新
+	//mEnemy.Update();
 
-	mFMonster.Update();
-	mFMonster2.Update();
+	//mDummy[0].Update();
+	//mDummy[1].Update();
+	//mDummy[2].Update();
 
-	mFelguard.Update();
+	//mFMonster.Update();
+	//mFMonster2.Update();
+
+	//mFelguard.Update();
 
 	//衝突処理
 	CollisionManager.Collision();
