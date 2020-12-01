@@ -12,6 +12,7 @@
 */
 class CPlayer : public CCharacter {
 public:
+	static CPlayer *spThis;
 	CColliderLine mLine; //ü•ªƒRƒ‰ƒCƒ_
 	CColliderLine mLine2;
 	CColliderLine mLine3;

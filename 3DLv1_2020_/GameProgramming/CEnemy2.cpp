@@ -2,6 +2,7 @@
 #include "CEffect.h"
 #include "CTaskManager.h"
 #include "CCollisionManager.h"
+#include "CPlayer.h"
 
 #define OBJ "f16.obj"
 #define MTL "f16.mtl"
@@ -11,18 +12,20 @@ CModel CEnemy2::mModel;
 CEnemy2::CEnemy2()
 : mCollider1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.4f)
 , mCollider2(this, &mMatrix, CVector(0.0f, 5.0f, 20.0f), 0.8f)
+, mpTarget(0)
 {
 	if (mModel.mTriangles.size() == 0)
 	{
 		mModel.Load(OBJ, MTL);
 	}
 	mpModel = &mModel;
+	mpTarget = &CPlayer::spThis->mPosition;
 }
 
 
 //コンストラクタ
 //CEnemy(位置, 回転, 拡縮)
-CEnemy2::CEnemy2(CVector position, CVector rotation, CVector scale)
+CEnemy2::CEnemy2(const CVector& position, const CVector& rotation, const CVector& scale)
 	: CEnemy2()
 {
 	//モデル、位置、回転、拡縮を設定する
@@ -41,7 +44,28 @@ void CEnemy2::Update() {
 	//行列を更新
 	CTransform::Update();
 	//位置を移動
-	mPosition = CVector(0.0f, 0.0f, 0.9f) * mMatrix;
+	mPosition = CVector(0.0f, 0.0f, 0.95f) * mMatrix;
+	//
+	CVector dir = *mpTarget - mPosition;
+	CVector left = CVector(1.0f, 0.0f, 0.0f) * mMatrixRotate;
+	CVector top = CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
+	if (left.Dot(dir) > 0.0f)
+	{
+		mRotation.mY += 0.75f;
+	}
+	else
+	{
+		mRotation.mY -= 0.75f;
+	}
+	if (top.Dot(dir) > 0.0f)
+	{
+		mRotation.mX -= 0.75f;
+	}
+	else
+	{
+		mRotation.mX += 0.75f;
+	}
+
 }
 //衝突処理
 //Collision(コライダ1, コライダ2)

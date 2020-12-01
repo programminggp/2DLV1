@@ -10,6 +10,7 @@
 */
 class CEnemy2 : public CCharacter {
 public:
+	CVector *mpTarget;
 	static CModel mModel;
 	CEnemy2();
 
@@ -20,7 +21,7 @@ public:
 
 	//コンストラクタ
 	//CEnemy(位置, 回転, 拡縮)
-	CEnemy2(CVector position, CVector rotation, CVector scale);
+	CEnemy2(const CVector& position, const CVector& rotation, const CVector& scale);
 	//更新処理
 	void Update();
 	//衝突処理
