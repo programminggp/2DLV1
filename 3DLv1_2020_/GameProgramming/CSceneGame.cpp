@@ -128,3 +128,4 @@ void CSceneGame::Update() {
 	CCollisionManager::Get()->Render();
 
 }
+

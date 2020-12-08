@@ -8,6 +8,8 @@
 #include "CTaskManager.h"
 //
 #include "CCollisionManager.h"
+//
+#include "CUtil.h"
 
 CPlayer *CPlayer::spThis = 0;
 
@@ -17,6 +19,8 @@ CPlayer::CPlayer()
 , mLine3(this, &mMatrix, CVector(9.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f))
 {
 	spThis = this;
+	//
+	mText.LoadTexture("FontWhite.tga", 1, 4096 / 64);
 }
 
 //更新処理
@@ -88,4 +92,38 @@ void CPlayer::TaskCollision()
 	CCollisionManager::Get()->Collision(&mLine, COLLISIONRANGE);
 	CCollisionManager::Get()->Collision(&mLine2, COLLISIONRANGE);
 	CCollisionManager::Get()->Collision(&mLine3, COLLISIONRANGE);
+}
+
+void CPlayer::Render()
+{
+	//親の描画処理
+	CCharacter::Render();
+
+	//2Dの描画開始
+	CUtil::Start2D(-400, 400, -300, 300);
+	//描画色の設定（緑色の半透明）
+	glColor4f(0.0f, 1.0f, 0.0f, 0.4f);
+	//文字列編集エリアの作成
+	char buf[64];
+
+	//X軸回転値の表示
+	//文字列の設定
+	sprintf(buf, "RX:%7.2f", mRotation.mX);
+	//文字列の描画
+	mText.DrawString(buf, 100, 0, 8, 16);
+
+	//Y軸回転値の表示
+	//文字列の設定
+	sprintf(buf, "RY:%7.2f", mRotation.mY);
+	//文字列の描画
+	mText.DrawString(buf, 100, -100, 8, 16);
+
+	//Y座標の表示
+	//文字列の設定
+	sprintf(buf, "PY:%7.2f", mPosition.mY);
+	//文字列の描画
+	mText.DrawString(buf, 100, 30, 8, 16);
+
+	CUtil::End2D();
+
 }

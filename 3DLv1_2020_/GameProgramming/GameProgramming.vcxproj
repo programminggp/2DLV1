@@ -103,10 +103,12 @@
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CTaskManager.cpp" />
+    <ClCompile Include="CText.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="CColliderTriangle.cpp" />
+    <ClCompile Include="CUtil.cpp" />
     <ClCompile Include="CVector.cpp" />
     <ClCompile Include="Update.cpp" />
     <ClCompile Include="main.cpp" />
@@ -134,10 +136,12 @@
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CTask.h" />
     <ClInclude Include="CTaskManager.h" />
+    <ClInclude Include="CText.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CColliderTriangle.h" />
+    <ClInclude Include="CUtil.h" />
     <ClInclude Include="CVector.h" />
     <ClInclude Include="Update.h" />
   </ItemGroup>
