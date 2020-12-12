@@ -4,22 +4,21 @@
 #include "CCollisionManager.h"
 #include "CPlayer.h"
 
-#define OBJ "f16.obj"
-#define MTL "f16.mtl"
+#define OBJ "f16.obj"	//モデルのファイル
+#define MTL "f16.mtl"	//モデルのマテリアルファイル
 
-CModel CEnemy2::mModel;
+CModel CEnemy2::mModel;	//モデルデータ作成
 
 CEnemy2::CEnemy2()
-: mCollider1(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.4f)
-, mCollider2(this, &mMatrix, CVector(0.0f, 5.0f, 20.0f), 0.8f)
-, mpTarget(0)
+: mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.4f)
 {
+	//モデルが無いときは読み込む
 	if (mModel.mTriangles.size() == 0)
 	{
 		mModel.Load(OBJ, MTL);
 	}
+	//モデルのポインタ設定
 	mpModel = &mModel;
-	mpTarget = &CPlayer::spThis->mPosition;
 }
 
 
@@ -28,11 +27,11 @@ CEnemy2::CEnemy2()
 CEnemy2::CEnemy2(const CVector& position, const CVector& rotation, const CVector& scale)
 	: CEnemy2()
 {
-	//モデル、位置、回転、拡縮を設定する
+	//位置、回転、拡縮を設定する
 	mPosition = position;	//位置の設定
 	mRotation = rotation;	//回転の設定
 	mScale = scale;	//拡縮の設定
-
+	CTransform::Update();	//行列の更新
 	//優先度を1に変更する
 	mPriority = 1;
 	CTaskManager::Get()->Remove(this); //削除して
@@ -41,12 +40,14 @@ CEnemy2::CEnemy2(const CVector& position, const CVector& rotation, const CVector
 
 //更新処理
 void CEnemy2::Update() {
+	return;
 	//行列を更新
 	CTransform::Update();
 	//位置を移動
 	mPosition = CVector(0.0f, 0.0f, 0.95f) * mMatrix;
 	//
-	CVector dir = *mpTarget - mPosition;
+//	CVector dir = *mpTarget - mPosition;
+	CVector dir =  mPosition;
 	CVector left = CVector(1.0f, 0.0f, 0.0f) * mMatrixRotate;
 	CVector top = CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
 	if (left.Dot(dir) > 0.0f)
@@ -95,10 +96,10 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 
 void CEnemy2::TaskCollision()
 {
-	mCollider1.ChangePriority();
-	mCollider2.ChangePriority();
+	mCollider.ChangePriority();
+//	mCollider2.ChangePriority();
 //	mCollider3.ChangePriority();
-	CCollisionManager::Get()->Collision(&mCollider1, COLLISIONRANGE);
-	CCollisionManager::Get()->Collision(&mCollider2, COLLISIONRANGE);
+	CCollisionManager::Get()->Collision(&mCollider, COLLISIONRANGE);
+//	CCollisionManager::Get()->Collision(&mCollider2, COLLISIONRANGE);
 //	CCollisionManager::Get()->Collision(&mCollider3, COLLISIONRANGE);
 }

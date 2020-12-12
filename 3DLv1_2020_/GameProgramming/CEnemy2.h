@@ -10,16 +10,14 @@
 */
 class CEnemy2 : public CCharacter {
 public:
-	CVector *mpTarget;
+	//モデルデータ
 	static CModel mModel;
-	CEnemy2();
 
 	//コライダ
-	CCollider mCollider1;
-	CCollider mCollider2;
-//	CCollider mCollider3;
+	CCollider mCollider;
 
 	//コンストラクタ
+	CEnemy2();
 	//CEnemy(位置, 回転, 拡縮)
 	CEnemy2(const CVector& position, const CVector& rotation, const CVector& scale);
 	//更新処理
