@@ -17,7 +17,9 @@ CPlayer::CPlayer()
 : mLine(this, &mMatrix, CVector(0.0f, 0.0f, -14.0f), CVector(0.0f, 0.0f, 17.0f))
 , mLine2(this, &mMatrix, CVector(0.0f, 5.0f, -8.0f), CVector(0.0f, -3.0f, -8.0f))
 , mLine3(this, &mMatrix, CVector(9.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f))
+, mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.5f)
 {
+	mTag = EPLAYER;	//タグの設定
 	spThis = this;
 	//テクスチャファイルの読み込み（1行64列）
 	mText.LoadTexture("FontWhite.tga", 1, 64);
@@ -88,6 +90,7 @@ void CPlayer::TaskCollision()
 	mLine.ChangePriority();
 	mLine2.ChangePriority();
 	mLine3.ChangePriority();
+	mCollider.ChangePriority();
 	//衝突処理を実行
 	CCollisionManager::Get()->Collision(&mLine, COLLISIONRANGE);
 	CCollisionManager::Get()->Collision(&mLine2, COLLISIONRANGE);

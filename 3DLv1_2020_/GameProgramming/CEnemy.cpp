@@ -12,6 +12,8 @@ CEnemy::CEnemy(CModel *model, CVector position,
 , mCollider2(this, &mMatrix, CVector(0.0f, 5.0f, 20.0f), 0.8f)
 , mCollider3(this, &mMatrix, CVector(0.0f, 5.0f, -20.0f), 0.8f)
 {
+	mTag = EENEMY;
+
 	//モデル、位置、回転、拡縮を設定する
 	mpModel = model;	//モデルの設定
 	mPosition = position;	//位置の設定
@@ -34,10 +36,14 @@ void CEnemy::Update() {
 //衝突処理
 //Collision(コライダ1, コライダ2)
 void CEnemy::Collision(CCollider *m, CCollider *o) {
+	if (o->mTag == CCollider::ESEARCH)
+		return;
 	//相手のコライダタイプの判定
 	switch (o->mType)
 	{	
 	case CCollider::ESPHERE: //球コライダの時
+//		if (o->mpParent->mTag == EENEMY)
+//			return;
 		//コライダのmとyが衝突しているか判定
 		if (CCollider::Collision(m, o)) {
 			//エフェクト生成

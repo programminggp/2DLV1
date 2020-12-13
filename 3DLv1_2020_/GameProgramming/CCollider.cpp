@@ -6,6 +6,7 @@ CCollider::CCollider()
 : mpParent(0)
 , mpMatrix(&mMatrix)
 , mType(ESPHERE)
+, mTag(EBODY)
 {
 	//コリジョンマネージャyに追加
 	CCollisionManager::Get()->Add(this);

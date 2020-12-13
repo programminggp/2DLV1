@@ -44,10 +44,20 @@ void CBullet::Render() {
 //衝突処理
 //Collision(コライダ1, コライダ2)
 void CBullet::Collision(CCollider *m, CCollider *o) {
-	//コライダのmとyが衝突しているか判定
-	if (CCollider::Collision(m, o)) {
-		//衝突している時は無効にする
-		mEnabled = false;
+	if (m->mType == CCollider::ESPHERE
+		&& o->mType == CCollider::ESPHERE)
+	{
+		switch (o->mTag)
+		{
+		case CCollider::ESEARCH:
+			break;
+		default:
+			//コライダのmとyが衝突しているか判定
+			if (CCollider::Collision(m, o)) {
+				//衝突している時は無効にする
+				mEnabled = false;
+			}
+		}
 	}
 }
 void CBullet::TaskCollision()

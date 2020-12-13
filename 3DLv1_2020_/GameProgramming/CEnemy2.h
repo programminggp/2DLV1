@@ -10,11 +10,14 @@
 */
 class CEnemy2 : public CCharacter {
 public:
+	CCharacter *mpPlayer;	//プレイヤーのポインタ
+
 	//モデルデータ
 	static CModel mModel;
 
 	//コライダ
 	CCollider mCollider;
+	CCollider mColSearch;	//サーチ用コライダ
 
 	//コンストラクタ
 	CEnemy2();

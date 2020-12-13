@@ -10,6 +10,12 @@
 */
 class CCollider : public CTransform, public CTask {
 public:
+	enum ETag
+	{
+		EBODY,		//本体
+		ESEARCH,	//サーチ用
+	};
+	ETag mTag;
 	//コライダタイプ
 	enum EType {
 		ESPHERE,//球コライダ

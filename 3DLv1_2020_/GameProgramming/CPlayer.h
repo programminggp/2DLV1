@@ -14,6 +14,7 @@
 */
 class CPlayer : public CCharacter {
 public:
+	CCollider mCollider;
 	CText mText;
 	static CPlayer *spThis;
 	CColliderLine mLine; //ü•ªƒRƒ‰ƒCƒ_
