@@ -37,7 +37,9 @@ void CEnemy::Update() {
 //Collision(コライダ1, コライダ2)
 void CEnemy::Collision(CCollider *m, CCollider *o) {
 	if (o->mTag == CCollider::ESEARCH)
-		return;
+	{
+		//		return;
+	}
 	//相手のコライダタイプの判定
 	switch (o->mType)
 	{	

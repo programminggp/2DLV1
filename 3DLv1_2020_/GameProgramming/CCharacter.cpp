@@ -12,7 +12,9 @@ CCharacter::~CCharacter() {
 	CTaskManager::Get()->Remove(this);
 }
 
-CCharacter::CCharacter() {
+CCharacter::CCharacter()
+:mTag(EZERO)
+{
 	//タスクリストに追加
 	CTaskManager::Get()->Add(this);
 }

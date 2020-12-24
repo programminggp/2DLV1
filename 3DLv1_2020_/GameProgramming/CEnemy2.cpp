@@ -45,6 +45,21 @@ CEnemy2::CEnemy2(const CVector& position, const CVector& rotation, const CVector
 
 //更新処理
 void CEnemy2::Update() {
+	//プレイヤーのポインタが0以外の時
+	if (mpPlayer)
+	{
+		//弾を発射します
+		CBullet *bullet = new CBullet();
+		bullet->Set(0.1f, 1.5f);
+		bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
+		bullet->mRotation = mRotation;
+		bullet->Update();
+	}
+
+	mpPlayer = 0;
+
+	return;
+
 	//ターゲットがあるとき
 	if (mpPlayer)
 	{
@@ -123,6 +138,52 @@ void CEnemy2::Update() {
 //衝突処理
 //Collision(コライダ1, コライダ2)
 void CEnemy2::Collision(CCollider *m, CCollider *o) {
+	//相手がサーチの時は戻る
+	if (o->mTag == CCollider::ESEARCH)
+	{
+		return;
+	}
+	//自分がサーチ用の時
+	if (m->mTag == CCollider::ESEARCH)
+	{
+		//相手が球コライダの時
+		if (o->mType == CCollider::ESPHERE)
+		{
+			//相手がプレイヤーの時
+			if (o->mpParent->mTag == EPLAYER)
+			{
+				//衝突している時
+				if (CCollider::Collision(m, o))
+				{
+					//プレイヤーのポインタ設定
+					mpPlayer = o->mpParent;
+				}
+			}
+		}
+		return;
+	}
+
+	switch (o->mType)
+	{
+	case CCollider::ESPHERE:
+		//コライダのmとyが衝突しているか判定
+		if (CCollider::Collision(m, o)) {
+			//エフェクト生成
+			new CEffect(o->mpParent->mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+		}
+		break;
+	case CCollider::ETRIANGLE:	//三角コライダの時
+		CVector adjust; //調整値
+		//三角コライダと球コライダの衝突判定
+		if (CCollider::CollisionTriangleSphere(o, m, &adjust))
+		{	//衝突しない位置まで戻す
+			mPosition = mPosition + adjust;
+		}
+		break;
+	}
+
+	return;
+
 	switch (m->mTag)
 	{
 	case CCollider::ESEARCH:
