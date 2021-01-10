@@ -7,12 +7,16 @@
 #define OBJ "f16.obj"	//モデルのファイル
 #define MTL "f16.mtl"	//モデルのマテリアルファイル
 
+#define HP 3	//耐久力
+#define VELOCITY 0.1f	//速度
+
 CModel CEnemy2::mModel;	//モデルデータ作成
 
 CEnemy2::CEnemy2()
 : mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.4f)
 , mColSearch(this, &mMatrix, CVector(0.0f, 0.0f, 100.0f), 30.0f)
 , mpPlayer(0)
+, mHp(3)
 {
 	mTag = EENEMY;
 	mColSearch.mTag = CCollider::ESEARCH;	//タグ設定
@@ -45,17 +49,35 @@ CEnemy2::CEnemy2(const CVector& position, const CVector& rotation, const CVector
 
 //更新処理
 void CEnemy2::Update() {
+
+	//HPが0以下の時　撃破
+	if (mHp <= 0)
+	{
+		mHp--;
+		//15フレーム毎にエフェクト
+		if (mHp % 15 == 0)
+		{
+			//エフェクト生成
+			new CEffect(mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+		}
+		//下降させる
+		mPosition.mY -= 0.03f;
+		CTransform::Update();	//行列更新
+		return;	//呼び元へ戻す
+	}
+
+
+	//左向き（X軸）のベクトルを求める
+	CVector vx = CVector(1.0f, 0.0f, 0.0f) * mMatrixRotate;
+	//上向き（Y軸）のベクトルを求める
+	CVector vy = CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
+	//前方向（Z軸）のベクトルを求める
+	CVector vz = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
 	//プレイヤーのポインタが0以外の時
 	if (mpPlayer)
 	{
 		//プレイヤーまでのベクトルを求める
 		CVector vp = mpPlayer->mPosition - mPosition;
-		//左向き（X軸）のベクトルを求める
-		CVector vx = CVector(1.0f, 0.0f, 0.0f) * mMatrixRotate;
-		//上向き（Y軸）のベクトルを求める
-		CVector vy = CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
-		//前方向（Z軸）のベクトルを求める
-		CVector vz = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
 		float dx = vp.Dot(vx);	//左ベクトルとの内積を求める
 		float dy = vp.Dot(vy);	//上ベクトルとの内積を求める
 		float dz = vp.Dot(vz);
@@ -66,7 +88,7 @@ void CEnemy2::Update() {
 			//Y軸のズレが2.0以下
 			if (-2.0f < dy && dy < 2.0f)
 			{
-				if (abs(dz) < 50.0f && dz > 0.0f)
+				if (dz > 0.0f)
 				{
 					//弾を発射します
 					CBullet *bullet = new CBullet();
@@ -78,6 +100,49 @@ void CEnemy2::Update() {
 			}
 		}
 	}
+
+	//およそ3秒毎に更新
+	int r = rand() % 180;	//rand()は整数の乱数を返す
+	if (r == 0)
+	{
+		if (mpPlayer)
+		{
+			mPoint = mpPlayer->mPosition;
+		}
+		else
+		{
+			mPoint = mPoint * CMatrix().RotateY(90);
+		}
+	}
+
+	//目標地点までのベクトルを求める
+	CVector vp = mPoint - mPosition;
+	float dx = vp.Dot(vx);	//左ベクトルとの内積を求める
+	float dy = vp.Dot(vy);	//上ベクトルとの内積を求める
+	float margin = 0.1f;
+	//左右方向へ向く
+	if (dx > margin)
+	{
+		mRotation.mY += 1.0f;
+	}
+	else if (dx < -margin)
+	{
+		mRotation.mY -= 1.0f;
+	}
+	//上下方向へ向く
+	if (dy > margin)
+	{
+		mRotation.mX -= 1.0f;
+	}
+	else if (dy < -margin)
+	{
+		mRotation.mX += 1.0f;
+	}
+
+	//移動する
+//	mPosition = mPosition + CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
+
+//	CTransform::Update();	//行列更新
 
 	mpPlayer = 0;
 
@@ -193,6 +258,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		if (CCollider::Collision(m, o)) {
 			//エフェクト生成
 			new CEffect(o->mpParent->mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+			mHp--;	//ヒットポイントの減算
 		}
 		break;
 	case CCollider::ETRIANGLE:	//三角コライダの時
@@ -201,6 +267,11 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		if (CCollider::CollisionTriangleSphere(o, m, &adjust))
 		{	//衝突しない位置まで戻す
 			mPosition = mPosition + adjust;
+			//撃破で地面に衝突すると無効
+			if (mHp <= 0)
+			{
+				mEnabled = false;
+			}
 		}
 		break;
 	}

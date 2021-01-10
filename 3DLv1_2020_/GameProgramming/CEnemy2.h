@@ -10,6 +10,10 @@
 */
 class CEnemy2 : public CCharacter {
 public:
+	CVector mPoint;	//目標地点
+
+	int mHp;	//ヒットポイント
+
 	CCharacter *mpPlayer;	//プレイヤーのポインタ
 
 	//モデルデータ
