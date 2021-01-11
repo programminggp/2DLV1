@@ -3,6 +3,7 @@
 #include "CTaskManager.h"
 #include "CCollisionManager.h"
 
+#define HP 10	//耐久値
 
 //コンストラクタ
 //CEnemy(モデル, 位置, 回転, 拡縮)
@@ -11,6 +12,7 @@ CEnemy::CEnemy(CModel *model, CVector position,
 : mCollider1(this, &mMatrix, CVector(0.0f, 5.0f, 0.0f), 0.8f)
 , mCollider2(this, &mMatrix, CVector(0.0f, 5.0f, 20.0f), 0.8f)
 , mCollider3(this, &mMatrix, CVector(0.0f, 5.0f, -20.0f), 0.8f)
+, mHp(HP)
 {
 	mTag = EENEMY;
 
@@ -28,6 +30,22 @@ CEnemy::CEnemy(CModel *model, CVector position,
 
 //更新処理
 void CEnemy::Update() {
+	//HPが0以下の時　撃破
+	if (mHp <= 0)
+	{
+		mHp--;
+		//15フレーム毎にエフェクト
+		if (mHp % 15 == 0)
+		{
+			//エフェクト生成
+			new CEffect(mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+		}
+		//下降させる
+		mPosition.mY -= 0.03f;
+		CTransform::Update();	//行列更新
+		return;	//呼び元へ戻す
+	}
+
 	//行列を更新
 	CTransform::Update();
 	//位置を移動
@@ -53,6 +71,7 @@ void CEnemy::Collision(CCollider *m, CCollider *o) {
 			new CEffect(o->mpParent->mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 			//衝突している時は無効にする
 			//mEnabled = false;
+			mHp--;
 		}
 		break;
 	case CCollider::ETRIANGLE: //三角コライダの時
@@ -61,6 +80,11 @@ void CEnemy::Collision(CCollider *m, CCollider *o) {
 		if (CCollider::CollisionTriangleSphere(o, m, &adjust))
 		{	//衝突しない位置まで戻す
 			mPosition = mPosition + adjust;
+			//撃破で地面に衝突すると無効
+			if (mHp <= 0)
+			{
+				mEnabled = false;
+			}
 		}
 		break;
 	}

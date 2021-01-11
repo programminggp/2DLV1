@@ -13,11 +13,14 @@
 
 CPlayer *CPlayer::spThis = 0;
 
+#define FIRECOUNT 15	//発射間隔
+
 CPlayer::CPlayer()
 : mLine(this, &mMatrix, CVector(0.0f, 0.0f, -14.0f), CVector(0.0f, 0.0f, 17.0f))
 , mLine2(this, &mMatrix, CVector(0.0f, 5.0f, -8.0f), CVector(0.0f, -3.0f, -8.0f))
 , mLine3(this, &mMatrix, CVector(9.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f))
 , mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.5f)
+, mFireCount(0)
 {
 	mTag = EPLAYER;	//タグの設定
 	spThis = this;
@@ -52,8 +55,14 @@ void CPlayer::Update() {
 		mRotation.mX += 1;
 	}
 
+	if (mFireCount > 0)
+	{
+		mFireCount--;
+	}
+
 	//スペースキー入力で弾発射
-	if (CKey::Push(VK_SPACE)) {
+	if (CKey::Push(VK_SPACE) && mFireCount == 0) {
+		mFireCount = FIRECOUNT;
 		CBullet *bullet = new CBullet();
 		bullet->Set(0.1f, 1.5f);
 		bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;

@@ -10,6 +10,8 @@
 */
 class CEnemy : public CCharacter {
 public:
+	int mHp;	//ヒットポイント
+
 	//コライダ
 	CCollider mCollider1;
 	CCollider mCollider2;
