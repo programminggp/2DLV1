@@ -36,9 +36,10 @@ void CEnemy::Update() {
 //衝突処理
 //Collision(コライダ1, コライダ2)
 void CEnemy::Collision(CCollider *m, CCollider *o) {
+	//相手がサーチの時は戻る
 	if (o->mTag == CCollider::ESEARCH)
 	{
-		//		return;
+		return;
 	}
 	//相手のコライダタイプの判定
 	switch (o->mType)
