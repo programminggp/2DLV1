@@ -5,6 +5,9 @@
 
 #define HP 10	//耐久値
 
+int CEnemy::sCount = 0;	//インスタンス数
+
+
 //コンストラクタ
 //CEnemy(モデル, 位置, 回転, 拡縮)
 CEnemy::CEnemy(CModel *model, CVector position,
@@ -14,6 +17,8 @@ CEnemy::CEnemy(CModel *model, CVector position,
 , mCollider3(this, &mMatrix, CVector(0.0f, 5.0f, -20.0f), 0.8f)
 , mHp(HP)
 {
+	sCount++;
+
 	mTag = EENEMY;
 
 	//モデル、位置、回転、拡縮を設定する
@@ -72,6 +77,10 @@ void CEnemy::Collision(CCollider *m, CCollider *o) {
 			//衝突している時は無効にする
 			//mEnabled = false;
 			mHp--;
+			if (mHp == 0)
+			{
+				sCount--;
+			}
 		}
 		break;
 	case CCollider::ETRIANGLE: //三角コライダの時

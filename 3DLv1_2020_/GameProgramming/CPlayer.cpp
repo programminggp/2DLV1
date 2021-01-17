@@ -10,6 +10,8 @@
 #include "CCollisionManager.h"
 //
 #include "CUtil.h"
+//
+#include "CEffect.h"
 
 CPlayer *CPlayer::spThis = 0;
 
@@ -76,6 +78,11 @@ void CPlayer::Update() {
 }
 
 void CPlayer::Collision(CCollider *m, CCollider *o) {
+	//相手がサーチの時は戻る
+	if (o->mTag == CCollider::ESEARCH)
+	{
+		return;
+	}
 	//自身のコライダタイプの判定
 	switch (m->mType) {
 	case CCollider::ELINE://線分コライダ
@@ -88,6 +95,16 @@ void CPlayer::Collision(CCollider *m, CCollider *o) {
 			mPosition = mPosition - adjust * -1;
 			//行列の更新
 			CTransform::Update();
+		}
+		break;
+	case CCollider::ESPHERE:
+		//相手のコライダが球コライダの時
+		if (o->mType == CCollider::ESPHERE) {
+			if (CCollider::Collision(m, o))
+			{
+				//エフェクト生成
+				new CEffect(o->mpParent->mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+			}
 		}
 		break;
 	}
@@ -104,6 +121,7 @@ void CPlayer::TaskCollision()
 	CCollisionManager::Get()->Collision(&mLine, COLLISIONRANGE);
 	CCollisionManager::Get()->Collision(&mLine2, COLLISIONRANGE);
 	CCollisionManager::Get()->Collision(&mLine3, COLLISIONRANGE);
+	CCollisionManager::Get()->Collision(&mCollider, COLLISIONRANGE);
 }
 
 void CPlayer::Render()

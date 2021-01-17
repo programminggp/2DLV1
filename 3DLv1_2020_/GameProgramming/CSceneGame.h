@@ -12,11 +12,15 @@
 #include "CColliderTriangle.h"
 //
 #include "CColliderMesh.h"
+//
+#include "CText.h"
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
 public:
+	CText mText;
+
 	//モデルからコライダを生成
 	CColliderMesh mColliderMesh;
 	//三角コライダの作成

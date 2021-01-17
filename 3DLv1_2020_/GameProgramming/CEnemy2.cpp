@@ -12,11 +12,15 @@
 
 CModel CEnemy2::mModel;	//モデルデータ作成
 
+#define FIRECOUNT 15	//発射間隔
+
+
 CEnemy2::CEnemy2()
 : mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.4f)
 , mColSearch(this, &mMatrix, CVector(0.0f, 0.0f, 100.0f), 30.0f)
 , mpPlayer(0)
 , mHp(HP)
+, mFireCount(0)
 {
 	mTag = EENEMY;
 	mColSearch.mTag = CCollider::ESEARCH;	//タグ設定
@@ -75,29 +79,38 @@ void CEnemy2::Update() {
 	CVector vy = CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
 	//前方向（Z軸）のベクトルを求める
 	CVector vz = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
-	//プレイヤーのポインタが0以外の時
-	if (mpPlayer)
-	{
-		//プレイヤーまでのベクトルを求める
-		CVector vp = mpPlayer->mPosition - mPosition;
-		float dx = vp.Dot(vx);	//左ベクトルとの内積を求める
-		float dy = vp.Dot(vy);	//上ベクトルとの内積を求める
-		float dz = vp.Dot(vz);
 
-		//X軸のズレが2.0以下
-		if (-2.0f < dx && dx < 2.0f)
+	if (mFireCount > 0)
+	{
+		mFireCount--;
+	}
+	else
+	{
+		//プレイヤーのポインタが0以外の時
+		if (mpPlayer)
 		{
-			//Y軸のズレが2.0以下
-			if (-2.0f < dy && dy < 2.0f)
+			//プレイヤーまでのベクトルを求める
+			CVector vp = mpPlayer->mPosition - mPosition;
+			float dx = vp.Dot(vx);	//左ベクトルとの内積を求める
+			float dy = vp.Dot(vy);	//上ベクトルとの内積を求める
+			float dz = vp.Dot(vz);
+
+			//X軸のズレが2.0以下
+			if (-2.0f < dx && dx < 2.0f)
 			{
-				if (dz > 0.0f)
+				//Y軸のズレが2.0以下
+				if (-2.0f < dy && dy < 2.0f)
 				{
-					//弾を発射します
-					CBullet *bullet = new CBullet();
-					bullet->Set(0.1f, 1.5f);
-					bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
-					bullet->mRotation = mRotation;
-					bullet->Update();
+					if (dz > 0.0f)
+					{
+						mFireCount = FIRECOUNT;
+						//弾を発射します
+						CBullet *bullet = new CBullet();
+						bullet->Set(0.1f, 1.5f);
+						bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
+						bullet->mRotation = mRotation;
+						bullet->Update();
+					}
 				}
 			}
 		}

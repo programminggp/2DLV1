@@ -10,6 +10,8 @@
 */
 class CEnemy2 : public CCharacter {
 public:
+	int mFireCount;
+
 	CVector mPoint;	//目標地点
 
 	int mHp;	//ヒットポイント

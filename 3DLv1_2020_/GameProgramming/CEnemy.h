@@ -10,6 +10,7 @@
 */
 class CEnemy : public CCharacter {
 public:
+	static int sCount;	//インスタンス数
 	int mHp;	//ヒットポイント
 
 	//コライダ
