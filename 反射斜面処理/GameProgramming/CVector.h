@@ -28,22 +28,27 @@ public:
 	//CVector - CVector の演算結果を返す
 	CVector operator-(const CVector &v);
 	//ベクトルの長さを返す
-	float Length();
+	float Length() const ;
 	//内積
 	//Dot(ベクトル)
 	float Dot(const CVector &v);
 	//正規化
 	//大きさ1のベクトルを返す
-	CVector Normalize();
+	CVector Normalize() const ;
 	//外積
 	//Cross(ベクトル)
-	CVector Cross(const CVector &v);
+	CVector Cross(const CVector &v) const;
 	//*演算子のオーバーロード
 	//CVector * float の演算結果を返す
-	CVector operator*(const float &f);
+	CVector operator*(const float &f) const ;
 	//+演算しのオーバーロード
 	//CVector + CVector の演算結果を返す
 	CVector operator+(const CVector &v);
+
+	//ベクトルからオイラー角を求める
+	//foward:前向きベクトル
+	//up:上向きベクトル
+	static CVector Euler(const CVector &foward, const CVector &up);
 
 };
 

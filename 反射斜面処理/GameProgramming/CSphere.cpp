@@ -6,7 +6,7 @@
 
 CSphere::CSphere(CModel *model, const CVector &position, const CVector &rotation, const CVector &scale)
 :mCollider(this, CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f), scale.mX)
-, mVelocity(0.0f, -0.1f, 0.0f)
+, mVelocity(0.0f, 0.0f, 0.0f)
 {
 	mpModel = model;
 	mPosition = position;
@@ -18,7 +18,7 @@ void CSphere::Update()
 {
 	if (CKey::Push(' '))
 	{
-		mPosition = CVector(0.0f, 20.0f, 0.0f);
+		mPosition = CVector(0.0f, 30.0f, 0.0f);
 		mVelocity = CVector(0.0f, -0.1f, 0.0f);
 	}
 	mVelocity = mVelocity - GRAVITY;

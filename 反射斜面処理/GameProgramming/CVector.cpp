@@ -1,4 +1,6 @@
 #include "CVector.h"
+//円周率M_PIを有効にする
+#define _USE_MATH_DEFINES
 #include <math.h>
 /*
 //コンストラクタ
@@ -51,7 +53,7 @@ CVector CVector::operator-(const CVector &v) {
 	return CVector(mX - v.mX, mY - v.mY, mZ - v.mZ);
 }
 //ベクトルの長さを返す
-float CVector::Length() {
+float CVector::Length() const {
 	return sqrtf(mX * mX + mY * mY + mZ * mZ);
 }
 
@@ -62,22 +64,36 @@ float CVector::Dot(const CVector &v) {
 
 //正規化
 //大きさ1のベクトルを返す
-CVector CVector::Normalize() {
+CVector CVector::Normalize() const {
 	//ベクトルの大きさで割ったベクトルを返す（長さ1のベクトル）
 //	return CVector(mX / Length(), mY / Length(), mZ / Length());
 	return *this * (1.0f/ Length());
 }
 //外積
-CVector CVector::Cross(const CVector &v) {
+CVector CVector::Cross(const CVector &v) const {
 	return CVector(mY*v.mZ - mZ*v.mY, mZ*v.mX - mX*v.mZ, mX*v.mY - mY*v.mX);
 }
 //*演算子のオーバーロード
 //CVector * float の演算結果を返す
-CVector CVector::operator*(const float &f) {
+CVector CVector::operator*(const float &f) const {
 	return CVector(mX * f, mY * f, mZ * f);
 }
 //+演算子のオーバーロード
 //CVector + CVector の演算結果を返す
 CVector CVector::operator + (const CVector &v) {
 	return CVector(mX + v.mX, mY + v.mY, mZ + v.mZ);
+}
+
+//ベクトルからオイラー角を求める
+//foward:前向きベクトル
+//up:上向きベクトル
+#define DEGREE(r) (r * 180.0f / M_PI)
+CVector CVector::Euler(const CVector &foward, const CVector &up)
+{
+	CVector f = foward.Normalize();	//前方向正規化
+	CVector u = up.Normalize();		//上方向正規化
+	CVector L = up.Cross(f).Normalize();	//左方向求める
+	f = L.Cross(u).Normalize();	//再度前方向求める
+	//各軸での角度を求める
+	return CVector(DEGREE(-asin(f.mY)), DEGREE(atan2(f.mX, f.mZ)), DEGREE(atan2(L.mY, u.mY)));
 }

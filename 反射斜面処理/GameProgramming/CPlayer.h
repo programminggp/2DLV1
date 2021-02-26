@@ -20,7 +20,7 @@ public:
 
 	void Collision(CCollider *mycol, CCollider *youcol);
 
-	void Render(){}
+//	void Render(){}
 
 };
 

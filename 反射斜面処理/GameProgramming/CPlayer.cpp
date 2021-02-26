@@ -41,7 +41,7 @@ void CPlayer::Update() {
 
 CPlayer::CPlayer()
 //ÉRÉâÉCÉ_ÇÃèâä˙ê›íË
-: mColBody(this, CVector(0.0f, 4.0f, -1.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 9.0f)
+: mColBody(this, CVector(0.0f, 4.0f, -1.0f), CVector(), CVector(1.0f, 1.0f, 1.0f), 4.0f)
 , mVelovcityJump(0.0f)
 {
 }
@@ -55,6 +55,9 @@ void CPlayer::Collision(CCollider *mcol, CCollider *ycol) {
 				CCharacter::Update();
 				//12
 				mVelovcityJump = 0.0f;
+
+				CVector foward = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
+				mRotation = CVector::Euler(foward, adjust);
 			}
 		}
 	}

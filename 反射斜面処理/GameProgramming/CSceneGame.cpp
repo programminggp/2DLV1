@@ -46,7 +46,7 @@ void CSceneGame::Init() {
 	mPlane.Load("plane.obj", "plane.mtl");
 	//4
 	mPlayer.mpModel = &mRover;
-	mPlayer.mPosition = CVector(0.0f, 0.0f, -10.0f);
+	mPlayer.mPosition = CVector(0.0f, 20.0f, -10.0f);
 	//07
 	//岩の生成　モデルmRock　位置|-20.0 0.0 20.0|
 	//回転|0.0 0.0 0.0|　拡大|5.0 5.0 5.0|
@@ -59,9 +59,9 @@ void CSceneGame::Init() {
 	//12
 	new CObj(&mPlane, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(200.0f, 1.0f, 200.0f));
 	//
-	new CSlope(&mPlane, CVector(0.0f, 5.0f, 0.0f), CVector(), CVector(10.0f, 1.0f, 10.0f));
+	new CSlope(&mPlane, CVector(0.0f, 15.0f, 0.0f), CVector(), CVector(100.0f, 1.0f, 100.0f));
 	//
-	new CSphere(&mSphere, CVector(0.0f, 20.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
+	new CSphere(&mSphere, CVector(0.0f, 30.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
 
 	//13
 	std::shared_ptr<CTexture> grass(new CTexture("brick.tga"));
@@ -94,11 +94,13 @@ void CSceneGame::Update() {
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 	//09
-	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
+//	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
+	e = CVector(-2.0f, 10.0f, -30.0f) + mPlayer.mPosition;;
 	//注視点を求める
 	c = CVector() * mPlayer.mMatrix;
 	//上方向を求める
-	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotate;
+//	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotate;
+	u = CVector(0.0f, 1.0f, 0.0f);
 
 	//カメラの設定
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
