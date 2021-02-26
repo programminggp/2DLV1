@@ -19,6 +19,8 @@ public:
 	float mDiffuse[4];
 	//テクスチャのスマートポインタ
 	std::shared_ptr<CTexture> mpTexture;
+//	CTexture* mpTexture;
+	CTexture mTexture;
 	//マテリアル毎の頂点数
 	int mVertexNum;
 
@@ -43,6 +45,9 @@ public:
 	void Enabled();
 	//マテリアルを無効にする
 	void Disabled();
+	//テクスチャファイルの読み込み
+	// LoadTexture(ファイル名)
+	void LoadTexture(char *filename);
 };
 
 #endif

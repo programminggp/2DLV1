@@ -4,6 +4,13 @@ CEffect::CEffect(const CVector &pos, float w, float h, std::shared_ptr<CTexture>
 : CBillBoard(pos, w, h), mRows(row), mCols(col), mFps(fps), mFrame(0)
 {
 	mMaterial.mpTexture = texture;
+}
+
+
+CEffect::CEffect(const CVector &pos, float w, float h, CTexture * texture, int row, int col, int fps)
+: CBillBoard(pos, w, h), mRows(row), mCols(col), mFps(fps), mFrame(0)
+{
+//	mMaterial.mpTexture = texture;
 //	ChangePriority(-1);
 }
 

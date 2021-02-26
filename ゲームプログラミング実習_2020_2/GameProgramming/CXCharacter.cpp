@@ -84,7 +84,8 @@ void CXCharacter::Update(CMatrix &matrix) {
 	//フレームの変換行列をアニメーションで更新する
 	mpModel->AnimateFrame();
 	//フレームの合成行列を計算する
-	mpModel->mFrame[0]->AnimateCombined(&matrix);
+//	mpModel->mFrame[0]->AnimateCombined(&matrix);
+	mpModel->AnimateCombined(&matrix);
 	// 合成行列の退避
 	for (int i = 0; i < mpModel->mFrame.size(); i++) {
 		mpCombinedMatrix[i] =
@@ -97,7 +98,16 @@ void CXCharacter::Update(CMatrix &matrix) {
 描画する
 */
 void CXCharacter::Render() {
-	mpModel->RenderShader(mpCombinedMatrix);
+	if (mpModel->mpSkinningMatrix)
+	{
+		mpModel->RenderShader(mpCombinedMatrix);
+	}
+	else
+	{
+		//頂点にアニメーションを適用する
+		mpModel->AnimateVertex();
+		mpModel->Render();
+	}
 }
 
 //更新処理

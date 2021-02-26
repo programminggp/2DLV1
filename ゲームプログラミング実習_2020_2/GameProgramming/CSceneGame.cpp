@@ -15,17 +15,26 @@
 
 CMatrix Matrix;
 
+CSceneGame::CSceneGame()
+//: mFbx2("Idle3.fbx")
+{
+
+}
+
 CSceneGame::~CSceneGame() {
 
 }
 
 
 void CSceneGame::Init() {
+//	mIdle3.Load("idle3.x");
 	// Free Monster 
 	mFMonster.Set(CVector(-5.0f, 0.0f, 0.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 	mFMonster2.Set(CVector(-5.0f, 0.0f, -5.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 	// Felguard
 	mFelguard.Set(CVector(-3.0f, 0.0f, 0.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
+	//
+	mFbxMutant.Set(CVector(0.0f, -10.0f, -20.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
 
 	//3Dモデルファイルの読み込み
 	CRes::sKnight.Load("knight\\knight_low.x");
@@ -76,6 +85,9 @@ void CSceneGame::Init() {
 //	CText::mFont.SetRowCol(1, 4096 / 64);
 	CText::mFont.Load("FontGreen.tga");
 	CText::mFont.SetRowCol(2, 4096 / 64);
+
+//	CModelFBX fbx("cube.fbx"); 
+//	CModelFBX fbx2("Idle2.fbx");
 }
 
 
@@ -145,6 +157,9 @@ void CSceneGame::Update() {
 	mDummy[1].Render();
 	mDummy[2].Render();
 
+	mFbxMutant.Render();
+
+//	mIdle3.Render(&CMatrix().Scale(0.1f, 0.1f, 0.1f));
 
 	//コライダの描画
 	CollisionManager.Render();

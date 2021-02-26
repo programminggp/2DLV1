@@ -48,6 +48,8 @@ public:
 	//+演算子のオーバーロード
 	//CMatrix + CMatrix の演算を行う
 	CMatrix operator+(const CMatrix &m);
+	//逆行列
+	CMatrix GetInverse(void);
 };
 
 #endif

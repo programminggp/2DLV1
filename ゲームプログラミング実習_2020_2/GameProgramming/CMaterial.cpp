@@ -99,3 +99,20 @@ CMaterial::CMaterial(CModelX *model)
 		model->GetToken(); // }
 	}
 }
+
+//テクスチャファイルの読み込み
+// LoadTexture(ファイル名)
+void CMaterial::LoadTexture(char *filename)
+{
+	if (mpTextureFilename == 0) {
+		mpTextureFilename = new char[strlen(filename) + 1];
+		strcpy(mpTextureFilename, filename);
+
+		//スマートポインタの生成
+		std::shared_ptr<CTexture> t(new CTexture());
+		//スマートポインタの代入
+		mpTexture = t;
+		//テクスチャファイルの読み込み
+		t->Load(mpTextureFilename);
+	}
+}

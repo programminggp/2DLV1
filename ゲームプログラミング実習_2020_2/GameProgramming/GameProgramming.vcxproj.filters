@@ -108,6 +108,12 @@
     <ClCompile Include="CSound.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
+    <ClCompile Include="CModelFBX.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CFbxMutant.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSceneGame.h">
@@ -204,6 +210,12 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CFelguard.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CModelFBX.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CFbxMutant.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -429,6 +429,23 @@ void CModelX::Render() {
 		mFrame[i]->Render();
 	}
 }
+
+void CModelX::Render(CMatrix *mat)
+{
+	glPushMatrix();
+	glMultMatrixf(mat->mM[0]);
+	for (int i = 0; i < mFrame.size(); i++) {
+		if (mFrame[i]->mMesh.mFaceNum > 0)
+		{
+			if (mFrame[i]->mMesh.mpAnimateVertex)
+				mFrame[i]->mMesh.mpAnimateVertex = mFrame[i]->mMesh.mpVertex;
+			if (mFrame[i]->mMesh.mpAnimateNormal)
+				mFrame[i]->mMesh.mpAnimateNormal = mFrame[i]->mMesh.mpNormal;
+			mFrame[i]->mMesh.Render();
+		}
+	}
+	glPopMatrix();
+}
 /*
 CSkinWeights
 スキンウェイトの読み込み
@@ -519,9 +536,12 @@ CModelXFrame* CModelX::FindFrame(char* name) {
 	//先頭から最後まで繰り返す
 	for (itr = mFrame.begin(); itr != mFrame.end(); itr++) {
 		//名前が一致したか？
-		if (strcmp(name, (*itr)->mpName) == 0) {
-			//一致したらそのアドレスを返す
-			return *itr;
+		if ((*itr)->mpName)
+		{
+			if (strcmp(name, (*itr)->mpName) == 0) {
+				//一致したらそのアドレスを返す
+				return *itr;
+			}
 		}
 	}
 	//一致するフレーム無い場合はNULLを返す
@@ -730,6 +750,12 @@ void CModelXFrame::AnimateCombined(CMatrix* parent) {
 //	mCombinedMatrix.Print();
 #endif
 }
+
+void CModelX::AnimateCombined(CMatrix *matrix)
+{
+	mFrame[0]->AnimateCombined(matrix);
+}
+
 /*
 SetSkinWeightFrameIndex
 スキンウェイトにフレーム番号を設定する
@@ -877,8 +903,7 @@ void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name)
 	mAnimationSet.push_back(as);
 }
 //
-void CModelX::RenderShader(
-	CMatrix *pCombinedMatrix) {
+void CModelX::RenderShader(CMatrix *pCombinedMatrix) {
 	mShader.Render(this, pCombinedMatrix);
 }
 /*

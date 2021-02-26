@@ -6,12 +6,16 @@
 #include "CXEnemy.h"
 #include "CFreeMonster.h"
 #include "CFelguard.h"
+#include "CFbxMutant.h"
 
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
 public:
+	CFbxMutant mFbxMutant;
+//	CModelX mIdle3;
+
 	//キャラクタのインスタンス
 	CXPlayer mPlayer;
 	//敵のインスタンス
@@ -24,6 +28,8 @@ public:
 	CFreeMonster mFMonster2;
 	//
 	CFelguard mFelguard;
+
+	CSceneGame();
 
 	~CSceneGame();
 	//初期化処理のオーバーライド

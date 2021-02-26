@@ -45,6 +45,8 @@ public:
 	CAnimation()
 		: mpFrameName(0)
 		, mpKey(0)
+		, mFrameIndex(0)
+		, mKeyNum(0)
 	{}
 
 	CAnimation(CModelX *model);
@@ -70,7 +72,12 @@ public:
 	float mWeight;	//重み
 	float mMaxTime;	//最大時間
 
-	CAnimationSet(){}
+	CAnimationSet()
+		: mpName(0)
+		, mTime(0)
+		, mWeight(0)
+		, mMaxTime(0)
+	{}
 
 	CAnimationSet(CModelX *model);
 
@@ -95,6 +102,12 @@ public:
 	int *mpIndex;	//頂点番号配列
 	float *mpWeight;	//頂点ウェイト配列
 	CMatrix mOffset;	//オフセットマトリックス
+
+	CSkinWeights()
+		: mpFrameName(0)
+		, mpIndex(0)
+		, mpWeight(0)
+	{}
 
 	CSkinWeights(CModelX *model);
 
@@ -173,7 +186,7 @@ public:
 	void Render();
 	//頂点にアニメーション適用
 	void AnimateVertex(CModelX *model);
-	void AnimateVertex(CMatrix*);
+	virtual void AnimateVertex(CMatrix*);
 };
 
 
@@ -252,21 +265,23 @@ public:
 	float GetFloatToken();
 	//整数データの取得
 	int GetIntToken();
-	void Render();
+	virtual void Render();
+	void Render(CMatrix*);
 	CModelXFrame* FindFrame(char* name);
 	void AnimateFrame();
 	//スキンウェイトのフレーム番号設定
 	void SetSkinWeightFrameIndex();
 	//頂点にアニメーションを適用
-	void AnimateVertex();
+	virtual void AnimateVertex();
 	//マテリアルの検索
 	CMaterial* FindMaterial(char* name);
-	void AnimateVertex(CMatrix*);
+	virtual void AnimateVertex(CMatrix*);
 	//アニメーションを抜き出す
 	void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name);
 	//シェーダーを使った描画
 	void RenderShader(CMatrix *m);
-
+	//
+	virtual void AnimateCombined(CMatrix *matrix);
 };
 
 #endif

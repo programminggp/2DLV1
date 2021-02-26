@@ -34,7 +34,7 @@ void CCharacter::Render() {
 CCharacter::CCharacter()
 //: mpParent(0)
 //?
-: mpModel(0)
+: mpModel(nullptr)
 , mTag(ENONE)
 , mScale(1.0f, 1.0f, 1.0f)
 {
