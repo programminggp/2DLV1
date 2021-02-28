@@ -49,6 +49,9 @@ public:
 	//foward:前向きベクトル
 	//up:上向きベクトル
 	static CVector Euler(const CVector &foward, const CVector &up);
+	//自ベクトルからオイラー角を求める
+	//up:上向きベクトル
+	CVector Euler(const CVector &up);
 
 };
 

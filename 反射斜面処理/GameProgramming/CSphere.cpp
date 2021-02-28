@@ -5,8 +5,8 @@
 #define GRAVITY CVector(0.0f, 0.0f, 0.0f)
 
 CSphere::CSphere(CModel *model, const CVector &position, const CVector &rotation, const CVector &scale)
-:mCollider(this, CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f), scale.mX)
-, mVelocity(0.0f, 0.0f, 0.0f)
+	:mCollider(this, CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f), scale.mX)
+	, mVelocity(0.0f, 0.0f, 0.0f)
 {
 	mpModel = model;
 	mPosition = position;

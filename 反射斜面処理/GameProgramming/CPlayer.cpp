@@ -57,7 +57,8 @@ void CPlayer::Collision(CCollider *mcol, CCollider *ycol) {
 				mVelovcityJump = 0.0f;
 
 				CVector foward = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
-				mRotation = CVector::Euler(foward, adjust);
+//				mRotation = CVector::Euler(foward, adjust);
+				mRotation = foward.Euler(adjust);
 			}
 		}
 	}
