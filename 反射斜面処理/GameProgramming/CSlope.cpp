@@ -12,11 +12,11 @@ void CSlope::Update()
 {
 	if (CKey::Push('J'))
 	{
-		mRotation.mZ++;
+		mRotation.mZ--;
 	}
 	else if (CKey::Push('L'))
 	{
-		mRotation.mZ--;
+		mRotation.mZ++;
 	}
 	if (CKey::Push('I'))
 	{

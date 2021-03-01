@@ -46,7 +46,7 @@ void CSceneGame::Init() {
 	mPlane.Load("plane.obj", "plane.mtl");
 	//4
 	mPlayer.mpModel = &mRover;
-	mPlayer.mPosition = CVector(0.0f, 20.0f, -10.0f);
+	mPlayer.mPosition = CVector(0.0f, 20.0f, 10.0f);
 	//07
 	//岩の生成　モデルmRock　位置|-20.0 0.0 20.0|
 	//回転|0.0 0.0 0.0|　拡大|5.0 5.0 5.0|
@@ -95,9 +95,11 @@ void CSceneGame::Update() {
 	//視点を求める
 	//09
 //	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
-	e = CVector(-2.0f, 10.0f, -30.0f) + mPlayer.mPosition;;
+//	e = CVector(-2.0f, 10.0f, -30.0f) + mPlayer.mPosition;
+	e = CVector(-2.0f, 30.0f, -30.0f);
 	//注視点を求める
-	c = CVector() * mPlayer.mMatrix;
+//	c = CVector() * mPlayer.mMatrix;
+	c = CVector(0.0f, 20.0f, 0.0f);
 	//上方向を求める
 //	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotate;
 	u = CVector(0.0f, 1.0f, 0.0f);
