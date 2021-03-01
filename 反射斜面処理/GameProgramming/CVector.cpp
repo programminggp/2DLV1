@@ -97,3 +97,15 @@ CVector CVector::Euler(const CVector &foward, const CVector &up)
 	//各軸での角度を求める
 	return CVector(DEGREE(-asin(f.mY)), DEGREE(atan2(f.mX, f.mZ)), DEGREE(atan2(L.mY, u.mY)));
 }
+
+//自ベクトルからオイラー角を求める
+//up:上向きベクトル
+CVector CVector::Euler(const CVector &up)
+{
+	CVector f = this->Normalize();	//前方向正規化
+	CVector u = up.Normalize();		//上方向正規化
+	CVector L = up.Cross(f).Normalize();	//左方向求める
+	f = L.Cross(u).Normalize();	//再度前方向求める
+	//各軸での角度を求める
+	return CVector(DEGREE(-asin(f.mY)), DEGREE(atan2(f.mX, f.mZ)), DEGREE(atan2(L.mY, u.mY)));
+}
