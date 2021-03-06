@@ -24,7 +24,20 @@ CLesson1::CLesson1() //CLesson1クラスのデフォルトコンストラクタの定義
 	printf_s("CLesson1()"); //"文字列"を画面に出力（表示）する
 } //処理の終了
 
+class CLesson2
+{
+public:
+	CLesson2();
+};
+
+CLesson2::CLesson2()
+{
+	printf_s("CLesson2()");
+}
+
+
 CLesson1 Instance; //CLesson1クラスのインスタンス（実体）の作成
+CLesson2 Lesson2;
 
 /*
 GameLoop関数の定義
