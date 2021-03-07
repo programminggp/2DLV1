@@ -1,11 +1,12 @@
 /*
-Lesson1
-CGameクラスの定義とインスタンスの作成
+Lesson2
+四角形の描画
 課題
-CRectクラスの定義とインスタンスの作成
+四角形の描画位置の変更
 */
 
 #include <stdio.h> //printf関数の取り込み
+#include "glut.h" //グラフィックライブラリOpenGLの取り込み
 /*
 class
 クラスとはプログラムの作成単位です
@@ -23,8 +24,12 @@ public: //全てからアクセス可能
 */
 void CGame::Render() //Renderメソッドの処理の定義
 { //処理の開始
-	printf("CGame::Render()\n"); //printf関数を呼び出し"文字列"を出力
-						//\nは改行
+	glBegin(GL_QUADS); //描画開始（四角形）
+	glVertex2f(0.0f, 0.0f); //頂点座標設定（X座標,Y座標）
+	glVertex2f(100.0f, 0.0f); //頂点は反時計回りに設定
+	glVertex2f(100.0f, 100.0f);
+	glVertex2f(0.0f, 100.0f);
+	glEnd(); //描画終了
 } //処理の終了
 
 CGame gGame; //CGameクラスのインスタンスの作成
@@ -36,8 +41,6 @@ GameLoop関数の定義
 */
 void GameLoop() //GameLoop関数の処理の定義
 { //処理の開始
-
-	printf("GameLoop()\n"); //printf関数を呼び出し"文字列"を出力
 
 	gGame.Render(); //gGameのRenderメソッドの呼び出し
 
