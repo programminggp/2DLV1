@@ -7,6 +7,7 @@ Lesson2
 
 #include <stdio.h> //printf関数の取り込み
 #include "glut.h" //グラフィックライブラリOpenGLの取り込み
+
 /*
 class
 クラスとはプログラムの作成単位です
@@ -18,11 +19,12 @@ class CGame //CGameクラスの定義
 public: //全てからアクセス可能
 	void Render(); //Renderメソッドの宣言
 }; //定義の終了;注意
+
 /*
 メソッドとは
-プログラムの命令を集めた、クラスに作成される処理です。
+命令を集めた処理です。
 */
-void CGame::Render() //Renderメソッドの処理の定義
+void CGame::Render() //Renderメソッドの定義
 { //処理の開始
 	glBegin(GL_QUADS); //描画開始（四角形）
 	glVertex2f(0.0f, 0.0f); //頂点座標設定（X座標,Y座標）
@@ -32,14 +34,14 @@ void CGame::Render() //Renderメソッドの処理の定義
 	glEnd(); //描画終了
 } //処理の終了
 
-CGame gGame; //CGameクラスのインスタンスの作成
+CGame gGame; //CGameクラスのインスタンスgGameの作成
 
 /*
 GameLoop関数の定義
 ゲームのメインループ
 ゲーム実行中繰り返し呼ばれる処理
 */
-void GameLoop() //GameLoop関数の処理の定義
+void GameLoop() //GameLoop関数の定義
 { //処理の開始
 
 	gGame.Render(); //gGameのRenderメソッドの呼び出し

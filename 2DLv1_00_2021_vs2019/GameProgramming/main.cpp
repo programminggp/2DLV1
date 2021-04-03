@@ -75,7 +75,7 @@ int main(void)
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOWÅQTITLE, NULL, NULL);
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -125,6 +125,13 @@ int main(void)
 
 		/* Poll for and process events */
 		glfwPollEvents();
+
+		//ESCÉLÅ[Ç≈èIóπ
+		int state = glfwGetKey(window, GLFW_KEY_ESCAPE);
+		if (state == GLFW_PRESS)
+		{
+			break;
+		}
 	}
 
 	glfwTerminate();
