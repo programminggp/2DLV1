@@ -137,6 +137,13 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 			mChild.push_back(
 				new CModelXFrame(model));
 		}
+		else if (strcmp(model->mToken, "FrameTransformMatrix") == 0) {
+			model->GetToken(); // {
+			for (int i = 0; i < ARRAY_SIZE(mTransformMatrix.mF); i++) {
+				mTransformMatrix.mF[i] = model->GetFloatToken();
+			}
+			model->GetToken(); // }
+		}
 		else {
 			//上記以外の要素は読み飛ばす
 			model->SkipNode();
@@ -145,5 +152,20 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 	//デバッグバージョンのみ有効
 #ifdef _DEBUG
 	printf("%s\n", mpName);
+	for (int i = 0; i < ARRAY_SIZE(mTransformMatrix.mF); i++) {
+		printf("%10f", mTransformMatrix.mF[i]);
+		if (i % 4 == 3)
+			printf("\n");
+	}
 #endif
+}
+/*
+GetFloatToken
+単語を浮動小数点型のデータで返す
+*/
+float CModelX::GetFloatToken() {
+	GetToken();
+	//atof
+	//文字列をfloat型へ変換
+	return atof(mToken);
 }

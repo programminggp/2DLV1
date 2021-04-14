@@ -4,6 +4,8 @@
 #define MODEL_FILE "sample.blend.x"
 
 #define SAFE_DELETE_ARRAY(a) { if(a) delete[] a; a = 0;}
+//配列のサイズ取得をマクロ化
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
 
 
@@ -57,6 +59,9 @@ public:
 
 	//ノードの読み飛ばし
 	void SkipNode();
+
+	//浮動小数点データの取得
+	float GetFloatToken();
 
 };
 
