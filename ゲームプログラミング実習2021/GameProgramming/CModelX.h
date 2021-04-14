@@ -16,6 +16,10 @@ public:
 
 	void Load(char* file);
 
+	//’PŒê‚Ìæ‚èo‚µ
+	void GetToken();
+
+
 };
 
 #endif
