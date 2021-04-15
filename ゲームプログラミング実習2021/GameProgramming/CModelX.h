@@ -43,6 +43,8 @@ public:
 	}
 	//読み込み処理
 	void Init(CModelX* model);
+
+	void Render();
 };
 
 //CModelXFrameクラスの定義
@@ -66,6 +68,8 @@ public:
 		//名前のエリアを解放する
 		SAFE_DELETE_ARRAY(mpName);
 	}
+
+	void Render();
 };
 
 
@@ -100,6 +104,7 @@ public:
 	//整数データの取得
 	int GetIntToken();
 
+	void Render();
 };
 
 #endif
