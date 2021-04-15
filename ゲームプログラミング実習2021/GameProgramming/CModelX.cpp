@@ -200,13 +200,22 @@ void CMesh::Init(CModelX* model) {
 		mpVertex[i].mY = model->GetFloatToken();
 		mpVertex[i].mZ = model->GetFloatToken();
 	}
+	mFaceNum = model->GetIntToken();	//面数読み込み
+//頂点数は1面に3頂点
+	mpVertexIndex = new int[mFaceNum * 3];
+	for (int i = 0; i < mFaceNum * 3; i += 3) {
+		model->GetToken();	//頂点数読み飛ばし
+		mpVertexIndex[i] = model->GetIntToken();
+		mpVertexIndex[i + 1] = model->GetIntToken();
+		mpVertexIndex[i + 2] = model->GetIntToken();
+	}
 	//デバッグバージョンのみ有効
 #ifdef _DEBUG
-	printf("VertexNum:%d\n", mVertexNum);
-	for (int i = 0; i < mVertexNum; i++) {
-		printf("%10f", mpVertex[i].mX);
-		printf("%10f", mpVertex[i].mY);
-		printf("%10f\n", mpVertex[i].mZ);
+	printf("FaceNum:%d\n", mFaceNum);
+	for (int i = 0; i < mFaceNum * 3; i++) {
+		printf("%3d", mpVertexIndex[i++]);
+		printf("%3d", mpVertexIndex[i++]);
+		printf("%3d\n", mpVertexIndex[i]);
 	}
 #endif
 }

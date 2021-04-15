@@ -21,14 +21,20 @@ class CMesh {
 public:
 	int mVertexNum;	//頂点数
 	CVector* mpVertex;	//頂点データ
+	int mFaceNum;	//面数
+	int* mpVertexIndex;	//面を構成する頂点番号
+
 	//コンストラクタ
 	CMesh()
 		: mVertexNum(0)
 		, mpVertex(0)
+		, mFaceNum(0)
+		, mpVertexIndex(nullptr)
 	{}
 	//デストラクタ
 	~CMesh() {
 		SAFE_DELETE_ARRAY(mpVertex);
+		SAFE_DELETE_ARRAY(mpVertexIndex);
 	}
 	//読み込み処理
 	void Init(CModelX* model);
