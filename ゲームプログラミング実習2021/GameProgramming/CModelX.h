@@ -55,6 +55,9 @@ public:
 	char* mpName;
 	//アニメーション
 	std::vector<CAnimation*> mAnimation;
+	float mTime;		//現在時間
+	float mWeight;	//重み
+	float mMaxTime;	//最大時間
 
 	CAnimationSet(CModelX* model);
 
@@ -202,6 +205,8 @@ public:
 	//フレーム名に該当するフレームのアドレスを返す
 	CModelXFrame* FindFrame(char* name);
 
+	//フレームの変換行列をアニメーションデータで更新する
+	void AnimateFrame();
 };
 
 #endif
