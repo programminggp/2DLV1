@@ -31,11 +31,9 @@ void CModelX::Load(char* file)
 			//フレームを作成する
 			new CModelXFrame(this);
 		}
-		//単語がFrameの場合
-		if (strcmp(mToken, "AnimationSet") == 0) {
-			printf("%s ", mToken);	//AnimationSet出力
-			GetToken();	//AnimationSet名を取得
-			printf("%s\n", mToken);	//AnimationSet名を出力
+		//単語がAnimationSetの場合
+		else if (strcmp(mToken, "AnimationSet") == 0) {
+			new CAnimationSet(this);
 		}
 	}
 
@@ -268,6 +266,16 @@ void CMesh::Init(CModelX* model) {
 			}
 			model->GetToken();	// } //End of MeshMaterialList
 		}
+		//SkinWeightsのとき
+		else if (strcmp(model->mToken, "SkinWeights") == 0) {
+			//CSkinWeightsクラスのインスタンスを作成し、配列に追加
+			mSkinWeights.push_back(new CSkinWeights(model));
+		}
+		else {
+			//以外のノードは読み飛ばし
+			model->SkipNode();
+		}
+
 	}
 
 	//デバッグバージョンのみ有効
@@ -323,3 +331,118 @@ void CModelX::Render() {
 	}
 }
 
+/*
+CSkinWeights
+スキンウェイトの読み込み
+*/
+CSkinWeights::CSkinWeights(CModelX* model)
+	: mpFrameName(0)
+	, mFrameIndex(0)
+	, mIndexNum(0)
+	, mpIndex(nullptr)
+	, mpWeight(nullptr)
+{
+	model->GetToken();	// {
+	model->GetToken();	// FrameName
+	//フレーム名エリア確保、設定
+	mpFrameName = new char[strlen(model->mToken) + 1];
+	strcpy(mpFrameName, model->mToken);
+	//頂点番号数取得
+	mIndexNum = model->GetIntToken();
+	//頂点番号数が0を超える
+	if (mIndexNum > 0) {
+		//頂点番号と頂点ウェイトのエリア確保
+		mpIndex = new int[mIndexNum];
+		mpWeight = new float[mIndexNum];
+		//頂点番号取得
+		for (int i = 0; i < mIndexNum; i++)
+			mpIndex[i] = model->GetIntToken();
+		//頂点ウェイト取得
+		for (int i = 0; i < mIndexNum; i++)
+			mpWeight[i] = model->GetFloatToken();
+	}
+	//オフセット行列取得
+	for (int i = 0; i < 16; i++) {
+		mOffset.mF[i] = model->GetFloatToken();
+	}
+	model->GetToken();	// }
+
+	//デバッグバージョンのみ有効
+#ifdef _DEBUG
+	printf("SkinWeights:%s\n", mpFrameName);
+	for (int i = 0; i < mIndexNum; i++) {
+		printf("%d", mpIndex[i]);
+		printf("%10f\n", mpWeight[i]);
+	}
+	mOffset.Print();
+#endif
+}
+/*
+CAnimationSet
+*/
+CAnimationSet::CAnimationSet(CModelX* model)
+	: mpName(0)
+{
+	model->mAnimationSet.push_back(this);
+	model->GetToken();	// Animation Name
+	//アニメーションセット名を退避
+	mpName = new char[strlen(model->mToken) + 1];
+	strcpy(mpName, model->mToken);
+	model->GetToken(); // {
+	while (*model->mpPointer != '\0') {
+		model->GetToken(); // } or Animation
+		if (strchr(model->mToken, '}'))break;
+		if (strcmp(model->mToken, "Animation") == 0) {
+			 //Animation要素読み込み
+			mAnimation.push_back(new CAnimation(model));
+		}
+	}
+}
+/*
+ FindFrame
+ フレーム名に該当するフレームのアドレスを返す
+*/
+CModelXFrame* CModelX::FindFrame(char* name) {
+	//イテレータの作成
+	std::vector<CModelXFrame*>::iterator itr;
+	//先頭から最後まで繰り返す
+	for (itr = mFrame.begin(); itr != mFrame.end(); itr++) {
+		//名前が一致したか？
+		if (strcmp(name, (*itr)->mpName) == 0) {
+			//一致したらそのアドレスを返す
+			return *itr;
+		}
+	}
+	//一致するフレーム無い場合はNULLを返す
+	return NULL;
+}
+CAnimation::CAnimation(CModelX* model)
+	: mpFrameName(0)
+	, mFrameIndex(0)
+{
+	model->GetToken(); // { or Animation Name
+	if (strchr(model->mToken, '{')) {
+		model->GetToken(); // {
+	}
+	else {
+		model->GetToken(); // {
+		model->GetToken(); // {
+	}
+
+	model->GetToken(); //FrameName
+	mpFrameName = new char[strlen(model->mToken) + 1];
+	strcpy(mpFrameName, model->mToken);
+	mFrameIndex =
+		model->FindFrame(model->mToken)->mIndex;
+	model->GetToken(); // }
+	while (*model->mpPointer != '\0') {
+		model->GetToken(); // } or AnimationKey
+		if (strchr(model->mToken, '}')) break;
+		if (strcmp(model->mToken, "AnimationKey") == 0) {
+			model->SkipNode();
+		}
+	}
+#ifdef _DEBUG
+	printf("AnimationSet:%s\n", mpFrameName);
+#endif
+}

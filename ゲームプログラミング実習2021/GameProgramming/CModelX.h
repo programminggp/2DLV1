@@ -16,6 +16,63 @@
 class CModelX;	// CModelXクラスの宣言
 class CMaterial;	//クラスの宣言
 
+/*
+ CAnimation
+ アニメーションクラス
+*/
+class CAnimation {
+public:
+	char* mpFrameName;//フレーム名
+	int mFrameIndex;	//フレーム番号
+
+	CAnimation(CModelX* model);
+
+	~CAnimation() {
+		SAFE_DELETE_ARRAY(mpFrameName);
+	}
+};
+/*
+ CAnimationSet
+ アニメーションセット
+*/
+class CAnimationSet {
+public:
+	//アニメーションセット名
+	char* mpName;
+	//アニメーション
+	std::vector<CAnimation*> mAnimation;
+
+	CAnimationSet(CModelX* model);
+
+	~CAnimationSet() {
+		SAFE_DELETE_ARRAY(mpName);
+		//アニメーション要素の削除
+		for (int i = 0; i < mAnimation.size(); i++) {
+			delete mAnimation[i];
+		}
+	}
+};
+/*
+ CSkinWeights
+ スキンウェイトクラス
+*/
+class CSkinWeights {
+public:
+	char* mpFrameName;	//フレーム名
+	int mFrameIndex;	//フレーム番号
+	int mIndexNum;	//頂点番号数
+	int* mpIndex;	//頂点番号配列
+	float* mpWeight;	//頂点ウェイト配列
+	CMatrix mOffset;	//オフセットマトリックス
+
+	CSkinWeights(CModelX* model);
+
+	~CSkinWeights() {
+		SAFE_DELETE_ARRAY(mpFrameName);
+		SAFE_DELETE_ARRAY(mpIndex);
+		SAFE_DELETE_ARRAY(mpWeight);
+	}
+};
 
 //CMeshクラスの定義
 class CMesh {
@@ -31,6 +88,9 @@ public:
 	int mMaterialIndexNum;//マテリアル番号数（面数）
 	int* mpMaterialIndex;	  //マテリアル番号
 	std::vector<CMaterial*> mMaterial;//マテリアルデータ
+
+	//スキンウェイト
+	std::vector<CSkinWeights*> mSkinWeights;
 
 	//コンストラクタ
 	CMesh()
@@ -50,6 +110,10 @@ public:
 		SAFE_DELETE_ARRAY(mpVertexIndex);
 		SAFE_DELETE_ARRAY(mpNormal);
 		SAFE_DELETE_ARRAY(mpMaterialIndex);
+		//スキンウェイトの削除
+		for (int i = 0; i < mSkinWeights.size(); i++) {
+			delete mSkinWeights[i];
+		}
 	}
 	//読み込み処理
 	void Init(CModelX* model);
@@ -88,6 +152,8 @@ public:
 	char* mpPointer;
 	char mToken[1024];
 	std::vector<CModelXFrame*> mFrame;	//フレームの配列
+	//アニメーションセットの配列
+	std::vector<CAnimationSet*> mAnimationSet;
 
 	CModelX()
 		: mpPointer(nullptr)
@@ -97,6 +163,9 @@ public:
 		if (mFrame.size() > 0)
 		{
 			delete mFrame[0];
+		}
+		for (int i = 0; i < mAnimationSet.size(); i++) {
+			delete mAnimationSet[i];
 		}
 	}
 
@@ -115,6 +184,10 @@ public:
 	int GetIntToken();
 
 	void Render();
+
+	//フレーム名に該当するフレームのアドレスを返す
+	CModelXFrame* FindFrame(char* name);
+
 };
 
 #endif
