@@ -1,6 +1,9 @@
 #ifndef CMATERIAL_H
 #define CMATERIAL_H
 #include "CTexture.h"
+
+#include "CModelX.h"
+
 /*
 マテリアルクラス
 マテリアルのデータを扱う
@@ -15,6 +18,20 @@ public:
 	char mName[64];
 	//拡散光の色RGBA
 	float mDiffuse[4];
+	float mPower;
+	float mSpecular[3];
+	float mEmissive[3];
+	//テクスチャファイル名
+	char* mpTextureFilename;
+
+	CMaterial(CModelX* model);
+	~CMaterial() {
+		if (mpTextureFilename) {
+			delete[] mpTextureFilename;
+		}
+		mpTextureFilename = 0;
+	}
+
 	//デフォルトコンストラクタ
 	CMaterial();
 	//マテリアルを有効にする
