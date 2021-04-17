@@ -1,7 +1,7 @@
 #ifndef CMODELX_H
 #define CMODELX_H
 
-#define MODEL_FILE "sample.blend.x"
+#define MODEL_FILE "ラグナ.x"
 
 #define SAFE_DELETE_ARRAY(a) { if(a) delete[] a; a = 0;}
 //配列のサイズ取得をマクロ化
@@ -183,6 +183,7 @@ public:
 	std::vector<CModelXFrame*> mFrame;	//フレームの配列
 	//アニメーションセットの配列
 	std::vector<CAnimationSet*> mAnimationSet;
+	std::vector<CMaterial*> mMaterial;	//マテリアルの配列
 
 	CModelX()
 		: mpPointer(nullptr)
@@ -195,6 +196,10 @@ public:
 		}
 		for (int i = 0; i < mAnimationSet.size(); i++) {
 			delete mAnimationSet[i];
+		}
+		//マテリアルの解放
+		for (int i = 0; i < mMaterial.size(); i++) {
+			delete mMaterial[i];
 		}
 	}
 
@@ -225,6 +230,9 @@ public:
 
 	//頂点にアニメーションを適用
 	void AnimateVertex();
+
+	//マテリアルの検索
+	CMaterial* FindMaterial(char* name);
 };
 
 #endif
