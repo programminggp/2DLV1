@@ -89,6 +89,8 @@ CMaterial::CMaterial(CModelX* model)
 		model->GetToken(); // filename
 		mpTextureFilename = new char[strlen(model->mToken) + 1];
 		strcpy(mpTextureFilename, model->mToken);
+		//テクスチャファイルの読み込み
+		mTexture.Load(mpTextureFilename);
 		model->GetToken(); // }
 		model->GetToken(); // }
 	}
