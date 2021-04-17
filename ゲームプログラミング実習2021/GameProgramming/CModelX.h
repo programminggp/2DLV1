@@ -146,6 +146,7 @@ public:
 	char* mpName;	//フレーム名前
 	int mIndex;		//フレーム番号
 	CMesh mMesh;	//Meshデータ
+	CMatrix mCombinedMatrix;	//合成行列
 
 	//コンストラクタ
 	CModelXFrame(CModelX* model);
