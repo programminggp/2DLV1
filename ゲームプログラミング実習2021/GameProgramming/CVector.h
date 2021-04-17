@@ -39,6 +39,9 @@ public:
 	//+演算しのオーバーロード
 	//CVector + CVector の演算結果を返す
 	CVector operator+(const CVector &v);
+	//+=演算子のオーバーロード
+	//CVector1 += CVector2 の演算を行う
+	void operator+=(const CVector& v);
 
 };
 #endif
