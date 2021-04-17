@@ -21,24 +21,18 @@ void CSceneGame::Init() {
 	mFont.LoadTexture("FontG.tga", 1, 4096 / 64);
 
 	CRes::sModelX.Load(MODEL_FILE);
+	//キャラクターにモデルを設定
+	mCharacter.Init(&CRes::sModelX);
 
 }
 
 
 void CSceneGame::Update() {
-	//最初のアニメーションの現在時間を45にする
-	//CRes::sModelX.mAnimationSet[0]->mTime = 0;
-	CRes::sModelX.mAnimationSet[0]->mTime += 1.0f;
-	CRes::sModelX.mAnimationSet[0]->mTime =
-		(int)CRes::sModelX.mAnimationSet[0]->mTime %
-		(int)(CRes::sModelX.mAnimationSet[0]->mMaxTime + 1);
+	//歩くアニメーションに切り替える
+	mCharacter.ChangeAnimation(1, true, 60);
 
-	//最初のアニメーションの重みを1.0（100%)にする
-	CRes::sModelX.mAnimationSet[0]->mWeight = 1.0f;
-	//フレームの変換行列をアニメーションで更新する
-	CRes::sModelX.AnimateFrame();
-	//フレームの合成行列を計算する
-	CRes::sModelX.mFrame[0]->AnimateCombined(&Matrix);
+	//キャラクタークラスの更新
+	mCharacter.Update(CMatrix());
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -70,10 +64,11 @@ void CSceneGame::Update() {
 
 	//行列設定
 	glMultMatrixf(Matrix.mF);
-	//頂点にアニメーションを適用する
-	CRes::sModelX.AnimateVertex();
+
 	//モデル描画
-	CRes::sModelX.Render();
+//	CRes::sModelX.Render();
+	mCharacter.Render();
+
 
 	//2D描画開始
 	CUtil::Start2D(0, 800, 0, 600);
