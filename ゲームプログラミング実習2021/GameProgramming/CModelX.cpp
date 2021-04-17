@@ -594,20 +594,22 @@ void CModelX::AnimateFrame() {
 			}
 		}
 	}
-#ifdef _DEBUG
-	for (int i = 0; i < mAnimationSet.size(); i++) {
-		CAnimationSet* anim = mAnimationSet[i];
-		//重みが0は飛ばす
-		if (anim->mWeight == 0) continue;
-		//フレーム分（Animation分）繰り返す
-		for (int j = 0; j < anim->mAnimation.size(); j++) {
-			//フレームを取得する
-			CAnimation* animation = anim->mAnimation[j];
-			CModelXFrame* frame = mFrame[animation->mFrameIndex];
-			printf("Frame:%s\n", frame->mpName);
-			frame->mTransformMatrix.Print();
-		}
+
+}
+/*
+ AnimateCombined
+ 合成行列の作成
+*/
+void CModelXFrame::AnimateCombined(CMatrix* parent) {
+	//自分の変換行列に、親からの変換行列を掛ける
+	mCombinedMatrix = mTransformMatrix * (*parent);
+	//子フレームの合成行列を作成する
+	for (int i = 0; i < mChild.size(); i++) {
+		mChild[i]->AnimateCombined(&mCombinedMatrix);
 	}
+#ifdef _DEBUG
+	printf("Frame:%s\n", mpName);
+	mCombinedMatrix.Print();
 #endif
 }
 

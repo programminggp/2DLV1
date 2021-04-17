@@ -162,6 +162,9 @@ public:
 	}
 
 	void Render();
+	//‡¬s—ñ‚Ìì¬
+	void AnimateCombined(CMatrix* parent);
+
 };
 
 
