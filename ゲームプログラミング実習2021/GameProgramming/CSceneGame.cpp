@@ -22,17 +22,15 @@ void CSceneGame::Init() {
 
 	CRes::sModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
-	mCharacter.Init(&CRes::sModelX);
+	mPlayer.Init(&CRes::sModelX);
 
 }
 
 
 void CSceneGame::Update() {
-	//歩くアニメーションに切り替える
-	mCharacter.ChangeAnimation(1, true, 60);
 
 	//キャラクタークラスの更新
-	mCharacter.Update(CMatrix());
+	mPlayer.Update();
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -67,7 +65,7 @@ void CSceneGame::Update() {
 
 	//モデル描画
 //	CRes::sModelX.Render();
-	mCharacter.Render();
+	mPlayer.Render();
 
 
 	//2D描画開始
