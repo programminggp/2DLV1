@@ -163,7 +163,10 @@ public:
 	CMesh mMesh;	//Meshデータ
 	CMatrix mCombinedMatrix;	//合成行列
 
-	//コンストラクタ
+	CModelXFrame()
+		: mpName(nullptr)
+		, mIndex(0) {}	//コンストラクタ
+
 	CModelXFrame(CModelX* model);
 	//デストラクタ
 	~CModelXFrame() {

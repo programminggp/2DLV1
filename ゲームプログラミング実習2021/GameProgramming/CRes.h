@@ -5,6 +5,7 @@
 class CRes {
 public:
 	static CModelX sModelX;
+	static CModelX sKnight;
 };
 
 #endif
