@@ -2,8 +2,25 @@
 #include "CKey.h"
 
 CXPlayer::CXPlayer()
+	: mColSphereBody(this, nullptr, CVector(), 0.5f)
+	, mColSphereHead(this, nullptr, CVector(0.0f, 5.0f, -3.0f), 0.5f)
+	, mColSphereSword(this, nullptr, CVector(-10.0f, 10.0f, 50.0f), 0.3f)
 {
-	mScale = CVector(1.f, 1.0f, 1.0f);
+	//タグにプレイヤーを設定します
+	mTag = EPLAYER;
+	mColSphereSword.mTag = CCollider::ESWORD;
+}
+
+void CXPlayer::Init(CModelX* model)
+{
+	CXCharacter::Init(model);
+	//合成行列の設定
+	mColSphereBody.mpMatrix = &mpCombinedMatrix[8];
+	//頭
+	mColSphereHead.mpMatrix = &mpCombinedMatrix[11];
+	//剣
+	mColSphereSword.mpMatrix = &mpCombinedMatrix[21];
+
 }
 
 void CXPlayer::Update()
@@ -19,7 +36,7 @@ void CXPlayer::Update()
 	{
 		if (mAnimationFrame >= mAnimationFrameSize)
 		{
-			ChangeAnimation(0, false, 30);
+			ChangeAnimation(0, true, 60);
 		}
 	}
 	else

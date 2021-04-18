@@ -9,6 +9,8 @@
 #include "Ckey.h"
 //
 #include "CMaterial.h"
+//
+#include "CCollisionManager.h"
 
 CMatrix Matrix;
 
@@ -38,6 +40,9 @@ void CSceneGame::Update() {
 	mPlayer.Update();
 	//敵の更新
 	mEnemy.Update();
+
+	//衝突処理
+	CCollisionManager::Get()->Collision();
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -76,6 +81,8 @@ void CSceneGame::Update() {
 	//敵描画
 	mEnemy.Render();
 
+	//コライダの描画
+	CCollisionManager::Get()->Render();
 
 	//2D描画開始
 	CUtil::Start2D(0, 800, 0, 600);
