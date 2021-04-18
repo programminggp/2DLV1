@@ -12,6 +12,12 @@ public:
 	bool mAnimationLoopFlg;	//true:アニメーションを繰り返す
 	float mAnimationFrame; //アニメーションの再生フレーム
 	float mAnimationFrameSize;//アニメーションの再生フレーム数
+	CMatrix* mpCombinedMatrix;	//合成行列退避
+	CXCharacter();
+	~CXCharacter()
+	{
+		SAFE_DELETE_ARRAY(mpCombinedMatrix);
+	}
 	//初期化処理
 	void Init(CModelX* model);
 	//アニメーションの変更

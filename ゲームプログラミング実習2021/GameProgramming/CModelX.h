@@ -148,6 +148,9 @@ public:
 	void Render();
 	//頂点にアニメーション適用
 	void AnimateVertex(CModelX* model);
+
+	void AnimateVertex(CMatrix*);
+
 };
 
 //CModelXFrameクラスの定義
@@ -234,6 +237,7 @@ public:
 
 	//頂点にアニメーションを適用
 	void AnimateVertex();
+	void AnimateVertex(CMatrix*);
 
 	//マテリアルの検索
 	CMaterial* FindMaterial(char* name);
