@@ -32,7 +32,11 @@ void CXPlayer::Update()
 		{
 			mRotation.mY -= 2.0f;
 		}
-		if (CKey::Push('W'))
+		if (CKey::Push(' '))
+		{
+			ChangeAnimation(3, true, 30);
+		}
+		else if (CKey::Push('W'))
 		{
 			ChangeAnimation(1, true, 60);
 			mPosition += CVector(0.0f, 0.0f, 0.1f) * mMatrixRotate;
