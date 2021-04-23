@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Lib">
+      <UniqueIdentifier>{2fe66eca-2cba-4dad-9537-41039b173937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\RaceGame">
+      <UniqueIdentifier>{e737a8f8-86e4-4dd4-a3d4-839df992c13f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\RaceGame\CourceFolder">
+      <UniqueIdentifier>{6a910a60-b34c-4b84-9033-8a5be57218da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\RaceGame\TemporaryFolder">
+      <UniqueIdentifier>{f9f00719-0209-4630-9464-3be405b239b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\RaceGame\WallFloor">
+      <UniqueIdentifier>{d8286d00-78a8-407a-8e3d-a5b11d88dac7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneGame.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CBillBoard.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CCharacter.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollider.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionManager.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CKey.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaterial.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CMatrix.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CModel.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CTaskManager.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CText.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CTriangle.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CVector.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CRock.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CBullet.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneGameStage2.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CSound.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneRace.cpp">
+      <Filter>ソース ファイル\RaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneTitle.cpp">
+      <Filter>ソース ファイル\RaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CEnemy.cpp">
+      <Filter>ソース ファイル\RaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CPoint.cpp">
+      <Filter>ソース ファイル\RaceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CRigidObj.cpp">
+      <Filter>ソース ファイル\RaceGame\TemporaryFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaceCourceA.cpp">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaceCourceB.cpp">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaceCourceC.cpp">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaceCourceD.cpp">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjWall.cpp">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjFloor.cpp">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjBoost.cpp">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjGrass.cpp">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjCheckPoint.cpp">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjNonCol.cpp">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjJumper.cpp">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaceCourceE.cpp">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaceCourceF.cpp">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraPos.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraRange.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="CRoad.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CSceneGame.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CBillBoard.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CCharacter.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollider.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionManager.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CKey.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaterial.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CMatrix.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CSound.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CTask.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CTaskManager.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CText.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CTriangle.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CVector.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CRock.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CObj.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CBullet.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneGameStage2.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneRace.h">
+      <Filter>ソース ファイル\RaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneTitle.h">
+      <Filter>ソース ファイル\RaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CEnemy.h">
+      <Filter>ソース ファイル\RaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CPoint.h">
+      <Filter>ソース ファイル\RaceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CRigidObj.h">
+      <Filter>ソース ファイル\RaceGame\TemporaryFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaceCourceA.h">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaceCourceB.h">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaceCourceC.h">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaceCourceD.h">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjWall.h">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjFloor.h">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjBoost.h">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjGrass.h">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjCheckPoint.h">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjNonCol.h">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjJumper.h">
+      <Filter>ソース ファイル\RaceGame\WallFloor</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaceCourceE.h">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaceCourceF.h">
+      <Filter>ソース ファイル\RaceGame\CourceFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraPos.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CCameraRange.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="CRoad.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

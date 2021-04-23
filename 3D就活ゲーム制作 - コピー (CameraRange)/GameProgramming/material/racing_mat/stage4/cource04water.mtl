@@ -1,0 +1,16 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# ì¬‚µ‚½ƒtƒ@ƒCƒ‹ : 18.02.2021 14:44:22
+
+newmtl Material__4
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka material\\racing_mat\\stage4\\water-bg-pattern-01.tga
+	map_Kd material\\racing_mat\\stage4\\water-bg-pattern-01.tga

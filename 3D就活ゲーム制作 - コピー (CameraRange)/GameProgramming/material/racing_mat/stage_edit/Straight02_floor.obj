@@ -1,0 +1,31 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# 作成したファイル : 26.02.2021 10:31:44
+
+mtllib 新しいフォルダー\Straight01_floor.mtl
+
+#
+# object fCurveTile80704
+#
+
+v  -50.0000 5.0000 25.0000
+v  50.0000 5.0000 25.0000
+v  50.0000 5.0000 -25.0000
+v  -50.0000 5.0000 -25.0000
+# 4 vertices
+
+vn 0.0000 1.0000 -0.0000
+# 1 vertex normals
+
+vt 0.0000 0.0000 0.0000
+vt 1.0000 0.0000 0.0000
+vt 1.0000 1.0000 0.0000
+vt 0.0000 1.0000 0.0000
+# 4 texture coords
+
+g fCurveTile80704
+usemtl wire_028028177
+s 4
+f 1/1/1 2/2/1 3/3/1 
+f 3/3/1 4/4/1 1/1/1 
+# 2 faces
+

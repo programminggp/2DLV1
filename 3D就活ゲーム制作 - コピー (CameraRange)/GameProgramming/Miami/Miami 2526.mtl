@@ -1,0 +1,57 @@
+# Blender MTL File: 'None'
+# Material Count: 5
+
+newmtl Default
+Ns 1.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 0.000000
+d 0.800000
+illum 9
+map_Kd Maps\\1ax.jpg
+
+newmtl default
+Ns 1.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 0.000000
+d 1.000000
+illum 2
+map_Kd Maps\\dm1.jpg
+
+newmtl default_city_buildings
+Ns 1.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 0.000000
+d 1.000000
+illum 2
+map_Kd Maps\\pb2.jpg
+
+newmtl default_city_buildings.windows
+Ns 1.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.600000 0.600000 0.600000
+Ke 0.0 0.0 0.0
+Ni 0.000000
+d 1.000000
+illum 2
+map_Kd Maps\\f1q.jpg
+
+newmtl default_highway
+Ns 1.000002
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.0 0.0 0.0
+Ni 0.000000
+d 1.000000
+illum 2
+map_Kd Maps\\pv2c.jpg

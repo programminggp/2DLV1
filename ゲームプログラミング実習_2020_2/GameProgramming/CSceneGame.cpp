@@ -88,6 +88,8 @@ void CSceneGame::Init() {
 
 //	CModelFBX fbx("cube.fbx"); 
 //	CModelFBX fbx2("Idle2.fbx");
+
+	mBee.Set(CVector(3.0f, 0.0f, 0.0f), CVector(), CVector(0.01f, 0.01f, 0.01f));
 }
 
 

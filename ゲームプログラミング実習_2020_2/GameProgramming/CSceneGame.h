@@ -7,6 +7,7 @@
 #include "CFreeMonster.h"
 #include "CFelguard.h"
 #include "CFbxMutant.h"
+#include "CBee.h"
 
 /*
 ÉQÅ[ÉÄÇÃÉVÅ[Éì
@@ -28,6 +29,8 @@ public:
 	CFreeMonster mFMonster2;
 	//
 	CFelguard mFelguard;
+	//
+	CBee mBee;
 
 	CSceneGame();
 

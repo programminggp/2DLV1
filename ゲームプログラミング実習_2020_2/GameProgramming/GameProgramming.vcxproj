@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CBee.cpp" />
     <ClCompile Include="CBillBoard.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCharacter.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CBee.h" />
     <ClInclude Include="CBillBoard.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCharacter.h" />
