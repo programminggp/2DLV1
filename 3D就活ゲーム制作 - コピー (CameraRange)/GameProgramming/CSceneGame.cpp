@@ -38,18 +38,18 @@ void CSceneGame::Init() {
 	//背景の読み込み
 	mSky.Load("material\\racing_mat\\stage5\\cource05road2.obj", "material\\racing_mat\\stage5\\cource05road2.mtl");
 
-	CRoadManager* r = new CRoadManager();
-	r->Init(&mSky);
-
+	float mtsize = 35.0f;
+	float height = 11.0f;
+	CRoadManager* r = new CRoadManager(&mSky, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));
 }
-
 
 void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 //	e = CVector(-2.0f, 17.0f, -40.0f) * CMatrix().RotateY(mCamY + 90) * mPlayer->mMatrix;
-	e = CVector(-2.0f, 1000.0f, -40.0f) ;
+//	e = CVector(-2.0f, 1000.0f, -40.0f);
+	e = CVector(-2.0f, 25000.0f, -40.0f);
 	//注視点を求める
 //	c = mPlayer->mPosition;
 	c = CVector();
@@ -60,18 +60,12 @@ void CSceneGame::Update() {
 	//カメラの設定
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
-	//背景の描画
-//	mSky.Render();
-
-	////タスクマネージャの更新
-	//TaskManager.Update();
-	////タスクマネージャの描画
-	//TaskManager.Render();
 
 	//タスクマネージャの更新・描画
 	CTaskManager::Get()->Update();
 	CTaskManager::Get()->Render();
 
+	CollisionManager.Render();
 
 	//2D描画開始
 	Start2D(0, 800, 0, 600);

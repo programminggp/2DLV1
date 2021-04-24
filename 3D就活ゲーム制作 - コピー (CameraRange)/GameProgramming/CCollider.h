@@ -17,6 +17,7 @@ public:
 		ESEARCH,//サーチ
 		ECAMERA,//カメラ
 		ECAMERA_RANGE,//カメラの移動できる範囲
+		EROADPOINT,	//コースのトレース
 	};
 	ETag mTag;
 	//コライダタイプ
@@ -35,7 +36,9 @@ public:
 	CCollider();
 	//コンストラクタ
 	//CCollider(親, 位置, 回転, 拡縮, 半径)
-	CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius);
+	CCollider(CCharacter* parent, CVector position, CVector rotation, CVector scale, float radius);
+	//SetSphere(親, 位置, 回転, 拡縮, 半径)
+	void SetSphere(CCharacter* parent, CVector position, CVector rotation, CVector scale, float radius);
 	//コンストラクタ（三角コライダ）
 	//CCollider(親, 頂点1, 頂点2, 頂点3)
 	CCollider(CCharacter *parent, const CVector &v0, const CVector &v1, const CVector &v2);

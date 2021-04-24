@@ -34,7 +34,12 @@ void CSceneManager::Init() {
 	//シーンの識別を設定する
 	mScene = CScene::ESTAGE1;
 	//シーンを生成し、ポインタを設定する
-	mpScene = new CSceneGame();
+//	mpScene = new CSceneGame();
+
+	//シーンの識別を設定する
+	mScene = CScene::ETITLE;
+	//シーンを生成し、ポインタを設定する
+	mpScene = new CSceneTitle();
 
 	//生成したクラスのメソッドが呼ばれる
 	mpScene->Init();

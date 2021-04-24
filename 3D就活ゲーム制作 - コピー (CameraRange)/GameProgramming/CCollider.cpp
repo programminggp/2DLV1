@@ -4,8 +4,13 @@
 
 //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 //CCollider(e, ˆÊ’u, ‰ñ“], Šgk, ”¼Œa)
-CCollider::CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius)
-: CCollider()
+CCollider::CCollider(CCharacter* parent, CVector position, CVector rotation, CVector scale, float radius)
+	: CCollider()
+{
+	SetSphere(parent, position, rotation, scale, radius);
+}
+//SetSphere(e, ˆÊ’u, ‰ñ“], Šgk, ”¼Œa)
+void CCollider::SetSphere(CCharacter* parent, CVector position, CVector rotation, CVector scale, float radius)
 {
 	//eİ’è
 	mpParent = parent;

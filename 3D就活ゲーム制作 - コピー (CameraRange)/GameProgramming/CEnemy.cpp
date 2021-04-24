@@ -5,6 +5,8 @@
 #include "CBullet.h"
 #include "CSceneTitle.h"
 
+#include "CRoad.h"
+
 //乱数を実装するインクルード群
 #include <stdio.h>
 #include <stdlib.h>
@@ -762,7 +764,27 @@ void CEnemy::Collision(CCollider *mc, CCollider *yc){
 				//
 				if (mc->mTag == CCollider::ESEARCH){
 					//ポインタからポインタに向けて移動する
-					if (yc->mpParent->mTag == CCharacter::EPOINT){
+					if (yc->mTag == CCollider::EROADPOINT) {
+					//if (yc->mpParent->mTag == CCharacter::EPOINT){
+						int r = (mc->mRadius + yc->mRadius) * 0.8f;
+						int gap = (rand() % (r * 2) - r);
+						//敵AIのLvにより分散値も変化
+						if (CSceneTitle::mDifficulty == 1) {
+							r = (mc->mRadius + yc->mRadius) * 0.5f;
+							gap = (rand() % (r * 2) - r);
+						}
+						else if (CSceneTitle::mDifficulty == 2) {
+							r = (mc->mRadius + yc->mRadius) * 0.4f;
+							gap = (rand() % (r * 2) - r);
+						}
+						else if (CSceneTitle::mDifficulty == 3) {
+							r = (mc->mRadius + yc->mRadius) * 0.2f;
+							gap = (rand() % (r * 2) - r);
+						}
+						//次のポイントのポインタを設定
+						mVPoint = ((CRoadCollider*)yc)->GetNextPosition() + CVector(1.0f, 0.0f, 1.0f) * gap;
+						return;
+
 						CVector adjust;//調整用ベクトル
 						//		//球同士の衝突判定
 						if (CCollider::Collision(mc, yc, &adjust)){
