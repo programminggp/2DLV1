@@ -14,6 +14,7 @@ CRoadManager::~CRoadManager()
 		delete[] mpRoad;
 		mpRoad = nullptr;
 	}
+	mRoad.clear();
 }
 
 void CRoadManager::Init(CModel* pmodel)
@@ -21,11 +22,37 @@ void CRoadManager::Init(CModel* pmodel)
 	mpModel = pmodel;
 	if (mpRoad == nullptr)
 	{
-		mpRoad = new CRoad[pmodel->mTriangles.size()];
-		for (int i = 0; i < pmodel->mTriangles.size(); i++)
+		int size = pmodel->mTriangles.size();
+		mpRoad = new CRoad[size];
+		for (int i = 0; i < size; i++)
 		{
 			mpRoad[i] = pmodel->mTriangles[i];
-			mpRoad[i].SetCenter();
+		}
+		int start = 0;
+		float min;
+		mRoad.push_back(&mpRoad[start]);
+		mpRoad[start].SetEnabled(false);
+		while (mRoad.size() < size)
+		{
+			int min_i = 0;
+			min = FLT_MAX;
+			for (int i = 0; i < size; i++)
+			{
+				if (start != i)
+				{
+					if (mpRoad[i].GetEnabled())
+					{
+						if (min > (mpRoad[start].GetCenter() - mpRoad[i].GetCenter()).Length())
+						{
+							min = (mpRoad[start].GetCenter() - mpRoad[i].GetCenter()).Length();
+							min_i = i;
+						}
+					}
+				}
+			}
+			mpRoad[min_i].SetEnabled(false);
+			mRoad.push_back(&mpRoad[min_i]);
+			start = min_i;
 		}
 	}
 }
@@ -37,14 +64,14 @@ void CRoadManager::Update()
 	if (mFrameCount == 0)
 	{
 		mDispCount++;
-		mDispCount %= mpModel->mTriangles.size();
+		mDispCount %= mRoad.size();
 	}
 }
 
 void CRoadManager::Render()
 {
 	CMaterial material;
-	for (int i = 0; i < mpModel->mTriangles.size(); i++)
+	for (int i = 0; i < mRoad.size(); i++)
 	{
 		if (i == mDispCount)
 		{
@@ -61,7 +88,7 @@ void CRoadManager::Render()
 				material.mDiffuse[3] = 1.0f;
 		}
 		material.Enabled();
-		mpModel->mTriangles[i].Render();
+		mRoad[i]->Render();
 	}
 }
 
@@ -99,6 +126,8 @@ void CRoad::operator=(const CTriangle& t)
 
 	mMaterialIdx = t.mMaterialIdx;
 
+	SetCenter();
+
 }
 
 CRoad::CRoad()
@@ -116,4 +145,14 @@ void CRoad::SetCenter()
 CVector CRoad::GetCenter()
 {
 	return mCenter;
+}
+
+void CRoad::SetEnabled(bool enabled)
+{
+	mEnabled = enabled;
+}
+
+bool CRoad::GetEnabled()
+{
+	return mEnabled;
 }

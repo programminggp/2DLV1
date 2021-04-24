@@ -38,7 +38,7 @@ void CSceneGame::Init() {
 	//”wŒi‚Ì“Ç‚Ýž‚Ý
 	mSky.Load("material\\racing_mat\\stage5\\cource05road2.obj", "material\\racing_mat\\stage5\\cource05road2.mtl");
 
-	CRoad* r = new CRoad();
+	CRoadManager* r = new CRoadManager();
 	r->Init(&mSky);
 
 }

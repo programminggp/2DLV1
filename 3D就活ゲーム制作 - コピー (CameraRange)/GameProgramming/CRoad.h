@@ -7,10 +7,12 @@ class CRoad : public CTriangle
 {
 	CVector mCenter;
 	bool mEnabled;
+	void SetCenter();
 public:
 	CRoad();
-	void SetCenter();
 	CVector GetCenter();
+	void SetEnabled(bool enabled);
+	bool GetEnabled();
 	void operator=(const CTriangle& t);
 };
 
@@ -19,6 +21,7 @@ class CRoadManager : public CCharacter
 	int mFrameCount;
 	int mDispCount;
 	CRoad* mpRoad;
+	std::vector<CRoad*> mRoad;
 public:
 	CRoadManager();
 	~CRoadManager();
