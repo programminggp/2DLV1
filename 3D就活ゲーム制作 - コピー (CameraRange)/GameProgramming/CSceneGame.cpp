@@ -22,6 +22,8 @@
 
 extern CSound BGM;
 
+float gX, gY, gZ;
+
 CSceneGame::~CSceneGame() {
 	CTaskManager::Get()->Disabled();
 	CTaskManager::Get()->Delete();
@@ -41,21 +43,51 @@ void CSceneGame::Init() {
 	float mtsize = 35.0f;
 	float height = 11.0f;
 	CRoadManager* r = new CRoadManager(&mSky, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));
+
+	gX = -2.0f, gY = 25000.0f, gZ = -40.0f;
 }
 
 void CSceneGame::Update() {
+
+	if (CKey::Push('W'))
+	{
+		gZ += 100.0f;
+	}
+	if (CKey::Push('S'))
+	{
+		gZ -= 100.0f;
+	}
+	if (CKey::Push('A'))
+	{
+		gX += 100.0f;
+	}
+	if (CKey::Push('D'))
+	{
+		gX -= 100.0f;
+	}
+	if (CKey::Push('I'))
+	{
+		gY += 100.0f;
+	}
+	if (CKey::Push('K'))
+	{
+		gY -= 100.0f;
+	}
+
+
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
 //	e = CVector(-2.0f, 17.0f, -40.0f) * CMatrix().RotateY(mCamY + 90) * mPlayer->mMatrix;
 //	e = CVector(-2.0f, 1000.0f, -40.0f);
-	e = CVector(-2.0f, 25000.0f, -40.0f);
+	e = CVector(gX, gY, gZ);
 	//注視点を求める
 //	c = mPlayer->mPosition;
-	c = CVector();
+	c = CVector(gX, 0.0f, gZ);
 	//上方向を求める
 //	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer->mMatrixRotate;
-	u = CVector(0.0f, 1.0f, 0.0f) ;
+	u = CVector(0.0f, 0.0f, 1.0f) ;
 
 	//カメラの設定
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);

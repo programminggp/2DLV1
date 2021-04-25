@@ -42,6 +42,8 @@ CEnemy *CEnemy::mpEnemy = 0;
 #define FIX_ANGLE_VALUE 0.5f*2 //角度が0度に向けて調整される量(主にX・Z用)
 #define JUMPER01_POWER 3.0f //ジャンプ台1でのジャンプ力
 
+#define TURN_SPEED 2.0f
+
 //#define MAXSPEED 7.0f //車の最高速度
 //#define MAXSPEED_BACK 2.0f //車の後退する最大速度
 //#define CAR_POWER 0.1f //1フレーム辺りの車の加速していく量
@@ -116,7 +118,7 @@ CEnemy::CEnemy()
 	isSoundEngine = false;
 	
 	mPointCnt = 0;//最初のポイントを設定
-	//mpPoint = &mPoint[mPointCnt];//目指すポイントのポインタを設定
+	mpPoint = &mPoint[mPointCnt];//目指すポイントのポインタを設定
 
 	mpPoint = mPoint;
 	mVPoint = mpPoint->mPosition;//一番最初は分散無し
@@ -207,6 +209,7 @@ void CEnemy::Update(){
 	//ポイントへのベクトルを求める
 	//CVector dir = mpPoint->mPosition - mPosition;
 	dir = mVPoint - mPosition;
+	dir = dir.Normalize();
 	//左方向へのベクトルを求める
 	left = CVector(1.0f, 0.0f, 0.0f) * CMatrix().RotateY(mRotation.mY);
 
@@ -328,6 +331,19 @@ void CEnemy::Update(){
 	//	mRotation.mY -= 0.3f * 100;
 	//}
 
+	float brake = abs(left.Dot(dir));
+
+	if (brake > 0.5f)
+	{
+//		mCarSpeed -= CAR_BREAK_POWER * 5 * brake;
+		mCarSpeed -= CAR_BREAK_POWER * 5;
+		if (mCarSpeed < 2.0f)
+		{
+			mCarSpeed = 2.0f;
+		}
+	}
+
+
 	//目的地が左側にあり、操作可能な時
 	if (left.Dot(dir) > 0.0f && CanMove){ //ハンドルを左に！
 		//mRotation.mY++;
@@ -367,7 +383,7 @@ void CEnemy::Update(){
 	else if (mTurnSpeed < -1.0f){
 		mTurnSpeed = -1.0f;
 	}
-	mRotation.mY += mTurnSpeed;
+	mRotation.mY += mTurnSpeed * TURN_SPEED;
 
 	if (mRotation.mZ > 180){
 		mRotation.mZ = -180;
@@ -397,7 +413,8 @@ void CEnemy::Update(){
 		}
 	}
 	//X,Z方向の移動とY軸方向(重力)の移動は別々に行う
-	mPosition = CVector(mADMoveX, 0.0f, mWSMoveZ + mCarSpeed) * mMatrixRotate * mMatrixTranslate;
+//	mPosition = CVector(mADMoveX, 0.0f, mWSMoveZ + mCarSpeed) * mMatrixRotate * mMatrixTranslate;
+	mPosition = mPosition + dir * ( mWSMoveZ + mCarSpeed) ;
 	CCharacter::Update();
 	//常に地面に対して垂直に落下
 	//mPosition = CVector(0.0f, mVelocityJump, 0.0f) * mMatrix;//できてない
@@ -765,7 +782,7 @@ void CEnemy::Collision(CCollider *mc, CCollider *yc){
 				if (mc->mTag == CCollider::ESEARCH){
 					//ポインタからポインタに向けて移動する
 					if (yc->mTag == CCollider::EROADPOINT) {
-					//if (yc->mpParent->mTag == CCharacter::EPOINT){
+//					if (yc->mpParent->mTag == CCharacter::EPOINT){
 						int r = (mc->mRadius + yc->mRadius) * 0.8f;
 						int gap = (rand() % (r * 2) - r);
 						//敵AIのLvにより分散値も変化
@@ -782,7 +799,7 @@ void CEnemy::Collision(CCollider *mc, CCollider *yc){
 							gap = (rand() % (r * 2) - r);
 						}
 						//次のポイントのポインタを設定
-						mVPoint = ((CRoadCollider*)yc)->GetNextPosition() + CVector(1.0f, 0.0f, 1.0f) * gap;
+						mVPoint = ((CRoadCollider*)yc)->GetNextPosition() + CVector(1.0f, 0.0f, 1.0f) * gap * 1.0f;
 						return;
 
 						CVector adjust;//調整用ベクトル
