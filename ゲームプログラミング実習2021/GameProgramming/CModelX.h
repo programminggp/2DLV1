@@ -38,6 +38,7 @@ public:
 	int mKeyNum;	//キー数（時間数）
 	CAnimationKey* mpKey;	//キーの配列
 
+	CAnimation();
 	CAnimation(CModelX* model);
 
 	~CAnimation() {
@@ -59,6 +60,7 @@ public:
 	float mWeight;	//重み
 	float mMaxTime;	//最大時間
 
+	CAnimationSet();
 	CAnimationSet(CModelX* model);
 
 	~CAnimationSet() {
@@ -244,6 +246,16 @@ public:
 
 	//マテリアルの検索
 	CMaterial* FindMaterial(char* name);
+
+	/*
+	アニメーションを抜き出す
+	idx:分割したいアニメーションセットの番号
+	start:分割したいアニメーションの開始時間
+	end:分割したいアニメーションの終了時間
+	name:追加するアニメーションセットの名前
+	*/
+	void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name);
+
 };
 
 #endif
