@@ -99,10 +99,12 @@
     <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="CModel.cpp" />
     <ClCompile Include="CModelX.cpp" />
+    <ClCompile Include="CMyShader.cpp" />
     <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="CRes.cpp" />
     <ClCompile Include="CSceneGame.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
+    <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CTaskManager.cpp" />
     <ClCompile Include="CText.cpp" />
@@ -134,11 +136,13 @@
     <ClInclude Include="CMatrix.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CModelX.h" />
+    <ClInclude Include="CMyShader.h" />
     <ClInclude Include="CPlayer.h" />
     <ClInclude Include="CRes.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneGame.h" />
     <ClInclude Include="CSceneManager.h" />
+    <ClInclude Include="CShader.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CTask.h" />
     <ClInclude Include="CTaskManager.h" />
@@ -148,6 +152,7 @@
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="CUtil.h" />
     <ClInclude Include="CVector.h" />
+    <ClInclude Include="CVertex.h" />
     <ClInclude Include="CXCharacter.h" />
     <ClInclude Include="CXEnemy.h" />
     <ClInclude Include="CXPlayer.h" />

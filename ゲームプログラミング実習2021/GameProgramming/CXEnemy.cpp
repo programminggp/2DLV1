@@ -21,8 +21,6 @@ void CXEnemy::Init(CModelX* model)
 	mColSphereSword1.mpMatrix = &mpCombinedMatrix[26];
 	mColSphereSword2.mpMatrix = &mpCombinedMatrix[26];
 
-
-
 	/*
 	mColSphereBody.mpMatrix = &mpCombinedMatrix[8];
 	//“ª
