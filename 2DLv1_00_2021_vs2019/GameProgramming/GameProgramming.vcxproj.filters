@@ -92,8 +92,5 @@
     <ClInclude Include="CInput.h">
       <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

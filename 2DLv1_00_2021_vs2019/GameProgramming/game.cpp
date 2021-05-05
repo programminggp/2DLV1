@@ -1,3 +1,6 @@
+#include <stdio.h> //printf関数を取り込む
+#include "glut.h" //グラフィックライブラリOpenGLを取り込む
+
 /*
 Lesson2
 四角形の描画
@@ -5,9 +8,32 @@ Lesson2
 四角形の描画位置の変更
 */
 
-#include "game.h" //ゲームクラスの定義を取り込む
-#include <stdio.h> //printf関数を取り込む
-#include "glut.h" //グラフィックライブラリOpenGLを取り込む
+//class クラスとはプログラムの作成単位です
+//クラスの定義
+//class クラス名
+
+//ゲームクラスの定義
+//クラス名；CGame
+class CGame //CGameクラスの定義 
+{ //定義の開始
+public: //アクセス制限なし
+
+	//メソッドの宣言
+	//戻り値の型　メソッド名(引数)
+
+	//初期化処理の宣言
+	//戻り値の型：voidは戻り値なし
+	//メソッド名：Init
+	//引数：なし
+	void Init(); //Initメソッドの宣言
+
+	//更新処理の宣言
+	//戻り値の型：voidは戻り値なし
+	//メソッド名：Update
+	//引数：なし
+	void Update(); //Updateメソッドの宣言
+
+}; //定義の終了;注意
 
 //メソッドとは 処理を集めた処理です
 //メソッドの定義では、メソッドの処理を作成します
@@ -32,3 +58,20 @@ void CGame::Update()
 	glEnd(); //描画終了
 
 } //処理の終了
+
+//ゲームクラスのインスタンス作成
+CGame gGame;
+
+//初期化処理
+//プログラム実行の最初に1度だけ実行される処理
+void Init()
+{
+	gGame.Init();
+}
+
+//更新処理
+//プログラムの実行中に繰り返し実行される処理
+void Update()
+{
+	gGame.Update();
+}
