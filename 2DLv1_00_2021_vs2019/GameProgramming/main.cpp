@@ -6,6 +6,8 @@
 #include "main.h"
 #include "game.h"
 
+CGame gGame;
+
 /* display関数
 1秒間に60回実行される
 */
@@ -16,9 +18,8 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	//モデルビューの行列を単位行列にする
 	glLoadIdentity();
-
-	GameLoop();
-
+	//ゲーム更新処理
+	gGame.Update();
 }
 
 
@@ -113,6 +114,9 @@ int main(void)
 	// ウィンドウのサイズ変更時に呼び出す処理の登録
 	glfwSetWindowSizeCallback(window, reshape);
 	reshape(window, WINDOW_WIDTH, WINDOW_HEIGHT);
+
+	//ゲーム初期化処理
+	gGame.Init();
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
