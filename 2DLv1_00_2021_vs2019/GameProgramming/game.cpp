@@ -33,7 +33,7 @@ public: //アクセス制限なし
 	//引数：なし
 	void Update(); //Updateメソッドの宣言
 
-}; //定義の終了;注意
+}; //定義の終了;必要
 
 //メソッドとは 処理を集めた処理です
 //メソッドの定義では、メソッドの処理を作成します
@@ -60,18 +60,18 @@ void CGame::Update()
 } //処理の終了
 
 //ゲームクラスのインスタンス作成
-CGame gGame;
+CGame gGame; //インスタンス変数gGameの作成
 
 //初期化処理
 //プログラム実行の最初に1度だけ実行される処理
 void Init()
 {
-	gGame.Init();
+	gGame.Init(); //gGameのInitメソッドの呼び出し
 }
 
 //更新処理
 //プログラムの実行中に繰り返し実行される処理
 void Update()
 {
-	gGame.Update();
+	gGame.Update(); //gGameのUpdateメソッドの呼び出し
 }
