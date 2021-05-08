@@ -7,6 +7,7 @@
 
 extern void Init();
 extern void Update();
+extern void Destroy();
 
 /* displayŠÖ”
 1•bŠÔ‚É60‰ñÀs‚³‚ê‚é
@@ -137,7 +138,8 @@ int main(void)
 			break;
 		}
 	}
-
+	//I—¹ˆ—
+	Destroy();
 	glfwTerminate();
 	return 0;
 }
