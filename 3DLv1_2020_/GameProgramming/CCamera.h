@@ -6,6 +6,8 @@
 */
 class CCamera {
 public:
+	//‰ñ“]
+	CVector mRotation;
 	//‹“_
 	CVector mEye;
 	//’‹“_

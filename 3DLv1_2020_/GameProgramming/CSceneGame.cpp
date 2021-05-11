@@ -110,7 +110,16 @@ void CSceneGame::Update() {
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
+	if (CKey::Push(VK_RIGHT))
+	{
+		Camera.mRotation.mY += 2.0f;
+	}
+	if (CKey::Push(VK_LEFT))
+	{
+		Camera.mRotation.mY -= 2.0f;
+	}
+	//	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
+	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.mY) * mPlayer.mMatrix;
 	//注視点を求める
 	c = mPlayer.mPosition;
 	//上方向を求める
