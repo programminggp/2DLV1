@@ -1,10 +1,9 @@
 #include <Windows.h>
 #include "glew.h"
-#include "glut.h"
 #include "GLFW/glfw3.h"
 #include "main.h"
 #include "CSceneManager.h"
-
+#include "glut.h"
 bool InitFlg = true;
 
 //シーンマネージャのインスタンス

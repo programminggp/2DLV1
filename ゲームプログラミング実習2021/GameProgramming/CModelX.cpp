@@ -1,10 +1,12 @@
-#include "glut.h"
+#include "glew.h"
 #include <stdio.h>
 #include <string.h>	//文字列関数のインクルード
 
 #include "CModelX.h"
 
 #include "CMaterial.h"
+
+#include "CVertex.h"
 
 void CModelX::Load(char* file)
 {
@@ -69,6 +71,17 @@ void CModelX::Load(char* file)
 	SAFE_DELETE_ARRAY(buf);
 	//スキンウェイトのフレーム番号設定
 	SetSkinWeightFrameIndex();
+	//頂点バッファの作成
+	for (int i = 0; i < mFrame.size(); i++) {
+		if (mFrame[i]->mMesh.mFaceNum > 0) {
+			mFrame[i]->mMesh.CreateVertexBuffer();
+		}
+	}
+	//スキンマトリックスのエリア作成
+	mpSkinningMatrix = new CMatrix[mFrame.size()];
+	//シェーダー読み込み
+	mShader.Load("skinmesh.vert", "skinmesh.flag");
+
 }
 /*
 GetToken
@@ -415,6 +428,10 @@ CSkinWeights::CSkinWeights(CModelX* model)
 	}
 	model->GetToken();	// }
 }
+CAnimationSet::CAnimationSet()
+	:mpName(nullptr)
+{
+}
 /*
 CAnimationSet
 */
@@ -458,6 +475,10 @@ CModelXFrame* CModelX::FindFrame(char* name) {
 	}
 	//一致するフレーム無い場合はNULLを返す
 	return NULL;
+}
+CAnimation::CAnimation()
+	:mpFrameName(nullptr)
+{
 }
 CAnimation::CAnimation(CModelX* model)
 	: mpFrameName(0)
@@ -726,6 +747,30 @@ CMaterial* CModelX::FindMaterial(char* name) {
 	//無い時はNULLを返却
 	return NULL;
 }
+void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name)
+{
+	CAnimationSet* anim = mAnimationSet[idx];//分割するアニメーションセットを確定
+	CAnimationSet* as = new CAnimationSet();//アニメーションセットの生成
+	as->mpName = new char[strlen(name) + 1];
+	strcpy(as->mpName, name);
+	as->mMaxTime = end - start;
+	for (int i = 0; i < anim->mAnimation.size(); i++) {//既存のアニメーション分繰り返し
+		CAnimation* animation = new CAnimation();//アニメーションの生成
+		animation->mpFrameName = new char[strlen(anim->mAnimation[i]->mpFrameName) + 1];
+		strcpy(animation->mpFrameName, anim->mAnimation[i]->mpFrameName);
+		animation->mFrameIndex = anim->mAnimation[i]->mFrameIndex;
+		animation->mKeyNum = end - start + 1;
+		animation->mpKey = new CAnimationKey[animation->mKeyNum];//アニメーションキーの生成
+		animation->mKeyNum = 0;
+		for (int j = start; j <= end && j < anim->mAnimation[i]->mKeyNum; j++) {
+			animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
+			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum++;
+		}//アニメーションキーのコピー
+		as->mAnimation.push_back(animation);//アニメーションの追加
+	}
+	mAnimationSet.push_back(as);//アニメーションセットの追加
+
+}
 void CModelX::AnimateVertex(CMatrix* mat) {
 	//フレーム数分繰り返し
 	for (int i = 0; i < mFrame.size(); i++) {
@@ -764,3 +809,80 @@ void CMesh::AnimateVertex(CMatrix* mat) {
 	}
 }
 
+void CModelX::RenderShader(
+	CMatrix* pCombinedMatrix) {
+	mShader.Render(this, pCombinedMatrix);
+}
+
+void CMesh::CreateVertexBuffer() {
+	//メッシュ毎に一回作成すればよい
+	if (mMyVertexBufferId > 0)
+		return;
+	if (mVertexNum > 0) {
+		//頂点インデックスを使わず、全ての面データを作成
+		CVertex* pmyVertex, * vec;
+		//頂点数計算
+		int myVertexNum = mFaceNum * 3;
+		//頂点数分頂点配列作成
+		pmyVertex = new CVertex[myVertexNum];
+		vec = new CVertex[mVertexNum];
+		for (int j = 0; j < mVertexNum; j++) {
+			//頂点座標設定
+			vec[j].mPosition = mpVertex[j];
+			//テクスチャマッピング設定
+			if (mpTextureCoords != NULL) {
+				vec[j].mTextureCoords.mX = mpTextureCoords[j * 2];
+				vec[j].mTextureCoords.mY = mpTextureCoords[j * 2 + 1];
+			}
+			vec[j].mBoneWeight[0] = 1.0f;
+		}
+		int wi = 0;
+		//スキンウェイト設定
+		for (int k = 0; k < mSkinWeights.size(); k++) {
+			for (int l = 0; l < mSkinWeights[k]->mIndexNum; l++) {
+				int idx = mSkinWeights[k]->mpIndex[l];
+				for (int m = 0; m < 4; m++) {
+					if (vec[idx].mBoneIndex[m] == 0) {
+						vec[idx].mBoneIndex[m] =
+							mSkinWeights[k]->mFrameIndex;
+						vec[idx].mBoneWeight[m] =
+							mSkinWeights[k]->mpWeight[l];
+						break;
+					}
+				}
+			}
+		}
+		int k = 0;
+		//マテリアル番号の昇順に面の頂点を設定
+		for (int i = 0; i < mMaterial.size(); i++) {
+			int w = k;
+			for (int j = 0; j < mMaterialIndexNum; j++) {
+				if (mpMaterialIndex[j] == i) {
+					//頂点配列に設定し、法線を設定する
+					pmyVertex[k] = vec[mpVertexIndex[j * 3]];
+					pmyVertex[k++].mNormal = mpNormal[j * 3];
+					pmyVertex[k] = vec[mpVertexIndex[j * 3 + 1]];
+					pmyVertex[k++].mNormal = mpNormal[j * 3 + 1];
+					pmyVertex[k] = vec[mpVertexIndex[j * 3 + 2]];
+					pmyVertex[k++].mNormal = mpNormal[j * 3 + 2];
+				}
+			}
+			//マテリアル毎の頂点数を追加する
+			mMaterialVertexCount.push_back(k - w);
+		}
+		//頂点バッファの作成
+		glGenBuffers(1, &mMyVertexBufferId);
+		//頂点バッファをバインド
+		glBindBuffer(GL_ARRAY_BUFFER, mMyVertexBufferId);
+		//バインドしたバッファにデータを転送
+		glBufferData(GL_ARRAY_BUFFER
+			, sizeof(CVertex) * myVertexNum
+			, pmyVertex, GL_STATIC_DRAW);
+		//バインド解除
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		//配列解放
+		delete[] pmyVertex;
+		delete[] vec;
+		pmyVertex = NULL;
+	}
+}

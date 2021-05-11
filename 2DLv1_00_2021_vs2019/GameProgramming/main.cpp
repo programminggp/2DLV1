@@ -4,7 +4,10 @@
 #include "GLFW/glfw3.h"
 
 #include "main.h"
-#include "game.h"
+
+extern void Init();
+extern void Update();
+extern void Destroy();
 
 /* display関数
 1秒間に60回実行される
@@ -16,9 +19,8 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	//モデルビューの行列を単位行列にする
 	glLoadIdentity();
-
-	GameLoop();
-
+	//更新処理
+	Update();
 }
 
 
@@ -114,6 +116,9 @@ int main(void)
 	glfwSetWindowSizeCallback(window, reshape);
 	reshape(window, WINDOW_WIDTH, WINDOW_HEIGHT);
 
+	//初期化処理
+	Init();
+
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
 	{
@@ -133,7 +138,8 @@ int main(void)
 			break;
 		}
 	}
-
+	//終了処理
+	Destroy();
 	glfwTerminate();
 	return 0;
 }

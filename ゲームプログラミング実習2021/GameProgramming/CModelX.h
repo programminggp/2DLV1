@@ -7,11 +7,10 @@
 //配列のサイズ取得をマクロ化
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
-
-
 #include <vector>	//vectorクラスのインクルード（動的配列）
 #include "CMatrix.h"	//マトリクスクラスのインクルード
 #include "CVector.h"
+#include "CMyShader.h" //シェーダーのインクルード
 
 class CModelX;	// CModelXクラスの宣言
 class CMaterial;	//クラスの宣言
@@ -38,6 +37,7 @@ public:
 	int mKeyNum;	//キー数（時間数）
 	CAnimationKey* mpKey;	//キーの配列
 
+	CAnimation();
 	CAnimation(CModelX* model);
 
 	~CAnimation() {
@@ -59,6 +59,7 @@ public:
 	float mWeight;	//重み
 	float mMaxTime;	//最大時間
 
+	CAnimationSet();
 	CAnimationSet(CModelX* model);
 
 	~CAnimationSet() {
@@ -93,6 +94,12 @@ public:
 
 //CMeshクラスの定義
 class CMesh {
+	friend CMyShader;
+	//マテリアル毎の面数
+	std::vector<int> mMaterialVertexCount;
+	//頂点バッファ識別子
+	GLuint	  mMyVertexBufferId;
+
 public:
 	int mVertexNum;	//頂点数
 	CVector* mpVertex;	//頂点データ
@@ -127,6 +134,7 @@ public:
 		, mpAnimateVertex(nullptr)
 		, mpAnimateNormal(nullptr)
 		, mpTextureCoords(nullptr)
+		, mMyVertexBufferId(0)
 	{}
 	//デストラクタ
 	~CMesh() {
@@ -150,7 +158,8 @@ public:
 	void AnimateVertex(CModelX* model);
 
 	void AnimateVertex(CMatrix*);
-
+	//頂点バッファの作成
+	void CreateVertexBuffer();
 };
 
 //CModelXFrameクラスの定義
@@ -187,7 +196,10 @@ public:
 
 
 class CModelX {
+	CMyShader mShader; //シェーダーのインスタンス
 public:
+	//シェーダー用スキンマトリックス
+	CMatrix* mpSkinningMatrix;
 	char* mpPointer;
 	char mToken[1024];
 	std::vector<CModelXFrame*> mFrame;	//フレームの配列
@@ -197,6 +209,7 @@ public:
 
 	CModelX()
 		: mpPointer(nullptr)
+		, mpSkinningMatrix(nullptr)
 	{}
 
 	~CModelX() {
@@ -211,6 +224,7 @@ public:
 		for (int i = 0; i < mMaterial.size(); i++) {
 			delete mMaterial[i];
 		}
+		SAFE_DELETE_ARRAY(mpSkinningMatrix);
 	}
 
 	void Load(char* file);
@@ -244,6 +258,17 @@ public:
 
 	//マテリアルの検索
 	CMaterial* FindMaterial(char* name);
+
+	/*
+	アニメーションを抜き出す
+	idx:分割したいアニメーションセットの番号
+	start:分割したいアニメーションの開始時間
+	end:分割したいアニメーションの終了時間
+	name:追加するアニメーションセットの名前
+	*/
+	void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name);
+	//シェーダーを使った描画
+	void RenderShader(CMatrix* m);
 };
 
 #endif

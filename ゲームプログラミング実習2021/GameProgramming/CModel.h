@@ -2,9 +2,8 @@
 #define CMODEL_H
 //vectorのインクルード
 #include <vector>
-#include "CTriangle.h"
 #include "CMaterial.h"
-
+#include "CTriangle.h"
 /*
 モデルクラス
 モデルデータの入力や表示
