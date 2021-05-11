@@ -85,8 +85,8 @@ public:
 
 	static int RenderType;//ゲーム画面の描画とミニマップの描画を分ける変数
 
-	CCameraRange *mCamRange;
-	CCameraPos *mCam;
+//	CCameraRange *mCamRange;
+//	CCameraPos *mCam;
 
 
 	//コライダの更新
