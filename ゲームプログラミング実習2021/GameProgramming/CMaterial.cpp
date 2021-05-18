@@ -6,7 +6,7 @@
 //デフォルトコンストラクタ
 CMaterial::CMaterial()
 :mVertexNum(0)
-, mpTextureFilename(0)
+, mpTextureFilename(nullptr)
 {
 	//名前を0で埋め
 	memset(mName, 0, sizeof(mName));
@@ -55,7 +55,7 @@ void CMaterial::Disabled()
 Materialデータの読み込みと設定
 */
 CMaterial::CMaterial(CModelX* model)
-	: mpTextureFilename(0)
+	: mpTextureFilename(nullptr)
 {
 	//CModelXにマテリアルを追加する
 	model->mMaterial.push_back(this);
