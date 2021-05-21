@@ -67,30 +67,8 @@ CSceneRace::~CSceneRace() {
 
 void CSceneRace::Init() {
 
-	// カラーバッファ用のテクスチャを用意する
-	glGenTextures(1, &gCb);
-	glBindTexture(GL_TEXTURE_2D, gCb);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, FBOWIDTH, FBOHEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	// デプスバッファ用のレンダーバッファを用意する
-	glGenRenderbuffers(1, &gRb);
-	glBindRenderbuffer(GL_RENDERBUFFER_EXT, gRb);
-	glRenderbufferStorage(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT, FBOWIDTH, FBOHEIGHT);
-	glBindRenderbuffer(GL_RENDERBUFFER_EXT, 0);
-
-	// フレームバッファオブジェクトを作成する
-	glGenFramebuffersEXT(1, &gFb);
-	// フレームバッファオブジェクトにカラーバッファとしてテクスチャを結合する
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, gCb, 0);
-	// フレームバッファオブジェクトにデプスバッファとしてレンダーバッファを結合する
-	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, gRb);
-	// フレームバッファオブジェクトの結合を解除する
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	//レンダーテクスチャの初期設定
+	mRenderTexture.Init();
 
 	//的の残数の初期化
 	CItem::mTargetAmount = 0;
@@ -1403,23 +1381,18 @@ void CSceneRace::RenderBackMirror(){
 	//バックミラーのカメラの設定
 	gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
-	//フレームバッファのバインド
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, gFb);
-	// フレームバッファオブジェクトにカラーバッファとしてテクスチャを結合する
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_TEXTURE_2D, gCb, 0);
-	// フレームバッファオブジェクトにデプスバッファとしてレンダーバッファを結合する
-	glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, gRb);
-	//各バッファーをクリア
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//レンダーテクスチャ開始
+	mRenderTexture.Start();
 
 	CTaskManager::Get()->Render();
 
-	// フレームバッファオブジェクトの結合を解除する
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	//レンダーテクスチャ終了
+	mRenderTexture.End();
 
 	// テクスチャマッピングを有効にする
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, gCb);
+	//レンダーテクスチャのテクスチャをバインドする
+	glBindTexture(GL_TEXTURE_2D, mRenderTexture.GetColorBuffer());
 
 	glViewport(BACKMIRROR_BG_WHITE_AREA);
 

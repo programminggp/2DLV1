@@ -10,11 +10,14 @@
 //CSound.hをインクルードしたら音の再生の動作が軽くなった？
 #include "CSound.h"
 
+#include "CRenderTexture.h"
+
 #define ENEMYS_AMOUNT 7-2 //0以下には設定できない
 /*
 ゲームのシーン
 */
 class CSceneRace : public CScene {
+	CRenderTexture mRenderTexture;
 public:
 	//次のシーンの取得
 	EScene GetNextScene();
