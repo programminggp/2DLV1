@@ -7,18 +7,19 @@
 #include "CPoint.h"
 
 class CEnemy :public CCharacter{
+private:
+	//プレイヤーの体の当たり判定
+	CCollider mColBody;
+	//プレイヤーのタイヤの当たり判定
+	CCollider mColTire;
+protected:
 public:
 	static CEnemy*mpEnemy;
 	//デフォルトコンストラクタ
 	CEnemy();
 
 	//更新
-	void Update();
-
-	//プレイヤーの体の当たり判定
-	CCollider mColBody;
-	//プレイヤーのタイヤの当たり判定
-	CCollider mColTire;
+	void Update();	
 
 	//衝突処理
 	void Collision(CCollider *mc, CCollider *yc);
@@ -46,8 +47,6 @@ public:
 	bool isSoundEngine;
 	CSound SoundCollision;
 	CSound SoundCollisionSmall;
-	CSound SoundRespawn;
-	CSound SoundRespawn2;
 	int mRespawnCount;
 
 	float mStartPoint[3];//{ X,Y,Z }
@@ -59,8 +58,6 @@ public:
 	int mBoostTime;//ブースト状態が継続される時間
 
 	bool CanMove;//プレイヤーが操作可能か否か(カウントダウン前・ゴール後などは否)
-
-	static int RenderType;//ゲーム画面の描画とミニマップの描画を分ける変数
 
 	//コライダの更新
 	void TaskCollision();
@@ -89,7 +86,6 @@ public:
 	static CPoint *mPoint21;
 	static CPoint *mPoint22;
 	static CPoint *mPoint23;
-	//
 	static CPoint *mPoint24;
 	static CPoint *mPoint25;
 	static CPoint *mPoint26;
@@ -114,11 +110,19 @@ public:
 	static CPoint *mPoint45;
 	static CPoint *mPoint46;
 	static CPoint *mPoint47;
-	static int mPointSize;//ポイントの数
+	static CPoint *mPoint48;
+	static CPoint *mPoint49;
+	static CPoint *mPoint50;
+	static CPoint *mPoint51;
+	static CPoint *mPoint52;
+	static CPoint *mPoint53;
+	static CPoint *mPoint54;
 	CPoint *mpPoint;//目指すポイント
 	int mPointCnt;//ポイントのカウンタ
 	//次のポイントまでに出す最高速度
 	float mMaxSpeed_PtoP;
+	//最後にポイントが変わってからの経過時間
+	int mPointTime;
 
 	//コライダ
 	CCollider mSearch;
@@ -131,11 +135,7 @@ public:
 	int mGoalTime;
 	int mRank;
 
-	//ポイントへのベクトルを求める
-	//CVector dir = mpPoint->mPosition - mPosition;
-	CVector dir;
-	//左方向へのベクトルを求める
-	CVector left;
+	
 };
 
 

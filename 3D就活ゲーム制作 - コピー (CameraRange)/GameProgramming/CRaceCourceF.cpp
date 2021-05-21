@@ -14,7 +14,6 @@ void CRaceCourceF::Init(){
 
 	//敵のポイント(目的地)の設定
 	if (CSceneTitle::mDifficulty == 1){//難易度：EASY
-		CEnemy::mPointSize = 22;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(3217.0f, 140.0f, -325.0f), 200.0f);
 		CEnemy::mPoint3 = new CPoint(CVector(4547.0f, 140.0f, -3971.0f), 200.0f);
 		CEnemy::mPoint2 = new CPoint(CVector(4980.0f, 130.0f, -1621.0f), 200.0f);
@@ -39,7 +38,6 @@ void CRaceCourceF::Init(){
 		CEnemy::mPoint22 = new CPoint(CVector(151.5f, 30.0f, 52.0f), 100.0f);
 	}
 	else if (CSceneTitle::mDifficulty == 2){//難易度：NORMAL
-		CEnemy::mPointSize = 23;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(2767.0f, 140.0f, -137.0f), 100.0f);
 		CEnemy::mPoint2 = new CPoint(CVector(3914.0f, 140.0f, -647.0f), 100.0f);
 		CEnemy::mPoint3 = new CPoint(CVector(4923.0f, 130.0f, -1705.0f), 100.0f);
@@ -65,7 +63,6 @@ void CRaceCourceF::Init(){
 		CEnemy::mPoint23 = new CPoint(CVector(151.5f, 30.0f - 100.0f, 52.0f), 100.0f);
 	}
 	else if (CSceneTitle::mDifficulty == 3){//難易度：HARD
-		CEnemy::mPointSize = 22;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(3217.0f, 140.0f, -325.0f), 200.0f);
 		CEnemy::mPoint3 = new CPoint(CVector(4547.0f, 140.0f, -3971.0f), 200.0f);
 		CEnemy::mPoint2 = new CPoint(CVector(4980.0f, 130.0f, -1621.0f), 200.0f);
@@ -90,11 +87,14 @@ void CRaceCourceF::Init(){
 		CEnemy::mPoint22 = new CPoint(CVector(151.5f, 30.0f, 52.0f), 100.0f);
 	}
 	else{
-		//隠しHARDの予定
+		//VERYHARD
 	}
 	//プレイヤーの生成
 	mPlayer = new CPlayer();
 	mPlayer->mpModel = &mCarWhite;
+	//カメラの生成
+	mCamRange = new CCameraRange();
+	mCam = new CCameraPos();
 	//敵車の生成
 	for (int i = 0; i < ENEMYS_AMOUNT; i++){
 		mEnemys[i] = new CEnemy();
@@ -122,9 +122,7 @@ void CRaceCourceF::Init(){
 		else if (i % 8 == 7){
 			mEnemys[i]->mpModel = &mCarCyan;
 		}
-		//初期の配置座標を設定する
-		//mStartPoint[0] = 0.0f;  mStartPoint[1] = -13.538f;  mStartPoint[2] = 0.0f;
-		//mStartRotation = 90.0f;
+		//初期配置座標を設定する
 		mEnemys[i]->mPosition = CVector(0.0f - 30.0f - 80.0f*i, -13.538f, 0.0f);
 		mEnemys[i]->mRotation.mY = 90.0f;
 		if (i % 2 == 0){
@@ -138,10 +136,6 @@ void CRaceCourceF::Init(){
 	new CObjCheckPoint(&mCheckPoint, CVector(1127.4f, -100.0f, -5054.0f), CVector(0.0f, 0.0f, 0.0f), CVector(220.0f, 200.0f, 220.0f), 1);
 	new CObjCheckPoint(&mCheckPoint, CVector(777.0f, -100.0f, 1925.0f), CVector(0.0f, 0.0f, 0.0f), CVector(220.0f, 200.0f, 220.0f), 2);
 	new CObjCheckPoint(&mCheckPoint, CVector(-5861.0f, -300.0f, 1165.0f), CVector(0.0f, 0.0f, 0.0f), CVector(220.0f, 200.0f, 220.0f), 3);
-	//コースの生成
-	new CObjFloor(&mCource03Road, CVector(0.0f, 5.0f - 373.0f, -350.0f), CVector(), CVector(40.0f, 20.0f, 40.0f));
-	new CObjWall(&mCource03Wall, CVector(0.0f, 5.0f - 373.0f, -350.0f), CVector(), CVector(40.0f, 20.0f, 40.0f));
-	new CObjWall(&mCource03Fence, CVector(0.0f, 5.0f - 373.0f, -350.0f), CVector(), CVector(40.0f, 20.0f, 40.0f));
 	//ゴール地点
 	new CObjNonCol(&mMiniGoal, CVector(140.0f, -159.0f, 90.0f - 30.0f), CVector(0.0f, 90.0f, 0.0f), CVector(5.1f, 10.0f, 5.1f));
 

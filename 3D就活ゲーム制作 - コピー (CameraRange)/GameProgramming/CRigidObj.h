@@ -31,9 +31,7 @@ public:
 	//ジャンプ速度の変数
 	float mVelocity;
 	int mJumpPrio;
-
-	//bool CanMove;//プレイヤーが操作可能か否か(カウントダウン前・ゴール後などは否)
-
+	
 	//コライダの更新
 	void TaskCollision();
 };

@@ -4,13 +4,8 @@
 
 //コンストラクタ
 //CCollider(親, 位置, 回転, 拡縮, 半径)
-CCollider::CCollider(CCharacter* parent, CVector position, CVector rotation, CVector scale, float radius)
-	: CCollider()
-{
-	SetSphere(parent, position, rotation, scale, radius);
-}
-//SetSphere(親, 位置, 回転, 拡縮, 半径)
-void CCollider::SetSphere(CCharacter* parent, CVector position, CVector rotation, CVector scale, float radius)
+CCollider::CCollider(CCharacter *parent, CVector position, CVector rotation, CVector scale, float radius)
+: CCollider()
 {
 	//親設定
 	mpParent = parent;
@@ -371,4 +366,37 @@ bool CCollider::Collision(CCollider *m, CCollider *y ,CVector *a) {
 	}
 	//衝突していない
 	return false;
+}
+
+//ChangePriority(優先度)
+CVector CCollider::CalculateEulerAngle(CCollider *m, CCollider *y, CMatrix matrixrotate, double pi){
+	/*１．斜面の法線ベクトルからY軸ベクトルを求めます。
+	２．車体の進行方向から、Z軸ベクトルを求めます。
+	３．Y軸ベクトルとZ軸ベクトルの外積を計算し、X軸ベクトルを求めます。
+	４．X軸ベクトルとY軸ベクトルの外積を計算し、Z軸ベクトルを求めます。
+	５．Z軸ベクトルからX軸の回転値を求めます。
+	６．Z軸ベクトルからY軸の回転値を求めます。
+	７．X軸ベクトルとY軸ベクトルからZ軸の回転値を求めます。
+	８．求めた回転値を車体に適用します。*/
+	CVector v[3], sv, ev;
+	//各コライダの頂点をワールド座標へ変換
+	v[0] = y->mV[0] * y->mMatrix * y->mpParent->mMatrix;
+	v[1] = y->mV[1] * y->mMatrix * y->mpParent->mMatrix;
+	v[2] = y->mV[2] * y->mMatrix * y->mpParent->mMatrix;
+	//面の法線を、外積を正規化して求める
+	// 1.斜面の法線ベクトルからY軸ベクトルを求める
+	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	// 2.車体の進行方向から、Z軸ベクトルを求める
+	CVector preZvec = CVector(0.0f, 0.0f, 1.0f) * matrixrotate;
+	// 3.Y軸ベクトルとZ軸ベクトルの外積を計算し、X軸ベクトルを求める
+	CVector Xvec = (normal).Cross(preZvec).Normalize();
+	// 4.X軸ベクトルとY軸ベクトルの外積を計算し、Z軸ベクトルを求める
+	CVector Zvec = (Xvec).Cross(normal).Normalize();				
+	// 5～7.回転値を求める
+	float rad = asin(Zvec.mY);//5.
+	float rotX = rad * 180 / pi * -1;//X軸は反転
+	float rotY = atan2(Zvec.mX, Zvec.mZ) * 180 / pi;//6.
+	float rotZ = atan2(Xvec.mY, normal.mY) * 180 / pi;//7.
+	//// 8.求めた回転値を車体に適用
+	return CVector(rotX, rotY, rotZ);
 }

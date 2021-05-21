@@ -16,9 +16,6 @@ public:
 	//カメラの当たり判定
 	CCollider mColRange;
 
-	////衝突処理
-	//void Collision(CCollider *mc, CCollider *yc);
-
 	//コライダの更新
 	void TaskCollision();
 };

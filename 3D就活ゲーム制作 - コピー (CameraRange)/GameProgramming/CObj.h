@@ -13,24 +13,8 @@ public:
 	~CObj();
 
 	int mObjNumber;
-	
-	////衝突処理
-	//void Collision(CCollider *m, CCollider *y);
 
-	void Update();//virtual…再定義可能になる?
-
-	//bool mDeleteFlag;
-
-	////コライダの更新
-	//void TaskCollision();
-
-	////ジャンプ速度の変数
-	//float mVelocity;
+	void Update();
 };
 
-//class CObjection :public CObj{
-//public:
-//	//コライダの更新
-//	void TaskCollision();
-//};
 #endif

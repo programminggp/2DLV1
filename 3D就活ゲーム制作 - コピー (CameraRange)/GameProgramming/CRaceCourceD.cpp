@@ -17,7 +17,6 @@ void CRaceCourceD::Init(){
 	/*開発中です*/
 	//敵のポイント(目的地)の設定
 	if (CSceneTitle::mDifficulty == 1){//難易度：EASY
-		CEnemy::mPointSize = 12;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(413.0f, 30.0f, 1300.0f), 100.0f * 2 * 4);
 		CEnemy::mPoint2 = new CPoint(CVector(258.0f, 30.0f, 2000.0f), 100.0f * 2 * 4);
 		CEnemy::mPoint3 = new CPoint(CVector(-1350.0f, 30.0f, 2150.0f), 100.0f * 2 * 4);
@@ -32,8 +31,6 @@ void CRaceCourceD::Init(){
 		CEnemy::mPoint12 = new CPoint(CVector(340.0f, 30.0f, -1182.0f), 100.0f * 2 * 4);
 	}
 	else if (CSceneTitle::mDifficulty == 2){//難易度：NORMAL
-		//現在、仮の設定
-		CEnemy::mPointSize = 12;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(413.0f, 30.0f, 1300.0f), 100.0f * 2 * 4);
 		CEnemy::mPoint2 = new CPoint(CVector(258.0f, 30.0f, 2000.0f), 100.0f * 2 * 4);
 		CEnemy::mPoint3 = new CPoint(CVector(-1350.0f, 30.0f, 2150.0f), 100.0f * 2 * 4);
@@ -48,8 +45,6 @@ void CRaceCourceD::Init(){
 		CEnemy::mPoint12 = new CPoint(CVector(340.0f, 30.0f, -1182.0f), 100.0f * 2 * 4);
 	}
 	else if (CSceneTitle::mDifficulty == 3){//難易度：HARD
-		//現在、仮の設定
-		CEnemy::mPointSize = 12;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(413.0f, 30.0f, 1300.0f), 100.0f * 2 * 4);
 		CEnemy::mPoint2 = new CPoint(CVector(258.0f, 30.0f, 2000.0f), 100.0f * 2 * 4);
 		CEnemy::mPoint3 = new CPoint(CVector(-1350.0f, 30.0f, 2150.0f), 100.0f * 2 * 4);
@@ -69,6 +64,9 @@ void CRaceCourceD::Init(){
 	//プレイヤーの生成
 	mPlayer = new CPlayer();
 	mPlayer->mpModel = &mCarWhite;
+	//カメラの生成
+	mCamRange = new CCameraRange();
+	mCam = new CCameraPos();
 	//敵車の生成
 	for (int i = 0; i < ENEMYS_AMOUNT; i++){
 		mEnemys[i] = new CEnemy();
@@ -103,14 +101,6 @@ void CRaceCourceD::Init(){
 		}
 		mEnemys[i]->CCharacter::Update();
 	}
-
-	////借り物//敵がコースに近づくと重くなる…
-	//new CObj(&mCource04, CVector(-360.0f, 5.0f - 33.0f, -230.0f), CVector(), CVector(5110.0f, 5110.0f, 5110.0f), 1);
-
-	//こっちは自作
-	/*new CObj(&mCource04Water, CVector(0.0f, -60.0f - 33.0f, 0.0f), CVector(), CVector(100.0f, 100.0f, 100.0f), 99);
-	new CObj(&mCource04A, CVector(0.0f, -60.0f - 33.0f, 0.0f), CVector(), CVector(40.0f, 40.0f, 40.0f), 1);*/
-//	new CObjNonCol(&mCource04Water, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(100.0f, 100.0f, 100.0f));
 
 	int ess[3][4][5] = {
 		{

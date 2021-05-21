@@ -73,13 +73,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glew32.lib;glfw3.lib;glfw3dll.lib;glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;glfw3_mt.lib;glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -114,11 +115,8 @@
     <ClCompile Include="CRaceCourceE.cpp" />
     <ClCompile Include="CRaceCourceF.cpp" />
     <ClCompile Include="CRigidObj.cpp" />
-    <ClCompile Include="CRoad.cpp" />
     <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CScene.cpp" />
-    <ClCompile Include="CSceneGame.cpp" />
-    <ClCompile Include="CSceneGameStage2.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CSceneRace.cpp" />
@@ -164,11 +162,8 @@
     <ClInclude Include="CRaceCourceE.h" />
     <ClInclude Include="CRaceCourceF.h" />
     <ClInclude Include="CRigidObj.h" />
-    <ClInclude Include="CRoad.h" />
     <ClInclude Include="CRock.h" />
     <ClInclude Include="CScene.h" />
-    <ClInclude Include="CSceneGame.h" />
-    <ClInclude Include="CSceneGameStage2.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneRace.h" />
     <ClInclude Include="CSceneTitle.h" />

@@ -4,10 +4,10 @@
 #include "CCollider.h"
 #include "CCollisionManager.h"
 #include "CSound.h"
-#include "CCameraPos.h"
-#include "CCameraRange.h"
 
 class CPlayer :public CCharacter{
+private:
+protected:
 public:
 	static CPlayer*mpPlayer;
 	//デフォルトコンストラクタ
@@ -20,10 +20,6 @@ public:
 	CCollider mColBody;
 	//プレイヤーのタイヤの当たり判定
 	CCollider mColTire;
-	////プレイヤーのタイヤの当たり判定
-	//CCollider mColCamera;
-	////プレイヤーのカメラが移動できる範囲
-	//CCollider mColCamRange;
 
 	//衝突処理
 	void Collision(CCollider *mc, CCollider *yc);
@@ -56,12 +52,10 @@ public:
 	CSound SoundEngine_Turf;//芝生の上では別の音が鳴る仕様
 	bool isSoundEngine;
 	CSound SoundHorn;
-	CSound ShutUp;
 	int mBuzzerCount;//クラクションを鳴らした回数
 	CSound SoundCollision;
 	CSound SoundCollisionSmall;
-	CSound SoundRespawn;
-	CSound SoundRespawn2;
+	bool isRespawn;
 	int mRespawnCount;
 
 	float mStartPoint[3];//{ X,Y,Z }
@@ -70,7 +64,7 @@ public:
 	bool mIsGetKey;
 	bool mHaveBoat;
 
-	bool mFlyingMode;
+	bool mFlyingMode;//デバッグ用：自由落下無効
 
 	int mChecks;
 	bool isTouchGoal;//ゴール地点に入っているか
@@ -83,15 +77,8 @@ public:
 
 	bool CanMove;//プレイヤーが操作可能か否か(カウントダウン前・ゴール後などは否)
 
-	static int RenderType;//ゲーム画面の描画とミニマップの描画を分ける変数
-
-//	CCameraRange *mCamRange;
-//	CCameraPos *mCam;
-
-
 	//コライダの更新
 	void TaskCollision();
 };
-
 
 #endif

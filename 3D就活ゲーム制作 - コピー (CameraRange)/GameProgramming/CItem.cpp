@@ -93,53 +93,16 @@ void CItem::Collision(CCollider *m, CCollider *y){
 }
 void CItem::Update(){
 	if (mBoatMove){
-		//if (CKey::Push('Q')){//でば
-		//	mRotation.mY++;
-		//}
-		//if (CKey::Push('E')){//つぐ
-		//	mRotation.mY--;
-		//}
-
-		////Aキー、Dキーが同時に入力されているか
-		//if (CKey::Push('A') && CKey::Push('D')){
-		//	mADMoveX = 0.0f;
-		//}
-		//else if (CKey::Push('A')){//Aキーだけ
-		//	mADMoveX = 0.166f;
-		//}
-		//else if (CKey::Push('D')){//Dキーだけ
-		//	mADMoveX = -0.166f;
-		//}
-		//else{//どちらも入力なし
-		//	mADMoveX = 0.0f;
-		//}
-		////Wキー、Sキーが同時に入力されているか
-		//if (CKey::Push('W') && CKey::Push('S')){
-		//	mWSMoveZ = 0.0f;
-		//}
-		//else if (CKey::Push('W')){//Wキーだけ
-		//	mWSMoveZ = 0.166f;
-		//}
-		//else if (CKey::Push('S')){//Sキーだけ
-		//	mWSMoveZ = -0.166f;
-		//}
-		//else{//どちらも入力なし
-		//	mWSMoveZ = 0.0f;
-		//}
-		//mPosition = CVector(mADMoveX, 0.0f, mWSMoveZ) * mMatrix;
 		mPosition = CPlayer::mpPlayer->mPosition;
 		mPosition.mY -= 8.0f;
 		mRotation = CPlayer::mpPlayer->mRotation;
 	}
-
 	if (mItemNumber == 5){//鍵
 		mRotation.mY ++;
 		if (mRotation.mY > 360){
 			mRotation.mY -= 360;
 		}
 	}
-
-
 	CCharacter::Update();
 }
 

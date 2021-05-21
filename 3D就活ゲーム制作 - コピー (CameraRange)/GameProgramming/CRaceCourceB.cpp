@@ -15,7 +15,6 @@ void CRaceCourceB::Init(){
 
 	//敵のポイント(目的地)の設定
 	if (CSceneTitle::mDifficulty == 1){//難易度：EASY
-		CEnemy::mPointSize = 17;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(2377.0f, 30.0f, -753.0f), 100.0f * 2);
 		CEnemy::mPoint2 = new CPoint(CVector(3068.0f, 30.0f, -355.0f), 100.0f * 2);
 		CEnemy::mPoint3 = new CPoint(CVector(3763.0f, 30.0f, 510.0f), 100.0f * 2);
@@ -35,7 +34,6 @@ void CRaceCourceB::Init(){
 		CEnemy::mPoint17 = new CPoint(CVector(2128.0f, 30.0f, -3026.0f), 100.0f * 2);
 	}
 	else if (CSceneTitle::mDifficulty == 2){//難易度：NORMAL
-		CEnemy::mPointSize = 17;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(2377.0f, 30.0f, -753.0f), 100.0f * 2);
 		CEnemy::mPoint2 = new CPoint(CVector(3068.0f, 30.0f, -355.0f), 100.0f * 2);
 		CEnemy::mPoint3 = new CPoint(CVector(3763.0f, 30.0f, 510.0f), 100.0f * 2);
@@ -55,7 +53,6 @@ void CRaceCourceB::Init(){
 		CEnemy::mPoint17 = new CPoint(CVector(2128.0f, 30.0f, -3026.0f), 100.0f * 2);
 	}
 	else if (CSceneTitle::mDifficulty == 3){//難易度：HARD
-		CEnemy::mPointSize = 17;//ポイント数の設定
 		CEnemy::mPoint = new CPoint(CVector(2377.0f, 30.0f, -753.0f), 100.0f * 2);
 		CEnemy::mPoint2 = new CPoint(CVector(3068.0f, 30.0f, -355.0f), 100.0f * 2);
 		CEnemy::mPoint3 = new CPoint(CVector(3763.0f, 30.0f, 510.0f), 100.0f * 2);
@@ -80,6 +77,9 @@ void CRaceCourceB::Init(){
 	//プレイヤーの生成
 	mPlayer = new CPlayer();
 	mPlayer->mpModel = &mCarWhite;
+	//カメラの生成
+	mCamRange = new CCameraRange();
+	mCam = new CCameraPos();
 	//敵車の生成
 	for (int i = 0; i < ENEMYS_AMOUNT; i++){
 		mEnemys[i] = new CEnemy();

@@ -25,10 +25,6 @@ extern CSound SoundEngine;
 extern CSound SoundHorn;
 extern CSound SoundCollision;
 extern CSound SoundCollisionSmall;
-extern CSound SoundRespawn;
-extern CSound SoundRespawn2;
-
-int CPlayer::RenderType;
 
 CPlayer *CPlayer::mpPlayer = 0;
 
@@ -82,6 +78,7 @@ CPlayer::CPlayer()
 	mFlyingMode = false;
 
 	CanMove = false;
+	isRespawn = false;
 
 	mChecks = 0;
 
@@ -126,9 +123,7 @@ CPlayer::CPlayer()
 	}
 	mPosition = CVector(mStartPoint[0], mStartPoint[1], mStartPoint[2]);
 	CCharacter::Update();
-
-	RenderType = 0;//描画処理 0:ゲーム画面  1:ミニマップ
-
+	
 	mColBody.mTag = CCollider::EBODY;
 	mColTire.mTag = CCollider::ESEARCH;
 	//mColCamRange.mTag = CCollider::ECAMERA_RANGE;
@@ -141,49 +136,19 @@ CPlayer::CPlayer()
 	SoundEngine.Load("SE\\SNES-Racing01-02.wav");
 	SoundEngine_Turf.Load("SE\\SNES-Racing02-02.wav");
 	SoundHorn.Load("SE\\car-horn1.wav");
-	ShutUp.Load("SE\\Hanzawa's_SHOUT_UP!.wav");	
 	SoundCollision.Load("SE\\bomb1.wav");
 	SoundCollisionSmall.Load("SE\\SNES-Racing01-10(Collision).wav");
-	SoundRespawn.Load("SE\\nc31154.wav");
-	SoundRespawn2.Load("SE\\nc55733.wav");
 	
 	
 	isSoundEngine = false;
-	//SoundEngine.Repeat();
 	isTouchGoal = false;
 	mGoalTime = 0; mRank = 1;
-
-//	mCamRange = new CCameraRange();
-//	mCam = new CCameraPos();
 }
 
 void CPlayer::Update(){
-	if (CKey::Push('Q')){//でば
-		mRotation.mY++;
-	}
-	if (CKey::Push('E')){//つぐ
-		mRotation.mY--;
-	}
-	if (CKey::Push('Z')){//でば
-		mRotation.mX+=10;
-	}
-	if (CKey::Push('X')){//つぐ
-		mRotation.mX-=10;
-	}
-	if (CKey::Push('C')){//でば
-		mRotation.mZ += 10;
-	}
-	if (CKey::Push('V')){//つぐ
-		mRotation.mZ-=10;
-	}
-
 	if (CKey::Once(' ')){//クラクションを鳴らす
 		SoundHorn.Play();
 		mBuzzerCount++;
-		if (mBuzzerCount > 0 && mBuzzerCount % 7 == 0){
-			ShutUp.Play();
-			mBuzzerCount = 0;
-		}
 	}
 
 	
@@ -271,41 +236,6 @@ void CPlayer::Update(){
 		}		
 	}
 
-	//////プレイヤーのX角度が0に戻されていく
-	////if (mRotation.mX > 0.0f){
-	////	if (mRotation.mX > FIX_ANGLE_VALUE){
-	////		mRotation.mX -= FIX_ANGLE_VALUE;
-	////	}
-	////	else{
-	////		mRotation.mX = 0.0f;
-	////	}
-	////}
-	////else if (mRotation.mX < 0.0f){
-	////	if (mRotation.mX < -FIX_ANGLE_VALUE){
-	////		mRotation.mX += FIX_ANGLE_VALUE;
-	////	}
-	////	else{
-	////		mRotation.mX = 0.0f;
-	////	}
-	////}
-	//////プレイヤーのZ角度が0に戻されていく
-	////if (mRotation.mZ > 0.0f){
-	////	if (mRotation.mZ > FIX_ANGLE_VALUE){
-	////		mRotation.mZ -= FIX_ANGLE_VALUE;
-	////	}
-	////	else{
-	////		mRotation.mZ = 0.0f;
-	////	}
-	////}
-	////else if (mRotation.mZ < 0.0f){
-	////	if (mRotation.mZ < -FIX_ANGLE_VALUE){
-	////		mRotation.mZ += FIX_ANGLE_VALUE;
-	////	}
-	////	else{
-	////		mRotation.mZ = 0.0f;
-	////	}
-	////}
-
 	if (CKey::Push(VK_LEFT) && CanMove){ //ハンドルを左に！
 		//mRotation.mY++;
 		if (mTurnSpeed>=0.0f&&mTurnSpeed<0.5f){
@@ -375,12 +305,6 @@ void CPlayer::Update(){
 		}
 	}
 
-	//mPosition = CVector(mADMoveX, mVelocityJump, mWSMoveZ)  * CMatrix().RotateY(mRotation.mY) * mMatrix;
-	//mPosition = CVector(mADMoveX, mVelocityJump, mWSMoveZ) * CMatrix().RotateY(90) * mMatrix;
-	//mPosition = CVector(mADMoveX, mVelocityJump, mWSMoveZ+mCarSpeed) * CMatrix().RotateY(90) * mMatrix;
-	////常に地面に垂直に落下するようにする(プレイヤーの真下ではない)
-	//mPosition = CVector(mADMoveX, mVelocityJump, mWSMoveZ + mCarSpeed) * mMatrix;
-	//mPosition = CVector(mADMoveX, 0.0f, mWSMoveZ + mCarSpeed) * mMatrix;
 	mPosition = CVector(mADMoveX, 0.0f, mWSMoveZ + mCarSpeed) * mMatrixRotate * mMatrixTranslate;
 	CCharacter::Update();
 	//Y方向(重力)は分ける
@@ -389,8 +313,7 @@ void CPlayer::Update(){
 		CMatrix().RotateZ(0) *
 		CMatrix().RotateX(0) *
 		CMatrix().RotateY(0)
-		*mMatrixTranslate;//できてる？
-	//mMatrix = mMatrixScale * mMatrixRotate * mMatrixTranslate;
+		*mMatrixTranslate;
 
 	//転落してしまった時(Rキーで即リスタート)
 	if (mPosition.mY < -700.0f || CKey::Once('R')){
@@ -398,48 +321,6 @@ void CPlayer::Update(){
 		mVelocityJump = 0.0f;
 		//車の速度を0に
 		mCarSpeed = 0.0f;
-		////リスタート時の効果音
-		//int sr = rand()%2;
-		//if (sr == 0){
-		//	SoundRespawn.Play();
-		//}
-		//else{
-		//	SoundRespawn2.Play();
-		//}
-		//mRespawnCount++;
-		//int respawntext = 0;
-		////5回目までは煽られない
-		//if (mRespawnCount <= 5){
-		//	respawntext = 0;
-		//}
-		//else if (mRespawnCount <= 10){
-		//	respawntext = rand() % 2;
-		//}
-		//else{
-		//	respawntext = rand() % 3;
-		//}
-		////リスポーンしすぎると煽られます
-		//if (respawntext == 0){
-		//	printf("%d-%d\n", 33 * mRespawnCount, 4 * mRespawnCount);
-		//}
-		//else if (respawntext == 1){
-		//	printf("(笑)\n");
-		//}
-		//else if (respawntext == 2){
-		//	if (mRespawnCount < 20){
-		//		printf("^^;\n");
-		//	}
-		//	else if (mRespawnCount < 30){
-		//		printf("^^;;;;;\n");
-		//	}
-		//	else if (mRespawnCount < 50){
-		//		printf("^^;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n");
-		//	}
-		//	else{
-		//		printf("^^;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n");
-		//	}
-		//}
-
 		if (CSceneTitle::mMode == 2){
 			if (mChecks == 0){
 				//スタート時の位置、方向に戻される
@@ -517,29 +398,20 @@ void CPlayer::Update(){
 			}
 		}
 		mRotation = CVector(0.0f, mStartRotation, 0.0f);
-		
+		isRespawn = true;
 	}
 
 	CCharacter::Update();
 	
 	//重力の影響を反映する
 	mVelocityJump -= G;
-	//if (CKey::Once('K')){
-	//	if (mCanJump){
-	//		//ボート乗船時はジャンプ不可
-	//		if (mHaveBoat){
-	//		}
-	//		else{
-	//			mCanJump = false;
-	//			mVelocityJump = mJumpV0;
-	//			mJumpPrio = 2;
-	//			////ジャンプ音再生
-	//			SoundJump.Play();
-	//		}
-	//	}
-	//}
 	if (mJumpPrio > 0){
 		mJumpPrio--;
+	}
+
+	if (CKey::Once('L')){
+		mPosition = CVector(0.0f, 100.0f, 0.0f);
+		CCharacter::Update();
 	}
 	
 }
@@ -657,10 +529,7 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 									if (mCarSpeed > 2.0f){
 										mCarSpeed = 2.0f;
 									}
-								}
-								//mCarSpeed = -mCarSpeed * 1.0;
-								//mVelocityJump = 2.0f;
-								
+								}								
 							}
 							else if(yc->mpParent->mTag == CCharacter::EJUMPER){//ジャンプ台に接触した時
 								//mVelocityJump = 0; 
@@ -671,61 +540,7 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 							else{
 								mVelocityJump = 0;
 								mCanJump = true;
-
-								/*if (mRotation.mX < yc->mpParent->mRotation.mX){
-								mRotation.mX++;
-								}
-								else if (mRotation.mX > yc->mpParent->mRotation.mX){
-								mRotation.mX--;
-								}*/
-
-								/*１．斜面の法線ベクトルからY軸ベクトルを求めます。　済
-									２．車体の進行方向から、Z軸ベクトルを求めます。  済??
-									３．Y軸ベクトルとZ軸ベクトルの外積を計算し、X軸ベクトルを求めます。
-									４．X軸ベクトルとY軸ベクトルの外積を計算し、Z軸ベクトルを求めます。
-									５．Z軸ベクトルからX軸の回転値を求めます。              okか…？
-									６．Z軸ベクトルからY軸の回転値を求めます。              okか…？
-									７．X軸ベクトルとY軸ベクトルからZ軸の回転値を求めます。 okか…？
-									８．求めた回転値を車体に適用します。                    okか…？*/
-								CVector v[3], sv, ev;
-								//各コライダの頂点をワールド座標へ変換
-								v[0] = yc->mV[0] * yc->mMatrix * yc->mpParent->mMatrix;
-								v[1] = yc->mV[1] * yc->mMatrix * yc->mpParent->mMatrix;
-								v[2] = yc->mV[2] * yc->mMatrix * yc->mpParent->mMatrix;
-								//面の法線を、外積を正規化して求める
-								// 1.斜面の法線ベクトルからY軸ベクトルを求める
-								CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();  //法線ベクトルは取れてるかも？
-								// 2.車体の進行方向から、Z軸ベクトルを求める
-								CVector preZvec = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
-								// 3.Y軸ベクトルとZ軸ベクトルの外積を計算し、X軸ベクトルを求める
-								CVector Xvec = (normal).Cross(preZvec).Normalize();
-								// 4.X軸ベクトルとY軸ベクトルの外積を計算し、Z軸ベクトルを求める
-								CVector Zvec = (Xvec).Cross(normal).Normalize();//？？？？？？？？？？？								
-								// 5～7.回転値を求める
-								float rad = asin(Zvec.mY);//5.
-								float rotX = rad * 180 / PI * -1;//X軸は反転
-								float rotY = atan2(Zvec.mX, Zvec.mZ) * 180 / PI;//6.
-								float rotZ = atan2(Xvec.mY, normal.mY) * 180 / PI;//7.
-								// 8.求めた回転値を車体に適用
-								mRotation = CVector(rotX, rotY, rotZ);
-
-								//int rotateofycmx = yc->mpParent->mRotation.mX;
-								//rotateofycmx %= 360; //-360度から360度までの数値に変換
-								////-235=125 300=-60 -180度未満か、180度以上の角度は
-								//if (rotateofycmx < -180){
-								//	rotateofycmx += 360;
-								//}
-								//else if (rotateofycmx >= 180){
-								//	rotateofycmx -= 360;
-								//}
-								//mRotation.mX = rotateofycmx;
-								//if (mRotation.mX < yc->mpParent->mRotation.mX){
-								//	mRotation.mX = yc->mpParent->mRotation.mX;
-								//}
-								//else if (mRotation.mX > yc->mpParent->mRotation.mX){
-								//	mRotation.mX = yc->mpParent->mRotation.mX;
-								//}
-								//mRotation = yc->mpParent->mRotation;
+								mRotation = CCollider::CalculateEulerAngle(mc, yc, mMatrixRotate, PI);
 							}
 						}
 					}
@@ -749,16 +564,6 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 					}
 				}
 			}
-
-			
-
-			
-			/*if(yc->mpParent->mTag == CCharacter::ESPRING){
-				mJumpV0 = 2.3f;
-			}*/
-			/*if (CItem::mpItem->mItemNumber == 2){
-				mJumpV0 = 2.3f;
-			}*/
 		}
 		if (yc->mType == CCollider::ESPHERE){
 			if (CCollider::Collision(mc, yc)){
@@ -799,23 +604,8 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 				
 			}
 		}
-
 		break;
 	}
-
-	////球コラと三角形の時
-	//if (mc->mType == CCollider::ESPHERE && yc->mType == CCollider::ETRIANGLE){
-	//	CVector adjust;//調整用ベクトル
-	//	//コライダのmとyが衝突しているか判定
-	//	//三角形と球の衝突判定
-	//	if (CCollider::CollisionTriangleSphere(yc, mc, &adjust)){
-	//		//位置の更新
-	//		mPosition = mPosition - adjust * -1;
-	//		//行列の更新
-	//		CCharacter::Update();
-	//	}
-	//}
-
 }
 
 

@@ -60,8 +60,8 @@ public:
 		CText::DrawString("Push Enter Key", 200, 177, 16, 16);
 		//
 		if (mSelectScene_Level == 1){
-			CText::DrawString("[", 66 + mVariable2 * 250, 300 + mVariable1 * 50, 20, 30, 2);
-			CText::DrawString("]", 250 + mVariable2 * 250-30, 300 + mVariable1 * 50, 20, 30, 2);
+			CText::DrawString("[", 66 + mVariable2 * 250, 284 + mVariable1 * 50, 20, 30, 2);
+			CText::DrawString("]", 262 + mVariable2 * 250, 284 + mVariable1 * 50, 20, 30, 2);
 		}
 		if (mSelectScene_Level == 2 && mStart == false){
 			if (mDifficulty == 1){
@@ -184,7 +184,7 @@ public:
 			}
 		}
 		glColor4fv(c);
-		CText::DrawString("Map-A", 80, 300, 16, 16);
+		CText::DrawString("COURCE-1", 80, 280, 12, 14);
 
 		if (mVariable1 == 0 && mVariable2 == 1){
 			c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
@@ -202,7 +202,7 @@ public:
 			}
 		}
 		glColor4fv(c);
-		CText::DrawString("Map-B", 330, 300, 16, 16);
+		CText::DrawString("COURCE-2", 330, 280, 12, 14);
 
 		if (mVariable1 == 0 && mVariable2 == 2){
 			c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
@@ -220,61 +220,61 @@ public:
 			}
 		}
 		glColor4fv(c);
-		CText::DrawString("Map-C", 580, 300, 16, 16);
+		CText::DrawString("COURCE-3", 580, 280, 12, 14);
 
-		if (mVariable1 == -1 && mVariable2 == 0){
-			c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
-		}
-		else{
-			c[0] = c[1] = c[2] = 0.5f; c[3] = 1.0f;
-		}
-		//選択時に点滅する
-		if (mStart && mVariable1 == -1 && mVariable2 == 0){
-			if (mStartWaitTime > 20){
-				c[0] = c[1] = c[2] = 1.0f;
-			}
-			else if (mStartWaitTime % 8 < 4){
-				c[0] = c[1] = c[2] = 0.5f;
-			}
-		}
-		glColor4fv(c);
-		CText::DrawString("Map-D", 80, 250, 16, 16);
-
-		if (mVariable1 == -1 && mVariable2 == 1){
-			c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
-		}
-		else{
-			c[0] = c[1] = c[2] = 0.5f; c[3] = 1.0f;
-		}
-		//選択時に点滅する
-		if (mStart && mVariable1 == -1 && mVariable2 == 1){
-			if (mStartWaitTime > 20){
-				c[0] = c[1] = c[2] = 1.0f;
-			}
-			else if (mStartWaitTime % 8 < 4){
-				c[0] = c[1] = c[2] = 0.5f;
-			}
-		}
-		glColor4fv(c);
-		CText::DrawString("Map-E", 330, 250, 16, 16);
-		
-		if (mVariable1 == -1 && mVariable2 == 2){
-			c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
-		}
-		else{
-			c[0] = c[1] = c[2] = 0.5f; c[3] = 1.0f;
-		}
-		//選択時に点滅する
-		if (mStart && mVariable1 == -1 && mVariable2 == 2){
-			if (mStartWaitTime > 20){
-				c[0] = c[1] = c[2] = 1.0f;
-			}
-			else if (mStartWaitTime % 8 < 4){
-				c[0] = c[1] = c[2] = 0.5f;
-			}
-		}
-		glColor4fv(c);
-		CText::DrawString("Map-F", 580, 250, 16, 16);
+		//if (mVariable1 == -1 && mVariable2 == 0){
+		//	c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
+		//}
+		//else{
+		//	c[0] = c[1] = c[2] = 0.5f; c[3] = 1.0f;
+		//}
+		////選択時に点滅する
+		//if (mStart && mVariable1 == -1 && mVariable2 == 0){
+		//	if (mStartWaitTime > 20){
+		//		c[0] = c[1] = c[2] = 1.0f;
+		//	}
+		//	else if (mStartWaitTime % 8 < 4){
+		//		c[0] = c[1] = c[2] = 0.5f;
+		//	}
+		//}
+		//glColor4fv(c);
+		//CText::DrawString("Map-D", 80, 250, 16, 16);
+		//
+		//if (mVariable1 == -1 && mVariable2 == 1){
+		//	c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
+		//}
+		//else{
+		//	c[0] = c[1] = c[2] = 0.5f; c[3] = 1.0f;
+		//}
+		////選択時に点滅する
+		//if (mStart && mVariable1 == -1 && mVariable2 == 1){
+		//	if (mStartWaitTime > 20){
+		//		c[0] = c[1] = c[2] = 1.0f;
+		//	}
+		//	else if (mStartWaitTime % 8 < 4){
+		//		c[0] = c[1] = c[2] = 0.5f;
+		//	}
+		//}
+		//glColor4fv(c);
+		//CText::DrawString("Map-E", 330, 250, 16, 16);
+		//
+		//if (mVariable1 == -1 && mVariable2 == 2){
+		//	c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
+		//}
+		//else{
+		//	c[0] = c[1] = c[2] = 0.5f; c[3] = 1.0f;
+		//}
+		////選択時に点滅する
+		//if (mStart && mVariable1 == -1 && mVariable2 == 2){
+		//	if (mStartWaitTime > 20){
+		//		c[0] = c[1] = c[2] = 1.0f;
+		//	}
+		//	else if (mStartWaitTime % 8 < 4){
+		//		c[0] = c[1] = c[2] = 0.5f;
+		//	}
+		//}
+		//glColor4fv(c);
+		//CText::DrawString("Map-F", 580, 250, 16, 16);
 
 		//最後に値を1.0fに戻す
 		c[0] = c[1] = c[2] = 1.0f; c[3] = 1.0f;
@@ -375,18 +375,18 @@ public:
 			//矢印キーで選択
 			//選択画面1:モードの選択
 			if (mSelectScene_Level == 1){
-				if (CKey::Once(VK_UP)){
-					//次のシーンはゲーム
-					if (mVariable1 < 0){
-						mVariable1 += 1;
-					}
-				}
-				if (CKey::Once(VK_DOWN)){
-					//次のシーンはゲーム
-					if (mVariable1 > -1){
-						mVariable1 -= 1;
-					}
-				}
+				//if (CKey::Once(VK_UP)){
+				//	//次のシーンはゲーム
+				//	if (mVariable1 < 0){
+				//		mVariable1 += 1;
+				//	}
+				//}
+				//if (CKey::Once(VK_DOWN)){
+				//	//次のシーンはゲーム
+				//	if (mVariable1 > -1){
+				//		mVariable1 -= 1;
+				//	}
+				//}
 				if (CKey::Once(VK_LEFT)){
 					//次のシーンはゲーム
 					if (mVariable2 > 0){
@@ -432,13 +432,13 @@ public:
 			mMode = 2;
 		}
 		else if (mVariable1 == 0 && mVariable2 == 2){
-			mMode = 3;
+			mMode = 5;
 		}
 		else if (mVariable1 == -1 && mVariable2 == 0){
 			mMode = 4;
 		}
 		else if (mVariable1 == -1 && mVariable2 == 1){
-			mMode = 5;
+			mMode = 3;
 		}		
 		else if (mVariable1 == -1 && mVariable2 == 2){
 			mMode = 6;

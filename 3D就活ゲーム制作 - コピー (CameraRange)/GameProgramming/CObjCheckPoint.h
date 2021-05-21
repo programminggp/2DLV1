@@ -10,5 +10,7 @@ public:
 
 	//
 	int cpnumber;
+
+	void Render(){};//チェックポイントは描画しない
 };
 #endif
