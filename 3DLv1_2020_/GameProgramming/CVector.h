@@ -36,9 +36,16 @@ public:
 	//正規化
 	//大きさ1のベクトルを返す
 	CVector Normalize();
-	//+演算しのオーバーロード
+	//+演算子のオーバーロード
 	//CVector + CVector の演算結果を返す
 	CVector operator+(const CVector &v);
+	//Y軸での回転角度の取得
+	//度度を返す（Z軸＋が0度）
+	float GetRotationY();
+	//X軸での回転角度の取得
+	//度度を返す（Z軸＋が0度）
+	//GetRotationX(Y軸方向)
+	float GetRotationX(CVector& y);
 
 };
 #endif

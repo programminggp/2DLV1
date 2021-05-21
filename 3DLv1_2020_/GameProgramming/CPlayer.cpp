@@ -132,7 +132,7 @@ void CPlayer::Render()
 	//2Dの描画開始
 	CUtil::Start2D(-400, 400, -300, 300);
 	//描画色の設定（緑色の半透明）
-	glColor4f(0.0f, 1.0f, 0.0f, 0.4f);
+	glColor4f(0.0f, 1.0f, 0.0f, 0.99f);
 	//文字列編集エリアの作成
 	char buf[64];
 
@@ -147,12 +147,26 @@ void CPlayer::Render()
 	sprintf(buf, "RX:%7.2f", mRotation.mX);
 	//文字列の描画
 	mText.DrawString(buf, 100, 0, 8, 16);
-	
+	//X軸回転値の表示
+	//文字列の設定
+	sprintf(buf, "FX:%7.2f", (CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate).GetRotationX(CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate));
+	//文字列の描画
+	mText.DrawString(buf, 100, -20, 8, 16);
+
+
+
 	//Y軸回転値の表示
 	//文字列の設定
 	sprintf(buf, "RY:%7.2f", mRotation.mY);
 	//文字列の描画
 	mText.DrawString(buf, 100, -100, 8, 16);
+
+	//Y軸回転値の表示
+	//文字列の設定
+	sprintf(buf, "FY:%7.2f", (CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate).GetRotationY());
+	//文字列の描画
+	mText.DrawString(buf, 100, -120, 8, 16);
+
 
 	//2Dの描画終了
 	CUtil::End2D();

@@ -1,5 +1,6 @@
 #include "CVector.h"
 //
+#define  _USE_MATH_DEFINES
 #include <math.h>
 
 //Set(X座標, Y座標, Z座標)
@@ -64,4 +65,46 @@ CVector CVector::operator*(const float &f) {
 CVector CVector::operator+(const CVector &v)
 {
 	return CVector(mX + v.mX, mY + v.mY, mZ + v.mZ);
+}
+
+//Y軸での回転角度の取得
+//度度を返す（Z軸＋が0度）
+float CVector::GetRotationY()
+{
+	//ラジアンを°に変換して返す
+	return atan2(mX,mZ) * 180.0f / M_PI;
+}
+
+//X軸での回転角度の取得
+//度度を返す（Z軸＋が0度）
+//GetRotationX(Y軸方向)
+float CVector::GetRotationX(CVector& ay)
+{
+	CVector z = this->Normalize();
+	CVector y = ay.Normalize();
+	float rad = 0.0f;
+
+	if (z.mY < 0.0f)
+	{
+		if (y.mY < 0.0f)
+		{
+			rad = -M_PI - asin(z.mY);
+		}
+		else
+		{
+			rad = asin(z.mY);
+		}
+	}
+	else
+	{
+		if (y.mY < 0.0f)
+		{
+			rad = M_PI - asin(z.mY);
+		}
+		else
+		{
+			rad = asin(z.mY);
+		}
+	}
+	return rad * -180.0f / M_PI;
 }
