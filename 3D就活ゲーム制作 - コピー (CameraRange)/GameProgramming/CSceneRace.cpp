@@ -1365,11 +1365,6 @@ void CSceneRace::RenderMiniMap() {
 //バックミラーを表示
 void CSceneRace::RenderBackMirror(){
 
-	//行列を退避させる
-	glPushMatrix();
-	//行列を単位行列にする
-	glLoadIdentity();
-
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	e = CVector(0.0f, 17.0f + 13.0f, 40.0f - 41.0f) * CMatrix().RotateY(mCamY)* mPlayer->mMatrixScale
@@ -1378,26 +1373,34 @@ void CSceneRace::RenderBackMirror(){
 	c = mPlayer->mPosition + CVector(0.0f, 17.0f + 12.8f, 40.0f - 42.0f)* mPlayer->mMatrixScale
 		* CMatrix().RotateY(mPlayer->mRotation.mY);
 	u = CVector(0.0f, 1.0f, 0.0f);
+
+	//行列を退避させる
+	glPushMatrix();
+	//行列を単位行列にする
+	glLoadIdentity();
+
 	//バックミラーのカメラの設定
 	gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
 	//レンダーテクスチャ開始
 	mRenderTexture.Start();
 
+	//バックミラー画面描画
 	CTaskManager::Get()->Render();
 
 	//レンダーテクスチャ終了
 	mRenderTexture.End();
 
-	// テクスチャマッピングを有効にする
-	glEnable(GL_TEXTURE_2D);
-	//レンダーテクスチャのテクスチャをバインドする
-	glBindTexture(GL_TEXTURE_2D, mRenderTexture.GetColorBuffer());
-
+	//バックミラー描画エリアの指定
 	glViewport(BACKMIRROR_BG_WHITE_AREA);
 
 	//2D描画開始
 	Start2D(-1, 1, -1, 1);
+
+	// テクスチャマッピングを有効にする
+	glEnable(GL_TEXTURE_2D);
+	//レンダーテクスチャのテクスチャをバインドする
+	glBindTexture(GL_TEXTURE_2D, mRenderTexture.GetTexture());
 
 	// 正方形を描く
 	glColor3d(1.0, 1.0, 1.0);

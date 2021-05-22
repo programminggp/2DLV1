@@ -16,7 +16,7 @@ void CRenderTexture::Init()
 	// カラーバッファ用のテクスチャを用意する
 	glGenTextures(1, &mColorBuffer);
 	glBindTexture(GL_TEXTURE_2D, mColorBuffer);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, FBOWIDTH, FBOHEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, FBOWIDTH, FBOHEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -51,7 +51,7 @@ void CRenderTexture::End()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 //テクスチャを返す
-GLuint CRenderTexture::GetColorBuffer()
+GLuint CRenderTexture::GetTexture()
 {
 	return mColorBuffer;
 }
