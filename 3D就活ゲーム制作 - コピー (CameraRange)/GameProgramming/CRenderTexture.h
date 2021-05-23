@@ -19,7 +19,7 @@ public:
 	//レンダリング終了
 	void End();
 	//テクスチャの取得
-	GLuint GetColorBuffer();
+	GLuint GetTexture();
 };
 
 #endif
