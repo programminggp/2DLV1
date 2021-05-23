@@ -20,7 +20,7 @@ CSceneGame::~CSceneGame() {
 
 void CSceneGame::Init() {
 	//テキストフォントの読み込みと設定
-	mFont.LoadTexture("FontG.tga", 1, 4096 / 64);
+	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
 
 	CRes::sModelX.Load(MODEL_FILE);
 	CRes::sKnight.Load("knight\\knight_low.x");
