@@ -1,7 +1,6 @@
 #include "CMaterial.h"
 //memsetのインクルード
 #include <string.h>
-//#include "glut.h"
 
 //デフォルトコンストラクタ
 CMaterial::CMaterial()

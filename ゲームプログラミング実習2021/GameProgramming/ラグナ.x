@@ -183,7 +183,7 @@ Material mat17
  0.737040;0.714100;0.740000;;
  TextureFilename
  {
-  "ラグナ.tga";
+  "ラグナ.png";
  }
 }
 Material mat18
@@ -194,7 +194,7 @@ Material mat18
  0.496540;0.403300;0.315980;;
  TextureFilename
  {
-  "ラグナ.tga";
+  "ラグナ.png";
  }
 }
 
@@ -206,7 +206,7 @@ Material mat4
  0.300000;0.300000;0.300000;;
  TextureFilename
  {
-  "ラグナ.tga";
+  "ラグナ.png";
  }
 }
 

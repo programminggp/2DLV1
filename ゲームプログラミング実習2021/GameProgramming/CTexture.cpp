@@ -1,6 +1,7 @@
 #include "CTexture.h"
 #include <stdio.h>	//ファイルの入力に使用
 #include <string.h>
+#include "SOIL.h"
 
 //std::map<std::string, CTexture>CTexture::mTexFile;
 
@@ -36,6 +37,21 @@ void CTexture::Destory() {
 }
 
 void CTexture::Load(const char* filename) {
+
+	mId = SOIL_load_OGL_texture(
+		filename,
+		SOIL_LOAD_AUTO,
+		SOIL_CREATE_NEW_ID,
+		SOIL_FLAG_POWER_OF_TWO
+		| SOIL_FLAG_MIPMAPS
+		| SOIL_FLAG_MULTIPLY_ALPHA
+		| SOIL_FLAG_COMPRESS_TO_DXT
+		| SOIL_FLAG_DDS_LOAD_DIRECT
+		| SOIL_FLAG_INVERT_Y
+	);
+	return;
+
+
 	//if (mTexFile.count(filename)) {
 	//	*this = mTexFile[filename];
 	//	return;
