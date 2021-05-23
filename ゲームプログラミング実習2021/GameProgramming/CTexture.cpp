@@ -7,7 +7,7 @@
 
 CTexture::CTexture()
 	: mId(0)
-	, mpName(0)
+	, mpName(nullptr)
 	, mRow(1)
 	, mCol(1)
 {
@@ -30,13 +30,21 @@ void CTexture::Destory() {
 		glDeleteTextures(1, &mId);
 		mId = 0;
 	}
-	if (mpName) {
+	if (mpName!=nullptr) {
 		delete[] mpName;
 		mpName = 0;
 	}
 }
 
+#include <CRTDBG.H>
+
 void CTexture::Load(const char* filename) {
+
+	//null à»äOÇÕÉGÉâÅ[
+	_ASSERT(mpName==nullptr);
+
+	mpName = new char[strlen(filename) + 1];
+	strcpy(mpName, filename);
 
 	mId = SOIL_load_OGL_texture(
 		filename,
