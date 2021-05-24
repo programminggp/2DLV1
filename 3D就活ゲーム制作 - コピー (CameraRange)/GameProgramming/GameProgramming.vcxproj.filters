@@ -28,6 +28,9 @@
     <Filter Include="ソース ファイル\RaceGame\ObjectFolder">
       <UniqueIdentifier>{d8286d00-78a8-407a-8e3d-a5b11d88dac7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Test">
+      <UniqueIdentifier>{e7dcf49a-7cae-44ba-a139-74fd91491f77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -167,6 +170,12 @@
     </ClCompile>
     <ClCompile Include="CRenderTexture.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CRaceCourceETest.cpp">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="CRoad.cpp">
+      <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +319,12 @@
     </ClInclude>
     <ClInclude Include="CRenderTexture.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CRaceCourceETest.h">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="CRoad.h">
+      <Filter>ソース ファイル\Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,5 @@
 #include "CRoad.h"
+#include "CPoint.h"
 
 #define INTERVAL 30
 #define START_INDEX 0
@@ -11,7 +12,7 @@
 
 CRoadManager::CRoadManager(CModel *model, const CVector& position, const CVector& rotation, const CVector& scale)
 	: CObjFloor(model, position, rotation, scale)
-	, mDispCount(0), mFrameCount(0), mpRoad(nullptr), mpCollider(nullptr)
+	, mDispCount(0), mFrameCount(0), mpRoad(nullptr)//, mpCollider(nullptr)
 {
 	Init(model, position, rotation, scale);
 }
@@ -45,6 +46,11 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 		for (int i = 0; i < size; i++)
 		{
 			mpRoad[i] = pmodel->mTriangles[i];
+			//ワールド座標に変換
+			mpRoad[i].mV[0] = mpRoad[i].mV[0] * mMatrix;
+			mpRoad[i].mV[1] = mpRoad[i].mV[1] * mMatrix;
+			mpRoad[i].mV[2] = mpRoad[i].mV[2] * mMatrix;
+			mpRoad[i].SetCenter();
 		}
 		int start = START_INDEX;
 		float min;
@@ -73,26 +79,28 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 			start = min_i;
 		}
 
-		mColSize = size / 2;
-		mpCollider = new CRoadCollider[mColSize];
-		mpCollider[0].SetSphere(this, (mRoad[size - 1]->GetCenter() + mRoad[size - 2]->GetCenter()) * 0.5f, CVector(), CVector(1.0f, 1.0f, 1.0f), COURSE_POINT_SIZE);
-		mpCollider[0].mTag = CCollider::EROADPOINT;
-		int col_i = 1;
+//		mColSize = size / 2;
+//		mpCollider = new CRoadCollider[mColSize];
+//		mpCollider[0].SetSphere(this, (mRoad[size - 1]->GetCenter() + mRoad[size - 2]->GetCenter()) * 0.5f, CVector(), CVector(1.0f, 1.0f, 1.0f), COURSE_POINT_SIZE);
+//		mpCollider[0].mTag = CCollider::EROADPOINT;
+
+		CPoint* next;
+		CPoint* first = next = new CPoint((mRoad[size - 1]->GetCenter() + mRoad[size - 2]->GetCenter()) * 0.5f, COURSE_POINT_SIZE);
+//		int col_i = 1;
 		CVector length;
 		float pointsize = COURSE_POINT_SIZE / (mScale.mX + mScale.mY + mScale.mZ ) * 3 * 2;
 		for (int i = size - 3; i >= 0; i -= 2) {
-			length = (mRoad[i]->GetCenter() + mRoad[i - 1]->GetCenter()) * 0.5f - mpCollider[col_i - 1].mPosition;
+//			length = (mRoad[i]->GetCenter() + mRoad[i - 1]->GetCenter()) * 0.5f - mpCollider[col_i - 1].mPosition;
+			length = (mRoad[i]->GetCenter() + mRoad[i - 1]->GetCenter()) * 0.5f - next->mPosition;
 			if (length.Length() > pointsize)
 			{
-				mpCollider[col_i].SetSphere(this, (mRoad[i]->GetCenter() + mRoad[i - 1]->GetCenter()) * 0.5f, CVector(), CVector(1.0f, 1.0f, 1.0f), COURSE_POINT_SIZE);
-				mpCollider[col_i].mTag = CCollider::EROADPOINT;
-				mpCollider[col_i].SetNextPosition(mpCollider[col_i - 1].mPosition);
-				mpCollider[col_i].ChangePriority();
-				col_i++;
+				next = new CPoint((mRoad[i]->GetCenter() + mRoad[i - 1]->GetCenter()) * 0.5f, COURSE_POINT_SIZE, next);
+//				col_i++;
 			}
 		}
-		mpCollider[0].SetNextPosition(mpCollider[col_i - 1].mPosition);
-		mpCollider[0].ChangePriority();
+		first->Set((mRoad[size - 1]->GetCenter() + mRoad[size - 2]->GetCenter()) * 0.5f, COURSE_POINT_SIZE,next);
+//		mpCollider[0].SetNextPosition(mpCollider[col_i - 1].mPosition);
+//		mpCollider[0].ChangePriority();
 	}
 }
 
@@ -204,6 +212,7 @@ bool CRoad::GetEnabled()
 	return mEnabled;
 }
 
+/*
 CVector CRoadCollider::GetNextPosition()
 {
 	// TODO: return ステートメントをここに挿入します
@@ -230,3 +239,4 @@ void CRoadCollider::SetSphere(CCharacter* parent, CVector position, CVector rota
 	CollisionManager.Add(this);
 	ChangePriority();
 }
+*/

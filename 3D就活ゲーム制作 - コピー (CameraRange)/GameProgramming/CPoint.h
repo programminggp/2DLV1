@@ -8,13 +8,19 @@
 敵機などの目標にする
 */
 class CPoint : public CCharacter{
-public:
 	CCollider mCollider; //コライダの追加
+	CPoint* mpNext;	//次のポイント
+public:
 	CPoint();
+	//CPoint(位置, 半径, 次ポインタ)
+	CPoint(const CVector& pos, float r, CPoint* next = nullptr);
 	//設定
-	//Set(位置, 半径)
-	void Set(const CVector &pos, float r);
-
-	CPoint(const CVector &pos, float r);
+	//Set(位置, 半径, 次ポインタ)
+	void Set(const CVector& pos, float r, CPoint* next = nullptr);
+	//次のポイントの取得
+	CPoint* GetNextPoint();
+#ifdef _DEBUG
+	void Render();
+#endif
 };
 #endif

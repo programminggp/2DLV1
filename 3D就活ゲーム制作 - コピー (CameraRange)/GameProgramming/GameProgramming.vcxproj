@@ -113,9 +113,11 @@
     <ClCompile Include="CRaceCourceC.cpp" />
     <ClCompile Include="CRaceCourceD.cpp" />
     <ClCompile Include="CRaceCourceE.cpp" />
+    <ClCompile Include="CRaceCourceETest.cpp" />
     <ClCompile Include="CRaceCourceF.cpp" />
     <ClCompile Include="CRenderTexture.cpp" />
     <ClCompile Include="CRigidObj.cpp" />
+    <ClCompile Include="CRoad.cpp" />
     <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
@@ -164,10 +166,12 @@
     <ClInclude Include="CRaceCourceF.h" />
     <ClInclude Include="CRenderTexture.h" />
     <ClInclude Include="CRigidObj.h" />
+    <ClInclude Include="CRoad.h" />
     <ClInclude Include="CRock.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneRace.h" />
+    <ClInclude Include="CRaceCourceETest.h" />
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CItem.h" />
