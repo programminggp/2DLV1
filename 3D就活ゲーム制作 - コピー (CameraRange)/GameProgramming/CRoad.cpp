@@ -1,5 +1,6 @@
 #include "CRoad.h"
 #include "CPoint.h"
+#include "CEnemy.h"
 
 #define INTERVAL 30
 #define START_INDEX 0
@@ -10,11 +11,11 @@
 //{
 //}
 
-CRoadManager::CRoadManager(CModel *model, const CVector& position, const CVector& rotation, const CVector& scale)
+CRoadManager::CRoadManager(CModel *model, const CVector& position, const CVector& rotation, const CVector& scale, const CVector& startPos, const CVector& foward)
 	: CObjFloor(model, position, rotation, scale)
 	, mDispCount(0), mFrameCount(0), mpRoad(nullptr)//, mpCollider(nullptr)
 {
-	Init(model, position, rotation, scale);
+	Init(model, position, rotation, scale, startPos, foward);
 }
 
 CRoadManager::~CRoadManager()
@@ -32,7 +33,7 @@ CRoadManager::~CRoadManager()
 	}
 }
 
-void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, const CVector& scale)
+void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, const CVector& scale, const CVector& startPos, const CVector& foward)
 {
 	mPosition = pos;
 	mRotation = rot;
@@ -52,10 +53,55 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 			mpRoad[i].mV[2] = mpRoad[i].mV[2] * mMatrix;
 			mpRoad[i].SetCenter();
 		}
+
 		int start = START_INDEX;
-		float min;
+		float min = FLT_MAX;
+		float len;
+		CVector fwd;
+
+		//1î‘ñ⁄ÇåàÇﬂÇÈ
+		for (int i = 0; i < size; i++)
+		{
+			fwd = mpRoad[i].GetCenter() - startPos;
+			len = fwd.Length();
+			if (len < min)
+			{
+				start = i;
+				min = len;
+			}
+		}
 		mRoad.push_back(&mpRoad[start]);
 		mpRoad[start].SetEnabled(false);
+
+		//2î‘ñ⁄ÇåàÇﬂÇÈ
+		int min_i = 0;
+		min = FLT_MAX;
+		for (int i = 0; i < size; i++)
+		{
+			if (start != i)
+			{
+				if (mpRoad[i].GetEnabled())
+				{
+					fwd = mpRoad[start].GetCenter() - mpRoad[i].GetCenter();
+					if (fwd.Dot(foward) > 0.0f)
+					{
+						if (min > fwd.Length())
+						{
+							min = fwd.Length();
+							min_i = i;
+						}
+					}
+				}
+			}
+		}
+//		mpRoad[min_i].SetEnabled(false);
+//		mRoad.push_back(&mpRoad[min_i]);
+
+		start = min_i;
+		mRoad.push_back(&mpRoad[start]);
+		mpRoad[start].SetEnabled(false);
+
+		//3î‘ñ⁄à»ç~ÇåàÇﬂÇÈ
 		while (mRoad.size() < size)
 		{
 			int min_i = 0;
@@ -101,6 +147,7 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 		first->Set((mRoad[size - 1]->GetCenter() + mRoad[size - 2]->GetCenter()) * 0.5f, COURSE_POINT_SIZE,next);
 //		mpCollider[0].SetNextPosition(mpCollider[col_i - 1].mPosition);
 //		mpCollider[0].ChangePriority();
+		CEnemy::mPoint = first->GetNextPoint();
 	}
 }
 

@@ -30,11 +30,15 @@ CPoint* CPoint::GetNextPoint()
 }
 
 #ifdef _DEBUG
+#include "CEnemy.h"
 void CPoint::Render()
 {
 	if (mpNext)
 	{
-		mCollider.Render();
+		if (CEnemy::mPoint == this)
+		{
+			mCollider.Render();
+		}
 	}
 }
 #endif

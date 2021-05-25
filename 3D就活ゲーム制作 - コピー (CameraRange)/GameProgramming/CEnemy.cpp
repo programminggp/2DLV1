@@ -247,7 +247,23 @@ void CEnemy::Update(){
 	}
 	else{
 		mMaxSpeed_PtoP = 20.0f;
-	}	
+	}
+
+	//速度調整
+	//次のポイントから次の次のポイントへのベクトル
+	CVector vNext = mpPoint->GetNextPoint()->mPosition - mpPoint->mPosition;
+	//現在位置から次のポイントへのベクトル
+	CVector vFoward = mpPoint->mPosition - mPosition;
+	//内積から曲がり具合を求める(0:90°1.0：真っすぐ）
+	float corve = vFoward.Normalize().Dot(vNext.Normalize());
+
+	mMaxSpeed_PtoP = MAXSPEED * corve;
+
+	if (mMaxSpeed_PtoP < 1.0f)
+	{
+		mMaxSpeed_PtoP = 1.0f;
+	}
+
 
 	//ポイントへのベクトルを求める
 	CVector dir = mVPoint - mPosition;
@@ -766,6 +782,10 @@ void CEnemy::Collision(CCollider *mc, CCollider *yc){
 
 								//コース5は分散無しの地点あり
 								if (CSceneTitle::mMode == 5){
+									mpPoint = mpPoint->GetNextPoint();
+									mVPoint = mpPoint->mPosition;
+									return;
+
 									//次のポイントのポインタを設定
 									if (mpPoint == mPoint){
 										mVPoint = mPoint2->mPosition;

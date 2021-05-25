@@ -40,9 +40,9 @@ class CRoadManager : public CObjFloor
 //	CRoadCollider *mpCollider;
 public:
 //	CRoadManager();
-	CRoadManager(CModel*, const CVector& pos, const CVector& rot, const CVector& scale);
+	CRoadManager(CModel*, const CVector& pos, const CVector& rot, const CVector& scale, const CVector& startPos, const CVector& foward);
 	~CRoadManager();
-	void Init(CModel*, const CVector& pos, const CVector& rot, const CVector& scale);
+	void Init(CModel*, const CVector& pos, const CVector& rot, const CVector& scale, const CVector& startPos, const CVector& foward);
 	void Update();
 	void Render();
 };

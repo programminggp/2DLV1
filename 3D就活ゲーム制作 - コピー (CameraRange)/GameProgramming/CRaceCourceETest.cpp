@@ -16,6 +16,7 @@ void CRaceCourceETest::Init() {
 	CSceneRace::Init();
 
 	//敵の目標地点の生成
+	/*
 	CEnemy::mPoint = new CPoint(CVector(-5492.0f, 130.0f, 13030.0f), 100.0f);
 	CEnemy::mPoint2 = new CPoint(CVector(-4879.0f, 500.0f, 11355.0f), 100.0f);
 	CEnemy::mPoint3 = new CPoint(CVector(-4254.0f, 555.0f, 10627.0f), 100.0f);
@@ -70,12 +71,21 @@ void CRaceCourceETest::Init() {
 	CEnemy::mPoint52 = new CPoint(CVector(-244.0f, 64.0f, 18457.0f), 100.0f);
 	CEnemy::mPoint53 = new CPoint(CVector(-2086.0f, 64.0f, 17555.0f), 100.0f);
 	CEnemy::mPoint54 = new CPoint(CVector(-3543.0f, 64.0f, 16338.0f), 100.0f);
+	*/
 	//プレイヤーの生成
 	mPlayer = new CPlayer();
 	mPlayer->mpModel = &mCarWhite;
 	//カメラの生成
 	mCamRange = new CCameraRange();
 	mCam = new CCameraPos();
+
+
+	//コース全体のサイズ感を設定
+	float mtsize = 35.0f;
+	float height = 11.0f;
+	//	new CObjFloor(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));//
+	CRoadManager *roadMan = new CRoadManager(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize), mPlayer->mPosition, CVector(0.0f, 0.0f, 1.0f));//
+
 	//mCam->mpModel = &mCarYellow;
 	//敵車の生成
 	for (int i = 0; i < ENEMYS_AMOUNT; i++) {
@@ -131,11 +141,6 @@ void CRaceCourceETest::Init() {
 
 
 
-	//コース全体のサイズ感を設定
-	float mtsize = 35.0f;
-	float height = 11.0f;
-//	new CObjFloor(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));//
-	new CRoadManager(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));//
 
 	new CObjWall(&mCource05Wall, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));//
 	new CObjGrass(&mCource05Mountain, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));//

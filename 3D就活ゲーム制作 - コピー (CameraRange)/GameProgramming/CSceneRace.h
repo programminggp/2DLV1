@@ -13,6 +13,7 @@
 #include "CRenderTexture.h"
 
 #define ENEMYS_AMOUNT 7-2 //0ˆÈ‰º‚É‚Íİ’è‚Å‚«‚È‚¢
+//#define ENEMYS_AMOUNT 1 //0ˆÈ‰º‚É‚Íİ’è‚Å‚«‚È‚¢
 /*
 ƒQ[ƒ€‚ÌƒV[ƒ“
 */
