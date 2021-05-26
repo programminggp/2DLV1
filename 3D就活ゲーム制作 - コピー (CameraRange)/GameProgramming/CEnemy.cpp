@@ -256,7 +256,7 @@ void CEnemy::Update(){
 	CVector vFoward = mpPoint->mPosition - mPosition;
 	//“àÏ‚©‚ç‹È‚ª‚è‹ï‡‚ğ‹‚ß‚é(0:90‹1.0F^‚Á‚·‚®j
 	float corve = vFoward.Normalize().Dot(vNext.Normalize());
-
+	corve = corve * corve;
 	mMaxSpeed_PtoP = MAXSPEED * corve;
 
 	if (mMaxSpeed_PtoP < 1.0f)

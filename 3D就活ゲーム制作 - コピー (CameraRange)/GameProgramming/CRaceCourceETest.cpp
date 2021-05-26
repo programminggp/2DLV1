@@ -84,7 +84,7 @@ void CRaceCourceETest::Init() {
 	float mtsize = 35.0f;
 	float height = 11.0f;
 	//	new CObjFloor(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));//
-	CRoadManager *roadMan = new CRoadManager(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize), mPlayer->mPosition, CVector(0.0f, 0.0f, 1.0f));//
+	new CRoadManager(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize), mPlayer->mPosition, CVector(0.0f, 0.0f, -1.0f));//
 
 	//mCam->mpModel = &mCarYellow;
 	//敵車の生成
@@ -152,7 +152,7 @@ void CRaceCourceETest::Init() {
 	new CObjNonCol(&mSign_Right, CVector(13277.0f, 12.0f, -6939.0f), CVector(0.0f, 82.3f, 0.0f), CVector(4.0f, 4.0f, 4.0f));//標識：右折
 
 	//ジャンプ台
-	new CObjJumper(&mOnBlock, CVector(9911.0f, -13.1f + 33.0f, 8264.0f), CVector(-30.0f, -114.0f, 0.0f), CVector(77.0f, 5.0f, 50.0f));
+//	new CObjJumper(&mOnBlock, CVector(9911.0f, -13.1f + 33.0f, 8264.0f), CVector(-30.0f, -114.0f, 0.0f), CVector(77.0f, 5.0f, 50.0f));
 
 	//優先度変更
 	CTaskManager::Get()->ChangePriority(mPlayer, 15);

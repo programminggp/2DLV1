@@ -82,7 +82,7 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 			{
 				if (mpRoad[i].GetEnabled())
 				{
-					fwd = mpRoad[start].GetCenter() - mpRoad[i].GetCenter();
+					fwd = mpRoad[i].GetCenter() - mpRoad[start].GetCenter();
 					if (fwd.Dot(foward) > 0.0f)
 					{
 						if (min > fwd.Length())
@@ -132,22 +132,20 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 
 		CPoint* next;
 		CPoint* first = next = new CPoint((mRoad[size - 1]->GetCenter() + mRoad[size - 2]->GetCenter()) * 0.5f, COURSE_POINT_SIZE);
-//		int col_i = 1;
 		CVector length;
-		float pointsize = COURSE_POINT_SIZE / (mScale.mX + mScale.mY + mScale.mZ ) * 3 * 2;
+		const int between = 3;
+		float betweenPoint = COURSE_POINT_SIZE * 2 * between;
 		for (int i = size - 3; i >= 0; i -= 2) {
-//			length = (mRoad[i]->GetCenter() + mRoad[i - 1]->GetCenter()) * 0.5f - mpCollider[col_i - 1].mPosition;
 			length = (mRoad[i]->GetCenter() + mRoad[i - 1]->GetCenter()) * 0.5f - next->mPosition;
-			if (length.Length() > pointsize)
+			if (length.Length() > betweenPoint)
 			{
 				next = new CPoint((mRoad[i]->GetCenter() + mRoad[i - 1]->GetCenter()) * 0.5f, COURSE_POINT_SIZE, next);
-//				col_i++;
 			}
 		}
 		first->Set((mRoad[size - 1]->GetCenter() + mRoad[size - 2]->GetCenter()) * 0.5f, COURSE_POINT_SIZE,next);
 //		mpCollider[0].SetNextPosition(mpCollider[col_i - 1].mPosition);
 //		mpCollider[0].ChangePriority();
-		CEnemy::mPoint = first->GetNextPoint();
+		CEnemy::mPoint = first->GetNextPoint()->GetNextPoint();
 	}
 }
 

@@ -53,11 +53,13 @@ int CSceneRace::mRecord_F = 43300;
 #define BACKMIRROR_VIEW_AREA 288,493,225,150
 #define BACKMIRROR_EXTRAFRAME_AREA 286,598,228,5
 
-GLuint gFb;
-GLuint gCb;
-GLuint gRb;
-#define FBOWIDTH 512
-#define FBOHEIGHT 512
+//GLuint gFb;
+//GLuint gCb;
+//GLuint gRb;
+//#define FBOWIDTH 512
+//#define FBOHEIGHT 512
+
+bool CSceneRace::mPutCol;//“–‚½‚è”»’è‚Ì•`‰æ‚ÌONEOFF
 
 CSceneRace::~CSceneRace() {
 	CTaskManager::Get()->Disabled();
@@ -401,7 +403,7 @@ void CSceneRace::Update() {
 	}
 	if (mPutCol){
 		//Õ“Ë”»’è‚Ì•`‰æ
-		CollisionManager.Render();
+//		CollisionManager.Render();
 	}
 
 	//“G‚Ì’†Œp’n“_‚Ì•\¦ONEOFFØ‚è‘Ö‚¦

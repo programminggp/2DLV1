@@ -101,7 +101,7 @@ public:
 
 	//デバッグコマンド用の変数
 	bool isRender_BackMirror;//バックミラー表示のON・OFF
-	bool mPutCol;//当たり判定の描画のON・OFF
+	static bool mPutCol;//当たり判定の描画のON・OFF
 	bool isRendPoint;//中間地点がミニマップに表示されるか
 
 	//コース2,3のモデル
