@@ -7,7 +7,7 @@
 #include "CObjGrass.h"
 #include "CObjJumper.h"
 #include "CSceneTitle.h"
-#include "CRoad.h"
+#include "CRoadManager.h"
 
 void CRaceCourceETest::Init() {
 	//ƒV[ƒ“‚Ìİ’è

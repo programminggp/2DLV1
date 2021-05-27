@@ -11,12 +11,9 @@ CRoadManager::CRoadManager(CModel *model, const CVector& position, const CVector
 	Init(model, position, rotation, scale, startPos, foward);
 }
 
-CRoadManager::~CRoadManager()
-{
-}
-
 void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, const CVector& scale, const CVector& startPos, const CVector& foward)
 {
+	//mMatrixの更新
 	mPosition = pos;
 	mRotation = rot;
 	mScale = scale;
@@ -108,7 +105,8 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 	//lastPoint：最後のポイントから作成
 	CPoint* lastPoint = next = new CPoint((vecPoint[size - 1] + vecPoint[size - 2]) * 0.5f, COURSE_POINT_SIZE);
 	CVector length;
-	const int between = 4; // ポイントの間隔定数　少ないと多く配置する
+//	const int between = 4; // ポイントの間隔定数　少ないと多く配置する
+	const int between = 2; // ポイントの間隔定数　少ないと多く配置する
 	//ポイント間の距離をコントロールする
 	float betweenPoint = COURSE_POINT_SIZE * between;
 	for (int i = size - 3; i >= 0; i -= 2) {

@@ -252,13 +252,13 @@ void CEnemy::Update(){
 	//速度調整
 	//次のポイントから次の次のポイントへのベクトル
 	CVector vNext = mpPoint->GetNextPoint()->mPosition - mpPoint->mPosition;
-	//現在位置から次のポイントへのベクトル
-	CVector vFoward = mpPoint->mPosition - mPosition;
+	//現在の向き
+	CVector vFoward = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
 	//内積から曲がり具合を求める(0:90°1.0：真っすぐ）
-	float corve = vFoward.Normalize().Dot(vNext.Normalize());
-	corve = corve * corve;
+	float corve = vFoward.Dot(vNext.Normalize());
+	//速度上限の計算
 	mMaxSpeed_PtoP = MAXSPEED * corve;
-
+	//スピードの最低値
 	if (mMaxSpeed_PtoP < 1.0f)
 	{
 		mMaxSpeed_PtoP = 1.0f;
