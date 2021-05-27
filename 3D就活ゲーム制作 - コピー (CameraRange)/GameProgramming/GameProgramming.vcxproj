@@ -117,7 +117,7 @@
     <ClCompile Include="CRaceCourceF.cpp" />
     <ClCompile Include="CRenderTexture.cpp" />
     <ClCompile Include="CRigidObj.cpp" />
-    <ClCompile Include="CRoad.cpp" />
+    <ClCompile Include="CRoadManager.cpp" />
     <ClCompile Include="CRock.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
@@ -166,7 +166,7 @@
     <ClInclude Include="CRaceCourceF.h" />
     <ClInclude Include="CRenderTexture.h" />
     <ClInclude Include="CRigidObj.h" />
-    <ClInclude Include="CRoad.h" />
+    <ClInclude Include="CRoadManager.h" />
     <ClInclude Include="CRock.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneManager.h" />

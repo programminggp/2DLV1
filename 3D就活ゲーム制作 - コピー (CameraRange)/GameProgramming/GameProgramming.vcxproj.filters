@@ -174,7 +174,7 @@
     <ClCompile Include="CRaceCourceETest.cpp">
       <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
-    <ClCompile Include="CRoad.cpp">
+    <ClCompile Include="CRoadManager.cpp">
       <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
   </ItemGroup>
@@ -323,7 +323,7 @@
     <ClInclude Include="CRaceCourceETest.h">
       <Filter>ソース ファイル\Test</Filter>
     </ClInclude>
-    <ClInclude Include="CRoad.h">
+    <ClInclude Include="CRoadManager.h">
       <Filter>ソース ファイル\Test</Filter>
     </ClInclude>
   </ItemGroup>
