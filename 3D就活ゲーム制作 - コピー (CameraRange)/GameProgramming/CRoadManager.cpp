@@ -21,9 +21,8 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 
 	//size：三角形の個数
 	int size = pmodel->mTriangles.size();
-	int last = size; //配列の最後
 	//三角形の個数分の座標を配列で持つ
-	CVector* mpPoint = new CVector[size];
+	CVector* mpPoint = new CVector[size + 1]; // 最後の一つは入替用スペース
 	for (int i = 0; i < size; i++)
 	{
 		//三角形をワールド座標に変換
@@ -55,19 +54,19 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 			min = len;
 		}
 	}
-	std::vector<CVector> vecPoint;
 	//一番目のポイントを追加する
-	vecPoint.push_back(mpPoint[start]);
 	//配列の要素を削除し、最後を減算する
-	mpPoint[start] = mpPoint[--last];
+	mpPoint[size] = mpPoint[0];
+	mpPoint[0] = mpPoint[start];
+	mpPoint[start] = mpPoint[size];
 
 	//2番目を決める
 	//1番目から進行方向で一番ちかいポイントを探す
-	start = 0;
+	start = 1;
 	min = FLT_MAX;
-	for (int i = 0; i < last; i++)
+	for (int i = 1; i < size; i++)
 	{
-		vector = mpPoint[i] - vecPoint[vecPoint.size() - 1];
+		vector = mpPoint[i] - mpPoint[0];
 		//進行方向だけ処理の対象
 		if (vector.Dot(foward) > 0.0f)
 		{
@@ -79,44 +78,45 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 			}
 		}
 	}
-	vecPoint.push_back(mpPoint[start]);
-	mpPoint[start] = mpPoint[--last];
+	mpPoint[size] = mpPoint[1];
+	mpPoint[1] = mpPoint[start];
+	mpPoint[start] = mpPoint[size];
 
 	//3番目以降を決める
-	while (vecPoint.size() < size)
+	for(int j = 2; j < size ; j++)
 	{
-		start = 0;
+		start = j;
 		min = FLT_MAX;
-		for (int i = 0; i < last; i++)
+		for (int i = j; i < size; i++)
 		{
-			if (min > (vecPoint[vecPoint.size() - 1] - mpPoint[i]).Length())
+			if (min > (mpPoint[j - 1] - mpPoint[i]).Length())
 			{
-				min = (vecPoint[vecPoint.size() - 1] - mpPoint[i]).Length();
+				min = (mpPoint[j - 1] - mpPoint[i]).Length();
 				start = i;
 			}
 		}
-		vecPoint.push_back(mpPoint[start]);
-		mpPoint[start] = mpPoint[--last];
+		mpPoint[size] = mpPoint[j];
+		mpPoint[j] = mpPoint[start];
+		mpPoint[start] = mpPoint[size];
 	}
 
 	//ポイント配列から正式なポイントを生成する
 	//ポイント配列の後から前に向かって作成
 	CPoint* next;
 	//lastPoint：最後のポイントから作成
-	CPoint* lastPoint = next = new CPoint((vecPoint[size - 1] + vecPoint[size - 2]) * 0.5f, COURSE_POINT_SIZE);
+	CPoint* lastPoint = next = new CPoint((mpPoint[size - 1] + mpPoint[size - 2]) * 0.5f, COURSE_POINT_SIZE);
 	CVector length;
-//	const int between = 4; // ポイントの間隔定数　少ないと多く配置する
 	const int between = 2; // ポイントの間隔定数　少ないと多く配置する
 	//ポイント間の距離をコントロールする
 	float betweenPoint = COURSE_POINT_SIZE * between;
 	for (int i = size - 3; i >= 0; i -= 2) {
-		length = (vecPoint[i] + vecPoint[i - 1]) * 0.5f - next->mPosition;
+		length = (mpPoint[i] + mpPoint[i - 1]) * 0.5f - next->mPosition;
 		if (length.Length() > betweenPoint)
 		{
-			next = new CPoint((vecPoint[i] + vecPoint[i - 1]) * 0.5f, COURSE_POINT_SIZE, next);
+			next = new CPoint((mpPoint[i] + mpPoint[i - 1]) * 0.5f, COURSE_POINT_SIZE, next);
 		}
 	}
-	lastPoint->Set((vecPoint[size - 1] + vecPoint[size - 2]) * 0.5f, COURSE_POINT_SIZE, next);
+	lastPoint->Set((mpPoint[size - 1] + mpPoint[size - 2]) * 0.5f, COURSE_POINT_SIZE, next);
 	//最初の目標を設定
 	CEnemy::mPoint = next->GetNextPoint();
 	//配列の削除
