@@ -426,7 +426,8 @@ void CEnemy::Update(){
 	//mMatrix = mMatrixScale * mMatrixRotate * mMatrixTranslate;
 
 	//コースアウトした時、もしくは敵が壁等に引っかかり進めなくなっている時
-	if (mPosition.mY < -700.0f || mPointTime > RESTART_TIME){
+	if (mPosition.mY < -700.0f || mPointTime > RESTART_TIME)
+	{
 		mPointTime = 0;
 		//落下の勢いを0にする
 		mVelocityJump = 0.0f;
@@ -482,7 +483,7 @@ void CEnemy::Update(){
 			else if (mChecks == 2){
 				mPosition = CVector(-1020.0f, mStartPoint[1], 4594.0f);
 				mRotation.mY = -506.4f;
-				mpPoint = mPoint10;
+				mpPoint = mpPoint->GetNextPoint();
 				mVPoint = mpPoint->mPosition;
 			}
 			else if (mChecks == 3){
@@ -1005,6 +1006,10 @@ void CEnemy::Collision(CCollider *mc, CCollider *yc){
 									}
 								}
 								else{
+									mpPoint = mpPoint->GetNextPoint();
+									mVPoint = mpPoint->mPosition;
+									return;
+
 									//次のポイントのポインタを設定
 									if (mpPoint == mPoint){
 										mVPoint = mPoint2->mPosition + CVector(1.0f, 0.0f, 1.0f)*gap;
