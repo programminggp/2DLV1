@@ -19,8 +19,6 @@ public:
 	void Set(const CVector& pos, float r, CPoint* next = nullptr);
 	//ŽŸ‚Ìƒ|ƒCƒ“ƒg‚ÌŽæ“¾
 	CPoint* GetNextPoint();
-#ifdef _DEBUG
 	void Render();
-#endif
 };
 #endif

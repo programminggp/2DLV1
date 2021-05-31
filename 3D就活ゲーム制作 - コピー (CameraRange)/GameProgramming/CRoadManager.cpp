@@ -109,7 +109,7 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 	const int between = 2; // ポイントの間隔定数　少ないと多く配置する
 	//ポイント間の距離をコントロールする
 	float betweenPoint = COURSE_POINT_SIZE * between;
-	for (int i = size - 3; i >= 0; i -= 2) {
+	for (int i = size - 3; i >= 0; i -= 3) {
 		length = (mpPoint[i] + mpPoint[i - 1]) * 0.5f - next->mPosition;
 		if (length.Length() > betweenPoint)
 		{

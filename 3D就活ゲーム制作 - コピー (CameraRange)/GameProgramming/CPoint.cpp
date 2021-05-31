@@ -29,7 +29,6 @@ CPoint* CPoint::GetNextPoint()
 	return mpNext;
 }
 
-#ifdef _DEBUG
 #include "CSceneRace.h"
 void CPoint::Render()
 {
@@ -41,4 +40,3 @@ void CPoint::Render()
 		}
 	}
 }
-#endif

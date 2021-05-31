@@ -353,7 +353,14 @@ void CSceneRace::Update() {
 	CTaskManager::Get()->TaskCollision();
 	//削除処理
 	CTaskManager::Get()->Delete();
-
+	if (CKey::Once('9')) {
+		if (mPutCol) {
+			mPutCol = false;
+		}
+		else {
+			mPutCol = true;
+		}
+	}
 	//デバッグ用
 #ifdef _DEBUG
 	if (CKey::Once('1')){
