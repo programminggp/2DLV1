@@ -19,6 +19,7 @@
 */
 class CSceneRace : public CScene {
 	CRenderTexture mRenderTexture;
+	GLuint dtex;
 public:
 	//Ÿ‚ÌƒV[ƒ“‚Ìæ“¾
 	EScene GetNextScene();

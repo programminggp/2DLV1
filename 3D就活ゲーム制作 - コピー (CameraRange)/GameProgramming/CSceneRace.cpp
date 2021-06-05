@@ -59,6 +59,9 @@ int CSceneRace::mRecord_F = 43300;
 //#define FBOWIDTH 512
 //#define FBOHEIGHT 512
 
+#define TEXWIDTH (512)
+#define TEXHEIGHT (512)
+
 bool CSceneRace::mPutCol;//当たり判定の描画のON・OFF
 
 CSceneRace::~CSceneRace() {
@@ -263,6 +266,52 @@ void CSceneRace::Init() {
 
 	//BGMはループ
 	BGM.Repeat();
+
+
+	glGenTextures(1, &dtex);
+	glBindTexture(GL_TEXTURE_2D, dtex);
+
+	/* テクスチャの割り当て */
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, TEXWIDTH, TEXHEIGHT, 0,
+		GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
+
+	/* テクスチャを拡大・縮小する方法の指定 */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	/* テクスチャの繰り返し方法の指定 */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	/* 書き込むポリゴンのテクスチャ座標値のＲとテクスチャとの比較を行うようにする */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+
+	/* もしＲの値がテクスチャの値以下なら真（つまり日向） */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+
+	/* 比較の結果を輝度値として得る */
+	glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
+
+	/* テクスチャ座標に視点座標系における物体の座標値を用いる */
+	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+
+	/* 生成したテクスチャ座標をそのまま (S, T, R, Q) に使う */
+	static const GLdouble genfunc[][4] = {
+	  { 1.0, 0.0, 0.0, 0.0 },
+	  { 0.0, 1.0, 0.0, 0.0 },
+	  { 0.0, 0.0, 1.0, 0.0 },
+	  { 0.0, 0.0, 0.0, 1.0 },
+	};
+
+	glTexGendv(GL_S, GL_EYE_PLANE, genfunc[0]);
+	glTexGendv(GL_T, GL_EYE_PLANE, genfunc[1]);
+	glTexGendv(GL_R, GL_EYE_PLANE, genfunc[2]);
+	glTexGendv(GL_Q, GL_EYE_PLANE, genfunc[3]);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 
@@ -349,50 +398,7 @@ void CSceneRace::Update() {
 		CTaskManager::Get()->Update();
 	}
 
-	GLuint dtex;
-	glGenTextures(1, &dtex);
 	glBindTexture(GL_TEXTURE_2D, dtex);
-	const GLsizei TEXWIDTH(512), TEXHEIGHT(512);
-	/* テクスチャの割り当て */
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, TEXWIDTH, TEXHEIGHT, 0,
-		GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
-
-	/* テクスチャを拡大・縮小する方法の指定 */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	/* テクスチャの繰り返し方法の指定 */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	/* 書き込むポリゴンのテクスチャ座標値のＲとテクスチャとの比較を行うようにする */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
-
-	/* もしＲの値がテクスチャの値以下なら真（つまり日向） */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-
-	/* 比較の結果を輝度値として得る */
-	glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
-
-	/* テクスチャ座標に視点座標系における物体の座標値を用いる */
-	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-
-	/* 生成したテクスチャ座標をそのまま (S, T, R, Q) に使う */
-	static const GLdouble genfunc[][4] = {
-	  { 1.0, 0.0, 0.0, 0.0 },
-	  { 0.0, 1.0, 0.0, 0.0 },
-	  { 0.0, 0.0, 1.0, 0.0 },
-	  { 0.0, 0.0, 0.0, 1.0 },
-	};
-
-	glTexGendv(GL_S, GL_EYE_PLANE, genfunc[0]);
-	glTexGendv(GL_T, GL_EYE_PLANE, genfunc[1]);
-	glTexGendv(GL_R, GL_EYE_PLANE, genfunc[2]);
-	glTexGendv(GL_Q, GL_EYE_PLANE, genfunc[3]);
-
 
 	const int FRAMES(600);
 	GLint viewport[4];       /* ビューポートの保存用　　　　 */
@@ -426,7 +432,7 @@ void CSceneRace::Update() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 
-	GLfloat lightpos[] = { 100.0f, 700.0f, 100.0f };
+	GLfloat lightpos[] = { 0.0f, 1700.0f, 0.0f };
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
@@ -469,8 +475,7 @@ void CSceneRace::Update() {
 
 	/* モデルビュー変換行列の設定 */
 	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
-//	glLoadIdentity();
+	glLoadIdentity();
 
 	/* 視点の位置を設定する（物体の方を奥に移動する）*/
 //	glTranslated(0.0, 0.0, -10.0);
@@ -487,19 +492,19 @@ void CSceneRace::Update() {
 
 
 	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
-	glMultTransposeMatrixd(modelviewCamera);
-	glMultMatrixd(modelview);
+//	glMultTransposeMatrixd(modelviewCamera);
+//	glMultMatrixd(modelview);
 	/* テクスチャ座標の [-1,1] の範囲を [0,1] の範囲に収める */
-	glScaled(0.5, 0.5, 0.5);
+//	glScaled(0.5, 0.5, 0.5);
+//	glTranslated(0.5, 0.5, 0.5);
+
+
+
+	/* テクスチャ座標の [-1,1] の範囲を [0,1] の範囲に収める */
 	glTranslated(0.5, 0.5, 0.5);
-
-
-
-	/* テクスチャ座標の [-1,1] の範囲を [0,1] の範囲に収める */
-	//glTranslated(0.5, 0.5, 0.5);
-	//glScaled(0.5, 0.5, 0.5);
+	glScaled(0.5, 0.5, 0.5);
 	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
-	//glMultMatrixd(modelview);
+	glMultMatrixd(modelview);
 
 	/* 現在のモデルビュー変換の逆変換をかけておく */
 	//glMultTransposeMatrixd(trackballRotation());
@@ -507,6 +512,7 @@ void CSceneRace::Update() {
 
 	/* モデルビュー変換行列に戻す */
 	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を有効にする */
 	glEnable(GL_TEXTURE_2D);
@@ -519,7 +525,9 @@ void CSceneRace::Update() {
 	/* 光源の明るさを日向の部分での明るさに設定 */
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcol);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, lightcol);
-
+	
+	glBindTexture(GL_TEXTURE_2D, 0);
+	
 	CTaskManager::Get()->Render();
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */
@@ -529,7 +537,7 @@ void CSceneRace::Update() {
 	glDisable(GL_TEXTURE_GEN_Q);
 	glDisable(GL_TEXTURE_2D);
 
-	glBindTexture(GL_TEXTURE_2D, 0);
+
 
 	//衝突処理
 	CTaskManager::Get()->TaskCollision();
