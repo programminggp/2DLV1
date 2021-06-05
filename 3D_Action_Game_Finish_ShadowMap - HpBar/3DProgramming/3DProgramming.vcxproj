@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B339D9DB-AAB0-4938-B5E6-4E3D204B1FEA}</ProjectGuid>
+    <RootNamespace>My3DProgramming</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>.\include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\lib;$(LibraryPath)</LibraryPath>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>.\include;$(IncludePath)</IncludePath>
+    <LibraryPath>.\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;glpngd.lib;glfw3.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <TreatWChar_tAsBuiltInType>false</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>glew32.lib;glpngd.lib;glfw3.lib;glfw3dll.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="CBillBoard.cpp" />
+    <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCollision.cpp" />
+    <ClCompile Include="CKey.cpp" />
+    <ClCompile Include="CLight.cpp" />
+    <ClCompile Include="CMaterial.cpp" />
+    <ClCompile Include="CModelObj.cpp" />
+    <ClCompile Include="CMyShader.cpp" />
+    <ClCompile Include="CParticle.cpp" />
+    <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CShadowMap.cpp" />
+    <ClCompile Include="CSound.cpp" />
+    <ClCompile Include="CTask.cpp" />
+    <ClCompile Include="CTriangle.cpp" />
+    <ClCompile Include="CMain.cpp" />
+    <ClCompile Include="CMatrix44.cpp" />
+    <ClCompile Include="CModelX.cpp" />
+    <ClCompile Include="CSceneGame.cpp" />
+    <ClCompile Include="CVector3.cpp" />
+    <ClCompile Include="CVector4.cpp" />
+    <ClCompile Include="CXCharacter.cpp" />
+    <ClCompile Include="CXEnemyKnight.cpp" />
+    <ClCompile Include="CXPlayer.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CBillBoard.h" />
+    <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCollision.h" />
+    <ClInclude Include="CHpBar.h" />
+    <ClInclude Include="CKey.h" />
+    <ClInclude Include="CLight.h" />
+    <ClInclude Include="CMain.h" />
+    <ClInclude Include="CMap.h" />
+    <ClInclude Include="CMaterial.h" />
+    <ClInclude Include="CMatrix44.h" />
+    <ClInclude Include="CModelObj.h" />
+    <ClInclude Include="CModelX.h" />
+    <ClInclude Include="CMyShader.h" />
+    <ClInclude Include="CParticle.h" />
+    <ClInclude Include="CSceneGame.h" />
+    <ClInclude Include="CShader.h" />
+    <ClInclude Include="CShadowMap.h" />
+    <ClInclude Include="CSound.h" />
+    <ClInclude Include="CTask.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CTriangle.h" />
+    <ClInclude Include="CVector3.h" />
+    <ClInclude Include="CVector4.h" />
+    <ClInclude Include="CVertex.h" />
+    <ClInclude Include="CXCharacter.h" />
+    <ClInclude Include="CXEnemyKnight.h" />
+    <ClInclude Include="CXPlayer.h" />
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="main.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
