@@ -267,6 +267,10 @@ void CSceneRace::Init() {
 	//BGMはループ
 	BGM.Repeat();
 
+	//Shadow Map
+
+	/* テクスチャユニット１に切り替える */
+	glActiveTexture(GL_TEXTURE1);
 
 	glGenTextures(1, &dtex);
 	glBindTexture(GL_TEXTURE_2D, dtex);
@@ -312,6 +316,9 @@ void CSceneRace::Init() {
 	glTexGendv(GL_Q, GL_EYE_PLANE, genfunc[3]);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
+	
+	glActiveTexture(GL_TEXTURE0);
+
 }
 
 
@@ -398,13 +405,14 @@ void CSceneRace::Update() {
 		CTaskManager::Get()->Update();
 	}
 
-	glBindTexture(GL_TEXTURE_2D, dtex);
+	//Shadow Map
 
 	const int FRAMES(600);
 	GLint viewport[4];       /* ビューポートの保存用　　　　 */
 	GLdouble modelview[16];  /* モデルビュー変換行列の保存用 */
 	GLdouble modelviewCamera[16];  /* モデルビュー変換行列の保存用 */
 	GLdouble projection[16]; /* 透視変換行列の保存用　　　　 */
+	GLdouble projectionDepth[16]; /* 透視変換行列の保存用　　　　 */
 	static int frame = 0;    /* フレーム数のカウント　　　　 */
 	double t = (double)frame / (double)FRAMES; /* 経過時間　 */
 
@@ -431,15 +439,17 @@ void CSceneRace::Update() {
 	/* 透視変換行列を単位行列に設定する */
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	gluPerspective(80.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 20000.0);
+//	gluPerspective(75.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 20000.0);
+	glGetDoublev(GL_PROJECTION_MATRIX, projectionDepth);
 
-	GLfloat lightpos[] = { 0.0f, 1700.0f, 0.0f };
+	GLfloat lightpos[] = { 0.0f, 6000.0f, -100.0f, 0.0f };
+
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-	gluPerspective(40.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 20000.0);
-//	gluPerspective(75.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 20000.0);
-	gluLookAt(lightpos[0], lightpos[1], lightpos[2], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt(lightpos[0], lightpos[1], lightpos[2], 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
 
 	/* 設定したモデルビュー変換行列を保存しておく */
 	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
@@ -454,6 +464,12 @@ void CSceneRace::Update() {
 	glCullFace(GL_FRONT);
 
 	CTaskManager::Get()->Render();
+
+	glEnable(GL_TEXTURE_2D);
+	/* テクスチャユニット１に切り替える */
+	glActiveTexture(GL_TEXTURE1);
+
+	glBindTexture(GL_TEXTURE_2D, dtex);
 
 	/* デプスバッファの内容をテクスチャメモリに転送する */
 	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, TEXWIDTH, TEXHEIGHT);
@@ -475,7 +491,8 @@ void CSceneRace::Update() {
 
 	/* モデルビュー変換行列の設定 */
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+//	glLoadIdentity();
+	glPopMatrix();
 
 	/* 視点の位置を設定する（物体の方を奥に移動する）*/
 //	glTranslated(0.0, 0.0, -10.0);
@@ -505,6 +522,9 @@ void CSceneRace::Update() {
 	glScaled(0.5, 0.5, 0.5);
 	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
 	glMultMatrixd(modelview);
+	glMultMatrixd(projection);
+
+	glMultTransposeMatrixd(modelviewCamera);
 
 	/* 現在のモデルビュー変換の逆変換をかけておく */
 	//glMultTransposeMatrixd(trackballRotation());
@@ -512,10 +532,10 @@ void CSceneRace::Update() {
 
 	/* モデルビュー変換行列に戻す */
 	glMatrixMode(GL_MODELVIEW);
-	glPopMatrix();
+//	glPopMatrix();
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を有効にする */
-	glEnable(GL_TEXTURE_2D);
+//	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
 	glEnable(GL_TEXTURE_GEN_R);
@@ -526,8 +546,6 @@ void CSceneRace::Update() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcol);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, lightcol);
 	
-	glBindTexture(GL_TEXTURE_2D, 0);
-	
 	CTaskManager::Get()->Render();
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */
@@ -537,6 +555,9 @@ void CSceneRace::Update() {
 	glDisable(GL_TEXTURE_GEN_Q);
 	glDisable(GL_TEXTURE_2D);
 
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glActiveTexture(GL_TEXTURE0);
 
 
 	//衝突処理
