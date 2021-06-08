@@ -1,3 +1,4 @@
+#include "glew.h"
 #include "CMaterial.h"
 //memsetのインクルード
 #include <string.h>
@@ -29,6 +30,7 @@ void CMaterial::Enabled() {
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
+		glActiveTexture(GL_TEXTURE0);
 		//テクスチャを使用可能にする
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
@@ -44,10 +46,12 @@ void CMaterial::Disabled() {
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
+		glActiveTexture(GL_TEXTURE0);
 		//テクスチャのバインドを解く
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//テクスチャを無効にする
 		glDisable(GL_TEXTURE_2D);
+		glActiveTexture(GL_TEXTURE1);
 	}
 }
 
@@ -66,7 +70,7 @@ void CMaterial::Enabledplus() {
 	//テクスチャ有り
 	if (mpTexture->mId) {
 		//テクスチャを使用可能にする
-		glEnable(GL_TEXTURE_2D);
+//		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
 		glBindTexture(GL_TEXTURE_2D, mpTexture->mId);
 	}
