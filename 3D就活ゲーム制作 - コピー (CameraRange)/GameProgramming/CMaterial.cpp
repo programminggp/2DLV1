@@ -26,7 +26,7 @@ void CMaterial::Enabled() {
 	//拡散光の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
 	//テクスチャが無い時、戻る
-	if (mpTexture == 0)
+//	if (mpTexture == 0)
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
@@ -42,7 +42,7 @@ void CMaterial::Disabled() {
 	//アルファブレンドを無効
 	glDisable(GL_BLEND);
 	//テクスチャが無い時、戻る
-	if (mpTexture == 0)
+//	if (mpTexture == 0)
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {

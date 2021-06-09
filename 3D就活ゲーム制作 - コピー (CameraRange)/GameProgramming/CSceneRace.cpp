@@ -59,8 +59,8 @@ int CSceneRace::mRecord_F = 43300;
 //#define FBOWIDTH 512
 //#define FBOHEIGHT 512
 
-#define TEXWIDTH (512)
-#define TEXHEIGHT (512)
+#define TEXWIDTH (1024)
+#define TEXHEIGHT (1024)
 
 bool CSceneRace::mPutCol;//当たり判定の描画のON・OFF
 
@@ -270,7 +270,7 @@ void CSceneRace::Init() {
 	//Shadow Map
 
 	/* テクスチャユニット１に切り替える */
-	glActiveTexture(GL_TEXTURE1);
+//	glActiveTexture(GL_TEXTURE1);
 
 	glGenTextures(1, &dtex);
 	glBindTexture(GL_TEXTURE_2D, dtex);
@@ -317,7 +317,7 @@ void CSceneRace::Init() {
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	
-	glActiveTexture(GL_TEXTURE0);
+//	glActiveTexture(GL_TEXTURE0);
 
 }
 
@@ -416,8 +416,6 @@ void CSceneRace::Update() {
 	static int frame = 0;    /* フレーム数のカウント　　　　 */
 	double t = (double)frame / (double)FRAMES; /* 経過時間　 */
 
-	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewCamera);
-
 	if (++frame >= FRAMES) frame = 0;
 
 	/*
@@ -445,6 +443,8 @@ void CSceneRace::Update() {
 
 	GLfloat lightpos[] = { 0.0f, 6000.0f, -100.0f, 0.0f };
 
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewCamera);
+
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
@@ -467,7 +467,7 @@ void CSceneRace::Update() {
 
 	glEnable(GL_TEXTURE_2D);
 	/* テクスチャユニット１に切り替える */
-	glActiveTexture(GL_TEXTURE1);
+//	glActiveTexture(GL_TEXTURE1);
 
 	glBindTexture(GL_TEXTURE_2D, dtex);
 
@@ -507,7 +507,6 @@ void CSceneRace::Update() {
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 
-
 	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
 //	glMultTransposeMatrixd(modelviewCamera);
 //	glMultMatrixd(modelview);
@@ -515,16 +514,15 @@ void CSceneRace::Update() {
 //	glScaled(0.5, 0.5, 0.5);
 //	glTranslated(0.5, 0.5, 0.5);
 
-
-
 	/* テクスチャ座標の [-1,1] の範囲を [0,1] の範囲に収める */
 	glTranslated(0.5, 0.5, 0.5);
 	glScaled(0.5, 0.5, 0.5);
 	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
 	glMultMatrixd(modelview);
-	glMultMatrixd(projection);
 
 	glMultTransposeMatrixd(modelviewCamera);
+
+	glMultMatrixd(projection);
 
 	/* 現在のモデルビュー変換の逆変換をかけておく */
 	//glMultTransposeMatrixd(trackballRotation());
@@ -535,7 +533,7 @@ void CSceneRace::Update() {
 //	glPopMatrix();
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を有効にする */
-//	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_TEXTURE_GEN_S);
 	glEnable(GL_TEXTURE_GEN_T);
 	glEnable(GL_TEXTURE_GEN_R);
@@ -548,6 +546,8 @@ void CSceneRace::Update() {
 	
 	CTaskManager::Get()->Render();
 
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
@@ -555,9 +555,9 @@ void CSceneRace::Update() {
 	glDisable(GL_TEXTURE_GEN_Q);
 	glDisable(GL_TEXTURE_2D);
 
-	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glActiveTexture(GL_TEXTURE0);
+
+//	glActiveTexture(GL_TEXTURE0);
 
 
 	//衝突処理
