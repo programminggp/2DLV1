@@ -73,6 +73,7 @@ void CTexture::Load(const char* filename) {
 		| SOIL_FLAG_COMPRESS_TO_DXT
 		| SOIL_FLAG_DDS_LOAD_DIRECT
 		| SOIL_FLAG_INVERT_Y
+		| SOIL_FLAG_TEXTURE_REPEATS
 	);
 
 	SOIL_free_image_data(data);
