@@ -6,8 +6,21 @@
 */
 class CMatrix {
 public:
-	//4×4の行列データを設定
-	float mM[4][4];
+	union
+	{
+		//4×4の行列データを設定
+		float mM[4][4];
+		float mF[16];
+		struct
+		{
+			float
+				m00, m10, m20, m30,
+				m01, m11, m21, m31,
+				m02, m12, m22, m32,
+				m03, m13, m23, m33;
+		};
+
+	};
 	//表示確認用
 	//4×4の行列を画面出力
 	void Print();
@@ -34,6 +47,10 @@ public:
 	//CMatrix * CMatrix の演算結果を返す
 	CMatrix operator*(const CMatrix &m);
 
+	CMatrix operator*(const float& f) const;
+
+	CMatrix CMatrix::GetInverse();
+	CMatrix CMatrix::GetTranspose();
 };
 
 #endif

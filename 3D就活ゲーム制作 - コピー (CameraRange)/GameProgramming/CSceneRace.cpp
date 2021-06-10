@@ -271,7 +271,6 @@ void CSceneRace::Init() {
 
 	/* テクスチャユニット１に切り替える */
 //	glActiveTexture(GL_TEXTURE1);
-
 	glGenTextures(1, &dtex);
 	glBindTexture(GL_TEXTURE_2D, dtex);
 
@@ -280,8 +279,10 @@ void CSceneRace::Init() {
 		GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
 
 	/* テクスチャを拡大・縮小する方法の指定 */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	/* テクスチャの繰り返し方法の指定 */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -296,28 +297,33 @@ void CSceneRace::Init() {
 	/* 比較の結果を輝度値として得る */
 	glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
 
-	/* テクスチャ座標に視点座標系における物体の座標値を用いる */
-	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	if(false)
+	{
+		/* テクスチャ座標に視点座標系における物体の座標値を用いる */
+		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+		glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+		glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+		glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
 
-	/* 生成したテクスチャ座標をそのまま (S, T, R, Q) に使う */
-	static const GLdouble genfunc[][4] = {
-	  { 1.0, 0.0, 0.0, 0.0 },
-	  { 0.0, 1.0, 0.0, 0.0 },
-	  { 0.0, 0.0, 1.0, 0.0 },
-	  { 0.0, 0.0, 0.0, 1.0 },
-	};
+		/* 生成したテクスチャ座標をそのまま (S, T, R, Q) に使う */
+		static const GLdouble genfunc[][4] = {
+		  { 1.0, 0.0, 0.0, 0.0 },
+		  { 0.0, 1.0, 0.0, 0.0 },
+		  { 0.0, 0.0, 1.0, 0.0 },
+		  { 0.0, 0.0, 0.0, 1.0 },
+		};
 
-	glTexGendv(GL_S, GL_EYE_PLANE, genfunc[0]);
-	glTexGendv(GL_T, GL_EYE_PLANE, genfunc[1]);
-	glTexGendv(GL_R, GL_EYE_PLANE, genfunc[2]);
-	glTexGendv(GL_Q, GL_EYE_PLANE, genfunc[3]);
+		glTexGendv(GL_S, GL_EYE_PLANE, genfunc[0]);
+		glTexGendv(GL_T, GL_EYE_PLANE, genfunc[1]);
+		glTexGendv(GL_R, GL_EYE_PLANE, genfunc[2]);
+		glTexGendv(GL_Q, GL_EYE_PLANE, genfunc[3]);
 
-	glBindTexture(GL_TEXTURE_2D, 0);
-	
-//	glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		//	glActiveTexture(GL_TEXTURE0);
+	}
+
+//	glDisable(GL_TEXTURE_2D);
 
 }
 
@@ -392,8 +398,8 @@ void CSceneRace::Update() {
 	//u = CVector(0.0f, 1.0f, 0.0f);// *mPlayer->mMatrixRotate;
 
 	e = CCameraPos::mpCamera->mPosition;
-	
-	c = mPlayer->mPosition + CVector(0.0f, 0.0f, 40.0f)* mPlayer->mMatrixScale   //* mPlayer->mMatrixScale
+
+	c = mPlayer->mPosition + CVector(0.0f, 0.0f, 40.0f) * mPlayer->mMatrixScale   //* mPlayer->mMatrixScale
 		* CMatrix().RotateY(mPlayer->mRotation.mY);
 	u = CVector(0.0f, 1.0f, 0.0f);//*mPlayer->mMatrixRotate;
 	//カメラの設定
@@ -401,7 +407,7 @@ void CSceneRace::Update() {
 	Camera.mEye = e;
 
 	//タスクマネージャの更新・描画
-	if (isPause == false){
+	if (isPause == false) {
 		CTaskManager::Get()->Update();
 	}
 
@@ -409,10 +415,14 @@ void CSceneRace::Update() {
 
 	const int FRAMES(600);
 	GLint viewport[4];       /* ビューポートの保存用　　　　 */
-	GLdouble modelview[16];  /* モデルビュー変換行列の保存用 */
-	GLdouble modelviewCamera[16];  /* モデルビュー変換行列の保存用 */
-	GLdouble projection[16]; /* 透視変換行列の保存用　　　　 */
-	GLdouble projectionDepth[16]; /* 透視変換行列の保存用　　　　 */
+	//GLdouble modelview[16];  /* モデルビュー変換行列の保存用 */
+	CMatrix modelview;  /* モデルビュー変換行列の保存用 */
+//	GLdouble modelviewCamera[16];  /* モデルビュー変換行列の保存用 */
+	CMatrix modelviewCamera;  /* モデルビュー変換行列の保存用 */
+//	GLdouble projection[16]; /* 透視変換行列の保存用　　　　 */
+	CMatrix projection; /* 透視変換行列の保存用　　　　 */
+	//GLdouble projectionDepth[16]; /* 透視変換行列の保存用　　　　 */
+	CMatrix projectionDepth; /* 透視変換行列の保存用　　　　 */
 	static int frame = 0;    /* フレーム数のカウント　　　　 */
 	double t = (double)frame / (double)FRAMES; /* 経過時間　 */
 
@@ -423,7 +433,7 @@ void CSceneRace::Update() {
 	 */
 
 	 /* デプスバッファをクリアする */
-	glClear(GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	/* 現在のビューポートを保存しておく */
 	glGetIntegerv(GL_VIEWPORT, viewport);
@@ -432,27 +442,68 @@ void CSceneRace::Update() {
 	glViewport(0, 0, TEXWIDTH, TEXHEIGHT);
 
 	/* 現在の透視変換行列を保存しておく */
-	glGetDoublev(GL_PROJECTION_MATRIX, projection);
+//	glGetDoublev(GL_PROJECTION_MATRIX, projectionDepth.mM[0]);
+	glGetFloatv(GL_PROJECTION_MATRIX, projection.mM[0]);
 
 	/* 透視変換行列を単位行列に設定する */
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(80.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 20000.0);
-//	gluPerspective(75.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 20000.0);
-	glGetDoublev(GL_PROJECTION_MATRIX, projectionDepth);
+	gluPerspective(60.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 100000.0);
+	//	gluPerspective(75.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 20000.0);
+//	glGetDoublev(GL_PROJECTION_MATRIX, projection);
+	glGetFloatv(GL_PROJECTION_MATRIX, projectionDepth.mM[0]);
 
-	GLfloat lightpos[] = { 0.0f, 6000.0f, -100.0f, 0.0f };
+	GLfloat lightpos[] = { 0.0f, 49000.0f, 100.0f, 0.0f };
 
-	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewCamera);
+//	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewCamera);
+	glGetFloatv(GL_MODELVIEW_MATRIX, modelviewCamera.mM[0]);
 
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-	gluLookAt(lightpos[0], lightpos[1], lightpos[2], 0.0, 0.0, 0.0, 0.0, 0.0, 1.0);
+	gluLookAt(lightpos[0], lightpos[1], lightpos[2], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
 
 	/* 設定したモデルビュー変換行列を保存しておく */
-	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+//	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
+	glGetFloatv(GL_MODELVIEW_MATRIX, modelview.mM[0]);
+
+	if(true)
+	{
+		// 合成された変換行列を取得する。
+		float m[16];
+		glGetFloatv(GL_MODELVIEW_MATRIX, m);
+
+		{
+			float vs[] = { m[0], m[4], m[8],  m[12] };
+			float vt[] = { m[1], m[5], m[9],  m[13] };
+			float vr[] = { m[2], m[6], m[10], m[14] };
+			float vq[] = { m[3], m[7], m[11], m[15] };
+
+			//float vs[] = { m[0], m[1], m[2],  m[3] };
+			//float vt[] = { m[4], m[5], m[6],  m[7] };
+			//float vr[] = { m[8], m[9], m[10], m[11] };
+			//float vq[] = { m[12], m[13], m[14], m[15] };
+
+			// 合成した変換行列をオブジェクトの頂点に掛ければ画面を覆うようにUVが自動計算される。
+			glTexGenfv(GL_S, GL_OBJECT_PLANE, vs);
+			glTexGenfv(GL_T, GL_OBJECT_PLANE, vt);
+			glTexGenfv(GL_R, GL_OBJECT_PLANE, vr);
+			glTexGenfv(GL_Q, GL_OBJECT_PLANE, vq);
+		}
+
+		// UVの自動生成を有効化する。
+		glEnable(GL_TEXTURE_GEN_S);
+		glEnable(GL_TEXTURE_GEN_T);
+		glEnable(GL_TEXTURE_GEN_R);
+		glEnable(GL_TEXTURE_GEN_Q);
+
+		// 自動生成の計算式にオブジェクト空間の頂点座標を使う。
+		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+		glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+		glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+		glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+	}
 
 	/* デプスバッファの内容だけを取得するのでフレームバッファには書き込まない */
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
@@ -465,19 +516,18 @@ void CSceneRace::Update() {
 
 	CTaskManager::Get()->Render();
 
-	glEnable(GL_TEXTURE_2D);
 	/* テクスチャユニット１に切り替える */
 //	glActiveTexture(GL_TEXTURE1);
-
 	glBindTexture(GL_TEXTURE_2D, dtex);
-
 	/* デプスバッファの内容をテクスチャメモリに転送する */
 	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, TEXWIDTH, TEXHEIGHT);
 
 	/* 通常の描画の設定に戻す */
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
 	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixd(projection);
+//	glLoadMatrixd(projection);
+	glLoadMatrixf(projection.mM[0]);
+
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glEnable(GL_LIGHTING);
 	glCullFace(GL_BACK);
@@ -491,8 +541,8 @@ void CSceneRace::Update() {
 
 	/* モデルビュー変換行列の設定 */
 	glMatrixMode(GL_MODELVIEW);
-//	glLoadIdentity();
-	glPopMatrix();
+	glLoadIdentity();
+//	glPopMatrix();
 
 	/* 視点の位置を設定する（物体の方を奥に移動する）*/
 //	glTranslated(0.0, 0.0, -10.0);
@@ -518,11 +568,17 @@ void CSceneRace::Update() {
 	glTranslated(0.5, 0.5, 0.5);
 	glScaled(0.5, 0.5, 0.5);
 	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
-	glMultMatrixd(modelview);
+	//glMultMatrixf(modelview.mM[0]);
+	//glMultMatrixf(projectionDepth.mM[0]);
+	//glMultMatrixf(modelviewCamera.GetInverse().mM[0]);
 
-	glMultTransposeMatrixd(modelviewCamera);
+	glMultMatrixf(projectionDepth.mM[0]);
+//	glMultMatrixf(modelview.mM[0]);
+//	glMultMatrixf(modelviewCamera.GetInverse().mM[0]);
 
-	glMultMatrixd(projection);
+
+	//glMultTransposeMatrixd(modelviewCamera);
+
 
 	/* 現在のモデルビュー変換の逆変換をかけておく */
 	//glMultTransposeMatrixd(trackballRotation());
@@ -530,14 +586,14 @@ void CSceneRace::Update() {
 
 	/* モデルビュー変換行列に戻す */
 	glMatrixMode(GL_MODELVIEW);
-//	glPopMatrix();
+	glPopMatrix();
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を有効にする */
 	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_TEXTURE_GEN_S);
-	glEnable(GL_TEXTURE_GEN_T);
-	glEnable(GL_TEXTURE_GEN_R);
-	glEnable(GL_TEXTURE_GEN_Q);
+	//glEnable(GL_TEXTURE_GEN_S);
+	//glEnable(GL_TEXTURE_GEN_T);
+	//glEnable(GL_TEXTURE_GEN_R);
+	//glEnable(GL_TEXTURE_GEN_Q);
 
 	const GLfloat lightcol[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	/* 光源の明るさを日向の部分での明るさに設定 */
@@ -546,8 +602,6 @@ void CSceneRace::Update() {
 	
 	CTaskManager::Get()->Render();
 
-	glBindTexture(GL_TEXTURE_2D, 0);
-
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
@@ -555,9 +609,14 @@ void CSceneRace::Update() {
 	glDisable(GL_TEXTURE_GEN_Q);
 	glDisable(GL_TEXTURE_2D);
 
+	//	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 
-//	glActiveTexture(GL_TEXTURE0);
+	/* テクスチャ変換行列を設定する */
+	glMatrixMode(GL_TEXTURE);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
 
 
 	//衝突処理
