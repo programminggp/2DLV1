@@ -297,7 +297,7 @@ void CSceneRace::Init() {
 	/* 比較の結果を輝度値として得る */
 	glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
 
-	if(false)
+	if(true)
 	{
 		/* テクスチャ座標に視点座標系における物体の座標値を用いる */
 		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
@@ -453,7 +453,11 @@ void CSceneRace::Update() {
 //	glGetDoublev(GL_PROJECTION_MATRIX, projection);
 	glGetFloatv(GL_PROJECTION_MATRIX, projectionDepth.mM[0]);
 
-	GLfloat lightpos[] = { 0.0f, 49000.0f, 100.0f, 0.0f };
+	static int posY = 10000;
+
+//	GLfloat lightpos[] = { 0.0f, 49000.0f, 100.0f, 0.0f };
+	GLfloat lightpos[] = { 0.0f, posY, 100.0f, 0.0f };
+	posY += 10;
 
 //	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewCamera);
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelviewCamera.mM[0]);
@@ -468,7 +472,7 @@ void CSceneRace::Update() {
 //	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview.mM[0]);
 
-	if(true)
+	if(false)
 	{
 		// 合成された変換行列を取得する。
 		float m[16];
@@ -544,12 +548,6 @@ void CSceneRace::Update() {
 	glLoadIdentity();
 //	glPopMatrix();
 
-	/* 視点の位置を設定する（物体の方を奥に移動する）*/
-//	glTranslated(0.0, 0.0, -10.0);
-
-	/* トラックボール式の回転を与える */
-//	glMultMatrixd(trackballRotation());
-
 	/* 光源の位置を設定する */
 	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 
@@ -557,32 +555,18 @@ void CSceneRace::Update() {
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 
-	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
-//	glMultTransposeMatrixd(modelviewCamera);
-//	glMultMatrixd(modelview);
-	/* テクスチャ座標の [-1,1] の範囲を [0,1] の範囲に収める */
-//	glScaled(0.5, 0.5, 0.5);
-//	glTranslated(0.5, 0.5, 0.5);
-
 	/* テクスチャ座標の [-1,1] の範囲を [0,1] の範囲に収める */
 	glTranslated(0.5, 0.5, 0.5);
 	glScaled(0.5, 0.5, 0.5);
 	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
-	//glMultMatrixf(modelview.mM[0]);
-	//glMultMatrixf(projectionDepth.mM[0]);
-	//glMultMatrixf(modelviewCamera.GetInverse().mM[0]);
-
 	glMultMatrixf(projectionDepth.mM[0]);
 	glMultMatrixf(modelview.mM[0]);
+
+	/* 現在のモデルビュー変換の逆変換をかけておく */
 	glMultMatrixf(modelviewCamera.GetInverse().mM[0]);
-
-
-	//glMultTransposeMatrixd(modelviewCamera);
-
 
 	/* 現在のモデルビュー変換の逆変換をかけておく */
 	//glMultTransposeMatrixd(trackballRotation());
-	//	glTranslated(0.0, 0.0, 10.0);
 
 	/* モデルビュー変換行列に戻す */
 	glMatrixMode(GL_MODELVIEW);
@@ -590,10 +574,10 @@ void CSceneRace::Update() {
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を有効にする */
 	glEnable(GL_TEXTURE_2D);
-	//glEnable(GL_TEXTURE_GEN_S);
-	//glEnable(GL_TEXTURE_GEN_T);
-	//glEnable(GL_TEXTURE_GEN_R);
-	//glEnable(GL_TEXTURE_GEN_Q);
+	glEnable(GL_TEXTURE_GEN_S);
+	glEnable(GL_TEXTURE_GEN_T);
+	glEnable(GL_TEXTURE_GEN_R);
+	glEnable(GL_TEXTURE_GEN_Q);
 
 	const GLfloat lightcol[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	/* 光源の明るさを日向の部分での明るさに設定 */
@@ -824,6 +808,9 @@ void CSceneRace::Update() {
 	char lap[19];
 	sprintf(lap, "LAP%d/%d", mLap, mMaxLap);
 	CText::DrawString(lap, 20, 500, 10, 12, 2);
+
+	sprintf(lap, "LIGHT POS:%d", posY);
+	CText::DrawString(lap, 20, 480, 10, 12, 2);
 
 	//ゴール後、継続して実行する処理
 	if (mLap == mMaxLap && isStartRace == false && isGoal){
