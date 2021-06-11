@@ -448,8 +448,8 @@ void CSceneRace::Update() {
 	/* 透視変換行列を単位行列に設定する */
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(60.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 100000.0);
-	//	gluPerspective(75.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 20000.0);
+	//gluPerspective(60.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 100000.0);
+	gluPerspective(75.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 100000.0);
 //	glGetDoublev(GL_PROJECTION_MATRIX, projection);
 	glGetFloatv(GL_PROJECTION_MATRIX, projectionDepth.mM[0]);
 
@@ -475,15 +475,15 @@ void CSceneRace::Update() {
 		glGetFloatv(GL_MODELVIEW_MATRIX, m);
 
 		{
-			float vs[] = { m[0], m[4], m[8],  m[12] };
-			float vt[] = { m[1], m[5], m[9],  m[13] };
-			float vr[] = { m[2], m[6], m[10], m[14] };
-			float vq[] = { m[3], m[7], m[11], m[15] };
+			//float vs[] = { m[0], m[4], m[8],  m[12] };
+			//float vt[] = { m[1], m[5], m[9],  m[13] };
+			//float vr[] = { m[2], m[6], m[10], m[14] };
+			//float vq[] = { m[3], m[7], m[11], m[15] };
 
-			//float vs[] = { m[0], m[1], m[2],  m[3] };
-			//float vt[] = { m[4], m[5], m[6],  m[7] };
-			//float vr[] = { m[8], m[9], m[10], m[11] };
-			//float vq[] = { m[12], m[13], m[14], m[15] };
+			float vs[] = { m[0], m[1], m[2],  m[3] };
+			float vt[] = { m[4], m[5], m[6],  m[7] };
+			float vr[] = { m[8], m[9], m[10], m[11] };
+			float vq[] = { m[12], m[13], m[14], m[15] };
 
 			// 合成した変換行列をオブジェクトの頂点に掛ければ画面を覆うようにUVが自動計算される。
 			glTexGenfv(GL_S, GL_OBJECT_PLANE, vs);
@@ -573,8 +573,8 @@ void CSceneRace::Update() {
 	//glMultMatrixf(modelviewCamera.GetInverse().mM[0]);
 
 	glMultMatrixf(projectionDepth.mM[0]);
-//	glMultMatrixf(modelview.mM[0]);
-//	glMultMatrixf(modelviewCamera.GetInverse().mM[0]);
+	glMultMatrixf(modelview.mM[0]);
+	glMultMatrixf(modelviewCamera.GetInverse().mM[0]);
 
 
 	//glMultTransposeMatrixd(modelviewCamera);

@@ -10,6 +10,8 @@
 #include "CSceneTitle.h"
 #include "CTaskManager.h"
 
+#include "CShadowMap.h"
+
 CSceneManager SceneManager;
 
 CScene::EScene mScene;
@@ -33,7 +35,8 @@ void CSceneManager::Init() {
 	//シーンの識別を設定する
 	mScene = CScene::ETITLE;
 	//シーンを生成し、ポインタを設定する
-	mpScene = new CSceneTitle();
+//	mpScene = new CSceneTitle();
+	mpScene = new CShadowMap();
 
 	//生成したクラスのメソッドが呼ばれる
 	mpScene->Init();
@@ -42,6 +45,8 @@ void CSceneManager::Init() {
 void CSceneManager::Update() {
 	//ポインタのUpdateを呼ぶ
 	mpScene->Update();
+
+	return;
 
 	//次のシーンを取得し異なるか判定
 	if (mScene != mpScene->GetNextScene()){

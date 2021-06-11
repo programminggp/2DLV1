@@ -177,6 +177,9 @@
     <ClCompile Include="CRoadManager.cpp">
       <Filter>ソース ファイル\Test</Filter>
     </ClCompile>
+    <ClCompile Include="CShadowMap.cpp">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -324,6 +327,9 @@
       <Filter>ソース ファイル\Test</Filter>
     </ClInclude>
     <ClInclude Include="CRoadManager.h">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="CShadowMap.h">
       <Filter>ソース ファイル\Test</Filter>
     </ClInclude>
   </ItemGroup>

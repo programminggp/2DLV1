@@ -25,15 +25,20 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 	CVector* mpPoint = new CVector[size + 1]; // 最後の一つは入替用スペース
 	for (int i = 0; i < size; i++)
 	{
-		//三角形をワールド座標に変換
-		CVector v[3];
-		v[0] = pmodel->mTriangles[i].mV[0] * mMatrix;
-		v[1] = pmodel->mTriangles[i].mV[1] * mMatrix;
-		v[2] = pmodel->mTriangles[i].mV[2] * mMatrix;
-		//三角形の重心を求める
-		mpPoint[i].mX = (v[0].mX + v[1].mX + v[2].mX) / 3.0f;
-		mpPoint[i].mY = (v[0].mY + v[1].mY + v[2].mY) / 3.0f;
-		mpPoint[i].mZ = (v[0].mZ + v[1].mZ + v[2].mZ) / 3.0f;
+		////三角形をワールド座標に変換
+		//CVector v[3];
+		//v[0] = pmodel->mTriangles[i].mV[0] * mMatrix;
+		//v[1] = pmodel->mTriangles[i].mV[1] * mMatrix;
+		//v[2] = pmodel->mTriangles[i].mV[2] * mMatrix;
+		////三角形の重心を求める
+		//mpPoint[i].mX = (v[0].mX + v[1].mX + v[2].mX) / 3.0f;
+		//mpPoint[i].mY = (v[0].mY + v[1].mY + v[2].mY) / 3.0f;
+		//mpPoint[i].mZ = (v[0].mZ + v[1].mZ + v[2].mZ) / 3.0f;
+		mpPoint[i] = (
+			pmodel->mTriangles[i].mV[0] +
+			pmodel->mTriangles[i].mV[1] +
+			pmodel->mTriangles[i].mV[2]
+			) * (1.0f / 3.0f) * mMatrix;
 	}
 
 	int start = START_INDEX; //開始する番号
