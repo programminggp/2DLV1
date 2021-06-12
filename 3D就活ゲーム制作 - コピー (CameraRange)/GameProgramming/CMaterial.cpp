@@ -26,11 +26,11 @@ void CMaterial::Enabled() {
 	//拡散光の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
 	//テクスチャが無い時、戻る
-//	if (mpTexture == 0)
+	if (mpTexture == 0)
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
-		glActiveTexture(GL_TEXTURE0);
+//		glActiveTexture(GL_TEXTURE0);
 		//テクスチャを使用可能にする
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
@@ -42,16 +42,16 @@ void CMaterial::Disabled() {
 	//アルファブレンドを無効
 	glDisable(GL_BLEND);
 	//テクスチャが無い時、戻る
-//	if (mpTexture == 0)
+	if (mpTexture == 0)
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
-		glActiveTexture(GL_TEXTURE0);
+//		glActiveTexture(GL_TEXTURE0);
 		//テクスチャのバインドを解く
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//テクスチャを無効にする
 		glDisable(GL_TEXTURE_2D);
-		glActiveTexture(GL_TEXTURE1);
+//		glActiveTexture(GL_TEXTURE1);
 	}
 }
 
@@ -72,6 +72,6 @@ void CMaterial::Enabledplus() {
 		//テクスチャを使用可能にする
 //		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
-		glBindTexture(GL_TEXTURE_2D, mpTexture->mId);
+//		glBindTexture(GL_TEXTURE_2D, mpTexture->mId);
 	}
 }

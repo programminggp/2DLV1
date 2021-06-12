@@ -31,10 +31,10 @@ void CShadowMap::Init()
 		GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
 
 	/* テクスチャを拡大・縮小する方法の指定 */
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	/* テクスチャの繰り返し方法の指定 */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -218,7 +218,7 @@ void CShadowMap::Update()
 	glLoadIdentity();
 
 	/* 光源の位置を設定する */
-	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
+//	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 
 	/* テクスチャ変換行列を設定する */
 	glMatrixMode(GL_TEXTURE);

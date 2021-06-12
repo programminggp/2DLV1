@@ -49,7 +49,7 @@ CEnemy *CEnemy::mpEnemy = 0;
 //#define DECELERATE 0.1f //車の減速する量
 //#define FIX_ANGLE_VALUE 0.5f //角度が0度に向けて調整される量(主にX・Z用)
 
-#define SCALE 1.0f
+#define SCALE 7.5f
 
 CEnemy::CEnemy()
 //車体のY座標は0.0fにしたいんだけど・・・

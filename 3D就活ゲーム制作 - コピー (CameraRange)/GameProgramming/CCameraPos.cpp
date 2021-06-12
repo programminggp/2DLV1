@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define CAMERA_POS 0.0f,100.0f,280.0f
+#define CAMERA_POS 0.0f,10.0f,10.0f
 
 #define PI 3.141592
 

@@ -5,9 +5,12 @@
 #define START_INDEX 0 //処理開始位置
 #define COURSE_POINT_SIZE 120.0f //ポイントコライダのサイズ
 
+CRoadManager* CRoadManager::spRoadManager = nullptr;
+
 CRoadManager::CRoadManager(CModel *model, const CVector& position, const CVector& rotation, const CVector& scale, const CVector& startPos, const CVector& foward)
 	: CObjFloor(model, position, rotation, scale)
 {
+	spRoadManager = this;
 	Init(model, position, rotation, scale, startPos, foward);
 }
 
@@ -64,6 +67,7 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 	mpPoint[size] = mpPoint[0];
 	mpPoint[0] = mpPoint[start];
 	mpPoint[start] = mpPoint[size];
+	mStartPosition = mpPoint[0];
 
 	//2番目を決める
 	//1番目から進行方向で一番ちかいポイントを探す
@@ -126,6 +130,11 @@ void CRoadManager::Init(CModel* pmodel, const CVector& pos, const CVector& rot, 
 	CEnemy::mPoint = next->GetNextPoint();
 	//配列の削除
 	delete[] mpPoint;
+}
+
+CVector CRoadManager::GetStartPosition()
+{
+	return mStartPosition;
 }
 
 //void CRoadManager::Update()

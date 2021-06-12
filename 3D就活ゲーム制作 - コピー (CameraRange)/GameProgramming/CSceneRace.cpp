@@ -23,6 +23,8 @@
 #include "CKey.h"
 //
 #include "CBullet.h"
+//
+#include "CRoadManager.h"
 
 //スマートポインタの生成
 std::shared_ptr<CTexture> TextureExp(new CTexture());
@@ -59,8 +61,8 @@ int CSceneRace::mRecord_F = 43300;
 //#define FBOWIDTH 512
 //#define FBOHEIGHT 512
 
-#define TEXWIDTH (1024)
-#define TEXHEIGHT (1024)
+#define TEXWIDTH (512)
+#define TEXHEIGHT (512)
 
 bool CSceneRace::mPutCol;//当たり判定の描画のON・OFF
 
@@ -279,10 +281,10 @@ void CSceneRace::Init() {
 		GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
 
 	/* テクスチャを拡大・縮小する方法の指定 */
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	/* テクスチャの繰り返し方法の指定 */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -453,11 +455,13 @@ void CSceneRace::Update() {
 //	glGetDoublev(GL_PROJECTION_MATRIX, projection);
 	glGetFloatv(GL_PROJECTION_MATRIX, projectionDepth.mM[0]);
 
-	static int posY = 10000;
+	static int posY = 1400;
+	CVector light;
+	light = mPlayer->mPosition;
 
 //	GLfloat lightpos[] = { 0.0f, 49000.0f, 100.0f, 0.0f };
-	GLfloat lightpos[] = { 0.0f, posY, 100.0f, 0.0f };
-	posY += 10;
+	GLfloat lightpos[] = { light.mX - 1, light.mY + posY, light.mZ - 1, 0.0f };
+//	posY += 10;
 
 //	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewCamera);
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelviewCamera.mM[0]);
@@ -466,7 +470,7 @@ void CSceneRace::Update() {
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	glLoadIdentity();
-	gluLookAt(lightpos[0], lightpos[1], lightpos[2], 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+	gluLookAt(lightpos[0], lightpos[1], lightpos[2], light.mX, light.mY, light.mZ, 0.0, 1.0, 0.0);
 
 	/* 設定したモデルビュー変換行列を保存しておく */
 //	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);
@@ -549,7 +553,7 @@ void CSceneRace::Update() {
 //	glPopMatrix();
 
 	/* 光源の位置を設定する */
-	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
+//	glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 
 	/* テクスチャ変換行列を設定する */
 	glMatrixMode(GL_TEXTURE);
@@ -584,7 +588,11 @@ void CSceneRace::Update() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcol);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, lightcol);
 	
-	CTaskManager::Get()->Render();
+//	CTaskManager::Get()->Render();
+	if (CRoadManager::spRoadManager != nullptr)
+	{
+		CRoadManager::spRoadManager->Render();
+	}
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */
 	glDisable(GL_TEXTURE_GEN_S);
@@ -601,6 +609,8 @@ void CSceneRace::Update() {
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
+
+	CTaskManager::Get()->Render();
 
 
 	//衝突処理
@@ -664,7 +674,7 @@ void CSceneRace::Update() {
 	}
 	if (mPutCol){
 		//衝突判定の描画
-//		CollisionManager.Render();
+		CollisionManager.Render();
 	}
 
 	//敵の中継地点の表示ON・OFF切り替え
