@@ -49,6 +49,8 @@ CEnemy *CEnemy::mpEnemy = 0;
 //#define DECELERATE 0.1f //車の減速する量
 //#define FIX_ANGLE_VALUE 0.5f //角度が0度に向けて調整される量(主にX・Z用)
 
+#define SCALE 1.0f
+
 CEnemy::CEnemy()
 //車体のY座標は0.0fにしたいんだけど・・・
 //0.0fにしたら車体が浮いてるように見えてしまう
@@ -60,7 +62,8 @@ CEnemy::CEnemy()
 
 	mpEnemy = this;
 
-	mScale = CVector(2.5f * 3, 2.5f * 3, 2.5f * 3);
+//	mScale = CVector(2.5f * 3, 2.5f * 3, 2.5f * 3);
+	mScale = CVector(SCALE, SCALE, SCALE);
 
 	mVelocityJump = 0.0f;
 	mJumpV0 = 1.1f;//バネ取得後は2.3fの予定

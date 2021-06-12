@@ -9,6 +9,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define CAMERA_POS 0.0f,100.0f,280.0f
+
 #define PI 3.141592
 
 CCameraPos *CCameraPos::mpCamera = 0;
@@ -93,7 +95,8 @@ void CCameraPos::Update(){
 	CCharacter::Update();
 
 	if (CPlayer::mpPlayer->isRespawn){
-		mPosition = CVector(0.0f, 17.0f, -40.0f) * CPlayer::mpPlayer->mMatrixScale * CPlayer::mpPlayer->mMatrixRotate * CPlayer::mpPlayer->mMatrixTranslate;
+//		mPosition = CVector(0.0f, 17.0f, -40.0f) * CPlayer::mpPlayer->mMatrixScale * CPlayer::mpPlayer->mMatrixRotate * CPlayer::mpPlayer->mMatrixTranslate;
+		mPosition = CVector(CAMERA_POS) * CPlayer::mpPlayer->mMatrixScale * CPlayer::mpPlayer->mMatrixRotate * CPlayer::mpPlayer->mMatrixTranslate;
 		CCharacter::Update();
 		CPlayer::mpPlayer->isRespawn = false;
 	}
