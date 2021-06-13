@@ -61,8 +61,8 @@ int CSceneRace::mRecord_F = 43300;
 //#define FBOWIDTH 512
 //#define FBOHEIGHT 512
 
-#define TEXWIDTH (512)
-#define TEXHEIGHT (512)
+#define TEXWIDTH (800)
+#define TEXHEIGHT (600)
 
 bool CSceneRace::mPutCol;//当たり判定の描画のON・OFF
 
@@ -272,7 +272,7 @@ void CSceneRace::Init() {
 	//Shadow Map
 
 	/* テクスチャユニット１に切り替える */
-//	glActiveTexture(GL_TEXTURE1);
+	glActiveTexture(GL_TEXTURE1);
 	glGenTextures(1, &dtex);
 	glBindTexture(GL_TEXTURE_2D, dtex);
 
@@ -322,8 +322,9 @@ void CSceneRace::Init() {
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		//	glActiveTexture(GL_TEXTURE0);
 	}
+	
+	glActiveTexture(GL_TEXTURE0);
 
 //	glDisable(GL_TEXTURE_2D);
 
@@ -450,9 +451,14 @@ void CSceneRace::Update() {
 	/* 透視変換行列を単位行列に設定する */
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//gluPerspective(60.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 100000.0);
 	gluPerspective(75.0, (GLdouble)TEXWIDTH / (GLdouble)TEXHEIGHT, 1.0, 100000.0);
-//	glGetDoublev(GL_PROJECTION_MATRIX, projection);
+
+	//glOrtho(
+	//	mPlayer->mPosition.mX - TEXWIDTH, mPlayer->mPosition.mX + TEXWIDTH,
+	//	mPlayer->mPosition.mZ - TEXHEIGHT, mPlayer->mPosition.mZ + TEXHEIGHT,
+	//	-10000.0f, 10000.0f
+	//);
+
 	glGetFloatv(GL_PROJECTION_MATRIX, projectionDepth.mM[0]);
 
 	static int posY = 1400;
@@ -460,7 +466,7 @@ void CSceneRace::Update() {
 	light = mPlayer->mPosition;
 
 //	GLfloat lightpos[] = { 0.0f, 49000.0f, 100.0f, 0.0f };
-	GLfloat lightpos[] = { light.mX - 1, light.mY + posY, light.mZ - 1, 0.0f };
+	GLfloat lightpos[] = { light.mX - 10, light.mY + posY, light.mZ - 1, 0.0f };
 //	posY += 10;
 
 //	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewCamera);
@@ -525,7 +531,7 @@ void CSceneRace::Update() {
 	CTaskManager::Get()->Render();
 
 	/* テクスチャユニット１に切り替える */
-//	glActiveTexture(GL_TEXTURE1);
+	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, dtex);
 	/* デプスバッファの内容をテクスチャメモリに転送する */
 	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, TEXWIDTH, TEXHEIGHT);
@@ -601,13 +607,14 @@ void CSceneRace::Update() {
 	glDisable(GL_TEXTURE_GEN_Q);
 	glDisable(GL_TEXTURE_2D);
 
-	//	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, 0);
-
 
 	/* テクスチャ変換行列を設定する */
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
+
+	glActiveTexture(GL_TEXTURE0);
+
 	glMatrixMode(GL_MODELVIEW);
 
 	CTaskManager::Get()->Render();
