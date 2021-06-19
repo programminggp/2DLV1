@@ -12,6 +12,8 @@
 
 #include "CRenderTexture.h"
 
+#include "CRoadManager.h"
+
 #define ENEMYS_AMOUNT 7-2 //0ˆÈ‰º‚É‚Íİ’è‚Å‚«‚È‚¢
 //#define ENEMYS_AMOUNT 1 //0ˆÈ‰º‚É‚Íİ’è‚Å‚«‚È‚¢
 /*
@@ -21,6 +23,7 @@ class CSceneRace : public CScene {
 	CRenderTexture mRenderTexture;
 	GLuint dtex;
 public:
+	CRoadManager *mpRoadManager;
 	//Ÿ‚ÌƒV[ƒ“‚Ìæ“¾
 	EScene GetNextScene();
 

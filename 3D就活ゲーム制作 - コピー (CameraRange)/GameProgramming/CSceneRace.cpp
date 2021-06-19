@@ -74,6 +74,8 @@ CSceneRace::~CSceneRace() {
 
 void CSceneRace::Init() {
 
+	mpRoadManager = nullptr;
+
 	//レンダーテクスチャの初期設定
 	mRenderTexture.Init();
 
@@ -595,9 +597,10 @@ void CSceneRace::Update() {
 	glLightfv(GL_LIGHT0, GL_SPECULAR, lightcol);
 	
 //	CTaskManager::Get()->Render();
-	if (CRoadManager::spRoadManager != nullptr)
+	//if (CRoadManager::spRoadManager != nullptr)
+	if (mpRoadManager != nullptr)
 	{
-		CRoadManager::spRoadManager->Render();
+		mpRoadManager->Render();
 	}
 
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */

@@ -95,7 +95,7 @@ void CRaceCourceETest::Init() {
 //	mtsize = 6.0f;
 //	height = 2.0f;
 	//	new CObjFloor(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize));//
-	new CRoadManager(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize), mPlayer->mPosition, CVector(0.0f, 0.0f, -1.0f));//
+	mpRoadManager = new CRoadManager(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize), mPlayer->mPosition, CVector(0.0f, 0.0f, -1.0f));//
 //	CRoadManager *rm = new CRoadManager(&mCource05Road, CVector(0.0f, 0.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize), mPlayer->mPosition, CVector(0.0f, 0.0f, -1.0f));//
 //	mPlayer->mPosition = rm->GetStartPosition();
 //	mPlayer->Update();
