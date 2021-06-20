@@ -470,6 +470,7 @@ void CEnemy::Update(){
 	//コースアウトした時、もしくは敵が壁等に引っかかり進めなくなっている時
 	if (mPosition.mY < -700.0f || mPointTime > RESTART_TIME)
 	{
+		/*
 		mPointTime = 0;
 		//落下の勢いを0にする
 		mVelocityJump = 0.0f;
@@ -497,10 +498,10 @@ void CEnemy::Update(){
 				mVPoint = mpPoint->mPosition;
 			}
 			else if (mChecks == 3){
-				/*mPosition = CVector(-1412.0f, mStartPoint[1], -1720.0f);
-				mRotation.mY = 120.0f;
-				mpPoint = mPoint5;
-				mVPoint = mpPoint->mPosition;*/
+				//mPosition = CVector(-1412.0f, mStartPoint[1], -1720.0f);
+				//mRotation.mY = 120.0f;
+				//mpPoint = mPoint5;
+				//mVPoint = mpPoint->mPosition;
 				mPosition = CVector(-1620.0f, mStartPoint[1], -250.0f);
 				mRotation.mY = -175.0f;
 				mpPoint = mPoint4;
@@ -551,8 +552,8 @@ void CEnemy::Update(){
 				mVPoint = mpPoint->mPosition;
 			}
 			else if (mChecks == 2){
-				/*mPosition = CVector(777.0f, mStartPoint[1], 1925.0f);
-				mStartRotation = 405.1f;*/
+				//mPosition = CVector(777.0f, mStartPoint[1], 1925.0f);
+				//mStartRotation = 405.1f;
 				mPosition = CVector(777.0f, mStartPoint[1], 1925.0f);
 				mRotation.mY = 405.1f;
 				mpPoint = mPoint12;
@@ -611,7 +612,12 @@ void CEnemy::Update(){
 				mPosition = CVector(-1212.0f, mStartPoint[1], -1616.0f);
 				mRotation.mY = 120.0f;
 			}
-		}		
+		}
+		*/
+		mPosition = mpPoint->mPosition + CVector(0.0f, 10.0f, 0.0f);
+		CVector dir = mpPoint->GetNextPoint()->mPosition - mpPoint->mPosition;
+		dir = dir.Normalize();
+		mRotation.mY = atan2(dir.mX, dir.mZ)*180.0f / 3.14159265f;
 	}
 	CCharacter::Update();
 
