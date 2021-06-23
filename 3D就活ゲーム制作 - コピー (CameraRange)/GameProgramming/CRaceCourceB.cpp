@@ -83,8 +83,7 @@ void CRaceCourceB::Init(){
 	mCam = new CCameraPos();
 
 //	new CObjFloor(&mCource02Road, CVector(0.0f, -220.0f, 0.0f), CVector(0.0f, -139.3f, 0.0f), CVector(42.0f, 13.5f, 42.0f));
-	new CRoadManager(&mCource02Road, CVector(0.0f, -220.0f, 0.0f), CVector(0.0f, -139.3f, 0.0f), CVector(42.0f, 13.5f, 42.0f), mPlayer->mPosition, CVector(0.0f, 0.0f, 1.0f));//
-
+	mpRoadManager = new CRoadManager(&mCource02Road, CVector(0.0f, -220.0f, 0.0f), CVector(0.0f, -139.3f, 0.0f), CVector(42.0f, 13.5f, 42.0f), mPlayer->mPosition, CVector(0.0f, 0.0f, 1.0f));//
 
 	//ìGé‘ÇÃê∂ê¨
 	for (int i = 0; i < ENEMYS_AMOUNT; i++){
