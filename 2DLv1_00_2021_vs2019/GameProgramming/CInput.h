@@ -6,15 +6,19 @@ CInputクラス
 入力を取得する
 */
 class CInput {
+	bool mFlg[256];
 public:
-	static bool Flg[256];
+	CInput();
 	/*
-	Keyはstatic(スタティック)メソッド
 	keyの値のキーが押されていればtrueを、
 	押されていなければfalseを戻す
 	*/
-	static bool Key(char key);
-	static bool KeyOP(char key);
+	bool Key(char key);
+	/*
+	keyの値のキーが押された瞬間だけtrueを、
+	それ以外はfalseを戻す
+	*/
+	bool KeyOP(char key);
 };
 
 #endif
