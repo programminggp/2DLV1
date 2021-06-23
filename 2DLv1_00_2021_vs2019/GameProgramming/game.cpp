@@ -101,6 +101,6 @@ void End()
 	//delete命令でgpGameに代入された
 	//ゲームクラスのインスタンスを削除する
 	delete gpGame; //この時ゲームクラスのデストラクタが呼ばれる
-	printf("Push Any Key");
+	printf("Push Enter Key");
 	getchar(); //キーボード入力待ち
 }
