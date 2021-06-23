@@ -280,15 +280,15 @@ void CEnemy::Update(){
 	if (corve > 0.60f)
 	{
 		//ブレーキ
-		corve = 0.95f;
+		corve = 0.05f;
 		//		corve /= 2.0f;
 	}
 	else if (corve < 0.5f) {
 		//アクセル
-		corve = 0.0f;
+		corve = 1.0f;
 		//		corve /= 3.0f;
 	}
-	corve = 1.0f - corve;
+	//corve = 1.0f - corve;
 	//速度上限の計算
 	mMaxSpeed_PtoP = MAXSPEED * corve;
 	//スピードの最低値
@@ -421,9 +421,9 @@ void CEnemy::Update(){
 	}
 
 
-	if (mMaxSpeed_PtoP < 2.0f)
+	if (mMaxSpeed_PtoP < 1.0f)
 	{
-//		mTurnSpeed *= 2.0f; //あるとコースアウトしない、クソ速い
+		mTurnSpeed *= 2.0f; //あるとコースアウトしない、クソ速い
 	}
 
 	mRotation.mY += mTurnSpeed;
