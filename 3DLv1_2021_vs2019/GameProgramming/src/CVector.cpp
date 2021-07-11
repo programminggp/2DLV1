@@ -3,17 +3,17 @@
 #define  _USE_MATH_DEFINES
 #include <math.h>
 
-float CVector::X()
+float CVector::X() const
 {
 	return mX;
 }
 
-float CVector::Y()
+float CVector::Y() const 
 {
 	return mY;
 }
 
-float CVector::Z()
+float CVector::Z() const
 {
 	return mZ;
 }

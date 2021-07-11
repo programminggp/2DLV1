@@ -1,6 +1,51 @@
 #include "CTriangle.h"
 #include "glut.h"
 
+const CVector& CTriangle::V0() const
+{
+	return mV[0];
+}
+const CVector& CTriangle::V1() const
+{
+	return mV[1];
+}
+const CVector& CTriangle::V2() const
+{
+	return mV[2];
+}
+
+const CVector& CTriangle::N0() const
+{
+	return mN[0];
+}
+const CVector& CTriangle::N1() const
+{
+	return mN[1];
+}
+const CVector& CTriangle::N2() const
+{
+	return mN[2];
+}
+
+const CVector& CTriangle::UV0() const
+{
+	return mUv[0];
+}
+const CVector& CTriangle::UV1() const
+{
+	return mUv[1];
+}
+const CVector& CTriangle::UV2() const
+{
+	return mUv[2];
+}
+void CTriangle::SetUv(const CVector& v0, const CVector& v1, const CVector& v2)
+{
+	mUv[0] = v0;
+	mUv[1] = v1;
+	mUv[2] = v2;
+}
+
 //頂点座標設定
 //SetVertex(頂点1, 頂点2, 頂点3)
 void CTriangle::SetVertex(const CVector &v0, const CVector &v1, const CVector &v2) {

@@ -143,9 +143,10 @@ void CModel::Load(char *obj, char *mtl) {
 				t.SetVertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
 				t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
 				//テクスチャマッピングの設定
-				t.mUv[0] = uv[u[0] - 1];
-				t.mUv[1] = uv[u[1] - 1];
-				t.mUv[2] = uv[u[2] - 1];
+				//t.mUv[0] = uv[u[0] - 1];
+				//t.mUv[1] = uv[u[1] - 1];
+				//t.mUv[2] = uv[u[2] - 1];
+				t.SetUv(uv[u[0] - 1], uv[u[1] - 1], uv[u[2] - 1]);
 				//マテリアル番号の設定
 				t.mMaterialIdx = idx;
 				//可変長配列mTrianglesに三角形を追加
@@ -190,33 +191,33 @@ void CModel::Load(char *obj, char *mtl) {
 			if (i == mTriangles[j].mMaterialIdx) {
 				//頂点配列に設定する
 				//頂点座標
-				mpVertex[v++] = mTriangles[j].mV[0].X();
-				mpVertex[v++] = mTriangles[j].mV[0].Y();
-				mpVertex[v++] = mTriangles[j].mV[0].Z();
-				mpVertex[v++] = mTriangles[j].mV[1].X();
-				mpVertex[v++] = mTriangles[j].mV[1].Y();
-				mpVertex[v++] = mTriangles[j].mV[1].Z();
-				mpVertex[v++] = mTriangles[j].mV[2].X();
-				mpVertex[v++] = mTriangles[j].mV[2].Y();
-				mpVertex[v++] = mTriangles[j].mV[2].Z();
+				mpVertex[v++] = mTriangles[j].V0().X();
+				mpVertex[v++] = mTriangles[j].V0().Y();
+				mpVertex[v++] = mTriangles[j].V0().Z();
+				mpVertex[v++] = mTriangles[j].V1().X();
+				mpVertex[v++] = mTriangles[j].V1().Y();
+				mpVertex[v++] = mTriangles[j].V1().Z();
+				mpVertex[v++] = mTriangles[j].V2().X();
+				mpVertex[v++] = mTriangles[j].V2().Y();
+				mpVertex[v++] = mTriangles[j].V2().Z();
 				v -= 9;
 				//法線
-				mpNormal[v++] = mTriangles[j].mN[0].X();
-				mpNormal[v++] = mTriangles[j].mN[0].Y();
-				mpNormal[v++] = mTriangles[j].mN[0].Z();
-				mpNormal[v++] = mTriangles[j].mN[1].X();
-				mpNormal[v++] = mTriangles[j].mN[1].Y();
-				mpNormal[v++] = mTriangles[j].mN[1].Z();
-				mpNormal[v++] = mTriangles[j].mN[2].X();
-				mpNormal[v++] = mTriangles[j].mN[2].Y();
-				mpNormal[v++] = mTriangles[j].mN[2].Z();
+				mpNormal[v++] = mTriangles[j].N0().X();
+				mpNormal[v++] = mTriangles[j].N0().Y();
+				mpNormal[v++] = mTriangles[j].N0().Z();
+				mpNormal[v++] = mTriangles[j].N1().X();
+				mpNormal[v++] = mTriangles[j].N1().Y();
+				mpNormal[v++] = mTriangles[j].N1().Z();
+				mpNormal[v++] = mTriangles[j].N2().X();
+				mpNormal[v++] = mTriangles[j].N2().Y();
+				mpNormal[v++] = mTriangles[j].N2().Z();
 				//テクスチャマッピング
-				mpTextureCoord[t++] = mTriangles[j].mUv[0].X();
-				mpTextureCoord[t++] = mTriangles[j].mUv[0].Y();
-				mpTextureCoord[t++] = mTriangles[j].mUv[1].X();
-				mpTextureCoord[t++] = mTriangles[j].mUv[1].Y();
-				mpTextureCoord[t++] = mTriangles[j].mUv[2].X();
-				mpTextureCoord[t++] = mTriangles[j].mUv[2].Y();
+				mpTextureCoord[t++] = mTriangles[j].UV0().X();
+				mpTextureCoord[t++] = mTriangles[j].UV0().Y();
+				mpTextureCoord[t++] = mTriangles[j].UV1().X();
+				mpTextureCoord[t++] = mTriangles[j].UV1().Y();
+				mpTextureCoord[t++] = mTriangles[j].UV2().X();
+				mpTextureCoord[t++] = mTriangles[j].UV2().Y();
 			}
 		}
 		//頂点数を設定

@@ -21,9 +21,13 @@ void CColliderMesh::Set(CCharacter *parent, CMatrix *matrix, CModel *model)
 	for (int i = 0; i < model->mTriangles.size(); i++)
 	{	//三角コライダの設定
 		mpColliderTriangles[i].Set(parent, matrix
-			, model->mTriangles[i].mV[0]
-			, model->mTriangles[i].mV[1]
-			, model->mTriangles[i].mV[2]);
+			//, model->mTriangles[i].mV[0]
+			//, model->mTriangles[i].mV[1]
+			//, model->mTriangles[i].mV[2]
+			, model->mTriangles[i].V0()
+			, model->mTriangles[i].V1()
+			, model->mTriangles[i].V2()
+		);
 		mpColliderTriangles[i].ChangePriority();
 	}
 }
