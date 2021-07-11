@@ -190,33 +190,33 @@ void CModel::Load(char *obj, char *mtl) {
 			if (i == mTriangles[j].mMaterialIdx) {
 				//頂点配列に設定する
 				//頂点座標
-				mpVertex[v++] = mTriangles[j].mV[0].mX;
-				mpVertex[v++] = mTriangles[j].mV[0].mY;
-				mpVertex[v++] = mTriangles[j].mV[0].mZ;
-				mpVertex[v++] = mTriangles[j].mV[1].mX;
-				mpVertex[v++] = mTriangles[j].mV[1].mY;
-				mpVertex[v++] = mTriangles[j].mV[1].mZ;
-				mpVertex[v++] = mTriangles[j].mV[2].mX;
-				mpVertex[v++] = mTriangles[j].mV[2].mY;
-				mpVertex[v++] = mTriangles[j].mV[2].mZ;
+				mpVertex[v++] = mTriangles[j].mV[0].X();
+				mpVertex[v++] = mTriangles[j].mV[0].Y();
+				mpVertex[v++] = mTriangles[j].mV[0].Z();
+				mpVertex[v++] = mTriangles[j].mV[1].X();
+				mpVertex[v++] = mTriangles[j].mV[1].Y();
+				mpVertex[v++] = mTriangles[j].mV[1].Z();
+				mpVertex[v++] = mTriangles[j].mV[2].X();
+				mpVertex[v++] = mTriangles[j].mV[2].Y();
+				mpVertex[v++] = mTriangles[j].mV[2].Z();
 				v -= 9;
 				//法線
-				mpNormal[v++] = mTriangles[j].mN[0].mX;
-				mpNormal[v++] = mTriangles[j].mN[0].mY;
-				mpNormal[v++] = mTriangles[j].mN[0].mZ;
-				mpNormal[v++] = mTriangles[j].mN[1].mX;
-				mpNormal[v++] = mTriangles[j].mN[1].mY;
-				mpNormal[v++] = mTriangles[j].mN[1].mZ;
-				mpNormal[v++] = mTriangles[j].mN[2].mX;
-				mpNormal[v++] = mTriangles[j].mN[2].mY;
-				mpNormal[v++] = mTriangles[j].mN[2].mZ;
+				mpNormal[v++] = mTriangles[j].mN[0].X();
+				mpNormal[v++] = mTriangles[j].mN[0].Y();
+				mpNormal[v++] = mTriangles[j].mN[0].Z();
+				mpNormal[v++] = mTriangles[j].mN[1].X();
+				mpNormal[v++] = mTriangles[j].mN[1].Y();
+				mpNormal[v++] = mTriangles[j].mN[1].Z();
+				mpNormal[v++] = mTriangles[j].mN[2].X();
+				mpNormal[v++] = mTriangles[j].mN[2].Y();
+				mpNormal[v++] = mTriangles[j].mN[2].Z();
 				//テクスチャマッピング
-				mpTextureCoord[t++] = mTriangles[j].mUv[0].mX;
-				mpTextureCoord[t++] = mTriangles[j].mUv[0].mY;
-				mpTextureCoord[t++] = mTriangles[j].mUv[1].mX;
-				mpTextureCoord[t++] = mTriangles[j].mUv[1].mY;
-				mpTextureCoord[t++] = mTriangles[j].mUv[2].mX;
-				mpTextureCoord[t++] = mTriangles[j].mUv[2].mY;
+				mpTextureCoord[t++] = mTriangles[j].mUv[0].X();
+				mpTextureCoord[t++] = mTriangles[j].mUv[0].Y();
+				mpTextureCoord[t++] = mTriangles[j].mUv[1].X();
+				mpTextureCoord[t++] = mTriangles[j].mUv[1].Y();
+				mpTextureCoord[t++] = mTriangles[j].mUv[2].X();
+				mpTextureCoord[t++] = mTriangles[j].mUv[2].Y();
 			}
 		}
 		//頂点数を設定

@@ -67,7 +67,8 @@ void CEnemy2::Update() {
 			new CEffect(mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 		}
 		//‰º~‚³‚¹‚é
-		mPosition.mY -= 0.03f;
+//		mPosition.mY -= 0.03f;
+		mPosition = mPosition - CVector(0.0f, 0.03f, 0.0f);
 		CTransform::Update();	//s—ñXV
 		return;	//ŒÄ‚ÑŒ³‚Ö–ß‚·
 	}
@@ -124,20 +125,24 @@ void CEnemy2::Update() {
 	//¶‰E•ûŒü‚Ö‰ñ“]
 	if (dx > margin)
 	{
-		mRotation.mY += 1.0f;
+//		mRotation.mY += 1.0f;
+		mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
 	}
 	else if (dx < -margin)
 	{
-		mRotation.mY -= 1.0f;
+//		mRotation.mY -= 1.0f;
+		mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
 	}
 	//ã‰º•ûŒü‚Ö‰ñ“]
 	if (dy > margin)
 	{
-		mRotation.mX -= 1.0f;
+//		mRotation.mX -= 1.0f;
+		mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
 	}
 	else if (dy < -margin)
 	{
-		mRotation.mX += 1.0f;
+//		mRotation.mX += 1.0f;
+		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
 	}
 
 	//ˆÚ“®‚·‚é

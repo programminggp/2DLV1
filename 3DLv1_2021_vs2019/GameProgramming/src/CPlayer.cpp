@@ -35,11 +35,13 @@ void CPlayer::Update() {
 	//Aキー入力で回転
 	if (CKey::Push('A')) {
 		//Y軸の回転値を増加
-		mRotation.mY += 1;
+//		mRotation.mY += 1;
+		mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
 	}
 	if (CKey::Push('D')) {
 		//Y軸の回転値を増加
-		mRotation.mY -= 1;
+//		mRotation.mY -= 1;
+		mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
 	}
 	//上矢印キー入力で前進
 	if (CKey::Push(VK_UP)) {
@@ -49,12 +51,14 @@ void CPlayer::Update() {
 	//Sキー入力で上向き
 	if (CKey::Push('S')) {
 		//X軸の回転値を減算
-		mRotation.mX -= 1;
+//		mRotation.mX -= 1;
+		mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
 	}
 	//Wキー入力で上向き
 	if (CKey::Push('W')) {
 		//X軸の回転値を加算
-		mRotation.mX += 1;
+//		mRotation.mX += 1;
+		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
 	}
 
 	if (mFireCount > 0)
@@ -138,13 +142,13 @@ void CPlayer::Render()
 
 	//Y座標の表示
 	//文字列の設定
-	sprintf(buf, "PY:%7.2f", mPosition.mY);
+	sprintf(buf, "PY:%7.2f", mPosition.Y());
 	//文字列の描画
 	mText.DrawString(buf, 100, 30, 8, 16);
 
 	//X軸回転値の表示
 	//文字列の設定
-	sprintf(buf, "RX:%7.2f", mRotation.mX);
+	sprintf(buf, "RX:%7.2f", mRotation.X());
 	//文字列の描画
 	mText.DrawString(buf, 100, 0, 8, 16);
 	//X軸回転値の表示
@@ -157,7 +161,7 @@ void CPlayer::Render()
 
 	//Y軸回転値の表示
 	//文字列の設定
-	sprintf(buf, "RY:%7.2f", mRotation.mY);
+	sprintf(buf, "RY:%7.2f", mRotation.Y());
 	//文字列の描画
 	mText.DrawString(buf, 100, -100, 8, 16);
 

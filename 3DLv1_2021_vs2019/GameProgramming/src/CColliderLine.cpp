@@ -39,8 +39,8 @@ void CColliderLine::Render()
 
 	//三角形描画
 	glBegin(GL_LINES);
-	glVertex3f(mV[0].mX, mV[0].mY, mV[0].mZ);
-	glVertex3f(mV[1].mX, mV[1].mY, mV[1].mZ);
+	glVertex3f(mV[0].X(), mV[0].Y(), mV[0].Z());
+	glVertex3f(mV[1].X(), mV[1].Y(), mV[1].Z());
 	glEnd();
 
 	//ライトオン

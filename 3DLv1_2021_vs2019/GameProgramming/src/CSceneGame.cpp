@@ -76,30 +76,35 @@ void CSceneGame::Update() {
 //çÌèú	CCollisionManager::Get()->Collision();
 	CTaskManager::Get()->TaskCollision();
 
-
 	if (CKey::Push('L'))
 	{
-		mEye.mX += 0.1f;
+//		mEye.mX += 0.1f;
+		mEye = mEye + CVector(0.1f, 0.0f, 0.0f);
 	}
 	if (CKey::Push('J'))
 	{
-		mEye.mX -= 0.1f;
+//		mEye.mX -= 0.1f;
+		mEye = mEye + CVector(-0.1f, 0.0f, 0.0f);
 	}
 	if (CKey::Push('I'))
 	{
-		mEye.mZ -= 0.1f;
+//		mEye.mZ -= 0.1f;
+		mEye = mEye + CVector(0.0f, 0.0f, -0.1f);
 	}
 	if (CKey::Push('K'))
 	{
-		mEye.mZ += 0.1f;
+//		mEye.mZ += 0.1f;
+		mEye = mEye + CVector(0.0f, 0.0f, 0.1f);
 	}
 	if (CKey::Push('O'))
 	{
-		mEye.mY += 0.1f;
+//		mEye.mY += 0.1f;
+		mEye = mEye + CVector(0.0f, 0.1f, 0.0f);
 	}
 	if (CKey::Push('M'))
 	{
-		mEye.mY -= 0.1f;
+//		mEye.mY -= 0.1f;
+		mEye = mEye + CVector(0.0f, -0.1f, 0.0f);
 	}
 
 	//éãì_ÇÃê›íË
@@ -112,14 +117,16 @@ void CSceneGame::Update() {
 	//éãì_ÇãÅÇﬂÇÈ
 	if (CKey::Push(VK_RIGHT))
 	{
-		Camera.mRotation.mY += 2.0f;
+//		Camera.mRotation.mY += 2.0f;
+		Camera.mRotation = Camera.mRotation + CVector(0.0f, 2.0f, 0.0f);
 	}
 	if (CKey::Push(VK_LEFT))
 	{
-		Camera.mRotation.mY -= 2.0f;
+//		Camera.mRotation.mY -= 2.0f;
+		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
 	//	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
-	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.mY) * mPlayer.mMatrix;
+	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.mMatrix;
 	//íçéãì_ÇãÅÇﬂÇÈ
 	c = mPlayer.mPosition;
 	//è„ï˚å¸ÇãÅÇﬂÇÈ

@@ -3,6 +3,21 @@
 #define  _USE_MATH_DEFINES
 #include <math.h>
 
+float CVector::X()
+{
+	return mX;
+}
+
+float CVector::Y()
+{
+	return mY;
+}
+
+float CVector::Z()
+{
+	return mZ;
+}
+
 //Set(XÀ•W, YÀ•W, ZÀ•W)
 void CVector::Set(float x, float y, float z)
 {

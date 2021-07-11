@@ -35,7 +35,7 @@ void CCollider::Render() {
 	//自分の座標×親の変換行列を掛ける
 	CVector pos = mPosition * *mpMatrix;
 	//中心座標へ移動
-	glMultMatrixf(CMatrix().Translate(pos.mX, pos.mY, pos.mZ).mM[0]);
+	glMultMatrixf(CMatrix().Translate(pos.X(), pos.Y(), pos.Z()).mM[0]);
 	//DIFFUSE赤色設定
 	float c[] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);

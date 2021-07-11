@@ -46,7 +46,8 @@ void CEnemy::Update() {
 			new CEffect(mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 		}
 		//â∫ç~Ç≥ÇπÇÈ
-		mPosition.mY -= 0.03f;
+//		mPosition.mY -= 0.03f;
+		mPosition = mPosition - CVector(0.0f, 0.03f, 0.0f);
 		CTransform::Update();	//çsóÒçXêV
 		return;	//åƒÇ—å≥Ç÷ñﬂÇ∑
 	}
