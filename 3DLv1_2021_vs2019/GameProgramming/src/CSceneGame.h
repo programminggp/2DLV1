@@ -18,7 +18,7 @@
 ゲームのシーン
 */
 class CSceneGame : public CScene {
-public:
+
 	CText mText;
 
 	//モデルからコライダを生成
@@ -37,6 +37,8 @@ public:
 	CPlayer mPlayer;
 
 	CVector mEye;
+
+public:
 	//初期化処理のオーバーライド
 	void Init();
 	//更新処理のオーバーライド

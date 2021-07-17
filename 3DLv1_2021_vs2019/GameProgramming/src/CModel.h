@@ -10,21 +10,21 @@
 モデルデータの入力や表示
 */
 class CModel {
-public:
+private:
 	//頂点配列
-	float *mpVertex; //頂点座標
-	float *mpNormal; //法線
-	float *mpTextureCoord; //テクスチャマッピング
-	//デフォルトコンストラクタ
-	CModel();
-
+	float* mpVertex; //頂点座標
+	float* mpNormal; //法線
+	float* mpTextureCoord; //テクスチャマッピング
 	//三角形の可変長配列
 	std::vector<CTriangle> mTriangles;
 	//マテリアルポインタの可変長配列
 	std::vector<CMaterial*> mpMaterials;
 	//テクスチャマッピングの保存(CVector型)
 	std::vector<CVector> uv;
+public:
 
+	//デフォルトコンストラクタ
+	CModel();
 	~CModel();
 
 	//モデルファイルの入力
@@ -36,6 +36,7 @@ public:
 	//Render(行列)
 	void Render(const CMatrix &m);
 
+	std::vector<CTriangle> Triangles() const;
 };
 
 #endif

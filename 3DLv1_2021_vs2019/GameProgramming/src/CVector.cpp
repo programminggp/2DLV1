@@ -37,7 +37,7 @@ CVector::CVector(float x, float y, float z)
 }
 
 //CVector * CMatrixの結果をCVectorで返す
-CVector CVector::operator*(const CMatrix &m)
+CVector CVector::operator*(const CMatrix &m) const
 {
 	//掛け算の結果をCVector型の値で返す
 	return CVector(
@@ -47,44 +47,49 @@ CVector CVector::operator*(const CMatrix &m)
 		);
 }
 
-//-演算しのオーバーロード
+//-演算子のオーバーロード
 //CVector - CVector の演算結果を返す
-CVector CVector::operator-(const CVector &v) {
+CVector CVector::operator-(const CVector &v) const
+{
 	return CVector(mX - v.mX, mY - v.mY, mZ - v.mZ);
 }
 
 //ベクトルの長さを返す
-float CVector::Length() {
+float CVector::Length() const {
 	return sqrtf(mX * mX + mY * mY + mZ * mZ);
 }
 //内積
-float CVector::Dot(const CVector &v) {
+float CVector::Dot(const CVector &v) const 
+{
 	return mX*v.mX + mY*v.mY + mZ * v.mZ;
 }
 
-CVector CVector::Normalize() {
+CVector CVector::Normalize() const 
+{
 	//ベクトルの大きさで割ったベクトルを返す（長さ1のベクトル）
 	return *this * (1.0f / Length());
 }
 //外積
-CVector CVector::Cross(const CVector &v) {
+CVector CVector::Cross(const CVector &v) const 
+{
 	return CVector(mY*v.mZ - mZ*v.mY, mZ*v.mX - mX*v.mZ, mX*v.mY - mY*v.mX);
 }
 //*演算子のオーバーロード
 //CVector * float の演算結果を返す
-CVector CVector::operator*(const float &f) {
+CVector CVector::operator*(const float &f) const 
+{
 	return CVector(mX * f, mY * f, mZ * f);
 }
-//+演算しのオーバーロード
+//+演算子のオーバーロード
 //CVector + CVector の演算結果を返す
-CVector CVector::operator+(const CVector &v)
+CVector CVector::operator+(const CVector &v) const
 {
 	return CVector(mX + v.mX, mY + v.mY, mZ + v.mZ);
 }
 
 //Y軸での回転角度の取得
 //度度を返す（Z軸＋が0度）
-float CVector::GetRotationY()
+float CVector::GetRotationY() const
 {
 	//ラジアンを°に変換して返す
 	return atan2(mX,mZ) * 180.0f / M_PI;
@@ -93,7 +98,7 @@ float CVector::GetRotationY()
 //X軸での回転角度の取得
 //度度を返す（Z軸＋が0度）
 //GetRotationX(Y軸方向)
-float CVector::GetRotationX(CVector& ay)
+float CVector::GetRotationX(CVector& ay) const
 {
 	CVector z = this->Normalize();
 	CVector y = ay.Normalize();

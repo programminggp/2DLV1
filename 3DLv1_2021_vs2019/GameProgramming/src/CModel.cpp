@@ -305,3 +305,8 @@ void CModel::Render(const CMatrix &m)
 	return;
 }
 
+std::vector<CTriangle> CModel::Triangles() const
+{
+	return mTriangles;
+}
+

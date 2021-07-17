@@ -25,34 +25,34 @@ public:
 	//CVector(X座標, Y座標, Z座標)
 	CVector(float x, float y, float z);
 	//CVector * CMatrixの結果をCVectorで返す
-	CVector operator*(const CMatrix &m);
+	CVector operator*(const CMatrix &m) const;
 	//-演算子のオーバーロード
 	//CVector - CVector の演算結果を返す
-	CVector operator-(const CVector &v);
+	CVector operator-(const CVector &v) const;
 	//ベクトルの長さを返す
-	float Length();
+	float Length() const;
 	//内積
 	//Dot(ベクトル)
-	float Dot(const CVector &v);
+	float Dot(const CVector &v) const;
 	//外積
 	//Cross(ベクトル)
-	CVector Cross(const CVector &v);
+	CVector Cross(const CVector &v) const;
 	//*演算子のオーバーロード
 	//CVector * float の演算結果を返す
-	CVector operator*(const float &f);
+	CVector operator*(const float &f) const;
 	//正規化
 	//大きさ1のベクトルを返す
-	CVector Normalize();
+	CVector Normalize() const;
 	//+演算子のオーバーロード
 	//CVector + CVector の演算結果を返す
-	CVector operator+(const CVector &v);
+	CVector operator+(const CVector &v) const;
 	//Y軸での回転角度の取得
 	//度度を返す（Z軸＋が0度）
-	float GetRotationY();
+	float GetRotationY() const;
 	//X軸での回転角度の取得
 	//度度を返す（Z軸＋が0度）
 	//GetRotationX(Y軸方向)
-	float GetRotationX(CVector& y);
+	float GetRotationX(CVector& y) const;
 
 };
 #endif

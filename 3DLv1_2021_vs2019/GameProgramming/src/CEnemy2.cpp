@@ -26,7 +26,7 @@ CEnemy2::CEnemy2()
 	mColSearch.mTag = CCollider::ESEARCH;	//ƒ^ƒOİ’è
 
 	//ƒ‚ƒfƒ‹‚ª–³‚¢‚Æ‚«‚Í“Ç‚İ‚Ş
-	if (mModel.mTriangles.size() == 0)
+	if (mModel.Triangles().size() == 0)
 	{
 		mModel.Load(OBJ, MTL);
 	}
