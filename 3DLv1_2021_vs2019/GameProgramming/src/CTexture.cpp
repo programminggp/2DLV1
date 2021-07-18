@@ -226,6 +226,26 @@ void CTexture::DrawImage(float left, float right, float bottom, float top, int i
 		mHeader.height * row / mRow);
 }
 
+int CTexture::Row()
+{
+	return mRow;
+}
+
+int CTexture::Col()
+{
+	return mCol;
+}
+
+const STgamHeader& CTexture::Header() const
+{
+	return mHeader;
+}
+
+const GLuint& CTexture::Id() const
+{
+	return mId;
+}
+
 //s”—ñ”‚Ìİ’è
 //SetRowCol(s”, —ñ”)
 void CTexture::SetRowCol(int row , int col) {

@@ -17,10 +17,10 @@ struct STgamHeader {
 //#include <map>
 
 class CTexture {
+private:
 //	static std::map<std::string, CTexture>mTexFile;
 	//ファイル名
 	char* mpName;
-public:
 	//TGAファイルのヘッダ情報
 	STgamHeader mHeader;
 	//テクスチャID
@@ -28,6 +28,11 @@ public:
 	//
 	int mRow;//行数
 	int mCol;//列数
+public:
+	int Row();
+	int Col();
+	const STgamHeader& Header() const;
+	const GLuint& Id() const;
 	//行数列数の設定
 	//SetRowCol(行数, 列数)
 	void SetRowCol(int row = 1, int col = 1);

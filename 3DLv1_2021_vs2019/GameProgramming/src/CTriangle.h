@@ -12,8 +12,10 @@ private:
 	CVector mV[3]; //頂点座標
 	CVector mN[3]; //法線
 	CVector mUv[3]; //テクスチャマッピング
-public:
 	int mMaterialIdx; //マテリアル番号
+public:
+	void MaterialIdx(int idx);
+	int MaterialIdx();
 	//頂点座標を得る
 	const CVector& V0() const;
 	const CVector& V1() const;

@@ -51,7 +51,7 @@ void CModel::Load(char *obj, char *mtl) {
 		if (strcmp(str[0], "newmtl") == 0) {
 			CMaterial *pm = new CMaterial();
 			//マテリアル名のコピー
-			strncpy(pm->mName, str[1], sizeof(pm->mName) - 1);
+			strncpy(pm->Name(), str[1], MATERIAL_NAME_LEN - 1);
 			//マテリアルの可変長配列に追加
 			mpMaterials.push_back(pm);
 			//配列の長さを取得
@@ -59,13 +59,13 @@ void CModel::Load(char *obj, char *mtl) {
 		}
 		//先頭がKdの時、Diffuseを設定する
 		else if (strcmp(str[0], "Kd") == 0) {
-			mpMaterials[idx]->mDiffuse[0] = atof(str[1]);
-			mpMaterials[idx]->mDiffuse[1] = atof(str[2]);
-			mpMaterials[idx]->mDiffuse[2] = atof(str[3]);
+			mpMaterials[idx]->Diffuse()[0] = atof(str[1]);
+			mpMaterials[idx]->Diffuse()[1] = atof(str[2]);
+			mpMaterials[idx]->Diffuse()[2] = atof(str[3]);
 		}
 		//先頭がdの時、α値を設定する
 		else if (strcmp(str[0], "d") == 0) {
-			mpMaterials[idx]->mDiffuse[3] = atof(str[1]);
+			mpMaterials[idx]->Diffuse()[3] = atof(str[1]);
 		}
 		//先頭がmap_Kdの時、テクスチャを読み込む
 		else if (strcmp(str[0], "map_Kd") == 0) {
@@ -127,7 +127,8 @@ void CModel::Load(char *obj, char *mtl) {
 				t.SetVertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
 				t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
 				//マテリアル番号の設定
-				t.mMaterialIdx = idx;
+//				t.mMaterialIdx = idx;
+				t.MaterialIdx(idx);
 				//可変長配列mTrianglesに三角形を追加
 				mTriangles.push_back(t);
 			}
@@ -148,7 +149,8 @@ void CModel::Load(char *obj, char *mtl) {
 				//t.mUv[2] = uv[u[2] - 1];
 				t.SetUv(uv[u[0] - 1], uv[u[1] - 1], uv[u[2] - 1]);
 				//マテリアル番号の設定
-				t.mMaterialIdx = idx;
+//				t.mMaterialIdx = idx;
+				t.MaterialIdx(idx);
 				//可変長配列mTrianglesに三角形を追加
 				mTriangles.push_back(t);
 			}
@@ -158,7 +160,7 @@ void CModel::Load(char *obj, char *mtl) {
 			//可変長配列を後から比較
 			for (idx = mpMaterials.size() - 1; idx > 0; idx--) {
 				//同じ名前のマテリアルがあればループ終了
-				if (strcmp(mpMaterials[idx]->mName, str[1]) == 0) {
+				if (strcmp(mpMaterials[idx]->Name(), str[1]) == 0) {
 					break; //ループから出る
 				}
 			}
@@ -188,7 +190,7 @@ void CModel::Load(char *obj, char *mtl) {
 		//全ての三角形を比較
 		for (int j = 0; j < mTriangles.size(); j++) {
 			//マテリアル番号が一致する時
-			if (i == mTriangles[j].mMaterialIdx) {
+			if (i == mTriangles[j].MaterialIdx()) {
 				//頂点配列に設定する
 				//頂点座標
 				mpVertex[v++] = mTriangles[j].V0().X();
@@ -221,7 +223,8 @@ void CModel::Load(char *obj, char *mtl) {
 			}
 		}
 		//頂点数を設定
-		mpMaterials[i]->mVertexNum = v / 3;
+//		mpMaterials[i]->mVertexNum = v / 3;
+		mpMaterials[i]->VertexNum(v / 3);
 	}
 
 }
@@ -231,11 +234,11 @@ void CModel::Render() {
 	//可変長配列の要素数だけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
 		//マテリアルの適用
-		mpMaterials[mTriangles[i].mMaterialIdx]->Enabled();
+		mpMaterials[mTriangles[i].MaterialIdx()]->Enabled();
 		//可変長配列に添え字でアクセスする
 		mTriangles[i].Render();
 		//マテリアルを無効
-		mpMaterials[mTriangles[i].mMaterialIdx]->Disabled();
+		mpMaterials[mTriangles[i].MaterialIdx()]->Disabled();
 	}
 }
 
@@ -286,11 +289,11 @@ void CModel::Render(const CMatrix &m)
 		//マテリアルを適用する
 		mpMaterials[i]->Enabled();
 		//描画位置からのデータで三角形を描画します
-		glDrawArrays(GL_TRIANGLES, first, mpMaterials[i]->mVertexNum - first);
+		glDrawArrays(GL_TRIANGLES, first, mpMaterials[i]->VertexNum() - first);
 		//マテリアルを無効にする
 		mpMaterials[i]->Disabled();
 		//描画位置を移動
-		first = mpMaterials[i]->mVertexNum;
+		first = mpMaterials[i]->VertexNum();
 	}
 	//行列を戻す
 	glPopMatrix();

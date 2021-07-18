@@ -28,8 +28,7 @@ void CBillBoard::Set(CVector pos, float w, float h) {
 	mT[0].SetNormal(CVector(0.0f, 0.0f, 1.0f));
 	mT[1].SetNormal(CVector(0.0f, 0.0f, 1.0f));
 	//色を白色を設定
-	mMaterial.mDiffuse[0] = mMaterial.mDiffuse[1] =
-		mMaterial.mDiffuse[2] = mMaterial.mDiffuse[3] = 1.0f;
+	mMaterial.Diffuse(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
 
@@ -62,7 +61,8 @@ void CBillBoard::Render(CMaterial *mpMaterial) {
 	//ライトオフ
 	glDisable(GL_LIGHTING);
 	//描画色の設定
-	glColor4fv(mpMaterial->mDiffuse);
+//	glColor4fv(mpMaterial->mDiffuse);
+	glColor4fv(mpMaterial->Diffuse());
 	//マテリアル適用
 	mpMaterial->Enabled();
 	//三角形の描画

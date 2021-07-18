@@ -6,11 +6,14 @@ CEffect::CEffect(const CVector &pos, float w, float h, char *texture, int row, i
 : CBillBoard(pos, w, h), mRows(row), mCols(col), mFps(fps), mFrame(0)
 {
 	//テクスチャを読んでない場合は読む
-	if (sMaterial.mTexture.mId == 0)
+//	if (sMaterial.mTexture.mId == 0)
+	if (sMaterial.Texture().Id() == 0)
 	{
-		sMaterial.mTexture.Load(texture);
-		sMaterial.mDiffuse[0] = sMaterial.mDiffuse[1] =
-			sMaterial.mDiffuse[2] = sMaterial.mDiffuse[3] = 1.0f;
+//		sMaterial.mTexture.Load(texture);
+		sMaterial.Texture().Load(texture);
+		//sMaterial.mDiffuse[0] = sMaterial.mDiffuse[1] =
+		//	sMaterial.mDiffuse[2] = sMaterial.mDiffuse[3] = 1.0f;
+		sMaterial.Diffuse(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 }
 

@@ -3,6 +3,39 @@
 #include <string.h>
 #include "glut.h"
 
+void CMaterial::Diffuse(float r, float g, float b, float a)
+{
+	mDiffuse[0] = r;
+	mDiffuse[1] = g;
+	mDiffuse[2] = b;
+	mDiffuse[3] = a;
+}
+
+void CMaterial::VertexNum(int num)
+{
+	mVertexNum = num;
+}
+
+int CMaterial::VertexNum()
+{
+	return mVertexNum;
+}
+
+float* CMaterial::Diffuse()
+{
+	return mDiffuse;
+}
+
+char* CMaterial::Name()
+{
+	return mName;
+}
+
+CTexture& CMaterial::Texture()
+{
+	return mTexture;
+}
+
 //デフォルトコンストラクタ
 CMaterial::CMaterial()
 :mVertexNum(0)
@@ -18,12 +51,12 @@ void CMaterial::Enabled() {
 	//拡散光の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
 	//テクスチャ有り
-	if (mTexture.mId)
+	if (mTexture.Id())
 	{
 		//テクスチャを使用可能にする
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
-		glBindTexture(GL_TEXTURE_2D, mTexture.mId);
+		glBindTexture(GL_TEXTURE_2D, mTexture.Id());
 		//アルファブレンドを有効にする
 		glEnable(GL_BLEND);
 		//ブレンド方法を指定
@@ -40,7 +73,7 @@ void CMaterial::LoadTexture(char *file)
 void CMaterial::Disabled()
 {
 	//テクスチャ有り
-	if (mTexture.mId)
+	if (mTexture.Id())
 	{
 		//アルファブレンドを無効
 		glDisable(GL_BLEND);
