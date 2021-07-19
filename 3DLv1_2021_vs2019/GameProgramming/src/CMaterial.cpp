@@ -26,9 +26,17 @@ float* CMaterial::Diffuse()
 	return mDiffuse;
 }
 
+//マテリアルの名前の取得
 char* CMaterial::Name()
 {
 	return mName;
+}
+
+//マテリアルの名前を設定する
+//Name(マテリアルの名前)
+void CMaterial::Name(char* name)
+{
+	strncpy(mName, name, MATERIAL_NAME_LEN - 1);
 }
 
 CTexture& CMaterial::Texture()

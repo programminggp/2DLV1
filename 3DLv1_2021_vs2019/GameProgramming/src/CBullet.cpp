@@ -12,9 +12,9 @@ void CBullet::Set(float w, float d) {
 	//スケール設定
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	//三角形の頂点設定→3
-	mT.SetVertex(CVector(w, 0.0f, 0.0f), CVector(0.0f, 0.0f, -d), CVector(-w, 0.0f, 0.0f));
+	mT.Vertex(CVector(w, 0.0f, 0.0f), CVector(0.0f, 0.0f, -d), CVector(-w, 0.0f, 0.0f));
 	//三角形の法線設定
-	mT.SetNormal(CVector(0.0f, 1.0f, 0.0f));
+	mT.Normal(CVector(0.0f, 1.0f, 0.0f));
 }
 
 //更新

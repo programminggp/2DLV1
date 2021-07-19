@@ -57,20 +57,20 @@ void CTriangle::SetUv(const CVector& v0, const CVector& v1, const CVector& v2)
 }
 
 //頂点座標設定
-//SetVertex(頂点1, 頂点2, 頂点3)
-void CTriangle::SetVertex(const CVector &v0, const CVector &v1, const CVector &v2) {
+//Vertex(頂点1, 頂点2, 頂点3)
+void CTriangle::Vertex(const CVector &v0, const CVector &v1, const CVector &v2) {
 	mV[0] = v0;
 	mV[1] = v1;
 	mV[2] = v2;
 }
 
 //法線設定
-//SetNormal(法線ベクトル)
-void CTriangle::SetNormal(const CVector &n) {
+//Normal(法線ベクトル)
+void CTriangle::Normal(const CVector &n) {
 	mN[0] = mN[1] = mN[2] = n;
 }
-//SetNormal(法線ベクトル1, 法線ベクトル2, 法線ベクトル3)
-void CTriangle::SetNormal(const CVector &v0, const CVector &v1, const CVector &v2) {
+//Normal(法線ベクトル1, 法線ベクトル2, 法線ベクトル3)
+void CTriangle::Normal(const CVector &v0, const CVector &v1, const CVector &v2) {
 	mN[0] = v0;
 	mN[1] = v1;
 	mN[2] = v2;

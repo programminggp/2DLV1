@@ -22,8 +22,13 @@ public:
 	void Diffuse(float r, float g, float b, float a);
 	void VertexNum(int num);
 	int VertexNum();
+	//mDiffuse配列の取得
 	float* Diffuse();
+	//マテリアルの名前の取得
 	char* Name();
+	//マテリアルの名前を設定する
+	//Name(マテリアルの名前)
+	void Name(char* name);
 	CTexture& Texture();
 	//デフォルトコンストラクタ
 	CMaterial();

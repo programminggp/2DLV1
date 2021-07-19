@@ -20,13 +20,13 @@ void CBillBoard::Set(CVector pos, float w, float h) {
 //	mScale.mY = h;
 	mScale.Set(w, h, 0.0f);
 	//三角形の頂点座標設定
-	mT[0].SetVertex(CVector(1.0f, 1.0f, 0.0f),
+	mT[0].Vertex(CVector(1.0f, 1.0f, 0.0f),
 		CVector(-1.0f, -1.0f, 0.0f), CVector(1.0f, -1.0f, 0.0f));
-	mT[1].SetVertex(CVector(-1.0f, 1.0f, 0.0f),
+	mT[1].Vertex(CVector(-1.0f, 1.0f, 0.0f),
 		CVector(-1.0f, -1.0f, 0.0f), CVector(1.0f, 1.0f, 0.0f));
 	//法線をZ軸方向
-	mT[0].SetNormal(CVector(0.0f, 0.0f, 1.0f));
-	mT[1].SetNormal(CVector(0.0f, 0.0f, 1.0f));
+	mT[0].Normal(CVector(0.0f, 0.0f, 1.0f));
+	mT[1].Normal(CVector(0.0f, 0.0f, 1.0f));
 	//色を白色を設定
 	mMaterial.Diffuse(1.0f, 1.0f, 1.0f, 1.0f);
 }

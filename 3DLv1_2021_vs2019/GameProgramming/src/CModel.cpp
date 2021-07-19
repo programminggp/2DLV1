@@ -50,8 +50,8 @@ void CModel::Load(char *obj, char *mtl) {
 		//先頭がnewmtlの時、マテリアルを追加する
 		if (strcmp(str[0], "newmtl") == 0) {
 			CMaterial *pm = new CMaterial();
-			//マテリアル名のコピー
-			strncpy(pm->Name(), str[1], MATERIAL_NAME_LEN - 1);
+			//マテリアル名の設定
+			pm->Name(str[1]);
 			//マテリアルの可変長配列に追加
 			mpMaterials.push_back(pm);
 			//配列の長さを取得
@@ -124,8 +124,8 @@ void CModel::Load(char *obj, char *mtl) {
 				sscanf(str[3], "%d//%d", &v[2], &n[2]);
 				//三角形作成
 				CTriangle t;
-				t.SetVertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
-				t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
+				t.Vertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
+				t.Normal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
 				//マテリアル番号の設定
 //				t.mMaterialIdx = idx;
 				t.MaterialIdx(idx);
@@ -141,16 +141,16 @@ void CModel::Load(char *obj, char *mtl) {
 				sscanf(str[3], "%d/%d/%d", &v[2], &u[2], &n[2]);
 				//三角形作成
 				CTriangle t;
-				t.SetVertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
-				t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
+				t.Vertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
+				t.Normal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
 				//テクスチャマッピングの設定
 				//t.mUv[0] = uv[u[0] - 1];
 				//t.mUv[1] = uv[u[1] - 1];
 				//t.mUv[2] = uv[u[2] - 1];
 				t.SetUv(uv[u[0] - 1], uv[u[1] - 1], uv[u[2] - 1]);
 				//マテリアル番号の設定
-//				t.mMaterialIdx = idx;
 				t.MaterialIdx(idx);
+				//t.mMaterialIdx = idx;
 				//可変長配列mTrianglesに三角形を追加
 				mTriangles.push_back(t);
 			}

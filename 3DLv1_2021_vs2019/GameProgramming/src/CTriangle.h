@@ -14,8 +14,11 @@ private:
 	CVector mUv[3]; //テクスチャマッピング
 	int mMaterialIdx; //マテリアル番号
 public:
-	void MaterialIdx(int idx);
+	//マテリアル番号の取得
 	int MaterialIdx();
+	//マテリアル番号の設定
+	//Material(マテリアル番号)
+	void MaterialIdx(int idx);
 	//頂点座標を得る
 	const CVector& V0() const;
 	const CVector& V1() const;
@@ -32,13 +35,13 @@ public:
 	//SetUV(const CVector &v0, const CVector &v1, const CVector &v2)
 	void SetUv(const CVector& v0, const CVector& v1, const CVector& v2);
 	//頂点座標設定
-	//SetVertex(頂点1, 頂点2, 頂点3)
-	void SetVertex(const CVector &v0, const CVector &v1, const CVector &v2);
+	//Vertex(頂点1, 頂点2, 頂点3)
+	void Vertex(const CVector &v0, const CVector &v1, const CVector &v2);
 	//法線設定
-	//SetNormal(法線ベクトル)
-	void SetNormal(const CVector &n);
-	//SetNormal(法線ベクトル1, 法線ベクトル2, 法線ベクトル3)
-	void SetNormal(const CVector &v0, const CVector &v1, const CVector &v2);
+	//Normal(法線ベクトル)
+	void Normal(const CVector &n);
+	//Normal(法線ベクトル1, 法線ベクトル2, 法線ベクトル3)
+	void Normal(const CVector &v0, const CVector &v1, const CVector &v2);
 	//描画
 	void Render();
 	//描画
