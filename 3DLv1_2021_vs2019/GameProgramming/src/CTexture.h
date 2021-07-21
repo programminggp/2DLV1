@@ -5,12 +5,13 @@
 TGAファイルのヘッダフォーマット
 */
 struct STgamHeader {
-	unsigned char	dummy1[12];
-	unsigned short	width;	//幅
-	unsigned short	height;	//高さ
-	unsigned char	depth;	//ビットの深さ
+	unsigned char dummy1[12];
+	int	width;	//幅
+	int	height;	//高さ
+	int	depth;	//ビットの深さ
 	unsigned char	discripter;
 };
+
 /*
 テクスチャークラス
 */
