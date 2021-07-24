@@ -52,7 +52,7 @@ void CMatrix::M(int r, int c, float f)
 CMatrix CMatrix::Scale(float sx, float sy, float sz)
 {
 	//単位行列にする
-//	Identity();
+	Identity();
 	mM[0][0] = sx;
 	mM[1][1] = sy;
 	mM[2][2] = sz;
@@ -71,7 +71,7 @@ CMatrix CMatrix::RotateY(float degree) {
 	//角度からラジアンを求める
 	float rad = degree / 180.0f * M_PI;
 	//単位行列にする
-//	Identity();
+	Identity();
 	//Y軸で回転する行列の設定
 	mM[0][0] = mM[2][2] = cosf(rad);
 	mM[0][2] = -sinf(rad);
@@ -87,7 +87,7 @@ CMatrix CMatrix::RotateZ(float degree)
 	//角度からラジアンを求める
 	float rad = degree / 180.0f * M_PI;
 	//単位行列にする
-//	Identity();
+	Identity();
 	//Y軸で回転する行列の設定
 	mM[0][0] = mM[1][1] = cosf(rad);
 	mM[0][1] = sinf(rad);
@@ -102,7 +102,7 @@ CMatrix CMatrix::RotateX(float degree)
 	//角度からラジアンを求める
 	float rad = degree / 180.0f * M_PI;
 	//単位行列にする
-//	Identity();
+	Identity();
 	//Y軸で回転する行列の設定
 	mM[2][2] = mM[1][1] = cosf(rad);
 	mM[1][2] = sinf(rad);
@@ -114,7 +114,7 @@ CMatrix CMatrix::RotateX(float degree)
 //Translate(移動量X, 移動量Y, 移動量Z)
 CMatrix CMatrix::Translate(float mx, float my, float mz) {
 	//単位行列にする
-//	Identity();
+	Identity();
 	//Y軸で回転する行列の設定
 	mM[3][0] = mx;
 	mM[3][1] = my;

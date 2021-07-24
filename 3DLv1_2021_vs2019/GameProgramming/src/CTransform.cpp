@@ -1,5 +1,38 @@
 #include "CTransform.h"
 
+const CVector& CTransform::Position() const
+{
+	return mPosition;
+}
+
+void CTransform::Position(const CVector& v)
+{
+//	mPosition.Set(v.X(), v.Y(), v.Z());
+	mPosition.Set(v);
+}
+
+void CTransform::Rotation(const CVector& v)
+{
+//	mRotation.Set(v.X(), v.Y(), v.Z());
+	mRotation.Set(v);
+}
+
+void CTransform::Scale(const CVector& v)
+{
+//	mScale.Set(v.X(), v.Y(), v.Z());
+	mScale.Set(v);
+}
+
+const CMatrix& CTransform::Matrix() const
+{
+	return mMatrix;
+}
+
+const CMatrix& CTransform::MatrixRotate() const
+{
+	return mMatrixRotate;
+}
+
 //行列更新処理
 void CTransform::Update() {
 	//拡大縮小行列の設定

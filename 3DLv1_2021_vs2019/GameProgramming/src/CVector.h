@@ -13,6 +13,7 @@ public:
 	//各軸での値の設定
 	//Set(X座標, Y座標, Z座標)
 	void Set(float x, float y, float z);
+	void Set(const CVector& v);
 	//Xの値を得る
 	float X() const;
 	//Yの値を得る

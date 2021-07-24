@@ -47,11 +47,11 @@ void CSceneGame::Init() {
 	//
 
 	mPlayer.mpModel = &mModel;
-	mPlayer.mScale = CVector(0.1f, 0.1f, 0.1f);
+	mPlayer.Scale(CVector(0.1f, 0.1f, 0.1f));
 	//
-	mPlayer.mPosition = CVector(0.0f, 0.0f, -3.0f) * mBackGroundMatrix;
+	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f) * mBackGroundMatrix);
 	//mPlayer.mPosition = CVector(0.0f, 0.0f, -503.0f);
-	mPlayer.mRotation = CVector(0.0f, 180.0f, 0.0f);
+	mPlayer.Rotation(CVector(0.0f, 180.0f, 0.0f));
 
 	//敵機のインスタンス作成
 	new CEnemy(&mModelC5, CVector(0.0f, 10.0f, -100.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
@@ -130,11 +130,11 @@ void CSceneGame::Update() {
 		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
 	//	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
-	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.mMatrix;
+	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
 	//注視点を求める
-	c = mPlayer.mPosition;
+	c = mPlayer.Position();
 	//上方向を求める
-	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.mMatrixRotate;
+	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
 	//カメラの設定
 	//gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 	//カメラクラスの設定

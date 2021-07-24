@@ -91,7 +91,7 @@ void CEnemy2::Update() {
 		if (mpPlayer)
 		{
 			//プレイヤーまでのベクトルを求める
-			CVector vp = mpPlayer->mPosition - mPosition;
+			CVector vp = mpPlayer->Position() - mPosition;
 			float dx = vp.Dot(vx);	//左ベクトルとの内積を求める
 			float dy = vp.Dot(vy);	//上ベクトルとの内積を求める
 			float dz = vp.Dot(vz);
@@ -108,8 +108,8 @@ void CEnemy2::Update() {
 						//弾を発射します
 						CBullet *bullet = new CBullet();
 						bullet->Set(0.1f, 1.5f);
-						bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
-						bullet->mRotation = mRotation;
+						bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
+						bullet->Rotation(mRotation);
 						bullet->Update();
 					}
 				}
@@ -157,7 +157,7 @@ void CEnemy2::Update() {
 	{
 		if (mpPlayer)
 		{
-			mPoint = mpPlayer->mPosition;
+			mPoint = mpPlayer->Position();
 		}
 		else
 		{
@@ -202,7 +202,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		//コライダのmとyが衝突しているか判定
 		if (CCollider::Collision(m, o)) {
 			//エフェクト生成
-			new CEffect(o->mpParent->mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+			new CEffect(o->mpParent->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 			mHp--;	//ヒットポイントの減算
 		}
 		break;
@@ -248,7 +248,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 				//コライダのmとyが衝突しているか判定
 				if (CCollider::Collision(m, o)) {
 					//エフェクト生成
-					new CEffect(o->mpParent->mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+					new CEffect(o->mpParent->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 				}
 			}
 			break;
@@ -285,7 +285,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 				break;
 			default:
 				//エフェクト生成
-				new CEffect(o->mpParent->mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+				new CEffect(o->mpParent->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 			}
 		}
 		break;

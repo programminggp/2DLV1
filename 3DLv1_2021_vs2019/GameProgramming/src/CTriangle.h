@@ -14,6 +14,7 @@ private:
 	CVector mUv[3]; //テクスチャマッピング
 	int mMaterialIdx; //マテリアル番号
 public:
+	CTriangle();
 	//マテリアル番号の取得
 	int MaterialIdx();
 	//マテリアル番号の設定

@@ -71,8 +71,8 @@ void CPlayer::Update() {
 		mFireCount = FIRECOUNT;
 		CBullet *bullet = new CBullet();
 		bullet->Set(0.1f, 1.5f);
-		bullet->mPosition = CVector(0.0f, 0.0f, 10.0f) * mMatrix;
-		bullet->mRotation = mRotation;
+		bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
+		bullet->Rotation(mRotation);
 		bullet->Update();
 //		TaskManager.Add(bullet);
 	}
@@ -107,7 +107,7 @@ void CPlayer::Collision(CCollider *m, CCollider *o) {
 			if (CCollider::Collision(m, o))
 			{
 				//エフェクト生成
-				new CEffect(o->mpParent->mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+				new CEffect(o->mpParent->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 			}
 		}
 		break;

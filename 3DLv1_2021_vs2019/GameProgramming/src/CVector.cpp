@@ -25,6 +25,13 @@ void CVector::Set(float x, float y, float z)
 	mY = y;
 	mZ = z;
 }
+void CVector::Set(const CVector& v)
+{
+	*this = v;
+	//mX = v.mX;
+	//mY = v.mY;
+	//mZ = v.mZ;
+}
 //デフォルトコンストラクタ
 CVector::CVector()
 : mX(0.0f), mY(0.0f), mZ(0.0f)
