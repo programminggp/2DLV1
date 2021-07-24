@@ -1,13 +1,16 @@
 #ifndef CMATRIX_H
 #define CMATRIX_H
+class CVector;
 /*
 マトリクスクラス
 4行4列の行列データを扱います
 */
 class CMatrix {
-public:
+	//friend CVector; //フレンドクラスの設定
+private:
 	//4×4の行列データを設定
 	float mM[4][4];
+public:
 	//表示確認用
 	//4×4の行列を画面出力
 	void Print();
@@ -15,6 +18,14 @@ public:
 	CMatrix();
 	//単位行列の作成
 	CMatrix Identity();
+	//行列の取得
+	float* M() const;
+	//行列値の取得
+	//M(行数, 列数)
+	float M(int r, int c) const;
+	//行列値の設定
+	//M(行数, 列数, 値)
+	void M(int r, int c, float f);
 	//拡大縮小行列の作成
 	//Scale(倍率X, 倍率Y, 倍率Z)
 	CMatrix Scale(float sx, float sy, float sz);

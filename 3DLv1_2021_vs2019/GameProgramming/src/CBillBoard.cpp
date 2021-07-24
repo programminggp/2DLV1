@@ -57,7 +57,7 @@ void CBillBoard::Render(CMaterial *mpMaterial) {
 	//行列の保存
 	glPushMatrix();
 	//拡縮、回転、移動させる
-	glMultMatrixf(mMatrix.mM[0]);
+	glMultMatrixf(mMatrix.M());
 	//ライトオフ
 	glDisable(GL_LIGHTING);
 	//描画色の設定

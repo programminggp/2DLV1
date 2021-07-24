@@ -24,7 +24,7 @@ void CColliderTriangle::Render()
 	//行列退避
 	glPushMatrix();
 	//行列適用
-	glMultMatrixf(mpMatrix->mM[0]);
+	glMultMatrixf(mpMatrix->M());
 
 	//アルファブレンドを有効にする
 	glEnable(GL_BLEND);

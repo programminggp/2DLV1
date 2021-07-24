@@ -41,9 +41,9 @@ CVector CVector::operator*(const CMatrix &m) const
 {
 	//Š|‚¯ŽZ‚ÌŒ‹‰Ê‚ðCVectorŒ^‚Ì’l‚Å•Ô‚·
 	return CVector(
-		mX * m.mM[0][0] + mY * m.mM[1][0] + mZ * m.mM[2][0] + m.mM[3][0],
-		mX * m.mM[0][1] + mY * m.mM[1][1] + mZ * m.mM[2][1] + m.mM[3][1],
-		mX * m.mM[0][2] + mY * m.mM[1][2] + mZ * m.mM[2][2] + m.mM[3][2]
+		mX * m.M(0,0) + mY * m.M(1,0) + mZ * m.M(2,0) + m.M(3,0),
+		mX * m.M(0,1) + mY * m.M(1,1) + mZ * m.M(2,1) + m.M(3,1),
+		mX * m.M(0,2) + mY * m.M(1,2) + mZ * m.M(2,2) + m.M(3,2)
 		);
 }
 

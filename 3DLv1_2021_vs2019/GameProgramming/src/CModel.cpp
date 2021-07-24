@@ -268,7 +268,7 @@ void CModel::Render(const CMatrix &m)
 	//行列の退避
 	glPushMatrix();
 	//合成行列を掛ける
-	glMultMatrixf(&m.mM[0][0]);
+	glMultMatrixf(m.M());
 
 	//頂点座標の配列を有効にする
 	glEnableClientState(GL_VERTEX_ARRAY);
