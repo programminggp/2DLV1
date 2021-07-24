@@ -19,6 +19,10 @@
 #include "CCamera.h"
 //
 #include "CUtil.h"
+//モデルデータの指定
+#define MODEL_OBJ "res\\f14.obj", "res\\f14.mtl"
+//背景モデルデータの指定
+#define MODEL_BACKGROUND "res\\sky.obj", "res\\sky.mtl"
 
 void CSceneGame::Init() {
 	mText.LoadTexture("FontWhite.tga",1,64);
@@ -34,8 +38,8 @@ void CSceneGame::Init() {
 
 	mEye = CVector(1.0f, 2.0f, 3.0f);
 	//モデルファイルの入力
-	mModel.Load("res\\f14.obj", "res\\f14.mtl");
-	mBackGround.Load("res\\sky.obj", "res\\sky.mtl");
+	mModel.Load(MODEL_OBJ);
+	mBackGround.Load(MODEL_BACKGROUND);
 
 	CMatrix matrix;
 	matrix.Print();
