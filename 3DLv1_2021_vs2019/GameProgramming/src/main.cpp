@@ -80,7 +80,9 @@ int main(void)
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello World", NULL, NULL);
+//	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello World", NULL, NULL);
+	//Full Screen
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello World", glfwGetPrimaryMonitor(), NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -110,7 +112,7 @@ int main(void)
 
 	// ウィンドウのサイズ変更時に呼び出す処理の登録
 	glfwSetWindowSizeCallback(window, reshape);
-	reshape(window, 800, 600);
+	reshape(window, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	//ライトの設定（3D必要 2D不要）
 	//固定シェーダー用
@@ -136,6 +138,12 @@ int main(void)
 
 		/* Poll for and process events */
 		glfwPollEvents();
+
+		int state = glfwGetKey(window, GLFW_KEY_ESCAPE);
+		if (state == GLFW_PRESS) {
+			//ESCキーでループ終了
+			break;
+		}
 	}
 
 	glfwTerminate();
