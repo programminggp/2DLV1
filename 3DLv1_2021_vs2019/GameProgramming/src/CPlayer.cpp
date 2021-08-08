@@ -17,6 +17,9 @@ CPlayer *CPlayer::spThis = 0;
 
 #define FIRECOUNT 15	//発射間隔
 
+#define ROTATION_YV	CVector(0.0f, 1.0f, 0.0f) //回転速度
+#define VELOCITY CVector(0.0f, 0.0f, 0.1f) //移動速度
+
 CPlayer::CPlayer()
 : mLine(this, &mMatrix, CVector(0.0f, 0.0f, -14.0f), CVector(0.0f, 0.0f, 17.0f))
 , mLine2(this, &mMatrix, CVector(0.0f, 5.0f, -8.0f), CVector(0.0f, -3.0f, -8.0f))
@@ -35,18 +38,16 @@ void CPlayer::Update() {
 	//Aキー入力で回転
 	if (CKey::Push('A')) {
 		//Y軸の回転値を増加
-//		mRotation.mY += 1;
-		mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
+		mRotation = mRotation + ROTATION_YV;
 	}
 	if (CKey::Push('D')) {
-		//Y軸の回転値を増加
-//		mRotation.mY -= 1;
-		mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f);
+		//Y軸の回転値を減少
+		mRotation = mRotation - ROTATION_YV;
 	}
-	//上矢印キー入力で前進
-	if (CKey::Push(VK_UP)) {
-		//Z軸方向に1進んだ値を回転移動させる
-		mPosition = CVector(0.0f, 0.0f, 1.0f) * mMatrix;
+	//Iキー入力で前進
+	if (CKey::Push('I')) {
+		//Z軸方向の値を回転させ移動させる
+		mPosition = mPosition + VELOCITY * mMatrixRotate;
 	}
 	//Sキー入力で上向き
 	if (CKey::Push('S')) {
