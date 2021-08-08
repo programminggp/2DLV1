@@ -1,6 +1,16 @@
 #include "CCharacter.h"
 #include "CTaskManager.h"
 
+void CCharacter::Model(CModel *m)
+{
+	mpModel = m;
+}
+
+CCharacter::ETag CCharacter::Tag()
+{
+	return mTag;
+}
+
 //•`‰æˆ—
 void CCharacter::Render()
 {

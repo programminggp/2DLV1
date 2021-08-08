@@ -7,20 +7,17 @@ const CVector& CTransform::Position() const
 
 void CTransform::Position(const CVector& v)
 {
-//	mPosition.Set(v.X(), v.Y(), v.Z());
-	mPosition.Set(v);
+	mPosition = v;
 }
 
 void CTransform::Rotation(const CVector& v)
 {
-//	mRotation.Set(v.X(), v.Y(), v.Z());
-	mRotation.Set(v);
+	mRotation = v;
 }
 
 void CTransform::Scale(const CVector& v)
 {
-//	mScale.Set(v.X(), v.Y(), v.Z());
-	mScale.Set(v);
+	mScale = v;
 }
 
 const CMatrix& CTransform::Matrix() const

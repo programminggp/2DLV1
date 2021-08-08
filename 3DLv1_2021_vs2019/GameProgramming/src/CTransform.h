@@ -15,11 +15,20 @@ protected: //子クラスはアクセス可能
 	CMatrix mMatrixScale; //拡大縮小行列
 	CMatrix mMatrix; //合成行列
 public:
+	//位置の取得
 	const CVector& Position() const;
+	//位置の設定
+	//Position(位置)
 	void Position(const CVector& v);
+	//回転値の設定
+	//Position(回転値)
 	void Rotation(const CVector& v);
+	//拡大縮小の設定
+	//Scale(拡大縮小)
 	void Scale(const CVector& v);
+	//合成行列の取得
 	const CMatrix& Matrix() const;
+	//回転行列の取得
 	const CMatrix& MatrixRotate() const;
 	//行列更新処理
 	void Update();

@@ -183,7 +183,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		if (o->mType == CCollider::ESPHERE)
 		{
 			//相手がプレイヤーの時
-			if (o->mpParent->mTag == EPLAYER)
+			if (o->mpParent->Tag() == EPLAYER)
 			{
 				//衝突している時
 				if (CCollider::Collision(m, o))
@@ -228,7 +228,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 	case CCollider::ESEARCH:
 		if (o->mType == CCollider::ESPHERE)
 		{
-			if (o->mpParent->mTag == EPLAYER)
+			if (o->mpParent->Tag() == EPLAYER)
 			{
 				//コライダのmとyが衝突しているか判定
 				if (CCollider::Collision(m, o))
@@ -277,7 +277,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 			switch (m->mTag)
 			{
 			case CCollider::ESEARCH:
-				if (o->mpParent->mTag == EPLAYER)
+				if (o->mpParent->Tag() == EPLAYER)
 				{
 					//プレイヤーのポインタを設定
 					mpPlayer = o->mpParent;

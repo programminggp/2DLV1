@@ -6,6 +6,7 @@
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
+//#define FULL_SCREEN
 
 bool InitFlg = true;
 
@@ -80,9 +81,12 @@ int main(void)
 		return -1;
 
 	/* Create a windowed mode window and its OpenGL context */
-//	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello World", NULL, NULL);
+#ifndef FULL_SCREEN
+	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello World", NULL, NULL);
+#else
 	//Full Screen
 	window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Hello World", glfwGetPrimaryMonitor(), NULL);
+#endif
 	if (!window)
 	{
 		glfwTerminate();

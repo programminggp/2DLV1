@@ -14,8 +14,9 @@ class CCollider;
 ゲームキャラクタの基本的な機能を定義する
 */
 class CCharacter : public CTransform ,public CTask {
-public:
-	enum ETag 
+protected:
+	CModel* mpModel; //モデルのポインタ
+	enum ETag
 	{
 		EZERO,		//初期値
 		EPLAYER,	//プレイヤー
@@ -24,7 +25,12 @@ public:
 		EBULLETENEMY,	//敵弾
 	};
 	ETag mTag;
-	CModel *mpModel; //モデルのポインタ
+public:
+	//モデルの設定
+	//Model(モデルクラスのポインタ)
+	void Model(CModel *m);
+	//タグの取得
+	ETag Tag();
 	//描画処理
 	void Render();
 	//デストラクタ
