@@ -4,6 +4,11 @@
 //ƒJƒƒ‰‚ÌŠO•”•Ï”
 CCamera Camera;
 
+const CVector& CCamera::Eye() const
+{
+	return mEye;
+}
+
 void CCamera::Set(const CVector &eye, const CVector &center,
 	const CVector &up) {
 	mEye = eye;

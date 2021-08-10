@@ -5,15 +5,18 @@
 カメラクラス
 */
 class CCamera {
-public:
-	//回転
-	CVector mRotation;
+private:
 	//視点
 	CVector mEye;
 	//注視点
 	CVector mCenter;
 	//上方向
 	CVector mUp;
+public:
+	//回転
+	CVector mRotation;
+	//視点座標の取得
+	const CVector& Eye() const;
 	//カメラの設定
 	//Set(視点, 注視点, 上方向)
 	void Set(const CVector &eye, const CVector &center,
