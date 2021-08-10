@@ -8,7 +8,7 @@
 
 //デフォルトコンストラクタ
 CModel::CModel()
-: mpVertex(0), mpNormal(0), mpTextureCoord(0)
+: mpVertex(nullptr), mpNormal(nullptr), mpTextureCoord(nullptr)
 {
 }
 
@@ -248,15 +248,15 @@ CModel::~CModel()
 	{
 		delete mpMaterials[i];
 	}
-	if (mpVertex) {
+	if (mpVertex != nullptr) {
 		//頂点座標配列削除
 		delete[] mpVertex;
 	}
-	if (mpNormal) {
+	if (mpNormal != nullptr) {
 		//法線配列削除
 		delete[] mpNormal;
 	}
-	if (mpTextureCoord) {
+	if (mpTextureCoord != nullptr) {
 		//テクスチャマッピング配列削除
 		delete[] mpTextureCoord;
 	}

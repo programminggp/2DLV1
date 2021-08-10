@@ -20,7 +20,10 @@ private:
 	float mDiffuse[4];
 public:
 	void Diffuse(float r, float g, float b, float a);
+	//頂点数の設定
+	//VertexNum(頂点数)
 	void VertexNum(int num);
+	//頂点数の取得
 	int VertexNum();
 	//mDiffuse配列の取得
 	float* Diffuse();
