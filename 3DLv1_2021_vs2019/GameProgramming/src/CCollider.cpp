@@ -2,6 +2,11 @@
 #include "CCollisionManager.h"
 #include "CColliderLine.h"
 
+CCharacter* CCollider::Parent()
+{
+	return mpParent;
+}
+
 CCollider::CCollider()
 : mpParent(nullptr)
 , mpMatrix(&mMatrix)

@@ -183,13 +183,13 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		if (o->mType == CCollider::ESPHERE)
 		{
 			//相手がプレイヤーの時
-			if (o->mpParent->Tag() == EPLAYER)
+			if (o->Parent()->Tag() == EPLAYER)
 			{
 				//衝突している時
 				if (CCollider::Collision(m, o))
 				{
 					//プレイヤーのポインタ設定
-					mpPlayer = o->mpParent;
+					mpPlayer = o->Parent();
 				}
 			}
 		}
@@ -202,7 +202,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		//コライダのmとyが衝突しているか判定
 		if (CCollider::Collision(m, o)) {
 			//エフェクト生成
-			new CEffect(o->mpParent->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+			new CEffect(o->Parent()->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 			mHp--;	//ヒットポイントの減算
 		}
 		break;
@@ -228,13 +228,13 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 	case CCollider::ESEARCH:
 		if (o->mType == CCollider::ESPHERE)
 		{
-			if (o->mpParent->Tag() == EPLAYER)
+			if (o->Parent()->Tag() == EPLAYER)
 			{
 				//コライダのmとyが衝突しているか判定
 				if (CCollider::Collision(m, o))
 				{
 					//プレイヤーのポインタを設定
-					mpPlayer = o->mpParent;
+					mpPlayer = o->Parent();
 				}
 			}
 		}
@@ -248,7 +248,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 				//コライダのmとyが衝突しているか判定
 				if (CCollider::Collision(m, o)) {
 					//エフェクト生成
-					new CEffect(o->mpParent->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+					new CEffect(o->Parent()->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 				}
 			}
 			break;
@@ -277,15 +277,15 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 			switch (m->mTag)
 			{
 			case CCollider::ESEARCH:
-				if (o->mpParent->Tag() == EPLAYER)
+				if (o->Parent()->Tag() == EPLAYER)
 				{
 					//プレイヤーのポインタを設定
-					mpPlayer = o->mpParent;
+					mpPlayer = o->Parent();
 				}
 				break;
 			default:
 				//エフェクト生成
-				new CEffect(o->mpParent->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+				new CEffect(o->Parent()->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 			}
 		}
 		break;

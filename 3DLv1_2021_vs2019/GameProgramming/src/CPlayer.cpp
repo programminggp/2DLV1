@@ -107,7 +107,7 @@ void CPlayer::Collision(CCollider *m, CCollider *o) {
 			if (CCollider::Collision(m, o))
 			{
 				//エフェクト生成
-				new CEffect(o->mpParent->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+				new CEffect(o->Parent()->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
 			}
 		}
 		break;

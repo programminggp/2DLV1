@@ -16,6 +16,8 @@ protected:
 	CMatrix* mpMatrix;//親行列
 	float mRadius;	//半径
 public:
+	//親ポインタの取得
+	CCharacter* Parent();
 	enum ETag
 	{
 		EBODY,		//本体
