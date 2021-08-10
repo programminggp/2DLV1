@@ -20,7 +20,8 @@ public:
 
 	//コンストラクタ
 	//CEnemy(モデル, 位置, 回転, 拡縮)
-	CEnemy(CModel *model, CVector position, CVector rotation, CVector scale);
+	CEnemy(CModel *model, const CVector& position, 
+		const CVector& rotation, const CVector& scale);
 	//更新処理
 	void Update();
 	////確認用メソッド　削除予定
