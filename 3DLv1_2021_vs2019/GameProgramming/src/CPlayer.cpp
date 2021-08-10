@@ -18,6 +18,7 @@ CPlayer *CPlayer::spThis = 0;
 #define FIRECOUNT 15	//”­ŽËŠÔŠu
 
 #define ROTATION_YV	CVector(0.0f, 1.0f, 0.0f) //‰ñ“]‘¬“x
+#define ROTATION_XV	CVector(1.0f, 0.0f, 0.0f) //‰ñ“]‘¬“x
 #define VELOCITY CVector(0.0f, 0.0f, 0.1f) //ˆÚ“®‘¬“x
 
 CPlayer::CPlayer()
@@ -52,14 +53,12 @@ void CPlayer::Update() {
 	//SƒL[“ü—Í‚ÅãŒü‚«
 	if (CKey::Push('S')) {
 		//XŽ²‚Ì‰ñ“]’l‚ðŒ¸ŽZ
-//		mRotation.mX -= 1;
-		mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f);
+		mRotation = mRotation - ROTATION_XV;
 	}
 	//WƒL[“ü—Í‚ÅãŒü‚«
 	if (CKey::Push('W')) {
 		//XŽ²‚Ì‰ñ“]’l‚ð‰ÁŽZ
-//		mRotation.mX += 1;
-		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
+		mRotation = mRotation + ROTATION_XV;
 	}
 
 	if (mFireCount > 0)

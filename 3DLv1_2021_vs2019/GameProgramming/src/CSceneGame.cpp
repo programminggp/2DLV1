@@ -129,17 +129,17 @@ void CSceneGame::Update() {
 //		Camera.mRotation.mY -= 2.0f;
 		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
-	//	e = CVector(-2.0f, 10.0f, -30.0f) * mPlayer.mMatrix;
-	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
+	e = mPlayer.Position() + CVector(-0.0f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
+//	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
 	//注視点を求める
 	c = mPlayer.Position();
 	//上方向を求める
 	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
 	//カメラの設定
-	//gluLookAt(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+	gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
-	Camera.Render();
+	//Camera.Render();
 	//	mPlayer.Render();
 
 	mBackGround.Render(mBackGroundMatrix);
