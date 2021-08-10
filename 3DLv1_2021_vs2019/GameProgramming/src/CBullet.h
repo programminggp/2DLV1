@@ -11,12 +11,13 @@
 三角形を飛ばす
 */
 class CBullet : public CCharacter {
-public:
+private:
 	CCollider mCollider;
 	//生存時間
 	int mLife;
 	//三角形
 	CTriangle mT;
+public:
 	//
 	CBullet();
 	//幅と奥行きの設定
