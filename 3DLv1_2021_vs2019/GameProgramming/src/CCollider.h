@@ -4,11 +4,17 @@
 #include "CCharacter.h"
 //トランスフォームクラスのインクルード
 #include "CTransform.h"
+class CCollisionManager;
 /*
 コライダクラス
 衝突判定データ
 */
 class CCollider : public CTransform, public CTask {
+	friend CCollisionManager;
+protected:
+	CCharacter* mpParent;//親
+	CMatrix* mpMatrix;//親行列
+	float mRadius;	//半径
 public:
 	enum ETag
 	{
@@ -26,16 +32,12 @@ public:
 	//頂点
 	CVector mV[3];
 
-	CCharacter *mpParent;//親
-	CMatrix *mpMatrix;//親行列
-	float mRadius;	//半径
-
 	//デフォルトコンストラクタ
 	CCollider();
 
 	//コンストラクタ
 	//CCollider(親, 行列, 位置, 半径)
-	CCollider(CCharacter *parent, CMatrix *matrix, CVector position, float radius);
+	CCollider(CCharacter *parent, CMatrix *matrix, const CVector& position, float radius);
 	//描画
 	void Render();
 	~CCollider();

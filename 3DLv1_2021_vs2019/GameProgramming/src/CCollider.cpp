@@ -3,7 +3,7 @@
 #include "CColliderLine.h"
 
 CCollider::CCollider()
-: mpParent(0)
+: mpParent(nullptr)
 , mpMatrix(&mMatrix)
 , mType(ESPHERE)
 , mTag(EBODY)
@@ -15,7 +15,7 @@ CCollider::CCollider()
 //コンストラクタ
 //CCollider(親, 位置, 回転, 拡縮, 半径)
 CCollider::CCollider(CCharacter *parent, CMatrix *matrix,
-	CVector position, float radius)
+	const CVector& position, float radius)
 	: CCollider()
 {
 	//親設定
