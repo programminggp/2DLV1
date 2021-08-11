@@ -70,7 +70,8 @@ void CSceneGame::Init() {
 	//背景モデルから三角コライダを生成
 	//親インスタンスと行列はなし
 	//mColliderMesh.Set(NULL, NULL, &mBackGround);
-	mColliderMesh.Set(NULL, &mBackGroundMatrix, &mBackGround);
+	//mColliderMesh.Set(NULL, &mBackGroundMatrix, &mBackGround);
+	CColliderTriangle::Mesh(nullptr, &mBackGroundMatrix, &mBackGround);
 }
 
 void CSceneGame::Update() {

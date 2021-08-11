@@ -20,6 +20,9 @@ public:
 	void Render();
 	//優先度の変更
 	void ChangePriority();
+	//メッシュからコライダの生成
+	//Mesh(親, 親行列, モデル)
+	static void Mesh(CCharacter* parent, CMatrix* matrix, CModel *model);
 };
 
 #endif

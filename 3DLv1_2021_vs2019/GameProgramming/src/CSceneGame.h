@@ -11,7 +11,7 @@
 //
 #include "CColliderTriangle.h"
 //
-#include "CColliderMesh.h"
+//#include "CColliderMesh.h"
 //
 #include "CText.h"
 /*
@@ -22,7 +22,7 @@ class CSceneGame : public CScene {
 	CText mText;
 
 	//モデルからコライダを生成
-	CColliderMesh mColliderMesh;
+//	CColliderMesh mColliderMesh;
 	//三角コライダの作成
 	//削除CColliderTriangle mColliderTriangle;
 	//削除CColliderTriangle mColliderTriangle2;
