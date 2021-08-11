@@ -180,7 +180,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 	if (m->mTag == CCollider::ESEARCH)
 	{
 		//相手が球コライダの時
-		if (o->mType == CCollider::ESPHERE)
+		if (o->Type() == CCollider::ESPHERE)
 		{
 			//相手がプレイヤーの時
 			if (o->Parent()->Tag() == EPLAYER)
@@ -196,7 +196,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		return;
 	}
 
-	switch (o->mType)
+	switch (o->Type())
 	{
 	case CCollider::ESPHERE:
 		//コライダのmとyが衝突しているか判定
@@ -226,7 +226,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 	switch (m->mTag)
 	{
 	case CCollider::ESEARCH:
-		if (o->mType == CCollider::ESPHERE)
+		if (o->Type() == CCollider::ESPHERE)
 		{
 			if (o->Parent()->Tag() == EPLAYER)
 			{
@@ -240,7 +240,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		}
 		break;
 	default:	//本体の時
-		switch (o->mType)
+		switch (o->Type())
 		{
 		case CCollider::ESPHERE:
 			if (o->mTag == CCollider::EBODY)
@@ -269,7 +269,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 	if (o->mTag == CCollider::ESEARCH)
 		return;
 	//相手のコライダタイプの判定
-	switch (o->mType)
+	switch (o->Type())
 	{
 	case CCollider::ESPHERE: //球コライダの時
 		//コライダのmとyが衝突しているか判定

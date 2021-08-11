@@ -18,17 +18,6 @@ struct STgamHeader {
 //#include <map>
 
 class CTexture {
-private:
-//	static std::map<std::string, CTexture>mTexFile;
-	//ファイル名
-	char* mpName;
-	//TGAファイルのヘッダ情報
-	STgamHeader mHeader;
-	//テクスチャID
-	GLuint mId;
-	//
-	int mRow;//行数
-	int mCol;//列数
 public:
 	int Row();
 	int Col();
@@ -69,6 +58,17 @@ public:
 	void SetParts(int row, int col);
 	void Draw(float left, float right, float bottom, float top, float tleft, float tright, float tbottom, float ttop);
 	void Draw(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop);
+private:
+	//	static std::map<std::string, CTexture>mTexFile;
+		//ファイル名
+	char* mpName;
+	//TGAファイルのヘッダ情報
+	STgamHeader mHeader;
+	//テクスチャID
+	GLuint mId;
+	//
+	int mRow;//行数
+	int mCol;//列数
 };
 
 #endif

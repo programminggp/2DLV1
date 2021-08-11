@@ -8,12 +8,6 @@
 タスクリストの管理
 */
 class CTaskManager {
-private:
-	//タスクマネージャのインスタンス
-	static CTaskManager* mpInstance;
-protected:
-	//デフォルトコンストラクタ
-	CTaskManager();
 public:
 	//インスタンスの取得
 	static CTaskManager* Get();
@@ -35,6 +29,12 @@ public:
 	void Delete();
 	//衝突処理
 	void TaskCollision();
+protected:
+	//デフォルトコンストラクタ
+	CTaskManager();
+private:
+	//タスクマネージャのインスタンス
+	static CTaskManager* mpInstance;
 };
 //タスクマネージャyの外部参照
 //extern CTaskManager TaskManager;

@@ -167,3 +167,8 @@ void CCollider::ChangePriority()
 	CCollisionManager::Get()->Remove(this); //ˆê’Uíœ
 	CCollisionManager::Get()->Add(this); //’Ç‰Á
 }
+
+CCollider::EType CCollider::Type()
+{
+	return mType;
+}

@@ -6,9 +6,6 @@
 ベクトルデータを扱います
 */
 class CVector {
-private:
-	//3D各軸での値を設定
-	float mX, mY, mZ;
 public:
 	//各軸での値の設定
 	//Set(X座標, Y座標, Z座標)
@@ -54,6 +51,8 @@ public:
 	//度度を返す（Z軸＋が0度）
 	//GetRotationX(Y軸方向)
 	float GetRotationX(CVector& y) const;
-
+private:
+	//3D各軸での値を設定
+	float mX, mY, mZ;
 };
 #endif

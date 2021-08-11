@@ -88,10 +88,10 @@ void CPlayer::Collision(CCollider *m, CCollider *o) {
 		return;
 	}
 	//自身のコライダタイプの判定
-	switch (m->mType) {
+	switch (m->Type()) {
 	case CCollider::ELINE://線分コライダ
 		//相手のコライダが三角コライダの時
-		if (o->mType == CCollider::ETRIANGLE) {
+		if (o->Type() == CCollider::ETRIANGLE) {
 			CVector adjust;//調整用ベクトル
 			//三角形と線分の衝突判定
 			CCollider::CollisionTriangleLine(o, m, &adjust);
@@ -103,7 +103,7 @@ void CPlayer::Collision(CCollider *m, CCollider *o) {
 		break;
 	case CCollider::ESPHERE:
 		//相手のコライダが球コライダの時
-		if (o->mType == CCollider::ESPHERE) {
+		if (o->Type() == CCollider::ESPHERE) {
 			if (CCollider::Collision(m, o))
 			{
 				//エフェクト生成

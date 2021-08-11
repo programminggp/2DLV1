@@ -8,14 +8,15 @@
 
 class CCollisionManager : public CTaskManager
 {
-	//マネージャのインスタンス
-	static CCollisionManager* mpInstance;
 public:
 	//インスタンスの取得
 	static CCollisionManager* Get();
 	//衝突処理
 	void Collision();
 	void Collision(CCollider *collider, int range);
+private:
+	//マネージャのインスタンス
+	static CCollisionManager* mpInstance;
 };
 
 #endif

@@ -129,7 +129,7 @@ void CSceneGame::Update() {
 //		Camera.mRotation.mY -= 2.0f;
 		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
-	e = mPlayer.Position() + CVector(-0.0f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
+	e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
 //	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
 	//íçéãì_ÇãÅÇﬂÇÈ
 	c = mPlayer.Position();

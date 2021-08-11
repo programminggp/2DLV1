@@ -9,15 +9,6 @@
 マテリアルのデータを扱う
 */
 class CMaterial {
-private:
-	//マテリアル毎の頂点数
-	int mVertexNum;
-	//テクスチャ
-	CTexture mTexture;
-	//マテリアル名
-	char mName[MATERIAL_NAME_LEN];
-	//拡散光の色RGBA
-	float mDiffuse[4];
 public:
 //	void Diffuse(float r, float g, float b, float a);
 	//頂点数の設定
@@ -42,6 +33,15 @@ public:
 //	void LoadTexture(char *file);
 	//マテリアルを無効にする
 	void Disabled();
+private:
+	//マテリアル毎の頂点数
+	int mVertexNum;
+	//テクスチャ
+	CTexture mTexture;
+	//マテリアル名
+	char mName[MATERIAL_NAME_LEN];
+	//拡散光の色RGBA
+	float mDiffuse[4];
 };
 
 #endif

@@ -7,9 +7,7 @@ class CVector;
 */
 class CMatrix {
 	//friend CVector; //フレンドクラスの設定
-private:
-	//4×4の行列データを設定
-	float mM[4][4];
+
 public:
 	//表示確認用
 	//4×4の行列を画面出力
@@ -44,7 +42,9 @@ public:
 	//*演算子のオーバーロード
 	//CMatrix * CMatrix の演算結果を返す
 	CMatrix operator*(const CMatrix &m);
-
+private:
+	//4×4の行列データを設定
+	float mM[4][4];
 };
 #endif
 

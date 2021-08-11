@@ -66,7 +66,7 @@ void CEnemy::Collision(CCollider *m, CCollider *o) {
 		return;
 	}
 	//相手のコライダタイプの判定
-	switch (o->mType)
+	switch (o->Type())
 	{	
 	case CCollider::ESPHERE: //球コライダの時
 //		if (o->Parent()->mTag == EENEMY)

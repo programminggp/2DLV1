@@ -8,11 +8,6 @@
 三角形クラス
 */
 class CTriangle {
-private:
-	CVector mV[3]; //頂点座標
-	CVector mN[3]; //法線
-	CVector mUv[3]; //テクスチャマッピング
-	int mMaterialIdx; //マテリアル番号
 public:
 	CTriangle();
 	//マテリアル番号の取得
@@ -47,6 +42,11 @@ public:
 	void Render();
 	//描画
 	void Render(const CMatrix &m);
+private:
+	CVector mV[3]; //頂点座標
+	CVector mN[3]; //法線
+	CVector mUv[3]; //テクスチャマッピング
+	int mMaterialIdx; //マテリアル番号
 };
 
 #endif

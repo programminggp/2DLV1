@@ -5,13 +5,6 @@
 カメラクラス
 */
 class CCamera {
-private:
-	//視点
-	CVector mEye;
-	//注視点
-	CVector mCenter;
-	//上方向
-	CVector mUp;
 public:
 	//回転
 	CVector mRotation;
@@ -23,6 +16,13 @@ public:
 		const CVector &up);
 	//カメラ適用
 	void Render();
+private:
+	//視点
+	CVector mEye;
+	//注視点
+	CVector mCenter;
+	//上方向
+	CVector mUp;
 };
 
 //カメラの外部参照

@@ -13,11 +13,6 @@ public:
 	static int sCount;	//インスタンス数
 	int mHp;	//ヒットポイント
 
-	//コライダ
-	CCollider mCollider1;
-	CCollider mCollider2;
-	CCollider mCollider3;
-
 	//コンストラクタ
 	//CEnemy(モデル, 位置, 回転, 拡縮)
 	CEnemy(CModel *model, const CVector& position, 
@@ -35,6 +30,11 @@ public:
 	//Collision(コライダ1, コライダ2)
 	void Collision(CCollider *m, CCollider *o);
 	void TaskCollision();
+private:
+	//コライダ
+	CCollider mCollider1;
+	CCollider mCollider2;
+	CCollider mCollider3;
 };
 
 #endif

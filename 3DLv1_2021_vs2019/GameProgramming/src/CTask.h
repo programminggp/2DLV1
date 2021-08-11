@@ -11,12 +11,6 @@ class CCollisionManager;
 class CTask {
 	friend CTaskManager;
 	friend CCollisionManager;
-private:
-	CTask* mpNext;//次のポインタ
-	CTask* mpPrev;//前のポインタ
-protected:
-	int mPriority;	//優先度
-	bool mEnabled;	//有効フラグ
 public:
 	//デフォルトコンストラクタ
 	CTask()
@@ -29,6 +23,12 @@ public:
 	virtual void Render() {}
 	//衝突処理
 	virtual void TaskCollision() {}
+protected:
+	int mPriority;	//優先度
+	bool mEnabled;	//有効フラグ
+private:
+	CTask* mpNext;//次のポインタ
+	CTask* mpPrev;//前のポインタ
 };
 
 #endif

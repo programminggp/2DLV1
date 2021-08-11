@@ -6,11 +6,6 @@
 常にカメラの方を向く四角形
 */
 class CBillBoard : public CCharacter {
-protected:
-	//三角形2つ
-	CTriangle mT[2];
-	//マテリアル
-	CMaterial mMaterial;
 public:
 	//コンストラクタ
 	CBillBoard();
@@ -24,5 +19,10 @@ public:
 	//描画
 	void Render();
 	void Render(CMaterial *mpMaterial);
+protected:
+	//三角形2つ
+	CTriangle mT[2];
+	//マテリアル
+	CMaterial mMaterial;
 };
 #endif

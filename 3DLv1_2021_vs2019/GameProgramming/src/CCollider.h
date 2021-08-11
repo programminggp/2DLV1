@@ -11,11 +11,13 @@ class CCollisionManager;
 */
 class CCollider : public CTransform, public CTask {
 	friend CCollisionManager;
-protected:
-	CCharacter* mpParent;//親
-	CMatrix* mpMatrix;//親行列
-	float mRadius;	//半径
 public:
+	//コライダタイプ
+	enum EType {
+		ESPHERE,//球コライダ
+		ETRIANGLE,//三角コライダ
+		ELINE, //線分コライダ
+	};
 	//親ポインタの取得
 	CCharacter* Parent();
 	enum ETag
@@ -24,15 +26,6 @@ public:
 		ESEARCH,	//サーチ用
 	};
 	ETag mTag;
-	//コライダタイプ
-	enum EType {
-		ESPHERE,//球コライダ
-		ETRIANGLE,//三角コライダ
-		ELINE, //線分コライダ
-	};
-	EType mType;//コライダタイプ
-	//頂点
-	CVector mV[3];
 
 	//デフォルトコンストラクタ
 	CCollider();
@@ -57,6 +50,15 @@ public:
 	static bool CollisionTriangleSphere(CCollider *triangle, CCollider *sphere, CVector *adjust);
 	//優先度の変更
 	virtual void ChangePriority();
+	//コライダ種類の取得
+	EType Type();
+protected:
+	CCharacter* mpParent;//親
+	CMatrix* mpMatrix;//親行列
+	float mRadius;	//半径
+	EType mType;//コライダタイプ
+	//頂点
+	CVector mV[3];
 };
 
 #endif

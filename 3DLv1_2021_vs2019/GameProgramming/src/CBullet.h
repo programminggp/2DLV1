@@ -11,12 +11,6 @@
 三角形を飛ばす
 */
 class CBullet : public CCharacter {
-private:
-	CCollider mCollider;
-	//生存時間
-	int mLife;
-	//三角形
-	CTriangle mT;
 public:
 	//
 	CBullet();
@@ -31,6 +25,12 @@ public:
 	//Collision(コライダ1, コライダ2)
 	void Collision(CCollider *m, CCollider *o);
 	void TaskCollision();
+private:
+	CCollider mCollider;
+	//生存時間
+	int mLife;
+	//三角形
+	CTriangle mT;
 };
 
 #endif
