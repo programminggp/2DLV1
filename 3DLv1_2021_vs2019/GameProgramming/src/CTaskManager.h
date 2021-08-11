@@ -11,8 +11,6 @@ class CTaskManager {
 public:
 	//インスタンスの取得
 	static CTaskManager* Get();
-	CTask mHead;//先頭タスク
-	CTask mTail;//最終タスク
 	//デストラクタ
 	virtual ~CTaskManager();
 	//リストに追加
@@ -30,6 +28,8 @@ public:
 	//衝突処理
 	void TaskCollision();
 protected:
+	CTask mHead;//先頭タスク
+	CTask mTail;//最終タスク
 	//デフォルトコンストラクタ
 	CTaskManager();
 private:
