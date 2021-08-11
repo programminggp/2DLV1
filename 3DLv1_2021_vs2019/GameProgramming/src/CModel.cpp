@@ -69,7 +69,8 @@ void CModel::Load(char *obj, char *mtl) {
 		}
 		//先頭がmap_Kdの時、テクスチャを読み込む
 		else if (strcmp(str[0], "map_Kd") == 0) {
-			mpMaterials[idx]->LoadTexture(str[1]);
+//			mpMaterials[idx]->LoadTexture(str[1]);
+			mpMaterials[idx]->Texture()->Load(str[1]);
 		}
 	}
 

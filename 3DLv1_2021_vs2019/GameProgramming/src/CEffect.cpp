@@ -6,14 +6,13 @@ CEffect::CEffect(const CVector &pos, float w, float h, char *texture, int row, i
 : CBillBoard(pos, w, h), mRows(row), mCols(col), mFps(fps), mFrame(0)
 {
 	//テクスチャを読んでない場合は読む
-//	if (sMaterial.mTexture.mId == 0)
-	if (sMaterial.Texture().Id() == 0)
+	if (sMaterial.Texture()->Id() == 0)
 	{
-//		sMaterial.mTexture.Load(texture);
-		sMaterial.Texture().Load(texture);
-		//sMaterial.mDiffuse[0] = sMaterial.mDiffuse[1] =
-		//	sMaterial.mDiffuse[2] = sMaterial.mDiffuse[3] = 1.0f;
-		sMaterial.Diffuse(1.0f, 1.0f, 1.0f, 1.0f);
+		sMaterial.Texture()->Load(texture);
+		sMaterial.Diffuse()[0] = 1.0f;
+		sMaterial.Diffuse()[1] = 1.0f;
+		sMaterial.Diffuse()[2] = 1.0f;
+		sMaterial.Diffuse()[3] = 1.0f;
 	}
 }
 
@@ -29,20 +28,14 @@ void CEffect::Update() {
 	//UV左
 	float left = 1.0f / mCols * (frame % mCols);
 	//UV右
-	float righ = left + 1.0f / mCols;
+	float right = left + 1.0f / mCols;
 	//UV上
 	float top = 1.0f - 1.0f / mRows * (frame / mCols);
 	//UV下
 	float bot = top - 1.0f / mRows;
 	//テクスチャマッピング
-	//mT[0].mUv[0] = CVector(righ, top, 0.0f);
-	//mT[0].mUv[1] = CVector(left, bot, 0.0f);
-	//mT[0].mUv[2] = CVector(righ, bot, 0.0f);
-	//mT[1].mUv[0] = CVector(left, top, 0.0f);
-	//mT[1].mUv[1] = CVector(left, bot, 0.0f);
-	//mT[1].mUv[2] = CVector(righ, top, 0.0f);
-	mT[0].SetUv(CVector(righ, top, 0.0f), CVector(left, bot, 0.0f), CVector(righ, bot, 0.0f));
-	mT[1].SetUv(CVector(left, top, 0.0f), CVector(left, bot, 0.0f), CVector(righ, top, 0.0f));
+	mT[0].SetUv(CVector(right, top, 0.0f), CVector(left, bot, 0.0f), CVector(right, bot, 0.0f));
+	mT[1].SetUv(CVector(left, top, 0.0f), CVector(left, bot, 0.0f), CVector(right, top, 0.0f));
 	//ビルボード更新
 	CBillBoard::Update();
 }

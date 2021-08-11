@@ -3,13 +3,13 @@
 #include <string.h>
 #include "glut.h"
 
-void CMaterial::Diffuse(float r, float g, float b, float a)
-{
-	mDiffuse[0] = r;
-	mDiffuse[1] = g;
-	mDiffuse[2] = b;
-	mDiffuse[3] = a;
-}
+//void CMaterial::Diffuse(float r, float g, float b, float a)
+//{
+//	mDiffuse[0] = r;
+//	mDiffuse[1] = g;
+//	mDiffuse[2] = b;
+//	mDiffuse[3] = a;
+//}
 
 void CMaterial::VertexNum(int num)
 {
@@ -39,9 +39,9 @@ void CMaterial::Name(char* name)
 	strncpy(mName, name, MATERIAL_NAME_LEN - 1);
 }
 
-CTexture& CMaterial::Texture()
+CTexture* CMaterial::Texture()
 {
-	return mTexture;
+	return &mTexture;
 }
 
 //デフォルトコンストラクタ
@@ -73,10 +73,10 @@ void CMaterial::Enabled() {
 }
 
 //テクスチャを読み込む
-void CMaterial::LoadTexture(char *file)
-{
-	mTexture.Load(file);
-}
+//void CMaterial::LoadTexture(char *file)
+//{
+//	mTexture.Load(file);
+//}
 //マテリアルを無効にする
 void CMaterial::Disabled()
 {

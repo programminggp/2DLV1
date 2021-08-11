@@ -19,7 +19,7 @@ private:
 	//拡散光の色RGBA
 	float mDiffuse[4];
 public:
-	void Diffuse(float r, float g, float b, float a);
+//	void Diffuse(float r, float g, float b, float a);
 	//頂点数の設定
 	//VertexNum(頂点数)
 	void VertexNum(int num);
@@ -32,13 +32,14 @@ public:
 	//マテリアルの名前を設定する
 	//Name(マテリアルの名前)
 	void Name(char* name);
-	CTexture& Texture();
+	//テクスチャの取得
+	CTexture* Texture();
 	//デフォルトコンストラクタ
 	CMaterial();
 	//マテリアルを有効にする
 	void Enabled();
 	//テクスチャを読み込む
-	void LoadTexture(char *file);
+//	void LoadTexture(char *file);
 	//マテリアルを無効にする
 	void Disabled();
 };
