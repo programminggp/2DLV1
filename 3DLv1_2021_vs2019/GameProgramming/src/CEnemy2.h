@@ -18,11 +18,6 @@ public:
 
 	CCharacter *mpPlayer;	//プレイヤーのポインタ
 
-	//モデルデータ
-	static CModel mModel;
-
-	//コライダ
-	CCollider mCollider;
 	CCollider mColSearch;	//サーチ用コライダ
 
 	//コンストラクタ
@@ -35,6 +30,11 @@ public:
 	//Collision(コライダ1, コライダ2)
 	void Collision(CCollider *m, CCollider *o);
 	void TaskCollision();
+private:
+	//モデルデータ
+	static CModel mModel;
+	//コライダ
+	CCollider mCollider;
 };
 
 #endif
