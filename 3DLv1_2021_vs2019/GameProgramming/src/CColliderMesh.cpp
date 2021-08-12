@@ -1,7 +1,7 @@
 #include "CColliderMesh.h"
 
 CColliderMesh::CColliderMesh()
-: mpColliderTriangles(0)
+: mpColliderTriangles(nullptr)
 {
 }
 
@@ -21,13 +21,9 @@ void CColliderMesh::Set(CCharacter *parent, CMatrix *matrix, CModel *model)
 	for (int i = 0; i < model->Triangles().size(); i++)
 	{	//三角コライダの設定
 		mpColliderTriangles[i].Set(parent, matrix
-			//, model->mTriangles[i].mV[0]
-			//, model->mTriangles[i].mV[1]
-			//, model->mTriangles[i].mV[2]
 			, model->Triangles()[i].V0()
 			, model->Triangles()[i].V1()
-			, model->Triangles()[i].V2()
-		);
+			, model->Triangles()[i].V2());
 		mpColliderTriangles[i].ChangePriority();
 	}
 }
