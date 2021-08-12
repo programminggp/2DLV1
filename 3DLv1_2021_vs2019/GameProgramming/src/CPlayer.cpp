@@ -136,7 +136,7 @@ void CPlayer::Render()
 	//2Dの描画開始
 	CUtil::Start2D(-400, 400, -300, 300);
 	//描画色の設定（緑色の半透明）
-	glColor4f(0.0f, 1.0f, 0.0f, 0.99f);
+	glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
 	//文字列編集エリアの作成
 	char buf[64];
 
