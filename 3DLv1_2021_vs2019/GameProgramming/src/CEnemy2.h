@@ -10,12 +10,6 @@
 */
 class CEnemy2 : public CCharacter {
 public:
-	int mFireCount;
-
-	CVector mPoint;	//目標地点
-
-
-
 	//コンストラクタ
 	CEnemy2();
 	//CEnemy(位置, 回転, 拡縮)
@@ -34,6 +28,8 @@ private:
 	CCharacter* mpPlayer;	//プレイヤーのポインタ
 	CCollider mColSearch;	//サーチ用コライダ
 	int mHp;	//ヒットポイント
+	int mFireCount;
+	CVector mPoint;	//目標地点
 };
 
 #endif
