@@ -14,11 +14,7 @@ public:
 
 	CVector mPoint;	//目標地点
 
-	int mHp;	//ヒットポイント
 
-	CCharacter *mpPlayer;	//プレイヤーのポインタ
-
-	CCollider mColSearch;	//サーチ用コライダ
 
 	//コンストラクタ
 	CEnemy2();
@@ -35,6 +31,9 @@ private:
 	static CModel mModel;
 	//コライダ
 	CCollider mCollider;
+	CCharacter* mpPlayer;	//プレイヤーのポインタ
+	CCollider mColSearch;	//サーチ用コライダ
+	int mHp;	//ヒットポイント
 };
 
 #endif
