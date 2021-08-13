@@ -25,7 +25,6 @@ public:
 		EBODY,		//本体
 		ESEARCH,	//サーチ用
 	};
-	ETag mTag;
 
 	//デフォルトコンストラクタ
 	CCollider();
@@ -52,6 +51,11 @@ public:
 	virtual void ChangePriority();
 	//コライダ種類の取得
 	EType Type();
+	//タグの取得
+	ETag Tag();
+	//タグの設定
+	//Tag(タグ)
+	void Tag(ETag tag);
 protected:
 	CCharacter* mpParent;//親
 	CMatrix* mpMatrix;//親行列
@@ -59,6 +63,7 @@ protected:
 	EType mType;//コライダタイプ
 	//頂点
 	CVector mV[3];
+	ETag mTag;
 };
 
 #endif

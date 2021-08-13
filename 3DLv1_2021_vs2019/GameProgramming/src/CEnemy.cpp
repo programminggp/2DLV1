@@ -61,7 +61,7 @@ void CEnemy::Update() {
 //Collision(コライダ1, コライダ2)
 void CEnemy::Collision(CCollider *m, CCollider *o) {
 	//相手がサーチの時は戻る
-	if (o->mTag == CCollider::ESEARCH)
+	if (o->Tag() == CCollider::ESEARCH)
 	{
 		return;
 	}

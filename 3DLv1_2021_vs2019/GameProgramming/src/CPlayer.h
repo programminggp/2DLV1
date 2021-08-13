@@ -15,12 +15,9 @@
 class CPlayer : public CCharacter {
 public:
 	int mFireCount;
-	CCollider mCollider;
-	CText mText;
+
 	static CPlayer *spThis;
-	CColliderLine mLine; //線分コライダ
-	CColliderLine mLine2;
-	CColliderLine mLine3;
+
 	//デフォルトコンストラクタ
 	CPlayer();
 //	CBullet bullet;
@@ -32,7 +29,12 @@ public:
 	void TaskCollision();
 	//描画処理
 	void Render();
-
+private:
+	CColliderLine mLine; //線分コライダ
+	CColliderLine mLine2;
+	CColliderLine mLine3;
+	CCollider mCollider;
+	CText mText;
 };
 
 #endif

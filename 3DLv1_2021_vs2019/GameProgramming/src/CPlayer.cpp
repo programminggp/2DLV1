@@ -83,7 +83,7 @@ void CPlayer::Update() {
 
 void CPlayer::Collision(CCollider *m, CCollider *o) {
 	//‘ŠŽè‚ªƒT[ƒ`‚ÌŽž‚Í–ß‚é
-	if (o->mTag == CCollider::ESEARCH)
+	if (o->Tag() == CCollider::ESEARCH)
 	{
 		return;
 	}

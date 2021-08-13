@@ -23,7 +23,7 @@ CEnemy2::CEnemy2()
 , mFireCount(0)
 {
 	mTag = EENEMY;
-	mColSearch.mTag = CCollider::ESEARCH;	//タグ設定
+	mColSearch.Tag(CCollider::ESEARCH);	//タグ設定
 
 	//モデルが無いときは読み込む
 	if (mModel.Triangles().size() == 0)
@@ -88,7 +88,7 @@ void CEnemy2::Update() {
 	else
 	{
 		//プレイヤーのポインタが0以外の時
-		if (mpPlayer)
+		if (mpPlayer != nullptr)
 		{
 			//プレイヤーまでのベクトルを求める
 			CVector vp = mpPlayer->Position() - mPosition;
@@ -165,19 +165,19 @@ void CEnemy2::Update() {
 		}
 	}
 
-	mpPlayer = 0;
+	mpPlayer = nullptr;
 
 }
 //衝突処理
 //Collision(コライダ1, コライダ2)
 void CEnemy2::Collision(CCollider *m, CCollider *o) {
 	//相手がサーチの時は戻る
-	if (o->mTag == CCollider::ESEARCH)
+	if (o->Tag() == CCollider::ESEARCH)
 	{
 		return;
 	}
 	//自分がサーチ用の時
-	if (m->mTag == CCollider::ESEARCH)
+	if (m->Tag() == CCollider::ESEARCH)
 	{
 		//相手が球コライダの時
 		if (o->Type() == CCollider::ESPHERE)
@@ -223,7 +223,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 
 	return;
 
-	switch (m->mTag)
+	switch (m->Tag())
 	{
 	case CCollider::ESEARCH:
 		if (o->Type() == CCollider::ESPHERE)
@@ -243,7 +243,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		switch (o->Type())
 		{
 		case CCollider::ESPHERE:
-			if (o->mTag == CCollider::EBODY)
+			if (o->Tag() == CCollider::EBODY)
 			{
 				//コライダのmとyが衝突しているか判定
 				if (CCollider::Collision(m, o)) {
@@ -266,7 +266,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 	return;
 
 
-	if (o->mTag == CCollider::ESEARCH)
+	if (o->Tag() == CCollider::ESEARCH)
 		return;
 	//相手のコライダタイプの判定
 	switch (o->Type())
@@ -274,7 +274,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 	case CCollider::ESPHERE: //球コライダの時
 		//コライダのmとyが衝突しているか判定
 		if (CCollider::Collision(m, o)) {
-			switch (m->mTag)
+			switch (m->Tag())
 			{
 			case CCollider::ESEARCH:
 				if (o->Parent()->Tag() == EPLAYER)
@@ -290,7 +290,7 @@ void CEnemy2::Collision(CCollider *m, CCollider *o) {
 		}
 		break;
 	case CCollider::ETRIANGLE: //三角コライダの時
-		if (m->mTag == CCollider::EBODY)
+		if (m->Tag() == CCollider::EBODY)
 		{
 			CVector adjust; //調整値
 			//三角コライダと球コライダの衝突判定
