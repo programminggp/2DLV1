@@ -31,6 +31,7 @@
     <ClCompile Include="src\CSceneGame.cpp" />
     <ClCompile Include="src\CSceneManager.cpp" />
     <ClCompile Include="src\CSound.cpp" />
+    <ClCompile Include="src\CTank.cpp" />
     <ClCompile Include="src\CTask.cpp" />
     <ClCompile Include="src\CTaskManager.cpp" />
     <ClCompile Include="src\CText.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="src\CSceneGame.h" />
     <ClInclude Include="src\CSceneManager.h" />
     <ClInclude Include="src\CSound.h" />
+    <ClInclude Include="src\CTank.h" />
     <ClInclude Include="src\CTask.h" />
     <ClInclude Include="src\CTaskManager.h" />
     <ClInclude Include="src\CText.h" />

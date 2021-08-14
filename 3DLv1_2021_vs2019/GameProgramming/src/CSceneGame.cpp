@@ -19,6 +19,9 @@
 #include "CCamera.h"
 //
 #include "CUtil.h"
+//
+#include "CTank.h"
+
 //モデルデータの指定
 #define MODEL_OBJ "res\\f14.obj", "res\\f14.mtl"
 //背景モデルデータの指定
@@ -27,7 +30,7 @@
 void CSceneGame::Init() {
 	mText.LoadTexture("FontWhite.tga",1,64);
 
-	mBackGroundMatrix.Translate(0.0f, 0.0f, -500.0f);
+	mBackGroundMatrix.Translate(0.0f, 1.0f, -500.0f);
 
 	//三角コライダの確認
 //	mColliderTriangle.Set(NULL, NULL, CVector(-50.0f, 0.0f, -50.0f), CVector(-50.0f, 0.0f, 50.0f), CVector(50.0f, 0.0f, -50.0f));
@@ -72,6 +75,8 @@ void CSceneGame::Init() {
 	//mColliderMesh.Set(NULL, NULL, &mBackGround);
 	//mColliderMesh.Set(NULL, &mBackGroundMatrix, &mBackGround);
 	CColliderTriangle::Mesh(nullptr, &mBackGroundMatrix, &mBackGround);
+
+	mpTank = new CTank(CVector(0.0f, -1.0f, -5.0f) * mBackGroundMatrix, CVector(), CVector(0.2f, 0.2f, 0.2f));
 }
 
 void CSceneGame::Update() {
@@ -114,7 +119,7 @@ void CSceneGame::Update() {
 
 	//視点の設定
 	//gluLookAt(視点X, 視点Y, 視点Z, 中心X, 中心Y, 中心Z, 上向X, 上向Y, 上向Z)
-	//gluLookAt(mEye.mX, mEye.mY, mEye.mZ, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+	//gluLookAt(mEye.X(), mEye.Y(), mEye.Z(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
 //	mPlayer.Update();
 	//カメラのパラメータを作成する
@@ -130,17 +135,20 @@ void CSceneGame::Update() {
 //		Camera.mRotation.mY -= 2.0f;
 		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
-	e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
+	//e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
+	e = mpTank->Position() + CVector(-0.2f, 1.0f, -1.5f) * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
 //	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
 	//注視点を求める
-	c = mPlayer.Position();
+	//c = mPlayer.Position();
+	c = CVector(-0.2f, 0.0f, 3.0f) * 5.0f * mpTank->Tank()->Matrix();
 	//上方向を求める
-	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
+	//u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
+	u = CVector(0.0f, 1.0f, 0.0f) * mpTank->MatrixRotate();
 	//カメラの設定
-	gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
+	//gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
-	//Camera.Render();
+	Camera.Render();
 	//	mPlayer.Render();
 
 	mBackGround.Render(mBackGroundMatrix);

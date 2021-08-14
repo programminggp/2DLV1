@@ -105,6 +105,9 @@
     <ClCompile Include="src\CTask.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\CTank.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CBillBoard.h">
@@ -195,6 +198,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Update.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CTank.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

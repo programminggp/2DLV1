@@ -14,6 +14,9 @@
 //#include "CColliderMesh.h"
 //
 #include "CText.h"
+
+#include "CTank.h"
+
 /*
 ゲームのシーン
 */
@@ -37,6 +40,8 @@ class CSceneGame : public CScene {
 	CPlayer mPlayer;
 
 	CVector mEye;
+
+	CTank *mpTank;
 
 public:
 	//初期化処理のオーバーライド
