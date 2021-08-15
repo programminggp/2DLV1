@@ -1,8 +1,9 @@
 #include "CTank.h"
+#include "CKey.h"
 #include "CEffect.h"
 #include "CTaskManager.h"
 #include "CCollisionManager.h"
-#include "CKey.h"
+
 #include "CBullet.h"
 
 #define OBJTANK1 "res\\tank1.obj"	//モデルのファイル
@@ -14,7 +15,7 @@
 
 #define ROTATEY CVector(0.0f, 1.0f, 0.0f)
 #define ROTATEX CVector(1.0f, 0.0f, 0.0f)
-#define VELOCITY	CVector(0.0f, 0.0f, 0.1f) //回転速度
+#define VELOCITY CVector(0.0f, 0.0f, 0.1f) //回転速度
 
 #define HP 3	//耐久値
 //#define VELOCITY 0.11f	//速度
@@ -33,16 +34,18 @@ CTank::CTank()
 	, mpPlayer(0)
 	, mHp(HP)
 	, mFireCount(0)
-	, mTank2(this)
+//	, mTank2(this)
 {
 	mTag = EENEMY;
 	mColSearch.Tag(CCollider::ESEARCH);	//タグ設定
+	//モデルが読まれてない時は読む
 	if (mModel.Triangles().size() == 0)
 	{
 		mModel.Load(OBJTANK1, MTLTANK1);
+		//モデルのポインタ設定
+		mpModel = &mModel;
 	}
-	//モデルのポインタ設定
-	mpModel = &mModel;
+	mpTank2 = new CTank2(this);
 }
 
 CTank::CTank(const CVector& position, const CVector& rotation, const CVector& scale)
@@ -54,12 +57,13 @@ CTank::CTank(const CVector& position, const CVector& rotation, const CVector& sc
 	mScale = scale;	//拡縮の設定
 	CTransform::Update();	//行列の更新
 	//優先度を1に変更する
-	mPriority = 1;
-	CTaskManager::Get()->Remove(this); //削除して
-	CTaskManager::Get()->Add(this); //追加する
+	//mPriority = 1;
+	//CTaskManager::Get()->Remove(this); //削除して
+	//CTaskManager::Get()->Add(this); //追加する
 	//目標地点の設定
-	mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
+	//mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
 }
+
 
 void CTank::Update()
 {
@@ -83,14 +87,14 @@ void CTank::Update()
 		mPosition = mPosition + VELOCITY * mMatrixRotate;
 	}
 	CTransform::Update();
-	mTank2.Update();
+//	mTank2.Update();
 }
 
-void CTank::Render()
-{
-	CCharacter::Render();
-	mTank2.Render();
-}
+//void CTank::Render()
+//{
+//	CCharacter::Render();
+////	mTank2.Render();
+//}
 
 void CTank::Collision(CCollider* m, CCollider* o)
 {
@@ -100,22 +104,23 @@ void CTank::TaskCollision()
 {
 }
 
-CTransform* CTank::Tank()
+CCharacter* CTank::Tank()
 {
-	return &mTank2;
+	return mpTank2;
 }
 
 #define OFFSETTANK2 0.0f, -1.2f, 0.34f
 
-CTank2::CTank2(CTransform* parent)
-	: mTank(this)
+CTank2::CTank2(CCharacter* parent)
+	: mpParent(parent)
 {
 	if (mModel.Triangles().size() == 0)
 	{
 		mModel.Load(OBJTANK2, MTLTANK2);
+		mpModel = &mModel;
 	}
-	mpParent = parent;
 	mScale.Set(1.0f, 1.0f, 1.0f);
+	new CTank3(this);
 	mOffset.Translate(OFFSETTANK2);
 	mPosition = CVector(OFFSETTANK2) * -1.0f;
 }
@@ -132,24 +137,24 @@ void CTank2::Update()
 	}
 	CTransform::Update();
 	mMatrix = mOffset * mMatrix * mpParent->Matrix();
-	mTank.Update();
 }
 
-void CTank2::Render()
-{
-	mModel.Render(mMatrix);
-	mTank.Render();
-}
+//void CTank2::Render()
+//{
+//	mModel.Render(mMatrix);
+//}
 
 #define OFFSETTANK3 0.0f, -1.7f, -0.43f
 
-CTank3::CTank3(CTransform* parent)
+
+CTank3::CTank3(CCharacter* parent)
+	: mpParent(parent)
 {
 	if (mModel.Triangles().size() == 0)
 	{
 		mModel.Load(OBJTANK3, MTLTANK3);
+		mpModel = &mModel;
 	}
-	mpParent = parent;
 	mScale.Set(1.0f, 1.0f, 1.0f);
 	mOffset.Translate(OFFSETTANK3);
 	mPosition = CVector(OFFSETTANK3) * -1.0f;
@@ -182,7 +187,7 @@ void CTank3::Update()
 	}
 }
 
-void CTank3::Render()
-{
-	mModel.Render(mMatrix);
-}
+//void CTank3::Render()
+//{
+//	mModel.Render(mMatrix);
+//}

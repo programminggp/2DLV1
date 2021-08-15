@@ -6,50 +6,55 @@
 //コライダクラスのインクルード
 #include "CCollider.h"
 
-
-class CTank3 : public CTransform
+/*
+主砲クラス
+*/
+class CTank3 : public CCharacter
 {
 public:
-	CTank3(CTransform* parent);
+	CTank3(CCharacter* parent);
 	void Update();
-	void Render();
+//	void Render();
 private:
 	static CModel mModel;
-	CTransform* mpParent;
+	CCharacter* mpParent;
 	CMatrix mOffset;
 };
 
-class CTank2 : public CTransform
+//class CTank2 : public CTransform
+/*
+砲塔クラス
+*/
+class CTank2 : public CCharacter
 {
 public:
-	CTank2(CTransform* parent);
+	CTank2(CCharacter* parent);
 	void Update();
-	void Render();
 private:
 	static CModel mModel;
-	CTransform* mpParent;
-	CTank3 mTank;
+	CCharacter* mpParent;
 	CMatrix mOffset;
 };
 
 /*
-エネミークラス
+戦車クラス
 キャラクタクラスを継承
 */
 class CTank : public CCharacter {
 public:
 	//コンストラクタ
 	CTank();
-	//CEnemy(位置, 回転, 拡縮)
+	//Tank(位置, 回転, 拡縮)
 	CTank(const CVector& position, const CVector& rotation, const CVector& scale);
 	//更新処理
 	void Update();
-	void Render();
+	//描画処理
+//	void Render();
 	//衝突処理
 	//Collision(コライダ1, コライダ2)
 	void Collision(CCollider* m, CCollider* o);
 	void TaskCollision();
-	CTransform* Tank();
+	CCharacter* Tank();
 private:
 	//モデルデータ
 	static CModel mModel;
@@ -60,7 +65,7 @@ private:
 	int mHp;	//ヒットポイント
 	int mFireCount;
 	CVector mPoint;	//目標地点
-	CTank2 mTank2;
+	CTank2 *mpTank2;
 };
 
 

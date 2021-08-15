@@ -76,6 +76,7 @@ void CSceneGame::Init() {
 	//mColliderMesh.Set(NULL, &mBackGroundMatrix, &mBackGround);
 	CColliderTriangle::Mesh(nullptr, &mBackGroundMatrix, &mBackGround);
 
+	//戦車の生成
 	mpTank = new CTank(CVector(0.0f, -1.0f, -5.0f) * mBackGroundMatrix, CVector(), CVector(0.2f, 0.2f, 0.2f));
 }
 
@@ -136,19 +137,20 @@ void CSceneGame::Update() {
 		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
 	//e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
-	e = mpTank->Position() + CVector(-0.2f, 1.0f, -1.5f) * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
-//	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
+//	e = mpTank->Position() + CVector(-0.2f, 1.0f, -1.5f) * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
+	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
 	//注視点を求める
-	//c = mPlayer.Position();
-	c = CVector(-0.2f, 0.0f, 3.0f) * 5.0f * mpTank->Tank()->Matrix();
+	c = mPlayer.Position();
+//	c = CVector(-0.2f, 0.0f, 3.0f) * 5.0f * mpTank->Tank()->Matrix();
 	//上方向を求める
-	//u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
-	u = CVector(0.0f, 1.0f, 0.0f) * mpTank->MatrixRotate();
+	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
+//	u = CVector(0.0f, 1.0f, 0.0f) * mpTank->MatrixRotate();
 	//カメラの設定
-	//gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
+	
+	gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
 	//カメラクラスの設定
 	Camera.Set(e, c, u);
-	Camera.Render();
+	//Camera.Render();
 	//	mPlayer.Render();
 
 	mBackGround.Render(mBackGroundMatrix);
