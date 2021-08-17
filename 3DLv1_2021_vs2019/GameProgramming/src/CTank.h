@@ -48,8 +48,6 @@ public:
 	CTank(const CVector& position, const CVector& rotation, const CVector& scale);
 	//更新処理
 	void Update();
-	//描画処理
-//	void Render();
 	//衝突処理
 	//Collision(コライダ1, コライダ2)
 	void Collision(CCollider* m, CCollider* o);
@@ -60,11 +58,8 @@ private:
 	static CModel mModel;
 	//コライダ
 	CCollider mCollider;
-	CCharacter* mpPlayer;	//プレイヤーのポインタ
-	CCollider mColSearch;	//サーチ用コライダ
 	int mHp;	//ヒットポイント
 	int mFireCount;
-	CVector mPoint;	//目標地点
 	CTank2 *mpTank2;
 };
 

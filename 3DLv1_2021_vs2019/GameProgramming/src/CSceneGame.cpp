@@ -137,14 +137,14 @@ void CSceneGame::Update() {
 		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
 	//e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
-//	e = mpTank->Position() + CVector(-0.2f, 1.0f, -1.5f) * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
-	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
+	e = mpTank->Position() + CVector(-0.2f, 1.0f, -1.5f) * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
+//	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
 	//’‹“_‚ğ‹‚ß‚é
-	c = mPlayer.Position();
-//	c = CVector(-0.2f, 0.0f, 3.0f) * 5.0f * mpTank->Tank()->Matrix();
+//	c = mPlayer.Position();
+	c = CVector(-0.2f, 0.0f, 3.0f) * 5.0f * mpTank->Tank()->Matrix();
 	//ã•ûŒü‚ğ‹‚ß‚é
-	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
-//	u = CVector(0.0f, 1.0f, 0.0f) * mpTank->MatrixRotate();
+//	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
+	u = CVector(0.0f, 1.0f, 0.0f) * mpTank->MatrixRotate();
 	//ƒJƒƒ‰‚Ìİ’è
 	
 	gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());

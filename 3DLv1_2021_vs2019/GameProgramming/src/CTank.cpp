@@ -29,15 +29,11 @@ CModel CTank3::mModel;	//モデルデータ作成
 
 
 CTank::CTank()
-	: mCollider(this, &mMatrix, CVector(0.0f, 1.0f, 0.0f), 0.2f)
-	, mColSearch(this, &mMatrix, CVector(0.0f, 0.0f, 100.0f), 30.0f)
-	, mpPlayer(0)
+	: mCollider(this, &mMatrix, CVector(0.0f, 1.0f, 0.0f), 0.0f /*0.2f*/)
 	, mHp(HP)
 	, mFireCount(0)
-//	, mTank2(this)
 {
-	mTag = EENEMY;
-	mColSearch.Tag(CCollider::ESEARCH);	//タグ設定
+	mTag = EPLAYER;
 	//モデルが読まれてない時は読む
 	if (mModel.Triangles().size() == 0)
 	{
@@ -56,14 +52,11 @@ CTank::CTank(const CVector& position, const CVector& rotation, const CVector& sc
 	mRotation = rotation;	//回転の設定
 	mScale = scale;	//拡縮の設定
 	CTransform::Update();	//行列の更新
-	//優先度を1に変更する
-	//mPriority = 1;
-	//CTaskManager::Get()->Remove(this); //削除して
-	//CTaskManager::Get()->Add(this); //追加する
-	//目標地点の設定
-	//mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
+	//優先度を2に変更する
+	mPriority = 2;
+	CTaskManager::Get()->Remove(this); //削除して
+	CTaskManager::Get()->Add(this); //追加する
 }
-
 
 void CTank::Update()
 {
@@ -87,14 +80,7 @@ void CTank::Update()
 		mPosition = mPosition + VELOCITY * mMatrixRotate;
 	}
 	CTransform::Update();
-//	mTank2.Update();
 }
-
-//void CTank::Render()
-//{
-//	CCharacter::Render();
-////	mTank2.Render();
-//}
 
 void CTank::Collision(CCollider* m, CCollider* o)
 {
@@ -109,7 +95,7 @@ CCharacter* CTank::Tank()
 	return mpTank2;
 }
 
-#define OFFSETTANK2 0.0f, -1.2f, 0.34f
+#define OFFSETTANK2 0.0f, -1.2f, 0.34f //砲塔のオフセット
 
 CTank2::CTank2(CCharacter* parent)
 	: mpParent(parent)
@@ -121,8 +107,13 @@ CTank2::CTank2(CCharacter* parent)
 	}
 	mScale.Set(1.0f, 1.0f, 1.0f);
 	new CTank3(this);
+	//オフセット行列の設定
 	mOffset.Translate(OFFSETTANK2);
+	//移動量にオフセットの反対向きを設定
 	mPosition = CVector(OFFSETTANK2) * -1.0f;
+	mPriority = 1;
+	CTaskManager::Get()->Remove(this); //削除して
+	CTaskManager::Get()->Add(this); //追加する
 }
 
 void CTank2::Update()
@@ -136,16 +127,12 @@ void CTank2::Update()
 		mRotation = mRotation - ROTATEY;
 	}
 	CTransform::Update();
+	//自身の行列の前にオフセット行列を掛ける
 	mMatrix = mOffset * mMatrix * mpParent->Matrix();
 }
 
-//void CTank2::Render()
-//{
-//	mModel.Render(mMatrix);
-//}
 
 #define OFFSETTANK3 0.0f, -1.7f, -0.43f
-
 
 CTank3::CTank3(CCharacter* parent)
 	: mpParent(parent)
@@ -176,18 +163,12 @@ void CTank3::Update()
 	if (CKey::Push(VK_SPACE) && mFireCount == 0) {
 		mFireCount = FIRECOUNT;
 		CBullet* bullet = new CBullet();
-		bullet->Set(0.1f, 1.5f);
-		bullet->Position(CVector(0.0f, 0.0f, 10.0f) * mMatrix);
+		bullet->Set(0.1f, 0.5f);
+		bullet->Position(CVector(0.0f, 1.7f, 7.0f) * mMatrix);
 		CVector f = CVector(0.0f, 0.0f, 1.0f) * mMatrix - CVector(0.0f, 0.0f, 0.0f) * mMatrix;
 		CVector u = CVector(0.0f, 1.0f, 0.0f) * mMatrix - CVector(0.0f, 0.0f, 0.0f) * mMatrix;
 		f.Set(f.GetRotationX(u), f.GetRotationY(), 0.0f);
 		bullet->Rotation(f);
 		bullet->Update();
-		//		TaskManager.Add(bullet);
 	}
 }
-
-//void CTank3::Render()
-//{
-//	mModel.Render(mMatrix);
-//}
