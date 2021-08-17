@@ -52,6 +52,7 @@ public:
 	//Collision(コライダ1, コライダ2)
 	void Collision(CCollider* m, CCollider* o);
 	void TaskCollision();
+	//砲塔の取得
 	CCharacter* Tank();
 private:
 	//モデルデータ
