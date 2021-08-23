@@ -6,18 +6,21 @@
 //コライダクラスのインクルード
 #include "CCollider.h"
 
+class CTank;
+class CTank2;
+
 /*
 主砲クラス
 */
 class CTank3 : public CCharacter
 {
 public:
-	CTank3(CCharacter* parent);
+	CTank3(CTank2* parent);
 	void Update();
 //	void Render();
 private:
 	static CModel mModel;
-	CCharacter* mpParent;
+	CTank2* mpParent;
 	CMatrix mOffset;
 };
 
@@ -27,12 +30,13 @@ private:
 */
 class CTank2 : public CCharacter
 {
+//	friend CTank3;
 public:
-	CTank2(CCharacter* parent);
+	CTank2(CTank* parent);
 	void Update();
 private:
 	static CModel mModel;
-	CCharacter* mpParent;
+	CTank* mpParent;
 	CMatrix mOffset;
 };
 
@@ -41,6 +45,7 @@ private:
 キャラクタクラスを継承
 */
 class CTank : public CCharacter {
+//	friend CTank2;
 public:
 	//コンストラクタ
 	CTank();
@@ -53,7 +58,7 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 	void TaskCollision();
 	//砲塔の取得
-	CCharacter* Tank();
+	CTank2* Tank();
 private:
 	//モデルデータ
 	static CModel mModel;

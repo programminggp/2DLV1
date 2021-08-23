@@ -26,6 +26,12 @@
 #define MODEL_OBJ "res\\f14.obj", "res\\f14.mtl"
 //背景モデルデータの指定
 #define MODEL_BACKGROUND "res\\sky.obj", "res\\sky.mtl"
+//視点移動ベクトル
+#define VECTOR_EYE CVector(-0.2f, 1.0f, -1.5f)
+//注視点移動ベクトル
+#define VECTOR_CENTER CVector(-0.2f, 0.0f, 3.0f)
+//戦車のスケール
+#define SCALE_TANK 0.2f
 
 void CSceneGame::Init() {
 	mText.LoadTexture("FontWhite.tga",1,64);
@@ -77,7 +83,7 @@ void CSceneGame::Init() {
 	CColliderTriangle::Mesh(nullptr, &mBackGroundMatrix, &mBackGround);
 
 	//戦車の生成
-	mpTank = new CTank(CVector(0.0f, -1.0f, -5.0f) * mBackGroundMatrix, CVector(), CVector(0.2f, 0.2f, 0.2f));
+	mpTank = new CTank(CVector(0.0f, -1.0f, -5.0f) * mBackGroundMatrix, CVector(), CVector(SCALE_TANK, SCALE_TANK, SCALE_TANK));
 }
 
 void CSceneGame::Update() {
@@ -137,11 +143,15 @@ void CSceneGame::Update() {
 		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
 	//e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
-	e = mpTank->Position() + CVector(-0.2f, 1.0f, -1.5f) * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
-//	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
+	//視点を求める
+	e = VECTOR_EYE * (1 / SCALE_TANK) * mpTank->Tank()->Matrix();
+	//e = mpTank->Position() + VECTOR_EYE * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
+	//	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
 	//注視点を求める
 //	c = mPlayer.Position();
-	c = CVector(-0.2f, 0.0f, 3.0f) * 5.0f * mpTank->Tank()->Matrix();
+//	c = CVector(-0.2f, 0.0f, 3.0f) * 5.0f * mpTank->Tank()->Matrix();
+	c = VECTOR_CENTER * (1 / SCALE_TANK) * mpTank->Tank()->Matrix();
+	//c = mpTank->Position() + VECTOR_CENTER * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
 	//上方向を求める
 //	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
 	u = CVector(0.0f, 1.0f, 0.0f) * mpTank->MatrixRotate();

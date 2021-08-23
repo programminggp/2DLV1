@@ -12,6 +12,8 @@ public:
 	//位置の設定
 	//Position(位置)
 	void Position(const CVector& v);
+	//回転値の取得
+	const CVector& Rotation() const;
 	//回転値の設定
 	//Position(回転値)
 	void Rotation(const CVector& v);

@@ -10,6 +10,11 @@ void CTransform::Position(const CVector& v)
 	mPosition = v;
 }
 
+const CVector& CTransform::Rotation() const
+{
+	return mRotation;
+}
+
 void CTransform::Rotation(const CVector& v)
 {
 	mRotation = v;

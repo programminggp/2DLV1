@@ -90,14 +90,14 @@ void CTank::TaskCollision()
 {
 }
 
-CCharacter* CTank::Tank()
+CTank2* CTank::Tank()
 {
 	return mpTank2;
 }
 
 #define OFFSETTANK2 0.0f, -1.2f, 0.34f //砲塔のオフセット
 
-CTank2::CTank2(CCharacter* parent)
+CTank2::CTank2(CTank* parent)
 	: mpParent(parent)
 {
 	if (mModel.Triangles().size() == 0)
@@ -134,7 +134,7 @@ void CTank2::Update()
 
 #define OFFSETTANK3 0.0f, -1.7f, -0.43f
 
-CTank3::CTank3(CCharacter* parent)
+CTank3::CTank3(CTank2* parent)
 	: mpParent(parent)
 {
 	if (mModel.Triangles().size() == 0)
@@ -168,6 +168,9 @@ void CTank3::Update()
 		CVector f = CVector(0.0f, 0.0f, 1.0f) * mMatrix - CVector(0.0f, 0.0f, 0.0f) * mMatrix;
 		CVector u = CVector(0.0f, 1.0f, 0.0f) * mMatrix - CVector(0.0f, 0.0f, 0.0f) * mMatrix;
 		f.Set(f.GetRotationX(u), f.GetRotationY(), 0.0f);
+		//Rotation()追加
+		//mpParentエラー対応
+		f = mpParent->mpParent->Rotation() + mpParent->Rotation() + Rotation();
 		bullet->Rotation(f);
 		bullet->Update();
 	}
