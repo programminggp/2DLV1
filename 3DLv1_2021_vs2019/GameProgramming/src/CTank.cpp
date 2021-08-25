@@ -16,6 +16,7 @@
 #define ROTATEY CVector(0.0f, 1.0f, 0.0f)
 #define ROTATEX CVector(1.0f, 0.0f, 0.0f)
 #define VELOCITY CVector(0.0f, 0.0f, 0.1f) //回転速度
+#define CANNON_TIP CVector(0.0f, 1.7f, 7.0f)
 
 #define HP 3	//耐久値
 //#define VELOCITY 0.11f	//速度
@@ -164,14 +165,16 @@ void CTank3::Update()
 		mFireCount = FIRECOUNT;
 		CBullet* bullet = new CBullet();
 		bullet->Set(0.1f, 0.5f);
-		bullet->Position(CVector(0.0f, 1.7f, 7.0f) * mMatrix);
-		CVector f = CVector(0.0f, 0.0f, 1.0f) * mMatrix - CVector(0.0f, 0.0f, 0.0f) * mMatrix;
-		CVector u = CVector(0.0f, 1.0f, 0.0f) * mMatrix - CVector(0.0f, 0.0f, 0.0f) * mMatrix;
-		f.Set(f.GetRotationX(u), f.GetRotationY(), 0.0f);
+		//CVector f = CVector(0.0f, 0.0f, 1.0f) * mMatrix - CVector(0.0f, 0.0f, 0.0f) * mMatrix;
+		//CVector u = CVector(0.0f, 1.0f, 0.0f) * mMatrix - CVector(0.0f, 0.0f, 0.0f) * mMatrix;
+		//f.Set(f.GetRotationX(u), f.GetRotationY(), 0.0f);
 		//Rotation()追加
 		//mpParentエラー対応
-		f = mpParent->mpParent->Rotation() + mpParent->Rotation() + Rotation();
-		bullet->Rotation(f);
+		//座標の設定
+		bullet->Position(CANNON_TIP * mMatrix);
+		//回転値の設定
+		CVector rotation = mpParent->mpParent->Rotation() + mpParent->Rotation() + Rotation();
+		bullet->Rotation(rotation);
 		bullet->Update();
 	}
 }

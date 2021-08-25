@@ -30,7 +30,7 @@ private:
 */
 class CTank2 : public CCharacter
 {
-//	friend CTank3;
+	friend CTank3;
 public:
 	CTank2(CTank* parent);
 	void Update();
@@ -45,7 +45,7 @@ private:
 キャラクタクラスを継承
 */
 class CTank : public CCharacter {
-//	friend CTank2;
+	friend CTank2;
 public:
 	//コンストラクタ
 	CTank();
