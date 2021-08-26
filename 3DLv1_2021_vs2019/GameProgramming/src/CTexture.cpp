@@ -6,7 +6,7 @@
 
 CTexture::CTexture()
 	: mId(0)
-	, mpName(0)
+	, mpName(nullptr)
 	, mRow(1)
 	, mCol(1)
 {
@@ -31,14 +31,14 @@ void CTexture::Destory() {
 	}
 	if (mpName) {
 		delete[] mpName;
-		mpName = 0;
+		mpName = nullptr;
 	}
 }
 #include <string>
 void CTexture::Load(const char* filename) {
 	//ファイルオープン
 	std::string file(filename);
-	file = "res\\" + file;	//ファイル名の退避
+	file = RES_DIR + file;	//ファイル名の退避
 	mpName = new char[strlen(filename) + 1];
 	strcpy(mpName, filename);
 	//画像データ
