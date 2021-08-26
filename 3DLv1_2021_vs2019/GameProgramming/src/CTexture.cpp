@@ -34,6 +34,7 @@ void CTexture::Destory() {
 		mpName = nullptr;
 	}
 }
+
 #include <string>
 void CTexture::Load(const char* filename) {
 	//ファイルオープン
