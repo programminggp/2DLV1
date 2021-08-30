@@ -1,16 +1,13 @@
 #include "CFreeMonster.h"
 
-CModelX *CFreeMonster::spModel = 0;
-int CFreeMonster::sCount = 0;
+CModelX CFreeMonster::sModel;
 
 CFreeMonster::CFreeMonster()
 {
-	if (!sCount) {
-		spModel = new CModelX();
-		spModel->Load("freemonster\\monster-animated-character-X.X");
+	if (sModel.mFrame.size() == 0) {
+		sModel.Load("freemonster\\monster-animated-character-X.X");
 	}
-	sCount++;
-	Init(spModel);
+	Init(&sModel);
 }
 
 void CFreeMonster::Set(const CVector &pos, const CVector &rot, const CVector &scale)
@@ -22,10 +19,9 @@ void CFreeMonster::Set(const CVector &pos, const CVector &rot, const CVector &sc
 
 CFreeMonster::~CFreeMonster()
 {
-	sCount--;
-	if (!sCount)
-	{
-		delete spModel;
-		spModel = 0;
-	}
+	//if (!sCount)
+	//{
+	//	delete spModel;
+	//	spModel = 0;
+	//}
 }
