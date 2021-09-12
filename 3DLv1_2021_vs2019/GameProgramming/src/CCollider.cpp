@@ -12,6 +12,7 @@ CCollider::CCollider()
 , mpMatrix(&mMatrix)
 , mType(ESPHERE)
 , mTag(EBODY)
+, mRadius(0)
 {
 	//コリジョンマネージャyに追加
 	CCollisionManager::Get()->Add(this);

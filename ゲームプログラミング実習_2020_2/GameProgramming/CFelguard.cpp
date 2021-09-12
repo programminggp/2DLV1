@@ -1,17 +1,14 @@
 #include "CFelguard.h"
 
-CModelX *CFelguard::spModel = 0;
-int CFelguard::sCount = 0;
+CModelX CFelguard::sModel;
 
 CFelguard::CFelguard()
 {
-	if (!sCount) {
-		spModel = new CModelX();
-		spModel->Load("felguard\\felguard-X.X");
-		spModel->SeparateAnimationSet(0, 0, 700, "ALL");
+	if (sModel.mFrame.size() == 0) {
+		sModel.Load("felguard\\felguard-X.X");
+		sModel.SeparateAnimationSet(0, 0, 700, "ALL");
 	}
-	sCount++;
-	Init(spModel);
+	Init(&sModel);
 	ChangeAnimation(1, true, 700);
 }
 
@@ -24,10 +21,4 @@ void CFelguard::Set(const CVector &pos, const CVector &rot, const CVector &scale
 
 CFelguard::~CFelguard()
 {
-	sCount--;
-	if (!sCount)
-	{
-		delete spModel;
-		spModel = 0;
-	}
 }

@@ -1,6 +1,10 @@
 #ifndef CTEXTURE_H
 #define CTEXTURE_H
 #include "glut.h"
+
+//リソースファイルフォルダ
+#define RES_DIR "res\\"
+
 /*
 TGAファイルのヘッダフォーマット
 */
