@@ -1,0 +1,39 @@
+#version 120
+uniform vec3 lightVec;
+uniform vec3 lightAmbientColor;
+uniform vec3 lightDiffuseColor;
+uniform vec3 eyeVec;
+uniform vec4 Ambient;
+uniform vec4 Diffuse;
+uniform vec3 Specular;
+uniform vec3 Emissive;
+uniform float Pow;
+
+//頂点シェーダーから受け取る変数
+varying vec3 N;//法線ベクトル
+uniform sampler2D sampler;
+uniform sampler2D sampler7;
+uniform int textureFlg;
+
+void main(void)
+{
+
+	float NL = dot(N, lightVec); 
+	vec3 Reflect = normalize(2 * NL * N - lightVec);
+	float specular = pow(clamp(dot(Reflect, eyeVec),0,1.0), Pow);
+
+	vec4 texColor;
+	if(textureFlg == -1)
+	{
+		texColor = vec4(1.0,1.0,1.0,1.0);
+	}
+	else
+	{
+		texColor = texture2D(sampler, gl_TexCoord[0].st);
+	//NL = (NL>0.5) ? 1.0:0;
+	}
+	
+//	gl_FragColor= texColor * (Diffuse * clamp(NL,0,1.0)*lightDiffuseColor+lightAmbientColor + vec4(specular*Specular + Emissive,1.0));
+	gl_FragColor= texColor * (Diffuse * clamp(NL,0,1.0)* vec4(lightDiffuseColor,Diffuse.a)+ Ambient * vec4(lightAmbientColor,Diffuse.a) + vec4(specular*Specular + Emissive,Diffuse.a));
+//gl_FragColor= texColor;
+}
