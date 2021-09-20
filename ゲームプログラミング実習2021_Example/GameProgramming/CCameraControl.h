@@ -10,6 +10,7 @@ class CCameraControl : public CCharacter
 public:
 	CCameraControl();
 	void Update();
+	void Render();
 };
 
 

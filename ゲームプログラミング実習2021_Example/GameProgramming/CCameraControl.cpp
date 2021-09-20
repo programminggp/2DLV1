@@ -44,3 +44,7 @@ void CCameraControl::Update()
 	mCamera.Set(mPosition, mPosition + FOWARD * mMatrixRotate, UP * mMatrixRotate);
 	mCamera.Render();
 }
+
+void CCameraControl::Render()
+{
+}
