@@ -7,7 +7,7 @@ CMap::CMap()
 {
 	mpModel = &mModel;
 	mModel.Load(OBJ, MTL);
-	mPosition = CVector(0.0f, 1.0f, 0.0f);
+	mPosition = CVector(50.0f, 10.0f, 50.0f);
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	CTransform::Update();
 }
