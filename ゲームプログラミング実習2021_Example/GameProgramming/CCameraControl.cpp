@@ -4,7 +4,7 @@
 #define FOWARD CVector(0.0f, 0.0f, 1.0f)
 #define UP CVector(0.0f, 1.0f, 0.0f)
 #define VELOCITY 0.1f
-#define START_POSITION CVector(0.0f, 0.0f, 15.0f)
+#define START_POSITION CVector(0.0f, 3.0f, 10.0f)
 
 CCameraControl::CCameraControl()
 {

@@ -5,11 +5,13 @@
 #include "CXEnemy.h"
 #include "CCameraControl.h"
 #include "CMap.h"
+#include "CFelguard.h"
 
 /*
 ƒQ[ƒ€‚ÌƒV[ƒ“
 */
 class CSceneGame : public CScene {
+	CFelguard mFelguard;
 	CCameraControl mCameraControl;
 	CMap mMap;
 public:

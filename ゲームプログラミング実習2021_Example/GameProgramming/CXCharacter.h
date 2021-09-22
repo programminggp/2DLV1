@@ -6,6 +6,7 @@
 #include "CCharacter.h"
 
 class CXCharacter : public CCharacter {
+	void Update(CMatrix& m);
 public:
 	CModelX* mpModel;	//モデルデータ
 	int mAnimationIndex;	//アニメーション番号
@@ -23,7 +24,6 @@ public:
 	//アニメーションの変更
 	void ChangeAnimation(int index, bool loop, float framesize);
 	//更新処理
-	void Update(CMatrix& m);
 	void Update();
 	//描画処理
 	void Render();
