@@ -6,11 +6,11 @@
 
 class CXPlayer : public CXCharacter
 {
-public:
 	//ƒRƒ‰ƒCƒ_‚ÌéŒ¾
 	CCollider mColSphereBody;	//‘Ì
 	CCollider mColSphereHead;	//“ª
 	CCollider mColSphereSword;	//Œ•
+public:
 
 	CXPlayer();
 
