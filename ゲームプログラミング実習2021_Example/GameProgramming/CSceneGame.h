@@ -6,11 +6,12 @@
 #include "CCameraControl.h"
 #include "CMap.h"
 #include "CFelguard.h"
-
+#include "CKnight.h"
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
+	CKnight mKnight;
 	CFelguard mFelguard;
 	CCameraControl mCameraControl;
 	CMap mMap;
@@ -18,8 +19,8 @@ public:
 	//キャラクタのインスタンス
 	CXPlayer mPlayer;
 	//敵のインスタンス
-	CXEnemy mEnemy;
-
+//	CXEnemy mEnemy;
+	CSceneGame();
 	~CSceneGame();
 	//初期化処理のオーバーライド
 	void Init();
