@@ -36,6 +36,7 @@ void CTriangle::Render()
 	glEnd();
 }
 //２．CTriangleクラスの変数（インスタンス）を作成する
+//３．この時デフォルトコンストラクタが実行される
 CTriangle Triangle;
 
 //Init関数
