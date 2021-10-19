@@ -1,15 +1,13 @@
 #include <Windows.h>
 #include "glew.h"
-#include "glut.h"
 #include "GLFW/glfw3.h"
 #include "MainLoop.h"
+#include "glut.h"
 
 //#define FULLSCREEN	//フルスクリーンにする
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
-
-bool InitFlg = true;
 
 /* display関数
 1秒間に60回実行される
@@ -22,14 +20,7 @@ void display() {
 	//モデルビューの行列を単位行列にする
 	glLoadIdentity();
 
-	if (InitFlg) {
-		Init();
-		InitFlg = false;
-	}
-	else {
-		MainLoop();
-	}
-
+	MainLoop();
 }
 
 
@@ -125,6 +116,8 @@ int main(void)
 	//メッシュシェーダー用
 //	CLight::getLight(0)->setDir(CVector3(0, -1, 1).GetNormalize());
 //	CLight::getLight(0)->setColor(CVector3(0.9f, 0.9f, 0.9f), CVector3(1.0f, 1.0f, 1.0f));
+
+	Init();
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))
