@@ -3,11 +3,7 @@
 #include "GLFW/glfw3.h"
 #include "MainLoop.h"
 #include "glut.h"
-
-//#define FULLSCREEN	//フルスクリーンにする
-
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#include "main.h"
 
 /* display関数
 1秒間に60回実行される
@@ -33,8 +29,12 @@ void reshape(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);	//画面の描画エリアの指定
 	glMatrixMode(GL_PROJECTION);	//行列をプロジェクションモードへ変更
 	glLoadIdentity();				//行列を初期化
+
+#ifndef FLG3D
 	gluOrtho2D(-width / 2, width / 2, -height / 2, height / 2);	//2Dの画面を設定
-//	gluPerspective(75.0, (double)width / (double)height, 1.0, 1000.0);	//3Dの画面を設定
+#else
+	gluPerspective(75.0, (double)width / (double)height, 1.0, 10000.0);	//3Dの画面を設定
+#endif
 
 	glMatrixMode(GL_MODELVIEW);		//行列をモデルビューモードへ変更
 	glLoadIdentity();				//行列を初期化
@@ -101,21 +101,22 @@ int main(void)
 	// 垂直同期のタイミングを待つ  
 	//glfwSwapInterval(1); 
 
+#ifdef FLG3D
+	glEnable(GL_DEPTH_TEST);	//3D必要 2D不要
+	//ライトの設定（3D必要 2D不要）
+	//固定シェーダー用
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	//メッシュシェーダー用
+//	CLight::getLight(0)->setDir(CVector3(0, -1, 1).GetNormalize());
+//	CLight::getLight(0)->setColor(CVector3(0.9f, 0.9f, 0.9f), CVector3(1.0f, 1.0f, 1.0f));
+#endif
 
-//	glEnable(GL_DEPTH_TEST);	//3D必要 2D不要
 	glEnable(GL_CULL_FACE);
 
 	// ウィンドウのサイズ変更時に呼び出す処理の登録
 	glfwSetWindowSizeCallback(window, reshape);
 	reshape(window, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-	//ライトの設定（3D必要 2D不要）
-	//固定シェーダー用
-//	glEnable(GL_LIGHTING);
-//	glEnable(GL_LIGHT0);
-	//メッシュシェーダー用
-//	CLight::getLight(0)->setDir(CVector3(0, -1, 1).GetNormalize());
-//	CLight::getLight(0)->setColor(CVector3(0.9f, 0.9f, 0.9f), CVector3(1.0f, 1.0f, 1.0f));
 
 	Init();
 

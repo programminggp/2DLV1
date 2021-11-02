@@ -32,5 +32,8 @@
     <ClInclude Include="Library.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
