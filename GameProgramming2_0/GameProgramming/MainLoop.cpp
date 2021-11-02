@@ -6,8 +6,6 @@
 */
 class CTriangle
 {
-	//３．変数を宣言する
-	float x0, y0, x1, y1, x2, y2;
 public:
 	//３．デフォルトコンストラクタを宣言する
 	CTriangle();
@@ -15,6 +13,10 @@ public:
 	CTriangle(float x0, float y0, float x1, float y1, float x2, float y2);
 	//２．Render処理（メソッド）を宣言する
 	void Render();
+//３．privateアクセス権限
+private:
+	//３．変数を宣言する
+	float x0, y0, x1, y1, x2, y2;
 };
 //３．デフォルトコンストラクタを定義する
 CTriangle::CTriangle()
