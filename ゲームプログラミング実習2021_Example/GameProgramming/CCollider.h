@@ -14,7 +14,8 @@ public:
 	{
 		EBODY,		//本体
 		ESEARCH,	//サーチ用
-		ESWORD,	//剣
+		ESWORD,		//剣
+		EGROUND,	//地面、壁
 	};
 	ETag mTag;
 	//コライダタイプ

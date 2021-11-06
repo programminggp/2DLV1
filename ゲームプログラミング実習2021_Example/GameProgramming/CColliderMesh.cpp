@@ -27,3 +27,17 @@ void CColliderMesh::Set(CCharacter *parent, CMatrix *matrix, CModel *model)
 		mpColliderTriangles[i].ChangePriority();
 	}
 }
+
+void CColliderMesh::Set(CCharacter* parent, CMatrix* matrix, CModel* model, CCollider::ETag tag)
+{
+	mpColliderTriangles = new CColliderTriangle[model->mTriangles.size()];
+	for (size_t i = 0; i < model->mTriangles.size(); i++)
+	{	//三角コライダの設定
+		mpColliderTriangles[i].Set(parent, matrix
+			, model->mTriangles[i].mV[0]
+			, model->mTriangles[i].mV[1]
+			, model->mTriangles[i].mV[2]);
+		mpColliderTriangles[i].ChangePriority();
+		mpColliderTriangles[i].mTag = tag;
+	}
+}

@@ -281,7 +281,7 @@ void CModel::Render(const CMatrix &m)
 	glTexCoordPointer(2, GL_FLOAT, 0, mpTextureCoord);
 	int first = 0; //描画位置
 	//マテリアル毎に描画する
-	for (int i = 0; i < mpMaterials.size(); i++) {
+	for (size_t i = 0; i < mpMaterials.size(); i++) {
 		//マテリアルを適用する
 		mpMaterials[i]->Enabled();
 		//描画位置からのデータで三角形を描画します

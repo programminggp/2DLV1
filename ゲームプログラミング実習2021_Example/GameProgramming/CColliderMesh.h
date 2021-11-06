@@ -14,7 +14,10 @@ public:
 	~CColliderMesh();
 	//Set(親, 親行列, モデル)
 	//モデルから三角コライダの生成
-	void Set(CCharacter *parent, CMatrix *matrix, CModel *model);
+	void Set(CCharacter* parent, CMatrix* matrix, CModel* model);
+	//Set(親, 親行列, モデル, タグ)
+	//モデルから三角コライダの生成
+	void Set(CCharacter* parent, CMatrix* matrix, CModel* model, CCollider::ETag tag);
 };
 
 #endif

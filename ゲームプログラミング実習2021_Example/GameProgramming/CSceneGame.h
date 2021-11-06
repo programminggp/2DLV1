@@ -7,17 +7,19 @@
 #include "CMap.h"
 #include "CFelguard.h"
 #include "CKnight.h"
+#include "CMap2.h"
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
-	CKnight mKnight;
-	CFelguard mFelguard;
+//	CKnight mKnight;
+//	CFelguard mFelguard;
 	CCameraControl mCameraControl;
-	CMap mMap;
+//	CMap mMap;
+	CMap2 mMap;
 public:
 	//キャラクタのインスタンス
-	CXPlayer mPlayer;
+//	CXPlayer mPlayer;
 	//敵のインスタンス
 //	CXEnemy mEnemy;
 	CSceneGame();

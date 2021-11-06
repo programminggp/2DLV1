@@ -1,17 +1,19 @@
 #include "CCameraControl.h"
 #include "CKey.h"
 
-#define FOWARD CVector(0.0f, 0.0f, 1.0f)
+#define FOWARD CVector(0.0f, 0.0f, 7.0f)
 #define UP CVector(0.0f, 1.0f, 0.0f)
-#define VELOCITY 0.1f
-#define START_POSITION CVector(0.0f, 3.0f, 10.0f)
+#define VELOCITY 1.1f
+//#define START_POSITION CVector(0.0f, 3.0f, 10.0f)
+#define START_POSITION CVector(-71.0f, 1.0f, 525.0f)
 
 CCameraControl::CCameraControl()
 {
 	mPosition = START_POSITION;
-	mRotation = CVector(0.0f, 180.0f, 0.0f);
+	mRotation = CVector(0.0f, 0.0f, 0.0f);
 	CTransform::Update();
-	mCamera.Set(mPosition, mPosition + FOWARD * mMatrixRotate, UP * mMatrixRotate);
+//	mCamera.Set(mPosition, mPosition + FOWARD * mMatrixRotate, UP * mMatrixRotate);
+	mCamera.Set(mPosition + FOWARD * mMatrixRotate, mPosition, UP * mMatrixRotate);
 }
 
 void CCameraControl::Update()
@@ -41,10 +43,12 @@ void CCameraControl::Update()
 		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
 	}
 	CTransform::Update();
-	mCamera.Set(mPosition, mPosition + FOWARD * mMatrixRotate, UP * mMatrixRotate);
+//	mCamera.Set(mPosition, mPosition + FOWARD * mMatrixRotate, UP * mMatrixRotate);
+	mCamera.Set(mPosition + FOWARD * mMatrixRotate, mPosition, UP * mMatrixRotate);
 	mCamera.Render();
 }
 
 void CCameraControl::Render()
 {
+//	printf("x:%f y:%f z:%f\n", mPosition.mX, mPosition.mY, mPosition.mZ);
 }

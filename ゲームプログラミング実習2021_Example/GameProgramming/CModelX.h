@@ -65,7 +65,7 @@ public:
 	~CAnimationSet() {
 		SAFE_DELETE_ARRAY(mpName);
 		//アニメーション要素の削除
-		for (int i = 0; i < mAnimation.size(); i++) {
+		for (size_t i = 0; i < mAnimation.size(); i++) {
 			delete mAnimation[i];
 		}
 	}
@@ -146,7 +146,7 @@ public:
 		SAFE_DELETE_ARRAY(mpAnimateNormal);
 		SAFE_DELETE_ARRAY(mpTextureCoords);
 		//スキンウェイトの削除
-		for (int i = 0; i < mSkinWeights.size(); i++) {
+		for (size_t i = 0; i < mSkinWeights.size(); i++) {
 			delete mSkinWeights[i];
 		}
 	}
@@ -217,11 +217,11 @@ public:
 		{
 			delete mFrame[0];
 		}
-		for (int i = 0; i < mAnimationSet.size(); i++) {
+		for (size_t i = 0; i < mAnimationSet.size(); i++) {
 			delete mAnimationSet[i];
 		}
 		//マテリアルの解放
-		for (int i = 0; i < mMaterial.size(); i++) {
+		for (size_t i = 0; i < mMaterial.size(); i++) {
 			delete mMaterial[i];
 		}
 		SAFE_DELETE_ARRAY(mpSkinningMatrix);

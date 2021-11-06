@@ -13,7 +13,7 @@
 #include "CCollisionManager.h"
 
 CSceneGame::CSceneGame()
-	: mKnight(CVector(7.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f))
+//	: mKnight(CVector(7.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f))
 {
 }
 
@@ -25,30 +25,10 @@ void CSceneGame::Init() {
 	//テキストフォントの読み込みと設定
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
 
-	CRes::sModelX.Load(MODEL_FILE);
-//	CRes::sKnight.Load("knight\\knight_low.x");
-//	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:移動
-////	CRes::sKnight.SeparateAnimationSet(0, 1530, 1830, "idle1");//2:待機
-//	CRes::sKnight.SeparateAnimationSet(0, 1380, 1530, "idle1");//2:待機
-//	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//3:ダミー
-//	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//4:ダミー
-//	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//5:ダミー
-//	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//6:ダミー
-//	CRes::sKnight.SeparateAnimationSet(0, 440, 520, "attack1");//7:Attack1
-//	CRes::sKnight.SeparateAnimationSet(0, 520, 615, "attack2");//8:Attack2
-//	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//9:ダミー
-//	CRes::sKnight.SeparateAnimationSet(0, 10, 80, "walk");//10:ダミー
-//	CRes::sKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
+//	CRes::sModelX.Load(MODEL_FILE);
 
 	//キャラクターにモデルを設定
-	mPlayer.Init(&CRes::sModelX);
-
-	////敵の初期設定
-	//mEnemy.Init(&CRes::sKnight);
-	//mEnemy.mAnimationFrameSize = 1024;
-	////敵の配置
-	//mEnemy.mPosition = CVector(7.0f, 0.0f, 0.0f);
-	//mEnemy.ChangeAnimation(2, true, 200);
+//	mPlayer.Init(&CRes::sModelX);
 
 }
 
@@ -57,11 +37,15 @@ void CSceneGame::Update() {
 
 	CTaskManager::Get()->Update();
 	//衝突処理
-	CCollisionManager::Get()->Collision();	
+	CTaskManager::Get()->TaskCollision();
+//	CCollisionManager::Get()->Collision();	
 
 	CTaskManager::Get()->Render();
+
+#ifdef _DEBUG
 	//コライダの描画
 	CCollisionManager::Get()->Render();
+#endif
 
 	//2D描画開始
 	CUtil::Start2D(0, 800, 0, 600);
