@@ -8,14 +8,16 @@
 #include "CFelguard.h"
 #include "CKnight.h"
 #include "CMap2.h"
+#include "CMap3.h"
+#include "CMap4.h"
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
 //	CKnight mKnight;
 //	CFelguard mFelguard;
-//	CMap mMap;
-	CMap2 mMap;
+	CMap4 mMap;
+//	CMap2 mMap;
 public:
 	//キャラクタのインスタンス
 //	CXPlayer mPlayer;

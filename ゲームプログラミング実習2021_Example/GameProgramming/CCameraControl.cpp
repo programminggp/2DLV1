@@ -30,7 +30,10 @@ CCameraControl::CCameraControl(const CVector& pos, const CVector& rot, float dis
 
 void CCameraControl::Update()
 {
-	mPosition = CXPlayer::spInstance->mPosition;
+	if (CXPlayer::spInstance)
+	{
+		mPosition = CXPlayer::spInstance->mPosition;
+	}
 	if (CKey::Push(VK_SHIFT))
 	{
 		mPosition = mPosition + mDistance * VELOCITY * mMatrixRotate;

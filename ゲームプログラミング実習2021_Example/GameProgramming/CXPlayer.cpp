@@ -112,7 +112,7 @@ void CXPlayer::Update()
 void CXPlayer::TaskCollision()
 {
 	mColLine.ChangePriority();
-	CCollisionManager::Get()->Collision(&mColLine, 5);
+	CCollisionManager::Get()->Collision(&mColLine, 30);
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)

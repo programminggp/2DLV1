@@ -9,8 +9,8 @@
 class CMap2 : public CCharacter
 {
 	CXPlayer mPlayer;
-	CModel mModel;
 	CColliderMesh mColMesh;
+	CModel mModel;
 	CCameraControl mCameraControl;
 public:
 	CMap2();

@@ -103,6 +103,8 @@
     <ClCompile Include="CKnight.cpp" />
     <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMap2.cpp" />
+    <ClCompile Include="CMap3.cpp" />
+    <ClCompile Include="CMap4.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="CModel.cpp" />
@@ -145,6 +147,8 @@
     <ClInclude Include="CKnight.h" />
     <ClInclude Include="CMap.h" />
     <ClInclude Include="CMap2.h" />
+    <ClInclude Include="CMap3.h" />
+    <ClInclude Include="CMap4.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMatrix.h" />
     <ClInclude Include="CModel.h" />
