@@ -3,9 +3,12 @@
 
 #define OBJ "UnderGround\\passage2.obj"
 #define MTL "UnderGround\\passage2.mtl"
+#define CAMERA_POSITION CVector(-71.0f, 1.0f, 525.0f)
+#define CAMERA_DISTANCE 7.0f
 
 CMap2::CMap2()
-	:mPlayer(CVector(-70.0f, 18.0f, 525.0f), CVector(0.0f, 180.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f))
+	: mPlayer(CVector(-70.0f, 18.0f, 525.0f), CVector(0.0f, 180.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f))
+	, mCameraControl(CAMERA_POSITION, CVector(), CAMERA_DISTANCE)
 {
 	mpModel = &mModel;
 	mModel.Load(OBJ, MTL);

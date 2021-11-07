@@ -3,10 +3,11 @@
 
 //頂点座標設定
 //SetVertex(頂点1, 頂点2, 頂点3)
-void CTriangle::SetVertex(const CVector &v0, const CVector &v1, const CVector &v2) {
+bool CTriangle::SetVertex(const CVector &v0, const CVector &v1, const CVector &v2) {
 	mV[0] = v0;
 	mV[1] = v1;
 	mV[2] = v2;
+	return !((mV[0] == mV[1]) || (mV[1] == mV[2]) || (mV[0] == mV[2]));
 }
 
 //法線設定

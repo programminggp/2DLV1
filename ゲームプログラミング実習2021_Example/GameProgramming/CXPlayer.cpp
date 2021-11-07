@@ -3,6 +3,7 @@
 #include "CCollisionManager.h"
 
 #define GRAVITY 0.02f	//重力
+CCharacter* CXPlayer::spInstance = nullptr;
 
 CXPlayer::CXPlayer()
 	: mColSphereBody(this, nullptr, CVector(), 0.5f)
@@ -15,6 +16,7 @@ CXPlayer::CXPlayer()
 	, mColDummy2(nullptr, nullptr, CVector(-3.0f, 0.0f, 3.0f), CVector(3.0f, 0.0f, -3.0f), CVector(-3.0f, 0.0f, -3.0f))
 #endif
 {
+	spInstance = this;
 	//タグにプレイヤーを設定します
 	mTag = EPLAYER;
 	mColSphereSword.mTag = CCollider::ESWORD;
@@ -104,6 +106,7 @@ void CXPlayer::Update()
 	mJumpV -= GRAVITY;
 	mPosition.mY += mJumpV;
 	CXCharacter::Update();
+	mPosition.Print();
 }
 
 void CXPlayer::TaskCollision()

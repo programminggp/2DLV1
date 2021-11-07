@@ -19,7 +19,7 @@ class CXPlayer : public CXCharacter
 	CColliderTriangle mColDummy2;
 #endif
 public:
-
+	static CCharacter* spInstance;
 	CXPlayer();
 	CXPlayer(const CVector& pos, const CVector& rot, const CVector& scale);
 

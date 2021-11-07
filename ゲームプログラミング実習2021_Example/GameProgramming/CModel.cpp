@@ -124,12 +124,18 @@ void CModel::Load(char *obj, char *mtl) {
 				sscanf(str[3], "%d//%d", &v[2], &n[2]);
 				//三角形作成
 				CTriangle t;
-				t.SetVertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
-				t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
-				//マテリアル番号の設定
-				t.mMaterialIdx = idx;
-				//可変長配列mTrianglesに三角形を追加
-				mTriangles.push_back(t);
+				if (t.SetVertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]))
+				{
+					t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
+					//マテリアル番号の設定
+					t.mMaterialIdx = idx;
+					//可変長配列mTrianglesに三角形を追加
+					mTriangles.push_back(t);
+				}
+				else
+				{
+					printf("f %d//%d %d//%d %d//%d \n", v[0], n[0],v[1], n[1], v[2], n[2]);
+				}
 			}
 			else {
 				//テクスチャマッピング有り
@@ -140,16 +146,22 @@ void CModel::Load(char *obj, char *mtl) {
 				sscanf(str[3], "%d/%d/%d", &v[2], &u[2], &n[2]);
 				//三角形作成
 				CTriangle t;
-				t.SetVertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
-				t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
-				//テクスチャマッピングの設定
-				t.mUv[0] = uv[u[0] - 1];
-				t.mUv[1] = uv[u[1] - 1];
-				t.mUv[2] = uv[u[2] - 1];
-				//マテリアル番号の設定
-				t.mMaterialIdx = idx;
-				//可変長配列mTrianglesに三角形を追加
-				mTriangles.push_back(t);
+				if (t.SetVertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]))
+				{
+					t.SetNormal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
+					//テクスチャマッピングの設定
+					t.mUv[0] = uv[u[0] - 1];
+					t.mUv[1] = uv[u[1] - 1];
+					t.mUv[2] = uv[u[2] - 1];
+					//マテリアル番号の設定
+					t.mMaterialIdx = idx;
+					//可変長配列mTrianglesに三角形を追加
+					mTriangles.push_back(t);
+				}
+				else
+				{
+					printf("f %d/%d/%d %d/%d/%d %d/%d/%d \n", v[0], u[0], n[0], v[1], u[1], n[1], v[2], u[2], n[2]);
+				}
 			}
 		}
 		//先頭がusemtlの時、マテリアルインデックスを取得する

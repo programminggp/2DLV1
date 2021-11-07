@@ -45,9 +45,10 @@ float CVector::Length() {
 float CVector::Dot(const CVector &v) {
 	return mX*v.mX + mY*v.mY + mZ * v.mZ;
 }
-
+#include <assert.h>
 CVector CVector::Normalize() {
 	//ベクトルの大きさで割ったベクトルを返す（長さ1のベクトル）
+//	assert(Length() != 0.0f);
 	return *this * (1.0f / Length());
 }
 //外積
@@ -71,4 +72,14 @@ void CVector::operator+=(const CVector& v)
 	mX += v.mX;
 	mY += v.mY;
 	mZ += v.mZ;
+}
+
+bool CVector::operator==(const CVector& v) const
+{
+	return (mX == v.mX) && (mY == v.mY) && (mZ == v.mZ);
+}
+#include <stdio.h>
+void CVector::Print()
+{
+	printf("%f %f %f\n", mX, mY, mZ);
 }

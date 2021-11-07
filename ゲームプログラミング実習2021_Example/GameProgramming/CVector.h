@@ -42,6 +42,10 @@ public:
 	//+=演算子のオーバーロード
 	//CVector1 += CVector2 の演算を行う
 	void operator+=(const CVector& v);
-
+	//==演算子のオーバーロード
+	//CVector1 == CVector2 の演算を行う
+	bool operator==(const CVector& v) const;
+	//設定出力
+	void Print();
 };
 #endif

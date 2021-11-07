@@ -14,7 +14,6 @@
 class CSceneGame : public CScene {
 //	CKnight mKnight;
 //	CFelguard mFelguard;
-	CCameraControl mCameraControl;
 //	CMap mMap;
 	CMap2 mMap;
 public:
