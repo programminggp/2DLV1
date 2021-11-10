@@ -106,10 +106,10 @@ void CTriangle::Render(const CMatrix &m)
 	mV[2] = CTriangle::mV[2] * m;
 	//–@ü‚ÍˆÚ“®’l‚ğíœ
 	CMatrix mat = m;
-	mat.Translate(0.0f, 0.0f, 0.0f);
-	//mat.M(3, 0, 0.0f);
-	//mat.M(3, 1, 0.0f);
-	//mat.M(3, 2, 0.0f);
+	mat.M(3, 0, 0.0f);
+	mat.M(3, 1, 0.0f);
+	mat.M(3, 2, 0.0f);
+	//	mat.Translate(0.0f, 0.0f, 0.0f);
 	//	mat.M()[3][0] = mat.mM[3][1] = mat.mM[3][2] = 0.0f;
 	mN[0] = CTriangle::mN[0] * mat;
 	mN[1] = CTriangle::mN[1] * mat;
