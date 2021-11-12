@@ -20,12 +20,14 @@ void CModel::Load(char *obj, char *mtl) {
 	std::vector<CVector> normal;
 
 	//ファイルポインタ変数の作成
-	FILE *fp;
+	FILE* fp;
+	FILE* fpo;
 
 	//ファイルのオープン
 	//fopen(ファイル名,モード)
 	//オープンできない時はNULLを返す
 	fp = fopen(mtl, "r");
+	fpo = fopen("out.obj", "w");
 	//ファイルオープンエラーの判定
 	//fpがNULLの時はエラー
 	if (fp == NULL) {
@@ -103,11 +105,13 @@ void CModel::Load(char *obj, char *mtl) {
 		//文字列1と文字列2が同じ時0、異なる時0以外を返す
 		//先頭がvの時、頂点をvertexに追加する
 		if (strcmp(str[0], "v") == 0) {
+			fprintf(fpo, "%s", buf);
 			//可変長配列vertexに追加
 			//atof(文字列)　文字列からfloat型の値を返す
 			vertex.push_back(CVector(atof(str[1]), atof(str[2]), atof(str[3])));
 		}
 		else if (strcmp(str[0], "vn") == 0) {
+			fprintf(fpo, "%s", buf);
 			//可変長配列vertexに追加
 			//atof(文字列)　文字列からfloat型の値を返す
 			normal.push_back(CVector(atof(str[1]), atof(str[2]), atof(str[3])));
@@ -131,10 +135,11 @@ void CModel::Load(char *obj, char *mtl) {
 					t.mMaterialIdx = idx;
 					//可変長配列mTrianglesに三角形を追加
 					mTriangles.push_back(t);
+					fprintf(fpo, "%s", buf);
 				}
 				else
 				{
-					printf("f %d//%d %d//%d %d//%d \n", v[0], n[0],v[1], n[1], v[2], n[2]);
+//					printf("f %d//%d %d//%d %d//%d \n", v[0], n[0],v[1], n[1], v[2], n[2]);
 				}
 			}
 			else {
@@ -157,15 +162,17 @@ void CModel::Load(char *obj, char *mtl) {
 					t.mMaterialIdx = idx;
 					//可変長配列mTrianglesに三角形を追加
 					mTriangles.push_back(t);
+					fprintf(fpo, "%s", buf);
 				}
 				else
 				{
-					printf("f %d/%d/%d %d/%d/%d %d/%d/%d \n", v[0], u[0], n[0], v[1], u[1], n[1], v[2], u[2], n[2]);
+//					printf("f %d/%d/%d %d/%d/%d %d/%d/%d \n", v[0], u[0], n[0], v[1], u[1], n[1], v[2], u[2], n[2]);
 				}
 			}
 		}
 		//先頭がusemtlの時、マテリアルインデックスを取得する
 		else if (strcmp(str[0], "usemtl") == 0) {
+			fprintf(fpo, "%s", buf);
 			//可変長配列を後から比較
 			for (idx = mpMaterials.size() - 1; idx > 0; idx--) {
 				//同じ名前のマテリアルがあればループ終了
@@ -176,6 +183,7 @@ void CModel::Load(char *obj, char *mtl) {
 		}
 		//先頭がvtの時、uvに追加する
 		else if (strcmp(str[0], "vt") == 0) {
+			fprintf(fpo, "%s", buf);
 			//可変長配列uvに追加
 			//atof(文字列)　文字列からfloat型の値を返す
 			uv.push_back(CVector(atof(str[1]), atof(str[2]), 0.0));
@@ -184,6 +192,7 @@ void CModel::Load(char *obj, char *mtl) {
 	}
 	//ファイルのクローズ
 	fclose(fp);
+	fclose(fpo);
 
 	//頂点配列の作成
 	//全ての座標の値をマテリアルの順番に保存する

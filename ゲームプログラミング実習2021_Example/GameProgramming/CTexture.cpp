@@ -63,7 +63,8 @@ void CTexture::Load(const char* filename) {
 
 	data = SOIL_load_image(filename, &mHeader.width, &mHeader.height, &mHeader.depth, SOIL_LOAD_AUTO);
 
-	assert(data != 0);
+	//assert(data != 0);
+	if (data == NULL) return;
 
 	mId = SOIL_create_OGL_texture(data, mHeader.width, mHeader.height, mHeader.depth,
 		SOIL_CREATE_NEW_ID,

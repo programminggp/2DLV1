@@ -106,13 +106,14 @@ void CXPlayer::Update()
 	mJumpV -= GRAVITY;
 	mPosition.mY += mJumpV;
 	CXCharacter::Update();
-	mPosition.Print();
+//	mPosition.Print();
 }
 
 void CXPlayer::TaskCollision()
 {
 	mColLine.ChangePriority();
-	CCollisionManager::Get()->Collision(&mColLine, 30);
+//	CCollisionManager::Get()->Collision(&mColLine, 30);
+	CCollisionManager::Get()->Collision(&mColLine, 0);
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)

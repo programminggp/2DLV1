@@ -7,6 +7,9 @@ bool CTriangle::SetVertex(const CVector &v0, const CVector &v1, const CVector &v
 	mV[0] = v0;
 	mV[1] = v1;
 	mV[2] = v2;
+	float dot;
+	dot = (mV[0] - mV[1]).Normalize().Dot((mV[0]-mV[2]).Normalize());
+	if (dot > 0.99999f || dot < -0.99999f) return false;
 	return !((mV[0] == mV[1]) || (mV[1] == mV[2]) || (mV[0] == mV[2]));
 }
 

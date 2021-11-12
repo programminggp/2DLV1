@@ -16,7 +16,7 @@
 class CSceneGame : public CScene {
 //	CKnight mKnight;
 //	CFelguard mFelguard;
-	CMap4 mMap;
+	CMap3 mMap;
 //	CMap2 mMap;
 public:
 	//キャラクタのインスタンス
