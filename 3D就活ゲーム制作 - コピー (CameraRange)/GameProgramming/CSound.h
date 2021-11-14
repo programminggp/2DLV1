@@ -99,8 +99,8 @@ public:
 			//return true;
 
 
-			XAUDIO2_VOICE_STATE state;
-			unsigned char /**buf, */ *ptr; UINT32 buflen, cnt; LONG readlen; HRESULT hr; DWORD dw;
+			//XAUDIO2_VOICE_STATE state;
+			unsigned char /**buf, */ *ptr; UINT32 buflen/*, cnt*/; LONG readlen; HRESULT hr;/* DWORD dw;*/
 
 			hr = mpXAudio->CreateSourceVoice(&mpSourceVoice, &g_wfx, XAUDIO2_VOICE_NOPITCH /*| XAUDIO2_VOICE_MUSIC*/, XAUDIO2_DEFAULT_FREQ_RATIO, NULL, NULL, NULL);
 			if (FAILED(hr))
@@ -135,7 +135,6 @@ public:
 			if (FAILED(hr)) return;
 			mpSourceVoice->Start();
 		}
-
 	}
 	/*
 	サウンド再生（リピート）

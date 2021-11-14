@@ -15,7 +15,7 @@ public:
 
 	void Collision(CCollider *collider);
 };
-//他で使えるように外部参照
+//他で使えるように外部参照する
 extern CCollisionManager CollisionManager;
 
 #endif

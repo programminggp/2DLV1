@@ -17,16 +17,6 @@ void CMatrix::Print() {
 		mM[2][0], mM[2][1], mM[2][2], mM[2][3]);
 	printf("%10f %10f %10f %10f \n",
 		mM[3][0], mM[3][1], mM[3][2], mM[3][3]);
-	/*
-	printf("%f %f %f %f \n",
-		mM[0][0], mM[0][1], mM[0][2], mM[0][3]);
-	printf("%18.8f %18.6f %18.4f %18.2f \n",
-		mM[1][0], mM[1][1], mM[1][2], mM[1][3]);
-	printf("%.8f %.6f %.4f %.2f \n",
-		mM[2][0], mM[2][1], mM[2][2], mM[2][3]);
-	printf("%10f %10f %10f %10f \n",
-		mM[3][0], mM[3][1], mM[3][2], mM[3][3]);
-	*/
 }
 
 //デフォルトコンストラクタ
@@ -49,7 +39,7 @@ CMatrix CMatrix::Identity() {
 //RotateY(角度)
 CMatrix CMatrix::RotateY(float degree) {
 	//角度からラジアンを求める
-	float rad = degree / 180.0f * M_PI;
+	float rad = degree / 180.0f * (float)M_PI;
 	//単位行列にする
 	Identity();
 	//Y軸で回転する行列の設定
@@ -61,7 +51,7 @@ CMatrix CMatrix::RotateY(float degree) {
 }
 
 CMatrix CMatrix::RotateX(float degree) {
-	float rad = degree / 180.0f * M_PI;
+	float rad = degree / 180.0f * (float)M_PI;
 	Identity();
 	mM[1][1] = mM[2][2] = cosf(rad);
 	mM[1][2] = sinf(rad);
@@ -70,7 +60,7 @@ CMatrix CMatrix::RotateX(float degree) {
 }
 
 CMatrix CMatrix::RotateZ(float degree) {
-	float rad = degree / 180.0f * M_PI;
+	float rad = degree / 180.0f * (float)M_PI;
 	Identity();
 	mM[0][0] = mM[1][1] = cosf(rad);
 	mM[0][1] = sinf(rad);
@@ -96,17 +86,13 @@ CMatrix CMatrix::Scale(float x, float y, float z) {
 	mM[0][0] = x;
 	mM[1][1] = y;
 	mM[2][2] = z;
-	//この行列を返す
+	//行列を返す
 	return *this;
 }
 //*演算子のオーバーロード
 //CMatrix * CMatrix の演算結果を返す
 CMatrix CMatrix::operator*(const CMatrix &m) {
-	CMatrix t;
-	//t.mM[0][0] = mM[0][0] * m.mM[0][0] + mM[0][1] * m.mM[1][0] + mM[0][2] * m.mM[2][0] + mM[0][3] * m.mM[3][0];
-	//t.mM[0][1] = mM[0][0] * m.mM[0][1] + mM[0][1] * m.mM[1][1] + mM[0][2] * m.mM[2][1] + mM[0][3] * m.mM[3][1];
-	//t.mM[0][2] = mM[0][0] * m.mM[0][2] + mM[0][1] * m.mM[1][2] + mM[0][2] * m.mM[2][2] + mM[0][3] * m.mM[3][2];
-	//t.mM[0][3] = mM[0][0] * m.mM[0][3] + mM[0][1] * m.mM[1][3] + mM[0][2] * m.mM[2][3] + mM[0][3] * m.mM[3][3];
+	CMatrix t;	
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			t.mM[i][j] = 0;
@@ -117,7 +103,6 @@ CMatrix CMatrix::operator*(const CMatrix &m) {
 	}
 	return t;
 }
-
 /*
 GetInverse
 逆行列の取得
@@ -129,48 +114,31 @@ CMatrix CMatrix::GetInverse(void)
 	det += mM[1][0] * mM[0][1] * mM[3][2] * mM[2][3] + mM[1][0] * mM[2][1] * mM[0][2] * mM[3][3] + mM[1][0] * mM[3][1] * mM[2][2] * mM[0][3];
 	det += mM[2][0] * mM[0][1] * mM[1][2] * mM[3][3] + mM[2][0] * mM[1][1] * mM[3][2] * mM[0][3] + mM[2][0] * mM[3][1] * mM[0][2] * mM[1][3];
 	det += mM[3][0] * mM[0][1] * mM[2][2] * mM[1][3] + mM[3][0] * mM[1][1] * mM[0][2] * mM[2][3] + mM[3][0] * mM[2][1] * mM[1][2] * mM[0][3];
-
 	det -= mM[0][0] * mM[1][1] * mM[3][2] * mM[2][3] + mM[0][0] * mM[2][1] * mM[1][2] * mM[3][3] + mM[0][0] * mM[3][1] * mM[2][2] * mM[1][3];
 	det -= mM[1][0] * mM[0][1] * mM[2][2] * mM[3][3] + mM[1][0] * mM[2][1] * mM[3][2] * mM[0][3] + mM[1][0] * mM[3][1] * mM[0][2] * mM[2][3];
 	det -= mM[2][0] * mM[0][1] * mM[3][2] * mM[1][3] + mM[2][0] * mM[1][1] * mM[0][2] * mM[3][3] + mM[2][0] * mM[3][1] * mM[1][2] * mM[0][3];
 	det -= mM[3][0] * mM[0][1] * mM[1][2] * mM[2][3] + mM[3][0] * mM[1][1] * mM[2][2] * mM[0][3] + mM[3][0] * mM[2][1] * mM[0][2] * mM[1][3];
-
 	CMatrix b;
-
 	b.mM[0][0] = mM[1][1] * mM[2][2] * mM[3][3] + mM[2][1] * mM[3][2] * mM[1][3] + mM[3][1] * mM[1][2] * mM[2][3] - mM[1][1] * mM[3][2] * mM[2][3] - mM[2][1] * mM[1][2] * mM[3][3] - mM[3][1] * mM[2][2] * mM[1][3];
 	b.mM[1][0] = mM[1][0] * mM[3][2] * mM[2][3] + mM[2][0] * mM[1][2] * mM[3][3] + mM[3][0] * mM[2][2] * mM[1][3] - mM[1][0] * mM[2][2] * mM[3][3] - mM[2][0] * mM[3][2] * mM[1][3] - mM[3][0] * mM[1][2] * mM[2][3];
 	b.mM[2][0] = mM[1][0] * mM[2][1] * mM[3][3] + mM[2][0] * mM[3][1] * mM[1][3] + mM[3][0] * mM[1][1] * mM[2][3] - mM[1][0] * mM[3][1] * mM[2][3] - mM[2][0] * mM[1][1] * mM[3][3] - mM[3][0] * mM[2][1] * mM[1][3];
 	b.mM[3][0] = mM[1][0] * mM[3][1] * mM[2][2] + mM[2][0] * mM[1][1] * mM[3][2] + mM[3][0] * mM[2][1] * mM[1][2] - mM[1][0] * mM[2][1] * mM[3][2] - mM[2][0] * mM[3][1] * mM[1][2] - mM[3][0] * mM[1][1] * mM[2][2];
-
 	b.mM[0][1] = mM[0][1] * mM[3][2] * mM[2][3] + mM[2][1] * mM[0][2] * mM[3][3] + mM[3][1] * mM[2][2] * mM[0][3] - mM[0][1] * mM[2][2] * mM[3][3] - mM[2][1] * mM[3][2] * mM[0][3] - mM[3][1] * mM[0][2] * mM[2][3];
 	b.mM[1][1] = mM[0][0] * mM[2][2] * mM[3][3] + mM[2][0] * mM[3][2] * mM[0][3] + mM[3][0] * mM[0][2] * mM[2][3] - mM[0][0] * mM[3][2] * mM[2][3] - mM[2][0] * mM[0][2] * mM[3][3] - mM[3][0] * mM[2][2] * mM[0][3];
 	b.mM[2][1] = mM[0][0] * mM[3][1] * mM[2][3] + mM[2][0] * mM[0][1] * mM[3][3] + mM[3][0] * mM[2][1] * mM[0][3] - mM[0][0] * mM[2][1] * mM[3][3] - mM[2][0] * mM[3][1] * mM[0][3] - mM[3][0] * mM[0][1] * mM[2][3];
 	b.mM[3][1] = mM[0][0] * mM[2][1] * mM[3][2] + mM[2][0] * mM[3][1] * mM[0][2] + mM[3][0] * mM[0][1] * mM[2][2] - mM[0][0] * mM[3][1] * mM[2][2] - mM[2][0] * mM[0][1] * mM[3][2] - mM[3][0] * mM[2][1] * mM[0][2];
-
 	b.mM[0][2] = mM[0][1] * mM[1][2] * mM[3][3] + mM[1][1] * mM[3][2] * mM[0][3] + mM[3][1] * mM[0][2] * mM[1][3] - mM[0][1] * mM[3][2] * mM[1][3] - mM[1][1] * mM[0][2] * mM[3][3] - mM[3][1] * mM[1][2] * mM[0][3];
 	b.mM[1][2] = mM[0][0] * mM[3][2] * mM[1][3] + mM[1][0] * mM[0][2] * mM[3][3] + mM[3][0] * mM[1][2] * mM[0][3] - mM[0][0] * mM[1][2] * mM[3][3] - mM[1][0] * mM[3][2] * mM[0][3] - mM[3][0] * mM[0][2] * mM[1][3];
 	b.mM[2][2] = mM[0][0] * mM[1][1] * mM[3][3] + mM[1][0] * mM[3][1] * mM[0][3] + mM[3][0] * mM[0][1] * mM[1][3] - mM[0][0] * mM[3][1] * mM[1][3] - mM[1][0] * mM[0][1] * mM[3][3] - mM[3][0] * mM[1][1] * mM[0][3];
 	b.mM[3][2] = mM[0][0] * mM[3][1] * mM[1][2] + mM[1][0] * mM[0][1] * mM[3][2] + mM[3][0] * mM[1][1] * mM[0][2] - mM[0][0] * mM[1][1] * mM[3][2] - mM[1][0] * mM[3][1] * mM[0][2] - mM[3][0] * mM[0][1] * mM[1][2];
-
 	b.mM[0][3] = mM[0][1] * mM[2][2] * mM[1][3] + mM[1][1] * mM[0][2] * mM[2][3] + mM[2][1] * mM[1][2] * mM[0][3] - mM[0][1] * mM[1][2] * mM[2][3] - mM[1][1] * mM[2][2] * mM[0][3] - mM[2][1] * mM[0][2] * mM[1][3];
 	b.mM[1][3] = mM[0][0] * mM[1][2] * mM[2][3] + mM[1][0] * mM[2][2] * mM[0][3] + mM[2][0] * mM[0][2] * mM[1][3] - mM[0][0] * mM[2][2] * mM[1][3] - mM[1][0] * mM[0][2] * mM[2][3] - mM[2][0] * mM[1][2] * mM[0][3];
 	b.mM[2][3] = mM[0][0] * mM[2][1] * mM[1][3] + mM[1][0] * mM[0][1] * mM[2][3] + mM[2][0] * mM[1][1] * mM[0][3] - mM[0][0] * mM[1][1] * mM[2][3] - mM[1][0] * mM[2][1] * mM[0][3] - mM[2][0] * mM[0][1] * mM[1][3];
 	b.mM[3][3] = mM[0][0] * mM[1][1] * mM[2][2] + mM[1][0] * mM[2][1] * mM[0][2] + mM[2][0] * mM[0][1] * mM[1][2] - mM[0][0] * mM[2][1] * mM[1][2] - mM[1][0] * mM[0][1] * mM[2][2] - mM[2][0] * mM[1][1] * mM[0][2];
-
 	return b * (1 / det);
 };
-
-CMatrix CMatrix::GetTranspose() {
-	CMatrix tmp;
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			tmp.mM[i][j] = mM[j][i];
-		}
-	}
-	return tmp;
-}
-
-CMatrix CMatrix::operator*(const float& f) const 
+//行列*実数のオーバーライド
+CMatrix CMatrix::operator*(const float& f) const
 {
 	CMatrix tmp;
 	for (int i = 0; i < 4; i++) {

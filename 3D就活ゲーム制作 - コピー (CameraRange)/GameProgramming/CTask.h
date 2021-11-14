@@ -20,7 +20,7 @@ public:
 	int GetPriority(){
 		return mPriority;
 	}
-	void SetEnabled(int enabled){
+	void SetEnabled(bool enabled){
 		mEnabled = enabled;
 	}
 	bool GetEnabled(){

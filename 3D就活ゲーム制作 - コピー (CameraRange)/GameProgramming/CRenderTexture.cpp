@@ -1,16 +1,12 @@
 #include "glew.h"
 #include "CRenderTexture.h"
-
 #define FBOWIDTH 512	//フレームバッファの幅
 #define FBOHEIGHT 512	//フレームバッファの高さ
-
 CRenderTexture::CRenderTexture()
-	: mColorBuffer(0)
-	, mRenderBuffer(0)
-	, mFrameBuffer(0)
-{
-}
-
+: mColorBuffer(0)
+, mRenderBuffer(0)
+, mFrameBuffer(0)
+{}
 void CRenderTexture::Init()
 {
 	// カラーバッファ用のテクスチャを用意する
@@ -50,6 +46,7 @@ void CRenderTexture::End()
 	// フレームバッファオブジェクトの結合を解除する
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
+
 //テクスチャを返す
 GLuint CRenderTexture::GetTexture()
 {

@@ -16,14 +16,9 @@ void CCharacter::Update() {
 	mMatrixTranslate.Translate(mPosition.mX, mPosition.mY, mPosition.mZ);
 	//合成行列の設定
 	mMatrix = mMatrixScale * mMatrixRotate * mMatrixTranslate;
-	////親がいれば、親の行列と合成
-	//if (mpParent) {
-	//	mMatrix = mMatrix * mpParent->mMatrix;
-	//}
 }
 //描画処理
 void CCharacter::Render() {
-	//?	
 	if (isRender){
 		if (mpModel) {
 			//モデルの描画
@@ -32,10 +27,7 @@ void CCharacter::Render() {
 	}
 }
 
-//22
 CCharacter::CCharacter()
-//: mpParent(0)
-//?
 : mpModel(0)
 , mTag(ENONE)
 , mScale(1.0f, 1.0f, 1.0f)
@@ -44,17 +36,8 @@ CCharacter::CCharacter()
 	SetPriority(1);
 	//タスクリストに追加
 	CTaskManager::Get()->Add(this);
-	//TaskManager.Add(this);
 }
-//22
 CCharacter::~CCharacter() {
 	//タスクリストから削除
 	CTaskManager::Get()->Remove(this);
-	//TaskManager.Remove(this);
 }
-//
-//void CCharacter::ChangePriority(int priority) {
-//	TaskManager.Remove(this);
-//	mPriority = priority;
-//	TaskManager.Add(this);
-//}

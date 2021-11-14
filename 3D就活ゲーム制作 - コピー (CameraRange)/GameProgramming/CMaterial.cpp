@@ -1,5 +1,6 @@
-#include "glew.h"
+#include "CMyShader.h"
 #include "CMaterial.h"
+
 //memsetのインクルード
 #include <string.h>
 #include "glut.h"
@@ -15,13 +16,13 @@ CMaterial::CMaterial()
 }
 //マテリアルを有効にする
 void CMaterial::Enabled() {
+	//CMyShader::Get()->Material(this);
+	//return;
+
 	//アルファブレンドを有効にする
 	glEnable(GL_BLEND);
-	//ブレンド方法を指定
+	//ブレンド方法を指定(アルファブレンド)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	////加算ブレンドさせたいマテリアルはこっちで指定
-	//glBlendFunc(GL_ONE, GL_ONE);
 
 	//拡散光の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
@@ -30,7 +31,6 @@ void CMaterial::Enabled() {
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
-//		glActiveTexture(GL_TEXTURE0);
 		//テクスチャを使用可能にする
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
@@ -39,6 +39,8 @@ void CMaterial::Enabled() {
 }
 //マテリアルを無効にする
 void CMaterial::Disabled() {
+	//return;
+
 	//アルファブレンドを無効
 	glDisable(GL_BLEND);
 	//テクスチャが無い時、戻る
@@ -46,12 +48,10 @@ void CMaterial::Disabled() {
 		return;
 	//テクスチャ有り
 	if (mpTexture->mId) {
-//		glActiveTexture(GL_TEXTURE0);
 		//テクスチャのバインドを解く
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//テクスチャを無効にする
 		glDisable(GL_TEXTURE_2D);
-//		glActiveTexture(GL_TEXTURE1);
 	}
 }
 
@@ -70,8 +70,8 @@ void CMaterial::Enabledplus() {
 	//テクスチャ有り
 	if (mpTexture->mId) {
 		//テクスチャを使用可能にする
-//		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
-//		glBindTexture(GL_TEXTURE_2D, mpTexture->mId);
+		glBindTexture(GL_TEXTURE_2D, mpTexture->mId);
 	}
 }

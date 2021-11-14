@@ -6,39 +6,81 @@
 #include "CEnemy.h"
 #include "CCameraRange.h"
 #include "CCameraPos.h"
-#include "CRigidObj.h"
-//CSound.hをインクルードしたら音の再生の動作が軽くなった？
 #include "CSound.h"
+#include "CObjFloor.h"
 
-#include "CRenderTexture.h"
 
-#include "CRoadManager.h"
+#include <stdlib.h>
 
-#define ENEMYS_AMOUNT 7-2 //0以下には設定できない
-//#define ENEMYS_AMOUNT 1 //0以下には設定できない
+#define ENEMYS_AMOUNT (5)//0以下には設定できない
+
+#define RACES_PER_1CUP 3//1カップで行うレース数
+#define COURCE_TOTAL 5//全コース数
+#define LIST_SIZE (ENEMYS_AMOUNT+1)
 /*
 ゲームのシーン
 */
 class CSceneRace : public CScene {
-	CRenderTexture mRenderTexture;
-	GLuint dtex;
-public:
-	CRoadManager *mpRoadManager;
-	//次のシーンの取得
-	EScene GetNextScene();
+private:
+	GLuint mFb;
+	static bool isEnableShadow;//影の描画の有無
+	static bool isEnableMiniMap;//ミニマップ表示のON・OFF
+	static bool isEnableBackMirror;//バックミラー表示のON・OFF
+	static bool isEnableSpeedometer;//速度計のON・OFF
 
-	~CSceneRace();
-	//初期化処理のオーバーライド
-	void Init();
-	//更新処理のオーバーライド
-	void Update();
-	//ミニマップ関連の処理
-	void RenderMiniMap();
-	//バックミラーの描画
-	void RenderBackMirror();
+	GLuint mDepthTextureID;
 
-	CModel mSky;
-	CModel mRock;
+	float mCamY;//プレイヤーの周りを回転(水平方向に)	
+
+	//スタート前のカウントダウン
+	int mFrame;//60f=1秒
+	int mCountDown;
+	//コースタイム、ラップ関連
+	bool isStartRace, isGoal;
+	int mTime, mTime_Output;
+
+
+	static int mBestTime;
+	int mLap, mMaxLap;
+	bool isNewRecord;
+	int mTextBlinkTime;//テキストの点滅に関わる変数
+
+	bool isPause;
+	int mPause_SelectCarsol;
+	int mPause_OptionCarsol;
+	enum EPauseScreen{
+		EPAUSE,//ポーズ画面(選択肢がresume,option,quit)
+		EOPTION,//オプション画面(設定を変更できる画面)
+	};
+	EPauseScreen mPauseScreen;
+
+	int mRanking;
+	int mAfterGoalTime;
+
+	//デバッグコマンド用の変数
+	bool mPutCol;//当たり判定の描画のON・OFF
+	
+	bool isFadeIn, isFadeOut;
+	int isBlackOutTime;
+
+	bool isOpening;
+	int mTime_Opening;
+
+	enum ECameraAngle{
+		EANGLE_FRONTCAR,
+		EANGLE_THIRDPERSON
+	};
+	ECameraAngle mCameraAngle;
+
+	int mPushEnter_WaitTime;
+	bool isGoaledAll;//全員ゴールしたか
+	bool isResult_FinalRace;//最終結果(グランプリモードのみ)
+	bool canPushEnter;
+
+	CTexture Texture_GoldTrophy;
+	CTexture Texture_SilverTrophy;
+	CTexture Texture_BronzeTrophy;
+protected:
 	CModel mRover;
 	CModel mCarRed;
 	CModel mCarBlue;
@@ -49,13 +91,7 @@ public:
 	CModel mCarWhite;
 	CModel mCarBlack;
 	CModel mCarGray;
-	CModel mCube;
 	CModel mPlane;
-	CModel mStairs;//階段
-	CModel mTarget;//的
-	CModel mOnBlock;//OFFになると消える
-	CModel mCube2;//透明度100％
-	CModel mCube3;//窓のような色、半透明で水色
 	CModel mCheckPoint;//ポリゴン1枚のみ、透明
 	CModel mTileBlack;//黒い床
 	CModel mTileWhite;//白い床
@@ -64,7 +100,8 @@ public:
 	CModel mMiniGoal;//ゴールIcon(ミニマップ)
 	CModel mCource01;//コース01
 	CModel mGrass01;//芝生01
-	CModel mRWTile;//芝生とアスファルトの境目
+	CModel mGoalTile01;
+	CModel mCurb01;//紅白の縁石
 	CModel mFenceTop;//柵の上面
 	CModel mFenceSide;//柵の側面
 	CModel mPole;//ポール
@@ -76,37 +113,15 @@ public:
 	CCameraPos *mCam;
 
 	CSound BGM;
+	CSound JingleOpening;
 	CSound SoundCountDown;
 	CSound SoundStart;
 	CSound SoundGoal;
-	
-	float mCamY;//プレイヤーの周りを回転(水平方向に)
-	
+	CSound SoundMoveCarsol;
+	CSound SoundDecide;
+	CSound SoundPauseOn;
+	CSound SoundPauseOff;
 
-	//スタート前のカウントダウン
-	int mFrame;
-	int mCountDown;
-	//コースタイム、ラップ関連
-	bool isStartRace, isGoal;
-	int mTime, mTime_Output;
-	static int mBestTime;
-	int mLap, mMaxLap;
-	bool isNewRecord;
-	static int mRecord_A, mRecord_B, mRecord_C, mRecord_D, mRecord_E, mRecord_F;
-
-	int mCamPoV;
-
-	int mTextBlinkTime;
-		
-	bool isPause;
-
-	int mRanking;
-	int mAfterGoalTime;
-
-	//デバッグコマンド用の変数
-	bool isRender_BackMirror;//バックミラー表示のON・OFF
-	static bool mPutCol;//当たり判定の描画のON・OFF
-	bool isRendPoint;//中間地点がミニマップに表示されるか
 
 	//コース2,3のモデル
 	CModel mCource02Road;
@@ -117,7 +132,7 @@ public:
 	CModel mCource03Fence;
 
 	CModel mJumper01;//ジャンプ台
-	//平たいる
+	//平らなタイル
 	CModel mTile_Curve01_Floor;
 	CModel mTile_Curve02_Floor;
 	CModel mTile_Curve03_Floor;
@@ -155,6 +170,44 @@ public:
 	//標識
 	CModel mSign_Left;
 	CModel mSign_Right;
-};
+	
+	CModel mGoalGate;
 
+	enum EStartPos{
+		ESTARTPOS_RANDOM,//順位ランダムでスタート
+		ESTARTPOS_TOP,//1位からのスタート
+	};
+	EStartPos mStartPos;
+
+	int list[LIST_SIZE];//
+public:
+	//次のシーンの取得
+	EScene GetNextScene();
+
+	~CSceneRace();
+	//初期化処理のオーバーライド
+	void Init();
+	//更新処理のオーバーライド
+	void Update();
+	//テキスト等の描画
+	void Render();
+	//ミニマップ関連の処理
+	void RenderMiniMap();
+	//バックミラーの描画
+	void RenderBackMirror();
+	//影の描画
+	void RenderShadow();
+	//フェードインをしてゲーム画面に入る
+	void FadeIn();
+	//他シーンに行く際の演出・処理
+	void SceneChange();
+	//CPU車の色の出力
+	void PutCPUColor();
+	
+	//各コースのベストタイム
+	static int mRecords[COURCE_TOTAL + 1];//0:edit 1～:cource1, 2, ...	
+	static int mTotalPoint;//獲得した得点の合計
+	static int mTotalPoint_Enemys[ENEMYS_AMOUNT];
+	static int mCurrent_RaceNumber;//現在のレース数
+};
 #endif

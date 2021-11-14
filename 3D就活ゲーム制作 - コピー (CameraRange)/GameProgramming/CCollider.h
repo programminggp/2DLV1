@@ -30,7 +30,6 @@ public:
 	CVector mV[3];
 	CCharacter *mpParent;//親
 	float mRadius;	//半径
-	//?
 	//デフォルトコンストラクタ
 	CCollider();
 	//コンストラクタ

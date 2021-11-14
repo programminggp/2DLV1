@@ -1,8 +1,6 @@
 #include "CPlayer.h"
 #include "CKey.h"
 
-#include "CItem.h"
-#include "CBullet.h"
 #include "CSceneTitle.h"
 
 //衝突時のエフェクト追加
@@ -25,66 +23,55 @@ extern CSound SoundEngine;
 extern CSound SoundHorn;
 extern CSound SoundCollision;
 extern CSound SoundCollisionSmall;
+extern CSound SoundSink;
 
 CPlayer *CPlayer::mpPlayer = 0;
 
 #define G (9.8f / 90.0f)//重力加速度//60.0f
-#define JUMPV0 (4.0f*4.0f)//ジャンプ初速//4.0f
+#define MAXSPEED 20.0f //車の最高速度
+#define MAXSPEED_BACK 4.0f//車の後退する最大速度
+#define CAR_POWER 0.1f //*2//1フレーム辺りの車の加速していく量
+#define CAR_BREAK_POWER 0.1f//前進中のブレーキの強さ
+#define DECELERATE_CARSPEED 0.1f //車の減速する量
+#define DECELERATE_TURNSPEED 0.05f//カーブ量の減衰する量
+#define HANDLEPOWER_NORMAL_LOWERLIMIT 0.5f//カーブのハンドル操作時の速度の下限(曲がりやすくするために)
+#define HANDLEPOWER_NORMAL 0.04f//カーブ量と同じ方向にハンドルを切った時のカーブ量
+#define HANDLEPOWER_REVERSE 0.15f//カーブ量とは逆方向にハンドルを切った時のカーブ量(例：左に曲がっている時に右にハンドル)
+#define MAXTURNSPEED 1.0f
+#define TURNSPEED_CORRECTION_BORDER 4.0f//カーブ量に-補正がかかるボーダーライン
 
-#define MAXSPEED 20.0f //4.5f+3.0f *5//車の最高速度
-#define MAXSPEED_BACK 1.0f*2 *2//車の後退する最大速度
-#define CAR_POWER 0.05f*2 //*2//1フレーム辺りの車の加速していく量
-#define CAR_BREAK_POWER 0.025f*2 *2//前進中のブレーキの強さ
-//#define MAXSPEED_LIMITUP 10.0f //ブースト中の最高速度の上限突破量
+#define BOOST_EFFECT 10.0f//ブースト中で底上げされる最高速度の量
+#define DECELERATE_BOOSTEFFECT 0.2f//ブーストが切れて底上げした最高速度の減衰する量
+#define BOOST_EFFECTTIME 45//ブーストの効果時間
 
-#define DECELERATE 0.05f*2 //車の減速する量
-#define FIX_ANGLE_VALUE 0.5f*2 //角度が0度に向けて調整される量(主にX・Z用)
+#define FLYING_UPDOWN 1.5f//飛行モード中の上昇、下降速度
 
-#define JUMPER01_POWER 3.0f;//ジャンプ台1によるジャンプの強さ
+#define FIX_ANGLE_VALUE 1.0f //角度が0度に向けて調整される量(主にX・Z用)
+#define JUMPER01_POWER 3.0f//ジャンプ台1によるジャンプの強さ
 
-//#define MAXSPEED 7.0f //車の最高速度
-//#define MAXSPEED_BACK 2.0f //車の後退する最大速度
-//#define CAR_POWER 0.1f //1フレーム辺りの車の加速していく量
-//#define CAR_BREAK_POWER 0.05f //前進中のブレーキの強さ
-//
-//#define DECELERATE 0.1f //車の減速する量
-//#define FIX_ANGLE_VALUE 0.5f //角度が0度に向けて調整される量(主にX・Z用)
+#define RESPAWNTRIGGER_HEIGHT -700.0f//コースアウト等で落下時、リスポーンが作動する高さ
 
-#define SCALE 7.5f
-#define CAR_SIZE 3.5f
+#define ONGRASS_LOWERLIMIT 5.0f//芝生に乗って低下する速度の下限
+#define ONGRASS_FLICTION_EFFECT 0.8f//芝生に乗った時の減速値
 
 CPlayer::CPlayer()
-//車体のY座標は0.0fにしたいんだけど・・・
-//0.0fにしたら車体が浮いてるように見えてしまう
-	:mColBody(this, CVector(0.0f, 4.0f, 0.5f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), CAR_SIZE * SCALE)
-	, mColTire(this, CVector(0.0f, -16.0f + 15.0f, 0.5f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), CAR_SIZE * SCALE)
-	//: mColBody(this, CVector(0.0f, 4.0f + 1.0f, 0.5f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f * 3)
-	//, mColTire(this, CVector(0.0f, -16.0f + 15.0f + 1.0f, 0.5f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f * 3)
-	//, mColCamRange(this, CVector(0.0f, 20.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 50.0f)
-//, mColCamera(this, CVector(0.0f, 17.0f, 40.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 15.0f * 1)
+:mColBody(this, CVector(0.0f, 4.0f + 1.0f, 0.5f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f*3)
+, mColTire(this, CVector(0.0f, -16.0f + 15.0f + 1.0f, 0.5f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f), 10.0f * 3)
 {
 	mpPlayer = this;
 
-//	mScale = CVector(7.5f, 7.5f, 7.5f);
-	mScale = CVector(SCALE, SCALE, SCALE);
+	mScale = CVector(7.5f, 7.5f, 7.5f);
 
 	mVelocityJump = 0.0f;
-	mJumpV0 = 1.1f;//バネ取得後は2.3fの予定
-	mMoveSpeed = 0.5f;
 	mADMoveX = 0.0f;  mWSMoveZ = 0.0f;
 	mCarSpeed = 0.0f;//車の速度の初期化
 	mTurnSpeed = 0.0f;
-	mBuzzerCount = 0;//ブザーを鳴らした回数
-	mRespawnCount = 0;//リスポーンした回数
 
-	mCanJump = false;
-	mCanSwim = false;
-	mIsGetKey = false;
-	mHaveBoat = false;
 	mFlyingMode = false;
 
 	CanMove = false;
 	isRespawn = false;
+	isSink = false;
 
 	mChecks = 0;
 
@@ -93,47 +80,10 @@ CPlayer::CPlayer()
 	mBoostTime = 0;
 
 	mTag = EPLAYER;
-	//mColCamRange.mTag = CCollider::ECAMERA_RANGE;
-	mJumpPrio = 0;
-
-	if (CSceneTitle::mMode == 3){
-		//スタート地点の座標を設定;
-		mStartPoint[0] = 0.0f;  mStartPoint[1] = -13.538f;  mStartPoint[2] = 80.0f;
-		mStartRotation = 90.0f;
-		mRotation.mY = mStartRotation;
-	}
-	else if (CSceneTitle::mMode == 2){
-		//スタート地点の座標を設定;
-		mStartPoint[0] = 2222.0f;  mStartPoint[1] = -13.538f;  mStartPoint[2] = -2510.0f;
-		mStartRotation = 0.0f;
-		mRotation.mY = mStartRotation;
-	}
-	else if (CSceneTitle::mMode == 4){
-		//スタート地点の座標を設定;
-		mStartPoint[0] = 0.0f;  mStartPoint[1] = 0.0f;  mStartPoint[2] = 0.0f;
-		//mStartPoint[0] = 450.0f;  mStartPoint[1] = -13.538f;  mStartPoint[2] = -50.0f;
-		mStartRotation = 180.0f;
-		mRotation.mY = mStartRotation;
-	}
-	else if (CSceneTitle::mMode == 5){
-		//スタート地点の座標を設定;
-		mStartPoint[0] = -3755.5f;  mStartPoint[1] = 13.5f;  mStartPoint[2] = 16060.5f;
-		mStartRotation = -145.0f;
-		mRotation.mY = mStartRotation;		
-	}	
-	else{
-		//スタート地点の座標を設定;
-		mStartPoint[0] = 350.0f;  mStartPoint[1] = -13.538f;  mStartPoint[2] = -100.0f;
-		mStartRotation = 0.0f;
-		mRotation.mY = mStartRotation;
-	}
-	mPosition = CVector(mStartPoint[0], mStartPoint[1], mStartPoint[2]);
-	CCharacter::Update();
+	//mJumpPrio = 0;
 	
 	mColBody.mTag = CCollider::EBODY;
 	mColTire.mTag = CCollider::ESEARCH;
-	//mColCamRange.mTag = CCollider::ECAMERA_RANGE;
-	//mColCamera.mTag = CCollider::ECAMERA;
 
 	SoundJump.Load("SE\\jump12.wav");
 	SoundShot.Load("SE\\shot1.wav");
@@ -144,32 +94,31 @@ CPlayer::CPlayer()
 	SoundHorn.Load("SE\\car-horn1.wav");
 	SoundCollision.Load("SE\\bomb1.wav");
 	SoundCollisionSmall.Load("SE\\SNES-Racing01-10(Collision).wav");
-	
-	
-	isSoundEngine = false;
+	SoundSink.Load("SE\\Diving.wav");
+
+	isSoundEngine = false;	
 	isTouchGoal = false;
 	mGoalTime = 0; mRank = 1;
+
+	mSound_Engine = mSound_Engine_Prev = ENONE;
 }
 
 void CPlayer::Update(){
-	if (CKey::Once(' ')){//クラクションを鳴らす
-		SoundHorn.Play();
-		mBuzzerCount++;
-	}
-
-	
-	//飛行モード有効時(デバッグ用)
+	//デバッグ用
+#ifdef _DEBUG
+	//飛行モード
 	if (mFlyingMode){
 		if (CKey::Push('W')){
-			mVelocityJump = mMoveSpeed*3;
+			mVelocityJump = FLYING_UPDOWN;
 		}
 		else if (CKey::Push('S')){
-			mVelocityJump = -mMoveSpeed*3;
+			mVelocityJump = -FLYING_UPDOWN;
 		}
 		else{
 			mVelocityJump = 0.0f;
 		}
 	}
+#endif
 
 	//ブースト残り時間
 	if (mBoostTime > 0){
@@ -180,8 +129,7 @@ void CPlayer::Update(){
 	}
 	//ブースト有効時
 	if (isBoost){
-		mBoostMaxSpeed = 10.0f;
-
+		mBoostMaxSpeed = BOOST_EFFECT;
 		if (mCarSpeed < MAXSPEED + mBoostMaxSpeed){
 			//ブースト時のアクセル効果は実質3倍
 			mCarSpeed += CAR_POWER;
@@ -190,10 +138,10 @@ void CPlayer::Update(){
 	}
 	//ブーストが切れている時
 	else{
-		//最高速度が通常まで減速
+		//底上げされた最高速度が徐々に元の最高速度に減衰
 		if (mBoostMaxSpeed > 0.0f){
-			if (mBoostMaxSpeed > 0.2f){
-				mBoostMaxSpeed -= 0.2f;
+			if (mBoostMaxSpeed > DECELERATE_BOOSTEFFECT){
+				mBoostMaxSpeed -= DECELERATE_BOOSTEFFECT;
 			}
 			else{
 				mBoostMaxSpeed = 0.0f;
@@ -224,64 +172,107 @@ void CPlayer::Update(){
 		//前進中
 		if (mCarSpeed > 0.0f){
 			//減速値でマイナスにならないように調整
-			if (mCarSpeed < DECELERATE){
+			if (mCarSpeed < DECELERATE_CARSPEED){
 				mCarSpeed = 0.0f;
 			}
 			else{
-				mCarSpeed -= DECELERATE;
+				mCarSpeed -= DECELERATE_CARSPEED;
 			}
 		}
 		//後退中
 		else if (mCarSpeed < 0.0f){
-			if (mCarSpeed > -DECELERATE){
+			if (mCarSpeed > -DECELERATE_CARSPEED){
 				mCarSpeed = 0.0f;
 			}
 			else{
-				mCarSpeed += DECELERATE;
+				mCarSpeed += DECELERATE_CARSPEED;
 			}
 		}		
 	}
-
-	if (CKey::Push(VK_LEFT) && CanMove){ //ハンドルを左に！
-		//mRotation.mY++;
-		if (mTurnSpeed>=0.0f&&mTurnSpeed<0.5f){
-			mTurnSpeed = 0.5f;
+	
+	if (CKey::Push(VK_LEFT) && CanMove){//ハンドルを左に！
+		/*バック中は逆方向に曲がる*/
+		if (mCarSpeed > 0.0f){			
+			if (mTurnSpeed >= HANDLEPOWER_NORMAL_LOWERLIMIT){
+				mTurnSpeed += HANDLEPOWER_NORMAL;
+			}
+			else if (mTurnSpeed >= 0.0f&&mTurnSpeed < HANDLEPOWER_NORMAL_LOWERLIMIT){
+				mTurnSpeed = HANDLEPOWER_NORMAL_LOWERLIMIT + HANDLEPOWER_NORMAL;
+			}
+			else if (mTurnSpeed < 0.0f){//右に曲がっている状態でハンドルを左に切る
+				mTurnSpeed += HANDLEPOWER_REVERSE;
+			}
 		}
-		if (mTurnSpeed < 0.0f){
-			mTurnSpeed += 0.11f;
-			//mTurnSpeed += 0.08f;
+		else if (mCarSpeed < 0.0f){
+			if (mTurnSpeed >= HANDLEPOWER_NORMAL_LOWERLIMIT){
+				mTurnSpeed += -HANDLEPOWER_NORMAL;
+			}
+			else if (mTurnSpeed >= 0.0f&&mTurnSpeed < HANDLEPOWER_NORMAL_LOWERLIMIT){
+				mTurnSpeed = -HANDLEPOWER_NORMAL_LOWERLIMIT + -HANDLEPOWER_NORMAL;
+			}
+			else if (mTurnSpeed < 0.0f){
+				mTurnSpeed += -HANDLEPOWER_REVERSE;
+			}
 		}
-		mTurnSpeed += 0.04f;
-		//mTurnSpeed += 0.02f;
 	}
-	else if (CKey::Push(VK_RIGHT) && CanMove){//ハンドルを右に！
-		//mRotation.mY--;
-		if (mTurnSpeed <= 0.0f&&mTurnSpeed>-0.5f){
-			mTurnSpeed = -0.5f;
+	else if (CKey::Push(VK_RIGHT) && CanMove){//ハンドルを右に！		
+		/*バック中は逆方向に曲がる*/
+		if (mCarSpeed > 0.0f){			
+			if (mTurnSpeed <= -HANDLEPOWER_NORMAL_LOWERLIMIT){
+				mTurnSpeed += -HANDLEPOWER_NORMAL;
+			}
+			else if (mTurnSpeed <= 0.0f&&mTurnSpeed>-HANDLEPOWER_NORMAL_LOWERLIMIT){
+				mTurnSpeed = -HANDLEPOWER_NORMAL_LOWERLIMIT + -HANDLEPOWER_NORMAL;
+			}
+			else if (mTurnSpeed > 0.0f){
+				mTurnSpeed += -HANDLEPOWER_REVERSE;
+			}
+
 		}
-		if (mTurnSpeed > 0.0f){
-			mTurnSpeed -= 0.11f;
+		else if(mCarSpeed < 0.0f){
+			if (mTurnSpeed <= -HANDLEPOWER_NORMAL_LOWERLIMIT){
+				mTurnSpeed += HANDLEPOWER_NORMAL;
+			}
+			else if (mTurnSpeed <= 0.0f&&mTurnSpeed > -HANDLEPOWER_NORMAL_LOWERLIMIT){
+				mTurnSpeed = HANDLEPOWER_NORMAL_LOWERLIMIT + HANDLEPOWER_NORMAL;
+			}
+			else if (mTurnSpeed > 0.0f){
+				mTurnSpeed += HANDLEPOWER_REVERSE;
+			}
 		}
-		mTurnSpeed -= 0.04f;
 	}
 	else{
+		//ハンドル操作をしていない時はカーブが弱まる
 		if (mTurnSpeed > 0.0f){
-			mTurnSpeed -= 0.05f;
+			mTurnSpeed -= DECELERATE_TURNSPEED;
 		}
 		else if (mTurnSpeed < 0.0f){
-			mTurnSpeed += 0.05f;
+			mTurnSpeed += DECELERATE_TURNSPEED;
 		}
-		if (mTurnSpeed<0.04f && mTurnSpeed>-0.04f){
+		if (mTurnSpeed<HANDLEPOWER_NORMAL && mTurnSpeed>-HANDLEPOWER_NORMAL){
 			mTurnSpeed = 0.0f;
 		}
 	}
-	if (mTurnSpeed > 1.0f){
-		mTurnSpeed = 1.0f;
+	//カーブの上限
+	if (mTurnSpeed > MAXTURNSPEED){
+		mTurnSpeed = MAXTURNSPEED;
 	}
-	else if (mTurnSpeed < -1.0f){
-		mTurnSpeed = -1.0f;
+	else if (mTurnSpeed < -MAXTURNSPEED){
+		mTurnSpeed = -MAXTURNSPEED;
 	}
-	mRotation.mY += mTurnSpeed;
+	float turnspd = mTurnSpeed;
+	if (mCarSpeed > -TURNSPEED_CORRECTION_BORDER && mCarSpeed < TURNSPEED_CORRECTION_BORDER){//一定の速度以下だとカーブ量にマイナス補正が働く
+		if (mCarSpeed >= 0.0f){
+			turnspd = mTurnSpeed * mCarSpeed / TURNSPEED_CORRECTION_BORDER;
+		}
+		else{
+			turnspd = mTurnSpeed * -mCarSpeed / TURNSPEED_CORRECTION_BORDER;
+		}		
+	}
+	else{
+		turnspd = mTurnSpeed;
+	}
+	mRotation.mY += turnspd;
 	
 	if (mRotation.mZ > 180){
 		mRotation.mZ = -180;
@@ -290,31 +281,9 @@ void CPlayer::Update(){
 		mRotation.mZ = 180;
 	}
 
-	//前に車が進んでいる時
-	if (mCarSpeed > 0.0f){
-		if (isSoundEngine == false){
-			SoundEngine.Repeat();
-			isSoundEngine = true;
-		}		
-	}
-	//車が停止している時
-	else if (mCarSpeed == 0.0f){
-		SoundEngine.Stop();
-		isSoundEngine = false;
-	}
-	//車がバックしている時
-	else if (mCarSpeed < 0.0f){
-		if (isSoundEngine == false){
-			//バックは違う音を鳴らす予定
-			SoundEngine.Repeat();
-			isSoundEngine = true;
-		}
-	}
-
 	mPosition = CVector(mADMoveX, 0.0f, mWSMoveZ + mCarSpeed) * mMatrixRotate * mMatrixTranslate;
 	CCharacter::Update();
 	//Y方向(重力)は分ける
-	//mPosition = CVector(0.0f, mVelocityJump, 0.0f) * mMatrix;//できてない
 	mPosition = CVector(0.0f, mVelocityJump*2.0f, 0.0f) * //mMatrixScale * 
 		CMatrix().RotateZ(0) *
 		CMatrix().RotateX(0) *
@@ -322,104 +291,24 @@ void CPlayer::Update(){
 		*mMatrixTranslate;
 
 	//転落してしまった時(Rキーで即リスタート)
-	if (mPosition.mY < -700.0f || CKey::Once('R')){
+	if (mPosition.mY < RESPAWNTRIGGER_HEIGHT || CKey::Once('R')){
 		//落下の勢いを0にする
 		mVelocityJump = 0.0f;
 		//車の速度を0に
 		mCarSpeed = 0.0f;
-		if (CSceneTitle::mMode == 2){
-			if (mChecks == 0){
-				//スタート時の位置、方向に戻される
-				mPosition = CVector(mStartPoint[0], mStartPoint[1], mStartPoint[2]);
-				mStartRotation = 0.0f;
-			}
-			else if (mChecks == 1){
-				mPosition = CVector(2893.0f, mStartPoint[1], 2473.0f);
-				mStartRotation = -59.0f;
-			}
-			else if (mChecks == 2){
-				mPosition = CVector(-1020.0f, mStartPoint[1], 4594.0f);
-				mStartRotation = -506.4f;
-			}
-			else if (mChecks == 3){
-				mPosition = CVector(-1277.0f, mStartPoint[1], -448.0f);
-				mStartRotation = -200.0f;
-			}
-		}
-		else if (CSceneTitle::mMode == 3){
-			if (mChecks == 0){
-				//スタート時の位置、方向に戻される
-				mPosition = CVector(mStartPoint[0], mStartPoint[1], mStartPoint[2]);
-				mStartRotation = 90.0f;
-			}
-			else if (mChecks == 1){
-				mPosition = CVector(1127.4f, mStartPoint[1] + 100.0f, -5054.0f);
-				mStartRotation = -59.0f;
-			}
-			else if (mChecks == 2){
-				mPosition = CVector(777.0f, mStartPoint[1], 1925.0f);
-				mStartRotation = 405.1f;
-			}
-			else if (mChecks == 3){
-				mPosition = CVector(-5861.0f, mStartPoint[1], 1165.0f);
-				mStartRotation = -583.5f;
-			}
-		}
-		else if (CSceneTitle::mMode == 5){
-			if (mChecks == 0){
-				//スタート時の位置、方向に戻される
-				mPosition = CVector(mStartPoint[0], mStartPoint[1], mStartPoint[2]);
-				mStartRotation = -145.0f;
-			}
-			else if (mChecks == 1){
-				mPosition = CVector(-16054.4f, 4915.0f, -2180.0f);
-				mStartRotation = -174.6f;
-			}
-			else if (mChecks == 2){
-				mPosition = CVector(4680.0f, 13.5f, -2027.0f);
-				mStartRotation = 147.2f;
-			}
-			else if (mChecks == 3){
-				mPosition = CVector(14809.0f, 13.5f, 4270.0f);
-				mStartRotation = -9.5f;
-			}
-		}
-		else{
-			if (mChecks == 0){
-				//スタート時の位置、方向に戻される
-				mPosition = CVector(mStartPoint[0], mStartPoint[1], mStartPoint[2]);
-				mStartRotation = 0.0f;
-			}
-			else if (mChecks == 1){
-				mPosition = CVector(-80.0f, mStartPoint[1], 2175.0f);
-				mStartRotation = -55.0f;
-			}
-			else if (mChecks == 2){
-				mPosition = CVector(-1620.0f, mStartPoint[1], 450.0f);
-				mStartRotation = -175.0f;
-			}
-			else if (mChecks == 3){
-				mPosition = CVector(-1212.0f, mStartPoint[1], -1616.0f);
-				mStartRotation = 120.0f;
-			}
-		}
-		mRotation = CVector(0.0f, mStartRotation, 0.0f);
-		isRespawn = true;
+		//座標、回転値を変更する
+		mPosition = mVCheckPositions[mChecks];
+		mRotation = mVCheckRotations[mChecks];
+		isSink = false;
+		isRespawn = true;		
 	}
-
 	CCharacter::Update();
 	
 	//重力の影響を反映する
 	mVelocityJump -= G;
-	if (mJumpPrio > 0){
+	/*if (mJumpPrio > 0){
 		mJumpPrio--;
-	}
-
-	if (CKey::Once('L')){
-		mPosition = CVector(0.0f, 100.0f, 0.0f);
-		CCharacter::Update();
-	}
-	
+	}*/	
 }
 
 void CPlayer::Collision(CCollider *mc, CCollider *yc){
@@ -429,31 +318,31 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 		//相手のコライダが三角コライダの時
 		if (yc->mType == CCollider::ETRIANGLE){
 			//自分のコライダが本体の時
-			if (mc->mTag == CCollider::EBODY){
+			if (mc->mTag == CCollider::EBODY){				
 				//芝生通過中の処理
 				if (yc->mpParent->mTag == CCharacter::EGRASS){
-					CVector aiueo;//仮のベクトル
-					if (CCollider::CollisionTriangleSphere(yc, mc, &aiueo)){
+					CVector tmpVec;//仮ベクトル
+					if (CCollider::CollisionTriangleSphere(yc, mc, &tmpVec)){
 						//ブースト効果の方が優先される
 						if (isBoost == false){
-							//printf("speed down…\n");
 							//一定速度までスピード低下
-							if (mCarSpeed > 3.2f + 1.8f){
-								if (mCarSpeed > 4.0f + 1.8f){
-									mCarSpeed -= 0.8f;
+							if (mCarSpeed > ONGRASS_LOWERLIMIT){
+								if (mCarSpeed > ONGRASS_LOWERLIMIT + ONGRASS_FLICTION_EFFECT){
+									mCarSpeed -= ONGRASS_FLICTION_EFFECT;
 								}
 								else{
-									mCarSpeed = 3.2f +1.8f;
+									mCarSpeed = ONGRASS_LOWERLIMIT;
 								}
 							}
 						}
 					}
 				}
+				//中間地点通過時の処理
 				if (yc->mpParent->mTag == CCharacter::ECHECKPOINT){//中間地点1
 					if (mChecks == 0){
 						//各中間地点を通過しないと1周したとみなされない
-						CVector aiu;//数合わせのためだけのベクトル
-						if (CCollider::CollisionTriangleSphere(yc, mc, &aiu)){
+						CVector tmpVec;//数合わせのためだけのベクトル
+						if (CCollider::CollisionTriangleSphere(yc, mc, &tmpVec)){
 							mChecks = 1;
 						}
 					}
@@ -461,8 +350,8 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 				if (yc->mpParent->mTag == CCharacter::ECHECKPOINT2){//中間地点2
 					if (mChecks == 1){
 						//各中間地点を通過しないと1周したとみなされない
-						CVector aiu;//数合わせのためだけのベクトル
-						if (CCollider::CollisionTriangleSphere(yc, mc, &aiu)){
+						CVector tmpVec;//数合わせのためだけのベクトル
+						if (CCollider::CollisionTriangleSphere(yc, mc, &tmpVec)){
 							mChecks = 2;
 						}
 					}
@@ -470,8 +359,8 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 				if (yc->mpParent->mTag == CCharacter::ECHECKPOINT3){//中間地点3
 					if (mChecks == 2){
 						//各中間地点を通過しないと1周したとみなされない
-						CVector aiu;//数合わせのためだけのベクトル
-						if (CCollider::CollisionTriangleSphere(yc, mc, &aiu)){
+						CVector tmpVec;//数合わせのためだけのベクトル
+						if (CCollider::CollisionTriangleSphere(yc, mc, &tmpVec)){
 							mChecks = 3;
 						}
 					}
@@ -479,75 +368,124 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 				if (yc->mpParent->mTag == CCharacter::EGOALPOINT){//中間地点3
 					if (mChecks == 3){
 						//各中間地点を通過しないと1周したとみなされない
-						CVector aiu;//数合わせのためだけのベクトル
-						if (CCollider::CollisionTriangleSphere(yc, mc, &aiu)){
+						CVector tmpVec;//数合わせのためだけのベクトル
+						if (CCollider::CollisionTriangleSphere(yc, mc, &tmpVec)){
 							isTouchGoal = true;
 						}
 					}
 				}
-				/*else{
-					isTouchGoal = false;
-				}*/
-				if (mCanSwim && yc->mpParent->mTag == CCharacter::EWATER){
-					//通過可能、ステージ1の水
-				}
-				else if (yc->mpParent->mTag == CCharacter::ECLEARWATER){
-					//通過可能、ステージ2の水
-				}
-				else if (yc->mpParent->mTag == CCharacter::ECHECKPOINT
+				if (yc->mpParent->mTag == CCharacter::ECHECKPOINT
 					|| yc->mpParent->mTag == CCharacter::ECHECKPOINT2
 					|| yc->mpParent->mTag == CCharacter::ECHECKPOINT3
 					|| yc->mpParent->mTag == CCharacter::EGOALPOINT
-					|| yc->mpParent->mTag == CCharacter::EDASHBOARD){
-					//処理は行われるが、これらのパネルは通過可能
+					|| yc->mpParent->mTag == CCharacter::EDASHBOARD
+					|| yc->mpParent->mTag == CCharacter::EWATER){
+					//これらのタグが付く物体は通過可能
+					if (yc->mpParent->mTag == CCharacter::EWATER){
+						CVector tmpVec;//値を返すためのベクトル
+						if (CCollider::CollisionTriangleSphere(yc, mc, &tmpVec)){
+							if (isSink == false){
+								SoundSink.Play();
+								isSink = true;
+							}
+						}
+					}
 				}
 				else{
-					if (mJumpPrio < 1){
+					/*if (mJumpPrio < 1){								
+					}*/
 
-						CVector adjust;//調整用ベクトル
-						//		//三角形と球の衝突判定
-						//		CCollider::CollisionTriangleSphere(yc, mc, &adjust);
-						if (CCollider::CollisionTriangleSphere(yc, mc, &adjust)){
-							//位置の更新
-							mPosition = mPosition - adjust * -1;
-							//行列の更新
-							CCharacter::Update();
+					CVector adjust;//調整用ベクトル
+					//三角形と球の衝突判定
+					if (CCollider::CollisionTriangleSphere(yc, mc, &adjust)){
+						//位置の更新
+						mPosition = mPosition - adjust * -1;
+						//行列の更新
+						CCharacter::Update();
 
-							if (yc->mpParent->mTag == CCharacter::EWALL){
-								//衝突したのが壁だった場合は壁には引っかからず落下
-								//壁にぶつかると衝突音がし、車が減速する
-								//速い時に衝突で減速、遅い時の衝突は特に変化なし
-								if (mCarSpeed > 6.5f){
-									mCarSpeed = 2.0f;
-									//mCarSpeed /= 2.0f;
-									SoundCollision.Play();
-									//激突時、エフェクト発生
-									new CEffect(mPosition + CVector(0.0f,35.0f,0.0f), 100.0f, 100.0f, TextureExp, 4, 4, 1, 0);
+						if (yc->mpParent->mTag == CCharacter::EGRASS){
+							mSound_Engine = EONGRASS;
+						}
+						else{
+							mSound_Engine = ENOTONGRASS;
+						}
+
+						//エンジン音を鳴らす
+						if (mCarSpeed > 0.0f){
+							if (isSoundEngine == false){
+								mSound_Engine_Prev = mSound_Engine;
+								if (mSound_Engine == EONGRASS){
+									SoundEngine_Turf.Repeat();
 								}
-								else if (mCarSpeed > 4.0f){
-									mCarSpeed = 2.0f;
-									SoundCollisionSmall.Play();
-									//軽くぶつけた時もエフェクト発生
-									new CEffect(mPosition + CVector(0.0f, 15.5f, 0.0f), 60.0f, 60.0f, TextureHit, 3, 8,	1, 1);
+								else if (mSound_Engine == ENOTONGRASS){
+									SoundEngine.Repeat();
 								}
-								else{
-									//壁にこすりながらの移動時、速度が遅くなる
-									if (mCarSpeed > 2.0f){
-										mCarSpeed = 2.0f;
-									}
-								}								
-							}
-							else if(yc->mpParent->mTag == CCharacter::EJUMPER){//ジャンプ台に接触した時
-								//mVelocityJump = 0; 
-								mVelocityJump = JUMPER01_POWER;
-								mCanJump = true;
-								SoundJump.Play();
+								isSoundEngine = true;
 							}
 							else{
-								mVelocityJump = 0;
-								mCanJump = true;
-								mRotation = CCollider::CalculateEulerAngle(mc, yc, mMatrixRotate, PI);
+								//芝生、非芝生の切り替わり
+								if (mSound_Engine_Prev != mSound_Engine){
+									mSound_Engine_Prev = mSound_Engine;
+									if (mSound_Engine_Prev == EONGRASS){
+										SoundEngine_Turf.Repeat();
+										SoundEngine.Stop();
+									}
+									else if (mSound_Engine_Prev == ENOTONGRASS){
+										SoundEngine.Repeat();
+										SoundEngine_Turf.Stop();
+									}
+								}
 							}
+						}
+						//車が停止している時
+						else if (mCarSpeed == 0.0f){
+							SoundEngine.Stop();
+							SoundEngine_Turf.Stop();
+							isSoundEngine = false;
+						}
+						//車がバックしている時
+						else if (mCarSpeed < 0.0f){
+							if (isSoundEngine == false){
+								mSound_Engine_Prev = mSound_Engine;
+								if (mSound_Engine == EONGRASS){
+									SoundEngine_Turf.Repeat();
+								}
+								else if (mSound_Engine == ENOTONGRASS){
+									SoundEngine.Repeat();
+								}
+								isSoundEngine = true;
+							}
+							else{
+								//芝生、非芝生の切り替わり
+								if (mSound_Engine_Prev != mSound_Engine){
+									mSound_Engine_Prev = mSound_Engine;
+									if (mSound_Engine_Prev == EONGRASS){
+										SoundEngine_Turf.Repeat();
+										SoundEngine.Stop();
+									}
+									else if (mSound_Engine_Prev == ENOTONGRASS){
+										SoundEngine.Repeat();
+										SoundEngine_Turf.Stop();
+									}
+								}
+							}
+						}
+						if (yc->mpParent->mTag == CCharacter::EWALL){
+							//壁衝突処理の修正中
+							if (mCarSpeed > 2.0f){
+								mCarSpeed *= 0.95f;
+								if (mCarSpeed < 2.0f){
+									mCarSpeed = 2.0f;
+								}
+							}
+						}
+						else if (yc->mpParent->mTag == CCharacter::EJUMPER){//ジャンプ台に接触した時
+							mVelocityJump = JUMPER01_POWER;
+							SoundJump.Play();
+						}
+						else{
+							mVelocityJump = 0;
+							mRotation = CCollider::CalculateEulerAngle(mc, yc, mMatrixRotate, PI);
 						}
 					}
 
@@ -557,52 +495,32 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 			if (mc->mTag == CCollider::ESEARCH){
 				//加速床に乗った時の処理
 				if (yc->mpParent->mTag == CCharacter::EDASHBOARD){
-					CVector aiueo;//とりまベクトル
-					if (CCollider::CollisionTriangleSphere(yc, mc, &aiueo)){
+					CVector tmpVec;//値を返すためのベクトル
+					if (CCollider::CollisionTriangleSphere(yc, mc, &tmpVec)){
 						//mCarSpeed += 10.0f;
-						//mCarSpeed = MAXSPEED+10.0f;						
+						//mCarSpeed = MAXSPEED+10.0f;
 						if (isBoost == false){
 							SoundBoost.Play();
 							new CEffect(mPosition + CVector(0.0f, 15.5f, 0.0f), 60.0f, 60.0f, TextureBoost, 3, 5, 1, 1);
 						}
 						isBoost = true;
-						mBoostTime = 45;
+						mBoostTime = BOOST_EFFECTTIME;
 					}
 				}
 			}
 		}
 		if (yc->mType == CCollider::ESPHERE){
 			if (CCollider::Collision(mc, yc)){
-				if (yc->mpParent->mTag == CCharacter::ESPRING){
-					mJumpV0 = 2.2f;
-					SoundItemGet.Play();
-				}
-				if (yc->mpParent->mTag == CCharacter::ESCREW){
-					mCanSwim = true;
-					SoundItemGet.Play();
-				}
-				if (yc->mpParent->mTag == CCharacter::EKEY){
-					mIsGetKey = true;
-					SoundItemGet.Play();
-				}
-				if (yc->mpParent->mTag == CCharacter::EBOAT){//ボート乗船時
-					mHaveBoat = true;
-					mMoveSpeed = 0.85f;
-				}
-
-
 				if (mc->mTag == CCollider::EBODY){
 					if (yc->mpParent->mTag == CCharacter::EENEMY){
 						if (yc->mTag == CCollider::EBODY){
 							CVector adjust;//調整用ベクトル
-							////		//球同士の衝突判定
+							//球同士の衝突判定
 							if (CCollider::Collision(mc, yc, &adjust)){
 								//位置の更新
 								mPosition = mPosition - adjust * -1;
 								//行列の更新
 								CCharacter::Update();
-								//printf("自分の衝突処理");
-								//SoundCollisionSmall.Play();
 							}
 						}
 					}
@@ -614,15 +532,23 @@ void CPlayer::Collision(CCollider *mc, CCollider *yc){
 	}
 }
 
+//各チェックポイント通過時のリスポーン地点を決める
+void CPlayer::SetRespawnPoint(int checknumber, CVector position, CVector rotation){
+	mVCheckPositions[checknumber] = position;
+	mVCheckRotations[checknumber] = rotation;
+}
+
+//スタート地点に着く(主にレース開始時に呼び出し)
+void CPlayer::GetReady(){
+	mPosition = mVCheckPositions[0];
+	mRotation = mVCheckRotations[0];
+	CCharacter::Update();
+}
 
 void CPlayer::TaskCollision()
 {
 	mColBody.ChangePriority();
 	mColTire.ChangePriority();
-	//mColCamRange.ChangePriority();
-	//mColCamera.ChangePriority();
 	CollisionManager.Collision(&mColBody);
 	CollisionManager.Collision(&mColTire);
-	//CollisionManager.Collision(&mColCamRange);	
-	//CollisionManager.Collision(&mColCamera);
 }

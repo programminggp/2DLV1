@@ -9,7 +9,6 @@ void CCollisionManager::Collision() {
 	//Œ»ÝˆÊ’u‚ðæ“ª‚É‚·‚é
 	CCollider *pos = (CCollider*)mpHead->mpNext;
 	//ÅŒã‚Ü‚Å‚«‚½‚çI—¹‚·‚é
-//?	while (pos != mpTail) {
 	while (pos) {
 			//Œ»ÝˆÊ’u‚ÌŽŸ‚ð‹‚ß‚é
 		CCollider *next = (CCollider*)pos->mpNext;

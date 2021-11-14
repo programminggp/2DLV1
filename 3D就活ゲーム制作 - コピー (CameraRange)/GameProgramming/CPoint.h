@@ -16,9 +16,9 @@ public:
 	CPoint(const CVector& pos, float r, CPoint* next = nullptr);
 	//設定
 	//Set(位置, 半径, 次ポインタ)
-	void Set(const CVector& pos, float r, CPoint* next = nullptr);
+	void Set(const CVector &pos, float r, CPoint* next = nullptr);
 	//次のポイントの取得
 	CPoint* GetNextPoint();
-	void Render();
 };
+
 #endif

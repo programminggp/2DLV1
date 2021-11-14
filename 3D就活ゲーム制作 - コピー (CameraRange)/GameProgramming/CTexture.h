@@ -59,10 +59,12 @@ public:
 	void DrawImage(float left, float right, float bottom, float top, float tleft, float tright, float tbottom, float ttop) ;
 	void DrawImage(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop);
 	void DrawImage(float left, float right, float bottom, float top, int index);
-	void Destory();
+	void Destroy();
 	void SetParts(int row, int col);
 	void Draw(float left, float right, float bottom, float top, float tleft, float tright, float tbottom, float ttop);
 	void Draw(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop);
+	
+	void DrawImage2D(int left, int right, int bottom, int top, float tleft, float tright, float tbottom, float ttop)  const;
 };
 
 #endif

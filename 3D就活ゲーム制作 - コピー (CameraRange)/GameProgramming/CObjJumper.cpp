@@ -5,6 +5,6 @@
 CObjJumper::CObjJumper(CModel *model, const CVector &position, const CVector &rotation, const CVector &scale)
 :CObj(model, position, rotation, scale)
 {
-	//ジャンプ台、種類によってぶっとばすパワーを変化させる予定。
+	//ジャンプ台、種類によって飛ばすパワーが変化
 	mTag = EJUMPER;
 }

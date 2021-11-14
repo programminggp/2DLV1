@@ -103,7 +103,6 @@ bool CCollider::Collision(CCollider *m, CCollider *y) {
 	return false;
 }
 
-//?
 CCollider::CCollider()
 : mpParent(0)
 , mType(ESPHERE)
@@ -301,17 +300,10 @@ void CCollider::ChangePriority(){
 	CMatrix matrix = mMatrix;//コライダの行列退避
 	CVector position;//原点からの距離計算用
 
-	//mpCombinedMatrix
-	//if (mpCombinedMatrix){
-	//	//スキンメッシュの場合は合成行列も適用
-	//	matrix = matrix * *mpCombinedMatrix;
-	//}
-	//else{
 	if (mpParent){
 		//親がいれば親の合成行列も適用
 		matrix = matrix * mpParent->mMatrix;
 	}
-	/*}*/
 
 	switch (mType){
 	case ESPHERE://球コライダの時、球の中心座標を求める
@@ -340,7 +332,6 @@ void CCollider::ChangePriority(int priority){
 	CollisionManager.Add(this); //リストに追加する
 }
 
-/*追加*/
 //衝突判定
 //Collision(コライダ1, コライダ2, 調整値)
 //return:true（衝突している）false(衝突していない)
@@ -368,35 +359,27 @@ bool CCollider::Collision(CCollider *m, CCollider *y ,CVector *a) {
 	return false;
 }
 
-//ChangePriority(優先度)
+//角度を計算する物
 CVector CCollider::CalculateEulerAngle(CCollider *m, CCollider *y, CMatrix matrixrotate, double pi){
-	/*１．斜面の法線ベクトルからY軸ベクトルを求めます。
-	２．車体の進行方向から、Z軸ベクトルを求めます。
-	３．Y軸ベクトルとZ軸ベクトルの外積を計算し、X軸ベクトルを求めます。
-	４．X軸ベクトルとY軸ベクトルの外積を計算し、Z軸ベクトルを求めます。
-	５．Z軸ベクトルからX軸の回転値を求めます。
-	６．Z軸ベクトルからY軸の回転値を求めます。
-	７．X軸ベクトルとY軸ベクトルからZ軸の回転値を求めます。
-	８．求めた回転値を車体に適用します。*/
 	CVector v[3], sv, ev;
 	//各コライダの頂点をワールド座標へ変換
 	v[0] = y->mV[0] * y->mMatrix * y->mpParent->mMatrix;
 	v[1] = y->mV[1] * y->mMatrix * y->mpParent->mMatrix;
 	v[2] = y->mV[2] * y->mMatrix * y->mpParent->mMatrix;
-	//面の法線を、外積を正規化して求める
-	// 1.斜面の法線ベクトルからY軸ベクトルを求める
+	/*面の法線を、外積を正規化して求める*/
+	// 斜面の法線ベクトルからY軸ベクトルを求める
 	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
-	// 2.車体の進行方向から、Z軸ベクトルを求める
+	// 車体の進行方向から、Z軸ベクトルを求める
 	CVector preZvec = CVector(0.0f, 0.0f, 1.0f) * matrixrotate;
-	// 3.Y軸ベクトルとZ軸ベクトルの外積を計算し、X軸ベクトルを求める
+	// Y軸ベクトルとZ軸ベクトルの外積を計算し、X軸ベクトルを求める
 	CVector Xvec = (normal).Cross(preZvec).Normalize();
-	// 4.X軸ベクトルとY軸ベクトルの外積を計算し、Z軸ベクトルを求める
+	// X軸ベクトルとY軸ベクトルの外積を計算し、Z軸ベクトルを求める
 	CVector Zvec = (Xvec).Cross(normal).Normalize();				
-	// 5～7.回転値を求める
+	// 回転値を求める
 	float rad = asin(Zvec.mY);//5.
 	float rotX = rad * 180 / pi * -1;//X軸は反転
 	float rotY = atan2(Zvec.mX, Zvec.mZ) * 180 / pi;//6.
 	float rotZ = atan2(Xvec.mY, normal.mY) * 180 / pi;//7.
-	//// 8.求めた回転値を車体に適用
+	// 求めた回転の値を返す(主に車体に適用)
 	return CVector(rotX, rotY, rotZ);
 }

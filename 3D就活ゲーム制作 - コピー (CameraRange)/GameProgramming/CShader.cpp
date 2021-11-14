@@ -8,6 +8,8 @@ CShader::CShader(const char* vertexPath,const char* pixelPath){
 	load(vertexPath,pixelPath);
 }
 bool CShader::readFile(GLuint program,GLuint shader, const char *file) {
+	GLint compiled;
+	GLint linked;
 	FILE *fp;
 	if(!( fp = fopen(file,"rb"))) {
 		printf("ファイルが開けません[%s]\n",file);
@@ -16,8 +18,9 @@ bool CShader::readFile(GLuint program,GLuint shader, const char *file) {
 	fseek( fp, 0, SEEK_END );
 	int size = ftell( fp );
 	fseek( fp, 0, SEEK_SET );
-	GLchar *code = new char[size];
+	GLchar *code = new char[size+1];
 	fread(code,size,1,fp);
+	code[size] = NULL;
 	fclose(fp);
 
 	glShaderSource(shader,1,(const GLchar **)&code,&size);
@@ -61,17 +64,18 @@ bool CShader::readFile(GLuint program,GLuint shader, const char *file) {
 }
 bool CShader::load(const char* vertexPath,const char* flagPath){
 	mProgram = glCreateProgram();
+	GLuint vert = glCreateShader(GL_VERTEX_SHADER);
 	if(vertexPath) {
 
-		bool ret = readFile(mProgram, glCreateShader(GL_VERTEX_SHADER), vertexPath);
+		bool ret = readFile(mProgram, vert, vertexPath);
 		if(!ret) return false;
 	}
+	GLuint flag = glCreateShader(GL_FRAGMENT_SHADER);
 	if(flagPath) {
 		
-		bool ret = readFile(mProgram, glCreateShader(GL_FRAGMENT_SHADER), flagPath);
+		bool ret = readFile(mProgram, flag, flagPath);
 		if(!ret) return false;
 	}
-	
 
 	return true;
 	

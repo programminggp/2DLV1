@@ -56,7 +56,6 @@ void CBillBoard::Render() {
 		//アルファブレンド、透明度に応じて透過
 		mMaterial.Enabled();
 	}
-	//mMaterial.Enabled();
 
 	//三角形の描画
 	mT[0].Render();

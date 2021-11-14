@@ -2,6 +2,7 @@
 #include "CObj.h"
 #include "CObjWall.h"
 #include "CObjFloor.h"
+#include "CRoadManager.h"
 #include "CObjCheckPoint.h"
 #include "CObjNonCol.h"
 #include "CSceneTitle.h"
@@ -12,89 +13,24 @@ void CRaceCourceC::Init(){
 
 	CSceneRace::Init();
 
-	//敵のポイント(目的地)の設定
-	if (CSceneTitle::mDifficulty == 1){//難易度：EASY
-		CEnemy::mPoint = new CPoint(CVector(3217.0f, 140.0f, -325.0f), 200.0f);
-		CEnemy::mPoint3 = new CPoint(CVector(4547.0f, 140.0f, -3971.0f), 200.0f);
-		CEnemy::mPoint2 = new CPoint(CVector(4980.0f, 130.0f, -1621.0f), 200.0f);
-		CEnemy::mPoint4 = new CPoint(CVector(3412.0f, 130.0f, -4695.0f), 200.0f);
-		CEnemy::mPoint5 = new CPoint(CVector(1165.0f, 130.0f, -5113.0f), 200.0f);
-		CEnemy::mPoint6 = new CPoint(CVector(-1155.0f, 130.0f, -4615.0f), 200.0f);
-		CEnemy::mPoint7 = new CPoint(CVector(-2375.0f, 130.0f, -3717.0f), 200.0f);
-		CEnemy::mPoint8 = new CPoint(CVector(-2595.0f, 130.0f, -1083.0f), 200.0f);
-		CEnemy::mPoint9 = new CPoint(CVector(-2024.0f, 130.0f, -240.0f), 200.0f);
-		CEnemy::mPoint10 = new CPoint(CVector(-350.0f, 130.0f, 828.0f), 200.0f);
-		CEnemy::mPoint11 = new CPoint(CVector(2661.0f, 130.0f, 3852.0f), 200.0f);
-		CEnemy::mPoint12 = new CPoint(CVector(1613.0f, 30.0f, 6410.0f), 100.0f);
-		CEnemy::mPoint13 = new CPoint(CVector(851.5f, 30.0f, 6761.0f), 100.0f);
-		CEnemy::mPoint14 = new CPoint(CVector(-275.0f, 30.0f, 7050.0f), 100.0f);
-		CEnemy::mPoint15 = new CPoint(CVector(-3475.0f, 30.0f, 6773.0f), 100.0f);
-		CEnemy::mPoint16 = new CPoint(CVector(-5192.0f, 30.0f, 5519.0f), 100.0f);
-		CEnemy::mPoint17 = new CPoint(CVector(-6522.0f, 30.0f, 3027.0f), 100.0f);
-		CEnemy::mPoint18 = new CPoint(CVector(-6177.0f, 30.0f, 1502.0f), 100.0f);
-		CEnemy::mPoint19 = new CPoint(CVector(-4967.0f, 30.0f, 536.0f), 100.0f);
-		CEnemy::mPoint20 = new CPoint(CVector(-2838.0f, 30.0f, 91.0f), 100.0f);
-		CEnemy::mPoint21 = new CPoint(CVector(-1810.0f, 30.0f, 77.0f), 100.0f);
-		CEnemy::mPoint22 = new CPoint(CVector(151.5f, 30.0f, 52.0f), 100.0f);
-	}
-	else if (CSceneTitle::mDifficulty == 2){//難易度：NORMAL
-		CEnemy::mPoint = new CPoint(CVector(2767.0f, 140.0f, -137.0f), 100.0f);
-		CEnemy::mPoint2 = new CPoint(CVector(3914.0f, 140.0f, -647.0f), 100.0f);
-		CEnemy::mPoint3 = new CPoint(CVector(4923.0f, 130.0f, -1705.0f), 100.0f);
-		CEnemy::mPoint4 = new CPoint(CVector(4547.0f, 140.0f, -3971.0f), 100.0f);
-		CEnemy::mPoint5 = new CPoint(CVector(3436.0f, 130.0f, -4617.0f), 100.0f);
-		CEnemy::mPoint6 = new CPoint(CVector(1165.0f, 130.0f, -5113.0f), 100.0f);
-		CEnemy::mPoint7 = new CPoint(CVector(-1155.0f, 130.0f, -4615.0f), 100.0f);
-		CEnemy::mPoint8 = new CPoint(CVector(-2375.0f, 130.0f, -3717.0f), 150.0f);
-		CEnemy::mPoint9 = new CPoint(CVector(-2595.0f, 130.0f, -1083.0f), 150.0f);
-		CEnemy::mPoint10 = new CPoint(CVector(-2024.0f, 130.0f, -240.0f), 150.0f);
-		CEnemy::mPoint11 = new CPoint(CVector(-350.0f, 130.0f, 828.0f), 150.0f);
-		CEnemy::mPoint12 = new CPoint(CVector(2661.0f, 30.0f - 100.0f, 3852.0f), 150.0f);
-		CEnemy::mPoint13 = new CPoint(CVector(1546.0f, 30.0f - 100.0f, 6362.0f), 100.0f);
-		CEnemy::mPoint14 = new CPoint(CVector(774.5f, 30.0f - 100.0f, 6741.0f), 100.0f);
-		CEnemy::mPoint15 = new CPoint(CVector(-960.0f, 30.0f - 100.0f, 7108.0f), 100.0f);
-		CEnemy::mPoint16 = new CPoint(CVector(-3475.0f, 30.0f - 100.0f, 6773.0f), 100.0f);
-		CEnemy::mPoint17 = new CPoint(CVector(-5192.0f, 30.0f - 100.0f, 5519.0f), 100.0f);
-		CEnemy::mPoint18 = new CPoint(CVector(-6522.0f, 30.0f - 100.0f, 3027.0f), 100.0f);
-		CEnemy::mPoint19 = new CPoint(CVector(-6177.0f, 30.0f - 100.0f, 1502.0f), 100.0f);
-		CEnemy::mPoint20 = new CPoint(CVector(-4967.0f, 30.0f - 100.0f, 536.0f), 100.0f);
-		CEnemy::mPoint21 = new CPoint(CVector(-3355.0f, 30.0f - 100.0f, 91.0f), 100.0f);
-		CEnemy::mPoint22 = new CPoint(CVector(-1810.0f, 30.0f - 100.0f, 77.0f), 100.0f);
-		CEnemy::mPoint23 = new CPoint(CVector(151.5f, 30.0f - 100.0f, 52.0f), 100.0f);
-	}
-	else if (CSceneTitle::mDifficulty == 3){//難易度：HARD
-		CEnemy::mPoint = new CPoint(CVector(3217.0f, 140.0f, -325.0f), 200.0f);
-		CEnemy::mPoint3 = new CPoint(CVector(4547.0f, 140.0f, -3971.0f), 200.0f);
-		CEnemy::mPoint2 = new CPoint(CVector(4980.0f, 130.0f, -1621.0f), 200.0f);
-		CEnemy::mPoint4 = new CPoint(CVector(3412.0f, 130.0f, -4695.0f), 200.0f);
-		CEnemy::mPoint5 = new CPoint(CVector(1165.0f, 130.0f, -5113.0f), 200.0f);
-		CEnemy::mPoint6 = new CPoint(CVector(-1155.0f, 130.0f, -4615.0f), 200.0f);
-		CEnemy::mPoint7 = new CPoint(CVector(-2375.0f, 130.0f, -3717.0f), 200.0f);
-		CEnemy::mPoint8 = new CPoint(CVector(-2595.0f, 130.0f, -1083.0f), 200.0f);
-		CEnemy::mPoint9 = new CPoint(CVector(-2024.0f, 130.0f, -240.0f), 200.0f);
-		CEnemy::mPoint10 = new CPoint(CVector(-350.0f, 130.0f, 828.0f), 200.0f);
-		CEnemy::mPoint11 = new CPoint(CVector(2661.0f, 130.0f, 3852.0f), 200.0f);
-		CEnemy::mPoint12 = new CPoint(CVector(1613.0f, 30.0f, 6410.0f), 100.0f);
-		CEnemy::mPoint13 = new CPoint(CVector(851.5f, 30.0f, 6761.0f), 100.0f);
-		CEnemy::mPoint14 = new CPoint(CVector(-275.0f, 30.0f, 7050.0f), 100.0f);
-		CEnemy::mPoint15 = new CPoint(CVector(-3475.0f, 30.0f, 6773.0f), 100.0f);
-		CEnemy::mPoint16 = new CPoint(CVector(-5192.0f, 30.0f, 5519.0f), 100.0f);
-		CEnemy::mPoint17 = new CPoint(CVector(-6522.0f, 30.0f, 3027.0f), 100.0f);
-		CEnemy::mPoint18 = new CPoint(CVector(-6177.0f, 30.0f, 1502.0f), 100.0f);
-		CEnemy::mPoint19 = new CPoint(CVector(-4967.0f, 30.0f, 536.0f), 100.0f);
-		CEnemy::mPoint20 = new CPoint(CVector(-2838.0f, 30.0f, 91.0f), 100.0f);
-		CEnemy::mPoint21 = new CPoint(CVector(-1810.0f, 30.0f, 77.0f), 100.0f);
-		CEnemy::mPoint22 = new CPoint(CVector(151.5f, 30.0f, 52.0f), 100.0f);
-	}
-	else{
-		//隠しHARDの予定
-	}
 	//プレイヤーの生成
 	mPlayer = new CPlayer();
 	mPlayer->mpModel = &mCarWhite;
+	//プレイヤーのリスポーンするCheckPointの設定
+	mPlayer->SetRespawnPoint(0, CVector(0.0f, -13.538f, 80.0f), CVector(0.0f, 90.0f, 0.0f));
+	mPlayer->SetRespawnPoint(1, CVector(1127.4f, 87.5f, -5054.0f), CVector(0.0f, -59.0f, 0.0f));
+	mPlayer->SetRespawnPoint(2, CVector(777.0f, -13.538f, 1925.0f), CVector(0.0f, 405.1f, 0.0f));
+	mPlayer->SetRespawnPoint(3, CVector(-5861.0f, -13.538f, 1165.0f), CVector(0.0f, -583.5, 0.0f));
+	mPlayer->GetReady();
 	//カメラの生成
 	mCamRange = new CCameraRange();
 	mCam = new CCameraPos();
+	//コース全体のサイズ感を設定
+	float size = 40.0f;
+	float height = 20.0f;
+	//コースの生成
+	new CRoadManager(&mCource03Road, CVector(0.0f, 5.0f - 373.0f, -350.0f), CVector(), CVector(size, height, size), mPlayer->mPosition, CVector(0.0f, 0.0f, -1.0f), 120.0f, 0.0f);
+	//new CObjFloor(&mCource03Road, CVector(0.0f, 5.0f - 373.0f, -350.0f), CVector(), CVector(40.0f, 20.0f, 40.0f));
 	//敵車の生成
 	for (int i = 0; i < ENEMYS_AMOUNT; i++){
 		mEnemys[i] = new CEnemy();
@@ -123,9 +59,7 @@ void CRaceCourceC::Init(){
 			mEnemys[i]->mpModel = &mCarCyan;
 		}
 		//初期の配置座標を設定する
-		//mStartPoint[0] = 0.0f;  mStartPoint[1] = -13.538f;  mStartPoint[2] = 0.0f;
-		//mStartRotation = 90.0f;
-		mEnemys[i]->mPosition = CVector(0.0f - 30.0f - 80.0f*i, -13.538f, 0.0f);
+		mEnemys[i]->mPosition = CVector(-30.0f - 80.0f*i, -13.538f, 0.0f);
 		mEnemys[i]->mRotation.mY = 90.0f;
 		if (i % 2 == 0){
 			mEnemys[i]->mPosition.mZ += 80.0f;
@@ -137,8 +71,10 @@ void CRaceCourceC::Init(){
 	new CObjCheckPoint(&mCheckPoint, CVector(1127.4f, -100.0f, -5054.0f), CVector(0.0f, 0.0f, 0.0f), CVector(220.0f, 200.0f, 220.0f), 1);
 	new CObjCheckPoint(&mCheckPoint, CVector(777.0f, -100.0f, 1925.0f), CVector(0.0f, 0.0f, 0.0f), CVector(220.0f, 200.0f, 220.0f), 2);
 	new CObjCheckPoint(&mCheckPoint, CVector(-5861.0f, -300.0f, 1165.0f), CVector(0.0f, 0.0f, 0.0f), CVector(220.0f, 200.0f, 220.0f), 3);
-	//コースの生成
-	new CObjFloor(&mCource03Road, CVector(0.0f, 5.0f - 373.0f, -350.0f), CVector(), CVector(40.0f, 20.0f, 40.0f));
+	//ゴール地点
+	new CObjCheckPoint(&mCheckPoint, CVector(140.0f, -300.0f, 0.0f), CVector(), CVector(30.0f, 300.0f, 222.0f), 9);
+
+	
 	new CObjWall(&mCource03Wall, CVector(0.0f, 5.0f - 373.0f, -350.0f), CVector(), CVector(40.0f, 20.0f, 40.0f));
 	new CObjWall(&mCource03Fence, CVector(0.0f, 5.0f - 373.0f, -350.0f), CVector(), CVector(40.0f, 20.0f, 40.0f));
 	//ゴール地点

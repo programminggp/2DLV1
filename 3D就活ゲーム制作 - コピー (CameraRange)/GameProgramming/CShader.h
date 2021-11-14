@@ -6,12 +6,7 @@
 
 class CShader {
 private:
-//	GLuint vertexShader;
-//	GLuint flagShader;
 	GLuint mProgram;
-	GLint compiled;
-	GLint linked;
-	
 	bool readFile(GLuint program,GLuint shader, const char *file);
 public:
 	CShader();

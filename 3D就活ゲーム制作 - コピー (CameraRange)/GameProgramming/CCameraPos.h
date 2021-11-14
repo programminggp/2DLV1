@@ -5,28 +5,21 @@
 #include "CCollisionManager.h"
 
 class CCameraPos :public CCharacter{
-public:
-	static CCameraPos*mpCamera;
-	//デフォルトコンストラクタ
-	CCameraPos();
-
-	//更新
-	void Update();
-
+private:
+	float mZoom_distance;
+	float mCameraSpeed;
 	//カメラの当たり判定
 	CCollider mColCam;
-	
+public:
+	static CCameraPos*mpCamera;	
+	//デフォルトコンストラクタ
+	CCameraPos();
+	//更新処理
+	void Update();	
 	//衝突処理
-	void Collision(CCollider *mc, CCollider *yc);
-
-	float mCameraSpeed;
-	bool CanMove;//プレイヤーが操作可能か否か(カウントダウン前・ゴール後などは否)
-	
+	void Collision(CCollider *mc, CCollider *yc);		
 	//コライダの更新
-	void TaskCollision();
-
-	CVector mVPoint;
-	float mVCamY;//カメラの方向
+	void TaskCollision();	
 };
 
 
