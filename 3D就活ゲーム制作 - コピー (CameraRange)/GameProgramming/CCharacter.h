@@ -22,17 +22,8 @@ public:
 		ENONE,	//初期値
 		EPOINT,	//ポイント
 		EPLAYER,//プレイヤー
-		EAIRBASE,//空軍基地
-		EMISSILE,//ミサイル
 		EENEMY, //敵
-		ESPRING,//ばね
-		ESCREW, //スクリュー
-		EBOAT, //ボート
-		EGUN,   //銃
 		EWATER, //水場
-		EBULLET,//弾
-		ECLEARWATER,//透き通った水
-		EKEY, //鍵
 		ECHECKPOINT,//中間地点1
 		ECHECKPOINT2,//中間地点2
 		ECHECKPOINT3,//中間地点3
@@ -43,7 +34,6 @@ public:
 		EJUMPER, //ジャンプ台
 	};
 	ETag mTag;
-//	CCharacter *mpParent;	//親
 	CVector mPosition; //位置
 	CVector mRotation; //回転
 	CVector mScale; //拡大縮小
@@ -52,7 +42,7 @@ public:
 	CMatrix mMatrixTranslate; //平行移動行列
 	CMatrix mMatrixRotate; //回転行列
 	CMatrix mMatrixScale; //拡大縮小行列
-	//22
+
 	CCharacter();
 	~CCharacter();
 	//更新処理
@@ -61,8 +51,6 @@ public:
 	void Render();
 	//衝突処理
 	virtual void Collision(CCollider *mycol, CCollider *youcol) {}
-	//
-	//void ChangePriority(int priority);
 	//描画処理の有無
 	bool isRender;
 };

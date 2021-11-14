@@ -22,6 +22,7 @@ public:
 	void Update();
 	//描画
 	void Render();
+	//テクスチャのブレンド方法を指定する
 	int mBlendType;
 };
 

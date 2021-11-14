@@ -1,10 +1,11 @@
 #include "CMyShader.h"
-#include "CLight.h"
-#include "CModelX.h"
-#include "CMatrix44.h"
-#include "CModelObj.h"
+//#include "CLight.h"
+//#include "CModelX.h"
+#include "CMatrix.h"
+#include "CModel.h"
 
-void CMyShader::Render(CModelX *model, CMatrix44 *pCombinedMatrix) {
+/*
+void CMyShader::Render(CModelX *model, CMatrix *pCombinedMatrix) {
 	//シェーダーを有効にする
 	enable();
 	for (int i = 0; i < model->mFrame.size(); i++) {
@@ -16,10 +17,11 @@ void CMyShader::Render(CModelX *model, CMatrix44 *pCombinedMatrix) {
 	//シェーダーを無効にする
 	disable();
 }
+*/
 /*
 メッシュの描画
-*/
-void CMyShader::Render(CModelX *model, CMesh *mesh, CMatrix44 *pCombinedMatrix) {
+
+void CMyShader::Render(CModelX *model, CMesh *mesh, CMatrix *pCombinedMatrix) {
 	//スキンマトリックス生成
 	for (int i = 0; i < mesh->mSkinWeights.size(); i++) {
 		//スキンメッシュの行列配列を設定する
@@ -27,9 +29,8 @@ void CMyShader::Render(CModelX *model, CMesh *mesh, CMatrix44 *pCombinedMatrix) 
 			= pCombinedMatrix[mesh->mSkinWeights[i]->mFrameIndex] * mesh->mSkinWeights[i]->mOffset;
 	}
 
-	/*
-	ライト設定
-	*/
+	
+	//ライト設定	
 	CVector3 vec = CLight::getLight(0)->getDir();
 	vec *= -1;
 	//int lightId = glGetUniformLocation(getProgram(), "lightVec");  //ライトの向きを設定
@@ -39,13 +40,13 @@ void CMyShader::Render(CModelX *model, CMesh *mesh, CMatrix44 *pCombinedMatrix) 
 	//スキンメッシュ行列設定
 	int MatrixLocation = glGetUniformLocation(getProgram(), "Transforms");
 	glUniformMatrix4fv(MatrixLocation, model->mFrame.size(), GL_FALSE, model->mpSkinningMatrix[0].f);
-	/*
-	ワールドトランスフォーム
-	*/
+	
+	//ワールドトランスフォーム
+	
 //	int worldId = glGetUniformLocation(getProgram(), "WorldMatrix");
 //	glUniformMatrix4fv(worldId, 1, GL_FALSE, model->mFrame[0]->mCombinedMatrix.f);
 
-	/* テクスチャユニット1を指定する */
+	///* テクスチャユニット1を指定する 
 	glUniform1i(glGetUniformLocation(getProgram(), "DepthTexture"), 1);
 
 	//頂点バッファをバインドする
@@ -97,17 +98,16 @@ void CMyShader::Render(CModelX *model, CMesh *mesh, CMatrix44 *pCombinedMatrix) 
 	//頂点バッファのバインド解除
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+*/
+
 /*
 Objモデルの描画
-*/
-void CMyShader::Render(CModelObj *mesh) {
+void CMyShader::Render(CModel *mesh) {
 	//シェーダーを有効にする
 	enable();
-	/*
-	ライト設定
-	*/
-	CVector3 vec = CLight::getLight(0)->getDir();
-	vec *= -1;
+	//ライト設定
+	CVector vec = CLight::getLight(0)->getDir();
+	vec = vec * -1;
 	int lightId = glGetUniformLocation(getProgram(), "lightVec");  //ライトの向きを設定
 	glUniform3fv(lightId, 1, (float*)&vec);
 	glUniform3fv(glGetUniformLocation(getProgram(), "lightAmbientColor"), 1, (float*)&(CLight::getLight(0)->getAmbientColor()));
@@ -116,7 +116,7 @@ void CMyShader::Render(CModelObj *mesh) {
 	int MatrixLocation = glGetUniformLocation(getProgram(), "Transforms");
 	glUniformMatrix4fv(MatrixLocation, 1, GL_FALSE, mesh->mMatrix.f);
 
-	/* テクスチャユニット1を指定する */
+	//* テクスチャユニット1を指定する 
 	glUniform1i(glGetUniformLocation(getProgram(), "DepthTexture"), 1);
 
 	//頂点バッファをバインドする
@@ -171,6 +171,7 @@ void CMyShader::Render(CModelObj *mesh) {
 	//シェーダーを無効にする
 	disable();
 }
+*/
 /*
 マテリアルの値をシェーダーに設定する
 */
@@ -186,18 +187,18 @@ void CMyShader::SetShader(CMaterial *material) {
 	//glUniform4fv(ColorRGAB_ID, 1, (GLfloat*)mColorRGBA);
 
 	int PowId = glGetUniformLocation(getProgram(), "Pow");  //強さを設定
-	glUniform1f(PowId, material->mPower);
+	glUniform1f(PowId, 1.0);
 
 	int SpecularId = glGetUniformLocation(getProgram(), "Specular");  //カラー設定
-	glUniform3fv(SpecularId, 1, (GLfloat*)material->mSpecular);
+	glUniform3fv(SpecularId, 1, (GLfloat*)material->mDiffuse);
 
 	int EmissiveId = glGetUniformLocation(getProgram(), "Emissive");  //カラー設定
-	glUniform3fv(EmissiveId, 1, (GLfloat*)material->mEmissive);
+	glUniform3fv(EmissiveId, 1, (GLfloat*)material->mDiffuse);
 	GLint samplerId = glGetUniformLocation(getProgram(), "Sampler");
 	GLint textureFlg = glGetUniformLocation(getProgram(), "TextureFlg");
-	if (material->mTextureId > 0) {
+	if (material->mpTexture->mId > 0) {
 		//テクスチャあり
-		material->SetMaterial();
+		material->Enabled();
 		glUniform1i(samplerId, 0);//GL_TEXTURE0を適用
 		glUniform1i(textureFlg, 0);//GL_TEXTURE0を適用
 	}
@@ -206,4 +207,27 @@ void CMyShader::SetShader(CMaterial *material) {
 		//テクスチャなし
 		glUniform1i(textureFlg, -1);//GL_TEXTURE1を適用
 	}
+}
+
+void CMyShader::Enable()
+{
+	//シェーダーを有効にする
+	enable();
+	//ライト設定
+	CVector vec = CLight::getLight(0)->getDir();
+	vec = vec * -1;
+	int lightId = glGetUniformLocation(getProgram(), "lightVec");  //ライトの向きを設定
+	glUniform3fv(lightId, 1, (float*)&vec);
+	//glUniform3fv(glGetUniformLocation(getProgram(), "lightAmbientColor"), 1, (float*)&(CLight::getLight(0)->getAmbientColor()));
+	//glUniform3fv(glGetUniformLocation(getProgram(), "lightDiffuseColor"), 1, (float*)&(CLight::getLight(0)->getDiffuseColor()));
+
+	//* テクスチャユニット1を指定する 
+	glUniform1i(glGetUniformLocation(getProgram(), "DepthTexture"), 1);
+
+}
+
+void CMyShader::Disable()
+{
+	//シェーダーを無効にする
+	disable();
 }

@@ -5,19 +5,19 @@
 #include "CCollisionManager.h"
 
 class CCameraRange :public CCharacter{
+private:
+	//カメラの当たり判定
+	CCollider mColRange;
 public:
 	static CCameraRange*mpCameraRange;
 	//デフォルトコンストラクタ
 	CCameraRange();
 
 	//更新
-	void Update();
-
-	//カメラの当たり判定
-	CCollider mColRange;
+	void Update();	
 
 	//コライダの更新
-	void TaskCollision();
+	void TaskCollision();	
 };
 
 

@@ -27,18 +27,14 @@ public:
 	void Update();
 	//描画
 	void Render();
-	//22
 	//リストから削除
 	//Remove(タスクのポインタ)
 	void Remove(CTask *task);
-	//22
 	//タスクの削除
 	void Delete();
-	//
-	void ChangePriority(CTask *t, int p);//ブレークポイントの原因？
-
-	
-	
+	//優先度の変更
+	void ChangePriority(CTask *t, int p);
+		
 	void Destroy();
 
 	void Disabled();

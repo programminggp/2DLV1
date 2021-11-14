@@ -5,17 +5,13 @@
 #include "CRaceCourceC.h"
 #include "CRaceCourceD.h"
 #include "CRaceCourceE.h"
-#include "CRaceCourceETest.h"
-#include "CRaceCourceF.h"
+#include "CSceneEditor.h"
 #include "CSceneTitle.h"
 #include "CTaskManager.h"
-
-#include "CSceneShadowMap.h"
 
 CSceneManager SceneManager;
 
 CScene::EScene mScene;
-
 
 //コンストラクタ
 CSceneManager::CSceneManager()
@@ -36,7 +32,6 @@ void CSceneManager::Init() {
 	mScene = CScene::ETITLE;
 	//シーンを生成し、ポインタを設定する
 	mpScene = new CSceneTitle();
-//	mpScene = new CSceneShadowMap();
 
 	//生成したクラスのメソッドが呼ばれる
 	mpScene->Init();
@@ -46,14 +41,16 @@ void CSceneManager::Update() {
 	//ポインタのUpdateを呼ぶ
 	mpScene->Update();
 
-//	return;
-
 	//次のシーンを取得し異なるか判定
 	if (mScene != mpScene->GetNextScene()){
 		mScene = mpScene->GetNextScene();
 		delete mpScene;//今のシーン削除
 		//該当するシーンを生成
 		switch (mScene){
+		case CScene::ETITLE:
+			mpScene = new CSceneTitle();
+			mpScene->Init();
+			break;
 		case CScene::ERACE1:
 			mpScene = new CRaceCourceA();
 			mpScene->Init();
@@ -71,18 +68,13 @@ void CSceneManager::Update() {
 			mpScene->Init();
 			break;
 		case CScene::ERACE5:
-//			mpScene = new CRaceCourceE();
-			mpScene = new CRaceCourceETest();
+			mpScene = new CRaceCourceE();
 			mpScene->Init();
-			break;
-		case CScene::ERACE6:
-			mpScene = new CRaceCourceF();
+			break;		
+		case CScene::EEDIT:
+			mpScene = new CSceneEditor();
 			mpScene->Init();
-			break;
-		case CScene::ETITLE:
-			mpScene = new CSceneTitle();
-			mpScene->Init();
-			break;
+			break;		
 		}
 	}
 }
