@@ -37,14 +37,14 @@ float* CMatrix::M() const
 	return (float*)mM[0];
 }
 
-float CMatrix::M(int r, int c) const
+float CMatrix::M(int row, int col) const
 {
-	return mM[r][c];
+	return mM[row][col];
 }
 
-void CMatrix::M(int r, int c, float f)
+void CMatrix::M(int row, int col, float value)
 {
-	mM[r][c] = f;
+	mM[row][col] = value;
 }
 
 //Šg‘åk¬s—ñ‚Ìì¬

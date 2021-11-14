@@ -20,10 +20,10 @@ public:
 	float* M() const;
 	//行列値の取得
 	//M(行数, 列数)
-	float M(int r, int c) const;
+	float M(int row, int col) const;
 	//行列値の設定
 	//M(行数, 列数, 値)
-	void M(int r, int c, float f);
+	void M(int row, int col, float value);
 	//拡大縮小行列の作成
 	//Scale(倍率X, 倍率Y, 倍率Z)
 	CMatrix Scale(float sx, float sy, float sz);

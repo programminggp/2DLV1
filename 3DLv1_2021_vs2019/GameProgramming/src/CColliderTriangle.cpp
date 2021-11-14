@@ -63,7 +63,7 @@ void CColliderTriangle::ChangePriority()
 	CCollisionManager::Get()->Add(this); //’Ç‰Á
 #ifdef _DEBUG
 
-	printf("%d,", mPriority);
+//	printf("%d,", mPriority);
 
 #endif
 }
