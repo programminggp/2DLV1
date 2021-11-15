@@ -65,6 +65,7 @@ bool CSceneRace::isEnableSpeedometer = false;//速度計
 CRenderTexture mRenderTexture;
 
 CSceneRace::~CSceneRace() {
+//	CMyShader::Get()->Disable();
 	CTaskManager::Get()->Disabled();
 	CTaskManager::Get()->Delete();
 }
@@ -72,7 +73,9 @@ CSceneRace::~CSceneRace() {
 
 void CSceneRace::Init() {
 
-	CMyShader::Get()->load("mesh.vert", "shadow.flag");
+//	CMyShader::Get()->load("mesh.vert", "shadow.flag");
+//	CMyShader::Get()->load(nullptr, "shadow.flag");
+//	CMyShader::Get()->Enable();
 
 	//オブジェクトの数の初期化
 	CObj::mObjectNum = 0;
@@ -352,19 +355,19 @@ void CSceneRace::Init() {
 
 
 //フレームバッファ追加
-	/* フレームバッファオブジェクトを生成して結合する */
+	//* フレームバッファオブジェクトを生成して結合する 
 	glGenFramebuffersEXT(1, &mFb);
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFb);
 
-	/* フレームバッファオブジェクトにデプスバッファ用のテクスチャを結合する */
+	//* フレームバッファオブジェクトにデプスバッファ用のテクスチャを結合する 
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT,
 		GL_TEXTURE_2D, mDepthTextureID, 0);
 
-	/* カラーバッファが無いので読み書きしない */
+	//* カラーバッファが無いので読み書きしない 
 	glDrawBuffer(GL_NONE);
 	glReadBuffer(GL_NONE);
 
-	/* フレームバッファオブジェクトの結合を解除する */
+	//* フレームバッファオブジェクトの結合を解除する 
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
 
@@ -396,6 +399,7 @@ void CSceneRace::Update() {
 
 	//カメラの設定
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+//	Camera3D(c.mX, c.mY, c.mZ, e.mX, e.mY, e.mZ, u.mX, u.mY, u.mZ);
 	Camera.mEye = e;
 
 	//描画処理
@@ -1535,7 +1539,7 @@ void CSceneRace::RenderShadow(){
 	}
 
 	lightpos[0] = mPlayer->mPosition.mX; //ライトの位置データ
-	lightpos[1] = mPlayer->mPosition.mY+1400.0f; //ライトの位置データ
+	lightpos[1] = mPlayer->mPosition.mY+1400.0f*5; //ライトの位置データ
 	lightpos[2] = mPlayer->mPosition.mZ; //ライトの位置データ
 
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
@@ -1565,10 +1569,10 @@ void CSceneRace::RenderShadow(){
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
 	/* テクスチャユニット１に切り替える */
-//	glActiveTexture(GL_TEXTURE1);
-//	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
 	/* デプスバッファの内容をテクスチャメモリに転送する */
-//	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, TEXWIDTH, TEXHEIGHT);
+	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, TEXWIDTH, TEXHEIGHT);
 
 	/* 通常の描画の設定に戻す */
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
@@ -1598,9 +1602,9 @@ void CSceneRace::RenderShadow(){
 	//glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
 
 	/* テクスチャユニット１に切り替える */
-	glActiveTexture(GL_TEXTURE1);
+//	glActiveTexture(GL_TEXTURE1);
 	/* テクスチャオブジェクトを結合する */
-	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
+//	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
 
 	/* テクスチャ変換行列を設定する */
 	glMatrixMode(GL_TEXTURE);

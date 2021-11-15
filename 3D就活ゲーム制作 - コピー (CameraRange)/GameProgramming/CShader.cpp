@@ -64,15 +64,13 @@ bool CShader::readFile(GLuint program,GLuint shader, const char *file) {
 }
 bool CShader::load(const char* vertexPath,const char* flagPath){
 	mProgram = glCreateProgram();
-	GLuint vert = glCreateShader(GL_VERTEX_SHADER);
 	if(vertexPath) {
-
+		GLuint vert = glCreateShader(GL_VERTEX_SHADER);
 		bool ret = readFile(mProgram, vert, vertexPath);
 		if(!ret) return false;
 	}
-	GLuint flag = glCreateShader(GL_FRAGMENT_SHADER);
 	if(flagPath) {
-		
+		GLuint flag = glCreateShader(GL_FRAGMENT_SHADER);
 		bool ret = readFile(mProgram, flag, flagPath);
 		if(!ret) return false;
 	}
