@@ -11,5 +11,8 @@ void CCamera::Set(const CVector &eye, const CVector &center, const CVector &up) 
 }
 
 void CCamera::Render() {
+	/* モデルビュー変換行列に戻す */
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	gluLookAt(mEye.mX, mEye.mY, mEye.mZ, mCenter.mX, mCenter.mY, mCenter.mZ, mUp.mX, mUp.mY, mUp.mZ);
 }
