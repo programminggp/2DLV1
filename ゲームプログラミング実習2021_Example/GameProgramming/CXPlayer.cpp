@@ -3,6 +3,7 @@
 #include "CCollisionManager.h"
 
 #define GRAVITY 0.02f	//重力
+#define VELOCITY 0.8f
 CCharacter* CXPlayer::spInstance = nullptr;
 
 CXPlayer::CXPlayer()
@@ -85,7 +86,7 @@ void CXPlayer::Update()
 		if (CKey::Push('W'))
 		{
 			ChangeAnimation(1, true, 60);
-			mPosition += CVector(0.0f, 0.0f, 0.1f) * mMatrixRotate;
+			mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
 		}
 		else {
 			ChangeAnimation(0, true, 60);
@@ -112,8 +113,10 @@ void CXPlayer::Update()
 void CXPlayer::TaskCollision()
 {
 	mColLine.ChangePriority();
-//	CCollisionManager::Get()->Collision(&mColLine, 30);
-	CCollisionManager::Get()->Collision(&mColLine, 0);
+	mColSphereBody.ChangePriority();
+	CCollisionManager::Get()->Collision(&mColLine, 20);
+//	CCollisionManager::Get()->Collision(&mColSphereBody, 20);
+	//	CCollisionManager::Get()->Collision(&mColLine, 0);
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
@@ -126,6 +129,20 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		{
 			CVector ad;
 			if (CCollider::CollisionTriangleLine(o, m, &ad))
+			{
+				//当たらない位置まで下がる
+				mPosition = mPosition + ad;
+				//着地とする
+				mJumpV = 0.0f;
+			}
+		}
+		break;
+	case CCollider::ESPHERE:
+		//地面、壁との衝突判定
+		if (o->mTag == CCollider::EGROUND)
+		{
+			CVector ad;
+			if (CCollider::CollisionTriangleSphere(o, m, &ad))
 			{
 				//当たらない位置まで下がる
 				mPosition = mPosition + ad;

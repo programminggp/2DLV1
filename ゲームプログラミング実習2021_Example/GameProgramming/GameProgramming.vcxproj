@@ -105,6 +105,7 @@
     <ClCompile Include="CMap2.cpp" />
     <ClCompile Include="CMap3.cpp" />
     <ClCompile Include="CMap4.cpp" />
+    <ClCompile Include="CMap5.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMatrix.cpp" />
     <ClCompile Include="CModel.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="CMap2.h" />
     <ClInclude Include="CMap3.h" />
     <ClInclude Include="CMap4.h" />
+    <ClInclude Include="CMap5.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMatrix.h" />
     <ClInclude Include="CModel.h" />

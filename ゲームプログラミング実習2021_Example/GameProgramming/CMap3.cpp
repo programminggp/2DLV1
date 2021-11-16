@@ -3,8 +3,8 @@
 
 //#define OBJ "forest-terrain\\TerrainNew.obj"
 //#define MTL "forest-terrain\\TerrainNew.mtl"
-#define OBJ "Street environment_V03.obj"
-#define MTL "Street environment_V03.mtl"
+#define OBJ "Street environment_V04.obj"
+#define MTL "Street environment_V04.mtl"
 
 #define CAMERA_POSITION CVector(1.0f, 1.0f, 5.0f)
 #define CAMERA_DISTANCE 7.0f
@@ -19,7 +19,7 @@ CMap3::CMap3()
 
 //	mPosition = CVector(50.0f, 1.0f, 50.0f);
 	mPosition = CVector(0.0f, 0.0f, 0.0f);
-	mScale = CVector(100.0f, 100.0f, 100.0f);
+	mScale = CVector(2.0f, 2.0f, 2.0f);
 	CTransform::Update();
 	//メッシュでコライダを生成
 	mColMesh.Set(nullptr, &mMatrix, mpModel, CCollider::EGROUND);

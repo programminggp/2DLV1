@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "CTriangle.h"
 #include "glut.h"
 
@@ -9,8 +10,23 @@ bool CTriangle::SetVertex(const CVector &v0, const CVector &v1, const CVector &v
 	mV[2] = v2;
 	float dot;
 	dot = (mV[0] - mV[1]).Normalize().Dot((mV[0]-mV[2]).Normalize());
-	if (dot > 0.99999f || dot < -0.99999f) return false;
-	return !((mV[0] == mV[1]) || (mV[1] == mV[2]) || (mV[0] == mV[2]));
+	if (dot > 0.99999f || dot < -0.99999f)
+	{
+		printf("Not Triangle:\n");
+		mV[0].Print();
+		mV[1].Print();
+		mV[2].Print();
+		return false;
+	}
+	bool b = !((mV[0] == mV[1]) || (mV[1] == mV[2]) || (mV[0] == mV[2]));
+	if (!b)
+	{
+		printf("Not Triangle:\n");
+		mV[0].Print();
+		mV[1].Print();
+		mV[2].Print();
+	}
+	return b;
 }
 
 //–@üÝ’è
