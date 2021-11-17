@@ -351,7 +351,7 @@ void CSceneRace::Init() {
 	glTexGendv(GL_Q, GL_EYE_PLANE, genfunc[3]);
 
 	//テクスチャの解除
-	glBindTexture(GL_TEXTURE_2D, 0);
+//	glBindTexture(GL_TEXTURE_2D, 0);
 
 
 //フレームバッファ追加
@@ -370,6 +370,8 @@ void CSceneRace::Init() {
 	//* フレームバッファオブジェクトの結合を解除する 
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
+	//テクスチャの解除
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 	//テクスチャユニットを0に戻す
 	glActiveTexture(GL_TEXTURE0);		
@@ -1666,6 +1668,7 @@ void CSceneRace::RenderShadow(){
 	glLoadIdentity();
 
 	glMatrixMode(GL_MODELVIEW);
+//	glLoadMatrixf(modelviewCamera.mM[0]);
 
 	glActiveTexture(GL_TEXTURE0);
 	//************************************ Shadow Map
