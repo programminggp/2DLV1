@@ -96,10 +96,10 @@ void CModel::Load(char *obj, char *mtl) {
 	//ファイルの最後になるとNULLを返す
 	while (fgets(buf, sizeof(buf), fp) != NULL) {
 		//データを分割する
-		char str[4][64] = { "", "", "", "" };
+		char str[5][64] = { "", "", "", "", "" };
 		//文字列からデータを4つ変数へ代入する
 		//sscanf(文字列, 変換指定子, 変数)
-		sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
+		int num = sscanf(buf, "%s %s %s %s %s", str[0], str[1], str[2], str[3], str[4]);
 		//文字列の比較
 		//strcmp(文字列1, 文字列2)
 		//文字列1と文字列2が同じ時0、異なる時0以外を返す
@@ -119,7 +119,7 @@ void CModel::Load(char *obj, char *mtl) {
 		//先頭がfの時、三角形を作成して追加する
 		else if (strcmp(str[0], "f") == 0) {
 			//頂点と法線の番号作成
-			int v[3], n[3];
+			int v[4], n[4];
 			//テクスチャマッピングの有無を判定
 			if (strstr(str[1], "//")) {
 				//頂点と法線の番号取得
@@ -141,10 +141,25 @@ void CModel::Load(char *obj, char *mtl) {
 				{
 //					printf("f %d//%d %d//%d %d//%d \n", v[0], n[0],v[1], n[1], v[2], n[2]);
 				}
+				if (num == 5)
+				{
+					sscanf(str[4], "%d//%d", &v[3], &n[3]);
+					//三角形作成
+					CTriangle t;
+					if (t.SetVertex(vertex[v[0] - 1], vertex[v[2] - 1], vertex[v[3] - 1]))
+					{
+						t.SetNormal(normal[n[0] - 1], normal[n[2] - 1], normal[n[3] - 1]);
+						//マテリアル番号の設定
+						t.mMaterialIdx = idx;
+						//可変長配列mTrianglesに三角形を追加
+						mTriangles.push_back(t);
+						fprintf(fpo, "%s", buf);
+					}
+				}
 			}
 			else {
 				//テクスチャマッピング有り
-				int u[3]; //テクスチャマッピングの番号
+				int u[4]; //テクスチャマッピングの番号
 				//頂点と法線の番号取得とマッピングの番号取得
 				sscanf(str[1], "%d/%d/%d", &v[0], &u[0], &n[0]);
 				sscanf(str[2], "%d/%d/%d", &v[1], &u[1], &n[1]);
@@ -167,6 +182,25 @@ void CModel::Load(char *obj, char *mtl) {
 				else
 				{
 //					printf("f %d/%d/%d %d/%d/%d %d/%d/%d \n", v[0], u[0], n[0], v[1], u[1], n[1], v[2], u[2], n[2]);
+				}
+				if (num == 5)
+				{
+					sscanf(str[4], "%d/%d/%d", &v[3], &u[3], &n[3]);
+					//三角形作成
+					CTriangle t;
+					if (t.SetVertex(vertex[v[0] - 1], vertex[v[2] - 1], vertex[v[3] - 1]))
+					{
+						t.SetNormal(normal[n[0] - 1], normal[n[2] - 1], normal[n[3] - 1]);
+						//テクスチャマッピングの設定
+						t.mUv[0] = uv[u[0] - 1];
+						t.mUv[1] = uv[u[2] - 1];
+						t.mUv[2] = uv[u[3] - 1];
+						//マテリアル番号の設定
+						t.mMaterialIdx = idx;
+						//可変長配列mTrianglesに三角形を追加
+						mTriangles.push_back(t);
+						fprintf(fpo, "%s", buf);
+					}
 				}
 			}
 		}

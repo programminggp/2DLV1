@@ -2,7 +2,8 @@
 #include "CKey.h"
 #include "CCollisionManager.h"
 
-#define GRAVITY 0.02f	//èdóÕ
+//#define GRAVITY 0.02f	//èdóÕ
+#define GRAVITY 0.00f	//èdóÕ
 #define VELOCITY 0.8f
 CCharacter* CXPlayer::spInstance = nullptr;
 
