@@ -378,6 +378,7 @@ void CSceneRace::Init() {
 
 }
 
+CVector e, c, u;//視点、注視点、上方向
 
 void CSceneRace::Update() {
 	//タスクマネージャの更新・描画
@@ -386,7 +387,6 @@ void CSceneRace::Update() {
 	}
 
 	//カメラのパラメータを作成する
-	CVector e, c, u;//視点、注視点、上方向
 	if (mCameraAngle == EANGLE_FRONTCAR){
 		e = mPlayer->mPosition + CVector(0.0f, 6.0f, 5.0f)* mPlayer->mMatrixScale* CMatrix().RotateY(mPlayer->mRotation.mY);;
 		c = mPlayer->mPosition + CVector(0.0f, 0.0f, 45.0f)* mPlayer->mMatrixScale   //* mPlayer->mMatrixScale
@@ -400,9 +400,12 @@ void CSceneRace::Update() {
 	u = CVector(0.0f, 1.0f, 0.0f);//*mPlayer->mMatrixRotate;
 
 	//カメラの設定
-	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+	CVector w = e;
+	e = c;
+	c = w;
+//	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 //	Camera3D(c.mX, c.mY, c.mZ, e.mX, e.mY, e.mZ, u.mX, u.mY, u.mZ);
-	Camera.mEye = e;
+//	Camera.mEye = e;
 
 	//描画処理
 	RenderShadow();//影
@@ -810,6 +813,13 @@ void CSceneRace::Update() {
 void CSceneRace::Render(){
 	//2D描画開始
 	Start2D(0, 800, 0, 600);
+
+	char camera[128];
+	sprintf(camera, "Eye:%5.2f,%5.2f,%5.2f", e.mX, e.mY, e.mZ);
+	CText::DrawString(camera, 50, 320, 10, 12, 2);
+	sprintf(camera, "Center:%5.2f,%5.2f,%5.2f", c.mX, c.mY, c.mZ);
+	CText::DrawString(camera, 50, 300, 10, 12, 2);
+
 
 	//順位の描画
 	float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
