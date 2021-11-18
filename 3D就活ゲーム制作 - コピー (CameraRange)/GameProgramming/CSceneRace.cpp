@@ -57,7 +57,7 @@ bool CSceneRace::isEnableSpeedometer = false;//速度計
 //#define TEXWIDTH (800)
 //#define TEXHEIGHT (600)
 #define TEXWIDTH (8192)
-#define TEXHEIGHT (1024*6)
+#define TEXHEIGHT (6144)
 
 #define OPENINGTIME 5*60
 #define WAITTIME_ENTER 4*60
@@ -354,7 +354,7 @@ void CSceneRace::Init() {
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 
-//フレームバッファ追加
+	//フレームバッファ追加
 	//* フレームバッファオブジェクトを生成して結合する 
 	glGenFramebuffersEXT(1, &mFb);
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFb);
@@ -398,11 +398,11 @@ void CSceneRace::Update() {
 	u = CVector(0.0f, 1.0f, 0.0f);//*mPlayer->mMatrixRotate;
 
 	//カメラの設定
-	CVector w = e;
-	e = c;
-	c = w;
-//	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
-	Camera3D(c.mX, c.mY, c.mZ, e.mX, e.mY, e.mZ, u.mX, u.mY, u.mZ);
+	//CVector w = e;
+	//e = c;
+	//c = w;
+	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
+//	Camera3D(c.mX, c.mY, c.mZ, e.mX, e.mY, e.mZ, u.mX, u.mY, u.mZ);
 //	Camera.mEye = e;
 
 	//描画処理
@@ -1511,7 +1511,7 @@ void CSceneRace::RenderShadow(){
 	/*
 	** 第１ステップ：デプステクスチャの作成
 	*/
-	/* フレームバッファオブジェクトへのレンダリング開始 */
+	//* フレームバッファオブジェクトへのレンダリング開始
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFb);
 
 	/* デプスバッファをクリアする */
@@ -1548,7 +1548,7 @@ void CSceneRace::RenderShadow(){
 	}
 
 	lightpos[0] = mPlayer->mPosition.mX; //ライトの位置データ
-	lightpos[1] = mPlayer->mPosition.mY+1400.0f*5; //ライトの位置データ
+	lightpos[1] = mPlayer->mPosition.mY+7000.0f; //ライトの位置データ
 	lightpos[2] = mPlayer->mPosition.mZ; //ライトの位置データ
 
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
