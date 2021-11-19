@@ -48,7 +48,8 @@ void CPlayer::Update() {
 	//上キー入力で前進
 	if (CKey::Push(VK_UP)) {
 		//Z軸方向の値を回転させ移動させる
-		mPosition = mPosition + VELOCITY * mMatrixRotate;
+//		mPosition = mPosition + VELOCITY * mMatrixRotate;
+		mPosition = mPosition + Foward() * 0.1f;
 	}
 	//Sキー入力で上向き
 	if (CKey::Push('S')) {

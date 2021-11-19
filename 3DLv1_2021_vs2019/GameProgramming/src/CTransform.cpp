@@ -50,3 +50,8 @@ void CTransform::Update() {
 	mMatrix = mMatrixScale * mMatrixRotate * mMatrixTranslate;
 }
 
+CVector CTransform::Foward()
+{
+	return (CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate).Normalize();
+}
+
