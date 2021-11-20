@@ -11,13 +11,14 @@
 #include "CMap3.h"
 #include "CMap4.h"
 #include "CMap5.h"
+#include "CMapTest.h"
 /*
 ゲームのシーン
 */
 class CSceneGame : public CScene {
 //	CKnight mKnight;
 //	CFelguard mFelguard;
-	CMap5 mMap;
+	CMapTest mMap;
 //	CMap2 mMap;
 public:
 	//キャラクタのインスタンス
