@@ -398,14 +398,10 @@ void CSceneRace::Update() {
 	u = CVector(0.0f, 1.0f, 0.0f);//*mPlayer->mMatrixRotate;
 
 	//カメラの設定
-	//CVector w = e;
-	//e = c;
-	//c = w;
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
-//	Camera3D(c.mX, c.mY, c.mZ, e.mX, e.mY, e.mZ, u.mX, u.mY, u.mZ);
-//	Camera.mEye = e;
 
 	//描画処理
+	RenderShadowMap();//影
 	RenderShadow();//影
 	CTaskManager::Get()->Render();//タスク	
 	//衝突処理
@@ -1410,7 +1406,7 @@ void CSceneRace::RenderBackMirror()
 
 	//バックミラーの描画
 	if (isEnableShadow){
-	//	RenderShadow();
+		RenderShadow();
 	}
 
 	//オブジェクトの描画
@@ -1500,13 +1496,12 @@ void CSceneRace::RenderBackMirror()
 	glPopMatrix();
 }
 
-//影の描画
-void CSceneRace::RenderShadow(){	
-	//Shadow Map ************************************
+CMatrix	modelview; //モデルビュー変換行列の保存用
+CMatrix	projection; //透視変換行列の保存用
 
+//影の描画
+void CSceneRace::RenderShadowMap() {
 	GLint	viewport[4]; //ビューポートの保存用
-	CMatrix	modelview; //モデルビュー変換行列の保存用
-	CMatrix	projection; //透視変換行列の保存用
 
 	/*
 	** 第１ステップ：デプステクスチャの作成
@@ -1534,21 +1529,21 @@ void CSceneRace::RenderShadow(){
 
 	GLfloat lightpos[] = { 0.0f, 200.0f, 200.0f, 0.0f }; //ライトの位置データ
 	lightpos[2] = 0.0f; //ライトの位置データ
-	if (CSceneTitle::mCource == 1){
-		lightpos[1] = 2000.0f*2; //ライトの位置データ
+	if (CSceneTitle::mCource == 1) {
+		lightpos[1] = 2000.0f * 2; //ライトの位置データ
 	}
-	else if (CSceneTitle::mCource == 2){
+	else if (CSceneTitle::mCource == 2) {
 		lightpos[1] = 10000.0f; //ライトの位置データ
 	}
-	else if (CSceneTitle::mCource == 5){
+	else if (CSceneTitle::mCource == 5) {
 		lightpos[1] = 24000.0f; //ライトの位置データ
 	}
-	else{
+	else {
 		//光源が遠いほど影の画質が粗くなってしまう
 	}
 
 	lightpos[0] = mPlayer->mPosition.mX; //ライトの位置データ
-	lightpos[1] = mPlayer->mPosition.mY+7000.0f; //ライトの位置データ
+	lightpos[1] = mPlayer->mPosition.mY + 7000.0f; //ライトの位置データ
 	lightpos[2] = mPlayer->mPosition.mZ; //ライトの位置データ
 
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
@@ -1577,11 +1572,9 @@ void CSceneRace::RenderShadow(){
 	/* フレームバッファオブジェクトへのレンダリング終了 */
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 
-	/* テクスチャユニット１に切り替える */
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
-	/* デプスバッファの内容をテクスチャメモリに転送する */
-	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, TEXWIDTH, TEXHEIGHT);
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	glEnable(GL_LIGHTING);
+	glCullFace(GL_BACK);
 
 	/* 通常の描画の設定に戻す */
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
@@ -1589,9 +1582,19 @@ void CSceneRace::RenderShadow(){
 	glMatrixMode(GL_PROJECTION); //透視変換行列に切り替え
 	glPopMatrix(); //設定をスタックから戻す
 
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-	glEnable(GL_LIGHTING);
-	glCullFace(GL_BACK);
+	/* モデルビュー変換行列の設定 */
+	glMatrixMode(GL_MODELVIEW); //モデルビュー行列に切り替え
+	glPopMatrix(); //スタックから元に戻す
+}
+
+//影の描画
+void CSceneRace::RenderShadow() {
+	//Shadow Map ************************************
+	/* テクスチャユニット１に切り替える */
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
+	/* デプスバッファの内容をテクスチャメモリに転送する */
+	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, TEXWIDTH, TEXHEIGHT);
 
 	/*
 	** 第２ステップ：全体の描画
@@ -1600,20 +1603,12 @@ void CSceneRace::RenderShadow(){
 	/* フレームバッファとデプスバッファをクリアする */
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	/* モデルビュー変換行列の設定 */
-	glMatrixMode(GL_MODELVIEW); //モデルビュー行列に切り替え
-	glPopMatrix(); //スタックから元に戻す
 	/* モデルビュー変換行列を保存しておく */
 	CMatrix modelviewCamera;
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelviewCamera.mM[0]);
 
 	/* 光源の位置を設定する */
 	//glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
-
-	/* テクスチャユニット１に切り替える */
-//	glActiveTexture(GL_TEXTURE1);
-	/* テクスチャオブジェクトを結合する */
-//	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
 
 	/* テクスチャ変換行列を設定する */
 	glMatrixMode(GL_TEXTURE);
@@ -1644,7 +1639,6 @@ void CSceneRace::RenderShadow(){
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcol);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, lightcol);
 	//************************************ Shadow Map
-
 	
 	//影の描画
 	if (isEnableShadow){
@@ -1660,7 +1654,6 @@ void CSceneRace::RenderShadow(){
 		}		
 	}
 	
-
 	//Shadow Map ************************************
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */
 	glDisable(GL_TEXTURE_GEN_S);

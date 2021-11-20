@@ -196,6 +196,7 @@ public:
 	//バックミラーの描画
 	void RenderBackMirror();
 	//影の描画
+	void RenderShadowMap();
 	void RenderShadow();
 	//フェードインをしてゲーム画面に入る
 	void FadeIn();
