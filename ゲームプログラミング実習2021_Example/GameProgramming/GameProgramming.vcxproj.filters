@@ -150,6 +150,9 @@
     <ClCompile Include="CMapTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="CScorpid.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSceneGame.h">
@@ -291,6 +294,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="CMapTest.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CScorpid.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

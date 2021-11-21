@@ -5,6 +5,7 @@
 #include "CCameraControl.h"
 #include "CColliderMesh.h"
 #include "CXPlayer.h"
+#include "CScorpid.h"
 
 class CMapTest : public CCharacter
 {
@@ -12,6 +13,7 @@ class CMapTest : public CCharacter
 	CColliderMesh mColMesh;
 	CModel mModel;
 	CCameraControl mCameraControl;
+	CScorpid mScorpid;
 public:
 	CMapTest();
 	//void Render() {}
