@@ -99,6 +99,7 @@
     <ClCompile Include="CEnemy.cpp" />
     <ClCompile Include="CEnemy2.cpp" />
     <ClCompile Include="CFelguard.cpp" />
+    <ClCompile Include="CFreeMonster.cpp" />
     <ClCompile Include="CKey.cpp" />
     <ClCompile Include="CKnight.cpp" />
     <ClCompile Include="CMap.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CEnemy2.h" />
     <ClInclude Include="CFelguard.h" />
+    <ClInclude Include="CFreeMonster.h" />
     <ClInclude Include="CKey.h" />
     <ClInclude Include="CKnight.h" />
     <ClInclude Include="CMap.h" />
