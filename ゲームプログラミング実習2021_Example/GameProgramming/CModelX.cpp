@@ -764,7 +764,8 @@ void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name)
 		animation->mKeyNum = 0;
 		for (int j = start; j <= end && j < anim->mAnimation[i]->mKeyNum; j++) {
 			animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
-			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum++;
+//			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum;
+			animation->mKeyNum++;
 		}//アニメーションキーのコピー
 		as->mAnimation.push_back(animation);//アニメーションの追加
 	}

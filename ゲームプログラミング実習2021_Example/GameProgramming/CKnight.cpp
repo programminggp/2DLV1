@@ -41,7 +41,7 @@ CKnight::CKnight()
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	Init(&mModel);
 	mModel.mFrame[0]->mTransformMatrix.RotateY(180.0f);
-	ChangeAnimation(1, true, 70);
+	ChangeAnimation(0, true, 2040);
 	//‡¬s—ñ‚Ìİ’è
 	mColHit.mpMatrix = &mpCombinedMatrix[1];
 }

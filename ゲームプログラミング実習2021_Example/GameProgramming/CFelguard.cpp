@@ -23,7 +23,7 @@ CFelguard::CFelguard()
 	mPosition = CVector(-5.0f, 0.0f, 1.0f);
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	Init(&mModel);
-	ChangeAnimation(5, true, 100);
+	ChangeAnimation(1, true, 700);
 	//çáê¨çsóÒÇÃê›íË
 	mColHit.mpMatrix = &mpCombinedMatrix[4];
 }

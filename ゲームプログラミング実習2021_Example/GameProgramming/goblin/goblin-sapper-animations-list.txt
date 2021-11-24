@@ -1,0 +1,15 @@
+Animations list:
+000 - 095 - Idle 
+100 - 122 - Run 
+125 - 165 - Walk forward 
+170 - 210 - Walk back 
+220 - 250 - Strafe left 
+260 - 290 - Strafe rihgt 
+300 - 350 - Jump 
+350 - 390 - Attack 1 
+390 - 440 - Attack 2 
+440 - 450 - Hit reaction 1 
+450 - 475 - Hit reaction 2 
+475 - 500 - Hit reaction 3 
+500 - 550 - Death 1 
+560 - 680 - Death 2 

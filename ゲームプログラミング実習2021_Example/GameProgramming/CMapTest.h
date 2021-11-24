@@ -7,6 +7,9 @@
 #include "CXPlayer.h"
 #include "CScorpid.h"
 #include "CFreeMonster.h"
+#include "CGoblin.h"
+#include "CFelguard.h"
+#include "CKnight.h"
 
 class CMapTest : public CCharacter
 {
@@ -14,7 +17,7 @@ class CMapTest : public CCharacter
 	CColliderMesh mColMesh;
 	CModel mModel;
 	CCameraControl mCameraControl;
-	CFreeMonster mMonster;
+	CGoblin mMonster;
 public:
 	CMapTest();
 	//void Render() {}
