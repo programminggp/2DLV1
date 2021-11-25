@@ -49,6 +49,9 @@
     <Filter Include="ヘッダー ファイル\Game\Scene">
       <UniqueIdentifier>{48c205f4-a1c6-4523-a028-e9bb87cf0ef4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Test">
+      <UniqueIdentifier>{9f646b1d-70e1-4487-a212-663f04deffd0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CObj.cpp">
@@ -195,6 +198,9 @@
     <ClCompile Include="CMyShader.cpp">
       <Filter>ソース ファイル\System</Filter>
     </ClCompile>
+    <ClCompile Include="CSceneTest.cpp">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CRaceCourceE.h">
@@ -340,6 +346,9 @@
     </ClInclude>
     <ClInclude Include="CShader.h">
       <Filter>ヘッダー ファイル\System</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneTest.h">
+      <Filter>ソース ファイル\Test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
 #include "CSceneEditor.h"
 #include "CSceneTitle.h"
 #include "CTaskManager.h"
+#include "CSceneTest.h"
 
 CSceneManager SceneManager;
 
@@ -29,9 +30,9 @@ CSceneManager::~CSceneManager() {
 //初期化処理
 void CSceneManager::Init() {
 	//シーンの識別を設定する
-	mScene = CScene::ETITLE;
+	mScene = CScene::ETEST;
 	//シーンを生成し、ポインタを設定する
-	mpScene = new CSceneTitle();
+	mpScene = new CSceneTest();
 
 	//生成したクラスのメソッドが呼ばれる
 	mpScene->Init();

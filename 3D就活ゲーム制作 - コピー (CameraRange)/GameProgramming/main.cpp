@@ -39,7 +39,7 @@ void reshape(GLFWwindow* window, int width, int height) {
 	glMatrixMode(GL_PROJECTION);	//行列をプロジェクションモードへ変更
 	glLoadIdentity();				//行列を初期化
 //	gluOrtho2D(-width / 2, width / 2, -height / 2, height / 2);	//2Dの画面を設定
-	gluPerspective(75.0, (double)width / (double)height, 1.0, 10000.0);	//3Dの画面を設定
+	gluPerspective(75.0, (double)width / (double)height, 1.0, 30000.0);	//3Dの画面を設定
 
 	glMatrixMode(GL_MODELVIEW);		//行列をモデルビューモードへ変更
 	glLoadIdentity();				//行列を初期化

@@ -21,6 +21,7 @@ public:
 		ERACE4, //コース4
 		ERACE5, //コース5
 		EEDIT,  //エディタ画面
+		ETEST,
 	};
 	//次のシーンの取得
 	EScene mScene;

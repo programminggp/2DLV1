@@ -124,6 +124,7 @@
     <ClCompile Include="CSceneEditor.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CSceneRace.cpp" />
+    <ClCompile Include="CSceneTest.cpp" />
     <ClCompile Include="CSceneTitle.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CSound.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="CSceneEditor.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CSceneRace.h" />
+    <ClInclude Include="CSceneTest.h" />
     <ClInclude Include="CSceneTitle.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CSound.h" />
