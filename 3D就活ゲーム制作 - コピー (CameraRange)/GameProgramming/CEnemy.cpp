@@ -504,7 +504,7 @@ void CEnemy::Collision(CCollider *mc, CCollider *yc){
 									gap = (rand() % (r * 2) - r);
 								}
 								//Ÿ‚Ìƒ|ƒCƒ“ƒg‚ğİ’è‚·‚é
-								SetNextPoint(mpPoint, gap, false);								
+								SetNextPoint(mpPoint, gap / 2.0f, false);								
 							}
 						}
 					}

@@ -31,7 +31,7 @@ void CSceneTest::Init() {
 	float mtsize = 35.0f;
 	float height = 11.0f;
 	CSceneTitle::mCource = CSceneTitle::ECOURCE5;
-	new CRoadManager(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize), PLAYER_POSITION, CVector(0.0f, 0.0f, -1.0f), 320.0f, 0.0f);//
+	new CRoadManager(&mCource05Road, CVector(0.0f, 21.0f, 0.0f), CVector(), CVector(mtsize, height, mtsize), PLAYER_POSITION, CVector(0.0f, 0.0f, -1.0f), 320.0f, 640.0f);//
 
 }
 //更新処理のオーバーライド

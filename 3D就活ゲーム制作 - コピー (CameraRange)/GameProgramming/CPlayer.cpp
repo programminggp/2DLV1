@@ -153,7 +153,6 @@ void CPlayer::Update(){
 		}
 	}
 
-
 	if (CKey::Push(VK_UP) && CanMove){
 		if (mCarSpeed < MAXSPEED + mBoostMaxSpeed){
 			mCarSpeed += CAR_POWER;

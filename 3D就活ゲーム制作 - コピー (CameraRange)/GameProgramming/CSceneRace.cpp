@@ -401,8 +401,8 @@ void CSceneRace::Update() {
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
 	//描画処理
-	RenderShadowMap();//影
-	RenderShadow();//影
+//	RenderShadowMap();//影
+//	RenderShadow();//影
 	CTaskManager::Get()->Render();//タスク	
 	//衝突処理
 	CTaskManager::Get()->TaskCollision();
@@ -1406,7 +1406,7 @@ void CSceneRace::RenderBackMirror()
 
 	//バックミラーの描画
 	if (isEnableShadow){
-		RenderShadow();
+//		RenderShadow();
 	}
 
 	//オブジェクトの描画

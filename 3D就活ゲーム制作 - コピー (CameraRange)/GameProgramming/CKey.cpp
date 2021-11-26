@@ -9,14 +9,14 @@ bool CKey::Push(char key) {
 	（16ビットの2進数）です。
 	&は論理積演算(AND)です。
 	*/
-	return (GetKeyState(key) & 0x8000) == 0x8000;
+	return (GetAsyncKeyState(key) & 0x8000) == 0x8000;
 }
 
 bool CKey::Flg[256];
 
 bool CKey::Once(char key) {
 	//キーが押されているか
-	if ((GetKeyState(key) & 0x8000)) {
+	if ((GetAsyncKeyState(key) & 0x8000)) {
 		//!演算子：否定
 		//押し中か判定
 		if (!Flg[key]) {
