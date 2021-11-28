@@ -1,8 +1,8 @@
 #ifndef CRACECOURCED_H
 #define CRACECOURCED_H
-
-#include "CModel.h"
 #include "CSceneRace.h"
+#include "CModel.h"
+
 
 class CRaceCourceD : public CSceneRace {
 public:

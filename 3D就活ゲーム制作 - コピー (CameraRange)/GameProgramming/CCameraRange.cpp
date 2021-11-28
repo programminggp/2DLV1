@@ -1,9 +1,10 @@
-#include "CCameraRange.h"
-#include "CSceneTitle.h"
+//#include "CSceneTitle.h"
 #include "CTaskManager.h"
 #include "CKey.h"
 #include <stdio.h>
 #include <math.h>
+#include "CCameraRange.h"
+#include "CPlayer.h"
 
 CCameraRange *CCameraRange::mpCameraRange = 0;
 

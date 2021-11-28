@@ -1,7 +1,7 @@
 #ifndef CSCENETEST_H
 #define CSCENETEST_H
-#include "CText.h"
 #include "CScene.h"
+#include "CText.h"
 #include "CKey.h"
 #include <Windows.h>
 #include "CSound.h"

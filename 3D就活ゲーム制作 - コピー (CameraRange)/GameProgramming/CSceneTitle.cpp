@@ -1,5 +1,7 @@
+#include "CSceneRace.h"
 #include "CSceneTitle.h"
 #include "CRectangle.h"
+
 
 #define WAITTIME_STARTLOAD 150 //選択決定後、次のシーン移行までの時間
 #define WAITTIME_NOWLOADING  110 //「NOW LOADING」が表示されるまでの時間

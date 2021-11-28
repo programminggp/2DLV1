@@ -350,5 +350,8 @@
     <ClInclude Include="CSceneTest.h">
       <Filter>ソース ファイル\Test</Filter>
     </ClInclude>
+    <ClInclude Include="rx_shadow_fbo.h">
+      <Filter>ソース ファイル\Test</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

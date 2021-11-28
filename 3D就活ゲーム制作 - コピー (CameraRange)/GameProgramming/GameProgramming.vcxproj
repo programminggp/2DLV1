@@ -186,6 +186,7 @@
     <ClInclude Include="CVector.h" />
     <ClInclude Include="CObjWater.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="rx_shadow_fbo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

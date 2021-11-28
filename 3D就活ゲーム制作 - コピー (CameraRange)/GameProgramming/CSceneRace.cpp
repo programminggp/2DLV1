@@ -1,5 +1,5 @@
 #include "glew.h"
-#include "CMyShader.h"
+//#include "CMyShader.h"
 #include "CSceneRace.h"
 #include "CSceneTitle.h"
 #include "CCamera.h"
@@ -301,82 +301,18 @@ void CSceneRace::Init() {
 	mCameraAngle = EANGLE_THIRDPERSON;//カメラ位置…俯瞰視点
 	
 	mRenderTexture.Init();
-	
 
-	/* テクスチャユニット１をDepthテクスチャで使用 */
-	glActiveTexture(GL_TEXTURE1);
-	//テクスチャの生成
-	glGenTextures(1, &mDepthTextureID);
-	//使用するテクスチャのバインド
-	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
+	InitShadowMap();
 
-	/* Depthテクスチャの割り当て */
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, TEXWIDTH, TEXHEIGHT, 0,
-		GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
-
-	/* テクスチャを拡大・縮小する方法の指定 */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	/* テクスチャの繰り返し方法の指定 */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	/* 書き込むポリゴンのテクスチャ座標値のＲとテクスチャとの比較を行うようにする */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
-
-	/* もしＲの値がテクスチャの値以下なら真（つまり日向） */
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
-
-	/* 比較の結果を輝度値として得る */
-	glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
-
-	/* テクスチャ座標に視点座標系における物体の座標値を用いる */
-	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-	glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-
-	/* 生成したテクスチャ座標をそのまま (S, T, R, Q) に使う */
-	static const GLdouble genfunc[][4] = {
-		{ 1.0, 0.0, 0.0, 0.0 },
-		{ 0.0, 1.0, 0.0, 0.0 },
-		{ 0.0, 0.0, 1.0, 0.0 },
-		{ 0.0, 0.0, 0.0, 1.0 },
-	};
-
-	glTexGendv(GL_S, GL_EYE_PLANE, genfunc[0]);
-	glTexGendv(GL_T, GL_EYE_PLANE, genfunc[1]);
-	glTexGendv(GL_R, GL_EYE_PLANE, genfunc[2]);
-	glTexGendv(GL_Q, GL_EYE_PLANE, genfunc[3]);
-
-	//テクスチャの解除
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-
-	//フレームバッファ追加
-	//* フレームバッファオブジェクトを生成して結合する 
-	glGenFramebuffersEXT(1, &mFb);
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFb);
-
-	//* フレームバッファオブジェクトにデプスバッファ用のテクスチャを結合する 
-	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT,
-		GL_TEXTURE_2D, mDepthTextureID, 0);
-
-	//* カラーバッファが無いので読み書きしない 
-	glDrawBuffer(GL_NONE);
-	glReadBuffer(GL_NONE);
-
-	//* フレームバッファオブジェクトの結合を解除する 
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-
-
-	//テクスチャユニットを0に戻す
-	glActiveTexture(GL_TEXTURE0);		
-
+//	mShadowMap.InitShadow(1024 * 8, 1024 * 6);
 }
 
 CVector e, c, u;//視点、注視点、上方向
+
+void gRender(void *p)
+{
+	CTaskManager::Get()->Render();//タスク
+}
 
 void CSceneRace::Update() {
 	//タスクマネージャの更新・描画
@@ -401,8 +337,11 @@ void CSceneRace::Update() {
 	Camera3D(e.mX, e.mY, e.mZ, c.mX, c.mY, c.mZ, u.mX, u.mY, u.mZ);
 
 	//描画処理
-//	RenderShadowMap();//影
-//	RenderShadow();//影
+	//rxFrustum frustum;
+	//frustum = CalFrustum(75.0, 1.0, 20000, 1024 * 8, 1024 * 6, CVector(10, 7000, 10));
+	//mShadowMap.RenderSceneWithShadow(frustum, gRender, nullptr);
+	RenderShadowMap();//影
+	RenderShadow();//影
 	CTaskManager::Get()->Render();//タスク	
 	//衝突処理
 	CTaskManager::Get()->TaskCollision();
@@ -1406,8 +1345,10 @@ void CSceneRace::RenderBackMirror()
 
 	//バックミラーの描画
 	if (isEnableShadow){
-//		RenderShadow();
+		RenderShadow();
 	}
+
+//	mShadowMap.RenderSceneWithShadow(gRender, nullptr);
 
 	//オブジェクトの描画
 	CTaskManager::Get()->Render();
@@ -1498,6 +1439,80 @@ void CSceneRace::RenderBackMirror()
 
 CMatrix	modelview; //モデルビュー変換行列の保存用
 CMatrix	projection; //透視変換行列の保存用
+
+void CSceneRace::InitShadowMap()
+{
+	/* テクスチャユニット１をDepthテクスチャで使用 */
+	glActiveTexture(GL_TEXTURE1);
+	//テクスチャの生成
+	glGenTextures(1, &mDepthTextureID);
+	//使用するテクスチャのバインド
+	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
+
+	/* Depthテクスチャの割り当て */
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, TEXWIDTH, TEXHEIGHT, 0,
+		GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, 0);
+
+	/* テクスチャを拡大・縮小する方法の指定 */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	/* テクスチャの繰り返し方法の指定 */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+
+	/* 書き込むポリゴンのテクスチャ座標値のＲとテクスチャとの比較を行うようにする */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_R_TO_TEXTURE);
+
+	/* もしＲの値がテクスチャの値以下なら真（つまり日向） */
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
+
+	/* 比較の結果を輝度値として得る */
+	glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
+
+	/* テクスチャ座標に視点座標系における物体の座標値を用いる */
+	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+
+	/* 生成したテクスチャ座標をそのまま (S, T, R, Q) に使う */
+	static const GLdouble genfunc[][4] = {
+		{ 1.0, 0.0, 0.0, 0.0 },
+		{ 0.0, 1.0, 0.0, 0.0 },
+		{ 0.0, 0.0, 1.0, 0.0 },
+		{ 0.0, 0.0, 0.0, 1.0 },
+	};
+
+	glTexGendv(GL_S, GL_EYE_PLANE, genfunc[0]);
+	glTexGendv(GL_T, GL_EYE_PLANE, genfunc[1]);
+	glTexGendv(GL_R, GL_EYE_PLANE, genfunc[2]);
+	glTexGendv(GL_Q, GL_EYE_PLANE, genfunc[3]);
+
+	//テクスチャの解除
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	//フレームバッファ追加
+	//* フレームバッファオブジェクトを生成して結合する 
+	glGenFramebuffersEXT(1, &mFb);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFb);
+
+	//* フレームバッファオブジェクトにデプスバッファ用のテクスチャを結合する 
+	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT,
+		GL_TEXTURE_2D, mDepthTextureID, 0);
+
+	//* カラーバッファが無いので読み書きしない 
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+
+	//* フレームバッファオブジェクトの結合を解除する 
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+
+
+	//テクスチャユニットを0に戻す
+	glActiveTexture(GL_TEXTURE0);
+}
 
 //影の描画
 void CSceneRace::RenderShadowMap() {

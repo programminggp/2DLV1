@@ -1,6 +1,7 @@
 #include "CCollider.h"
 //コリジョンマネージャのインクルード
 #include "CCollisionManager.h"
+#include "glut.h"
 
 //コンストラクタ
 //CCollider(親, 位置, 回転, 拡縮, 半径)

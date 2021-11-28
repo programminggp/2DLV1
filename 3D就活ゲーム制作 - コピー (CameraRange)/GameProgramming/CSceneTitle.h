@@ -1,12 +1,12 @@
 #ifndef CSCENETITLE_H
 #define CSCENETITLE_H
-#include "CText.h"
 #include "CScene.h"
+#include "CText.h"
 #include "CKey.h"
 #include <Windows.h>
 #include "CSound.h"
 //ÅEÅEÅE
-#include "CSceneRace.h"
+//#include "CSceneRace.h"
 
 class CSceneTitle : public CScene {
 private:

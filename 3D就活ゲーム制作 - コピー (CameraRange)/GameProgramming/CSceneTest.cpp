@@ -45,7 +45,7 @@ void CSceneTest::Update() {
 	{
 		CSceneTitle::mMode = CSceneTitle::EMODE_GRANDPRIX;
 		CSceneTitle::mCource = CSceneTitle::ECOURCE5;
-		mScene = CScene::ERACE5;
+		mScene = CScene::ETITLE;
 	}
 }
 

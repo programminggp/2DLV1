@@ -1,5 +1,7 @@
 #ifndef CSCENERACE_H
 #define CSCENERACE_H
+
+#include "rx_shadow_fbo.h"
 #include "CScene.h"
 #include "CModel.h"
 #include "CPlayer.h"
@@ -12,6 +14,7 @@
 
 #include <stdlib.h>
 
+
 #define ENEMYS_AMOUNT (5)//0以下には設定できない
 
 #define RACES_PER_1CUP 3//1カップで行うレース数
@@ -22,6 +25,7 @@
 */
 class CSceneRace : public CScene {
 private:
+	rxShadowMap mShadowMap;
 	GLuint mFb;
 	static bool isEnableShadow;//影の描画の有無
 	static bool isEnableMiniMap;//ミニマップ表示のON・OFF
@@ -196,6 +200,7 @@ public:
 	//バックミラーの描画
 	void RenderBackMirror();
 	//影の描画
+	void InitShadowMap();
 	void RenderShadowMap();
 	void RenderShadow();
 	//フェードインをしてゲーム画面に入る

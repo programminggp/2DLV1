@@ -1,7 +1,8 @@
+//#include "CSceneTitle.h"
 #include "CCameraPos.h"
-#include "CSceneTitle.h"
-
 #include "CTaskManager.h"
+#include "CPlayer.h"
+#include "CCameraRange.h"
 
 #include <stdio.h>
 #include <math.h>

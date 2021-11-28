@@ -1,4 +1,5 @@
 #include "CRaceCourceA.h"
+#include "CSceneTitle.h"
 #include "CObj.h"
 #include "CObjWall.h"
 #include "CObjFloor.h"
@@ -8,7 +9,6 @@
 #include "CObjBoost.h"
 #include "CObjGrass.h"
 #include "CObjJumper.h"
-#include "CSceneTitle.h"
 
 void CRaceCourceA::Init(){
 	//ÉVÅ[ÉìÇÃê›íË

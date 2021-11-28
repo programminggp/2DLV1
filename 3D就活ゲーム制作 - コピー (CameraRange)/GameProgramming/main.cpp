@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include "glew.h"
-#include "glut.h"
+//#include "glut.h"
 #include "GLFW/glfw3.h"
 #include "main.h"
 #include "CSceneManager.h"
