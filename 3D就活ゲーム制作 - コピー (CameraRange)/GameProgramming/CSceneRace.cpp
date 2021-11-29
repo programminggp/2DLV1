@@ -62,6 +62,11 @@ bool CSceneRace::isEnableSpeedometer = false;//速度計
 #define OPENINGTIME 5*60
 #define WAITTIME_ENTER 4*60
 
+/*
+** アルファテスト
+*/
+#define USEALPHA 1 
+
 CRenderTexture mRenderTexture;
 
 CSceneRace::~CSceneRace() {
@@ -342,7 +347,7 @@ void CSceneRace::Update() {
 	//mShadowMap.RenderSceneWithShadow(frustum, gRender, nullptr);
 	RenderShadowMap();//影
 	RenderShadow();//影
-	CTaskManager::Get()->Render();//タスク	
+//	CTaskManager::Get()->Render();//タスク	
 	//衝突処理
 	CTaskManager::Get()->TaskCollision();
 	//削除処理
@@ -1467,8 +1472,16 @@ void CSceneRace::InitShadowMap()
 	/* もしＲの値がテクスチャの値以下なら真（つまり日向） */
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 
+#if USEALPHA
+	/* 比較の結果をアルファ値として得る */
+	glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_ALPHA);
+
+	/* アルファテストの比較関数（しきい値） */
+	glAlphaFunc(GL_GEQUAL, 0.5f);
+#else
 	/* 比較の結果を輝度値として得る */
 	glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE, GL_LUMINANCE);
+#endif
 
 	/* テクスチャ座標に視点座標系における物体の座標値を用いる */
 	glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
@@ -1558,7 +1571,8 @@ void CSceneRace::RenderShadowMap() {
 	}
 
 	lightpos[0] = mPlayer->mPosition.mX; //ライトの位置データ
-	lightpos[1] = mPlayer->mPosition.mY + 7000.0f; //ライトの位置データ
+//	lightpos[1] = mPlayer->mPosition.mY + 7000.0f; //ライトの位置データ
+	lightpos[1] = mPlayer->mPosition.mY + 700.0f; //ライトの位置データ
 	lightpos[2] = mPlayer->mPosition.mZ; //ライトの位置データ
 
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
@@ -1566,7 +1580,7 @@ void CSceneRace::RenderShadowMap() {
 	glPushMatrix(); //現在の設定はスタックに保存
 	glLoadIdentity(); //行列の初期化
 	//ライト位置から見るように行列を設定する
-	gluLookAt(lightpos[0], lightpos[1], lightpos[2], lightpos[0] - 1, 0, lightpos[2] - 1, 0.0, 1.0, 0.0);
+	gluLookAt(lightpos[0], lightpos[1], lightpos[2], lightpos[0] - 10, 0, lightpos[2] - 10, 0.0, 1.0, 0.0);
 	/* 設定したモデルビュー変換行列を保存しておく */
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview.mM[0]);
 
@@ -1578,6 +1592,7 @@ void CSceneRace::RenderShadowMap() {
 
 	/* デプスバッファには背面のポリゴンの奥行きを記録するようにする */
 	glCullFace(GL_FRONT);
+//	glCullFace(GL_BACK);
 	//************************************ Shadow Map
 
 	//Depthテクスチャを作成する描画
@@ -1604,10 +1619,6 @@ void CSceneRace::RenderShadowMap() {
 
 //影の描画
 void CSceneRace::RenderShadow() {
-	//Shadow Map ************************************
-	/* テクスチャユニット１に切り替える */
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
 	/* デプスバッファの内容をテクスチャメモリに転送する */
 	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, TEXWIDTH, TEXHEIGHT);
 
@@ -1624,6 +1635,31 @@ void CSceneRace::RenderShadow() {
 
 	/* 光源の位置を設定する */
 	//glLightfv(GL_LIGHT0, GL_POSITION, lightpos);
+
+#if USEALPHA
+
+	const GLfloat lightdim[] = { 0.4f, 0.4f, 0.4f, 1.0f };
+	const GLfloat lightblk[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	/* 光源の明るさを影の部分での明るさに設定 */
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightdim);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, lightblk);
+
+	//影の描画
+	if (isEnableShadow) {
+		//コースの影の描画
+		//for (int i = 0; i < CObj::mObject_Limit; i++) {
+		//	if (CObj::mpGrounds[i] != NULL) {
+		//		CObj::mpGrounds[i]->Render();
+		//	}
+		//}
+		CTaskManager::Get()->Render();
+	}
+
+#endif
+	//Shadow Map ************************************
+	/* テクスチャユニット１に切り替える */
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
 
 	/* テクスチャ変換行列を設定する */
 	glMatrixMode(GL_TEXTURE);
@@ -1654,7 +1690,18 @@ void CSceneRace::RenderShadow() {
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcol);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, lightcol);
 	//************************************ Shadow Map
-	
+
+#if USEALPHA
+/* アルファテストを有効にして影の部分だけを描画する */
+	glEnable(GL_ALPHA_TEST);
+//	glEnable(GL_BLEND);
+	/* アルファテストの比較関数（しきい値） */
+	glAlphaFunc(GL_GEQUAL, 0.5f);
+
+	/* 日向の部分がもとの図形に重ねて描かれるように奥行きの比較関数を変更する */
+	glDepthFunc(GL_LEQUAL);
+#endif
+
 	//影の描画
 	if (isEnableShadow){
 		//コースの影の描画
@@ -1668,6 +1715,19 @@ void CSceneRace::RenderShadow() {
 			}
 		}		
 	}
+
+	//テクスチャユニット1に切り替える
+	glActiveTexture(GL_TEXTURE1);
+	CTaskManager::Get()->Render();
+
+#if USEALPHA
+	/* 奥行きの比較関数を元に戻す */
+	glDepthFunc(GL_LESS);
+
+	/* アルファテストを無効にする */
+//	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+#endif
 	
 	//Shadow Map ************************************
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */
