@@ -128,6 +128,7 @@
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="CUtil.cpp" />
     <ClCompile Include="CVector.cpp" />
+    <ClCompile Include="CWarrok.cpp" />
     <ClCompile Include="CXCharacter.cpp" />
     <ClCompile Include="CXEnemy.cpp" />
     <ClCompile Include="CXPlayer.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="CUtil.h" />
     <ClInclude Include="CVector.h" />
     <ClInclude Include="CVertex.h" />
+    <ClInclude Include="CWarrok.h" />
     <ClInclude Include="CXCharacter.h" />
     <ClInclude Include="CXEnemy.h" />
     <ClInclude Include="CXPlayer.h" />

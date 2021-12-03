@@ -9,7 +9,7 @@
 
 CMapTest::CMapTest()
 	: mCameraControl(CAMERA_POSITION, CVector(), CAMERA_DISTANCE)
-	, mPlayer(CVector(-0.0f, 1.0f, 5.0f), CVector(0.0f, 180.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f))
+//	, mPlayer(CVector(-0.0f, 1.0f, 5.0f), CVector(0.0f, 180.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f))
 
 {
 	mpModel = &mModel;
@@ -24,5 +24,5 @@ CMapTest::CMapTest()
 
 	//キャラクターにモデルを設定
 	CRes::sModelX.Load(MODEL_FILE);
-	mPlayer.Init(&CRes::sModelX);
+	//mPlayer.Init(&CRes::sModelX);
 }

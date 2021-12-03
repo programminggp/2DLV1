@@ -373,6 +373,7 @@ void CMesh::Render() {
 	/* 頂点データ，法線データの配列を無効にする */
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 /*
  Render

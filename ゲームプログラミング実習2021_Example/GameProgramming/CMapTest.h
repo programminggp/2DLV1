@@ -10,14 +10,15 @@
 #include "CGoblin.h"
 #include "CFelguard.h"
 #include "CKnight.h"
+#include "CWarrok.h"
 
 class CMapTest : public CCharacter
 {
-	CXPlayer mPlayer;
+//	CXPlayer mPlayer;
 	CColliderMesh mColMesh;
 	CModel mModel;
 	CCameraControl mCameraControl;
-	CGoblin mMonster;
+	CWarrok mMonster;
 public:
 	CMapTest();
 	//void Render() {}

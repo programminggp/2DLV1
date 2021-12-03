@@ -98,6 +98,7 @@ void CXCharacter::Update(CMatrix& matrix) {
 */
 void CXCharacter::Render() {
 	mpModel->RenderShader(mpCombinedMatrix);
+	//mpModel->Render();
 }
 //XVˆ—
 void CXCharacter::Update() {

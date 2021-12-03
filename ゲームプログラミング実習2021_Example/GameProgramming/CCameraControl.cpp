@@ -2,7 +2,7 @@
 #include "CKey.h"
 #include "CXPlayer.h"
 
-#define FOWARD  7.0f
+#define FOWARD  17.0f
 #define UP CVector(0.0f, 1.0f, 0.0f)
 #define VELOCITY 0.5f
 //#define START_POSITION CVector(0.0f, 3.0f, 10.0f)
