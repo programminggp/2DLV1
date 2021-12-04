@@ -811,8 +811,8 @@ void CMesh::AnimateVertex(CMatrix* mat) {
 	}
 }
 
-void CModelX::RenderShader(
-	CMatrix* pCombinedMatrix) {
+void CModelX::RenderShader(CMatrix* pCombinedMatrix)
+{
 	mShader.Render(this, pCombinedMatrix);
 }
 
@@ -843,7 +843,19 @@ void CMesh::CreateVertexBuffer() {
 		for (int k = 0; k < mSkinWeights.size(); k++) {
 			for (int l = 0; l < mSkinWeights[k]->mIndexNum; l++) {
 				int idx = mSkinWeights[k]->mpIndex[l];
-				for (int m = 0; m < 4; m++) {
+				int m;
+				for (m = 0; m < 3; m++) {
+					//if (vec[idx].mBoneWeight[m] < mSkinWeights[k]->mpWeight[l])
+					//{
+					//	if (vec[idx].mBoneIndex[m + 1] != 0)
+					//	{
+					//		vec[idx].mBoneIndex[m] = vec[idx].mBoneIndex[m + 1];
+					//		vec[idx].mBoneWeight[m] = vec[idx].mBoneWeight[m + 1];
+					//	}
+					//}
+					//else {
+					//	break;
+					//}
 					if (vec[idx].mBoneIndex[m] == 0) {
 						vec[idx].mBoneIndex[m] =
 							mSkinWeights[k]->mFrameIndex;
@@ -852,6 +864,24 @@ void CMesh::CreateVertexBuffer() {
 						break;
 					}
 				}
+				//if (vec[idx].mBoneIndex[m] == 0 ||
+				//	vec[idx].mBoneWeight[m] <= mSkinWeights[k]->mpWeight[l])
+				//{
+				//	vec[idx].mBoneIndex[m] =
+				//		mSkinWeights[k]->mFrameIndex;
+				//	vec[idx].mBoneWeight[m] =
+				//		mSkinWeights[k]->mpWeight[l];
+				//}
+				//else
+				//{
+				//	if (m > 0)
+				//	{
+				//		vec[idx].mBoneIndex[m-1] =
+				//			mSkinWeights[k]->mFrameIndex;
+				//		vec[idx].mBoneWeight[m-1] =
+				//			mSkinWeights[k]->mpWeight[l];
+				//	}
+				//}
 			}
 		}
 		int k = 0;

@@ -1,7 +1,7 @@
 #version 120
 attribute vec4 indices;
 attribute vec4 weights;
-uniform mat4 Transforms[64];
+uniform mat4 Transforms[128];
 //uniform mat4 WorldMatrix;
 
 //フラグメントシェーダーに渡す変数

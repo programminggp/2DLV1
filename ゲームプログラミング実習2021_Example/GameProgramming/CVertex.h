@@ -24,7 +24,7 @@ public:
 			mBoneIndex[i] = 0;
 			mBoneWeight[i] = 0.0f;
 		}
-		mBoneWeight[0] = 1.0f;
+		//mBoneWeight[3] = 1.0f;
 	}
 };
 
