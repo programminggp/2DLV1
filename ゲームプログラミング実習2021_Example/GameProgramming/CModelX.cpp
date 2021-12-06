@@ -83,6 +83,62 @@ void CModelX::Load(char* file)
 	mShader.Load("skinmesh.vert", "skinmesh.flag");
 
 }
+
+void CModelX::AddAnimationSet(char* file)
+{
+	FILE* fp;
+	fp = fopen(file, "rb");
+	if (fp == NULL)
+	{
+		printf("fopen error:%s\n", file);
+		return;
+	}
+	fseek(fp, 0L, SEEK_END);
+	int size = ftell(fp);
+	char* buf = mpPointer = new char[size + 1];
+	fseek(fp, 0L, SEEK_SET);
+	fread(buf, size, 1, fp);
+	buf[size] = '\0';
+	fclose(fp);
+
+	//文字列の最後まで繰り返し
+	while (*mpPointer != '\0') {
+		GetToken();	//単語の取得
+		//template 読み飛ばし
+		if (strcmp(mToken, "template") == 0) {
+			SkipNode();
+		}
+		/*
+		//Material の時
+		else if (strcmp(mToken, "Material") == 0) {
+			new CMaterial(this);
+		}
+		//単語がFrameの場合
+		else if (strcmp(mToken, "Frame") == 0) {
+			//フレーム名取得
+			GetToken();
+			if (strchr(mToken, '{')) {
+				//フレーム名なし：スキップ
+				SkipNode();
+				GetToken(); //}
+			}
+			else {
+				//フレームが無ければ
+				if (FindFrame(mToken) == 0) {
+					//フレームを作成する
+					p->mChild.push_back(
+						new CModelXFrame(this));
+				}
+			}
+		}
+		*/
+		//単語がAnimationSetの場合
+		else if (strcmp(mToken, "AnimationSet") == 0) {
+			new CAnimationSet(this);
+		}
+	}
+	SAFE_DELETE_ARRAY(buf);
+}
 /*
 GetToken
 文字列データから、単語を1つ取得する

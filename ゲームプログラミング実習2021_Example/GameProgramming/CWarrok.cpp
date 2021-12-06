@@ -2,7 +2,11 @@
 
 CModelX CWarrok::mModel;
 
-#define MODEL "warrok\\warrok2.x"
+//#define MODEL "warrok\\idle.fbx.x"
+//#define MODEL "mutant\\mutant.x"
+//#define ANI_ATTACK "warrok\\Standing Torch Melee Attack 01.fbx.x"
+#define MODEL "mutant\\mutant@StandingWalkLeft.fbx.x"
+#define ANI_ATTACK "mutant\\mutant@WalkingBackwards.fbx.x"
 
 CWarrok::CWarrok()
 	:mColHit(this,nullptr,CVector(0.0f, 0.0f, 0.0f), 0.8f)
@@ -10,6 +14,7 @@ CWarrok::CWarrok()
 	if (mModel.mFrame.size() == 0)
 	{
 		mModel.Load(MODEL);
+		mModel.AddAnimationSet(ANI_ATTACK);
 		//mModel.SeparateAnimationSet(0, 0, 701, "ALL");
 		//mModel.SeparateAnimationSet(1, 0, 100, "IDLE");
 		//mModel.SeparateAnimationSet(1, 150, 200, "ATTACK1");
@@ -24,7 +29,7 @@ CWarrok::CWarrok()
 	mRotation.mY = 0.0f;
 	mScale = CVector(3.0f, 3.0f, 3.0f);
 	Init(&mModel);
-	ChangeAnimation(0, true, 1000);
+	ChangeAnimation(1, true, 250);
 	//çáê¨çsóÒÇÃê›íË
 	mColHit.mpMatrix = &mpCombinedMatrix[4];
 }
