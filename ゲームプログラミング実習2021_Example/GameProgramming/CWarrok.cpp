@@ -5,7 +5,7 @@ CModelX CWarrok::mModel;
 //#define MODEL "warrok\\idle.fbx.x"
 //#define MODEL "mutant\\mutant.x"
 //#define ANI_ATTACK "warrok\\Standing Torch Melee Attack 01.fbx.x"
-#define MODEL "mutant\\mutant@StandingWalkLeft.fbx.x"
+#define MODEL "mutant\\mutant@Walking.fbx.x"
 #define ANI_ATTACK "mutant\\mutant@WalkingBackwards.fbx.x"
 
 CWarrok::CWarrok()
@@ -29,7 +29,7 @@ CWarrok::CWarrok()
 	mRotation.mY = 0.0f;
 	mScale = CVector(3.0f, 3.0f, 3.0f);
 	Init(&mModel);
-	ChangeAnimation(1, true, 250);
+	ChangeAnimation(0, true, 250);
 	//çáê¨çsóÒÇÃê›íË
 	mColHit.mpMatrix = &mpCombinedMatrix[4];
 }
