@@ -99,7 +99,7 @@ CVector CVector::operator+(const CVector &v) const
 float CVector::GetRotationY() const
 {
 	//ƒ‰ƒWƒAƒ“‚ð‹‚É•ÏŠ·‚µ‚Ä•Ô‚·
-	return atan2(mX,mZ) * 180.0f / M_PI;
+	return (float)(atan2(mX,mZ) * 180.0f / M_PI);
 }
 
 //XŽ²‚Å‚Ì‰ñ“]Šp“x‚ÌŽæ“¾
@@ -109,7 +109,7 @@ float CVector::GetRotationX(CVector& ay) const
 {
 	CVector z = this->Normalize();
 	CVector y = ay.Normalize();
-	float rad = 0.0f;
+	double rad = 0.0f;
 
 	if (z.mY < 0.0f)
 	{
@@ -133,5 +133,5 @@ float CVector::GetRotationX(CVector& ay) const
 			rad = asin(z.mY);
 		}
 	}
-	return rad * -180.0f / M_PI;
+	return (float)(rad * -180.0f / M_PI);
 }

@@ -18,7 +18,7 @@ CColliderMesh::~CColliderMesh()
 void CColliderMesh::Set(CCharacter *parent, CMatrix *matrix, CModel *model)
 {	//モデルの三角ポリゴンで三角コライダの配列作成
 	mpColliderTriangles = new CColliderTriangle[model->Triangles().size()];
-	for (int i = 0; i < model->Triangles().size(); i++)
+	for (size_t i = 0; i < model->Triangles().size(); i++)
 	{	//三角コライダの設定
 		mpColliderTriangles[i].Set(parent, matrix
 			, model->Triangles()[i].V0()
