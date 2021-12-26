@@ -21,6 +21,7 @@ class CMaterial;	//クラスの宣言
 */
 class CAnimationKey {
 public:
+	CAnimationKey();
 	//時間
 	float mTime;
 	//行列
@@ -101,7 +102,7 @@ class CMesh {
 	GLuint	  mMyVertexBufferId;
 
 public:
-	int mVertexNum;	//頂点数
+	unsigned int mVertexNum;	//頂点数
 	CVector* mpVertex;	//頂点データ
 	int mFaceNum;	//面数
 	int* mpVertexIndex;	//面を構成する頂点番号
@@ -207,25 +208,8 @@ public:
 	std::vector<CAnimationSet*> mAnimationSet;
 	std::vector<CMaterial*> mMaterial;	//マテリアルの配列
 
-	CModelX()
-		: mpPointer(nullptr)
-		, mpSkinningMatrix(nullptr)
-	{}
-
-	~CModelX() {
-		if (mFrame.size() > 0)
-		{
-			delete mFrame[0];
-		}
-		for (size_t i = 0; i < mAnimationSet.size(); i++) {
-			delete mAnimationSet[i];
-		}
-		//マテリアルの解放
-		for (size_t i = 0; i < mMaterial.size(); i++) {
-			delete mMaterial[i];
-		}
-		SAFE_DELETE_ARRAY(mpSkinningMatrix);
-	}
+	CModelX();
+	~CModelX();
 
 	void Load(char* file);
 	//ファイルからアニメーションセットを追加する

@@ -32,6 +32,18 @@ void CVector::Set(const CVector& v)
 	//mY = v.mY;
 	//mZ = v.mZ;
 }
+void CVector::X(float f)
+{
+	mX = f;
+}
+void CVector::Y(float f)
+{
+	mY = f;
+}
+void CVector::Z(float f)
+{
+	mZ = f;
+}
 //デフォルトコンストラクタ
 CVector::CVector()
 : mX(0.0f), mY(0.0f), mZ(0.0f)
@@ -134,4 +146,11 @@ float CVector::GetRotationX(CVector& ay) const
 		}
 	}
 	return (float)(rad * -180.0f / M_PI);
+}
+
+void CVector::operator+=(const CVector& v)
+{
+	mX += v.mX;
+	mY += v.mY;
+	mZ += v.mZ;
 }

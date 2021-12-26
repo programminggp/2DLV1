@@ -10,7 +10,7 @@
 void CMyShader::Render(CModelX* model, CMatrix* pCombinedMatrix) {
 	//シェーダーを有効にする
 	Enable();
-	for (int i = 0; i < model->mFrame.size(); i++) {
+	for (size_t i = 0; i < model->mFrame.size(); i++) {
 		if (model->mFrame[i]->mMesh.mFaceNum != 0) {
 			//面のあるメッシュは描画する
 			Render(model, &model->mFrame[i]->mMesh, pCombinedMatrix);
@@ -24,7 +24,7 @@ void CMyShader::Render(CModelX* model, CMatrix* pCombinedMatrix) {
 */
 void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	//スキンマトリックス生成
-	for (int i = 0; i < mesh->mSkinWeights.size(); i++) {
+	for (size_t i = 0; i < mesh->mSkinWeights.size(); i++) {
 		//スキンメッシュの行列配列を設定する
 		model->mpSkinningMatrix[mesh->mSkinWeights[i]->mFrameIndex]
 			//			= pCombinedMatrix[mesh->mSkinWeights[i]->mFrameIndex] * mesh->mSkinWeights[i]->mOffset;
@@ -42,7 +42,7 @@ void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	glUniform3fv(glGetUniformLocation(GetProgram(), "lightDiffuseColor"), 1, (float*)&diffuse);
 	//スキンメッシュ行列設定
 	int MatrixLocation = glGetUniformLocation(GetProgram(), "Transforms");
-	glUniformMatrix4fv(MatrixLocation, model->mFrame.size(), GL_FALSE, model->mpSkinningMatrix[0].mF);
+	glUniformMatrix4fv(MatrixLocation, model->mFrame.size(), GL_FALSE, model->mpSkinningMatrix[0].M());
 	/*
 	ワールドトランスフォーム
 	*/
@@ -82,7 +82,7 @@ void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	//マテリアル毎に頂点を描画します
 	int k = 0;
 
-	for (int i = 0; i < mesh->mMaterial.size(); i++) {
+	for (size_t i = 0; i < mesh->mMaterial.size(); i++) {
 		//マテリアルの値をシェーダーに設定
 		SetShader(mesh->mMaterial[i]);
 		//三角形描画、開始頂点番号、描画に使用する頂点数
@@ -182,26 +182,26 @@ Disable();
 void CMyShader::SetShader(CMaterial* material) {
 	//	float mColorRGBA[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	int AmbientId = glGetUniformLocation(GetProgram(), "Ambient");  //カラー設定
-	glUniform4fv(AmbientId, 1, (GLfloat*)material->mDiffuse);
+	glUniform4fv(AmbientId, 1, (GLfloat*)material->Diffuse());
 
 	int DiffuseId = glGetUniformLocation(GetProgram(), "Diffuse");  //カラー設定
-	glUniform4fv(DiffuseId, 1, (GLfloat*)material->mDiffuse);
+	glUniform4fv(DiffuseId, 1, (GLfloat*)material->Diffuse());
 
 	//int ColorRGAB_ID = glGetUniformLocation(getProgram(), "ColorRGBA");  //カラー設定　重ねてカラーの表示
 	//glUniform4fv(ColorRGAB_ID, 1, (GLfloat*)mColorRGBA);
 
 	int PowId = glGetUniformLocation(GetProgram(), "Pow");  //強さを設定
-	glUniform1f(PowId, material->mPower);
+	glUniform1f(PowId, material->Power());
 
 	int SpecularId = glGetUniformLocation(GetProgram(), "Specular");  //カラー設定
-	glUniform3fv(SpecularId, 1, (GLfloat*)material->mSpecular);
+	glUniform3fv(SpecularId, 1, (GLfloat*)material->Specular());
 
 	int EmissiveId = glGetUniformLocation(GetProgram(), "Emissive");  //カラー設定
-	glUniform3fv(EmissiveId, 1, (GLfloat*)material->mEmissive);
+	glUniform3fv(EmissiveId, 1, (GLfloat*)material->Emissive());
 	GLint samplerId = glGetUniformLocation(GetProgram(), "Sampler");
 	GLint textureFlg = glGetUniformLocation(GetProgram(), "TextureFlg");
 	//if (material->mTextureId > 0) {
-	if (material->mTexture.mId) {
+	if (material->Texture()->Id()) {
 		//テクスチャあり
 		material->Enabled();
 		glUniform1i(samplerId, 0);//GL_TEXTURE0を適用

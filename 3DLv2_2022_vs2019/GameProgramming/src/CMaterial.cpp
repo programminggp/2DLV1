@@ -39,11 +39,15 @@ CTexture* CMaterial::Texture()
 //デフォルトコンストラクタ
 CMaterial::CMaterial()
 :mVertexNum(0)
+,mpTextureFilename(nullptr)
+, mPower(0.0f)
 {
 	//名前を0で埋め
 	memset(mName, 0, sizeof(mName));
 	//0で埋める
 	memset(mDiffuse, 0, sizeof(mDiffuse));
+	memset(mSpecular, 0, sizeof(mSpecular));
+	memset(mEmissive, 0, sizeof(mEmissive));
 }
 
 //マテリアルを有効にする
@@ -78,14 +82,24 @@ void CMaterial::Disabled()
 		glDisable(GL_TEXTURE_2D);
 	}
 }
+float CMaterial::Power()
+{
+	return mPower;
+}
+float* CMaterial::Specular()
+{
+	return mSpecular;
+}
+float* CMaterial::Emissive()
+{
+	return mEmissive;
+}
 /*
 Materialデータの読み込みと設定
 */
 CMaterial::CMaterial(CModelX* model)
-	: mpTextureFilename(nullptr)
-	, mVertexNum(0)
+	: CMaterial()
 {
-	memset(mName, 0, MATERIAL_NAME_LEN);
 	//CModelXにマテリアルを追加する
 	model->mMaterial.push_back(this);
 

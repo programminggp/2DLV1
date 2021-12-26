@@ -36,6 +36,9 @@ public:
 //	void LoadTexture(char *file);
 	//マテリアルを無効にする
 	void Disabled();
+	float Power();
+	float* Specular();
+	float* Emissive();
 private:
 	//マテリアル毎の頂点数
 	int mVertexNum;

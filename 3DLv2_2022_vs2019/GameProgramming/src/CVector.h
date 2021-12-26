@@ -11,6 +11,9 @@ public:
 	//Set(X座標, Y座標, Z座標)
 	void Set(float x, float y, float z);
 	void Set(const CVector& v);
+	void X(float f);
+	void Y(float f);
+	void Z(float f);
 	//Xの値を得る
 	float X() const;
 	//Yの値を得る
@@ -51,6 +54,9 @@ public:
 	//度度を返す（Z軸＋が0度）
 	//GetRotationX(Y軸方向)
 	float GetRotationX(CVector& y) const;
+	//+=演算子のオーバーロード
+	//CVector1 += CVector2 の演算を行う
+	void operator+=(const CVector& v);
 private:
 	//3D各軸での値を設定
 	float mX, mY, mZ;

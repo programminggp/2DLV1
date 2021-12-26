@@ -185,7 +185,7 @@ void CModel::Load(char *obj, char *mtl) {
 	//全てのテクスチャマッピングの値をマテリアルの順番に保存する
 	mpTextureCoord = new float[mTriangles.size() * 6];
 
-	size_t v = 0, t = 0;
+	unsigned int  v = 0, t = 0;
 	//マテリアル毎に頂点配列に設定する
 	for (size_t i = 0; i < mpMaterials.size(); i++) {
 		//全ての三角形を比較

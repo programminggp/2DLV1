@@ -148,3 +148,56 @@ CMatrix CMatrix::operator*(const CMatrix &m) {
 
 	return t;
 }
+//クオータニオンで回転行列を設定する
+CMatrix CMatrix::Quaternion(float x, float y, float z, float w) {
+	mM[0][0] = x * x - y * y - z * z + w * w;
+	mM[0][1] = 2 * x * y - 2 * w * z;
+	mM[0][2] = 2 * x * z + 2 * w * y;
+	mM[0][3] = 0;
+	mM[1][0] = 2 * x * y + 2 * w * z;
+	mM[1][1] = -x * x + y * y - z * z + w * w;
+	mM[1][2] = 2 * y * z - 2 * w * x;
+	mM[1][3] = 0;
+	mM[2][0] = 2 * x * z - 2 * w * y;
+	mM[2][1] = 2 * y * z + 2 * w * x;
+	mM[2][2] = -x * x - y * y + z * z + w * w;
+	mM[2][3] = 0;
+	mM[3][0] = 0;
+	mM[3][1] = 0;
+	mM[3][2] = 0;
+	mM[3][3] = 1;
+	return *this;
+}
+
+CMatrix CMatrix::operator*(const float& f) const
+{
+	CMatrix tmp;
+	for (int i = 0; i < 16; i++)
+	{
+		tmp.mM[0][i] = mM[0][i] * f;
+	}
+	return tmp;
+}
+
+CMatrix CMatrix::operator+(const CMatrix& m) const
+{
+	CMatrix tmp;
+	for (int i = 0; i < 16; i++)
+	{
+		tmp.mM[0][i] = mM[0][i] + m.mM[0][i];
+	}
+	return tmp;
+}
+
+void CMatrix::operator+=(const CMatrix& m)
+{
+	for (int i = 0; i < 16; i++)
+	{
+		mM[0][i] += m.mM[0][i];
+	}
+}
+
+int CMatrix::Size()
+{
+	return sizeof(mM) / sizeof(float);
+}
