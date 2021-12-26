@@ -70,7 +70,7 @@ void CColliderTriangle::ChangePriority()
 
 void CColliderTriangle::Mesh(CCharacter* parent, CMatrix* matrix, CModel* model)
 {
-	for (int i = 0; i < model->Triangles().size(); i++)
+	for (size_t i = 0; i < model->Triangles().size(); i++)
 	{	//三角コライダの設定
 		CColliderTriangle *p = new CColliderTriangle(parent, matrix
 			, model->Triangles()[i].V0()

@@ -69,7 +69,7 @@ CMatrix CMatrix::Scale(float sx, float sy, float sz)
 //RotateY(角度)
 CMatrix CMatrix::RotateY(float degree) {
 	//角度からラジアンを求める
-	float rad = degree / 180.0f * M_PI;
+	float rad = (float)(degree / 180.0f * M_PI);
 	//単位行列にする
 	Identity();
 	//Y軸で回転する行列の設定
@@ -85,7 +85,7 @@ CMatrix CMatrix::RotateY(float degree) {
 CMatrix CMatrix::RotateZ(float degree)
 {
 	//角度からラジアンを求める
-	float rad = degree / 180.0f * M_PI;
+	float rad = (float)(degree / 180.0f * M_PI);
 	//単位行列にする
 	Identity();
 	//Y軸で回転する行列の設定
@@ -100,7 +100,7 @@ CMatrix CMatrix::RotateZ(float degree)
 CMatrix CMatrix::RotateX(float degree)
 {
 	//角度からラジアンを求める
-	float rad = degree / 180.0f * M_PI;
+	float rad = (float)(degree / 180.0f * M_PI);
 	//単位行列にする
 	Identity();
 	//Y軸で回転する行列の設定
