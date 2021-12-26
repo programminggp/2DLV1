@@ -5,7 +5,7 @@ CModelX CWarrok::mModel;
 //#define MODEL "warrok\\idle.fbx.x"
 //#define MODEL "mutant\\mutant.x"
 //#define ANI_ATTACK "warrok\\Standing Torch Melee Attack 01.fbx.x"
-#define MODEL "mutant\\mutant@Walking.fbx.x"
+#define MODEL "mutant\\mutant.x"
 #define ANI_ATTACK "mutant\\mutant@WalkingBackwards.fbx.x"
 
 CWarrok::CWarrok()
