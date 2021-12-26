@@ -1,5 +1,6 @@
 #ifndef CMATERIAL_H
 #define CMATERIAL_H
+#include "CModelX.h"
 #include "CTexture.h"
 
 #define MATERIAL_NAME_LEN 64
@@ -27,6 +28,8 @@ public:
 	CTexture* Texture();
 	//デフォルトコンストラクタ
 	CMaterial();
+	CMaterial(CModelX* model);
+	~CMaterial();
 	//マテリアルを有効にする
 	void Enabled();
 	//テクスチャを読み込む
@@ -42,6 +45,11 @@ private:
 	char mName[MATERIAL_NAME_LEN];
 	//拡散光の色RGBA
 	float mDiffuse[4];
+	float mPower;
+	float mSpecular[3];
+	float mEmissive[3];
+	//テクスチャファイル名
+	char* mpTextureFilename;
 };
 
 #endif
