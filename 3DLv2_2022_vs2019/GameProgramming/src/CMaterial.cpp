@@ -101,12 +101,12 @@ CMaterial::CMaterial(CModelX* model)
 	: CMaterial()
 {
 	//CModelXにマテリアルを追加する
-	model->mMaterial.push_back(this);
+	model->Materials().push_back(this);
 
 	model->GetToken(); // { ? Name
-	if (strcmp(model->mToken, "{") != 0) {
+	if (strcmp(model->Token(), "{") != 0) {
 		//{でないときはマテリアル名
-		strcpy(mName, model->mToken);
+		strcpy(mName, model->Token());
 		model->GetToken(); // {
 	}
 
@@ -126,12 +126,12 @@ CMaterial::CMaterial(CModelX* model)
 
 	model->GetToken(); // TextureFilename or }
 
-	if (strcmp(model->mToken, "TextureFilename") == 0) {
+	if (strcmp(model->Token(), "TextureFilename") == 0) {
 		//テクスチャありの場合、テクスチャファイル名取得
 		model->GetToken(); // {
 		model->GetToken(); // filename
-		mpTextureFilename = new char[strlen(model->mToken) + 1];
-		strcpy(mpTextureFilename, model->mToken);
+		mpTextureFilename = new char[strlen(model->Token()) + 1];
+		strcpy(mpTextureFilename, model->Token());
 		//テクスチャファイルの読み込み
 		mTexture.Load(mpTextureFilename);
 		model->GetToken(); // }

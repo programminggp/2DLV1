@@ -124,7 +124,7 @@ CMatrix CMatrix::Translate(float mx, float my, float mz) {
 }
 //*演算子のオーバーロード
 //CMatrix * CMatrix の演算結果を返す
-CMatrix CMatrix::operator*(const CMatrix &m) {
+CMatrix CMatrix::operator*(const CMatrix &m) const {
 	CMatrix t;
 	t.mM[0][0] = mM[0][0] * m.mM[0][0] + mM[0][1] * m.mM[1][0] + mM[0][2] * m.mM[2][0] + mM[0][3] * m.mM[3][0];
 	t.mM[0][1] = mM[0][0] * m.mM[0][1] + mM[0][1] * m.mM[1][1] + mM[0][2] * m.mM[2][1] + mM[0][3] * m.mM[3][1];

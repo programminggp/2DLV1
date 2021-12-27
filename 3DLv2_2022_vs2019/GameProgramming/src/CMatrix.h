@@ -41,7 +41,7 @@ public:
 	CMatrix Translate(float mx, float my, float mz);
 	//*演算子のオーバーロード
 	//CMatrix * CMatrix の演算結果を返す
-	CMatrix operator*(const CMatrix &m);
+	CMatrix operator*(const CMatrix &m) const ;
 	//クオータニオンで回転行列を設定する
 	CMatrix Quaternion(float x, float y, float z, float w);
 	//*演算子のオーバーロード

@@ -14,30 +14,38 @@
 
 class CModelX;	// CModelXクラスの宣言
 class CMaterial;	//クラスの宣言
-
+class CAnimation;
+class CAnimationSet;
+class CModelXFrame;
 /*
  CAnimationKey
  アニメーションキークラス
 */
 class CAnimationKey {
-public:
-	CAnimationKey();
+	friend CAnimation;
+	friend CAnimationSet;
+	friend CModelX;
+
 	//時間
 	float mTime;
 	//行列
 	CMatrix mMatrix;
+public:
+	CAnimationKey();
 };
 /*
  CAnimation
  アニメーションクラス
 */
 class CAnimation {
-public:
+	friend CAnimationSet;
+	friend CModelX;
+
 	char* mpFrameName;//フレーム名
 	int mFrameIndex;	//フレーム番号
 	int mKeyNum;	//キー数（時間数）
 	CAnimationKey* mpKey;	//キーの配列
-
+public:
 	CAnimation();
 	CAnimation(CModelX* model);
 
@@ -51,15 +59,16 @@ public:
  アニメーションセット
 */
 class CAnimationSet {
-public:
+	friend CModelX;
+
 	//アニメーションセット名
 	char* mpName;
 	//アニメーション
 	std::vector<CAnimation*> mAnimation;
-	float mTime;		//現在時間
+	float mTime;	//現在時間
 	float mWeight;	//重み
 	float mMaxTime;	//最大時間
-
+public:
 	CAnimationSet();
 	CAnimationSet(CModelX* model);
 
@@ -70,20 +79,27 @@ public:
 			delete mAnimation[i];
 		}
 	}
+
+	const float& Time();
+	const float& MaxTime();
+	void Time(float time);
+	void Weight(float wight);
 };
 /*
  CSkinWeights
  スキンウェイトクラス
 */
 class CSkinWeights {
-public:
+	friend CModelX;
+	friend CMesh;
+
 	char* mpFrameName;	//フレーム名
 	int mFrameIndex;	//フレーム番号
 	int mIndexNum;	//頂点番号数
 	int* mpIndex;	//頂点番号配列
 	float* mpWeight;	//頂点ウェイト配列
 	CMatrix mOffset;	//オフセットマトリックス
-
+public:
 	CSkinWeights(CModelX* model);
 
 	~CSkinWeights() {
@@ -91,28 +107,31 @@ public:
 		SAFE_DELETE_ARRAY(mpIndex);
 		SAFE_DELETE_ARRAY(mpWeight);
 	}
+
+	const int& FrameIndex();
+	const CMatrix& Offset();
 };
 
 //CMeshクラスの定義
 class CMesh {
-	friend CMyShader;
+	friend CModelX;
+	friend CModelXFrame;
+
 	//マテリアル毎の面数
 	std::vector<int> mMaterialVertexCount;
 	//頂点バッファ識別子
 	GLuint	  mMyVertexBufferId;
-
-public:
 	unsigned int mVertexNum;	//頂点数
 	CVector* mpVertex;	//頂点データ
-	int mFaceNum;	//面数
-	int* mpVertexIndex;	//面を構成する頂点番号
-	int mNormalNum;	//法線数
+	unsigned int mFaceNum;	//面数
+	unsigned int* mpVertexIndex;	//面を構成する頂点番号
+	unsigned int mNormalNum;	//法線数
 	CVector* mpNormal;//法線データ
 
-	int mMaterialNum;	//マテリアル数
-	int mMaterialIndexNum;//マテリアル番号数（面数）
-	int* mpMaterialIndex;	  //マテリアル番号
-	std::vector<CMaterial*> mMaterial;//マテリアルデータ
+	unsigned int mMaterialNum;	//マテリアル数
+	unsigned int mMaterialIndexNum;//マテリアル番号数（面数）
+	unsigned int* mpMaterialIndex;	  //マテリアル番号
+	std::vector<CMaterial*> mMaterials;//マテリアルデータ
 	CVector* mpAnimateVertex;	//アニメーション用頂点
 	CVector* mpAnimateNormal;	//アニメーション用法線
 	//テクスチャ座標データ
@@ -120,6 +139,14 @@ public:
 
 	//スキンウェイト
 	std::vector<CSkinWeights*> mSkinWeights;
+
+public:
+
+	const unsigned int& FaceNum();
+	std::vector<CSkinWeights*>& SkinWeights();
+	const GLuint& MyVertexBufferId();
+	std::vector<CMaterial*>& Materials();
+	std::vector<int>& MaterialVertexCount();
 
 	//コンストラクタ
 	CMesh()
@@ -165,13 +192,20 @@ public:
 
 //CModelXFrameクラスの定義
 class CModelXFrame {
-public:
+	friend CModelX;
+	friend CAnimation;
+	friend CMesh;
+
 	std::vector<CModelXFrame*> mChild;	//子フレームの配列
 	CMatrix mTransformMatrix;	//変換行列
 	char* mpName;	//フレーム名前
 	int mIndex;		//フレーム番号
 	CMesh mMesh;	//Meshデータ
 	CMatrix mCombinedMatrix;	//合成行列
+public:
+
+	CMesh& Mesh();	//Meshデータ
+	const CMatrix& CombinedMatrix();	//合成行列
 
 	CModelXFrame()
 		: mpName(nullptr)
@@ -197,16 +231,27 @@ public:
 
 
 class CModelX {
+	friend CModelXFrame;
+	friend CMesh;
+	friend CSkinWeights;
+	friend CAnimationSet;
+	friend CAnimation;
+
 	CMyShader mShader; //シェーダーのインスタンス
-public:
 	//シェーダー用スキンマトリックス
 	CMatrix* mpSkinningMatrix;
 	char* mpPointer;
 	char mToken[1024];
-	std::vector<CModelXFrame*> mFrame;	//フレームの配列
+	std::vector<CModelXFrame*> mFrames;	//フレームの配列
 	//アニメーションセットの配列
-	std::vector<CAnimationSet*> mAnimationSet;
-	std::vector<CMaterial*> mMaterial;	//マテリアルの配列
+	std::vector<CAnimationSet*> mAnimationSets;
+	std::vector<CMaterial*> mMaterials;	//マテリアルの配列
+public:
+	std::vector<CMaterial*>& Materials();
+	char* Token();
+	std::vector<CModelXFrame*>& Frames();
+	CMatrix* SkinningMatrix();
+	std::vector<CAnimationSet*>& AnimationSets();
 
 	CModelX();
 	~CModelX();

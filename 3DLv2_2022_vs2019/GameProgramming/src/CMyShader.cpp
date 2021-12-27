@@ -10,10 +10,10 @@
 void CMyShader::Render(CModelX* model, CMatrix* pCombinedMatrix) {
 	//シェーダーを有効にする
 	Enable();
-	for (size_t i = 0; i < model->mFrame.size(); i++) {
-		if (model->mFrame[i]->mMesh.mFaceNum != 0) {
+	for (size_t i = 0; i < model->Frames().size(); i++) {
+		if (model->Frames()[i]->Mesh().FaceNum() != 0) {
 			//面のあるメッシュは描画する
-			Render(model, &model->mFrame[i]->mMesh, pCombinedMatrix);
+			Render(model, &model->Frames()[i]->Mesh(), pCombinedMatrix);
 		}
 	}
 	//シェーダーを無効にする
@@ -24,11 +24,11 @@ void CMyShader::Render(CModelX* model, CMatrix* pCombinedMatrix) {
 */
 void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	//スキンマトリックス生成
-	for (size_t i = 0; i < mesh->mSkinWeights.size(); i++) {
+	for (size_t i = 0; i < mesh->SkinWeights().size(); i++) {
 		//スキンメッシュの行列配列を設定する
-		model->mpSkinningMatrix[mesh->mSkinWeights[i]->mFrameIndex]
+		model->SkinningMatrix()[mesh->SkinWeights()[i]->FrameIndex()]
 			//			= pCombinedMatrix[mesh->mSkinWeights[i]->mFrameIndex] * mesh->mSkinWeights[i]->mOffset;
-			= mesh->mSkinWeights[i]->mOffset * pCombinedMatrix[mesh->mSkinWeights[i]->mFrameIndex];
+			= mesh->SkinWeights()[i]->Offset() * pCombinedMatrix[mesh->SkinWeights()[i]->FrameIndex()];
 	}
 
 	/*
@@ -42,7 +42,7 @@ void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	glUniform3fv(glGetUniformLocation(GetProgram(), "lightDiffuseColor"), 1, (float*)&diffuse);
 	//スキンメッシュ行列設定
 	int MatrixLocation = glGetUniformLocation(GetProgram(), "Transforms");
-	glUniformMatrix4fv(MatrixLocation, model->mFrame.size(), GL_FALSE, model->mpSkinningMatrix[0].M());
+	glUniformMatrix4fv(MatrixLocation, model->Frames().size(), GL_FALSE, model->SkinningMatrix()[0].M());
 	/*
 	ワールドトランスフォーム
 	*/
@@ -53,7 +53,7 @@ void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	glUniform1i(glGetUniformLocation(GetProgram(), "DepthTexture"), 1);
 
 	//頂点バッファをバインドする
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->mMyVertexBufferId);
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->MyVertexBufferId());
 
 	//頂点座標の位置を設定
 	int idx = 0;
@@ -82,15 +82,15 @@ void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	//マテリアル毎に頂点を描画します
 	int k = 0;
 
-	for (size_t i = 0; i < mesh->mMaterial.size(); i++) {
+	for (size_t i = 0; i < mesh->Materials().size(); i++) {
 		//マテリアルの値をシェーダーに設定
-		SetShader(mesh->mMaterial[i]);
+		SetShader(mesh->Materials()[i]);
 		//三角形描画、開始頂点番号、描画に使用する頂点数
-		glDrawArrays(GL_TRIANGLES, k, mesh->mMaterialVertexCount[i]);	//DrawArrays:VertexIndexなし
+		glDrawArrays(GL_TRIANGLES, k, mesh->MaterialVertexCount()[i]);	//DrawArrays:VertexIndexなし
 		//開始位置計算
-		k += mesh->mMaterialVertexCount[i];
+		k += mesh->MaterialVertexCount()[i];
 		//マテリアルの解除
-		mesh->mMaterial[i]->Disabled();
+		mesh->Materials()[i]->Disabled();
 	}
 
 	//無効にする

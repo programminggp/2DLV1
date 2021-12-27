@@ -24,9 +24,9 @@ void CSceneGame::Init() {
 	Camera.Set(CVector(1.0f, 2.0f, 10.0f), CVector(), CVector(0.0f, 1.0f, 0.0f));
 	ModelSample.Load(MODEL_X);
 	//最初のアニメーションの現在時間を45にする
-	ModelSample.mAnimationSet[0]->mTime = 45;
+	ModelSample.AnimationSets()[0]->Time(45);
 	//最初のアニメーションの重みを1.0（100%)にする
-	ModelSample.mAnimationSet[0]->mWeight = 1.0f;
+	ModelSample.AnimationSets()[0]->Weight(1.0f);
 }
 
 void CSceneGame::Update() {
@@ -46,15 +46,15 @@ void CSceneGame::Update() {
 		Matrix = Matrix * CMatrix().RotateY(1);
 	}
 
-
-	ModelSample.mAnimationSet[0]->mTime += 1.0f;
-	ModelSample.mAnimationSet[0]->mTime =
-		(int)ModelSample.mAnimationSet[0]->mTime %
-		(int)(ModelSample.mAnimationSet[0]->mMaxTime + 1);
+	ModelSample.AnimationSets()[0]->Time(
+		ModelSample.AnimationSets()[0]->Time() + 1.0f);
+	ModelSample.AnimationSets()[0]->Time(
+		(int)ModelSample.AnimationSets()[0]->Time() %
+		(int)(ModelSample.AnimationSets()[0]->MaxTime() + 1));
 	//フレームの変換行列をアニメーションで更新する
 	ModelSample.AnimateFrame();
 	//フレームの合成行列を計算する
-	ModelSample.mFrame[0]->AnimateCombined(&Matrix);
+	ModelSample.Frames()[0]->AnimateCombined(&Matrix);
 
 	//頂点にアニメーションを適用する
 	ModelSample.AnimateVertex();
