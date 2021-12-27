@@ -4,7 +4,11 @@
 #include "glew.h"
 #include "CShader.h"
 
-CShader::CShader(){
+CShader::CShader()
+	: mProgram(0)
+	, compiled(0)
+	, linked(0)
+{
 }
 CShader::CShader(const char* vertexPath, const char* pixelPath){
 	Load(vertexPath, pixelPath);

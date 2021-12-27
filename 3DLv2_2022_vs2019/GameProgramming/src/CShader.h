@@ -11,9 +11,9 @@ private:
 	bool readFile(GLuint program, GLuint shader, const char *file);
 public:
 	CShader();
-	CShader(const char* vertexPath, const char*  flagPath);
+	CShader(const char* vertexPath, const char*  fragPath);
 	~CShader();
-	bool Load(const char* vertexPath, const char*  flagPath);
+	bool Load(const char* vertexPath, const char*  fragPath);
 	void Enable();
 	void Disable();
 	GLuint GetProgram() {

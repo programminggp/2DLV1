@@ -9,7 +9,7 @@
 #include "CVertex.h"
 
 #define VERTEX_SHADER "res\\skinmesh.vert"		//頂点シェーダー
-#define FLAGMENT_SHADER "res\\skinmesh.flag"	//フラグメントシェーダー
+#define FRAGMENT_SHADER "res\\skinmesh.frag"	//フラグメントシェーダー
 
 std::vector<CMaterial*>& CModelX::Materials()
 {
@@ -130,7 +130,7 @@ void CModelX::Load(char* file)
 	//スキンマトリックスのエリア作成
 	mpSkinningMatrix = new CMatrix[mFrames.size()];
 	//シェーダー読み込み
-	mShader.Load(VERTEX_SHADER, FLAGMENT_SHADER);
+	mShader.Load(VERTEX_SHADER, FRAGMENT_SHADER);
 }
 
 void CModelX::AddAnimationSet(char* file)
