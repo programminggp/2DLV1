@@ -261,6 +261,11 @@ const CMatrix& CModelXFrame::CombinedMatrix()
 	return mCombinedMatrix;
 }
 
+void CModelXFrame::TransformMatrix(const CMatrix& matrix)
+{
+	mTransformMatrix = matrix;
+}
+
 /*
  CModelXFrame
  model：CModelXインスタンスへのポインタ
@@ -932,9 +937,19 @@ void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name)
 		animation->mpKey = new CAnimationKey[animation->mKeyNum];//アニメーションキーの生成
 		animation->mKeyNum = 0;
 		for (int j = start; j <= end && j < anim->mAnimation[i]->mKeyNum; j++) {
-			animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
-//			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum;
-			animation->mKeyNum++;
+			if (j < anim->mAnimation[i]->mKeyNum)
+			{
+				animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
+			}
+			else
+			{
+				animation->mpKey[animation->mKeyNum] =
+					anim->mAnimation[i]->mpKey[anim->mAnimation[i]->mKeyNum - 1];
+			}
+			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum++;
+			//animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
+			//animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum;
+			//animation->mKeyNum++;
 		}//アニメーションキーのコピー
 		as->mAnimation.push_back(animation);//アニメーションの追加
 	}
@@ -982,6 +997,11 @@ void CMesh::AnimateVertex(CMatrix* mat) {
 void CModelX::RenderShader(CMatrix* pCombinedMatrix)
 {
 	mShader.Render(this, pCombinedMatrix);
+}
+
+bool CModelX::IsLoaded()
+{
+	return mFrames.size() != 0;
 }
 
 void CMesh::CreateVertexBuffer() {

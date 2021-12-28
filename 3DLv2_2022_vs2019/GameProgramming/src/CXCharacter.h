@@ -6,14 +6,16 @@
 #include "CCharacter.h"
 
 class CXCharacter : public CCharacter {
-	void Update(CMatrix& m);
-public:
+protected:
 	CModelX* mpModel;	//モデルデータ
 	int mAnimationIndex;	//アニメーション番号
 	bool mAnimationLoopFlg;	//true:アニメーションを繰り返す
 	float mAnimationFrame; //アニメーションの再生フレーム
 	float mAnimationFrameSize;//アニメーションの再生フレーム数
 	CMatrix* mpCombinedMatrix;	//合成行列退避
+	void Update(CMatrix& m);
+public:
+
 	CXCharacter();
 	~CXCharacter()
 	{

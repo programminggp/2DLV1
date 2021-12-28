@@ -126,6 +126,9 @@
     <ClCompile Include="src\CXCharacter.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
+    <ClCompile Include="src\CXPlayer.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Update.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="src\CXCharacter.h">
       <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CXPlayer.h">
+      <Filter>ソース ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

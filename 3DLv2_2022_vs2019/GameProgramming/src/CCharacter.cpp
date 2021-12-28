@@ -25,6 +25,7 @@ CCharacter::~CCharacter() {
 CCharacter::CCharacter()
 	: mpModel(nullptr)
 	, mTag(EZERO)
+	, mState(ESTATEZERO)
 {
 	//タスクリストに追加
 	CTaskManager::Get()->Add(this);

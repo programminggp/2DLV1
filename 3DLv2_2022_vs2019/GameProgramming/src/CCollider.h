@@ -24,6 +24,8 @@ public:
 	{
 		EBODY,		//本体
 		ESEARCH,	//サーチ用
+		EWEAPON,	//武器
+		EGROUND,	//地上
 	};
 
 	//デフォルトコンストラクタ
@@ -56,6 +58,8 @@ public:
 	//タグの設定
 	//Tag(タグ)
 	void Tag(ETag tag);
+	//Matrix(CMatrix* p)
+	void Matrix(CMatrix* p);
 protected:
 	CCharacter* mpParent;//親
 	CMatrix* mpMatrix;//親行列

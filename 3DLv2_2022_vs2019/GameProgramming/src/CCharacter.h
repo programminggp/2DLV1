@@ -23,6 +23,16 @@ public:
 		EBULLETPLAYER,	//プレイヤー弾
 		EBULLETENEMY,	//敵弾
 	};
+	enum EState
+	{
+		ESTATEZERO,
+		EIDLE,
+		EWALK,
+		EATTACK,
+		EDEATH,
+		EJUMP,
+	};
+	EState mState;
 	//モデルの設定
 	//Model(モデルクラスのポインタ)
 	void Model(CModel *m);

@@ -183,3 +183,8 @@ void CCollider::Tag(ETag tag)
 {
 	mTag = tag;
 }
+
+void CCollider::Matrix(CMatrix* p)
+{
+	mpMatrix = p;
+}

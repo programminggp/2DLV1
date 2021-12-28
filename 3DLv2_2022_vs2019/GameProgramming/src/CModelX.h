@@ -206,6 +206,7 @@ public:
 
 	CMesh& Mesh();	//Meshデータ
 	const CMatrix& CombinedMatrix();	//合成行列
+	void TransformMatrix(const CMatrix& matrix);
 
 	CModelXFrame()
 		: mpName(nullptr)
@@ -300,6 +301,9 @@ public:
 	void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name);
 	//シェーダーを使った描画
 	void RenderShader(CMatrix* m);
+	//モデルの入力状況
+	//戻り値：true：入力済  false：未入力
+	bool IsLoaded();
 };
 
 #endif
