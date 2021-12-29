@@ -23,10 +23,21 @@ CCharacter::~CCharacter() {
 }
 
 CCharacter::CCharacter()
+	: CCharacter(0)
+	//: mpModel(nullptr)
+	//, mTag(EZERO)
+	//, mState(ESTATEZERO)
+{
+	//タスクリストに追加
+	/*CTaskManager::Get()->Add(this);*/
+}
+
+CCharacter::CCharacter(int priority)
 	: mpModel(nullptr)
 	, mTag(EZERO)
 	, mState(ESTATEZERO)
 {
+	mPriority = priority;
 	//タスクリストに追加
 	CTaskManager::Get()->Add(this);
 }

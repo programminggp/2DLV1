@@ -24,7 +24,7 @@
 
 void CSceneGame::Init() {
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
-	Camera.Set(CVector(1.0f, 6.0f, 7.0f), CVector(0.0f, 4.0f, 0.0f), CVector(0.0f, 1.0f, 0.0f));
+	//Camera.Set(CVector(1.0f, 6.0f, 7.0f), CVector(0.0f, 4.0f, 0.0f), CVector(0.0f, 1.0f, 0.0f));
 	//ModelSample.Load(MODEL_X);
 	////最初のアニメーションの現在時間を45にする
 	//ModelSample.AnimationSets()[0]->Time(45);
@@ -32,6 +32,7 @@ void CSceneGame::Init() {
 	//ModelSample.AnimationSets()[0]->Weight(1.0f);
 	new CXPlayer(CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f));
 	new CFelguard();
+	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 180.0f, 0.0f), 7.0f);
 }
 
 void CSceneGame::Update() {
@@ -39,7 +40,7 @@ void CSceneGame::Update() {
 	CTaskManager::Get()->Update();
 	//コリジョンマネージャの衝突処理
 	CTaskManager::Get()->TaskCollision();
-	Camera.Render();
+	//Camera.Render();
 
 	////X軸＋回転
 	//if (CKey::Push('K')) {

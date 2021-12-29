@@ -1,10 +1,12 @@
 #include "CXPlayer.h"
 #include "CKey.h"
 #include "CCollisionManager.h"
+#include "CCamera.h"
 
 #define GRAVITY 0.02f	//重力
 //#define GRAVITY 0.00f	//重力
-#define VELOCITY 0.1f
+#define VELOCITY 0.1f	//移動速度
+#define JUMPV0 0.7f		//ジャンプ力
 
 CModelX CXPlayer::mModel;
 CCharacter* CXPlayer::spInstance = nullptr;
@@ -63,8 +65,9 @@ CXPlayer::CXPlayer()
 	mColSphereSword1.Tag(CCollider::EWEAPON);
 	mColSphereSword2.Tag(CCollider::EWEAPON);
 
-	mState = EIDLE;
-	ChangeAnimation(EIDLE, true, 150);
+	//mState = EIDLE;
+	//ChangeAnimation(EIDLE, true, 150);
+	ChangeState(EIDLE);
 }
 
 CXPlayer::CXPlayer(const CVector& pos, const CVector& rot, const CVector& scale)
@@ -118,7 +121,7 @@ void CXPlayer::Update()
 	default:
 		;
 	}
-	//ジャンプ
+	//重力
 	mJumpV -= GRAVITY;
 	mPosition.Y( mPosition.Y() + mJumpV );
 #ifdef _DEBUG
@@ -133,6 +136,7 @@ void CXPlayer::Update()
 	}
 #endif
 	CXCharacter::Update();
+	CCamera::Get()->Position(mPosition + CVector(0.0f, 4.0f, 0.0f));
 }
 
 void CXPlayer::TaskCollision()
@@ -197,10 +201,10 @@ void CXPlayer::Idle()
 		state = EWALK;
 		mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
 	}
-	if (CKey::Push('J') && mJumpV == 0.0f)
+	if (CKey::Push('X') && mJumpV == 0.0f)
 	{
 		state = EJUMP;
-		mJumpV = 0.5f;
+		mJumpV = JUMPV0;
 	}
 	if (CKey::Push(' '))
 	{
@@ -246,7 +250,7 @@ void CXPlayer::ChangeState(EState state)
 		ChangeAnimation(EATTACK, false, 50);
 		break;
 	case EJUMP:
-		ChangeAnimation(EJUMP, false, 50);
+		ChangeAnimation(EJUMP, false, 70);
 		break;
 	}
 }
