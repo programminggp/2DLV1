@@ -101,57 +101,19 @@ CXPlayer::CXPlayer(const CVector& pos, const CVector& rot, const CVector& scale)
 
 void CXPlayer::Update()
 {
-	bool keyFlg = false;
 	switch (mState)
 	{
-	case EATTACK:
-		if (mAnimationFrame >= mAnimationFrameSize)
-		{
-			mState = EIDLE;
-			ChangeAnimation(EIDLE, true, 150);
-		}
-		break;
 	case EIDLE:
+		Idle();
+		break;
 	case EWALK:
-		if (CKey::Push('A'))
-		{
-			keyFlg = true;
-			mState = EWALK;
-			ChangeAnimation(EWALK, true, 70);
-			mRotation.Y(mRotation.Y() + 2.0f);
-		}
-		if (CKey::Push('D'))
-		{
-			keyFlg = true;
-			mState = EWALK;
-			ChangeAnimation(EWALK, true, 70);
-			mRotation.Y(mRotation.Y() - 2.0f);
-		}
-		if (CKey::Push('W'))
-		{
-			keyFlg = true;
-			mState = EWALK;
-			ChangeAnimation(EWALK, true, 70);
-			mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
-		}
-		if(keyFlg == false) {
-			mState = EIDLE;
-			ChangeAnimation(EIDLE, true, 150);
-		}
-
+		Walk();
+		break;
+	case EATTACK:
+		Attack();
+		break;
 	case EJUMP:
-		if (CKey::Push('J') && mJumpV == 0.0f)
-		{
-			mState = EJUMP;
-			ChangeAnimation(EJUMP, false, 50);
-			//			ChangeAnimation(7, false, 30);
-			mJumpV = 0.5f;
-		}
-		if (CKey::Push(' '))
-		{
-			mState = EATTACK;
-			ChangeAnimation(EATTACK, false, 50);
-		}
+		Jump();
 		break;
 	default:
 		;
@@ -162,6 +124,10 @@ void CXPlayer::Update()
 #ifdef _DEBUG
 	if (mPosition.Y() < 0.0f)
 	{
+		if (mState == EJUMP)
+		{
+			ChangeState(EIDLE);
+		}
 		mPosition.Y(0.0f);
 		mJumpV = 0.0f;
 	}
@@ -209,6 +175,78 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 				mJumpV = 0.0f;
 			}
 		}
+		break;
+	}
+}
+
+void CXPlayer::Idle()
+{
+	EState state = EIDLE;
+	if (CKey::Push('A'))
+	{
+		state = EWALK;
+		mRotation.Y(mRotation.Y() + 2.0f);
+	}
+	if (CKey::Push('D'))
+	{
+		state = EWALK;
+		mRotation.Y(mRotation.Y() - 2.0f);
+	}
+	if (CKey::Push('W'))
+	{
+		state = EWALK;
+		mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
+	}
+	if (CKey::Push('J') && mJumpV == 0.0f)
+	{
+		state = EJUMP;
+		mJumpV = 0.5f;
+	}
+	if (CKey::Push(' '))
+	{
+		state = EATTACK;
+	}
+	ChangeState(state);
+}
+
+void CXPlayer::Walk()
+{
+	Idle();
+}
+
+void CXPlayer::Attack()
+{
+	if (mAnimationFrame >= mAnimationFrameSize)
+	{
+		ChangeState(EIDLE);
+	}
+}
+
+void CXPlayer::Jump()
+{
+	if (CKey::Push(' '))
+	{
+		ChangeState(EATTACK);
+	}
+}
+
+void CXPlayer::ChangeState(EState state)
+{
+	if (mState == state) return;
+	mState = state;
+	switch(state)
+	{
+	case EIDLE:
+		ChangeAnimation(EIDLE, true, 150);
+		break;
+	case EWALK:
+		ChangeAnimation(EWALK, true, 70);
+		break;
+	case EATTACK:
+		ChangeAnimation(EATTACK, false, 50);
+		break;
+	case EJUMP:
+		ChangeAnimation(EJUMP, false, 50);
 		break;
 	}
 }

@@ -33,6 +33,12 @@ public:
 	void TaskCollision();
 
 	void Collision(CCollider* m, CCollider* o);
+
+	void Idle();
+	void Walk();
+	void Attack();
+	void Jump();
+	void ChangeState(EState state);
 };
 
 #endif
