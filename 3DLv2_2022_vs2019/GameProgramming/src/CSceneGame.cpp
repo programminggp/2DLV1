@@ -12,6 +12,8 @@
 #include "CCamera.h"
 //
 #include "CXPlayer.h"
+//
+#include "CFelguard.h"
 
 ////モデルデータの指定
 //#define MODEL_X "res\\knight\\knight_low.X"
@@ -29,6 +31,7 @@ void CSceneGame::Init() {
 	////最初のアニメーションの重みを1.0（100%)にする
 	//ModelSample.AnimationSets()[0]->Weight(1.0f);
 	new CXPlayer(CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f));
+	new CFelguard();
 }
 
 void CSceneGame::Update() {

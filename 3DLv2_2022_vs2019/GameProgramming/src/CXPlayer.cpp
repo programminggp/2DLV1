@@ -52,10 +52,9 @@ CXPlayer::CXPlayer()
 		mModel.SeparateAnimationSet(0, 1830, 1930, "EMOTION1");	//20
 		mModel.SeparateAnimationSet(0, 1930, 2040, "EMOTION2");
 	}
-	//モデルのポインタを代入
-	mpModel = &mModel;
+
 	//親クラスの初期化
-	CXCharacter::Init(mpModel);
+	CXCharacter::Init(&mModel);
 
 	spInstance = this;
 	//タグにプレイヤーを設定します

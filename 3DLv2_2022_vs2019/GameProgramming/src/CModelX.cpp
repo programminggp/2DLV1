@@ -377,7 +377,7 @@ void CMesh::Init(CModelX* model) {
 		model->GetToken();	// {
 	}
 	//頂点数の取得
-	mVertexNum = model->GetIntToken(); printf("VertexNum:%d\n", mVertexNum);
+	mVertexNum = model->GetIntToken(); //printf("VertexNum:%d\n", mVertexNum);
 	//頂点数分エリア確保
 	mpVertex = new CVector[mVertexNum];
 	mpAnimateVertex = new CVector[mVertexNum];

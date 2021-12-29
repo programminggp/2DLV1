@@ -94,14 +94,14 @@ void CXCharacter::Update(CMatrix& matrix) {
 			mpModel->Frames()[i]->CombinedMatrix();
 	}
 	//頂点にアニメーションを適用する
-	mpModel->AnimateVertex();
+	//mpModel->AnimateVertex();	//シェーダー時コメント
 }
 /*
  描画する
 */
 void CXCharacter::Render() {
-	//mpModel->RenderShader(mpCombinedMatrix);
-	mpModel->Render();
+	mpModel->RenderShader(mpCombinedMatrix);
+	//mpModel->Render();	//シェーダー時コメント
 }
 //更新処理
 void CXCharacter::Update() {
