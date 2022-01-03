@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "CXPlayer.h"
 #include "CKey.h"
 #include "CCollisionManager.h"
@@ -7,6 +9,7 @@
 //#define GRAVITY 0.00f	//重力
 #define VELOCITY 0.1f	//移動速度
 #define JUMPV0 0.7f		//ジャンプ力
+#define TURN 4.0f		//
 
 CModelX CXPlayer::mModel;
 CCharacter* CXPlayer::spInstance = nullptr;
@@ -186,20 +189,30 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 void CXPlayer::Idle()
 {
 	EState state = EIDLE;
+	CVector move;
 	if (CKey::Push('A'))
 	{
 		state = EWALK;
-		mRotation.Y(mRotation.Y() + 2.0f);
+//		mRotation.Y(mRotation.Y() + 2.0f);
+		move = CCamera::Get()->VectorX() * VELOCITY;
 	}
 	if (CKey::Push('D'))
 	{
 		state = EWALK;
-		mRotation.Y(mRotation.Y() - 2.0f);
+//		mRotation.Y(mRotation.Y() - 2.0f);
+		move = CCamera::Get()->VectorX() * -VELOCITY;
 	}
 	if (CKey::Push('W'))
 	{
 		state = EWALK;
-		mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
+		//		mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
+		move = CCamera::Get()->VectorZ() * VELOCITY;
+	}
+	if (CKey::Push('S'))
+	{
+		state = EWALK;
+		//		mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
+		move = CCamera::Get()->VectorZ() * -VELOCITY;
 	}
 	if (CKey::Push('X') && mJumpV == 0.0f)
 	{
@@ -210,6 +223,18 @@ void CXPlayer::Idle()
 	{
 		state = EATTACK;
 	}
+	mPosition = mPosition + move;
+
+	CVector cross = CVector(sinf(mRotation.Y() / 180.0f * M_PI), 0.0f, cosf(mRotation.Y() / 180.0f * M_PI)).Cross(move);
+	if (cross.Y() > 0.0f)
+	{
+		mRotation.Y(mRotation.Y() + TURN);
+	}
+	else if (cross.Y() < 0.0f)
+	{
+		mRotation.Y(mRotation.Y() - TURN);
+	}
+
 	ChangeState(state);
 }
 

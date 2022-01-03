@@ -11,6 +11,7 @@ class CXPlayer : public CXCharacter
 	static CCharacter* spInstance;
 	static CModelX mModel;
 	float mJumpV;
+
 	//ƒRƒ‰ƒCƒ_‚ÌéŒ¾
 	CCollider mColSphereBody;	//‘Ì
 	CCollider mColSphereHead;	//“ª

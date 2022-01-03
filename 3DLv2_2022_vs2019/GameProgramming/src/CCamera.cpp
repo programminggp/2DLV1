@@ -21,6 +21,7 @@ CCamera::CCamera(const CVector& pos, const CVector& rot, float distance)
 	Position(pos);
 	Rotation(rot);
 	Scale(CVector(distance, distance, distance));
+	glGetFloatv(GL_PROJECTION_MATRIX, mProjection.M());
 }
 
 const CVector& CCamera::Eye() const
@@ -45,20 +46,37 @@ void CCamera::Update()
 	{
 		mRotation.Y(mRotation.Y() - 2.0f);
 	}
+	mVectorZ.Set(sinf(mRotation.Y() / 180.0f * M_PI)
+		, -sinf(mRotation.X() / 180.0f * M_PI)
+		, cosf(mRotation.Y() / 180.0f * M_PI));
+	mVectorX.Set(cosf(mRotation.Y() / 180.0f * M_PI)
+		, 0.0f
+		, -sinf(mRotation.Y() / 180.0f * M_PI));
+	mCenter = mPosition;
+	mEye = mCenter + mVectorZ * -mScale.Z();
+	mVectorZ.Y(0.0f);
+	mUp = CVector(sinf(mRotation.Y() / 180.0f * M_PI)
+		, cosf(mRotation.X() / 180.0f * M_PI)
+		, cosf(mRotation.Y() / 180.0f * M_PI));
 }
 
 void CCamera::Render() {
 
-	CVector dist(sinf(mRotation.Y() / 180.0f * M_PI + M_PI) * mScale.Z()
-		, sinf(mRotation.X() / 180.0f * M_PI) * mScale.Z()
-		, cosf(mRotation.Y() / 180.0f * M_PI + M_PI) * mScale.Z());
-	mCenter = mPosition;
-	mEye = mCenter + dist;
-	mUp = CVector(sinf(mRotation.Y() / 180.0f * M_PI)
-		, cosf(mRotation.X() / 180.0f * M_PI)
-		, cosf(mRotation.Y() / 180.0f * M_PI));
+
 
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(),
 		mCenter.X(), mCenter.Y(), mCenter.Z(),
 		mUp.X(), mUp.Y(), mUp.Z());
+	glGetFloatv(GL_MODELVIEW_MATRIX, mModelView.M());
+	glGetFloatv(GL_PROJECTION_MATRIX, mProjection.M());
+}
+
+const CVector& CCamera::VectorZ()
+{
+	return mVectorZ;
+}
+
+const CVector& CCamera::VectorX()
+{
+	return mVectorX;
 }

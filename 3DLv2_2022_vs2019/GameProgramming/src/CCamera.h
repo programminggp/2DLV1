@@ -6,7 +6,6 @@
 カメラクラス
 */
 class CCamera : public CCharacter {
-	static CCamera* spInstance;
 public:
 	static CCamera* Get();
 	CCamera(const CVector& pos, const CVector& rot, float distance);
@@ -20,7 +19,16 @@ public:
 	void Update();
 	//カメラ適用
 	void Render();
+	//
+	const CVector& VectorZ();
+	const CVector& VectorX();
+
 private:
+	static CCamera* spInstance;
+	CMatrix mModelView;
+	CMatrix mProjection;
+	CVector mVectorZ;
+	CVector mVectorX;
 	//視点
 	CVector mEye;
 	//注視点

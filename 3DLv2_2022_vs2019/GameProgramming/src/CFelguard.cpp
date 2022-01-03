@@ -20,7 +20,8 @@ CFelguard::CFelguard()
 		mModel.SeparateAnimationSet(1, 470, 510, "DEATH1");
 		mModel.SeparateAnimationSet(1, 520, 700, "DEATH2");
 	}
-	mPosition = CVector(-5.0f, 0.0f, -5.0f);
+	mPosition = CVector(5.0f, 0.0f, 5.0f);
+	mRotation.Y(180.0f);
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	Init(&mModel);
 	ChangeAnimation(1, true, 700);

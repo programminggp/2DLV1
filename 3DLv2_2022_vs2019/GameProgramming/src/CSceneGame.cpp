@@ -32,7 +32,7 @@ void CSceneGame::Init() {
 	//ModelSample.AnimationSets()[0]->Weight(1.0f);
 	new CXPlayer(CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f));
 	new CFelguard();
-	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 180.0f, 0.0f), 7.0f);
+	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 0.0f, 0.0f), 7.0f);
 }
 
 void CSceneGame::Update() {
