@@ -22,7 +22,7 @@ CXPlayer::CXPlayer()
 	, mColSphereSword0(this, nullptr, CVector(0.7f, 3.5f, -0.2f), 0.5f)
 	, mColSphereSword1(this, nullptr, CVector(0.5f, 2.5f, -0.2f), 0.5f)
 	, mColSphereSword2(this, nullptr, CVector(0.3f, 1.5f, -0.2f), 0.5f)
-	, mColLine(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 3.5f, 0.0f))
+	, mColLine(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 3.5f, 0.0f), 1.0f)
 	, mJumpV(0.0f)
 {
 	//ÉÇÉfÉãÇ™ñ¢ì¸óÕÇ»ÇÁì«Ç›çûÇ›

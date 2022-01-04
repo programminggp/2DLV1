@@ -5,6 +5,7 @@
 #include "CCollider.h"
 #include "CColliderLine.h"
 #include "CColliderTriangle.h"
+#include "CColliderCapsule.h"
 
 class CXPlayer : public CXCharacter
 {
@@ -18,7 +19,8 @@ class CXPlayer : public CXCharacter
 	CCollider mColSphereSword0;	//Œ•
 	CCollider mColSphereSword1;	//Œ•
 	CCollider mColSphereSword2;	//Œ•
-	CColliderLine mColLine;
+//	CColliderLine mColLine;
+	CColliderCapsule mColLine;
 
 public:
 	CXPlayer();

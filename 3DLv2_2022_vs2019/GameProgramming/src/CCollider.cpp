@@ -158,6 +158,84 @@ bool CCollider::CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a)
 	return CollisionTriangleLine(t, &line, a);
 }
 
+bool NearZero(float f)
+{
+	if (fabs(f) <= 0.001f)
+		return true;
+	return false;
+}
+
+CVector CCollider::VectorLineMinDist(const CVector& Start1, const CVector& End1, const CVector& Start2, const CVector& End2)
+{
+	CVector   u = End1 - Start1;
+	CVector   v = End2 - Start2;
+	CVector   w = Start1 - Start2;
+	float    a = u.Dot(u);         // always >= 0
+	float    b = u.Dot(v);
+	float    c = v.Dot(v);         // always >= 0
+	float    d = u.Dot(w);
+	float    e = v.Dot(w);
+	float    D = a * c - b * b;        // always >= 0
+	float    sc, sN, sD = D;       // sc = sN / sD, default sD = D >= 0
+	float    tc, tN, tD = D;       // tc = tN / tD, default tD = D >= 0
+
+								   // compute the line parameters of the two closest points
+	if (NearZero(D)) { // the lines are almost parallel
+		sN = 0.0;         // force using point P0 on segment S1
+		sD = 1.0;         // to prevent possible division by 0.0 later
+		tN = e;
+		tD = c;
+	}
+	else {                 // get the closest points on the infinite lines
+		sN = (b * e - c * d);
+		tN = (a * e - b * d);
+		if (sN < 0.0) {        // sc < 0 => the s=0 edge is visible
+			sN = 0.0;
+			tN = e;
+			tD = c;
+		}
+		else if (sN > sD) {  // sc > 1  => the s=1 edge is visible
+			sN = sD;
+			tN = e + b;
+			tD = c;
+		}
+	}
+
+	if (tN < 0.0) {            // tc < 0 => the t=0 edge is visible
+		tN = 0.0;
+		// recompute sc for this edge
+		if (-d < 0.0)
+			sN = 0.0;
+		else if (-d > a)
+			sN = sD;
+		else {
+			sN = -d;
+			sD = a;
+		}
+	}
+	else if (tN > tD) {      // tc > 1  => the t=1 edge is visible
+		tN = tD;
+		// recompute sc for this edge
+		if ((-d + b) < 0.0)
+			sN = 0;
+		else if ((-d + b) > a)
+			sN = sD;
+		else {
+			sN = (-d + b);
+			sD = a;
+		}
+	}
+	// finally do the division to get sc and tc
+	sc = (NearZero(sN) ? 0.0f : sN / sD);
+	tc = (NearZero(tN) ? 0.0f : tN / tD);
+
+	// get the difference of the two closest points
+	CVector dP = w + (u * sc) - (v * tc);  // =  S1(sc) - S2(tc)
+
+	return dP;   // return the closest distance 
+
+}
+
 //óDêÊìxÇÃïœçX
 void CCollider::ChangePriority()
 {

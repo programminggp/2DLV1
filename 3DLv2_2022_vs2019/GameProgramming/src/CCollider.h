@@ -17,6 +17,7 @@ public:
 		ESPHERE,//球コライダ
 		ETRIANGLE,//三角コライダ
 		ELINE, //線分コライダ
+		ECAPSUL, //カプセルコライダ
 	};
 	//親ポインタの取得
 	CCharacter* Parent();
@@ -49,6 +50,9 @@ public:
 	//retrun:true（衝突している）false(衝突していない)
 	//調整値:衝突しない位置まで戻す値
 	static bool CollisionTriangleSphere(CCollider *triangle, CCollider *sphere, CVector *adjust);
+	//VectorLineMinDist(線１開始, 線１終了, 線２開始, 線２終了)
+	//return:線と線との最短ベクトル
+	static CVector VectorLineMinDist(const CVector& Start1, const CVector& End1, const CVector& Start2, const CVector& End2);
 	//優先度の変更
 	virtual void ChangePriority();
 	//コライダ種類の取得
