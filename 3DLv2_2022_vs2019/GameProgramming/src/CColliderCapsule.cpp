@@ -91,11 +91,6 @@ void CColliderCapsule::Render()
 	mesh = gluNewQuadric();
 	gluCylinder(mesh, mRadius, mRadius, lineLength, 16, 16);
 
-	//三角形描画
-	//glBegin(GL_LINES);
-	//glVertex3f(mV[0].X(), mV[0].Y(), mV[0].Z());
-	//glVertex3f(mV[1].X(), mV[1].Y(), mV[1].Z());
-	//glEnd();
 
 	//ライトオン
 	glEnable(GL_LIGHTING);

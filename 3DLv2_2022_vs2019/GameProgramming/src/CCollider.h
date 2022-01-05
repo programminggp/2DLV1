@@ -49,7 +49,12 @@ public:
 	//CollisionTriangleSphere(三角コライダ, 球コライダ, 調整値)
 	//retrun:true（衝突している）false(衝突していない)
 	//調整値:衝突しない位置まで戻す値
-	static bool CollisionTriangleSphere(CCollider *triangle, CCollider *sphere, CVector *adjust);
+	static bool CollisionTriangleSphere(CCollider* triangle, CCollider* sphere, CVector* adjust);
+	//CollisionCapsule(カプセルコライダ１, カプセルコライダ２, 調整値)
+	//retrun:true（衝突している）false(衝突していない)
+	//調整値:カプセルこらいだ１が衝突しない位置まで戻す値
+	static bool CollisionCapsule(CCollider* m, CCollider* o, CVector* adjust);
+
 	//VectorLineMinDist(線１開始, 線１終了, 線２開始, 線２終了)
 	//return:線と線との最短ベクトル
 	static CVector VectorLineMinDist(const CVector& Start1, const CVector& End1, const CVector& Start2, const CVector& End2);

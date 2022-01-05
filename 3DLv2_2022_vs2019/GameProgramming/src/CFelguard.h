@@ -3,10 +3,12 @@
 
 #include "CXCharacter.h"
 #include "CCollider.h"
+#include "CColliderCapsule.h"
 
 class CFelguard : public CXCharacter
 {
 	CCollider mColHit;
+	CColliderCapsule mColCapsule;
 	static CModelX mModel;
 public:
 	CFelguard();

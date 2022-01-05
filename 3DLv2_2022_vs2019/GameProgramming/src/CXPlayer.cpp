@@ -158,6 +158,17 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 {
 	switch (m->Type())
 	{
+	case CCollider::ECAPSUL:
+		if (o->Type() == CCollider::ECAPSUL)
+		{
+			CVector ad;
+			if (CCollider::CollisionCapsule(m, o, &ad))
+			{
+				//“–‚½‚ç‚È‚¢ˆÊ’u‚Ü‚Å‰º‚ª‚é
+				mPosition = mPosition + ad;
+			}
+		}
+		break;
 	case CCollider::ELINE:
 		//’n–ÊA•Ç‚Æ‚ÌÕ“Ë”»’è
 		if (o->Tag() == CCollider::EGROUND)

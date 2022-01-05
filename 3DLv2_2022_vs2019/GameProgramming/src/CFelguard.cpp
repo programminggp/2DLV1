@@ -6,6 +6,7 @@ CModelX CFelguard::mModel;
 
 CFelguard::CFelguard()
 	:mColHit(this,nullptr,CVector(0.0f, 0.0f, 0.0f), 0.8f)
+	, mColCapsule(this, &mMatrix, CVector(0.0f, -2.5f, 0.0f), CVector(0.0f, 2.5f, 0.0f), 1.2f)
 {
 	if (!mModel.IsLoaded())
 	{
@@ -24,12 +25,14 @@ CFelguard::CFelguard()
 	mRotation.Y(180.0f);
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	Init(&mModel);
-	ChangeAnimation(1, true, 700);
+	ChangeAnimation(2, true, 100);
 	//çáê¨çsóÒÇÃê›íË
 	mColHit.Matrix(&mpCombinedMatrix[4]);
+	mColCapsule.Matrix(&mpCombinedMatrix[2]);
 }
 
 void CFelguard::Update()
 {
 	CXCharacter::Update();
+	mColCapsule.ChangePriority();
 }

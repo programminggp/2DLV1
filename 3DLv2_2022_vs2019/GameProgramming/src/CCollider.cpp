@@ -158,6 +158,25 @@ bool CCollider::CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a)
 	return CollisionTriangleLine(t, &line, a);
 }
 
+bool CCollider::CollisionCapsule(CCollider* m, CCollider* o, CVector* adjust)
+{
+	CVector mV0 = m->mV[0] * *m->mpMatrix;
+	CVector mV1 = m->mV[1] * *m->mpMatrix;
+	CVector oV0 = o->mV[0] * *o->mpMatrix;
+	CVector oV1 = o->mV[1] * *o->mpMatrix;
+	CVector r1 = (mV1 - mV0).Normalize() * m->mRadius;
+	CVector r2 = (oV1 - oV0).Normalize() * o->mRadius;
+	*adjust = VectorLineMinDist(mV0 + r1, mV1 - r1, oV0 + r2, oV1 - r2);
+	if (adjust->Length() == 0.0f)
+		return true;
+	if (adjust->Length() < m->mRadius + o->mRadius)
+	{
+		*adjust = adjust->Normalize() * (m->mRadius + o->mRadius) - *adjust ;
+		return true;
+	}
+	return false;
+}
+
 bool NearZero(float f)
 {
 	if (fabs(f) <= 0.001f)
