@@ -29,6 +29,8 @@ public:
 	void Update();
 	//描画処理
 	void Render();
+	//アニメーションの再生終了かどうか
+	bool IsAnimationFinished();
 };
 
 #endif

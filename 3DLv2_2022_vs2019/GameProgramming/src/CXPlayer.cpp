@@ -9,7 +9,7 @@
 //#define GRAVITY 0.00f	//重力
 #define VELOCITY 0.1f	//移動速度
 #define JUMPV0 0.7f		//ジャンプ力
-#define TURN 4.0f		//
+#define TURN 8.0f		//
 
 CModelX CXPlayer::mModel;
 CCharacter* CXPlayer::spInstance = nullptr;
@@ -203,30 +203,26 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 void CXPlayer::Idle()
 {
 	EState state = EIDLE;
-	CVector move;
+	mMove = CVector();
 	if (CKey::Push('A'))
 	{
 		state = EWALK;
-//		mRotation.Y(mRotation.Y() + 2.0f);
-		move = CCamera::Get()->VectorX() * VELOCITY;
+		mMove += CCamera::Get()->VectorX();
 	}
 	if (CKey::Push('D'))
 	{
 		state = EWALK;
-//		mRotation.Y(mRotation.Y() - 2.0f);
-		move = CCamera::Get()->VectorX() * -VELOCITY;
+		mMove += CCamera::Get()->VectorX() * -1.0f;
 	}
 	if (CKey::Push('W'))
 	{
 		state = EWALK;
-		//		mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
-		move = CCamera::Get()->VectorZ() * VELOCITY;
+		mMove += CCamera::Get()->VectorZ();
 	}
 	if (CKey::Push('S'))
 	{
 		state = EWALK;
-		//		mPosition += CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
-		move = CCamera::Get()->VectorZ() * -VELOCITY;
+		mMove += CCamera::Get()->VectorZ() * -1.0f;
 	}
 	if (CKey::Push('X') && mJumpV == 0.0f)
 	{
@@ -237,18 +233,25 @@ void CXPlayer::Idle()
 	{
 		state = EATTACK;
 	}
-	mPosition = mPosition + move;
-
-	CVector cross = CVector(sinf(mRotation.Y() / 180.0f * M_PI), 0.0f, cosf(mRotation.Y() / 180.0f * M_PI)).Cross(move);
-	if (cross.Y() > 0.01f)
+	//移動
+	if (mMove.Length() > 0.0f)
 	{
-		mRotation.Y(mRotation.Y() + TURN);
+		mMove = mMove.Normalize();
 	}
-	else if (cross.Y() < -0.01f)
+	mPosition = mPosition + mMove * VELOCITY;
+	//移動方向へ回転
+	CVector forward(sinf(mRotation.Y() / 180.0f * M_PI), 0.0f, cosf(mRotation.Y() / 180.0f * M_PI));
+	CVector cross = forward.Cross(mMove); //左右判定　＋左　－右
+	float dot = forward.Dot(mMove); //前後の度合（cos値）
+	if (cross.Y() > 0.0f)
 	{
-		mRotation.Y(mRotation.Y() - TURN);
+		mRotation.Y(mRotation.Y() + TURN * (1 - dot));
 	}
-
+	else if (cross.Y() < -0.0f)
+	{
+		mRotation.Y(mRotation.Y() - TURN * (1 - dot));
+	}
+	//ステータス設定
 	ChangeState(state);
 }
 
@@ -259,7 +262,7 @@ void CXPlayer::Walk()
 
 void CXPlayer::Attack()
 {
-	if (mAnimationFrame >= mAnimationFrameSize)
+	if (IsAnimationFinished())
 	{
 		ChangeState(EIDLE);
 	}
@@ -267,6 +270,7 @@ void CXPlayer::Attack()
 
 void CXPlayer::Jump()
 {
+	mPosition = mPosition + mMove * VELOCITY;
 	if (CKey::Push(' '))
 	{
 		ChangeState(EATTACK);

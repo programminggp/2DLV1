@@ -103,6 +103,10 @@ void CXCharacter::Render() {
 	mpModel->RenderShader(mpCombinedMatrix);
 	//mpModel->Render();	//シェーダー時コメント
 }
+bool CXCharacter::IsAnimationFinished()
+{
+	return mAnimationFrame >= mAnimationFrameSize;
+}
 //更新処理
 void CXCharacter::Update() {
 	//変換行列の更新
