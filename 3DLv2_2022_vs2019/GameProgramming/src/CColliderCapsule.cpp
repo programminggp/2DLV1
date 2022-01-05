@@ -21,27 +21,75 @@ void CColliderCapsule::Set(CCharacter *parent, CMatrix *matrix
 
 void CColliderCapsule::Render()
 {
-	//行列退避
-	glPushMatrix();
-	glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-	//行列適用
-	glMultMatrixf(mpMatrix->M());
-
 	//アルファブレンドを有効にする
 	glEnable(GL_BLEND);
 	//ブレンド方法を指定
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//ライトオフ
 	glDisable(GL_LIGHTING);
-
 	//DIFFUSE赤色設定
 	float c[] = { 1.0f, 0.0f, 0.0f, 0.4f };
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
 	glColor4fv(c);
 
+	//行列退避
+	glPushMatrix();
+	//行列適用
+	glMultMatrixf(mpMatrix->M());
+
+	//行列退避
+	glPushMatrix();
+	CVector center;
+	center = mV[0] + (mV[1] - mV[0]).Normalize() * mRadius;
+	glTranslatef(center.X(), center.Y(), center.Z());
+	//球描画
+	glutWireSphere(mRadius, 16, 16);
+	glPopMatrix();
+
+	//行列退避
+	glPushMatrix();
+	center = mV[1] - (mV[1] - mV[0]).Normalize() * mRadius;
+	glTranslatef(center.X(), center.Y(), center.Z());
+	//球描画
+	glutWireSphere(mRadius, 16, 16);
+	glPopMatrix();
+
+	//円柱描画
+	CVector line = (mV[1] - mV[0]);
+	center = mV[0] + line * 0.5f;
+	CVector lineXZ = line;
+	lineXZ.Y(0.0f);
+	if (lineXZ.Length() > 0.0)
+	{
+		lineXZ = lineXZ.Normalize();
+	}
+	line = line.Normalize();
+	float lineLength = (mV[1] - mV[0]).Length() - mRadius * 2;
+	glTranslatef(center.X(), center.Y(), center.Z());
+
+	//rotate Y-axis
+	CMatrix rot;
+	if (lineXZ.Length() > 0.001)
+	{
+		rot.M()[0] = rot.M()[4 * 2 + 2] = lineXZ.Z();
+		rot.M()[2] = -lineXZ.X();
+		rot.M()[4 * 2] = lineXZ.X();
+	}
+	glMultMatrixf(rot.M());
+
+	//rotate X-axis
+	rot.Identity();
+	float cos = sqrtf(line.X() * line.X() + line.Z() * line.Z());
+	rot.M()[4 + 1] = rot.M()[8 + 2] = cos;
+	rot.M()[4 + 2] = -line.Y();
+	rot.M()[8 + 1] = line.Y();
+	glMultMatrixf(rot.M());
+
+//	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
+	glTranslatef(0.0f, 0.0f, -lineLength / 2.0f);
 	GLUquadric* mesh;
 	mesh = gluNewQuadric();
-	gluCylinder(mesh, mRadius, mRadius, (mV[0]-mV[1]).Length()- mRadius*2, 16, 16);
+	gluCylinder(mesh, mRadius, mRadius, lineLength, 16, 16);
 
 	//三角形描画
 	//glBegin(GL_LINES);

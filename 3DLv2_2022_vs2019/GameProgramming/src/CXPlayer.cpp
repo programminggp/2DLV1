@@ -22,7 +22,7 @@ CXPlayer::CXPlayer()
 	, mColSphereSword0(this, nullptr, CVector(0.7f, 3.5f, -0.2f), 0.5f)
 	, mColSphereSword1(this, nullptr, CVector(0.5f, 2.5f, -0.2f), 0.5f)
 	, mColSphereSword2(this, nullptr, CVector(0.3f, 1.5f, -0.2f), 0.5f)
-	, mColLine(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), CVector(0.0f, 3.5f, 0.0f), 1.0f)
+	, mColLine(this, &mMatrix, CVector(0.0f, -2.5f, 0.0f), CVector(0.0f, 2.5f, 0.0f), 1.2f)
 	, mJumpV(0.0f)
 {
 	//ƒ‚ƒfƒ‹‚ª–¢“ü—Í‚È‚ç“Ç‚Ýž‚Ý
@@ -67,6 +67,7 @@ CXPlayer::CXPlayer()
 	mColSphereSword0.Tag(CCollider::EWEAPON);
 	mColSphereSword1.Tag(CCollider::EWEAPON);
 	mColSphereSword2.Tag(CCollider::EWEAPON);
+	mColLine.Tag(CCollider::EBODY);
 
 	//mState = EIDLE;
 	//ChangeAnimation(EIDLE, true, 150);
@@ -89,6 +90,8 @@ CXPlayer::CXPlayer(const CVector& pos, const CVector& rot, const CVector& scale)
 	mColSphereSword0.Matrix(&mpCombinedMatrix[26]);
 	mColSphereSword1.Matrix(&mpCombinedMatrix[26]);
 	mColSphereSword2.Matrix(&mpCombinedMatrix[26]);
+	//
+	mColLine.Matrix(&mpCombinedMatrix[1]);
 }
 
 //void CXPlayer::Init(CModelX* model)
@@ -226,11 +229,11 @@ void CXPlayer::Idle()
 	mPosition = mPosition + move;
 
 	CVector cross = CVector(sinf(mRotation.Y() / 180.0f * M_PI), 0.0f, cosf(mRotation.Y() / 180.0f * M_PI)).Cross(move);
-	if (cross.Y() > 0.0f)
+	if (cross.Y() > 0.01f)
 	{
 		mRotation.Y(mRotation.Y() + TURN);
 	}
-	else if (cross.Y() < 0.0f)
+	else if (cross.Y() < -0.01f)
 	{
 		mRotation.Y(mRotation.Y() - TURN);
 	}

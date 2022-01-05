@@ -46,6 +46,14 @@ void CCamera::Update()
 	{
 		mRotation.Y(mRotation.Y() - 2.0f);
 	}
+	if (CKey::Push('I'))
+	{
+		mRotation.X(mRotation.X() - 2.0f);
+	}
+	if (CKey::Push('K'))
+	{
+		mRotation.X(mRotation.X() + 2.0f);
+	}
 	mVectorZ.Set(sinf(mRotation.Y() / 180.0f * M_PI)
 		, -sinf(mRotation.X() / 180.0f * M_PI)
 		, cosf(mRotation.Y() / 180.0f * M_PI));
@@ -57,7 +65,7 @@ void CCamera::Update()
 	mVectorZ.Y(0.0f);
 	mUp = CVector(sinf(mRotation.Y() / 180.0f * M_PI)
 		, cosf(mRotation.X() / 180.0f * M_PI)
-		, cosf(mRotation.Y() / 180.0f * M_PI));
+		, cosf(mRotation.Y() / 180.0f * M_PI)).Normalize();
 }
 
 void CCamera::Render() {
