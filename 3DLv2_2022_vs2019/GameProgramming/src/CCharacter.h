@@ -26,18 +26,22 @@ public:
 	enum EState
 	{
 		ESTATEZERO,
+		EALL,
 		EIDLE,
 		EWALK,
 		EATTACK,
 		EDEATH,
 		EJUMP,
+		EDAMAGE, 
 	};
-	EState mState;
 	//モデルの設定
 	//Model(モデルクラスのポインタ)
 	void Model(CModel *m);
 	//タグの取得
 	ETag Tag();
+	EState State();
+	const CVector& KnockBack();
+	float AttackPower();
 	//描画処理
 	void Render();
 	//デストラクタ
@@ -52,6 +56,9 @@ public:
 protected:
 	CModel* mpModel; //モデルのポインタ
 	ETag mTag;
+	EState mState;
+	float mAttackPower;
+	CVector mKnockBack;
 };
 
 #endif

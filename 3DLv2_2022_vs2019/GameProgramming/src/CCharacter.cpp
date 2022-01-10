@@ -11,6 +11,21 @@ CCharacter::ETag CCharacter::Tag()
 	return mTag;
 }
 
+CCharacter::EState CCharacter::State()
+{
+	return mState;
+}
+
+const CVector& CCharacter::KnockBack()
+{
+	return mKnockBack;
+}
+
+float CCharacter::AttackPower()
+{
+	return mAttackPower;
+}
+
 //描画処理
 void CCharacter::Render()
 {
@@ -36,6 +51,7 @@ CCharacter::CCharacter(int priority)
 	: mpModel(nullptr)
 	, mTag(EZERO)
 	, mState(ESTATEZERO)
+	, mAttackPower(0)
 {
 	mPriority = priority;
 	//タスクリストに追加

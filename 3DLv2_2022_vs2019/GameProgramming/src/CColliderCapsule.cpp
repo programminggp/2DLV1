@@ -35,12 +35,14 @@ void CColliderCapsule::Render()
 	//s—ñ‘Þ”ð
 	glPushMatrix();
 	//s—ñ“K—p
-	glMultMatrixf(mpMatrix->M());
+//	glMultMatrixf(mpMatrix->M());
+	CVector v0 = mV[0] * *mpMatrix;
+	CVector v1 = mV[1] * *mpMatrix;
 
 	//s—ñ‘Þ”ð
 	glPushMatrix();
 	CVector center;
-	center = mV[0] + (mV[1] - mV[0]).Normalize() * mRadius;
+	center = v0 + (v1 - v0).Normalize() * mRadius;
 	glTranslatef(center.X(), center.Y(), center.Z());
 	//‹…•`‰æ
 	glutWireSphere(mRadius, 16, 16);
@@ -48,15 +50,15 @@ void CColliderCapsule::Render()
 
 	//s—ñ‘Þ”ð
 	glPushMatrix();
-	center = mV[1] - (mV[1] - mV[0]).Normalize() * mRadius;
+	center = v1 - (v1 - v0).Normalize() * mRadius;
 	glTranslatef(center.X(), center.Y(), center.Z());
 	//‹…•`‰æ
 	glutWireSphere(mRadius, 16, 16);
 	glPopMatrix();
 
 	//‰~’Œ•`‰æ
-	CVector line = (mV[1] - mV[0]);
-	center = mV[0] + line * 0.5f;
+	CVector line = (v1 - v0);
+	center = v0 + line * 0.5f;
 	CVector lineXZ = line;
 	lineXZ.Y(0.0f);
 	if (lineXZ.Length() > 0.0)
@@ -64,7 +66,7 @@ void CColliderCapsule::Render()
 		lineXZ = lineXZ.Normalize();
 	}
 	line = line.Normalize();
-	float lineLength = (mV[1] - mV[0]).Length() - mRadius * 2;
+	float lineLength = (v1 - v0).Length() - mRadius * 2;
 	glTranslatef(center.X(), center.Y(), center.Z());
 
 	//rotate Y-axis
