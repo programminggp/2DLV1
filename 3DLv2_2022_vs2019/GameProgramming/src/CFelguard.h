@@ -15,6 +15,11 @@ public:
 
 	void Update();
 
+	void CFelguard::ChangeState(EState state);
+
+	void CFelguard::TaskCollision();
+	void CFelguard::Collision(CCollider* m, CCollider* o);
+
 };
 
 #endif

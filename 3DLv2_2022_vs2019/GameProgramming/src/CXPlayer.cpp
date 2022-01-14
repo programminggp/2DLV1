@@ -31,10 +31,11 @@ CXPlayer::CXPlayer()
 		mModel.Load(PLAYER_MODEL);
 		mModel.Frames()[0]->TransformMatrix(CMatrix().RotateY(180.0f));
 		mModel.SeparateAnimationSet(0, 1380, 1530, "IDLE1");//1
-		mModel.SeparateAnimationSet(0, 10, 80, "WALK");//2
-		mModel.SeparateAnimationSet(0, 440, 520, "ATTACK1");//3
-		mModel.SeparateAnimationSet(0, 1160, 1260, "DEATH1");//4
-		mModel.SeparateAnimationSet(0, 380, 430, "JUMP");//5
+		mModel.SeparateAnimationSet(0, 1380, 1530, "IDLE1");//2
+		mModel.SeparateAnimationSet(0, 10, 80, "WALK");//3
+		mModel.SeparateAnimationSet(0, 440, 520, "ATTACK1");//4
+		mModel.SeparateAnimationSet(0, 1160, 1260, "DEATH1");//5
+		mModel.SeparateAnimationSet(0, 380, 430, "JUMP");//6
 
 		mModel.SeparateAnimationSet(0, 90, 160, "WALKBACK");
 		mModel.SeparateAnimationSet(0, 170, 220, "RUN");
@@ -149,9 +150,11 @@ void CXPlayer::TaskCollision()
 {
 	mColLine.ChangePriority();
 	mColSphereBody.ChangePriority();
+	mColSphereSword0.ChangePriority();
+	mColSphereSword1.ChangePriority();
+	mColSphereSword2.ChangePriority();
 	CCollisionManager::Get()->Collision(&mColLine, 20);
-//	CCollisionManager::Get()->Collision(&mColSphereBody, 20);
-	//	CCollisionManager::Get()->Collision(&mColLine, 0);
+
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
@@ -232,6 +235,7 @@ void CXPlayer::Idle()
 	if (CKey::Push(' '))
 	{
 		state = EATTACK;
+		mAttackPower = 1.5f;
 	}
 	//ˆÚ“®
 	if (mMove.Length() > 0.0f)
