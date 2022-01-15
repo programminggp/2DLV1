@@ -4,12 +4,15 @@
 
 #define OBJ "res\\f16.obj"	//モデルのファイル
 #define MTL "res\\f16.mtl"	//モデルのマテリアルファイル
+#define HP 3	//耐久値
+#define VELOCITY 0.11f	//速度
 
 CModel CEnemy2::mModel;	//モデルデータ作成
 
 //デフォルトコンストラクタ
 CEnemy2::CEnemy2()
 	: mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.4f)
+	, mHp(HP)
 {
 	//モデルが無いときは読み込む
 	if (mModel.Triangles().size() == 0)
@@ -31,6 +34,8 @@ CEnemy2::CEnemy2(const CVector& position, const CVector& rotation,
 	mRotation = rotation;	//回転の設定
 	mScale = scale;	//拡縮の設定
 	CTransform::Update();	//行列の更新
+	//目標地点の設定
+	mPoint = mPosition + CVector(0.0f, 0.0f, 100.0f) * mMatrixRotate;
 }
 
 //更新処理
@@ -70,7 +75,67 @@ void CEnemy2::Update() {
 			}
 		}
 	}
+	//HPが0以下の時　撃破
+	if (mHp <= 0)
+	{
+		mHp--;
+		//15フレーム毎にエフェクト
+		if (mHp % 15 == 0)
+		{
+			//エフェクト生成
+			new CEffect(mPosition, 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+		}
+		//下降させる
+		mPosition = mPosition - CVector(0.0f, 0.03f, 0.0f);
+		CTransform::Update();
+		return;
+	}
+	//目標地点までのベクトルを求める
+	CVector vp = mPoint - mPosition;
+	//課題
+	float dx = vp.Dot(vx);	//左ベクトルとの内積を求める
 
+	float dy = vp.Dot(vy);	//上ベクトルとの内積を求める
+	float margin = 0.1f;
+	//左右方向へ回転
+	if (dx > margin)
+	{
+		mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f); //左へ回転
+	}
+	else if (dx < -margin)
+	{
+		//課題
+		mRotation = mRotation + CVector(0.0f, -1.0f, 0.0f); //右へ回転
+	}
+	//上下方向へ回転
+	if (dy > margin)
+	{
+		mRotation = mRotation + CVector(-1.0f, 0.0f, 0.0f); //上へ回転
+	}
+	else if (dy < -margin)
+	{
+		//課題
+		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f); //下へ回転
+	}
+
+	//移動する
+	mPosition = mPosition + CVector(0.0f, 0.0f, VELOCITY) * mMatrixRotate;
+	CTransform::Update();	//行列更新
+
+	//およそ3秒毎に目標地点を更新
+	int r = rand() % 180;	//rand()は整数の乱数を返す
+							//% 180 は180で割った余りを求める
+	if (r == 0)
+	{
+		if (player != nullptr)
+		{
+			mPoint = player->Position();
+		}
+		else
+		{
+			mPoint = mPoint * CMatrix().RotateY(45);
+		}
+	}
 }
 
 //衝突処理
@@ -81,6 +146,7 @@ void CEnemy2::Collision(CCollider* m, CCollider* o)
 	if (CCollider::Collision(m, o)) {
 		//エフェクト生成
 		new CEffect(o->Parent()->Position(), 1.0f, 1.0f, "exp.tga", 4, 4, 2);
+		mHp--;	//ヒットポイントの減算
 		//衝突している時は無効にする
 		//削除mEnabled = false;
 	}
