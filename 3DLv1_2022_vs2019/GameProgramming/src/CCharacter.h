@@ -18,6 +18,17 @@ class CCharacter : public CTransform,public CTask{
 protected:
 	CModel* mpModel; //モデルのポインタ
 public:
+	enum ETag
+	{
+		EZERO,			//初期値
+		EPLAYER,		//プレイヤー
+		EENEMY,		//敵
+		EBULLETPLAYER,	//プレイヤー弾
+		EBULLETENEMY,	//敵弾
+	};
+	//タグの取得
+	ETag Tag();
+
 	//モデルの設定
 	//Model(モデルクラスのポインタ)
 	void Model(CModel* m);
@@ -29,6 +40,9 @@ public:
 	~CCharacter();
 	//衝突処理
 	virtual void Collision(CCollider *m,CCollider *o){}
+protected:
+	ETag mTag;
+
 };
 #endif 
 

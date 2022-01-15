@@ -25,12 +25,18 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 	//描画処理
 	void Render();
+	//プレイヤーのインスタンスを取得
+	static CPlayer* Get();
 
 private:
 	CColliderLine mLine; //線分コライダ
 	CColliderLine mLine2; //線分コライダ
 	CColliderLine mLine3; //線分コライダ
 	CText mText;
+	//プレイヤーのインスタンス
+	static CPlayer* spInstance;
+	CCollider mCollider;	//本体用コライダ
+
 };
 #endif 
 

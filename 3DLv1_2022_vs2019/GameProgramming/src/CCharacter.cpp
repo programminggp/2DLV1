@@ -2,9 +2,16 @@
 //タスクマネージャクラスのインクルード
 #include"CTaskManager.h"
 
-CCharacter::CCharacter() {
+CCharacter::CCharacter() 
+	:mTag(EZERO)
+{
 	//タスクリストに追加
 	CTaskManager::Get()->Add(this);
+}
+
+CCharacter::ETag CCharacter::Tag()
+{
+	return mTag;
 }
 
 void CCharacter::Model(CModel* m)
