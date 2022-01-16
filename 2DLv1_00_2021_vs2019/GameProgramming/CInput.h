@@ -13,12 +13,12 @@ public:
 	keyの値のキーが押されていればtrueを、
 	押されていなければfalseを戻す
 	*/
-	bool Key(char key);
+	bool GetKey(char key);
 	/*
-	keyの値のキーが押された瞬間だけtrueを、
+	keyの値のキーが押されたフレームだけtrueを、
 	それ以外はfalseを戻す
 	*/
-	bool KeyOP(char key);
+	bool GetKeyDown(char key);
 };
 
 #endif

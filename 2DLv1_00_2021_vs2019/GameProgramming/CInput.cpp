@@ -7,7 +7,7 @@ CInput::CInput()
 	memset(mFlg, 0, sizeof(mFlg));
 }
 
-bool CInput::Key(char key) {
+bool CInput::GetKey(char key) {
 	/*
 	GetAsyncKeyState 関数は引数のキーが押されている状態だと
 	先頭ビットが1の16ビットの値を返します。
@@ -19,7 +19,7 @@ bool CInput::Key(char key) {
 	return (GetAsyncKeyState(key) & 0x8000) == 0x8000;
 }
 
-bool CInput::KeyOP(char key) {
+bool CInput::GetKeyDown(char key) {
 	//キーが押されているか
 	if ((GetAsyncKeyState(key) & 0x8000)) {
 		//!演算子：否定
