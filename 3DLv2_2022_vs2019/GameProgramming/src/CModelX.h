@@ -151,7 +151,7 @@ public:
 	//コンストラクタ
 	CMesh()
 		: mVertexNum(0)
-		, mpVertex(0)
+		, mpVertex(nullptr)
 		, mFaceNum(0)
 		, mpVertexIndex(nullptr)
 		, mNormalNum(0)

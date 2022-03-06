@@ -40,10 +40,12 @@ CModelX::CModelX()
 	: mpPointer(nullptr)
 	, mpSkinningMatrix(nullptr)
 {
+	//mToken‚ð‰Šú‰»
 	memset(mToken, 0, sizeof(mToken));
 }
 
-CModelX::~CModelX() {
+CModelX::~CModelX() 
+{
 	if (mFrames.size() > 0)
 	{
 		delete mFrames[0];
@@ -399,7 +401,7 @@ void CMesh::Init(CModelX* model) {
 	//•¶Žš‚ª–³‚­‚È‚Á‚½‚çI‚í‚è
 	while (model->mpPointer != '\0') {
 		model->GetToken();	//MeshNormals
-	//}‚©‚Á‚±‚Ìê‡‚ÍI—¹
+		//}‚©‚Á‚±‚Ìê‡‚ÍI—¹
 		if (strchr(model->mToken, '}'))
 			break;
 		if (strcmp(model->mToken, "MeshNormals") == 0) {
