@@ -1,3 +1,4 @@
+
 //InitŠÖ”
 //Å‰‚Éˆê“x‚¾‚¯ŒÄ‚Î‚ê‚éŠÖ”
 void Init() {
