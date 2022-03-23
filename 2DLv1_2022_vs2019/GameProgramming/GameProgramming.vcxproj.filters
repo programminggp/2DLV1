@@ -30,7 +30,7 @@
     <ClCompile Include="src\CTexture.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
-    <ClCompile Include="CRectangle.cpp">
+    <ClCompile Include="src\CRectangle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <ClInclude Include="src\main.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CRectangle.h">
+    <ClInclude Include="src\CRectangle.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
