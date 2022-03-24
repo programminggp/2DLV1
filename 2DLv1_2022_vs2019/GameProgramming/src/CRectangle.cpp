@@ -20,3 +20,13 @@ CRectangle::~CRectangle()
 	//glVertex2f(400.0f, 600.0f);
 	//glEnd();
 }
+
+CRectangle::CRectangle(float left, float right, float bottom, float top)
+{
+	glBegin(GL_QUADS);
+	glVertex2f(left, bottom);
+	glVertex2f(right, bottom);
+	glVertex2f(right, top);
+	glVertex2f(left, top);
+	glEnd();
+}
