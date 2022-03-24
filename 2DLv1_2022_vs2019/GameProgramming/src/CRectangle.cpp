@@ -11,6 +11,16 @@ CRectangle::CRectangle()
 	glEnd();
 }
 
+void CRectangle::Render()
+{
+	glBegin(GL_QUADS);
+	glVertex2f(400.0f, 300.0f);
+	glVertex2f(600.0f, 300.0f);
+	glVertex2f(600.0f, 450.0f);
+	glVertex2f(400.0f, 450.0f);
+	glEnd();
+}
+
 CRectangle::~CRectangle()
 {
 	//glBegin(GL_QUADS);

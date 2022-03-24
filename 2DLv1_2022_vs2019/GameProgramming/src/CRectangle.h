@@ -8,6 +8,7 @@ private:
 	float mH; //‚‚³
 public:
 	CRectangle();
+	void Render();
 	~CRectangle();
 	CRectangle(float x, float y, float w, float h);
 };
