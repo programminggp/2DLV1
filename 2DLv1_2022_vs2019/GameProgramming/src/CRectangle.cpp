@@ -31,12 +31,12 @@ CRectangle::~CRectangle()
 	//glEnd();
 }
 
-CRectangle::CRectangle(float left, float right, float bottom, float top)
+CRectangle::CRectangle(float x, float y, float w, float h)
 {
 	glBegin(GL_QUADS);
-	glVertex2f(left, bottom);
-	glVertex2f(right, bottom);
-	glVertex2f(right, top);
-	glVertex2f(left, top);
+	glVertex2f(x - w, y - h);
+	glVertex2f(x + w, y - h);
+	glVertex2f(x + w, y + h);
+	glVertex2f(x - w, y + h);
 	glEnd();
 }
