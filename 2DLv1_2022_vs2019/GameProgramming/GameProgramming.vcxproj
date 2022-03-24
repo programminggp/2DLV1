@@ -14,6 +14,7 @@
     <ClCompile Include="src\CRectangle.cpp" />
     <ClCompile Include="src\CSound.cpp" />
     <ClCompile Include="src\CTexture.cpp" />
+    <ClCompile Include="src\CTriangle.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Update.cpp" />
   </ItemGroup>
@@ -21,6 +22,7 @@
     <ClInclude Include="src\CRectangle.h" />
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTexture.h" />
+    <ClInclude Include="src\CTriangle.h" />
     <ClInclude Include="src\main.h" />
     <ClInclude Include="src\Update.h" />
   </ItemGroup>

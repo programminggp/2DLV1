@@ -33,6 +33,9 @@
     <ClCompile Include="src\CRectangle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\CTriangle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Update.h">
@@ -48,6 +51,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\CRectangle.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CTriangle.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
