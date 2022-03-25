@@ -1,14 +1,17 @@
 #include "CRectangle.h"
+#include <stdio.h>
 #include "glut.h"
+
 
 CRectangle::CRectangle()
 {
-	glBegin(GL_QUADS);
-	glVertex2f(0.0f, 0.0f);
-	glVertex2f(400.0f, 0.0f);
-	glVertex2f(400.0f, 300.0f);
-	glVertex2f(0.0f, 300.0f);
-	glEnd();
+	printf("インスタンスが生まれました\n");
+	//glBegin(GL_QUADS);
+	//glVertex2f(0.0f, 0.0f);
+	//glVertex2f(400.0f, 0.0f);
+	//glVertex2f(400.0f, 300.0f);
+	//glVertex2f(0.0f, 300.0f);
+	//glEnd();
 }
 
 void CRectangle::Render()
@@ -23,6 +26,7 @@ void CRectangle::Render()
 
 CRectangle::~CRectangle()
 {
+	printf("インスタンスが破棄されました\n");
 	//glBegin(GL_QUADS);
 	//glVertex2f(400.0f, 300.0f);
 	//glVertex2f(800.0f, 300.0f);

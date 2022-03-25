@@ -3,9 +3,9 @@
 #include "glut.h"
 #include "GLFW/glfw3.h"
 #include "main.h"
-#include "Update.h"
+#include "CApplication.h"
 
-
+CApplication gApplication;
 
 /* display関数
 1秒間に60回実行される
@@ -18,7 +18,7 @@ void display() {
 	//モデルビューの行列を単位行列にする
 	glLoadIdentity();
 
-	Update();
+	gApplication.Update();
 
 }
 
@@ -121,7 +121,7 @@ int main(void)
 #endif
 
 	//初期処理
-	Init();
+	gApplication.Start();
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window))

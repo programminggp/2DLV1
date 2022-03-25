@@ -21,9 +21,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\Update.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\CSound.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
@@ -33,14 +30,14 @@
     <ClCompile Include="src\CRectangle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\CTriangle.cpp">
+    <ClCompile Include="src\CInput.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CApplication.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Update.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\CSound.h">
       <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
@@ -53,7 +50,10 @@
     <ClInclude Include="src\CRectangle.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CTriangle.h">
+    <ClInclude Include="src\CInput.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CApplication.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

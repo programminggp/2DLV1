@@ -8,7 +8,8 @@ class CRectangle
 //	float mH; //çÇÇ≥
 public:
 	CRectangle();
+	~CRectangle();
 	CRectangle(float x, float y, float w, float h);
 	void Render();
-	~CRectangle();
+
 };
