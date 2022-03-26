@@ -16,12 +16,7 @@ CRectangle::CRectangle()
 
 void CRectangle::Render()
 {
-	glBegin(GL_QUADS);
-	glVertex2f(200.0f, 150.0f);
-	glVertex2f(400.0f, 150.0f);
-	glVertex2f(400.0f, 300.0f);
-	glVertex2f(200.0f, 300.0f);
-	glEnd();
+	Render(mX, mY, mW, mH);
 }
 
 CRectangle::~CRectangle()
@@ -43,4 +38,12 @@ void CRectangle::Render(float x, float y, float w, float h)
 	glVertex2f(x + w, y + h);
 	glVertex2f(x - w, y + h);
 	glEnd();
+}
+
+void CRectangle::Set(float x, float y, float w, float h)
+{
+	mX = x;
+	mY = y;
+	mW = w;
+	mH = h;
 }
