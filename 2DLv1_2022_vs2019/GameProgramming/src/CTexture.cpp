@@ -36,7 +36,8 @@ void CTexture::Destory() {
 }
 
 #include <string>
-void CTexture::Load(const char* filename) {
+void CTexture::Load(const char* filename)
+{
 	//ファイルオープン
 	std::string file(filename);
 	file = RES_DIR + file;	//ファイル名の退避
@@ -48,6 +49,11 @@ void CTexture::Load(const char* filename) {
 	data = SOIL_load_image(file.data(), &mHeader.width,
 		&mHeader.height, &mHeader.depth,
 		SOIL_LOAD_AUTO);
+	if (!data)
+	{
+		printf("CTexture::Load Error:%s\n", file.data());
+		return;
+	}
 	//テクスチャの作成
 	mId = SOIL_create_OGL_texture(data,
 		mHeader.width, mHeader.height, mHeader.depth,
@@ -152,7 +158,8 @@ void CTexture::Draw(float left, float right, float bottom, float top, float tlef
 	DrawImage(left, right, bottom, top, tleft, tright, tbottom, ttop);
 }
 
-void CTexture::DrawImage(float left, float right, float bottom, float top, float tleft, float tright, float tbottom, float ttop) {
+void CTexture::DrawImage(float left, float right, float bottom, float top, float tleft, float tright, float tbottom, float ttop) const
+{
 	//テクスチャを有効にする
 	glEnable(GL_TEXTURE_2D);
 	//アルファブレンドを有効にする
@@ -165,7 +172,7 @@ void CTexture::DrawImage(float left, float right, float bottom, float top, float
 	float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	//色の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
-//	glColor4fv(diffuse);
+	glColor4fv(diffuse);
 
 	glBegin(GL_TRIANGLES);
 	glTexCoord2f(tleft,  ttop);
@@ -190,11 +197,13 @@ void CTexture::DrawImage(float left, float right, float bottom, float top, float
 	glDisable(GL_TEXTURE_2D);
 }
 
-void CTexture::Draw(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop) {
+void CTexture::Draw(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop) const
+{
 	DrawImage(left, right, bottom, top, tleft, tright, tbottom, ttop);
 }
 
-void CTexture::DrawImage(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop) {
+void CTexture::DrawImage(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop) const
+{
 	DrawImage(left, right, bottom, top,
 		(float)tleft / mHeader.width,
 		(float)tright / mHeader.width,
