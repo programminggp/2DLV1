@@ -47,3 +47,23 @@ void CRectangle::Set(float x, float y, float w, float h)
 	mW = w;
 	mH = h;
 }
+
+float CRectangle::X()
+{
+	return mX;
+}
+
+float CRectangle::Y()
+{
+	return mY;
+}
+
+float CRectangle::W()
+{
+	return mW;
+}
+
+float CRectangle::H()
+{
+	return mH;
+}
