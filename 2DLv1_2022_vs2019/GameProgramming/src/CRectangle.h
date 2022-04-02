@@ -11,7 +11,7 @@ public:
 	~CRectangle();
 	void Render();
 	void Render(float x, float y, float w, float h);
-	void Set(float x, float y, float w, float h);
+	virtual void Set(float x, float y, float w, float h);
 	float X();
 	float Y();
 	float W();
