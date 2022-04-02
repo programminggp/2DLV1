@@ -3,7 +3,7 @@
 
 void CApplication::Start()
 {
-	mRectangle.Set(400.0f, 300.0f, 26.0f, 44.0f);
+	mRectangle.Set(400.0f, 44.0f, 26.0f, 44.0f);
 	mTexture.Load("22302021.png");
 }
 
