@@ -16,4 +16,6 @@ public:
 	float Y();
 	float W();
 	float H();
+	void Y(float y);
+	void X(float x);
 };
