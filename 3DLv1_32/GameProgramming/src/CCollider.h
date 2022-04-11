@@ -44,6 +44,11 @@ public:
 	static bool Collision(CCollider* m, CCollider* o);
 	//Typeメソッド(mTypeの値を返す)
 	int Type();
+	//CollisionTriangleSphere(三角コライダ, 球コライダ, 調整値)
+	//retrun:true（衝突している）false(衝突していない)
+	//調整値:衝突しない位置まで戻す値
+	static bool CollisionTriangleSphere(CCollider* triangle, CCollider* sphere, CVector* adjust);
+
 protected:
 	EType mType;//コライダタイプ
 	//頂点
