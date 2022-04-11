@@ -4,6 +4,7 @@
 #include "CModel.h"
 //プレイヤークラスのインクルード
 #include"CPlayer.h"
+#include "CColliderMesh.h"
 
 /*
 ゲームのシーン
@@ -20,6 +21,8 @@ public:
 	CModel mModelC5; //敵モデル
 	//プレイヤーの変数
 	CPlayer mPlayer;
+	//モデルからコライダを生成
+	CColliderMesh mColliderMesh;
 
 };
 

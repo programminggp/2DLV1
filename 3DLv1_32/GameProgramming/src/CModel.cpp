@@ -14,6 +14,12 @@ CModel::CModel()
 
 }
 
+std::vector<CTriangle> CModel::Triangles() const
+{
+	return mTriangles;
+}
+
+
 
 //モデルファイルの入力
 //Load(モデルファイル名,マテリアルファイル名)
