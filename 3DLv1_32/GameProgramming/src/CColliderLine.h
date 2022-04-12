@@ -16,6 +16,8 @@ public:
 	void Set(CCharacter* parent, CMatrix* matrix, const CVector& v0, const CVector& v1);
 	//•`‰æ
 	void Render();
+	//—Dæ“x‚Ì•ÏX
+	void CColliderLine::ChangePriority();
 
 
 };

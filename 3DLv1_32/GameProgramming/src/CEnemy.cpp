@@ -1,5 +1,6 @@
 #include "CEnemy.h"
 #include "CEffect.h"
+#include "CTaskManager.h"
 
 //コンストラクタ
 //CEnemy(モデル,位置,回転,拡縮)
@@ -14,6 +15,11 @@ CEnemy::CEnemy(CModel* model, const CVector& position,
 	mPosition = position; //位置の設定
 	mRotation = rotation; //回転の設定
 	mScale = scale; //拡縮の設定
+	//優先度を1に変更する
+	mPriority = 1;
+	CTaskManager::Get()->Remove(this); //削除して
+	CTaskManager::Get()->Add(this); //追加する
+
 }
 
 //更新処理

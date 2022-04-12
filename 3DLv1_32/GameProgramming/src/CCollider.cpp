@@ -164,3 +164,13 @@ bool CCollider::CollisionTriangleSphere(CCollider* t, CCollider* s, CVector* a)
 	return CollisionTriangleLine(t, &line, a);
 }
 
+//優先度の変更
+void CCollider::ChangePriority()
+{
+	//自分の座標×親の変換行列を掛けてワールド座標を求める
+	CVector pos = mPosition * *mpMatrix;
+	//ベクトルの長さが優先度
+	mPriority = pos.Length();
+	CCollisionManager::Get()->Remove(this); //一旦削除
+	CCollisionManager::Get()->Add(this); //追加
+}

@@ -38,8 +38,17 @@ void CTaskManager::Update() {
 //リストの追加
 //Add(タスクのポインタ)
 void CTaskManager::Add(CTask* addTask){
-	//mTailの前に追加
-	CTask* task = &mTail;
+	//mHeadの次から検索
+	CTask* task = mHead.mpNext;
+
+	//優先度の大きい順に挿入する
+	//挿入位置の検索（優先度が同じか大きくなった前）
+	//mPriority>=0のこと
+	while (addTask->mPriority < task->mPriority)
+	{
+		task = task->mpNext; //次へ
+	}
+
 	//addTaskの次をtask
 	addTask->mpNext = task;
 	//addTaskの前をtaskの前に

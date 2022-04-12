@@ -51,3 +51,13 @@ void CColliderLine::Render()
 	//行列復帰
 	glPopMatrix();
 }
+//優先度の変更
+void CColliderLine::ChangePriority()
+{
+	//mV[0]とmV[1]の中心を求める
+	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix) * (0.5f);
+	//ベクトルの長さが優先度
+	mPriority = pos.Length();
+	CCollisionManager::Get()->Remove(this); //一旦削除
+	CCollisionManager::Get()->Add(this); //追加
+}
