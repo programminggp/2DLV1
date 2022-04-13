@@ -5,6 +5,8 @@
 //タスクマネージャクラスのインクルード
 #include"CTaskManager.h"
 #include "CCollisionManager.h"
+//
+#include "CUtil.h"
 
 #define ROTATION_YV CVector(0.0f,1.0f,0.0f)//回転速度
 #define ROTATION_XV CVector(1.0f,0.0f,0.0f)//回転速度
@@ -16,6 +18,9 @@ CPlayer::CPlayer()
 mLine2(this, &mMatrix, CVector(0.0f, 5.0f, -8.0f), CVector(0.0f, -3.0f, -8.0f)),
 mLine3(this, &mMatrix, CVector(9.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f))
 {
+	//テクスチャファイルの読み込み（1行64列）
+	mText.LoadTexture("FontWhite.tga", 1, 64);
+
 }
 
 //更新処理
@@ -91,4 +96,38 @@ void CPlayer::TaskCollision()
 	CCollisionManager::Get()->Collision(&mLine, COLLISIONRANGE);
 	CCollisionManager::Get()->Collision(&mLine2, COLLISIONRANGE);
 	CCollisionManager::Get()->Collision(&mLine3, COLLISIONRANGE);
+}
+
+void CPlayer::Render()
+{
+	//親の描画処理
+	CCharacter::Render();
+
+	//2Dの描画開始
+	CUtil::Start2D(-400, 400, -300, 300);
+	//描画色の設定（緑色の半透明）
+	glColor4f(0.0f, 1.0f, 0.0f, 0.8f);
+	//文字列編集エリアの作成
+	char buf[64];
+
+	//Y座標の表示
+	//文字列の設定
+	sprintf(buf, "PY:%7.2f", mPosition.Y());
+	//文字列の描画
+	mText.DrawString(buf, 100, 30, 8, 16);
+
+	//X軸回転値の表示
+	//文字列の設定
+	sprintf(buf, "RX:%7.2f", mRotation.X());
+	//文字列の描画
+	mText.DrawString(buf, 100, 0, 8, 16);
+
+	//Y軸回転値の表示
+	//文字列の設定
+	sprintf(buf, "PY:%7.2f", mRotation.Y());
+	//文字列の描画
+	mText.DrawString(buf, 100, -100, 8, 16);
+
+	//2Dの描画終了
+	CUtil::End2D();
 }

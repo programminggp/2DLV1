@@ -6,6 +6,8 @@
 #include"CBullet.h"
 //線分コライダクラスのインクルード
 #include"CColliderLine.h"
+//
+#include "CText.h"
 
 /*
 プレイヤークラス
@@ -23,11 +25,15 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 	//
 	void CPlayer::TaskCollision();
+	//
+	void Render();
 private:
 
 	CColliderLine mLine; //線分コライダ
 	CColliderLine mLine2; //線分コライダ2
 	CColliderLine mLine3; //線分コライダ3
+
+	CText mText;
 };
 #endif 
 

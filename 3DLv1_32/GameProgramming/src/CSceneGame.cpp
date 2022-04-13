@@ -90,13 +90,13 @@ void CSceneGame::Update() {
 	
 
 	
-	
+	//背景モデルの描画
+	mBackGround.Render(mBackGroundMatrix);
+
 	//タスクリストの削除
 	CTaskManager::Get()->Delete();
 	//タスクマネージャの描画	
 	CTaskManager::Get()->Render();
-	//背景モデルの描画
-	mBackGround.Render(mBackGroundMatrix);
 	//コリジョンマネージャのコライダ描画
 	CCollisionManager::Get()->Render();
 }
