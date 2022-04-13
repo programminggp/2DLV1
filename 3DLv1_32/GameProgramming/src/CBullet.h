@@ -27,6 +27,7 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 	//デフォルトコンストラクタ
 	CBullet();
+	void TaskCollision();
 private:
 	//コライダ
 	CCollider mCollider;
