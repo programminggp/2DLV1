@@ -26,6 +26,9 @@
 #include"CCamera.h"
 //三角コライダクラスのインクルード
 #include"CColliderTriangle.h"
+//
+#include "CEnemy2.h"
+
 //モデルデータの指定
 #define MODEL_OBJ "res\\f14.obj","res\\f14.mtl"
 #define MODEL_BACKGROUND "res\\sky.obj","res\\sky.mtl"
@@ -57,6 +60,11 @@ void CSceneGame::Init() {
 		CVector(),CVector(0.1f,0.1f,0.1f));
 	new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -130.0f) * mBackGroundMatrix,
 		CVector(), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy2(CVector(-5.0f, 1.0f, -10.0f) * mBackGroundMatrix,
+		CVector(), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy2(CVector(5.0f, 1.0f, -10.0f) * mBackGroundMatrix,
+		CVector(), CVector(0.1f, 0.1f, 0.1f));
+
 	//ビルボードの生成
 	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
 

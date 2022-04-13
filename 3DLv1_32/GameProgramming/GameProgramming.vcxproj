@@ -22,6 +22,7 @@
     <ClCompile Include="src\CCollisionManager.cpp" />
     <ClCompile Include="src\CEffect.cpp" />
     <ClCompile Include="src\CEnemy.cpp" />
+    <ClCompile Include="src\CEnemy2.cpp" />
     <ClCompile Include="src\CKey.cpp" />
     <ClCompile Include="src\CMaterial.cpp" />
     <ClCompile Include="src\CModel.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="src\CCollisionManager.h" />
     <ClInclude Include="src\CEffect.h" />
     <ClInclude Include="src\CEnemy.h" />
+    <ClInclude Include="src\CEnemy2.h" />
     <ClInclude Include="src\CKey.h" />
     <ClInclude Include="src\CMaterial.h" />
     <ClInclude Include="src\CMatrix.h" />
