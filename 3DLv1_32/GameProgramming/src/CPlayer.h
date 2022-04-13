@@ -27,13 +27,19 @@ public:
 	void CPlayer::TaskCollision();
 	//
 	void Render();
+	//
+	static CPlayer* Get();
 private:
 
 	CColliderLine mLine; //線分コライダ
 	CColliderLine mLine2; //線分コライダ2
 	CColliderLine mLine3; //線分コライダ3
+	CCollider mCollider;	//本体用コライダ
 
 	CText mText;
+
+	//プレイヤーのインスタンス
+	static CPlayer* spInstance;
 };
 #endif 
 

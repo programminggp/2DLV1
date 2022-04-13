@@ -2,7 +2,9 @@
 //タスクマネージャクラスのインクルード
 #include"CTaskManager.h"
 
-CCharacter::CCharacter() {
+CCharacter::CCharacter()
+	: mTag(EZERO)
+{
 	//タスクリストに追加
 	CTaskManager::Get()->Add(this);
 }
@@ -21,4 +23,9 @@ void CCharacter::Render()
 CCharacter::~CCharacter() {
 	//タスクリストから削除
 	CTaskManager::Get()->Remove(this);
+}
+
+CCharacter::ETag CCharacter::Tag()
+{
+	return mTag;
 }

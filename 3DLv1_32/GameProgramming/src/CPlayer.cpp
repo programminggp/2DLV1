@@ -12,14 +12,20 @@
 #define ROTATION_XV CVector(1.0f,0.0f,0.0f)//回転速度
 #define VELOCITY CVector(0.0f,0.0f,0.1f)//移動速度
 
+CPlayer* CPlayer::spInstance = nullptr;
+
 //デフォルトコンストラクタ
 CPlayer::CPlayer()
 :mLine(this, &mMatrix, CVector(0.0f, 0.0f, -14.0f), CVector(0.0f, 0.0f, 17.0f)),
 mLine2(this, &mMatrix, CVector(0.0f, 5.0f, -8.0f), CVector(0.0f, -3.0f, -8.0f)),
 mLine3(this, &mMatrix, CVector(9.0f, 0.0f, -8.0f), CVector(-9.0f, 0.0f, -8.0f))
+, mCollider(this, &mMatrix, CVector(0.0f, 0.0f, 0.0f), 0.5f)
 {
 	//テクスチャファイルの読み込み（1行64列）
 	mText.LoadTexture("FontWhite.tga", 1, 64);
+	//インスタンスの設定
+	spInstance = this;
+	mTag = EPLAYER;	//タグの設定
 
 }
 
@@ -130,4 +136,9 @@ void CPlayer::Render()
 
 	//2Dの描画終了
 	CUtil::End2D();
+}
+
+CPlayer* CPlayer::Get()
+{
+	return spInstance;
 }
