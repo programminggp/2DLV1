@@ -93,3 +93,15 @@ void CTaskManager::Delete() {
 		}
 	}
 }
+//Õ“Ëˆ—
+void CTaskManager::TaskCollision()
+{
+	//æ“ª‚©‚çÅŒã‚Ü‚ÅŒJ‚è•Ô‚µ
+	CTask* task = mHead.mpNext;
+	while (task->mpNext) {
+		//Õ“Ëˆ—‚ðŒÄ‚Ô
+		task->TaskCollision();
+		//ŽŸ‚Ö
+		task = task->mpNext;
+	}
+}

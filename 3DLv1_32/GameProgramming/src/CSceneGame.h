@@ -23,7 +23,8 @@ public:
 	CPlayer mPlayer;
 	//モデルからコライダを生成
 	CColliderMesh mColliderMesh;
-
+	//
+	CMatrix mBackGroundMatrix;
 };
 
 #endif

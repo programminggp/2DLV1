@@ -26,6 +26,8 @@ public:
 	virtual void Update() {}
 	//•`‰æ
 	virtual void Render() {}
+	//Õ“Ëˆ—
+	virtual void TaskCollision() {}
 
 protected:
 

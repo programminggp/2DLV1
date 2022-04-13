@@ -4,6 +4,7 @@
 #include"CKey.h"
 //タスクマネージャクラスのインクルード
 #include"CTaskManager.h"
+#include "CCollisionManager.h"
 
 #define ROTATION_YV CVector(0.0f,1.0f,0.0f)//回転速度
 #define ROTATION_XV CVector(1.0f,0.0f,0.0f)//回転速度
@@ -78,4 +79,16 @@ void CPlayer::Collision(CCollider* m, CCollider* o) {
 		}
 		break;
 	}
+}
+
+void CPlayer::TaskCollision()
+{
+	//コライダの優先度変更
+	mLine.ChangePriority();
+	mLine2.ChangePriority();
+	mLine3.ChangePriority();
+	//衝突処理を実行
+	CCollisionManager::Get()->Collision(&mLine, COLLISIONRANGE);
+	CCollisionManager::Get()->Collision(&mLine2, COLLISIONRANGE);
+	CCollisionManager::Get()->Collision(&mLine3, COLLISIONRANGE);
 }

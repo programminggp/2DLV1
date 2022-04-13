@@ -7,7 +7,6 @@
 //線分コライダクラスのインクルード
 #include"CColliderLine.h"
 
-
 /*
 プレイヤークラス
 キャラクタークラスを継承
@@ -22,6 +21,8 @@ public:
 	void Update();
 	//衝突処理
 	void Collision(CCollider* m, CCollider* o);
+	//
+	void CPlayer::TaskCollision();
 private:
 
 	CColliderLine mLine; //線分コライダ

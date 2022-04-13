@@ -37,6 +37,7 @@ CMatrix matrix;
 
 
 void CSceneGame::Init() {
+	mBackGroundMatrix.Translate(0.0f, 0.0f, -500.0f);
 	mEye = CVector(1.0f, 2.0f, 3.0f);
 	//モデルファイルの入力
 	mModel.Load(MODEL_OBJ);
@@ -49,27 +50,29 @@ void CSceneGame::Init() {
 	//プレイヤーのモデルポインタ
 	mPlayer.Model(&mModel);
 	mPlayer.Scale(CVector(0.1f, 0.1f, 0.1f));
-	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f));
+	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f) * mBackGroundMatrix);
 	mPlayer.Rotation(CVector(0.0f, 180.0f,0.0f));
 	//敵機のインスタンス作成
-	new CEnemy(&mModelC5,CVector(0.0f, 10.0f, -100.0f),
+	new CEnemy(&mModelC5,CVector(0.0f, 10.0f, -100.0f) * mBackGroundMatrix,
 		CVector(),CVector(0.1f,0.1f,0.1f));
-	new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -130.0f),
+	new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -130.0f) * mBackGroundMatrix,
 		CVector(), CVector(0.1f, 0.1f, 0.1f));
 	//ビルボードの生成
 	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
 
 	//背景モデルから三角コライダを生成
 	//親インスタンスと親行列はなし
-	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
+	mColliderMesh.Set(nullptr, &mBackGroundMatrix, &mBackGround);
 
 }
 
 void CSceneGame::Update() {
 	//タスクマネージャの更新
 	CTaskManager::Get()->Update();
-	//コリジョンマネージャの更新
-	CCollisionManager::Get()->Collision();
+	//コリジョンマネージャの衝突処理
+//削除	CCollisionManager::Get()->Collision();
+	CTaskManager::Get()->TaskCollision();
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点,注視点,上方向
 	//視点を求める
@@ -93,7 +96,7 @@ void CSceneGame::Update() {
 	//タスクマネージャの描画	
 	CTaskManager::Get()->Render();
 	//背景モデルの描画
-	mBackGround.Render(CMatrix());
+	mBackGround.Render(mBackGroundMatrix);
 	//コリジョンマネージャのコライダ描画
 	CCollisionManager::Get()->Render();
 }
