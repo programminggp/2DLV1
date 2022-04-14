@@ -9,7 +9,7 @@ class CApplication
 private:
 	CCharacter mRectangle;
 	CTexture mTexture;
-	CEnemy mCharacter;
+	CEnemy mEnemy;
 	CBullet mBullet;
 public:
 	//最初に一度だけ実行するプログラム
