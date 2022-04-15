@@ -1,13 +1,15 @@
 #include "CBullet.h"
-#include <Windows.h>
 void CBullet::Update()
 {
 	float y = Y() + H();
-	short key = GetAsyncKeyState(VK_SPACE);
-	if ( y > 600)
-	{                                  
+	if (y > 600.0f)
+	{
 		y = 0.0f;
 	}
+	/*if (y > 600)
+	{
+		y = 700.0f;
+	}*/
 	Y(y);
 }
 
