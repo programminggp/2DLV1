@@ -6,7 +6,7 @@ void CPlayer::Update()
 	{
 		float x = X() - 4.0f;
 		X(x);
-	}	
+	}
 	if (mInput.Key('W'))
 	{
 		float y = Y() + 4.0f;

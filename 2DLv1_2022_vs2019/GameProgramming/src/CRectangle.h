@@ -18,4 +18,9 @@ public:
 	float H();
 	void Y(float y);
 	void X(float x);
+	//bool Collision(四角形のポインタ)
+	//戻り値
+	//true:衝突している
+	//false;衝突していない
+	bool Collision(CRectangle* rect);
 };

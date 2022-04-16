@@ -15,28 +15,19 @@ void CApplication::Start()
 
 void CApplication::Update()
 {
-	mPlayer.Update();
 	/*if (mInput.Key(VK_SPACE))
 	{
 		mBullet.Set(mRectangle.X(), mRectangle.Y() + mRectangle.H() + mBullet.H(), 3.0f, 10.0f);
-	}
-	if (mInput.Key('A'))
-	{
-		float x = mRectangle.X();
-		x -= 4.0f;
-		mRectangle.X(x);
-	}
-	if (mInput.Key('D'))
-	{
-		float x = mRectangle.X();
-		x += 4.0f;
-		mRectangle.X(x);
 	}*/
+	mPlayer.Update();
 	mBullet.Update();
 	mEnemy.Update();
-//	mRectangle.Render();
 	mPlayer.Render();
 	mEnemy.Render();
 	mBullet.Render();
+	if (mEnemy.Collision(&mBullet))
+	{
+		mEnemy.Texture(&mTexture, 1946, 2172, 920, 664);
+	}
 }
 
