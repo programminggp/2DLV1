@@ -29,5 +29,9 @@ void CApplication::Update()
 	{
 		mEnemy.Texture(&mTexture, 1946, 2172, 920, 664);
 	}
+	else
+	{
+		mEnemy.Texture(&mTexture, 1604, 1808, 680, 472);
+	}
 }
 
