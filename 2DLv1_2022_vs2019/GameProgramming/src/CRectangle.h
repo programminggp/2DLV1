@@ -22,5 +22,5 @@ public:
 	//–ß‚è’l
 	//true:Õ“Ë‚µ‚Ä‚¢‚é
 	//false;Õ“Ë‚µ‚Ä‚¢‚È‚¢
-	bool Collision(CRectangle* rect);
+	bool Collision(CRectangle* pRect);
 };

@@ -27,6 +27,7 @@ void CApplication::Update()
 	mBullet.Render();
 	if (mEnemy.Collision(&mBullet))
 	{
+		//”š”­‚Ì‰æ‘œ
 		mEnemy.Texture(&mTexture, 1946, 2172, 920, 664);
 	}
 	else
