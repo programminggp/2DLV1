@@ -102,6 +102,9 @@
     <ClCompile Include="src\CEnemy2.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\CTank.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CColliderMesh.h">
@@ -192,6 +195,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\CEnemy2.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CTank.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -28,10 +28,15 @@
 #include"CColliderTriangle.h"
 //
 #include "CEnemy2.h"
+//
+#include "CTank.h"
 
 //モデルデータの指定
 #define MODEL_OBJ "res\\f14.obj","res\\f14.mtl"
 #define MODEL_BACKGROUND "res\\sky.obj","res\\sky.mtl"
+//戦車のスケール
+#define SCALE_TANK 0.2f
+
 //カメラの視点の変数
 CVector mEye;
 
@@ -72,6 +77,9 @@ void CSceneGame::Init() {
 	//親インスタンスと親行列はなし
 	mColliderMesh.Set(nullptr, &mBackGroundMatrix, &mBackGround);
 
+	//戦車の生成
+	new CTank(CVector(0.0f, -1.0f, -5.0f) * mBackGroundMatrix, CVector(),
+		CVector(SCALE_TANK, SCALE_TANK, SCALE_TANK));
 }
 
 void CSceneGame::Update() {
