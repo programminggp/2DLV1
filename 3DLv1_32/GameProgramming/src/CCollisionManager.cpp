@@ -41,14 +41,14 @@ void CCollisionManager::Collision() {
 }
 //衝突処理
 //Collision(コライダ, 範囲)
-//コライダの優先度+範囲～優先度-範囲までのコライダと衝突判定を実行する
+//コライダの優先度-範囲～優先度+範囲までのコライダと衝突判定を実行する
 void CCollisionManager::Collision(CCollider* c, int range)
 {
 	//現在位置を先頭にする
 	CCollider* task = (CCollider*)mHead.mpNext;
 	//範囲まで読み飛ばし
 	while (task->mpNext) {
-		if (task->mPriority <= c->mPriority + range)
+		if (c->mPriority - range <= task->mPriority)
 		{
 			break;
 		}
@@ -57,7 +57,7 @@ void CCollisionManager::Collision(CCollider* c, int range)
 	}
 	//最後まできたら終了する
 	while (task->mpNext) {
-		if (task->mPriority <= c->mPriority - range)
+		if (c->mPriority + range < task->mPriority)
 		{
 			break;
 		}

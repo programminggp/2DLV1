@@ -39,15 +39,18 @@ void CTaskManager::Update() {
 //Add(ƒ^ƒXƒN‚Ìƒ|ƒCƒ“ƒ^)
 void CTaskManager::Add(CTask* addTask){
 	//mHead‚ÌŽŸ‚©‚çŒŸõ
-	CTask* task = mHead.mpNext;
+//	CTask* task = mHead.mpNext;
+	CTask* task = mTail.mpPrev;
 
-	//—Dæ“x‚Ì‘å‚«‚¢‡‚É‘}“ü‚·‚é
-	//‘}“üˆÊ’u‚ÌŒŸõi—Dæ“x‚ª“¯‚¶‚©‘å‚«‚­‚È‚Á‚½‘Oj
+	//—Dæ“x‚Ì¬‚³‚¢‡‚É‘}“ü‚·‚é
+	//‘}“üˆÊ’u‚ÌŒŸõi—Dæ“x‚ª“¯‚¶‚©‘å‚«‚¢Žž‚ÌŒã‚ëj
 	//mPriority>=0‚Ì‚±‚Æ
 	while (addTask->mPriority < task->mPriority)
 	{
-		task = task->mpNext; //ŽŸ‚Ö
+		task = task->mpPrev; //ŽŸ‚Ö
 	}
+
+	task = task->mpNext;
 
 	//addTask‚ÌŽŸ‚ðtask
 	addTask->mpNext = task;
