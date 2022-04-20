@@ -5,4 +5,5 @@ class CEnemy : public CCharacter
 {
 public:
 	void Update();
+	bool Collision(CRectangle* rect);
 };

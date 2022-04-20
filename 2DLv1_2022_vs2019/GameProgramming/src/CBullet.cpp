@@ -1,16 +1,19 @@
 #include "CBullet.h"
 void CBullet::Update()
 {
-	float y = Y() + H();
-	if (y > 600.0f)
+	if (mState == EMOVE)
 	{
-		y = 0.0f;
+		float y = Y() + H();
+		if (y > 600.0f)
+		{
+			y = 0.0f;
+		}
+		/*if (y > 600)
+		{
+			y = 700.0f;
+		}*/
+		Y(y);
 	}
-	/*if (y > 600)
-	{
-		y = 700.0f;
-	}*/
-	Y(y);
 }
 
 void CBullet::Render()
@@ -18,4 +21,14 @@ void CBullet::Render()
 	glColor3f(1.0f, 1.0f, 0.0f);
 	CRectangle::Render();
 	glColor3f(1.0f, 1.0f, 1.0f);
+}
+
+bool CBullet::Collision(CRectangle* rect)
+{
+	if (CRectangle::Collision(rect))
+	{
+		mState = ESTOP;
+		return true;
+	}
+	return false;
 }
