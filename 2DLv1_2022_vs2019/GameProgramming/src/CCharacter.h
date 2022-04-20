@@ -5,10 +5,10 @@
 class CCharacter : public CRectangle
 {
 protected:
-	enum EState
+	enum EState	//ó‘Ô
 	{
-		EMOVE,
-		ESTOP
+		EMOVE,	//ˆÚ“®
+		ESTOP	//’â~
 	};
 	EState mState;
 private:
@@ -16,7 +16,7 @@ private:
 	int mLeft, mRight, mBottom, mTop;
 public:
 	CCharacter();
+	CTexture* Texture();
 	void Texture(CTexture *pTexture, int left, int right, int bottom, int top);
 	void Render();
-	CTexture* Texture();
 };
