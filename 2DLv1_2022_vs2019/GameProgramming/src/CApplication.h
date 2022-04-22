@@ -6,6 +6,7 @@
 #include "CEnemy.h"
 #include "CPlayer.h"
 #include "CInput.h"
+#include "CFont.h"
 
 class CApplication
 {
@@ -16,6 +17,7 @@ private:
 	CEnemy mEnemy;
 	CBullet mBullet;
 	CInput mInput;
+	CFont mFont;
 public:
 	//最初に一度だけ実行するプログラム
 	void Start();

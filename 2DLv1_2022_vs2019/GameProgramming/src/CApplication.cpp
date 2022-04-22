@@ -11,6 +11,7 @@ void CApplication::Start()
 	mEnemy.Set(26.0f, 574.0f, 44.0f, 26.0f);
 	mEnemy.Texture(&mTexture, 1604, 1808, 680, 472);
 	mBullet.Set(400.0f, 98.0f, 3.0f, 10.0f);
+	mFont.Load("FontWhite.png", 1, 64);
 }
 
 void CApplication::Update()
@@ -27,6 +28,7 @@ void CApplication::Update()
 	mBullet.Render();
 	mEnemy.Collision(&mBullet);
 	mBullet.Collision(&mEnemy);
+	mFont.Draw(400, 300, 20, 30, 'S');
 	//if (mEnemy.Collision(&mBullet))
 	//{
 	//	//”š”­‚Ì‰æ‘œ
