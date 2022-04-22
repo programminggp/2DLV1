@@ -27,8 +27,12 @@ void CApplication::Update()
 	mEnemy.Render();
 	mBullet.Render();
 	mEnemy.Collision(&mBullet);
-	mBullet.Collision(&mEnemy);
-	mFont.Draw(400, 300, 20, 30, 'S');
+	if (mBullet.Collision(&mEnemy))
+	{
+		mFont.Draw(400 - 40, 300, 20, 30, 'H');
+		mFont.Draw(400, 300, 20, 30, 'I');
+		mFont.Draw(400 + 40, 300, 20, 30, 'T');
+	}
 	//if (mEnemy.Collision(&mBullet))
 	//{
 	//	//”š”­‚Ì‰æ‘œ
