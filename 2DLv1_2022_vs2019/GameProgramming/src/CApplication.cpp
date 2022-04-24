@@ -29,9 +29,9 @@ void CApplication::Update()
 	mEnemy.Collision(&mBullet);
 	if (mBullet.Collision(&mEnemy))
 	{
-		mFont.Draw(400 - 40, 300, 20, 30, 'H');
-		mFont.Draw(400, 300, 20, 30, 'I');
-		mFont.Draw(400 + 40, 300, 20, 30, 'T');
+		mFont.Draw(370, 300, 15, 30, 'H');
+		mFont.Draw(400, 300, 15, 30, 'I');
+		mFont.Draw(400 + 30, 300, 15, 30, 'T');
 	}
 	//if (mEnemy.Collision(&mBullet))
 	//{
