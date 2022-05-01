@@ -32,6 +32,8 @@ void CApplication::Update()
 		mFont.Draw(370, 300, 15, 30, 'H');
 		mFont.Draw(400, 300, 15, 30, 'I');
 		mFont.Draw(400 + 30, 300, 15, 30, 'T');
+		mFont.Draw(370, 240, 15, 30, "PUSH");
+		mFont.Draw(370, 180, 15, 30, "ENTER");
 	}
 	//if (mEnemy.Collision(&mBullet))
 	//{
