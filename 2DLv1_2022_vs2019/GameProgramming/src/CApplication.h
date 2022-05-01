@@ -18,6 +18,7 @@ private:
 	CBullet mBullet;
 	CInput mInput;
 	CFont mFont;
+	CRectangle mMiss;
 public:
 	//最初に一度だけ実行するプログラム
 	void Start();

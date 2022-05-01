@@ -1,10 +1,16 @@
 #include "CBullet.h"
+
+CBullet::CBullet()
+{
+	mState = ESTOP;
+}
+
 void CBullet::Update()
 {
 	if (mState == EMOVE)
 	{
 		float y = Y() + H();
-		if (y > 600.0f)
+		if (y > 620.0f)
 		{
 			y = 0.0f;
 		}

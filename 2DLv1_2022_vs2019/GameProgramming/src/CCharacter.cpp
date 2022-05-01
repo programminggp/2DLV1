@@ -28,6 +28,11 @@ void CCharacter::Render()
 	);
 }
 
+void CCharacter::Move()
+{
+	mState = EMOVE;
+}
+
 CTexture* CCharacter::Texture()
 {
 	return mpTexture;
