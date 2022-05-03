@@ -2,12 +2,12 @@
 
 CBullet::CBullet()
 {
-	mState = ESTOP;
+	mState = EState::ESTOP;
 }
 
 void CBullet::Update()
 {
-	if (mState == EMOVE)
+	if (mState == EState::EMOVE)
 	{
 		float y = Y() + H();
 		if (y > 620.0f)
@@ -33,7 +33,7 @@ bool CBullet::Collision(CRectangle* rect)
 {
 	if (CRectangle::Collision(rect))
 	{
-		mState = ESTOP;
+		mState = EState::ESTOP;
 		return true;
 	}
 	return false;

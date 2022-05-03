@@ -11,6 +11,14 @@
 class CApplication
 {
 private:
+	enum class EState
+	{
+		ESTART,	//ゲーム開始
+		EPLAY,	//ゲーム中
+		ECLEAR,	//ゲームクリア
+		EOVER,	//ゲームオーバー
+	};
+	EState mState;
 //	CCharacter mRectangle;
 	CPlayer mPlayer;
 	CTexture mTexture;

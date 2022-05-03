@@ -5,7 +5,7 @@
 class CCharacter : public CRectangle
 {
 protected:
-	enum EState	//ó‘Ô
+	enum class EState	//ó‘Ô
 	{
 		EMOVE,	//ˆÚ“®
 		ESTOP	//’â~

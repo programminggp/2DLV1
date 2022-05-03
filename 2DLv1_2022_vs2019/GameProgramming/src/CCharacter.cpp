@@ -3,7 +3,7 @@
 CCharacter::CCharacter()
 	: mpTexture(nullptr)
 	, mLeft(0.0f), mRight(0.0f), mBottom(0.0f), mTop(0.0f)
-	, mState(EMOVE)
+	, mState(EState::EMOVE)
 {
 
 }
@@ -30,7 +30,7 @@ void CCharacter::Render()
 
 void CCharacter::Move()
 {
-	mState = EMOVE;
+	mState = EState::EMOVE;
 }
 
 CTexture* CCharacter::Texture()
