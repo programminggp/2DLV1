@@ -648,8 +648,8 @@ CModelXFrame* CModelX::FindFrame(char* name) {
 			return *itr;
 		}
 	}
-	//一致するフレーム無い場合はNULLを返す
-	return NULL;
+	//一致するフレーム無い場合はnullptrを返す
+	return nullptr;
 }
 CAnimation::CAnimation()
 	:mpFrameName(nullptr)
