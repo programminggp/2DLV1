@@ -7,6 +7,8 @@
 #include "CPlayer.h"
 #include "CInput.h"
 #include "CFont.h"
+#include "CMiss.h"
+#include <vector>
 
 class CApplication
 {
@@ -26,7 +28,9 @@ private:
 	CBullet mBullet;
 	CInput mInput;
 	CFont mFont;
-	CRectangle mMiss;
+	CMiss mMiss;
+	//CCharacterのポインタの可変長配列
+	std::vector<CCharacter*> mCharacters;
 public:
 	//最初に一度だけ実行するプログラム
 	void Start();

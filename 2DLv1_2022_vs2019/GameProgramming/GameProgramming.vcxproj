@@ -14,6 +14,7 @@
     <ClCompile Include="src\CApplication.cpp" />
     <ClCompile Include="src\CBullet.cpp" />
     <ClCompile Include="src\CCharacter.cpp" />
+    <ClCompile Include="src\CCharacterManager.cpp" />
     <ClCompile Include="src\CEnemy.cpp" />
     <ClCompile Include="src\CFont.cpp" />
     <ClCompile Include="src\CPlayer.cpp" />
@@ -27,8 +28,10 @@
     <ClInclude Include="src\CApplication.h" />
     <ClInclude Include="src\CBullet.h" />
     <ClInclude Include="src\CCharacter.h" />
+    <ClInclude Include="src\CCharacterManager.h" />
     <ClInclude Include="src\CEnemy.h" />
     <ClInclude Include="src\CFont.h" />
+    <ClInclude Include="src\CMiss.h" />
     <ClInclude Include="src\CPlayer.h" />
     <ClInclude Include="src\CRectangle.h" />
     <ClInclude Include="src\CSound.h" />
