@@ -8,12 +8,15 @@ void CApplication::Start()
 	mTexture.Load("22302021.png");
 	mEnemy.Set(26.0f, 574.0f, 44.0f, 26.0f);
 	mEnemy.Texture(&mTexture, 1604, 1808, 680, 472);
+	mEnemy2.Set(26.0f, 500.0f, 44.0f, 26.0f);
+	mEnemy2.Texture(&mTexture, 1604, 1808, 680, 472);
 	mBullet.Set(400.0f, -98.0f, 3.0f, 10.0f);
 	mFont.Load("FontWhite.png", 1, 64);
 	mMiss.Set(400.0f, 630.0f, 400.0f, 10.0f);
 	mState = EState::EPLAY;
 	mCharacters.push_back(&mPlayer);
 	mCharacters.push_back(&mEnemy);
+	mCharacters.push_back(&mEnemy2);
 	mCharacters.push_back(&mBullet);
 	mCharacters.push_back(&mMiss);
 //	std::_Erase_remove(mCharacters, mCharacters[1]);

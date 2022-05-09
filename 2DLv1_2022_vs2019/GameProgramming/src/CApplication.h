@@ -25,6 +25,7 @@ private:
 	CPlayer mPlayer;
 	CTexture mTexture;
 	CEnemy mEnemy;
+	CEnemy mEnemy2;
 	CBullet mBullet;
 	CInput mInput;
 	CFont mFont;
