@@ -41,7 +41,16 @@ void CApplication::Update()
 		{
 			mCharacters[i]->Render();
 		}
-		mEnemy.Collision(&mBullet);
+		for (size_t i = 0; i < mCharacters.size(); i++)
+		{
+			if (mBullet.Collision(mCharacters[i]))
+			{
+				mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, 'H');
+				mFont.Draw(400.0f, 300.0f, 15.0f, 30.0f, 'I');
+				mFont.Draw(430.0f, 300.0f, 15.0f, 30.0f, 'T');
+			}
+		}
+//		mEnemy.Collision(&mBullet);
 		if (mBullet.Collision(&mEnemy))
 		{
 			mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, 'H');

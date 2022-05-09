@@ -31,10 +31,16 @@ void CBullet::Render()
 
 bool CBullet::Collision(CRectangle* rect)
 {
-	if (CRectangle::Collision(rect))
+	switch (mTag)
 	{
-		mState = EState::ESTOP;
-		return true;
+	case ETag::EENEMY:
+	case ETag::EMISS:
+		if (CRectangle::Collision(rect))
+		{
+			mState = EState::ESTOP;
+			return true;
+		}
+		break;
 	}
 	return false;
 }

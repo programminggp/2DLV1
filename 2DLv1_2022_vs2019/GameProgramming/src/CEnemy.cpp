@@ -1,5 +1,10 @@
 #include "CEnemy.h"
 
+CEnemy::CEnemy()
+{
+	mTag = ETag::EENEMY;
+}
+
 void CEnemy::Update()
 {
 	if(mState == EState::EMOVE)

@@ -4,6 +4,7 @@ CCharacter::CCharacter()
 	: mpTexture(nullptr)
 	, mLeft(0.0f), mRight(0.0f), mBottom(0.0f), mTop(0.0f)
 	, mState(EState::EMOVE)
+	, mTag(ETag::EINIT)
 {
 
 }

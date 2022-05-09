@@ -5,6 +5,13 @@
 class CCharacter : public CRectangle
 {
 protected:
+	enum class ETag
+	{
+		EINIT,
+		EENEMY,
+		EMISS,
+	};
+	ETag mTag;
 	enum class EState	//ó‘Ô
 	{
 		EMOVE,	//ˆÚ“®

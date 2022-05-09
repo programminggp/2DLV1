@@ -4,6 +4,10 @@
 class CMiss : public CCharacter
 {
 public:
-	void Update() {};
-	void Render() {};
+	CMiss()
+	{
+		mTag = ETag::EMISS;
+	}
+	void Update() {}
+	void Render() {}
 };
