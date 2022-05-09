@@ -26,7 +26,7 @@ private:
 	CTexture mTexture;
 	CEnemy mEnemy;
 	CEnemy mEnemy2;
-	CBullet mBullet;
+//	CBullet mBullet;
 	CInput mInput;
 	CFont mFont;
 	CMiss mMiss;

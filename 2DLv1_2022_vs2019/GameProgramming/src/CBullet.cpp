@@ -3,6 +3,7 @@
 CBullet::CBullet()
 {
 	mState = EState::ESTOP;
+	mTag = ETag::EBULLET;
 }
 
 void CBullet::Update()
@@ -38,6 +39,23 @@ bool CBullet::Collision(CRectangle* rect)
 		if (CRectangle::Collision(rect))
 		{
 			mState = EState::ESTOP;
+			return true;
+		}
+		break;
+	}
+	return false;
+}
+
+bool CBullet::Collision(CCharacter* m, CCharacter* o)
+{
+	switch (o->Tag())
+	{
+	case ETag::EENEMY:
+	case ETag::EMISS:
+		if (CRectangle::Collision(o))
+		{
+			mState = EState::ESTOP;
+			mEnabled = false;
 			return true;
 		}
 		break;

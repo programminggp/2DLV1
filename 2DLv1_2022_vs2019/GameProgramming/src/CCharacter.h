@@ -4,19 +4,22 @@
 
 class CCharacter : public CRectangle
 {
-protected:
+public:
 	enum class ETag
 	{
 		EINIT,
 		EENEMY,
 		EMISS,
+		EBULLET,
 	};
-	ETag mTag;
 	enum class EState	//èÛë‘
 	{
 		EMOVE,	//à⁄ìÆ
 		ESTOP	//í‚é~
 	};
+protected:
+	bool mEnabled;
+	ETag mTag;
 	EState mState;
 private:
 	CTexture *mpTexture;
@@ -28,4 +31,7 @@ public:
 	virtual void Render();
 	void Move();
 	virtual void Update() = 0;
+	virtual bool Collision(CCharacter* m, CCharacter* o);
+	ETag Tag();
+	bool Enabled();
 };
