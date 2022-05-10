@@ -14,10 +14,14 @@ void CApplication::Start()
 	mFont.Load("FontWhite.png", 1, 64);
 	mMiss.Set(400.0f, 630.0f, 400.0f, 10.0f);
 	mState = EState::EPLAY;
-	mCharacters.push_back(&mPlayer);
-	mCharacters.push_back(&mEnemy);
-	mCharacters.push_back(&mEnemy2);
-	mCharacters.push_back(&mMiss);
+	mCharacterManager.Add(&mPlayer);
+	mCharacterManager.Add(&mEnemy);
+	mCharacterManager.Add(&mEnemy2);
+	mCharacterManager.Add(&mMiss);
+	//mCharacters.push_back(&mPlayer);
+	//mCharacters.push_back(&mEnemy);
+	//mCharacters.push_back(&mEnemy2);
+	//mCharacters.push_back(&mMiss);
 //	std::_Erase_remove(mCharacters, mCharacters[1]);
 //	std::_Erase_remove(mCharacters, &mEnemy);
 }
@@ -32,65 +36,69 @@ void CApplication::Update()
 			CBullet* pBullet = new CBullet();
 			pBullet->Set(mPlayer.X(), mPlayer.Y() + mPlayer.H() + 10.0f, 3.0f, 10.0f);
 			pBullet->Move();
-			mCharacters.push_back(pBullet);
+			mCharacterManager.Add(pBullet);
 		}
-		for (size_t i = 0; i < mCharacters.size(); i++)
-		{
-			mCharacters[i]->Update();
-		}
-		for (size_t i = 0; i < mCharacters.size(); i++)
-		{
-			mCharacters[i]->Render();
-		}
-		for (size_t i = 0; i < mCharacters.size(); i++)
-		{
-			if (mCharacters[i]->Tag() == CCharacter::ETag::EBULLET)
-			{
-				for (size_t j = 0; j < mCharacters.size(); j++)
-				{
-					if (mCharacters[i]->Collision(mCharacters[i], mCharacters[j]))
-					{
-						mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, 'H');
-						mFont.Draw(400.0f, 300.0f, 15.0f, 30.0f, 'I');
-						mFont.Draw(430.0f, 300.0f, 15.0f, 30.0f, 'T');
-					}
-				}
-			}
-		}
-		for (size_t i = 0; i < mCharacters.size(); i++)
-		{
-			if (mCharacters[i]->Tag() == CCharacter::ETag::EBULLET)
-			{
-				for (size_t j = 0; j < mCharacters.size(); j++)
-				{
-					if (mCharacters[i]->Collision(mCharacters[i], mCharacters[j]))
-					{
-						mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, 'H');
-						mFont.Draw(400.0f, 300.0f, 15.0f, 30.0f, 'I');
-						mFont.Draw(430.0f, 300.0f, 15.0f, 30.0f, 'T');
-					}
-				}
-			}
-		}
-		{
-			//イテレータの生成
-			std::vector<CCharacter*>::iterator itr;
-			//イテレータを先頭
-			itr = mCharacters.begin();
-			//最後まで繰り返し
-			while (itr != mCharacters.end()) {
-				if ((*itr)->Enabled()) {
-					//次へ
-					itr++;
-				}
-				else {
-					//falseのインスタンスを削除
-					delete* itr;
-					//リストからも削除
-					itr = mCharacters.erase(itr);
-				}
-			}
-		}
+		mCharacterManager.Update();
+		mCharacterManager.Collision();
+		mCharacterManager.Render();
+		mCharacterManager.Delete();
+		//for (size_t i = 0; i < mCharacters.size(); i++)
+		//{
+		//	mCharacters[i]->Update();
+		//}
+		//for (size_t i = 0; i < mCharacters.size(); i++)
+		//{
+		//	mCharacters[i]->Render();
+		//}
+		//for (size_t i = 0; i < mCharacters.size(); i++)
+		//{
+		//	if (mCharacters[i]->Tag() == CCharacter::ETag::EBULLET)
+		//	{
+		//		for (size_t j = 0; j < mCharacters.size(); j++)
+		//		{
+		//			if (mCharacters[i]->Collision(mCharacters[i], mCharacters[j]))
+		//			{
+		//				mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, 'H');
+		//				mFont.Draw(400.0f, 300.0f, 15.0f, 30.0f, 'I');
+		//				mFont.Draw(430.0f, 300.0f, 15.0f, 30.0f, 'T');
+		//			}
+		//		}
+		//	}
+		//}
+		//for (size_t i = 0; i < mCharacters.size(); i++)
+		//{
+		//	if (mCharacters[i]->Tag() == CCharacter::ETag::EBULLET)
+		//	{
+		//		for (size_t j = 0; j < mCharacters.size(); j++)
+		//		{
+		//			if (mCharacters[i]->Collision(mCharacters[i], mCharacters[j]))
+		//			{
+		//				mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, 'H');
+		//				mFont.Draw(400.0f, 300.0f, 15.0f, 30.0f, 'I');
+		//				mFont.Draw(430.0f, 300.0f, 15.0f, 30.0f, 'T');
+		//			}
+		//		}
+		//	}
+		//}
+		//{
+		//	//イテレータの生成
+		//	std::vector<CCharacter*>::iterator itr;
+		//	//イテレータを先頭
+		//	itr = mCharacters.begin();
+		//	//最後まで繰り返し
+		//	while (itr != mCharacters.end()) {
+		//		if ((*itr)->Enabled()) {
+		//			//次へ
+		//			itr++;
+		//		}
+		//		else {
+		//			//falseのインスタンスを削除
+		//			delete* itr;
+		//			//リストからも削除
+		//			itr = mCharacters.erase(itr);
+		//		}
+		//	}
+		//}
 
 		//for (size_t i = 0; i < mCharacters.size(); i++)
 		//{

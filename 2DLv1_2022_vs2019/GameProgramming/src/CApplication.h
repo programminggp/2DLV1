@@ -8,6 +8,7 @@
 #include "CInput.h"
 #include "CFont.h"
 #include "CMiss.h"
+#include "CCharacterManager.h"
 #include <vector>
 
 class CApplication
@@ -32,6 +33,7 @@ private:
 	CMiss mMiss;
 	//CCharacterのポインタの可変長配列
 	std::vector<CCharacter*> mCharacters;
+	CCharacterManager mCharacterManager;
 public:
 	//最初に一度だけ実行するプログラム
 	void Start();
