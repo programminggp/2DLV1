@@ -1,4 +1,5 @@
 #include "CEnemy.h"
+#include "CApplication.h"
 
 CEnemy::CEnemy()
 {
@@ -24,6 +25,18 @@ bool CEnemy::Collision(CRectangle* rect)
 	{
 		Texture(Texture(), 1946, 2172, 920, 664);
 		mState = EState::ESTOP;
+		return true;
+	}
+	return false;
+}
+
+bool CEnemy::Collision(CCharacter* m, CCharacter* o)
+{
+	if (CRectangle::Collision(o))
+	{
+		Texture(Texture(), 1946, 2172, 920, 664);
+		mState = EState::ESTOP;
+		CApplication::Get()->Clear();
 		return true;
 	}
 	return false;

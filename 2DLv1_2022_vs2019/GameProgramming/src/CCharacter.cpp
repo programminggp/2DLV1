@@ -7,7 +7,6 @@ CCharacter::CCharacter()
 	, mTag(ETag::EINIT)
 	, mEnabled(true)
 {
-
 }
 
 void CCharacter::Texture(CTexture *pTexture, int left, int right, int bottom, int top)

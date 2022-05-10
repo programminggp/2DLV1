@@ -13,7 +13,7 @@
 
 class CApplication
 {
-private:
+public:
 	enum class EState
 	{
 		ESTART,	//ゲーム開始
@@ -21,22 +21,28 @@ private:
 		ECLEAR,	//ゲームクリア
 		EOVER,	//ゲームオーバー
 	};
+private:
 	EState mState;
 //	CCharacter mRectangle;
 	CPlayer mPlayer;
 	CTexture mTexture;
 	CEnemy mEnemy;
 	CEnemy mEnemy2;
-//	CBullet mBullet;
+	CBullet mBullet;
 	CInput mInput;
 	CFont mFont;
 	CMiss mMiss;
 	//CCharacterのポインタの可変長配列
 	std::vector<CCharacter*> mCharacters;
 	CCharacterManager mCharacterManager;
+	static CApplication* spInstance;
 public:
 	//最初に一度だけ実行するプログラム
 	void Start();
 	//繰り返し実行するプログラム
 	void Update();
+	static CApplication* Get();
+	void State(EState state);
+	void Over();
+	void Clear();
 };

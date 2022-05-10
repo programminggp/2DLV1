@@ -1,4 +1,5 @@
 #include "CBullet.h"
+#include "CApplication.h"
 
 CBullet::CBullet()
 {
@@ -15,10 +16,6 @@ void CBullet::Update()
 		{
 			y = 0.0f;
 		}
-		/*if (y > 600)
-		{
-			y = 700.0f;
-		}*/
 		Y(y);
 	}
 }
@@ -51,11 +48,19 @@ bool CBullet::Collision(CCharacter* m, CCharacter* o)
 	switch (o->Tag())
 	{
 	case ETag::EENEMY:
+		if (CRectangle::Collision(o))
+		{
+			mState = EState::ESTOP;
+			mEnabled = false;
+			return true;
+		}
+		break;
 	case ETag::EMISS:
 		if (CRectangle::Collision(o))
 		{
 			mState = EState::ESTOP;
 			mEnabled = false;
+			CApplication::Get()->Over();
 			return true;
 		}
 		break;

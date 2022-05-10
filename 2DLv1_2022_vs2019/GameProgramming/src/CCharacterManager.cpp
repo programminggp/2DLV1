@@ -11,50 +11,50 @@ CCharacterManager* CCharacterManager::Get()
 
 void CCharacterManager::Add(CCharacter* c)
 {
-	mCharacters.push_back(c);
+	mpCharacters.push_back(c);
 }
 
 void CCharacterManager::Update()
 {
-	for (size_t i = 0; i < mCharacters.size(); i++)
+	for (size_t i = 0; i < mpCharacters.size(); i++)
 	{
-		mCharacters[i]->Update();
+		mpCharacters[i]->Update();
 	}
 }
 
 void CCharacterManager::Collision()
 {
-	for (size_t i = 0; i < mCharacters.size() - 1; i++)
+	for (size_t i = 0; i < mpCharacters.size() - 1; i++)
 	{
-		for (size_t j = i + 1; j < mCharacters.size(); j++)
+		for (size_t j = i + 1; j < mpCharacters.size(); j++)
 		{
-			mCharacters[i]->Collision(mCharacters[i], mCharacters[j]);
-			mCharacters[j]->Collision(mCharacters[j], mCharacters[i]);
+			mpCharacters[i]->Collision(mpCharacters[i], mpCharacters[j]);
+			mpCharacters[j]->Collision(mpCharacters[j], mpCharacters[i]);
 		}
 	}
 }
 
 void CCharacterManager::Render()
 {
-	for (size_t i = 0; i < mCharacters.size(); i++)
+	for (size_t i = 0; i < mpCharacters.size(); i++)
 	{
-		mCharacters[i]->Render();
+		mpCharacters[i]->Render();
 	}
 }
 
 void CCharacterManager::Delete()
 {
 	int i = 0;
-	while (i < mCharacters.size())
+	while (i < mpCharacters.size())
 	{
-		if (mCharacters[i]->Enabled())
+		if (mpCharacters[i]->Enabled())
 		{
 			i++;
 		}
 		else
 		{
-			delete mCharacters[i];
-			std::_Erase_remove(mCharacters, mCharacters[i]);
+			delete mpCharacters[i];
+			std::_Erase_remove(mpCharacters, mpCharacters[i]);
 		}
 	}
 	//イテレータの生成

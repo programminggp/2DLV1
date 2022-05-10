@@ -24,5 +24,5 @@ public:
 	void Delete();
 private:
 	//CCharacterのポインタの可変長配列
-	std::vector<CCharacter*> mCharacters;
+	std::vector<CCharacter*> mpCharacters;
 };
