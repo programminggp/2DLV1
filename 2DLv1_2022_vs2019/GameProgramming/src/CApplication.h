@@ -9,10 +9,12 @@
 #include "CFont.h"
 #include "CMiss.h"
 #include <vector>
+#include "CCharacterManager.h"
 
 class CApplication
 {
 private:
+	CCharacterManager mCharacterManager;
 	enum class EState
 	{
 		ESTART,	//ゲーム開始
@@ -30,7 +32,7 @@ private:
 	CFont mFont;
 	CMiss mMiss;
 	//CCharacterのポインタの可変長配列
-	std::vector<CCharacter*> mCharacters;
+//	std::vector<CCharacter*> mCharacters;
 public:
 	//最初に一度だけ実行するプログラム
 	void Start();
