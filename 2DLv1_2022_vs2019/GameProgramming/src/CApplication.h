@@ -24,13 +24,13 @@ private:
 	};
 	EState mState;
 //	CCharacter mRectangle;
-	CPlayer mPlayer;
+	CPlayer* mpPlayer;
 	CTexture mTexture;
-	CEnemy mEnemy;
-	CBullet mBullet;
+	CEnemy* mpEnemy;
+	CBullet* mpBullet;
 	CInput mInput;
 	CFont mFont;
-	CMiss mMiss;
+	CMiss* mpMiss;
 	//CCharacterのポインタの可変長配列
 //	std::vector<CCharacter*> mCharacters;
 public:

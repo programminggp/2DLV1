@@ -3,25 +3,52 @@
 
 void CApplication::Start()
 {
-	mPlayer.Set(400.0f, 44.0f, 26.0f, 44.0f);
-	mPlayer.Texture(&mTexture, 740, 876, 1236, 1016);
+	mpEnemy = new CEnemy();
+	mpEnemy->Set(26.0f, 500.0f, 44.0f, 26.0f);
+	mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
+	mCharacterManager.Add(mpEnemy);
+
+	mpEnemy = new CEnemy();
+	mpEnemy->Set(26.0f, 426.0f, 44.0f, 26.0f);
+	mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
+	mCharacterManager.Add(mpEnemy);
+
+	mpPlayer = new CPlayer();
+	mpEnemy = new CEnemy();
+	mpBullet = new CBullet();
+	mpMiss = new CMiss();
+
+	mpPlayer->Set(400.0f, 44.0f, 26.0f, 44.0f);
+	mpPlayer->Texture(&mTexture, 740, 876, 1236, 1016);
 	mTexture.Load("22302021.png");
-	mEnemy.Set(26.0f, 574.0f, 44.0f, 26.0f);
-	mEnemy.Texture(&mTexture, 1604, 1808, 680, 472);
-	mBullet.Set(400.0f, -98.0f, 3.0f, 10.0f);
+
+	mpEnemy->Set(26.0f, 574.0f, 44.0f, 26.0f);
+	mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
+	
+	mpBullet->Set(400.0f, -98.0f, 3.0f, 10.0f);
 	mFont.Load("FontWhite.png", 1, 64);
-	mMiss.Set(400.0f, 630.0f, 400.0f, 10.0f);
+	
+	mpMiss->Set(400.0f, 630.0f, 400.0f, 10.0f);
+
 	mState = EState::EPLAY;
-	mCharacterManager.Add(&mPlayer);
-	mCharacterManager.Add(&mBullet);
-	mCharacterManager.Add(&mEnemy);
-	mCharacterManager.Add(&mMiss);
-	//mCharacters.push_back(&mPlayer);
-	//mCharacters.push_back(&mEnemy);
-	//mCharacters.push_back(&mBullet);
-	//mCharacters.push_back(&mMiss);
-//	std::_Erase_remove(mCharacters, mCharacters[1]);
-//	std::_Erase_remove(mCharacters, &mEnemy);
+	mCharacterManager.Add(mpPlayer);
+	mCharacterManager.Add(mpEnemy);
+	mCharacterManager.Add(mpBullet);
+	mCharacterManager.Add(mpMiss);
+
+	//CPlayer* player = new CPlayer();
+	//player->Set(400.0f, 44.0f, 26.0f, 44.0f);
+	//player->Texture(&mTexture, 740, 876, 1236, 1016);
+	//CEnemy* enemy = new CEnemy();
+	//enemy->Set(26.0f, 574.0f, 44.0f, 26.0f);
+	//enemy->Texture(&mTexture, 1604, 1808, 680, 472);
+	//mBullet.Set(400.0f, -98.0f, 3.0f, 10.0f);
+	//CMiss* miss = new CMiss();
+	//miss->Set(400.0f, 630.0f, 400.0f, 10.0f);
+	//mCharacterManager.Add(player);
+	//mCharacterManager.Add(&mBullet);
+	//mCharacterManager.Add(enemy);
+	//mCharacterManager.Add(miss);
 }
 
 void CApplication::Update()
@@ -31,16 +58,16 @@ void CApplication::Update()
 	case EState::EPLAY:
 		if (mInput.Key(VK_SPACE))
 		{
-			mBullet.Set(mPlayer.X(), mPlayer.Y() + mPlayer.H() + mBullet.H(), 3.0f, 10.0f);
-			mBullet.Move();
+			mpBullet->Set(mpPlayer->X(), mpPlayer->Y() + mpPlayer->H() + mpBullet->H(), 3.0f, 10.0f);
+			mpBullet->Move();
 		}
 
 		mCharacterManager.Update();
 
 		mCharacterManager.Render();
 
-		mEnemy.Collision(&mBullet);
-		if (mBullet.Collision(&mEnemy))
+		mpEnemy->Collision(mpBullet);
+		if (mpBullet->Collision(mpEnemy))
 		{
 			mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, 'H');
 			mFont.Draw(400.0f, 300.0f, 15.0f, 30.0f, 'I');
@@ -49,7 +76,7 @@ void CApplication::Update()
 			mFont.Draw(370.0f, 180.0f, 15.0f, 30.0f, "ENTER");
 			mState = EState::ECLEAR;
 		}
-		if (mBullet.Collision(&mMiss))
+		if (mpBullet->Collision(mpMiss))
 		{
 			mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, "MISS");
 			mState = EState::EOVER;
@@ -80,14 +107,13 @@ void CApplication::Update()
 		}
 		break;
 	default:
-		mPlayer.Set(400.0f, 44.0f, 26.0f, 44.0f);
-		mPlayer.Texture(&mTexture, 740, 876, 1236, 1016);
-		mEnemy.Set(26.0f, 574.0f, 44.0f, 26.0f);
-		mEnemy.Texture(&mTexture, 1604, 1808, 680, 472);
-		mBullet.Set(400.0f, -98.0f, 3.0f, 10.0f);
-		mState = EState::EPLAY;	
-		mEnemy.Move();
+		mpPlayer->Set(400.0f, 44.0f, 26.0f, 44.0f);
+		mpPlayer->Texture(&mTexture, 740, 876, 1236, 1016);
+		mpEnemy->Set(26.0f, 574.0f, 44.0f, 26.0f);
+		mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
+		mpBullet->Set(400.0f, -98.0f, 3.0f, 10.0f);
+		mpEnemy->Move();
+		mState = EState::EPLAY;
 		break;
 	}
 }
-
