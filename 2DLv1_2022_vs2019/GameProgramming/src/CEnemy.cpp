@@ -1,5 +1,11 @@
 #include "CEnemy.h"
 
+CEnemy::CEnemy(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt)
+{
+	Set(x, y, w, h);
+	Texture(pt, l, r, b, t);
+}
+
 void CEnemy::Update()
 {
 	if(mState == EState::EMOVE)

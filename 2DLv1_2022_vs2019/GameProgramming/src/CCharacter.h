@@ -4,12 +4,13 @@
 #include <stdio.h>
 class CCharacter : public CRectangle
 {
-protected:
+public:
 	enum class EState	//ó‘Ô
 	{
 		EMOVE,	//ˆÚ“®
 		ESTOP	//’â~
 	};
+protected:
 	EState mState;
 private:
 	CTexture *mpTexture;

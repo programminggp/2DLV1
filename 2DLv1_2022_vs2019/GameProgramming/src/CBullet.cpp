@@ -1,5 +1,12 @@
 #include "CBullet.h"
 
+CBullet::CBullet(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt)
+{
+	Set(x, y, w, h);
+	Texture(pt, l, r, b, t);
+	mState = EState::EMOVE;
+}
+
 CBullet::CBullet()
 {
 	mState = EState::ESTOP;
@@ -22,12 +29,12 @@ void CBullet::Update()
 	}
 }
 
-void CBullet::Render()
-{
-	glColor3f(1.0f, 1.0f, 0.0f);
-	CRectangle::Render();
-	glColor3f(1.0f, 1.0f, 1.0f);
-}
+//void CBullet::Render()
+//{
+//	glColor3f(1.0f, 1.0f, 0.0f);
+//	CRectangle::Render();
+//	glColor3f(1.0f, 1.0f, 1.0f);
+//}
 
 bool CBullet::Collision(CRectangle* rect)
 {

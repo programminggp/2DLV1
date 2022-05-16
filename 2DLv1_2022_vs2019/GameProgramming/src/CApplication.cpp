@@ -3,27 +3,27 @@
 
 void CApplication::Start()
 {
-	mpEnemy = new CEnemy();
-	mpEnemy->Set(26.0f, 500.0f, 44.0f, 26.0f);
-	mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
+	mpEnemy = new CEnemy(26.0f, 500.0f, 44.0f, 26.0f, 1604, 1808, 680, 472, &mTexture);
+	//mpEnemy->Set(26.0f, 500.0f, 44.0f, 26.0f);
+	//mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
 	mCharacterManager.Add(mpEnemy);
 
-	mpEnemy = new CEnemy();
-	mpEnemy->Set(26.0f, 426.0f, 44.0f, 26.0f);
-	mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
+	mpEnemy = new CEnemy(26.0f, 426.0f, 44.0f, 26.0f, 1604, 1808, 680, 472, &mTexture);
+	//mpEnemy->Set(26.0f, 426.0f, 44.0f, 26.0f);
+	//mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
 	mCharacterManager.Add(mpEnemy);
 
 	mpPlayer = new CPlayer();
-	mpEnemy = new CEnemy();
-	mpBullet = new CBullet();
+	mpEnemy = new CEnemy(26.0f, 574.0f, 44.0f, 26.0f, 1604, 1808, 680, 472, &mTexture);
+	mpBullet = new CBullet(400.0f, -98.0f, 3.0f, 20.0f, 1396, 1420, 750, 592, &mTexture);
 	mpMiss = new CMiss();
 
 	mpPlayer->Set(400.0f, 44.0f, 26.0f, 44.0f);
 	mpPlayer->Texture(&mTexture, 740, 876, 1236, 1016);
 	mTexture.Load("22302021.png");
 
-	mpEnemy->Set(26.0f, 574.0f, 44.0f, 26.0f);
-	mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
+	//mpEnemy->Set(26.0f, 574.0f, 44.0f, 26.0f);
+	//mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
 	
 	mpBullet->Set(400.0f, -98.0f, 3.0f, 10.0f);
 	mFont.Load("FontWhite.png", 1, 64);
@@ -58,8 +58,11 @@ void CApplication::Update()
 	case EState::EPLAY:
 		if (mInput.Key(VK_SPACE))
 		{
-			mpBullet->Set(mpPlayer->X(), mpPlayer->Y() + mpPlayer->H() + mpBullet->H(), 3.0f, 10.0f);
-			mpBullet->Move();
+			//mpBullet->Set(mpPlayer->X(), mpPlayer->Y() + mpPlayer->H() + mpBullet->H(), 3.0f, 10.0f);
+			//mpBullet->Move();
+			mCharacterManager.Add(
+				new CBullet(mpPlayer->X(), mpPlayer->Y() + mpPlayer->H() + 10.0f
+				, 3.0f, 10.0f, 1396, 1420, 750, 592, &mTexture));
 		}
 
 		mCharacterManager.Update();
