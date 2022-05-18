@@ -16,6 +16,7 @@ private:
 	CTexture *mpTexture;
 	int mLeft, mRight, mBottom, mTop;
 public:
+	virtual void Collision() {};
 	virtual void Update() = 0;
 	CCharacter();
 	CTexture* Texture();

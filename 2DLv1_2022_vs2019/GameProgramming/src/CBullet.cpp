@@ -45,3 +45,7 @@ bool CBullet::Collision(CRectangle* rect)
 	}
 	return false;
 }
+
+//void CBullet::Collision()
+//{
+//}

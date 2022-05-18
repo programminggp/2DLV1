@@ -2,10 +2,10 @@
 
 //CCharacterManager* CCharacterManager::Get()
 //{
-//	static変数の作成
-//	staticは最初に一度作成され削除されない
+//	//static変数の作成
+//	//staticは最初から一度だけ作成され削除はされない
 //	static CCharacterManager cm;
-//	CCharacterManagerのインスタンスcmのポインタを返す
+//	//CCharacterManagerのインスタンスcmのポインタを返す
 //	return &cm;
 //}
 
@@ -24,6 +24,10 @@ void CCharacterManager::Update()
 
 void CCharacterManager::Collision()
 {
+	for (size_t i = 0; i < mpCharacters.size(); i++)
+	{
+		mpCharacters[i]->Collision();
+	}
 }
 
 void CCharacterManager::Render()

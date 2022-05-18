@@ -14,7 +14,7 @@
 class CApplication
 {
 private:
-	CCharacterManager mCharacterManager;
+	static CCharacterManager mCharacterManager;
 	enum class EState
 	{
 		ESTART,	//ゲーム開始
@@ -25,15 +25,17 @@ private:
 	EState mState;
 //	CCharacter mRectangle;
 	CPlayer* mpPlayer;
-	CTexture mTexture;
+	static CTexture mTexture;
 	CEnemy* mpEnemy;
-	CBullet* mpBullet;
+//	CBullet* mpBullet;
 	CInput mInput;
 	CFont mFont;
 	CMiss* mpMiss;
 	//CCharacterのポインタの可変長配列
 //	std::vector<CCharacter*> mCharacters;
 public:
+	static CCharacterManager* CharacterManager();
+	static CTexture* Texture();
 	//最初に一度だけ実行するプログラム
 	void Start();
 	//繰り返し実行するプログラム
