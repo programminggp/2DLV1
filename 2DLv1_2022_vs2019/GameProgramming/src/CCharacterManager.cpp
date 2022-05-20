@@ -30,6 +30,14 @@ void CCharacterManager::Collision()
 	}
 }
 
+void CCharacterManager::Collision(CCharacter* character)
+{
+	for (size_t i = 0; i < mpCharacters.size(); i++)
+	{
+		character->Collision(character, mpCharacters[i]);
+	}
+}
+
 void CCharacterManager::Render()
 {
 	for (size_t i = 0; i < mpCharacters.size(); i++)
@@ -38,6 +46,26 @@ void CCharacterManager::Render()
 	}
 }
 
-void CCharacterManager::Delete()
-{
-}
+//void CCharacterManager::Delete()
+//{
+//	//イテレータの生成
+//	std::vector<CCharacter*>::iterator itr;
+//	//イテレータを先頭
+//	itr = mpCharacters.begin();
+//	//最後まで繰り返し
+//	while (itr != mpCharacters.end())
+//	{
+//		if ((*itr)->Enabled())
+//		{
+//			//次へ
+//			itr++;
+//		}
+//		else
+//		{
+//			//falseのインスタンスを削除
+//			delete* itr;
+//			//リストからも削除
+//			itr = mpCharacters.erase(itr);
+//		}
+//	}
+//}

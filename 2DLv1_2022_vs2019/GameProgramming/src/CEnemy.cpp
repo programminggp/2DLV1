@@ -1,9 +1,11 @@
 #include "CEnemy.h"
+#include "CApplication.h"
 
 CEnemy::CEnemy(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt)
 {
 	Set(x, y, w, h);
 	Texture(pt, l, r, b, t);
+	mTag = ETag::EENEMY;
 }
 
 void CEnemy::Update()
@@ -28,4 +30,24 @@ bool CEnemy::Collision(CRectangle* rect)
 		return true;
 	}
 	return false;
+}
+
+void CEnemy::Collision()
+{
+	CApplication::CharacterManager()->Collision(this);
+}
+
+void CEnemy::Collision(CCharacter* m, CCharacter* o)
+{
+	switch (o->Tag())
+	{
+	case ETag::EENEMY:
+		break;
+	default:
+		if (CRectangle::Collision(o))
+		{
+			mState = EState::ESTOP;
+			//mEnabled = false;
+		}
+	}
 }

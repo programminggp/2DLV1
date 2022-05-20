@@ -82,6 +82,10 @@ void CApplication::Update()
 
 		mCharacterManager.Update();
 
+		mCharacterManager.Collision();
+
+		//mCharacterManager.Delete();
+
 		mCharacterManager.Render();
 
 		//mpEnemy->Collision(mpBullet);

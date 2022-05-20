@@ -10,6 +10,12 @@ private:
 	//CCharacterのポインタの可変長配列
 	std::vector<CCharacter*> mpCharacters;
 public:
+	//衝突処理１
+	void Collision();
+	//衝突処理３
+	//Collision(衝突元のポインタ)
+	void Collision(CCharacter* character);
+
 	//staticメソッドは最初から作成され、
 	//インスタンス不要で、どこでも呼ぶことができる。
 	//CCharacterManagerのインスタンスのポインタを返す
@@ -20,10 +26,8 @@ public:
 	void Add(CCharacter* c);
 	//可変長配列にあるポインタのUpdate()を実行していく
 	void Update();
-	//ポインタの衝突処理を実行する
-	void Collision();
 	//可変長配列にあるポインタのRender()を実行していく
 	void Render();
 	//不要なポインタを削除する
-	void Delete();
+//	void Delete();
 };
