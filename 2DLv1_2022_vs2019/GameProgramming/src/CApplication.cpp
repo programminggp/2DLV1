@@ -84,7 +84,7 @@ void CApplication::Update()
 
 		mCharacterManager.Collision();
 
-		//mCharacterManager.Delete();
+		mCharacterManager.Delete();
 
 		mCharacterManager.Render();
 

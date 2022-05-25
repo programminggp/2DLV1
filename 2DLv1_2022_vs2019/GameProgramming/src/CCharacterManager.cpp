@@ -46,26 +46,26 @@ void CCharacterManager::Render()
 	}
 }
 
-//void CCharacterManager::Delete()
-//{
-//	//イテレータの生成
-//	std::vector<CCharacter*>::iterator itr;
-//	//イテレータを先頭
-//	itr = mpCharacters.begin();
-//	//最後まで繰り返し
-//	while (itr != mpCharacters.end())
-//	{
-//		if ((*itr)->Enabled())
-//		{
-//			//次へ
-//			itr++;
-//		}
-//		else
-//		{
-//			//falseのインスタンスを削除
-//			delete* itr;
-//			//リストからも削除
-//			itr = mpCharacters.erase(itr);
-//		}
-//	}
-//}
+void CCharacterManager::Delete()
+{
+	//イテレータの生成
+	std::vector<CCharacter*>::iterator itr;
+	//イテレータを先頭へ
+	itr = mpCharacters.begin();
+	//最後まで繰り返し
+	while (itr != mpCharacters.end())
+	{
+		if ((*itr)->Enabled())
+		{
+			//次へ
+			itr++;
+		}
+		else
+		{
+			//falseの時、インスタンスを削除
+			delete *itr;
+			//配列から削除
+			itr = mpCharacters.erase(itr);
+		}
+	}
+}

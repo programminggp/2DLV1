@@ -10,6 +10,8 @@ private:
 	//CCharacterのポインタの可変長配列
 	std::vector<CCharacter*> mpCharacters;
 public:
+	//不要なポインタを削除する
+	void Delete();
 	//衝突処理１
 	void Collision();
 	//衝突処理３
@@ -28,6 +30,5 @@ public:
 	void Update();
 	//可変長配列にあるポインタのRender()を実行していく
 	void Render();
-	//不要なポインタを削除する
-//	void Delete();
+
 };

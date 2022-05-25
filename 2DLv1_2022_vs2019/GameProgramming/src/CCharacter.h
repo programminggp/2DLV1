@@ -18,9 +18,9 @@ public:
 		ESTOP	//í‚é~
 	};
 protected:
+	bool mEnabled;
 	ETag mTag;
 	EState mState;
-	bool mEnabled;
 private:
 	CTexture *mpTexture;
 	int mLeft, mRight, mBottom, mTop;
