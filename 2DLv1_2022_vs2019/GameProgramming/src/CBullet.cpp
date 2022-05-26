@@ -9,7 +9,6 @@ CBullet::CBullet(float x, float y, float w, float h, float l, float r, float b, 
 	mTag = ETag::EBULLET;
 }
 
-
 CBullet::CBullet()
 {
 	mState = EState::ESTOP;
@@ -25,6 +24,10 @@ void CBullet::Update()
 		{
 			y = 0.0f;
 		}
+		/*if (y > 600)
+		{
+			y = 700.0f;
+		}*/
 		Y(y);
 	}
 }
@@ -38,41 +41,10 @@ void CBullet::Update()
 
 bool CBullet::Collision(CRectangle* rect)
 {
-	switch (mTag)
+	if (CRectangle::Collision(rect))
 	{
-	case ETag::EENEMY:
-	case ETag::EMISS:
-		if (CRectangle::Collision(rect))
-		{
-			mState = EState::ESTOP;
-			return true;
-		}
-		break;
-	}
-	return false;
-}
-
-bool CBullet::Collision(CCharacter* m, CCharacter* o)
-{
-	switch (o->Tag())
-	{
-	case ETag::EENEMY:
-		if (CRectangle::Collision(o))
-		{
-			mState = EState::ESTOP;
-			mEnabled = false;
-			return true;
-		}
-		break;
-	case ETag::EMISS:
-		if (CRectangle::Collision(o))
-		{
-			mState = EState::ESTOP;
-			mEnabled = false;
-			CApplication::Get()->Over();
-			return true;
-		}
-		break;
+		mState = EState::ESTOP;
+		return true;
 	}
 	return false;
 }

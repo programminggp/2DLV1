@@ -17,6 +17,7 @@ CCharacter::CCharacter()
 	, mTag(ETag::EZERO)
 	, mEnabled(true)
 {
+
 }
 
 void CCharacter::Texture(CTexture *pTexture, int left, int right, int bottom, int top)
@@ -42,21 +43,6 @@ void CCharacter::Render()
 void CCharacter::Move()
 {
 	mState = EState::EMOVE;
-}
-
-bool CCharacter::Collision(CCharacter* m, CCharacter* o)
-{
-	return false;
-}
-
-CCharacter::ETag CCharacter::Tag()
-{
-	return mTag;
-}
-
-bool CCharacter::Enabled()
-{
-	return mEnabled;
 }
 
 CTexture* CCharacter::Texture()

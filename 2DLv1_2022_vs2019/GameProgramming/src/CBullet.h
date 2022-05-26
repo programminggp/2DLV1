@@ -15,5 +15,4 @@ public:
 	void Update();
 	//void Render();
 	bool Collision(CRectangle* rect);
-	bool Collision(CCharacter* m, CCharacter* o);
 };

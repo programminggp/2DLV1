@@ -7,15 +7,15 @@ class CCharacter : public CRectangle
 public:
 	enum class ETag
 	{
-		EZERO,		//Ââ€°Å Ãºâ€™l
-		EBULLET,	//â€™e
-		EENEMY,		//â€œI
-		EPLAYER		//Æ’vÆ’Å’Æ’CÆ’â€Â[
+		EZERO,		//‰Šú’l
+		EBULLET,	//’e
+		EENEMY,		//“I
+		EPLAYER		//ƒvƒŒƒCƒ„[
 	};
-	enum class EState	//ÂÃ³â€˜Ã”
+	enum class EState	//ó‘Ô
 	{
-		EMOVE,	//Ë†Ãšâ€œÂ®
-		ESTOP	//â€™Ã¢Å½~
+		EMOVE,	//ˆÚ“®
+		ESTOP	//’â~
 	};
 protected:
 	bool mEnabled;
@@ -27,10 +27,10 @@ private:
 public:
 	bool Enabled();
 	ETag Tag();
-	//ÂÃ•â€œÃ‹ÂË†â€”Ââ€šQ
+	//Õ“Ëˆ—‚Q
 	virtual void Collision() {};
-	//ÂÃ•â€œÃ‹ÂË†â€”Ââ€šS
-	//Collision(Å½Â©â€¢Âªâ€šÃŒÆ’|Æ’CÆ’â€œÆ’^, ÂÃ•â€œÃ‹â€˜Å Å½Ã¨â€šÃŒÆ’|Æ’CÆ’â€œÆ’^)
+	//Õ“Ëˆ—‚S
+	//Collision(©•ª‚Ìƒ|ƒCƒ“ƒ^, Õ“Ë‘Šè‚Ìƒ|ƒCƒ“ƒ^)
 	virtual void Collision(CCharacter* m, CCharacter* o) {};
 	virtual void Update() = 0;
 	CCharacter();
@@ -38,6 +38,4 @@ public:
 	void Texture(CTexture *pTexture, int left, int right, int bottom, int top);
 	virtual void Render();
 	void Move();
-
-
 };

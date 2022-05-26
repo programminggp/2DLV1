@@ -2,10 +2,10 @@
 
 //CCharacterManager* CCharacterManager::Get()
 //{
-//	//staticå¤‰æ•°ã®ä½œæˆ
-//	//staticã¯æœ€åˆã‹ã‚‰ä¸€åº¦ã ã‘ä½œæˆã•ã‚Œå‰Šé™¤ã¯ã•ã‚Œãªã„
+//	//static•Ï”‚Ìì¬
+//	//static‚ÍÅ‰‚©‚çˆê“x‚¾‚¯ì¬‚³‚êíœ‚Í‚³‚ê‚È‚¢
 //	static CCharacterManager cm;
-//	//CCharacterManagerã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹cmã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
+//	//CCharacterManager‚ÌƒCƒ“ƒXƒ^ƒ“ƒXcm‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
 //	return &cm;
 //}
 
@@ -48,41 +48,24 @@ void CCharacterManager::Render()
 
 void CCharacterManager::Delete()
 {
-	//ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®ç”Ÿæˆ
+	//ƒCƒeƒŒ[ƒ^‚Ì¶¬
 	std::vector<CCharacter*>::iterator itr;
-	//ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’å…ˆé ­ã¸
+	//ƒCƒeƒŒ[ƒ^‚ğæ“ª‚Ö
 	itr = mpCharacters.begin();
-	//æœ€å¾Œã¾ã§ç¹°ã‚Šè¿”ã—
+	//ÅŒã‚Ü‚ÅŒJ‚è•Ô‚µ
 	while (itr != mpCharacters.end())
 	{
 		if ((*itr)->Enabled())
 		{
-			//æ¬¡ã¸
+			//Ÿ‚Ö
 			itr++;
 		}
 		else
 		{
-			//falseã®æ™‚ã€ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å‰Šé™¤
+			//false‚ÌAƒCƒ“ƒXƒ^ƒ“ƒX‚ğíœ
 			delete *itr;
-			//é…åˆ—ã‹ã‚‰å‰Šé™¤
+			//”z—ñ‚©‚çíœ
 			itr = mpCharacters.erase(itr);
 		}
 	}
-	//ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®ç”Ÿæˆ
-	//std::vector<CCharacter*>::iterator itr;
-	////ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’å…ˆé ­
-	//itr = mCharacters.begin();
-	////æœ€å¾Œã¾ã§ç¹°ã‚Šè¿”ã—
-	//while (itr != mCharacters.end()) {
-	//	if ((*itr)->Enabled()) {
-	//		//æ¬¡ã¸
-	//		itr++;
-	//	}
-	//	else {
-	//		//falseã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å‰Šé™¤
-	//		delete* itr;
-	//		//ãƒªã‚¹ãƒˆã‹ã‚‰ã‚‚å‰Šé™¤
-	//		itr = mCharacters.erase(itr);
-	//	}
-	//}
 }

@@ -1,8 +1,7 @@
 #include "CApplication.h"
 #include "CRectangle.h"
 
-
-//ã‚¯ãƒ©ã‚¹ã®staticå¤‰æ•°
+//ƒNƒ‰ƒX‚Ìstatic•Ï”
 CTexture CApplication::mTexture;
 CCharacterManager CApplication::mCharacterManager;
 
@@ -42,13 +41,11 @@ void CApplication::Start()
 	//mpEnemy->Texture(&mTexture, 1604, 1808, 680, 472);
 	
 //	mpBullet->Set(400.0f, -98.0f, 3.0f, 10.0f);
-
 	mFont.Load("FontWhite.png", 1, 64);
 	
 	mpMiss->Set(400.0f, 630.0f, 400.0f, 10.0f);
 
 	mState = EState::EPLAY;
-
 	mCharacterManager.Add(mpPlayer);
 	mCharacterManager.Add(mpEnemy);
 //	mCharacterManager.Add(mpBullet);
@@ -67,7 +64,6 @@ void CApplication::Start()
 	//mCharacterManager.Add(&mBullet);
 	//mCharacterManager.Add(enemy);
 	//mCharacterManager.Add(miss);
-
 }
 
 void CApplication::Update()
@@ -123,7 +119,7 @@ void CApplication::Update()
 	case EState::EOVER:
 
 		mCharacterManager.Render();
-      
+
 		mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, "MISS");
 		mFont.Draw(370.0f, 240.0f, 15.0f, 30.0f, "PUSH");
 		mFont.Draw(370.0f, 180.0f, 15.0f, 30.0f, "ENTER");
@@ -143,24 +139,3 @@ void CApplication::Update()
 		break;
 	}
 }
-
-CApplication* CApplication::Get()
-{
-	return spInstance;
-}
-
-void CApplication::State(EState state)
-{
-	mState = state;
-}
-
-void CApplication::Over()
-{
-	mState = EState::EOVER;
-}
-
-void CApplication::Clear()
-{
-	mState = EState::ECLEAR;
-}
-
