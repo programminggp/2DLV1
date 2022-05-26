@@ -4,8 +4,10 @@
 class CEnemy : public CCharacter
 {
 public:
-	CEnemy();
+	//CEnemy(X��W,Y��W,��,����,�摜�E,�摜��,�摜��,�摜��,�e�N�X�`���̃|�C���^)
+	CEnemy(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt);
 	void Update();
 	bool Collision(CRectangle* rect);
-	bool Collision(CCharacter* m, CCharacter* o);
+	void Collision();
+	void Collision(CCharacter* m, CCharacter* o);
 };

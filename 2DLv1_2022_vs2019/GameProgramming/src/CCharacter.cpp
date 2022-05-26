@@ -1,10 +1,20 @@
 #include "CCharacter.h"
 
+bool CCharacter::Enabled()
+{
+	return mEnabled;
+}
+
+CCharacter::ETag CCharacter::Tag()
+{
+	return mTag;
+}
+
 CCharacter::CCharacter()
 	: mpTexture(nullptr)
 	, mLeft(0.0f), mRight(0.0f), mBottom(0.0f), mTop(0.0f)
 	, mState(EState::EMOVE)
-	, mTag(ETag::EINIT)
+	, mTag(ETag::EZERO)
 	, mEnabled(true)
 {
 }

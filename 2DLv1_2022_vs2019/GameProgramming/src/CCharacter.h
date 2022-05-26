@@ -1,21 +1,21 @@
 #pragma once
 #include "CRectangle.h"
 #include "CTexture.h"
-
+#include <stdio.h>
 class CCharacter : public CRectangle
 {
 public:
 	enum class ETag
 	{
-		EINIT,
-		EENEMY,
-		EMISS,
-		EBULLET,
+		EZERO,		//‰Šú’l
+		EBULLET,	//’e
+		EENEMY,		//“I
+		EPLAYER		//ƒvƒŒƒCƒ„[
 	};
-	enum class EState	//���
+	enum class EState	//ó‘Ô
 	{
-		EMOVE,	//�ړ�
-		ESTOP	//��~
+		EMOVE,	//ˆÚ“®
+		ESTOP	//’âŽ~
 	};
 protected:
 	bool mEnabled;
@@ -25,13 +25,19 @@ private:
 	CTexture *mpTexture;
 	int mLeft, mRight, mBottom, mTop;
 public:
+	bool Enabled();
+	ETag Tag();
+	//Õ“Ëˆ—‚Q
+	virtual void Collision() {};
+	//Õ“Ëˆ—‚S
+	//Collision(Ž©•ª‚Ìƒ|ƒCƒ“ƒ^, Õ“Ë‘ŠŽè‚Ìƒ|ƒCƒ“ƒ^)
+	virtual void Collision(CCharacter* m, CCharacter* o) {};
+	virtual void Update() = 0;
 	CCharacter();
 	CTexture* Texture();
 	void Texture(CTexture *pTexture, int left, int right, int bottom, int top);
 	virtual void Render();
 	void Move();
-	virtual void Update() = 0;
-	virtual bool Collision(CCharacter* m, CCharacter* o);
-	ETag Tag();
-	bool Enabled();
+
+
 };

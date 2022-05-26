@@ -10,36 +10,40 @@
 #include "CMiss.h"
 #include "CCharacterManager.h"
 #include <vector>
+#include "CCharacterManager.h"
 
 class CApplication
 {
-public:
+private:
+	static CCharacterManager mCharacterManager;
+
 	enum class EState
 	{
-		ESTART,	//ƒQ[ƒ€ŠJn
-		EPLAY,	//ƒQ[ƒ€’†
-		ECLEAR,	//ƒQ[ƒ€ƒNƒŠƒA
-		EOVER,	//ƒQ[ƒ€ƒI[ƒo[
+		ESTART,	//ã‚²ãƒ¼ãƒ é–‹å§‹
+		EPLAY,	//ã‚²ãƒ¼ãƒ ä¸­
+		ECLEAR,	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢
+		EOVER,	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
 	};
 private:
 	EState mState;
 //	CCharacter mRectangle;
-	CPlayer mPlayer;
-	CTexture mTexture;
-	CEnemy mEnemy;
-	CEnemy mEnemy2;
-	CBullet mBullet;
+	CPlayer* mpPlayer;
+	static CTexture mTexture;
+	CEnemy* mpEnemy;
+//	CBullet* mpBullet;
 	CInput mInput;
 	CFont mFont;
-	CMiss mMiss;
-	//CCharacter‚Ìƒ|ƒCƒ“ƒ^‚Ì‰Â•Ï’·”z—ñ
-	std::vector<CCharacter*> mCharacters;
-	CCharacterManager mCharacterManager;
-	static CApplication* spInstance;
+	CMiss* mpMiss;
+	//CCharacterã®ãƒã‚¤ãƒ³ã‚¿ã®å¯å¤‰é•·é…åˆ—
+
+//	std::vector<CCharacter*> mCharacters;
+
 public:
-	//Å‰‚Éˆê“x‚¾‚¯Às‚·‚éƒvƒƒOƒ‰ƒ€
+	static CCharacterManager* CharacterManager();
+	static CTexture* Texture();
+	//æœ€åˆã«ä¸€åº¦ã ã‘å®Ÿè¡Œã™ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
 	void Start();
-	//ŒJ‚è•Ô‚µÀs‚·‚éƒvƒƒOƒ‰ƒ€
+	//ç¹°ã‚Šè¿”ã—å®Ÿè¡Œã™ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
 	void Update();
 	static CApplication* Get();
 	void State(EState state);

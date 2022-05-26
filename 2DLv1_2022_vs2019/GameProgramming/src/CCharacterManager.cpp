@@ -1,13 +1,13 @@
 #include "CCharacterManager.h"
 
-CCharacterManager* CCharacterManager::Get()
-{
-	//static•Ï”‚Ìì¬
-	//static‚ÍÅ‰‚Éˆê“xì¬‚³‚êíœ‚³‚ê‚È‚¢
-	static CCharacterManager cm;
-	//CCharacterManager‚ÌƒCƒ“ƒXƒ^ƒ“ƒXcm‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
-	return &cm;
-}
+//CCharacterManager* CCharacterManager::Get()
+//{
+//	//staticå¤‰æ•°ã®ä½œæˆ
+//	//staticã¯æœ€åˆã‹ã‚‰ä¸€åº¦ã ã‘ä½œæˆã•ã‚Œå‰Šé™¤ã¯ã•ã‚Œãªã„
+//	static CCharacterManager cm;
+//	//CCharacterManagerã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹cmã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
+//	return &cm;
+//}
 
 void CCharacterManager::Add(CCharacter* c)
 {
@@ -24,13 +24,17 @@ void CCharacterManager::Update()
 
 void CCharacterManager::Collision()
 {
-	for (size_t i = 0; i < mpCharacters.size() - 1; i++)
+	for (size_t i = 0; i < mpCharacters.size(); i++)
 	{
-		for (size_t j = i + 1; j < mpCharacters.size(); j++)
-		{
-			mpCharacters[i]->Collision(mpCharacters[i], mpCharacters[j]);
-			mpCharacters[j]->Collision(mpCharacters[j], mpCharacters[i]);
-		}
+		mpCharacters[i]->Collision();
+	}
+}
+
+void CCharacterManager::Collision(CCharacter* character)
+{
+	for (size_t i = 0; i < mpCharacters.size(); i++)
+	{
+		character->Collision(character, mpCharacters[i]);
 	}
 }
 
@@ -44,33 +48,40 @@ void CCharacterManager::Render()
 
 void CCharacterManager::Delete()
 {
-	int i = 0;
-	while (i < mpCharacters.size())
+	//ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®ç”Ÿæˆ
+	std::vector<CCharacter*>::iterator itr;
+	//ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’å…ˆé ­ã¸
+	itr = mpCharacters.begin();
+	//æœ€å¾Œã¾ã§ç¹°ã‚Šè¿”ã—
+	while (itr != mpCharacters.end())
 	{
-		if (mpCharacters[i]->Enabled())
+		if ((*itr)->Enabled())
 		{
-			i++;
+			//æ¬¡ã¸
+			itr++;
 		}
 		else
 		{
-			delete mpCharacters[i];
-			std::_Erase_remove(mpCharacters, mpCharacters[i]);
+			//falseã®æ™‚ã€ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å‰Šé™¤
+			delete *itr;
+			//é…åˆ—ã‹ã‚‰å‰Šé™¤
+			itr = mpCharacters.erase(itr);
 		}
 	}
-	//ƒCƒeƒŒ[ƒ^‚Ì¶¬
+	//ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã®ç”Ÿæˆ
 	//std::vector<CCharacter*>::iterator itr;
-	////ƒCƒeƒŒ[ƒ^‚ğæ“ª
+	////ã‚¤ãƒ†ãƒ¬ãƒ¼ã‚¿ã‚’å…ˆé ­
 	//itr = mCharacters.begin();
-	////ÅŒã‚Ü‚ÅŒJ‚è•Ô‚µ
+	////æœ€å¾Œã¾ã§ç¹°ã‚Šè¿”ã—
 	//while (itr != mCharacters.end()) {
 	//	if ((*itr)->Enabled()) {
-	//		//Ÿ‚Ö
+	//		//æ¬¡ã¸
 	//		itr++;
 	//	}
 	//	else {
-	//		//false‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğíœ
+	//		//falseã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’å‰Šé™¤
 	//		delete* itr;
-	//		//ƒŠƒXƒg‚©‚ç‚àíœ
+	//		//ãƒªã‚¹ãƒˆã‹ã‚‰ã‚‚å‰Šé™¤
 	//		itr = mCharacters.erase(itr);
 	//	}
 	//}
