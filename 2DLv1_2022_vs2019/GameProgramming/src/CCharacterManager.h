@@ -2,33 +2,33 @@
 #include "CCharacter.h"
 #include <vector>
 /*
-* CCharacterƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğŠÇ—‚·‚é
+* CCharacterã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç®¡ç†ã™ã‚‹
 */
 class CCharacterManager
 {
 private:
-	//CCharacter‚Ìƒ|ƒCƒ“ƒ^‚Ì‰Â•Ï’·”z—ñ
+	//CCharacterã®ãƒã‚¤ãƒ³ã‚¿ã®å¯å¤‰é•·é…åˆ—
 	std::vector<CCharacter*> mpCharacters;
 public:
-	//•s—v‚Èƒ|ƒCƒ“ƒ^‚ğíœ‚·‚é
+	//ä¸è¦ãªãƒã‚¤ãƒ³ã‚¿ã‚’å‰Šé™¤ã™ã‚‹
 	void Delete();
-	//Õ“Ëˆ—‚P
+	//è¡çªå‡¦ç†ï¼‘
 	void Collision();
-	//Õ“Ëˆ—‚R
-	//Collision(Õ“ËŒ³‚Ìƒ|ƒCƒ“ƒ^)
+	//è¡çªå‡¦ç†ï¼“
+	//Collision(è¡çªå…ƒã®ãƒã‚¤ãƒ³ã‚¿)
 	void Collision(CCharacter* character);
 
-	//staticƒƒ\ƒbƒh‚ÍÅ‰‚©‚çì¬‚³‚êA
-	//ƒCƒ“ƒXƒ^ƒ“ƒX•s—v‚ÅA‚Ç‚±‚Å‚àŒÄ‚Ô‚±‚Æ‚ª‚Å‚«‚éB
-	//CCharacterManager‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^‚ğ•Ô‚·
+	//staticãƒ¡ã‚½ãƒƒãƒ‰ã¯æœ€åˆã‹ã‚‰ä½œæˆã•ã‚Œã€
+	//ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ä¸è¦ã§ã€ã©ã“ã§ã‚‚å‘¼ã¶ã“ã¨ãŒã§ãã‚‹ã€‚
+	//CCharacterManagerã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™
 	//static CCharacterManager* Get();
 
-	//Add(CChracter‚Ìƒ|ƒCƒ“ƒ^)
-	//‰Â•Ï’·”z—ñ‚ÌŒã‚ë‚É’Ç‰Á‚·‚é
+	//Add(CChracterã®ãƒã‚¤ãƒ³ã‚¿)
+	//å¯å¤‰é•·é…åˆ—ã®å¾Œã‚ã«è¿½åŠ ã™ã‚‹
 	void Add(CCharacter* c);
-	//‰Â•Ï’·”z—ñ‚É‚ ‚éƒ|ƒCƒ“ƒ^‚ÌUpdate()‚ğÀs‚µ‚Ä‚¢‚­
+	//å¯å¤‰é•·é…åˆ—ã«ã‚ã‚‹ãƒã‚¤ãƒ³ã‚¿ã®Update()ã‚’å®Ÿè¡Œã—ã¦ã„ã
 	void Update();
-	//‰Â•Ï’·”z—ñ‚É‚ ‚éƒ|ƒCƒ“ƒ^‚ÌRender()‚ğÀs‚µ‚Ä‚¢‚­
+	//å¯å¤‰é•·é…åˆ—ã«ã‚ã‚‹ãƒã‚¤ãƒ³ã‚¿ã®Render()ã‚’å®Ÿè¡Œã—ã¦ã„ã
 	void Render();
 
 };

@@ -4,7 +4,7 @@
 class CEnemy : public CCharacter
 {
 public:
-	//CEnemy(XÀ•W,YÀ•W,•,‚‚³,‰æ‘œ‰E,‰æ‘œ¶,‰æ‘œ‰º,‰æ‘œã,ƒeƒNƒXƒ`ƒƒ‚Ìƒ|ƒCƒ“ƒ^)
+	//CEnemy(Xï¿½ï¿½W,Yï¿½ï¿½W,ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½æ‘œï¿½E,ï¿½æ‘œï¿½ï¿½,ï¿½æ‘œï¿½ï¿½,ï¿½æ‘œï¿½ï¿½,ï¿½eï¿½Nï¿½Xï¿½`ï¿½ï¿½ï¿½Ìƒ|ï¿½Cï¿½ï¿½ï¿½^)
 	CEnemy(float x, float y, float w, float h, float l, float r, float b, float t, CTexture* pt);
 	void Update();
 	bool Collision(CRectangle* rect);

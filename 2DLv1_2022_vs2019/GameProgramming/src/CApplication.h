@@ -8,6 +8,7 @@
 #include "CInput.h"
 #include "CFont.h"
 #include "CMiss.h"
+#include "CCharacterManager.h"
 #include <vector>
 #include "CCharacterManager.h"
 
@@ -15,13 +16,15 @@ class CApplication
 {
 private:
 	static CCharacterManager mCharacterManager;
+
 	enum class EState
 	{
-		ESTART,	//ƒQ[ƒ€ŠJn
-		EPLAY,	//ƒQ[ƒ€’†
-		ECLEAR,	//ƒQ[ƒ€ƒNƒŠƒA
-		EOVER,	//ƒQ[ƒ€ƒI[ƒo[
+		ESTART,	//ã‚²ãƒ¼ãƒ é–‹å§‹
+		EPLAY,	//ã‚²ãƒ¼ãƒ ä¸­
+		ECLEAR,	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢
+		EOVER,	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
 	};
+private:
 	EState mState;
 //	CCharacter mRectangle;
 	CPlayer* mpPlayer;
@@ -31,13 +34,19 @@ private:
 	CInput mInput;
 	CFont mFont;
 	CMiss* mpMiss;
-	//CCharacter‚Ìƒ|ƒCƒ“ƒ^‚Ì‰Â•Ï’·”z—ñ
+	//CCharacterã®ãƒã‚¤ãƒ³ã‚¿ã®å¯å¤‰é•·é…åˆ—
+
 //	std::vector<CCharacter*> mCharacters;
+
 public:
 	static CCharacterManager* CharacterManager();
 	static CTexture* Texture();
-	//Å‰‚Éˆê“x‚¾‚¯Às‚·‚éƒvƒƒOƒ‰ƒ€
+	//æœ€åˆã«ä¸€åº¦ã ã‘å®Ÿè¡Œã™ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
 	void Start();
-	//ŒJ‚è•Ô‚µÀs‚·‚éƒvƒƒOƒ‰ƒ€
+	//ç¹°ã‚Šè¿”ã—å®Ÿè¡Œã™ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
 	void Update();
+	static CApplication* Get();
+	void State(EState state);
+	void Over();
+	void Clear();
 };
