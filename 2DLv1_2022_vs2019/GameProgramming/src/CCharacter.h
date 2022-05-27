@@ -10,12 +10,14 @@ public:
 		EZERO,		//初期値
 		EBULLET,	//弾
 		EENEMY,		//的
-		EPLAYER		//プレイヤー
+		EPLAYER,	//プレイヤー
+		EBLOCK,		//ブロック
 	};
 	enum class EState	//状態
 	{
 		EMOVE,	//移動
-		ESTOP	//停止
+		ESTOP,	//停止
+		EJUMP,	//ジャンプ
 	};
 protected:
 	bool mEnabled;

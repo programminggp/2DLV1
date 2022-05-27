@@ -92,3 +92,32 @@ bool CRectangle::Collision(CRectangle* r)
 		return false;
 	return true;
 }
+
+bool CRectangle::Collision(CRectangle* r, float* ax, float* ay)
+{
+	float distX = mX - r->mX;
+	if (distX < 0.0f)
+		distX = -distX;
+	*ax = distX - (mW + r->mW);
+	if (*ax >= 0.0f)
+		return false;
+	float distY = mY - r->mY;
+	if (distY < 0.0f)
+		distY = -distY;
+	*ay = distY - (mH + r->mH);
+	if (*ay >= 0.0f)
+		return false;
+	if (distX < distY)
+	{//Y
+		*ax = 0.0f;
+		if (mY > r->mY)
+			*ay = -*ay;
+	}
+	else
+	{//X
+		*ay = 0.0f;
+		if (mX > r->mX)
+			*ax = -*ax;
+	}
+	return true;
+}

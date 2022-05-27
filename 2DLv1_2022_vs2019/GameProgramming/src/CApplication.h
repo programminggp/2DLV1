@@ -11,9 +11,12 @@
 #include <vector>
 #include "CCharacterManager.h"
 
+#include "CGame.h"
+
 class CApplication
 {
 private:
+	CGame mGame;
 	static CCharacterManager mCharacterManager;
 	enum class EState
 	{

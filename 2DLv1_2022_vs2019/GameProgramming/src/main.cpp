@@ -4,6 +4,7 @@
 #include "GLFW/glfw3.h"
 #include "main.h"
 #include "CApplication.h"
+#include "CInput.h"
 
 CApplication gApplication;
 
@@ -85,7 +86,7 @@ int main(void)
 		glfwTerminate();
 		return -1;
 	}
-
+	CInput::Window(window);
 	/* Make the window's context current */
 	glfwMakeContextCurrent(window);
 

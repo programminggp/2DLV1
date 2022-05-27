@@ -5,7 +5,11 @@
 class CPlayer : public CCharacter
 {
 private:
+	float mVy;
 	CInput mInput;
 public:
+	void Collision();
+	void Collision(CCharacter* m, CCharacter* o);
+	CPlayer(float x, float y, float w, float h, CTexture* pt);
 	void Update();
 };

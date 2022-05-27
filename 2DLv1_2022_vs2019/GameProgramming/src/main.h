@@ -5,4 +5,3 @@
 //#define FULL_SCREEN	//フルスクリーンにする場合は定義する
 //#define GAME3D	//3Dゲームの場合は定義する
 
-
