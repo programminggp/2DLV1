@@ -5,7 +5,7 @@
 class CPlayer : public CCharacter
 {
 private:
-	float mVy;
+	float mVy;	//—Ž‰º‘¬“x
 	CInput mInput;
 public:
 	void Collision();

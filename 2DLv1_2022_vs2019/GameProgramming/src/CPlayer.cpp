@@ -1,11 +1,10 @@
 #include "CPlayer.h"
 #include "CApplication.h"
+#include "CGame.h"
 
-#define TEXCOORD 168, 188, 158, 128
-
-#define GRAVITY 40.0f
-#define JUMPV0 2.0f;
-
+#define TEXCOORD 168, 188, 158, 128	//テクスチャマッピング
+#define GRAVITY (TIPSIZE / 20.0f)	//重力加速度
+#define JUMPV0 (TIPSIZE / 1.4f)		//ジャンプの初速
 
 CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
 	: mVy(0.0f)
@@ -39,12 +38,12 @@ void CPlayer::Update()
 		&& mState != EState::EJUMP
 		&& mVy >= 0.0f)
 	{
-		mVy = H() / JUMPV0;
+		mVy = JUMPV0;
 		mState = EState::EJUMP;
 	}
 
 	Y(Y() + mVy);
-	mVy -= H() / GRAVITY;
+	mVy -= GRAVITY;
 }
 
 void CPlayer::Collision()
