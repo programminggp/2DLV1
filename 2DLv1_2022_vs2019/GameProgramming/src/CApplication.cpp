@@ -19,7 +19,7 @@ void CApplication::Start()
 {
 	mFont.Load("FontWhite.png", 1, 64);
 	mState = EState::EPLAY;
-	mGame.Start();
+	mpGame = new CGame();
 
 	/*mpEnemy = new CEnemy(26.0f, 500.0f, 44.0f, 26.0f, 1604, 1808, 680, 472, &mTexture);
 	mCharacterManager.Add(mpEnemy);
@@ -43,7 +43,7 @@ void CApplication::Update()
 	{
 	case EState::EPLAY:
 
-		mGame.Update();
+		mpGame->Update();
 
 		//mCharacterManager.Update();
 		//mCharacterManager.Collision();
@@ -51,32 +51,28 @@ void CApplication::Update()
 		//mCharacterManager.Render();
 
 		break;
-	case EState::ECLEAR:
-
-		mCharacterManager.Render();
-
-		mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, "HIT");
-		mFont.Draw(370.0f, 240.0f, 15.0f, 30.0f, "PUSH");
-		mFont.Draw(370.0f, 180.0f, 15.0f, 30.0f, "ENTER");
-		if (mInput.Key(VK_RETURN))
-		{
-			mState = EState::ESTART;
-		}
-		break;
-	case EState::EOVER:
-
-		mCharacterManager.Render();
-
-		mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, "MISS");
-		mFont.Draw(370.0f, 240.0f, 15.0f, 30.0f, "PUSH");
-		mFont.Draw(370.0f, 180.0f, 15.0f, 30.0f, "ENTER");
-		if (mInput.Key(VK_RETURN))
-		{
-			mState = EState::ESTART;
-		}
-		break;
-	default:
-		mState = EState::EPLAY;
-		break;
+	//case EState::ECLEAR:
+	//	mCharacterManager.Render();
+	//	mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, "HIT");
+	//	mFont.Draw(370.0f, 240.0f, 15.0f, 30.0f, "PUSH");
+	//	mFont.Draw(370.0f, 180.0f, 15.0f, 30.0f, "ENTER");
+	//	if (mInput.Key(VK_RETURN))
+	//	{
+	//		mState = EState::ESTART;
+	//	}
+	//	break;
+	//case EState::EOVER:
+	//	mCharacterManager.Render();
+	//	mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, "MISS");
+	//	mFont.Draw(370.0f, 240.0f, 15.0f, 30.0f, "PUSH");
+	//	mFont.Draw(370.0f, 180.0f, 15.0f, 30.0f, "ENTER");
+	//	if (mInput.Key(VK_RETURN))
+	//	{
+	//		mState = EState::ESTART;
+	//	}
+	//	break;
+	//default:
+	//	mState = EState::EPLAY;
+	//	break;
 	}
 }

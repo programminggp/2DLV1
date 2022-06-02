@@ -16,7 +16,7 @@
 class CApplication
 {
 private:
-	CGame mGame;
+	CGame* mpGame;
 	static CCharacterManager mCharacterManager;
 	enum class EState
 	{
