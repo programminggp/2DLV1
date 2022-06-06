@@ -29,8 +29,10 @@ public:
 	void Update();
 	//描画処理
 	void Render();
-	//アニメーションの再生終了かどうか
+	//アニメーションの再生終了判定
+	//true:終了　false:再生中
 	bool IsAnimationFinished();
+	int AnimationIndex(); //アニメーション番号の取得
 };
 
 #endif

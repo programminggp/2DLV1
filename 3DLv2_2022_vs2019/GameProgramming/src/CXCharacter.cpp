@@ -107,6 +107,11 @@ bool CXCharacter::IsAnimationFinished()
 {
 	return mAnimationFrame >= mAnimationFrameSize;
 }
+int CXCharacter::AnimationIndex()
+{
+	return mAnimationIndex;
+}
+
 //更新処理
 void CXCharacter::Update() {
 	//変換行列の更新

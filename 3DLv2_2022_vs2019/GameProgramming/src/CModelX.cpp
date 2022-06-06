@@ -875,7 +875,7 @@ void CMesh::AnimateVertex(CModelX* model) {
 		//フレーム番号取得
 		int frameIndex = mSkinWeights[i]->mFrameIndex;
 		//オフセット行列とフレーム合成行列を合成
-		CMatrix mSkinningMatrix = mSkinWeights[i]->mOffset * model->mFrames[frameIndex]->mCombinedMatrix;
+		CMatrix mSkinningMatrix = mSkinWeights[i]->mOffset * model->mFrames[frameIndex]->CombinedMatrix();
 		//頂点数分繰り返し
 		for (int j = 0; j < mSkinWeights[i]->mIndexNum; j++) {
 			//頂点番号取得
