@@ -1,13 +1,13 @@
 #include "CCharacterManager.h"
 
-CCharacterManager* CCharacterManager::Get()
-{
-	//static変数の作成
-	//staticは最初に一度作成され削除されない
-	static CCharacterManager cm;
-	//CCharacterManagerのインスタンスcmのポインタを返す
-	return &cm;
-}
+//CCharacterManager* CCharacterManager::Get()
+//{
+//	//static変数の作成
+//	//staticは最初から一度だけ作成され削除はされない
+//	static CCharacterManager cm;
+//	//CCharacterManagerのインスタンスcmのポインタを返す
+//	return &cm;
+//}
 
 void CCharacterManager::Add(CCharacter* c)
 {
@@ -24,13 +24,17 @@ void CCharacterManager::Update()
 
 void CCharacterManager::Collision()
 {
-	for (size_t i = 0; i < mpCharacters.size() - 1; i++)
+	for (size_t i = 0; i < mpCharacters.size(); i++)
 	{
-		for (size_t j = i + 1; j < mpCharacters.size(); j++)
-		{
-			mpCharacters[i]->Collision(mpCharacters[i], mpCharacters[j]);
-			mpCharacters[j]->Collision(mpCharacters[j], mpCharacters[i]);
-		}
+		mpCharacters[i]->Collision();
+	}
+}
+
+void CCharacterManager::Collision(CCharacter* character)
+{
+	for (size_t i = 0; i < mpCharacters.size(); i++)
+	{
+		character->Collision(character, mpCharacters[i]);
 	}
 }
 
@@ -44,34 +48,24 @@ void CCharacterManager::Render()
 
 void CCharacterManager::Delete()
 {
-	int i = 0;
-	while (i < mpCharacters.size())
+	//イテレータの生成
+	std::vector<CCharacter*>::iterator itr;
+	//イテレータを先頭へ
+	itr = mpCharacters.begin();
+	//最後まで繰り返し
+	while (itr != mpCharacters.end())
 	{
-		if (mpCharacters[i]->Enabled())
+		if ((*itr)->Enabled())
 		{
-			i++;
+			//次へ
+			itr++;
 		}
 		else
 		{
-			delete mpCharacters[i];
-			std::_Erase_remove(mpCharacters, mpCharacters[i]);
+			//falseの時、インスタンスを削除
+			delete *itr;
+			//配列から削除
+			itr = mpCharacters.erase(itr);
 		}
 	}
-	//イテレータの生成
-	//std::vector<CCharacter*>::iterator itr;
-	////イテレータを先頭
-	//itr = mCharacters.begin();
-	////最後まで繰り返し
-	//while (itr != mCharacters.end()) {
-	//	if ((*itr)->Enabled()) {
-	//		//次へ
-	//		itr++;
-	//	}
-	//	else {
-	//		//falseのインスタンスを削除
-	//		delete* itr;
-	//		//リストからも削除
-	//		itr = mCharacters.erase(itr);
-	//	}
-	//}
 }

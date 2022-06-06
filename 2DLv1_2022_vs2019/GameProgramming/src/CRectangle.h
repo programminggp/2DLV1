@@ -11,7 +11,7 @@ public:
 	~CRectangle();
 	void Render();
 	void Render(float x, float y, float w, float h);
-	virtual void Set(float x, float y, float w, float h);
+	void Set(float x, float y, float w, float h);
 	float X();
 	float Y();
 	float W();
@@ -23,4 +23,9 @@ public:
 	//true:衝突している
 	//false;衝突していない
 	bool Collision(CRectangle* pRect);
+	//bool Collision(四角形のポインタ, X調整ポインタ,Y調整ポインタ)
+	//戻り値
+	//true:衝突している
+	//false;衝突していない
+	bool Collision(CRectangle* pRect, float *ax, float *ay);
 };

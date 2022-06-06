@@ -12,11 +12,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\CApplication.cpp" />
+    <ClCompile Include="src\CBlock.cpp" />
     <ClCompile Include="src\CBullet.cpp" />
     <ClCompile Include="src\CCharacter.cpp" />
     <ClCompile Include="src\CCharacterManager.cpp" />
     <ClCompile Include="src\CEnemy.cpp" />
     <ClCompile Include="src\CFont.cpp" />
+    <ClCompile Include="src\CGame.cpp" />
     <ClCompile Include="src\CPlayer.cpp" />
     <ClCompile Include="src\CRectangle.cpp" />
     <ClCompile Include="src\CSound.cpp" />
@@ -26,11 +28,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CApplication.h" />
+    <ClInclude Include="src\CBlock.h" />
     <ClInclude Include="src\CBullet.h" />
     <ClInclude Include="src\CCharacter.h" />
     <ClInclude Include="src\CCharacterManager.h" />
     <ClInclude Include="src\CEnemy.h" />
     <ClInclude Include="src\CFont.h" />
+    <ClInclude Include="src\CGame.h" />
     <ClInclude Include="src\CMiss.h" />
     <ClInclude Include="src\CPlayer.h" />
     <ClInclude Include="src\CRectangle.h" />

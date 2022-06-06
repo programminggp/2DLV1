@@ -8,12 +8,16 @@
 #include "CInput.h"
 #include "CFont.h"
 #include "CMiss.h"
-#include "CCharacterManager.h"
 #include <vector>
+#include "CCharacterManager.h"
+
+#include "CGame.h"
 
 class CApplication
 {
-public:
+private:
+	CGame* mpGame;
+	static CCharacterManager mCharacterManager;
 	enum class EState
 	{
 		ESTART,	//ゲーム開始
@@ -21,28 +25,22 @@ public:
 		ECLEAR,	//ゲームクリア
 		EOVER,	//ゲームオーバー
 	};
-private:
 	EState mState;
 //	CCharacter mRectangle;
-	CPlayer mPlayer;
-	CTexture mTexture;
-	CEnemy mEnemy;
-	CEnemy mEnemy2;
-	CBullet mBullet;
+	CPlayer* mpPlayer;
+	static CTexture mTexture;
+	CEnemy* mpEnemy;
+//	CBullet* mpBullet;
 	CInput mInput;
 	CFont mFont;
-	CMiss mMiss;
+	CMiss* mpMiss;
 	//CCharacterのポインタの可変長配列
-	std::vector<CCharacter*> mCharacters;
-	CCharacterManager mCharacterManager;
-	static CApplication* spInstance;
+//	std::vector<CCharacter*> mCharacters;
 public:
+	static CCharacterManager* CharacterManager();
+	static CTexture* Texture();
 	//最初に一度だけ実行するプログラム
 	void Start();
 	//繰り返し実行するプログラム
 	void Update();
-	static CApplication* Get();
-	void State(EState state);
-	void Over();
-	void Clear();
 };
