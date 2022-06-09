@@ -7,6 +7,11 @@ private:
 	float mW; //幅
 	float mH; //高さ
 public:
+	//bool Collision(四角形のポインタ, X調整ポインタ,Y調整ポインタ)
+	//戻り値
+	//true:衝突している
+	//false;衝突していない
+	bool Collision(CRectangle* pRect, float* ax, float* ay);
 	CRectangle();
 	~CRectangle();
 	void Render();
@@ -23,9 +28,4 @@ public:
 	//true:衝突している
 	//false;衝突していない
 	bool Collision(CRectangle* pRect);
-	//bool Collision(四角形のポインタ, X調整ポインタ,Y調整ポインタ)
-	//戻り値
-	//true:衝突している
-	//false;衝突していない
-	bool Collision(CRectangle* pRect, float *ax, float *ay);
 };
