@@ -1,6 +1,6 @@
 #include "CPlayer.h"
 #include "CApplication.h"
-#include "CGame.h"
+//#include "CGame.h"
 
 #define TEXCOORD 168, 188, 158, 128	//テクスチャマッピング
 #define GRAVITY (TIPSIZE / 20.0f)	//重力加速度

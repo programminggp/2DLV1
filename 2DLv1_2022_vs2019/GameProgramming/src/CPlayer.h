@@ -5,7 +5,7 @@
 class CPlayer : public CCharacter
 {
 private:
-	float mVy;	//落下速度
+	float mVy;	//ジャンプ速度
 	CInput mInput;
 public:
 	void Collision();

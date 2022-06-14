@@ -2,6 +2,8 @@
 #include "CApplication.h"
 
 #define TEXCOORD 168, 188, 158, 128	//テクスチャマッピング
+#define GRAVITY (TIPSIZE / 20.0f)	//重力加速度
+#define JUMPV0 (TIPSIZE / 1.4f)		//ジャンプの初速
 
 void CPlayer2::Collision()
 {
