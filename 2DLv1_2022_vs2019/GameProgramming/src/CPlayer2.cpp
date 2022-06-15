@@ -22,11 +22,19 @@ void CPlayer2::Collision(CCharacter* m, CCharacter* o)
 		{
 			X(X() + x);
 			Y(Y() + y);
+			//着地した時
+			if (y != 0.0f)
+			{
+				//Y軸速度を0にする
+				mVy = 0.0f;
+				mState = EState::EMOVE;
+			}
 		}
 	}
 }
 
 CPlayer2::CPlayer2(float x, float y, float w, float h, CTexture* pt)
+	: mVy(0.0f)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
@@ -35,6 +43,14 @@ CPlayer2::CPlayer2(float x, float y, float w, float h, CTexture* pt)
 
 void CPlayer2::Update()
 {
+	if (mState != EState::EJUMP)
+	{
+		if (mInput.Key('J'))
+		{
+			mVy = JUMPV0;
+			mState = EState::EJUMP;
+		}
+	}
 	if (mInput.Key('A'))
 	{
 		float x = X() - 4.0f;
@@ -46,4 +62,8 @@ void CPlayer2::Update()
 		float x = X() + 4.0f;
 		X(x);
 	}
+	//Y座標にY軸速度を加える
+	Y(Y() + mVy);
+	//Y軸速度に重力を減算する
+	mVy -= GRAVITY;
 }

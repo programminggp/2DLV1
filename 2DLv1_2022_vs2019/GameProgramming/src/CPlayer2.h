@@ -14,5 +14,6 @@ public:
 	//XVˆ—
 	void Update();
 private:
+	float mVy;	//Y²‘¬“x
 	CInput mInput;
 };
