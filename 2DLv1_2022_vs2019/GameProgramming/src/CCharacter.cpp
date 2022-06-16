@@ -1,5 +1,10 @@
 #include "CCharacter.h"
 
+CCharacter::EState CCharacter::State()
+{
+	return mState;
+}
+
 bool CCharacter::Enabled()
 {
 	return mEnabled;

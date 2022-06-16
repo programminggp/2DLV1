@@ -27,6 +27,7 @@ private:
 	CTexture *mpTexture;
 	int mLeft, mRight, mBottom, mTop;
 public:
+	EState State();	//ó‘Ô‚ğæ“¾‚·‚é
 	bool Enabled();
 	ETag Tag();
 	//Õ“Ëˆ—‚Q

@@ -15,6 +15,8 @@ void CPlayer2::Collision(CCharacter* m, CCharacter* o)
 	float x, y;
 	switch (o->Tag())
 	{
+	case ETag::EENEMY:
+		break;
 	case ETag::EPLAYER:
 		break;
 	default:
@@ -27,7 +29,10 @@ void CPlayer2::Collision(CCharacter* m, CCharacter* o)
 			{
 				//YŽ²‘¬“x‚ð0‚É‚·‚é
 				mVy = 0.0f;
-				mState = EState::EMOVE;
+				if (y > 0.0f)
+				{
+					mState = EState::EMOVE;
+				}
 			}
 		}
 	}
