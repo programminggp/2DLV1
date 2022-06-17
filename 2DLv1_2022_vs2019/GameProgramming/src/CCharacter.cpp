@@ -21,6 +21,7 @@ CCharacter::CCharacter()
 	, mState(EState::EMOVE)
 	, mTag(ETag::EZERO)
 	, mEnabled(true)
+	, mVy(0.0f)
 {
 
 }

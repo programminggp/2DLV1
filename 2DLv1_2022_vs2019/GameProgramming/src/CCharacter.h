@@ -20,6 +20,7 @@ public:
 		EJUMP,	//ƒWƒƒƒ“ƒv
 	};
 protected:
+	float mVy;	//YŽ²‘¬“x
 	bool mEnabled;
 	ETag mTag;
 	EState mState;

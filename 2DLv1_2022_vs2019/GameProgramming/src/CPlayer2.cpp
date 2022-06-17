@@ -61,7 +61,6 @@ void CPlayer2::Collision(CCharacter* m, CCharacter* o)
 }
 
 CPlayer2::CPlayer2(float x, float y, float w, float h, CTexture* pt)
-	: mVy(0.0f)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
