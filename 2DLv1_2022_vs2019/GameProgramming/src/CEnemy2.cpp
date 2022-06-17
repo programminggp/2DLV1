@@ -2,6 +2,7 @@
 #include "CApplication.h"
 
 #define TEXCOORD 168, 188, 190, 160	//テクスチャマッピング
+#define TEXCRY 196, 216, 190, 160	//テクスチャマッピング
 
 void CEnemy2::Collision()
 {
@@ -20,16 +21,10 @@ void CEnemy2::Collision(CCharacter* m, CCharacter* o)
 		{
 			if (o->State() == EState::EJUMP)
 			{
-				mEnabled = false;
+				mState = EState::ESTOP;
 			}
 		}
 		break;
-	//default:
-	//	if (CRectangle::Collision(o, &x, &y))
-	//	{
-	//		X(X() + x);
-	//		Y(Y() + y);
-	//	}
 	}
 }
 
@@ -42,5 +37,11 @@ CEnemy2::CEnemy2(float x, float y, float w, float h, CTexture* pt)
 
 void CEnemy2::Update()
 {
-
+	switch (mState)
+	{
+	case EState::ESTOP:
+		//泣く画像を設定
+		Texture(Texture(), TEXCRY);
+		break;
+	}
 }
