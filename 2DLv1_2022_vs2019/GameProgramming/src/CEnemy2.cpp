@@ -21,7 +21,7 @@ void CEnemy2::Collision(CCharacter* m, CCharacter* o)
 		{
 			if (o->State() == EState::EJUMP)
 			{
-				mState = EState::ESTOP;
+				mState = EState::ECRY;
 			}
 		}
 		break;
@@ -39,7 +39,7 @@ void CEnemy2::Update()
 {
 	switch (mState)
 	{
-	case EState::ESTOP:
+	case EState::ECRY:
 		//‹ƒ‚­‰æ‘œ‚ğİ’è
 		Texture(Texture(), TEXCRY);
 		break;

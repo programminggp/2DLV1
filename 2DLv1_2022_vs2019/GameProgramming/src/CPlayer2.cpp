@@ -35,7 +35,7 @@ void CPlayer2::Collision(CCharacter* m, CCharacter* o)
 			}
 			else
 			{
-				mState = EState::ESTOP;
+				mState = EState::ECRY;
 			}
 		}
 		break;
@@ -92,7 +92,7 @@ void CPlayer2::Update()
 	//Y²‘¬“x‚Éd—Í‚ğŒ¸Z‚·‚é
 	mVy -= GRAVITY;
 
-	if (mState == EState::ESTOP)
+	if (mState == EState::ECRY)
 	{
 		//‹ƒ‚­‰æ‘œ‚ğİ’è
 		Texture(Texture(), TEXCRY);

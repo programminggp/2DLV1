@@ -18,6 +18,7 @@ public:
 		EMOVE,	//ˆÚ“®
 		ESTOP,	//’âŽ~
 		EJUMP,	//ƒWƒƒƒ“ƒv
+		ECRY,	//‹ƒ‚­
 	};
 protected:
 	float mVy;	//YŽ²‘¬“x
