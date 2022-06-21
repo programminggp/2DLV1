@@ -11,9 +11,17 @@ void CEnemy2::Collision()
 
 void CEnemy2::Collision(CCharacter* m, CCharacter* o)
 {
-//	float x, y;
+	float x, y;
 	switch (o->Tag())
 	{
+	case ETag::ETURN:
+		if (CRectangle::Collision(o, &x, &y))
+		{
+			X(X() + x);
+			Y(Y() + y);
+			mVx = -mVx;
+		}
+		break;
 	case ETag::EENEMY:
 		break;
 	case ETag::EPLAYER:
@@ -33,6 +41,7 @@ CEnemy2::CEnemy2(float x, float y, float w, float h, CTexture* pt)
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
 	mTag = ETag::EENEMY;
+	mVx = VELOCITY;
 }
 
 void CEnemy2::Update()
@@ -42,6 +51,9 @@ void CEnemy2::Update()
 	case EState::ECRY:
 		//ãÉÇ≠âÊëúÇê›íË
 		Texture(Texture(), TEXCRY);
+		break;
+	case EState::EMOVE:
+		X(X() + mVx);
 		break;
 	}
 }

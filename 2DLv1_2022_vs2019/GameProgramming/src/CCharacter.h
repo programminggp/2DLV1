@@ -2,6 +2,9 @@
 #include "CRectangle.h"
 #include "CTexture.h"
 #include <stdio.h>
+
+#define VELOCITY 2.0f	//移動速度
+
 class CCharacter : public CRectangle
 {
 public:
@@ -9,8 +12,9 @@ public:
 	{
 		EZERO,		//初期値
 		EBULLET,	//弾
-		EENEMY,		//的
+		EENEMY,		//敵
 		EPLAYER,	//プレイヤー
+		ETURN,		//折り返し
 		EBLOCK,		//ブロック
 	};
 	enum class EState	//状態
@@ -21,6 +25,7 @@ public:
 		ECRY,	//泣く
 	};
 protected:
+	float mVx;	//X軸速度
 	float mVy;	//Y軸速度
 	bool mEnabled;
 	ETag mTag;
