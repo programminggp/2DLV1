@@ -27,6 +27,7 @@
     <ClCompile Include="src\CSound.cpp" />
     <ClCompile Include="src\CTexture.cpp" />
     <ClCompile Include="src\CInput.cpp" />
+    <ClCompile Include="src\CUi.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +48,7 @@
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTexture.h" />
     <ClInclude Include="src\CInput.h" />
+    <ClInclude Include="src\CUi.h" />
     <ClInclude Include="src\main.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

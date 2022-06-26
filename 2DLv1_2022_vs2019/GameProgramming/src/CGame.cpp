@@ -5,8 +5,16 @@
 #include "CEnemy2.h"
 #include "CPoint.h"
 
+CUi* CGame::spUi;
+
+CUi* CGame::Ui()
+{
+	return spUi;
+}
+
 CGame::CGame()
 {
+	spUi = new CUi();
 	//テクスチャの入力
 	CApplication::Texture()->Load(TEXTURE);
 
@@ -87,4 +95,6 @@ void CGame::Update()
 	CApplication::CharacterManager()->Collision();
 	CApplication::CharacterManager()->Delete();
 	CApplication::CharacterManager()->Render();
+	//
+	//spUi->Render();
 }
