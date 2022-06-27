@@ -5,6 +5,7 @@
 class CPlayer2 : public CCharacter
 {
 public:
+	int Hp();
 	//Õ“Ëˆ—2
 	void Collision();
 	//Õ“Ëˆ—4
@@ -14,5 +15,7 @@ public:
 	//XVˆ—
 	void Update();
 private:
+	int mInvincble;
+	int mHp;
 	CInput mInput;
 };

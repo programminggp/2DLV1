@@ -1,13 +1,18 @@
 #pragma once
 #include "CFont.h"
-
+/*
+* CUi
+* ユーザーインタフェースクラス
+*/
 class CUi
 {
 public:
 	CUi();
-	void Left(int left);
+	void Hp(int hp);
+	void Time(int time);
 	void Render();
 private:
-	int mLeft;
+	int mHp;
+	int mTime;	//経過時間
 	CFont mFont;
 };

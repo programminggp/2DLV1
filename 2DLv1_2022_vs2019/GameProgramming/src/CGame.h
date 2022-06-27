@@ -1,5 +1,6 @@
 #pragma once
 #include "CUi.h"
+#include "CPlayer2.h"
 
 //定数の定義
 #define TEXTURE "image.png" //テクスチャのファイル名
@@ -13,9 +14,10 @@
 class CGame
 {
 public:
-	static CUi* Ui();
 	CGame(); //デフォルトコンストラクタ（初期処理）
 	void Update(); //更新処理
 private:
-	static CUi *spUi;
+	CPlayer2* mpPlayer;
+	int mTime;
+	CUi *mpUi;
 };

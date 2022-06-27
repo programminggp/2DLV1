@@ -11,6 +11,11 @@
 #define TEXLEFT2 156,136,158,128	//¶Œü‚«2
 #define VELOCITY 4.0f	//ˆÚ“®‘¬“x
 
+int CPlayer2::Hp()
+{
+	return mHp;
+}
+
 void CPlayer2::Collision()
 {
 	CApplication::CharacterManager()->Collision(this);
@@ -71,6 +76,8 @@ void CPlayer2::Collision(CCharacter* m, CCharacter* o)
 }
 
 CPlayer2::CPlayer2(float x, float y, float w, float h, CTexture* pt)
+	: mHp(3)
+	, mInvincble(0)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
@@ -79,6 +86,10 @@ CPlayer2::CPlayer2(float x, float y, float w, float h, CTexture* pt)
 
 void CPlayer2::Update()
 {
+	if (mInvincble > 0)
+	{
+		mInvincble--;
+	}
 	if (mState != EState::EJUMP)
 	{
 		if (mInput.Key('J'))
@@ -108,6 +119,11 @@ void CPlayer2::Update()
 	{
 		//‹ƒ‚­‰æ‘œ‚ğİ’è
 		Texture(Texture(), TEXCRY);
+		if (mInvincble == 0)
+		{
+			mInvincble = 60;
+			mHp--;
+		}
 	}
 	else
 	{

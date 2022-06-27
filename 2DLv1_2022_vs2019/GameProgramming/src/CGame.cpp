@@ -5,16 +5,12 @@
 #include "CEnemy2.h"
 #include "CPoint.h"
 
-CUi* CGame::spUi;
-
-CUi* CGame::Ui()
-{
-	return spUi;
-}
-
 CGame::CGame()
+	: mpUi(nullptr)
+	, mTime(0)
+	, mpPlayer(nullptr)
 {
-	spUi = new CUi();
+	mpUi = new CUi();
 	//テクスチャの入力
 	CApplication::Texture()->Load(TEXTURE);
 
@@ -60,11 +56,11 @@ CGame::CGame()
 			//2の時、プレイヤー生成
 			if (map[row][col] == 2)
 			{
+				mpPlayer = new CPlayer2(TIPSIZE + TIPSIZE * 2 * col,
+					TIPSIZE + TIPSIZE * 2 * row,
+					TIPSIZE, TIPSIZE, CApplication::Texture());
 				//プレイヤーを生成して、キャラクタマネージャに追加
-				CApplication::CharacterManager()->Add(
-					new CPlayer2(TIPSIZE + TIPSIZE * 2 * col,
-						TIPSIZE + TIPSIZE * 2 * row,
-						TIPSIZE, TIPSIZE, CApplication::Texture()));
+				CApplication::CharacterManager()->Add(mpPlayer);
 			}
 			//3の時、敵生成
 			if (map[row][col] == 3)
@@ -95,6 +91,8 @@ void CGame::Update()
 	CApplication::CharacterManager()->Collision();
 	CApplication::CharacterManager()->Delete();
 	CApplication::CharacterManager()->Render();
-	//
-	//spUi->Render();
+	//UI
+	mpUi->Time(mTime++ / 60);
+	mpUi->Hp(mpPlayer->Hp());
+	mpUi->Render();
 }
