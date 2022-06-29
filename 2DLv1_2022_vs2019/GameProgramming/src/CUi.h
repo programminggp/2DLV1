@@ -9,6 +9,7 @@ class CUi
 public:
 	CUi();
 	void Hp(int hp);
+	//Time(ŽžŠÔ)
 	void Time(int time);
 	void Render();
 private:

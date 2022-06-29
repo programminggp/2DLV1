@@ -18,6 +18,6 @@ public:
 	void Update(); //更新処理
 private:
 	CPlayer2* mpPlayer;
-	int mTime;
-	CUi *mpUi;
+	int mTime; //経過時間
+	CUi *mpUi; //UIクラスのポインタ
 };
