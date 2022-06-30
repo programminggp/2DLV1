@@ -115,7 +115,7 @@ void CPlayer2::Update()
 	//Y²‘¬“x‚Éd—Í‚ğŒ¸Z‚·‚é
 	mVy -= GRAVITY;
 
-	if (mState == EState::ECRY)
+	if (mInvincble > 0 || mState == EState::ECRY)
 	{
 		//‹ƒ‚­‰æ‘œ‚ğİ’è
 		Texture(Texture(), TEXCRY);
