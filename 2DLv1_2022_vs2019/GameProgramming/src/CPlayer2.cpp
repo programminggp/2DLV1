@@ -11,9 +11,12 @@
 #define TEXLEFT2 156,136,158,128	//左向き2
 #define VELOCITY 4.0f	//移動速度
 
+#define HP 3 //HPの初期値は3
+int CPlayer2::sHp = 0;	//HP
+
 int CPlayer2::Hp()
 {
-	return mHp;
+	return sHp;
 }
 
 void CPlayer2::Collision()
@@ -76,19 +79,20 @@ void CPlayer2::Collision(CCharacter* m, CCharacter* o)
 }
 
 CPlayer2::CPlayer2(float x, float y, float w, float h, CTexture* pt)
-	: mHp(3)
-	, mInvincble(0)
+	: mInvincible(0)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
 	mTag = ETag::EPLAYER;
+	sHp = HP;
 }
 
 void CPlayer2::Update()
 {
-	if (mInvincble > 0)
+	//無敵時間中はカウントを減少する
+	if (mInvincible > 0)
 	{
-		mInvincble--;
+		mInvincible--;
 	}
 	if (mState != EState::EJUMP)
 	{
@@ -115,14 +119,14 @@ void CPlayer2::Update()
 	//Y軸速度に重力を減算する
 	mVy -= GRAVITY;
 
-	if (mInvincble > 0 || mState == EState::ECRY)
+	if (mInvincible > 0 || mState == EState::ECRY)
 	{
 		//泣く画像を設定
 		Texture(Texture(), TEXCRY);
-		if (mInvincble == 0)
+		if (mInvincible == 0)
 		{
-			mInvincble = 60;
-			mHp--;
+			mInvincible = 60;
+			sHp--;
 		}
 	}
 	else

@@ -8,7 +8,7 @@
 CGame::CGame()
 	: mpUi(nullptr)
 	, mTime(0)
-	, mpPlayer(nullptr)
+//	, mpPlayer(nullptr)
 {
 	mpUi = new CUi();
 	//テクスチャの入力
@@ -56,11 +56,11 @@ CGame::CGame()
 			//2の時、プレイヤー生成
 			if (map[row][col] == 2)
 			{
-				mpPlayer = new CPlayer2(TIPSIZE + TIPSIZE * 2 * col,
-					TIPSIZE + TIPSIZE * 2 * row,
-					TIPSIZE, TIPSIZE, CApplication::Texture());
 				//プレイヤーを生成して、キャラクタマネージャに追加
-				CApplication::CharacterManager()->Add(mpPlayer);
+				CApplication::CharacterManager()->Add(
+					new CPlayer2(TIPSIZE + TIPSIZE * 2 * col,
+						TIPSIZE + TIPSIZE * 2 * row,
+						TIPSIZE, TIPSIZE, CApplication::Texture()));
 			}
 			//3の時、敵生成
 			if (map[row][col] == 3)
@@ -92,8 +92,8 @@ void CGame::Update()
 	CApplication::CharacterManager()->Delete();
 	CApplication::CharacterManager()->Render();
 	//UI
-	mpUi->Time(mTime++ / 60);
-	mpUi->Hp(mpPlayer->Hp());
+	mpUi->Time(mTime++);
+	mpUi->Hp(CPlayer2::Hp());
 //	mpUi->Hp(1);
 	mpUi->Render();
 }
