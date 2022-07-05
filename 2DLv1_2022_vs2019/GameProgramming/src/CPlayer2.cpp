@@ -48,11 +48,21 @@ void CPlayer2::Collision(CCharacter* m, CCharacter* o)
 				else
 				{	//ジャンプでなければ泣く
 					mState = EState::ECRY;
+					if (mInvincible == 0)
+					{
+						mInvincible = 60;
+						sHp--;
+					}
 				}
 			}
 			else
 			{	//ジャンプでなければ泣く
 				mState = EState::ECRY;
+				if (mInvincible == 0)
+				{
+					mInvincible = 60;
+					sHp--;
+				}
 			}
 		}
 		break;
@@ -119,15 +129,14 @@ void CPlayer2::Update()
 	//Y軸速度に重力を減算する
 	mVy -= GRAVITY;
 
-	if (mInvincible > 0 || mState == EState::ECRY)
+	if (mInvincible > 0)
+	{
+		mState = EState::ECRY;
+	}
+	if (mState == EState::ECRY)
 	{
 		//泣く画像を設定
 		Texture(Texture(), TEXCRY);
-		if (mInvincible == 0)
-		{
-			mInvincible = 60;
-			sHp--;
-		}
 	}
 	else
 	{
