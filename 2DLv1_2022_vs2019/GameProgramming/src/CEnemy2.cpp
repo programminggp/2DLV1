@@ -8,6 +8,13 @@
 #define TEXLEFT1 188,168,190,160	//¶Œü‚«1
 #define TEXLEFT2 156,136,190,160	//¶Œü‚«2
 
+int CEnemy2::sNum = 0;
+
+int CEnemy2::Num()
+{
+	return sNum;
+}
+
 void CEnemy2::Collision()
 {
 	CApplication::CharacterManager()->Collision(this);
@@ -37,6 +44,11 @@ void CEnemy2::Collision(CCharacter* m, CCharacter* o)
 		{
 			if (o->State() == EState::EJUMP)
 			{
+				//“G”1Œ¸Z
+				if (mState != EState::ECRY)
+				{
+					sNum--;
+				}
 				mState = EState::ECRY;
 			}
 		}
@@ -51,6 +63,8 @@ CEnemy2::CEnemy2(float x, float y, float w, float h, CTexture* pt)
 	mTag = ETag::EENEMY;
 	//X²‘¬“x‚Ì‰Šú’l‚ğˆÚ“®‘¬“x‚É‚·‚é
 	mVx = VELOCITY;
+	//“G”‚É1‰ÁZ‚·‚é
+	sNum++;
 }
 
 void CEnemy2::Update()
