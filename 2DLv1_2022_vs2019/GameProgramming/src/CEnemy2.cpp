@@ -10,6 +10,11 @@
 
 int CEnemy2::sNum = 0;
 
+void CEnemy2::Num(int num)
+{
+	sNum = num;
+}
+
 int CEnemy2::Num()
 {
 	return sNum;

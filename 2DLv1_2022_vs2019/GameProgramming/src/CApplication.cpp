@@ -18,61 +18,49 @@ CTexture* CApplication::Texture()
 void CApplication::Start()
 {
 	mFont.Load("FontWhite.png", 1, 64);
-	mState = EState::EPLAY;
+	mState = EState::ESTART;
 	mpGame = new CGame();
-
-	/*mpEnemy = new CEnemy(26.0f, 500.0f, 44.0f, 26.0f, 1604, 1808, 680, 472, &mTexture);
-	mCharacterManager.Add(mpEnemy);
-	mpEnemy = new CEnemy(26.0f, 426.0f, 44.0f, 26.0f, 1604, 1808, 680, 472, &mTexture);
-	mCharacterManager.Add(mpEnemy);
-	mpPlayer = new CPlayer();
-	mpEnemy = new CEnemy(26.0f, 574.0f, 44.0f, 26.0f, 1604, 1808, 680, 472, &mTexture);
-	mpMiss = new CMiss();
-	mpPlayer->Set(400.0f, 44.0f, 26.0f, 44.0f);
-	mpPlayer->Texture(&mTexture, 740, 876, 1236, 1016);
-	mpMiss->Set(400.0f, 630.0f, 400.0f, 10.0f);
-	mCharacterManager.Add(mpPlayer);
-	mCharacterManager.Add(mpEnemy);
-	mCharacterManager.Add(mpMiss);*/
 }
 
 void CApplication::Update()
 {
-
 	switch (mState)
 	{
-	case EState::EPLAY:
-
-		mpGame->Update();
-
-		//mCharacterManager.Update();
-		//mCharacterManager.Collision();
-		//mCharacterManager.Delete();
-		//mCharacterManager.Render();
-
+	case EState::ESTART:
+		mpGame->Start();
+		if (mInput.Key(VK_RETURN))
+		{
+			mState = EState::EPLAY;
+		}
 		break;
-	//case EState::ECLEAR:
-	//	mCharacterManager.Render();
-	//	mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, "HIT");
-	//	mFont.Draw(370.0f, 240.0f, 15.0f, 30.0f, "PUSH");
-	//	mFont.Draw(370.0f, 180.0f, 15.0f, 30.0f, "ENTER");
-	//	if (mInput.Key(VK_RETURN))
-	//	{
-	//		mState = EState::ESTART;
-	//	}
-	//	break;
-	//case EState::EOVER:
-	//	mCharacterManager.Render();
-	//	mFont.Draw(370.0f, 300.0f, 15.0f, 30.0f, "MISS");
-	//	mFont.Draw(370.0f, 240.0f, 15.0f, 30.0f, "PUSH");
-	//	mFont.Draw(370.0f, 180.0f, 15.0f, 30.0f, "ENTER");
-	//	if (mInput.Key(VK_RETURN))
-	//	{
-	//		mState = EState::ESTART;
-	//	}
-	//	break;
-	//default:
-	//	mState = EState::EPLAY;
-	//	break;
+	case EState::EPLAY:
+		mpGame->Update();
+		if (mpGame->IsOver())
+		{
+			mState = EState::EOVER;
+		}
+		if (mpGame->IsClear())
+		{
+			mState = EState::ECLEAR;
+		}
+		break;
+	case EState::EOVER:
+		mpGame->Over();
+		if (mInput.Key(VK_RETURN))
+		{
+			delete mpGame;
+			mpGame = new CGame();
+			mState = EState::ESTART;
+		}
+		break;
+	case EState::ECLEAR:
+		mpGame->Clear();
+		if (mInput.Key(VK_RETURN))
+		{
+			delete mpGame;
+			mpGame = new CGame();
+			mState = EState::ESTART;
+		}
+		break;
 	}
 }

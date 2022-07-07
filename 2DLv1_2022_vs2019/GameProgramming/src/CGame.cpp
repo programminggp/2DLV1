@@ -5,11 +5,60 @@
 #include "CEnemy2.h"
 #include "CPoint.h"
 
+void CGame::Start()
+{
+	//ƒQ[ƒ€‚Ì•`‰æ
+	CApplication::CharacterManager()->Render();
+	//UIˆ—
+	mpUi->Hp(CPlayer2::Hp());
+	mpUi->Enemy(CEnemy2::Num());
+	mpUi->Render();
+	mpUi->Start();
+}
+
+bool CGame::IsOver()
+{
+	return CPlayer2::Hp() <= 0;
+}
+
+void CGame::Over()
+{
+	//ƒQ[ƒ€‚Ì•`‰æ
+	CApplication::CharacterManager()->Render();
+	//UIˆ—
+	mpUi->Hp(CPlayer2::Hp());
+	mpUi->Enemy(CEnemy2::Num());
+	mpUi->Render();
+	mpUi->Over();
+}
+
+CGame::~CGame()
+{
+	CApplication::CharacterManager()->AllDelete();
+}
+
+bool CGame::IsClear()
+{
+	return CEnemy2::Num() <= 0;
+}
+
+void CGame::Clear()
+{
+	//ƒQ[ƒ€‚Ì•`‰æ
+	CApplication::CharacterManager()->Render();
+	//UIˆ—
+	mpUi->Hp(CPlayer2::Hp());
+	mpUi->Enemy(CEnemy2::Num());
+	mpUi->Render();
+	mpUi->Clear();
+}
+
 CGame::CGame()
 	: mpUi(nullptr)
 	, mTime(0)
-//	, mpPlayer(nullptr)
+	, mState(EState::ESTART)
 {
+	CEnemy2::Num(0);
 	mpUi = new CUi();
 	//ƒeƒNƒXƒ`ƒƒ‚Ì“ü—Í
 	CApplication::Texture()->Load(TEXTURE);
@@ -94,7 +143,6 @@ void CGame::Update()
 	//UI
 	mpUi->Time(mTime++);
 	mpUi->Hp(CPlayer2::Hp());
-//	mpUi->Hp(1);
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
 }

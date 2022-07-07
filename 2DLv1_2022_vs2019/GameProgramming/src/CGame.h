@@ -14,9 +14,24 @@
 class CGame
 {
 public:
+	~CGame();
+	bool IsClear();
+	void Clear();
+	bool IsOver();
+	void Over();
+	void Start();
+	enum class EState
+	{
+		ESTART,	//ゲーム開始
+		EPLAY,	//ゲーム中
+		ECLEAR,	//ゲームクリア
+		EOVER,	//ゲームオーバー
+	};
 	CGame(); //デフォルトコンストラクタ（初期処理）
 	void Update(); //更新処理
 private:
+	CInput mInput;
+	EState mState;
 	int mTime; //経過時間
 	CUi *mpUi; //UIクラスのポインタ
 };

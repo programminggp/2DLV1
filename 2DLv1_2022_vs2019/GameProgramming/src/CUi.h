@@ -7,6 +7,10 @@
 class CUi
 {
 public:
+	void Clear();
+	void Over();
+	//スタート表示
+	void Start();
 	//Enemy(敵の数)
 	void Enemy(int enemy);
 	CUi();
