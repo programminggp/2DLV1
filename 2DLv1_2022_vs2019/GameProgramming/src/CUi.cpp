@@ -4,13 +4,13 @@
 void CUi::Clear()
 {
 	mFont.Draw(36, 300, 18, 36, "GAME CLEAR!!");
-	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");
+//	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");
 }
 
 void CUi::Over()
 {
 	mFont.Draw(36, 300, 18, 36, "GAME OVER!!");
-	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");
+//	mFont.Draw(36, 200, 18, 36, "PUSH ENTER KEY!");
 }
 
 void CUi::Start()

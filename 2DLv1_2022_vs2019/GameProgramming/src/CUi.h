@@ -7,7 +7,9 @@
 class CUi
 {
 public:
+	//ゲームクリア表示
 	void Clear();
+	//ゲームオーバー表示
 	void Over();
 	//スタート表示
 	void Start();

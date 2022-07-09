@@ -17,7 +17,7 @@ void CGame::Start()
 }
 
 bool CGame::IsOver()
-{
+{	//HP‚ª0ˆÈ‰º‚©”»’èŒ‹‰Ê‚ð–ß‚·
 	return CPlayer2::Hp() <= 0;
 }
 
@@ -35,6 +35,11 @@ void CGame::Over()
 CGame::~CGame()
 {
 	CApplication::CharacterManager()->AllDelete();
+	if (mpUi != nullptr)
+	{
+		delete mpUi;
+		mpUi = nullptr;
+	}
 }
 
 bool CGame::IsClear()
@@ -56,7 +61,6 @@ void CGame::Clear()
 CGame::CGame()
 	: mpUi(nullptr)
 	, mTime(0)
-	, mState(EState::ESTART)
 {
 	CEnemy2::Num(0);
 	mpUi = new CUi();
