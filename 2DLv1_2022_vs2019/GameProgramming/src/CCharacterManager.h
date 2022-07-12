@@ -10,6 +10,7 @@ private:
 	//CCharacterのポインタの可変長配列
 	std::vector<CCharacter*> mpCharacters;
 public:
+	//全インスタンス削除
 	void AllDelete();
 	//不要なポインタを削除する
 	void Delete();

@@ -14,6 +14,7 @@
 class CGame
 {
 public:
+	//デストラクタ
 	~CGame();
 	//ゲームクリア判定
 	bool IsClear();

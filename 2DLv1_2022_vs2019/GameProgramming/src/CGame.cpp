@@ -34,9 +34,11 @@ void CGame::Over()
 
 CGame::~CGame()
 {
+	//全てのインスタンス削除
 	CApplication::CharacterManager()->AllDelete();
+	//UIを生成している時
 	if (mpUi != nullptr)
-	{
+	{	//UIを削除し、初期化
 		delete mpUi;
 		mpUi = nullptr;
 	}

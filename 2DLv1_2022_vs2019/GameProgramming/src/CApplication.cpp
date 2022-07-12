@@ -50,10 +50,13 @@ void CApplication::Update()
 	case EState::EOVER:
 		//ゲームオーバー処理
 		mpGame->Over();
+		//エンターキー入力時
 		if (mInput.Key(VK_RETURN))
-		{
+		{	//ゲームのインスタンス削除
 			delete mpGame;
+			//ゲームのインスタンス生成
 			mpGame = new CGame();
+			//状態をスタートにする
 			mState = EState::ESTART;
 		}
 		break;
