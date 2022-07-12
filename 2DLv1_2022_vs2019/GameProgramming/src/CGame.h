@@ -4,7 +4,7 @@
 
 //定数の定義
 #define TEXTURE "image.png" //テクスチャのファイル名
-#define TIPSIZE 20.0f //マップ要素のサイズ
+#define TIPSIZE 40.0f //マップ要素のサイズ
 /*
 * CGameクラス
 * ゲームクラス
@@ -14,6 +14,7 @@
 class CGame
 {
 public:
+	void CameraStart();
 	//デストラクタ
 	~CGame();
 	//ゲームクリア判定
@@ -29,6 +30,7 @@ public:
 	CGame(); //デフォルトコンストラクタ（初期処理）
 	void Update(); //更新処理
 private:
+	int mDx, mDy;
 	int mTime; //経過時間
 	CUi *mpUi; //UIクラスのポインタ
 };

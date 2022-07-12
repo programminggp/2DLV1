@@ -14,6 +14,13 @@
 #define HP 3 //HP‚Ì‰Šú’l‚Í3
 int CPlayer2::sHp = 0;	//HP
 
+CPlayer2* CPlayer2::spInstance = nullptr;
+
+CPlayer2* CPlayer2::Get()
+{
+	return spInstance;
+}
+
 int CPlayer2::Hp()
 {
 	return sHp;
@@ -95,6 +102,7 @@ CPlayer2::CPlayer2(float x, float y, float w, float h, CTexture* pt)
 	Texture(pt, TEXCOORD);
 	mTag = ETag::EPLAYER;
 	sHp = HP;
+	spInstance = this;
 }
 
 void CPlayer2::Update()
