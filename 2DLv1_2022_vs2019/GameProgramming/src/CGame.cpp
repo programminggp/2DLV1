@@ -4,11 +4,15 @@
 #include "CPlayer2.h"
 #include "CEnemy2.h"
 #include "CPoint.h"
+#include "CCamera.h"
+#include "main.h"
 
 void CGame::Start()
 {
+	CameraStart();
 	//ゲームの描画
 	CApplication::CharacterManager()->Render();
+	CCamera::End();
 	//UI処理
 	mpUi->Hp(CPlayer2::Hp());
 	mpUi->Enemy(CEnemy2::Num());
@@ -23,8 +27,10 @@ bool CGame::IsOver()
 
 void CGame::Over()
 {
+	CameraStart();
 	//ゲームの描画
 	CApplication::CharacterManager()->Render();
+	CCamera::End();
 	//UI処理
 	mpUi->Hp(CPlayer2::Hp());
 	mpUi->Enemy(CEnemy2::Num());
@@ -51,8 +57,10 @@ bool CGame::IsClear()
 
 void CGame::Clear()
 {
+	CameraStart();
 	//ゲームの描画
 	CApplication::CharacterManager()->Render();
+	CCamera::End();
 	//UI処理
 	mpUi->Hp(CPlayer2::Hp());
 	mpUi->Enemy(CEnemy2::Num());
@@ -63,6 +71,8 @@ void CGame::Clear()
 CGame::CGame()
 	: mpUi(nullptr)
 	, mTime(0)
+	, mCdx(0)
+	, mCdy(0)
 {
 	CEnemy2::Num(0);
 	mpUi = new CUi();
@@ -112,8 +122,8 @@ CGame::CGame()
 			if (map[row][col] == 2)
 			{
 				//カメラ用差分
-				mDx = 400.0f - (TIPSIZE + TIPSIZE * 2 * col);
-				mDy = 300.0f - (TIPSIZE + TIPSIZE * 2 * row);
+				mCdx = WINDOW_WIDTH / 2 - (TIPSIZE + TIPSIZE * 2 * col);
+				mCdy = WINDOW_HEIGHT / 2 - (TIPSIZE + TIPSIZE * 2 * row);
 				//プレイヤーを生成して、キャラクタマネージャに追加
 				CApplication::CharacterManager()->Add(
 					new CPlayer2(TIPSIZE + TIPSIZE * 2 * col,
@@ -148,10 +158,23 @@ void CGame::Update()
 	CApplication::CharacterManager()->Update();
 	CApplication::CharacterManager()->Collision();
 	CApplication::CharacterManager()->Delete();
+	CameraStart();
 	CApplication::CharacterManager()->Render();
+	CCamera::End();
 	//UI
 	mpUi->Time(mTime++);
 	mpUi->Hp(CPlayer2::Hp());
 	mpUi->Enemy(CEnemy2::Num());
 	mpUi->Render();
+}
+
+void CGame::CameraStart()
+{
+	float x = CPlayer2::Instance()->X() + mCdx;
+	float y = CPlayer2::Instance()->Y() + mCdy;
+	CCamera::Start(x - WINDOW_WIDTH / 2
+		, x + WINDOW_WIDTH / 2
+		, y - WINDOW_HEIGHT / 2
+		, y + WINDOW_HEIGHT / 2
+	);
 }

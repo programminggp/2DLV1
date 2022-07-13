@@ -6,7 +6,7 @@ class CPlayer2 : public CCharacter
 {
 public:
 	//インスタンスの取得
-	CPlayer2* Get();
+	static CPlayer2* Instance();
 	//HPを取得
 	static int Hp();
 	//衝突処理2

@@ -14,7 +14,6 @@
 class CGame
 {
 public:
-	void CameraStart();
 	//デストラクタ
 	~CGame();
 	//ゲームクリア判定
@@ -30,7 +29,8 @@ public:
 	CGame(); //デフォルトコンストラクタ（初期処理）
 	void Update(); //更新処理
 private:
-	int mDx, mDy;
+	void CameraStart();
+	int mCdx, mCdy;
 	int mTime; //経過時間
 	CUi *mpUi; //UIクラスのポインタ
 };

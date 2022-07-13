@@ -16,8 +16,8 @@ int CPlayer2::sHp = 0;	//HP
 
 CPlayer2* CPlayer2::spInstance = nullptr;
 
-CPlayer2* CPlayer2::Get()
-{
+CPlayer2* CPlayer2::Instance()
+{	//
 	return spInstance;
 }
 
