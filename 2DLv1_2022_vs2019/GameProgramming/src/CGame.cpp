@@ -9,7 +9,7 @@
 
 void CGame::Start()
 {
-	CameraStart();
+	CameraSet();
 	//ゲームの描画
 	CApplication::CharacterManager()->Render();
 	CCamera::End();
@@ -27,7 +27,7 @@ bool CGame::IsOver()
 
 void CGame::Over()
 {
-	CameraStart();
+	CameraSet();
 	//ゲームの描画
 	CApplication::CharacterManager()->Render();
 	CCamera::End();
@@ -57,7 +57,7 @@ bool CGame::IsClear()
 
 void CGame::Clear()
 {
-	CameraStart();
+	CameraSet();
 	//ゲームの描画
 	CApplication::CharacterManager()->Render();
 	CCamera::End();
@@ -126,7 +126,7 @@ CGame::CGame()
 				mCdy = WINDOW_HEIGHT / 2 - (TIPSIZE + TIPSIZE * 2 * row);
 				//プレイヤーを生成して、キャラクタマネージャに追加
 				CApplication::CharacterManager()->Add(
-					new CPlayer2(TIPSIZE + TIPSIZE * 2 * col,
+					mpPlayer = new CPlayer2(TIPSIZE + TIPSIZE * 2 * col,
 						TIPSIZE + TIPSIZE * 2 * row,
 						TIPSIZE, TIPSIZE, CApplication::Texture()));
 			}
@@ -158,7 +158,7 @@ void CGame::Update()
 	CApplication::CharacterManager()->Update();
 	CApplication::CharacterManager()->Collision();
 	CApplication::CharacterManager()->Delete();
-	CameraStart();
+	CameraSet();
 	CApplication::CharacterManager()->Render();
 	CCamera::End();
 	//UI
@@ -168,10 +168,10 @@ void CGame::Update()
 	mpUi->Render();
 }
 
-void CGame::CameraStart()
+void CGame::CameraSet()
 {
-	float x = CPlayer2::Instance()->X() + mCdx;
-	float y = CPlayer2::Instance()->Y() + mCdy;
+	float x = mpPlayer->X() + mCdx;
+	float y = mpPlayer->Y() + mCdy;
 	CCamera::Start(x - WINDOW_WIDTH / 2
 		, x + WINDOW_WIDTH / 2
 		, y - WINDOW_HEIGHT / 2

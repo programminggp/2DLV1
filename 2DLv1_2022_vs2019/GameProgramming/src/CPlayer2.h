@@ -5,8 +5,6 @@
 class CPlayer2 : public CCharacter
 {
 public:
-	//インスタンスの取得
-	static CPlayer2* Instance();
 	//HPを取得
 	static int Hp();
 	//衝突処理2
@@ -18,7 +16,6 @@ public:
 	//更新処理
 	void Update();
 private:
-	static CPlayer2* spInstance; //インスタンスのポインタ
 	static int sHp;	//HP
 	int mInvincible; //無敵カウンタ
 	CInput mInput;
