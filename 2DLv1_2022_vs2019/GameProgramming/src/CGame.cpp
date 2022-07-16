@@ -9,10 +9,10 @@
 
 void CGame::Start()
 {
-	CameraSet();
+//	CameraSet();
 	//ƒQ[ƒ€‚Ì•`‰æ
 	CApplication::CharacterManager()->Render();
-	CCamera::End();
+//	CCamera::End();
 	//UIˆ—
 	mpUi->Hp(CPlayer2::Hp());
 	mpUi->Enemy(CEnemy2::Num());

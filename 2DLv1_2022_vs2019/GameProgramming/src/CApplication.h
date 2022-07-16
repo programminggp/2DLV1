@@ -12,10 +12,13 @@
 #include "CCharacterManager.h"
 
 #include "CGame.h"
+#include "CSound.h"
 
 class CApplication
 {
 private:
+	CSound mSoundBgm;	//BGM
+	CSound mSoundOver;	//ゲームオーバー
 	CGame* mpGame;
 	static CCharacterManager mCharacterManager;
 	enum class EState

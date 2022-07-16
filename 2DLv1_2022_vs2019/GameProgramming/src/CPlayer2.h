@@ -1,6 +1,7 @@
 #pragma once
 #include "CCharacter.h"
 #include "CInput.h"
+#include "CSound.h"
 
 class CPlayer2 : public CCharacter
 {
@@ -16,6 +17,7 @@ public:
 	//更新処理
 	void Update();
 private:
+	CSound mSoundJump;	//ジャンプSE
 	static int sHp;	//HP
 	int mInvincible; //無敵カウンタ
 	CInput mInput;

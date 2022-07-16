@@ -29,9 +29,9 @@ public:
 	CGame(); //デフォルトコンストラクタ（初期処理）
 	void Update(); //更新処理
 private:
-	CPlayer2 *mpPlayer; //プレイヤーのポインタ
-	void CameraSet(); //カメラ設定
 	int mCdx, mCdy; //カメラとプレイヤーの座標の差分
+	void CameraSet(); //カメラ設定
+	CPlayer2 *mpPlayer; //プレイヤーのポインタ
 	int mTime; //経過時間
 	CUi *mpUi; //UIクラスのポインタ
 };
