@@ -25,12 +25,15 @@ class CSound {
 	XAUDIO2_BUFFER mBufinfo;
 	//オーディオファイル名の保存
 	char	 file[100];
+	//
+	float mVolume;
 public:
 
 	CSound()
 		: mpSourceVoice(0)
 		, g_hmmio(0)
 		, buf(nullptr)
+		, mVolume(1.0f)
 	{
 		memset(&g_datachunkinfo, 0, sizeof(g_datachunkinfo));
 		memset(&g_riffchunkinfo, 0, sizeof(g_riffchunkinfo));
@@ -65,7 +68,12 @@ public:
 	/*
 	ファイルの読み込み
 	*/
-	bool Load(char	*filename)
+	bool Load(char* filename)
+	{
+		return Load(filename, 1.0f);
+	}
+
+	bool Load(char	*filename, float volume)
 	{
 		if (mpSourceVoice == 0)
 		{
@@ -123,13 +131,18 @@ public:
 			mBufinfo.AudioBytes = readlen;
 			mBufinfo.pAudioData = ptr;
 			//mBufinfo.PlayLength = readlen / g_wfx.nBlockAlign;
-
+			mVolume = volume;
 		}
 		return true;
 	}
 	/*
 	サウンド再生（1回のみ）
 	*/
+	void Play(float vol)
+	{
+		mVolume = vol;
+		Play();
+	}
 	void Play()
 	{
 		if (mpSourceVoice)
@@ -138,6 +151,8 @@ public:
 			mBufinfo.LoopCount = 0;
 			HRESULT hr = mpSourceVoice->SubmitSourceBuffer(&mBufinfo, NULL);
 			if (FAILED(hr)) return;
+			hr = mpSourceVoice->SetVolume(mVolume);
+			if (FAILED(hr)) return;
 			mpSourceVoice->Start();
 		}
 
@@ -145,6 +160,12 @@ public:
 	/*
 	サウンド再生（リピート）
 	*/
+	void Repeat(float vol)
+	{
+		mVolume = vol;
+		Repeat();
+	}
+
 	void Repeat()
 	{
 		if (mpSourceVoice)
@@ -152,6 +173,8 @@ public:
 			Stop();
 			mBufinfo.LoopCount = XAUDIO2_LOOP_INFINITE;
 			HRESULT hr = mpSourceVoice->SubmitSourceBuffer(&mBufinfo, NULL);
+			if (FAILED(hr)) return;
+			hr = mpSourceVoice->SetVolume(mVolume);
 			if (FAILED(hr)) return;
 			mpSourceVoice->Start();
 		}

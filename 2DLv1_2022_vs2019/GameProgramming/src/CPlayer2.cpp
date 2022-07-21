@@ -114,7 +114,7 @@ void CPlayer2::Update()
 		if (mInput.Key('J'))
 		{
 			//ƒWƒƒƒ“ƒv‰¹
-			mSoundJump.Play();
+			mSoundJump.Play(0.1f);
 			mVy = JUMPV0;
 			mState = EState::EJUMP;
 		}
