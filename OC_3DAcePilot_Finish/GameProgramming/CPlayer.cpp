@@ -43,29 +43,30 @@ CPlayer::CPlayer()
 
 //更新処理
 void CPlayer::Update() {
+	const float rot = 1.0f;
 	//Aキー入力で回転
 	if (CKey::Push('A')) {
 		//3
 		//Y軸の回転値を増加
-		mRotation.mY += 1;
+		mRotation.mY += rot;
 	}
 	//Dキー入力で回転
 	if (CKey::Push('D')) {
 		//3
 		//Y軸の回転値を減算
-		mRotation.mY -= 1;
+		mRotation.mY -= rot;
 	}
 	//Wキー入力で上向き
 	if (CKey::Push('W')) {
 		//3
 		//X軸の回転値を加算
-		mRotation.mX += 1;
+		mRotation.mX += rot;
 	}
 	//Sキー入力で上向き
 	if (CKey::Push('S')) {
 		//3
 		//X軸の回転値を減算
-		mRotation.mX -= 1;
+		mRotation.mX -= rot;
 	}
 	//7
 	//Iキー入力で出力UP

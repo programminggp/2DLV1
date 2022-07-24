@@ -69,7 +69,7 @@ void CSceneGame::Init() {
 	//11
 	//ìGã@ÇÃê∂ê¨
 	F16.Load("f16.obj", "f16.mtl");
-	new CEnemy(&F16, CVector(-100.0f, 20.0f, 350.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy(&F16, CVector(-100.0f, 20.0f, 350.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.21f, 0.21f, 0.21f));
 
 	//12
 	//óAëóã@í«â¡

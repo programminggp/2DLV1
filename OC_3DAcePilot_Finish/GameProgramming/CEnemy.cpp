@@ -28,11 +28,14 @@ CEnemy::CEnemy(CModel *model, CVector position, CVector rotation, CVector scale)
 	mScale = scale;	//拡縮の設定
 	mTag = EENEMY;
 	mpTarget = &CPlayer::sPlayer->mPosition;
+	mPoint = *mpTarget;
 }
 //更新処理
 void CEnemy::Update() {
 	//ポイントへのベクトルを求める
 	CVector dir;
+
+	dir = mPoint - mPosition;
 
 	if (mFireBullet > 0) {
 		mFireBullet--;
@@ -42,17 +45,18 @@ void CEnemy::Update() {
 		mPointCnt--;
 	}
 	else {
-		if (mpTarget) {
+		if (dir.Length() < 350.0f) {
+//		if (mpTarget) {
 			mPoint = *mpTarget;
 		}
 		else {
-			mPoint = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
+			//mPoint = mPosition + CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
+			mPoint = mPoint* CMatrix().RotateY(45);
 		}
 		mPointCnt = ENEMY_POINTCOUNT;
 	}
-	dir = mPoint - mPosition;
 
-	mVelocity = dir.Length() / 100.0f;
+	mVelocity = dir.Length() / 400.0f;
 	if (mVelocity > ENEMY_POWER_MAX) {
 		mVelocity = ENEMY_POWER_MAX;
 	}
@@ -70,22 +74,22 @@ void CEnemy::Update() {
 	z = z.Normalize();
 
 	//左右の回転処理（Y軸）
-	if (left.Dot(dir) > 0.0f) {
+	if (left.Dot(dir) < 0.5f) {
 		mRotation.mY += ENEMY_TURN_DEG;
 	}
-	else if (left.Dot(dir) < 0.0f) {
+	else if (left.Dot(dir) > 0.5f) {
 		mRotation.mY -= ENEMY_TURN_DEG;
 	}
 	//上下の回転処理（X軸）
-	if (up.Dot(dir) > 0.0f) {
-		if (z.Dot(dir) > 0.0) {
+	if (up.Dot(dir) > 0.1f) {
+		//if (z.Dot(dir) > 0.0) {
 			mRotation.mX -= ENEMY_TURN_DEG;
-		}
+		//}
 	}
-	else if (up.Dot(dir) < 0.0f) {
-		if (z.Dot(dir) > 0.0) {
+	else if (up.Dot(dir) < 0.1f) {
+		//if (z.Dot(dir) > 0.0) {
 			mRotation.mX += ENEMY_TURN_DEG;
-		}
+		//}
 	}
 
 	//行列を更新
