@@ -45,7 +45,7 @@ void CEnemy::Update() {
 		mPointCnt--;
 	}
 	else {
-		if (dir.Length() < 350.0f) {
+		if (dir.Length() < 550.0f) {
 //		if (mpTarget) {
 			mPoint = *mpTarget;
 		}
@@ -56,7 +56,7 @@ void CEnemy::Update() {
 		mPointCnt = ENEMY_POINTCOUNT;
 	}
 
-	mVelocity = dir.Length() / 400.0f;
+	mVelocity = dir.Length() / 10.0f;
 	if (mVelocity > ENEMY_POWER_MAX) {
 		mVelocity = ENEMY_POWER_MAX;
 	}
@@ -88,6 +88,9 @@ void CEnemy::Update() {
 				mRotation.mX -= ENEMY_TURN_DEG;
 			}
 		}
+		else {
+			mRotation.mX = 0.0f;
+		}
 	}
 	else if (up.Dot(dir) < 0.1f) {
 		if (z.Dot(dir) > 0.0) {
@@ -95,6 +98,9 @@ void CEnemy::Update() {
 			{
 				mRotation.mX += ENEMY_TURN_DEG;
 			}
+		}
+		else {
+			mRotation.mX = 0.0f;
 		}
 	}
 

@@ -27,6 +27,7 @@
 #include "CRes.h"
 #include "CC5.h"
 #include "CObj.h"
+#include "CKey.h"
 
 //モデルクラスのインスタンス作成
 CModel F14;
@@ -69,7 +70,8 @@ void CSceneGame::Init() {
 	//11
 	//敵機の生成
 	F16.Load("f16.obj", "f16.mtl");
-	new CEnemy(&F16, CVector(-100.0f, 20.0f, 350.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.21f, 0.21f, 0.21f));
+	new CEnemy(&F16, CVector(-100.0f, 20.0f, 350.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.2f, 0.2f, 0.2f));
+	new CEnemy(&F16, CVector(100.0f, 20.0f, 250.0f), CVector(0.0f, 180.0f, 0.0f), CVector(0.2f, 0.2f, 0.2f));
 
 	//12
 	//輸送機追加
@@ -99,8 +101,15 @@ void CSceneGame::Update() {
 	e = CVector(-2.0f, 5.0f, -22.0f) * CMatrix().Scale(0.3f, 0.5f, 0.36f);
 	c = CVector(0.0f, 4.0f, 0.0f);
 	u = CVector(0.0f, 1.0f, 0.0f);
-
-	e = CVector(-2.0f, 5.0f, -22.0f) * Player.mMatrix;
+	
+	if (CKey::Push('U'))
+	{
+		e = CVector(-2.0f, 5.0f, 22.0f) * Player.mMatrix;
+	}
+	else
+	{
+		e = CVector(-2.0f, 5.0f, -22.0f) * Player.mMatrix;
+	}
 	c = CVector(0.0f, 4.0f, 0.0f) * Player.mMatrix;
 	u = CVector(0.0f, 1.0f, 0.0f) * Player.mMatrixRotate;
 	//カメラクラスの設定
