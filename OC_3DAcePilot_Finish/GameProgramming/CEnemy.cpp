@@ -74,22 +74,28 @@ void CEnemy::Update() {
 	z = z.Normalize();
 
 	//左右の回転処理（Y軸）
-	if (left.Dot(dir) < 0.5f) {
+	if (left.Dot(dir) > 0.1f) {
 		mRotation.mY += ENEMY_TURN_DEG;
 	}
-	else if (left.Dot(dir) > 0.5f) {
+	else if (left.Dot(dir) < 0.1f) {
 		mRotation.mY -= ENEMY_TURN_DEG;
 	}
 	//上下の回転処理（X軸）
 	if (up.Dot(dir) > 0.1f) {
-		//if (z.Dot(dir) > 0.0) {
-			mRotation.mX -= ENEMY_TURN_DEG;
-		//}
+		if (z.Dot(dir) > 0.0) {
+			if (mRotation.mX > -60.0f)
+			{
+				mRotation.mX -= ENEMY_TURN_DEG;
+			}
+		}
 	}
 	else if (up.Dot(dir) < 0.1f) {
-		//if (z.Dot(dir) > 0.0) {
-			mRotation.mX += ENEMY_TURN_DEG;
-		//}
+		if (z.Dot(dir) > 0.0) {
+			if (mRotation.mX < 60.0f)
+			{
+				mRotation.mX += ENEMY_TURN_DEG;
+			}
+		}
 	}
 
 	//行列を更新
