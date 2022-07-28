@@ -7,8 +7,13 @@
 class CApplication
 {
 public:
-	void CApplication::Start();
-	void CApplication::Update();
+	void CApplication::Start()
+	{
+	}
+	void CApplication::Update()
+	{
+		CRect::Draw(400, 500, 400, 100);
+	}
 };
 //#include "CRectangle.h"
 //#include "CTexture.h"
