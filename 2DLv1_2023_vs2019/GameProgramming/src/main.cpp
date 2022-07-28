@@ -3,7 +3,7 @@
 #include "glut.h"
 #include "GLFW/glfw3.h"
 #include "main.h"
-#include "CApplication.h"
+#include "CApplication.cpp"
 #include "CInput.h"
 
 CApplication gApplication;
