@@ -25,7 +25,9 @@
 //モデルデータの指定
 #define MODEL_OBJ "res\\f14.obj", "res\\f14.mtl"
 //背景モデルデータの指定
-#define MODEL_BACKGROUND "res\\sky.obj", "res\\sky.mtl"
+//#define MODEL_BACKGROUND "res\\sky.obj", "res\\sky.mtl"
+#define MODEL_BACKGROUND "res\\FreeWestLandscapeLP.obj", "res\\FreeWestLandscapeLP.mtl"
+//#define MODEL_BACKGROUND "res\\TerrainNewLow.obj", "res\\TerrainNewLow.mtl"
 //視点移動ベクトル
 #define VECTOR_EYE CVector(-0.2f, 1.0f, -1.5f)
 //注視点移動ベクトル
@@ -36,7 +38,7 @@
 void CSceneGame::Init() {
 	mText.LoadTexture("FontWhite.tga",1,64);
 
-	mBackGroundMatrix.Translate(0.0f, 1.0f, -500.0f);
+	mBackGroundMatrix.Translate(0.0f, 0.0f, 0.0f);
 
 	//三角コライダの確認
 //	mColliderTriangle.Set(NULL, NULL, CVector(-50.0f, 0.0f, -50.0f), CVector(-50.0f, 0.0f, 50.0f), CVector(50.0f, 0.0f, -50.0f));
@@ -58,32 +60,35 @@ void CSceneGame::Init() {
 	mPlayer.Model(&mModel);
 	mPlayer.Scale(CVector(0.1f, 0.1f, 0.1f));
 	//
-	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f) * mBackGroundMatrix);
+	mPlayer.Position(CVector(200.0f, 10.0f, -203.0f) * mBackGroundMatrix);
 	//mPlayer.mPosition = CVector(0.0f, 0.0f, -503.0f);
 	mPlayer.Rotation(CVector(0.0f, 180.0f, 0.0f));
 
 	//敵機のインスタンス作成
-	new CEnemy(&mModelC5, CVector(0.0f, 10.0f, -100.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
-	new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -130.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy(&mModelC5, CVector(200.0f, 20.0f, -300.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy(&mModelC5, CVector(230.0f, 20.0f, -330.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
 	//new CEnemy(&mModelC5, CVector(0.0f, 10.0f, -600.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 	//new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -630.0f), CVector(), CVector(0.1f, 0.1f, 0.1f));
 
 //	new CEnemy2(CVector(-15.0f, 15.0f, -90.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
 //	new CEnemy2(CVector(15.0f, 15.0f, -150.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
 
-	new CEnemy2(CVector(-5.0f, 1.0f, -10.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
-	new CEnemy2(CVector(5.0f, 1.0f, -10.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy2(CVector(195.0f, 10.0f, -290.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
+	new CEnemy2(CVector(205.0f, 10.0f, -290.0f)*mBackGroundMatrix, CVector(), CVector(0.1f, 0.1f, 0.1f));
 
 	//ビルボードの生成
-	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
+//	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
+//	mBackGroundMatrix = CMatrix().Scale(300.0f, 300.0f, 300.0f) * CMatrix().Translate(0.0f, 0.0f, 0.0f);
 	//背景モデルから三角コライダを生成
 	//親インスタンスと行列はなし
 	//mColliderMesh.Set(NULL, NULL, &mBackGround);
-	//mColliderMesh.Set(NULL, &mBackGroundMatrix, &mBackGround);
-	CColliderTriangle::Mesh(nullptr, &mBackGroundMatrix, &mBackGround);
+	mColliderMesh.Set(NULL, &mBackGroundMatrix, &mBackGround);
+//	CColliderTriangle::Mesh(nullptr, &mBackGroundMatrix, &mBackGround);
 
 	//戦車の生成
-	mpTank = new CTank(CVector(0.0f, -1.0f, -5.0f) * mBackGroundMatrix, CVector(), CVector(SCALE_TANK, SCALE_TANK, SCALE_TANK));
+//	mpTank = new CTank(CVector(0.0f, -1.0f, -5.0f) * mBackGroundMatrix, CVector(), CVector(SCALE_TANK, SCALE_TANK, SCALE_TANK));
+
+	mpPlayer = &mPlayer;
 }
 
 void CSceneGame::Update() {
@@ -142,19 +147,19 @@ void CSceneGame::Update() {
 //		Camera.mRotation.mY -= 2.0f;
 		Camera.mRotation = Camera.mRotation + CVector(0.0f, -2.0f, 0.0f);
 	}
-	//e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
+	e = mpPlayer->Position() + CVector(-0.2f, 1.0f, -3.0f) * mpPlayer->MatrixRotate();
 	//視点を求める
-	e = VECTOR_EYE * (1 / SCALE_TANK) * mpTank->Tank()->Matrix();
+	//e = VECTOR_EYE * (1 / SCALE_TANK) * mpTank->Tank()->Matrix();
 	//e = mpTank->Position() + VECTOR_EYE * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
 	//	e = CVector(-2.0f, 10.0f, -30.0f) * CMatrix().RotateY(Camera.mRotation.Y()) * mPlayer.Matrix();
 	//注視点を求める
-//	c = mPlayer.Position();
+	c = mpPlayer->Position();
 //	c = CVector(-0.2f, 0.0f, 3.0f) * 5.0f * mpTank->Tank()->Matrix();
-	c = VECTOR_CENTER * (1 / SCALE_TANK) * mpTank->Tank()->Matrix();
+//	c = VECTOR_CENTER * (1 / SCALE_TANK) * mpTank->Tank()->Matrix();
 	//c = mpTank->Position() + VECTOR_CENTER * mpTank->Tank()->MatrixRotate() * mpTank->MatrixRotate();
 	//上方向を求める
-//	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
-	u = CVector(0.0f, 1.0f, 0.0f) * mpTank->MatrixRotate();
+	u = CVector(0.0f, 1.0f, 0.0f) * mpPlayer->MatrixRotate();
+//	u = CVector(0.0f, 1.0f, 0.0f) * mpTank->MatrixRotate();
 	//カメラの設定
 	
 	gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
