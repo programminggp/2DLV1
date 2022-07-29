@@ -53,13 +53,15 @@ void CSceneGame::Init() {
 
 	//1
 	//背景モデルの生成
-	Sky.Load("sky.obj", "sky.mtl");
+//	Sky.Load("sky.obj", "sky.mtl");
+	Sky.Load("FreeWestLandscapeLP.obj", "FreeWestLandscapeLP.mtl");
 	new CObj(&Sky, CVector(), CVector(), CVector(2.0f, 2.0f, 2.0f));
 
 	//2
 	//プレイヤーの設定
 	F14.Load("f14.obj", "f14.mtl");
 	Player.mpModel = &F14;
+	Player.mPosition = CVector(0.0f, 30.0f, 0.0f);
 	Player.mScale = CVector(0.1f, 0.1f, 0.1f);
 
 	//6

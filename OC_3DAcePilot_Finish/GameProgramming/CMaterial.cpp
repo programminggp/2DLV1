@@ -24,11 +24,11 @@ void CMaterial::Enabled() {
 	if (mpTexture == 0)
 		return;
 	//テクスチャ有り
-	if (mpTexture->mId) {
+	if (mpTexture->Id()) {
 		//テクスチャを使用可能にする
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
-		glBindTexture(GL_TEXTURE_2D, mpTexture->mId);
+		glBindTexture(GL_TEXTURE_2D, mpTexture->Id());
 	}
 }
 //マテリアルを無効にする
@@ -39,7 +39,7 @@ void CMaterial::Disabled() {
 	if (mpTexture == 0)
 		return;
 	//テクスチャ有り
-	if (mpTexture->mId) {
+	if (mpTexture->Id()) {
 		//テクスチャのバインドを解く
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//テクスチャを無効にする
