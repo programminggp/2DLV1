@@ -36,7 +36,7 @@ void CBillBoard::Set(CVector pos, float w, float h) {
 
 void CBillBoard::Update() {
 	//カメラへの方向ベクトルの取得
-	CVector dir = Camera.Eye() - mPosition;
+	CVector dir = CCamera::Instance()->Eye() - mPosition;
 	//Y軸の回転値を求める
 //	mRotation.mY = atan2f(dir.mX, dir.mZ) * 180.0f / M_PI;
 	//X軸の回転値を求める

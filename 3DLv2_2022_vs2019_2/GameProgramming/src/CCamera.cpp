@@ -1,8 +1,25 @@
 #include "CCamera.h"
+#include "CTaskManager.h"
 #include "glut.h"
 
 //ƒJƒƒ‰‚ÌŠO•”•Ï”
-CCamera Camera;
+//CCamera Camera;
+CCamera* CCamera::spInstance = nullptr;
+
+CCamera::CCamera(float distance)
+	: mUp(0.0f, 1.0f, 0.0f)
+{
+	Scale(CVector(0.0f, 0.0f, distance));
+	spInstance = this;
+	CTaskManager::Get()->Remove(this);
+	mPriority = 10;
+	CTaskManager::Get()->Add(this);
+}
+
+void CCamera::Center(CVector& center)
+{
+	mCenter = center;
+}
 
 const CVector& CCamera::Eye() const
 {
@@ -20,7 +37,14 @@ void CCamera::Render() {
 	//gluLookAt(mEye.mX, mEye.mY, mEye.mZ,
 	//	mCenter.mX, mCenter.mY, mCenter.mZ,
 	//	mUp.mX, mUp.mY, mUp.mZ);
+	CTransform::Update();
+	mEye = mPosition + mMatrixRotate.VectorZ() * mScale.Z();
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(),
 		mCenter.X(), mCenter.Y(), mCenter.Z(),
 		mUp.X(), mUp.Y(), mUp.Z());
+}
+
+CCamera* CCamera::Instance()
+{
+	return spInstance;
 }
