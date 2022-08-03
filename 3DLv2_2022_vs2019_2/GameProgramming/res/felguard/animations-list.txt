@@ -1,0 +1,9 @@
+Animations index:
+0-100 Idle
+150-200 Attack1
+200-260 attack Idle
+260-350 atack 3
+380-420 walk
+425-460 run
+470-510 death1
+520-700 death2
