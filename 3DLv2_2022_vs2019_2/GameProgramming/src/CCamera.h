@@ -9,6 +9,7 @@ class CCamera : public CCharacter {
 public:
 	CCamera(float distance);
 	void Center(CVector& center);
+	static CCamera* Instance();
 	//回転
 //	CVector mRotation;
 	//視点座標の取得
@@ -19,7 +20,6 @@ public:
 		const CVector &up);
 	//カメラ適用
 	void Render();
-	static CCamera* Instance();
 private:
 	static CCamera* spInstance;
 	//視点
@@ -28,8 +28,6 @@ private:
 	CVector mCenter;
 	//上方向
 	CVector mUp;
-	//
-	//float mDistance;
 };
 
 //カメラの外部参照

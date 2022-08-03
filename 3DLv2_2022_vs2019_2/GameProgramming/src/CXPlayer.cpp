@@ -58,16 +58,17 @@ void CXPlayer::Update()
 	}
 	CXCharacter::Update();
 
+	//ƒJƒƒ‰ˆ—
 	CCamera::Instance()->Position(mPosition + CVector(0.0f, 4.0f, 0.0f));
 	CCamera::Instance()->Center(mPosition + CVector(0.0f, 3.0f, 0.0f));
 	CVector rot = CCamera::Instance()->Rotation();
 	if (CKey::Push('J'))
 	{
-		rot = rot - CVector(0.0f, 1.0f, 0.0f);
+		rot = rot + CVector(0.0f, 1.0f, 0.0f);
 	}
 	if (CKey::Push('L'))
 	{
-		rot = rot + CVector(0.0f, 1.0f, 0.0f);
+		rot = rot - CVector(0.0f, 1.0f, 0.0f);
 	}
 	CCamera::Instance()->Rotation(rot);
 }

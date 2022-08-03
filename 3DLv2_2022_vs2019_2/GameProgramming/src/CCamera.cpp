@@ -34,9 +34,6 @@ void CCamera::Set(const CVector &eye, const CVector &center,
 }
 
 void CCamera::Render() {
-	//gluLookAt(mEye.mX, mEye.mY, mEye.mZ,
-	//	mCenter.mX, mCenter.mY, mCenter.mZ,
-	//	mUp.mX, mUp.mY, mUp.mZ);
 	CTransform::Update();
 	mEye = mPosition + mMatrixRotate.VectorZ() * mScale.Z();
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(),
