@@ -1,5 +1,6 @@
 #include "CCamera.h"
 #include "CTaskManager.h"
+#include "CKey.h"
 #include "glut.h"
 
 //ƒJƒƒ‰‚ÌŠO•”•Ï”
@@ -9,6 +10,7 @@ CCamera* CCamera::spInstance = nullptr;
 CCamera::CCamera(float distance)
 	: mUp(0.0f, 1.0f, 0.0f)
 {
+	Rotation(CVector(5.0f, 0.0f, 0.0f));
 	Scale(CVector(0.0f, 0.0f, distance));
 	spInstance = this;
 	CTaskManager::Get()->Remove(this);
@@ -34,7 +36,32 @@ void CCamera::Set(const CVector &eye, const CVector &center,
 }
 
 void CCamera::Render() {
+	if (CKey::Push('J'))
+	{
+		mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
+	}
+	if (CKey::Push('L'))
+	{
+		mRotation = mRotation - CVector(0.0f, 1.0f, 0.0f);
+	}
+	if (CKey::Push('I'))
+	{
+		mRotation = mRotation - CVector(1.0f, 0.0f, 0.0f);
+		if (mRotation.X() < -80.0f)
+		{
+			mRotation.X(-80.0f);
+		}
+	}
+	if (CKey::Push('K'))
+	{
+		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
+		if (mRotation.X() > 80.0f)
+		{
+			mRotation.X(80.0f);
+		}
+	}
 	CTransform::Update();
+	mCenter = mPosition;
 	mEye = mPosition + mMatrixRotate.VectorZ() * mScale.Z();
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(),
 		mCenter.X(), mCenter.Y(), mCenter.Z(),
