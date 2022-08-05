@@ -3,7 +3,7 @@
 #include "CActionCamera.h"
 
 #define VELOCITY 0.1f	//ˆÚ“®‘¬“x
-#define TURN_V 2.0f		//‰ñ“]‘¬“x
+#define TURN_V 10.0f	//‰ñ“]‘¬“x
 
 CXPlayer::CXPlayer()
 	: mColSphereBody(this, nullptr, CVector(), 0.5f)
@@ -42,54 +42,70 @@ void CXPlayer::Update()
 	{
 		if (CKey::Push('A'))
 		{
-			if (dotZ > 0.0f)
+			if (dotX < 0.0f)
 			{
-				mRotation.Y(mRotation.Y() + TURN_V);
+				if (dotZ < 0.0f)
+				{
+					dotZ = -1.0f;
+				}
+				else
+				{
+					dotZ = 1.0f;
+				}
 			}
-			else
-			{
-				mRotation.Y(mRotation.Y() - TURN_V);
-			}
+			mRotation.Y(mRotation.Y() + TURN_V * dotZ);
 			ChangeAnimation(1, true, 60);
 			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
 		else if (CKey::Push('D'))
 		{
-			if (dotZ > 0.0f)
+			if (dotX > 0.0f)
 			{
-				mRotation.Y(mRotation.Y() - TURN_V);
+				if (dotZ < 0.0f)
+				{
+					dotZ = -1.0f;
+				}
+				else
+				{
+					dotZ = 1.0f;
+				}
 			}
-			else
-			{
-				mRotation.Y(mRotation.Y() + TURN_V);
-			}
+			mRotation.Y(mRotation.Y() - TURN_V*dotZ);
 			ChangeAnimation(1, true, 60);
 			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
 		else if (CKey::Push('W'))
 		{
+			if (dotZ < 0.0f)
+			{
+				if (dotX < 0.0f)
+				{
+					dotX = -1.0f;
+				}
+				else
+				{
+					dotX = 1.0f;
+				}
+			}
 			ChangeAnimation(1, true, 60);
-			if (dotX > 0.0f)
-			{
-				mRotation.Y(mRotation.Y() - TURN_V);
-			}
-			else
-			{
-				mRotation.Y(mRotation.Y() + TURN_V);
-			}
+			mRotation.Y(mRotation.Y() - TURN_V*dotX);
 			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
 		else if (CKey::Push('S'))
 		{
+			if (dotZ > 0.0f)
+			{
+				if (dotX < 0.0f)
+				{
+					dotX = -1.0f;
+				}
+				else
+				{
+					dotX = 1.0f;
+				}
+			}
 			ChangeAnimation(1, true, 60);
-			if (dotX > 0.0f)
-			{
-				mRotation.Y(mRotation.Y() + TURN_V);
-			}
-			else
-			{
-				mRotation.Y(mRotation.Y() - TURN_V);
-			}
+			mRotation.Y(mRotation.Y() + TURN_V*dotX);
 			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
 		else
