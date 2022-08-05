@@ -1,6 +1,9 @@
 #include "CXPlayer.h"
 #include "CKey.h"
-#include "CCamera.h"
+#include "CActionCamera.h"
+
+#define VELOCITY 0.1f	//ˆÚ“®‘¬“x
+#define TURN_V 2.0f		//‰ñ“]‘¬“x
 
 CXPlayer::CXPlayer()
 	: mColSphereBody(this, nullptr, CVector(), 0.5f)
@@ -16,6 +19,11 @@ CXPlayer::CXPlayer()
 
 void CXPlayer::Update()
 {
+	float dotZ =
+		CActionCamera::Instance()->MatrixRotate().VectorZ().Dot(mMatrixRotate.VectorZ());
+	float dotX =
+		CActionCamera::Instance()->MatrixRotate().VectorX().Dot(mMatrixRotate.VectorZ());
+
 	if (mAnimationIndex == 3)
 	{
 		if (mAnimationFrame >= mAnimationFrameSize)
@@ -34,18 +42,55 @@ void CXPlayer::Update()
 	{
 		if (CKey::Push('A'))
 		{
-			mRotation.Y(mRotation.Y() + 2.0f);
+			if (dotZ > 0.0f)
+			{
+				mRotation.Y(mRotation.Y() + TURN_V);
+			}
+			else
+			{
+				mRotation.Y(mRotation.Y() - TURN_V);
+			}
+			ChangeAnimation(1, true, 60);
+			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
-		if (CKey::Push('D'))
+		else if (CKey::Push('D'))
 		{
-			mRotation.Y(mRotation.Y() - 2.0f);
+			if (dotZ > 0.0f)
+			{
+				mRotation.Y(mRotation.Y() - TURN_V);
+			}
+			else
+			{
+				mRotation.Y(mRotation.Y() + TURN_V);
+			}
+			ChangeAnimation(1, true, 60);
+			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
-		if (CKey::Push('W'))
+		else if (CKey::Push('W'))
 		{
 			ChangeAnimation(1, true, 60);
-			//		mPosition = mPosition + CVector(0.0f, 0.0f, 0.1f) * mMatrixRotate;
-			//		mPosition = mPosition + CVector(mMatrixRotate.M()[8], mMatrixRotate.M()[9], mMatrixRotate.M()[10]) * 0.1f;
-			mPosition = mPosition + mMatrixRotate.VectorZ() * 0.1f;
+			if (dotX > 0.0f)
+			{
+				mRotation.Y(mRotation.Y() - TURN_V);
+			}
+			else
+			{
+				mRotation.Y(mRotation.Y() + TURN_V);
+			}
+			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
+		}
+		else if (CKey::Push('S'))
+		{
+			ChangeAnimation(1, true, 60);
+			if (dotX > 0.0f)
+			{
+				mRotation.Y(mRotation.Y() + TURN_V);
+			}
+			else
+			{
+				mRotation.Y(mRotation.Y() - TURN_V);
+			}
+			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
 		else
 		{
@@ -59,7 +104,7 @@ void CXPlayer::Update()
 	CXCharacter::Update();
 
 	//ƒJƒƒ‰ˆ—
-	CCamera::Instance()->Position(mPosition + CVector(0.0f, 3.0f, 0.0f));
+	CActionCamera::Instance()->Position(mPosition + CVector(0.0f, 3.0f, 0.0f));
 }
 
 void CXPlayer::Init(CModelX* model)

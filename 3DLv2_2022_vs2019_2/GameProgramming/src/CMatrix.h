@@ -10,11 +10,11 @@ class CMatrix {
 
 public:
 	//Z軸のベクトルを得る
-	CVector VectorZ();
+	CVector VectorZ() const;
 	//X軸のベクトルを得る
-	CVector VectorX();
+	CVector VectorX() const;
 	//Y軸のベクトルを得る
-	CVector VectorY();
+	CVector VectorY() const;
 	//*演算子のオーバーロード
 	//CMatrix * float の演算結果を返す
 	CMatrix operator*(const float& f) const;

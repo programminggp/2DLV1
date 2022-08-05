@@ -26,6 +26,7 @@ CCharacter::CCharacter()
 	: mpModel(nullptr)
 	, mTag(EZERO)
 {
+	mPriority = 1;
 	//タスクリストに追加
 	CTaskManager::Get()->Add(this);
 }

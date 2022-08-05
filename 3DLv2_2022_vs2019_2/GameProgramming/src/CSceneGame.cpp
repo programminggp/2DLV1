@@ -5,7 +5,7 @@
 //OpenGL
 #include "glut.h"
 #include "CVector.h"
-#include "CCamera.h"
+#include "CActionCamera.h"
 #include "CUtil.h"
 
 #include "CKey.h"
@@ -43,21 +43,19 @@ void CSceneGame::Init() {
 	mEnemy.Position(CVector(7.0f, 0.0f, 0.0f));
 	mEnemy.ChangeAnimation(2, true, 200);
 
-	new CCamera(-5.0f);
+	new CActionCamera(-5.0f);
 }
 
 void CSceneGame::Update() {
 
-	//キャラクタークラスの更新
-	//mPlayer.Update();
-	//mEnemy.Update();
+	//更新
 	CTaskManager::Get()->Update();
+	CActionCamera::Instance()->CameraUpdate();
 
 	//衝突処理
 	CCollisionManager::Get()->Collision();
 
-	//mPlayer.Render();
-	//mEnemy.Render();
+	CActionCamera::Instance()->CameraRender();
 	CTaskManager::Get()->Render();
 
 	//コライダの描画

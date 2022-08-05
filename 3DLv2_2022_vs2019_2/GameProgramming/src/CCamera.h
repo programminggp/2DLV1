@@ -1,17 +1,13 @@
 #ifndef CCAMERA_H
 #define CCAMERA_H
 #include "CVector.h"
-#include "CCharacter.h"
 /*
 カメラクラス
 */
-class CCamera : public CCharacter {
+class CCamera {
 public:
-	CCamera(float distance);
-	void Center(CVector& center);
-	static CCamera* Instance();
 	//回転
-//	CVector mRotation;
+	CVector mRotation;
 	//視点座標の取得
 	const CVector& Eye() const;
 	//カメラの設定
@@ -21,7 +17,6 @@ public:
 	//カメラ適用
 	void Render();
 private:
-	static CCamera* spInstance;
 	//視点
 	CVector mEye;
 	//注視点
@@ -31,5 +26,5 @@ private:
 };
 
 //カメラの外部参照
-//extern CCamera Camera;
+extern CCamera Camera;
 #endif
