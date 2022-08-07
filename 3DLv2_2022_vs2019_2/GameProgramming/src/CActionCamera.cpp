@@ -3,6 +3,8 @@
 #include "CKey.h"
 #include "glut.h"
 
+#define TURN_V 1.0f	//‰ñ“]‘¬“x
+
 CActionCamera* CActionCamera::spInstance = nullptr;
 
 CActionCamera::CActionCamera(float distance)
@@ -16,24 +18,19 @@ CActionCamera::CActionCamera(float distance)
 	CTaskManager::Get()->Add(this);
 }
 
-void CActionCamera::Center(CVector& center)
-{
-	mCenter = center;
-}
-
 void CActionCamera::CameraUpdate()
 {
 	if (CKey::Push('J'))
 	{
-		mRotation = mRotation + CVector(0.0f, 1.0f, 0.0f);
+		mRotation = mRotation + CVector(0.0f, TURN_V, 0.0f);
 	}
 	if (CKey::Push('L'))
 	{
-		mRotation = mRotation - CVector(0.0f, 1.0f, 0.0f);
+		mRotation = mRotation - CVector(0.0f, TURN_V, 0.0f);
 	}
 	if (CKey::Push('I'))
 	{
-		mRotation = mRotation - CVector(1.0f, 0.0f, 0.0f);
+		mRotation = mRotation - CVector(TURN_V, 0.0f, 0.0f);
 		if (mRotation.X() < -80.0f)
 		{
 			mRotation.X(-80.0f);
@@ -41,7 +38,7 @@ void CActionCamera::CameraUpdate()
 	}
 	if (CKey::Push('K'))
 	{
-		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f);
+		mRotation = mRotation + CVector(TURN_V, 0.0f, 0.0f);
 		if (mRotation.X() > 80.0f)
 		{
 			mRotation.X(80.0f);

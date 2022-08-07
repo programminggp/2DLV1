@@ -7,7 +7,6 @@
 class CActionCamera : public CCharacter {
 public:
 	CActionCamera(float distance);
-	void Center(CVector& center);
 	static CActionCamera* Instance();
 
 	//ƒJƒƒ‰XV
