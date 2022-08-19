@@ -43,6 +43,7 @@
     <ClCompile Include="src\CXCharacter.cpp" />
     <ClCompile Include="src\CXEnemy.cpp" />
     <ClCompile Include="src\CXPlayer.cpp" />
+    <ClCompile Include="src\CXTest.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Update.cpp" />
   </ItemGroup>
@@ -81,6 +82,7 @@
     <ClInclude Include="src\CXCharacter.h" />
     <ClInclude Include="src\CXEnemy.h" />
     <ClInclude Include="src\CXPlayer.h" />
+    <ClInclude Include="src\CXTest.h" />
     <ClInclude Include="src\Update.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

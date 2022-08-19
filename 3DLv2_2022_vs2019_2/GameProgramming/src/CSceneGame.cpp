@@ -9,6 +9,7 @@
 #include "CUtil.h"
 
 #include "CKey.h"
+#include "CXTest.h"
 
 //確認用インスタンス
 CModelX gModelX;
@@ -43,6 +44,7 @@ void CSceneGame::Init() {
 	mEnemy.Position(CVector(7.0f, 0.0f, 0.0f));
 	mEnemy.ChangeAnimation(2, true, 200);
 
+	new CXTest();
 	new CActionCamera(-5.0f);
 }
 
