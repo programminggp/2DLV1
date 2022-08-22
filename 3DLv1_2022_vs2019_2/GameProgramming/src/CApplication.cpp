@@ -1,5 +1,8 @@
 #include "CApplication.h"
-#include "CRectangle.h"
+//OpenGL
+#include "glut.h"
+#include "CVector.h"
+#include "CTriangle.h"
 
 //クラスのstatic変数
 CTexture CApplication::mTexture;
@@ -20,68 +23,56 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
-	//Sound
-	mSoundBgm.Load(SOUND_BGM);
-	mSoundOver.Load(SOUND_OVER);
-
-	mFont.Load("FontWhite.png", 1, 64);
-	mState = EState::ESTART;
-	mpGame = new CGame();
 }
 
 void CApplication::Update()
 {
-	switch (mState)
-	{
-	case EState::ESTART:	//状態がスタート
-		mpGame->Start();	//スタート画面表示
-		//Enterキーが押されたら
-		if (mInput.Key(VK_RETURN))
-		{	//状態をプレイ中にする
-			mState = EState::EPLAY;
-			//BGMリピート再生
-			mSoundBgm.Repeat();
-		}
-		break;
-	case EState::EPLAY:
-		mpGame->Update();
-		//ゲームオーバーか判定
-		if (mpGame->IsOver())
-		{	//状態をゲームオーバーにする
-			mState = EState::EOVER;
-			//BGMストップ
-			mSoundBgm.Stop();
-			//ゲームオーバー
-			mSoundOver.Play();
-		}
-		//ゲームクリアか判定
-		if (mpGame->IsClear())
-		{	//状態をゲームクリアにする
-			mState = EState::ECLEAR;
-		}
-		break;
-	case EState::EOVER:
-		//ゲームオーバー処理
-		mpGame->Over();
-		//エンターキー入力時
-		if (mInput.Key(VK_RETURN))
-		{	//ゲームのインスタンス削除
-			delete mpGame;
-			//ゲームのインスタンス生成
-			mpGame = new CGame();
-			//状態をスタートにする
-			mState = EState::ESTART;
-		}
-		break;
-	case EState::ECLEAR:
-		//ゲームクリア処理
-		mpGame->Clear();
-		if (mInput.Key(VK_RETURN))
-		{
-			delete mpGame;
-			mpGame = new CGame();
-			mState = EState::ESTART;
-		}
-		break;
-	}
+	//頂点1､頂点2､頂点3,法線データの作成
+	CVector v0, v1, v2, n;
+	//法線を上向きで設定する
+	n.Set(0.0f, 1.0f, 0.0f);
+	//頂点1の座標を設定する
+	v0.Set(0.0f, 0.0f, 0.5f);
+	//頂点2の座標を設定する
+	v1.Set(1.0f, 0.0f, 0.0f);
+	//頂点3の座標を設定する
+	v2.Set(0.0f, 0.0f, -0.5f);
+
+	//視点の設定
+	//gluLookAt(視点X, 視点Y, 視点Z, 中心X, 中心Y, 中心Z, 上向X, 上向Y, 上向Z)
+	gluLookAt(1.0f, 2.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+
+	//描画開始
+	//glBegin(形)
+	//GL_TRIANGLES：三角形
+	glBegin(GL_TRIANGLES);
+
+	//法線（面の向き）の設定
+	glNormal3f(n.X(), n.Y(), n.Z());
+	//頂点座標の設定
+	glVertex3f(v0.X(), v0.Y(), v0.Z());
+	glVertex3f(v1.X(), v1.Y(), v1.Z());
+	glVertex3f(v2.X(), v2.Y(), v2.Z());
+
+	//法線と頂点の設定
+	n.Set(0.0f, 0.0f, 1.0f);
+	v0.Set(0.5f, 0.0f, 0.0f);
+	v1.Set(0.0f, 1.0f, 0.0f);
+	v2.Set(-0.5f, 0.0f, 0.0f);
+	//三角形2の描画
+	glNormal3f(n.X(), n.Y(), n.Z());
+	glVertex3f(v0.X(), v0.Y(), v0.Z());
+	glVertex3f(v1.X(), v1.Y(), v1.Z());
+	glVertex3f(v2.X(), v2.Y(), v2.Z());
+
+	//描画終了
+	glEnd();
+
+	//三角形クラスのインスタンス作成
+	CTriangle t0;
+	//法線と頂点の設定
+	t0.Vertex(CVector(1.0f, 0.0f, 0.5f), CVector(2.0f, 0.0f, 0.0f), CVector(1.0f, 0.0f, -0.5f));
+	t0.Normal(CVector(0.0f, 1.0f, 0.0f));
+	//三角形の描画
+	t0.Render();
 }
