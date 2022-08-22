@@ -12,8 +12,8 @@ void CInput::GetMousePos(float* px, float* py)
 {
 	double xpos, ypos;
 	glfwGetCursorPos(spWindow, &xpos, &ypos);
-	*px = xpos;
-	*py = ypos;
+	*px = (float)xpos;
+	*py = (float)ypos;
 	return;
 }
 
