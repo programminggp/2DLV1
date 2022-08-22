@@ -15,10 +15,12 @@
 #include "CSound.h"
 
 #include "CVector.h"
+#include "CModel.h"
 
 class CApplication
 {
 private:
+	CModel mModel;
 	CVector mEye;
 
 	CSound mSoundBgm;	//BGM
