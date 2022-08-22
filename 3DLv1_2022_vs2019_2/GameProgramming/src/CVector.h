@@ -20,6 +20,12 @@ public:
 	//コンストラクタ
 	//CVector(X座標, Y座標, Z座標)
 	CVector(float x, float y, float z);
+	//+演算子のオーバーロード
+	//CVector + CVector の演算結果を返す
+	CVector operator+(const CVector& v) const;
+	//-演算子のオーバーロード
+	//CVector - CVector の演算結果を返す
+	CVector operator-(const CVector& v) const;
 
 private:
 	//3D各軸での値を設定
