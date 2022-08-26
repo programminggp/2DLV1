@@ -8,7 +8,7 @@
 #define N1 CVector(0.5412, 0.7071, 0.5412)
 #define N2 CVector(-0.5412, 0.7071, 0.5412)
 
-CModel::CModel()
+CModelTest::CModelTest()
 {
 	mVertex[0].mPosition = V1;
 	mVertex[0].mNormal = N1;
@@ -30,7 +30,7 @@ CModel::CModel()
 	}
 }
 
-void CModel::Render()
+void CModelTest::Render()
 {
 	//頂点座標の位置を設定
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -46,4 +46,60 @@ void CModel::Render()
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//法線の配列を無効にする
 	glDisableClientState(GL_NORMAL_ARRAY);
+}
+
+//モデルファイルの入力
+//Load(モデルファイル名, マテリアルファイル名)
+void CModel::Load(char* obj, char* mtl) {
+	//ファイルポインタ変数の作成
+	FILE* fp;
+	//ファイルからデータを入力
+	//入力エリアを作成する
+	char buf[256];
+
+	//ファイルのオープン
+	//fopen(ファイル名,モード)
+	//オープンできない時はNULLを返す
+	fp = fopen(mtl, "r");
+	//ファイルオープンエラーの判定
+	//fpがNULLの時はエラー
+	if (fp == NULL) {
+		//コンソールにエラー出力して戻る
+		printf("%s file open error￥n", mtl);
+		return;
+	}
+
+	//ファイルから1行入力
+	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
+	//ファイルの最後になるとNULLを返す
+	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		//入力した値をコンソールに出力する
+		printf("%s", buf);
+	}
+
+	//ファイルのクローズ
+	fclose(fp);
+
+	//ファイルのオープン
+	//fopen(ファイル名,モード)
+	//オープンできない時はNULLを返す
+	fp = fopen(obj, "r");
+	//ファイルオープンエラーの判定
+	//fpがNULLの時はエラー
+	if (fp == NULL) {
+		//コンソールにエラー出力して戻る
+		printf("%s file open error￥n", mtl);
+		return;
+	}
+
+	//ファイルから1行入力
+	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
+	//ファイルの最後になるとNULLを返す
+	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		//入力した値をコンソールに出力する
+		printf("%s", buf);
+	}
+
+	//ファイルのクローズ
+	fclose(fp);
 }
