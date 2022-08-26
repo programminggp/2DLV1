@@ -1,8 +1,24 @@
 #include "CModel.h"
 //文字列関数のインクルード
-#include <string.h>
+//#include <string.h>
 //CVectorのインクルード
 #include "CVector.h"
+
+//文字列s1と文字列s2の比較
+//s1とs2が等しければ0を
+//等しくなければ0以外を返す
+int strcmp(const char* s1, const char* s2)
+{
+	int i = 0;
+	//文字が同じ間は繰り返し
+	//どちらかの文字が終わりになるとループの終わり
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+	{
+		i++;
+	}
+	//同じなら引いて0
+	return s1[i] - s2[i];
+}
 
 #include "glut.h"
 
