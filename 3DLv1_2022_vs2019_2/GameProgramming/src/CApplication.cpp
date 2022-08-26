@@ -65,5 +65,5 @@ void CApplication::Update()
 	//gluLookAt(視点X, 視点Y, 視点Z, 中心X, 中心Y, 中心Z, 上向X, 上向Y, 上向Z)
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(), 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
-	//mModel.Render();
+	mModel.Render();
 }
