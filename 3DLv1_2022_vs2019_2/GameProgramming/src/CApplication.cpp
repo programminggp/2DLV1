@@ -3,6 +3,7 @@
 #include "glut.h"
 #include "CVector.h"
 #include "CTriangle.h"
+#include "CMatrix.h"
 
 //クラスのstatic変数
 CTexture CApplication::mTexture;
@@ -30,6 +31,8 @@ void CApplication::Start()
 	//モデルファイルの入力
 	mModel.Load(MODEL_OBJ);
 	mBackGround.Load(MODEL_BACKGROUND);
+	CMatrix matrix;
+	matrix.Print();
 
 	mEye = CVector(1.0f, 2.0f, 3.0f);
 }
