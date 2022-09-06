@@ -17,6 +17,9 @@ public:
 	//描画
 	void Render();
 	~CModel();
+	//描画
+	//Render(行列)
+	void Render(const CMatrix& m);
 private:
 	//マテリアルポインタの可変長配列
 	std::vector<CMaterial*> mpMaterials;

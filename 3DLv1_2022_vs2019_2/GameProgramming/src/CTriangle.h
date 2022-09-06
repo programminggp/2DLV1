@@ -2,6 +2,8 @@
 #define CTRIANGLE_H
 
 #include "CVector.h"
+#include "CMatrix.h"
+
 /*
 三角形クラス
 */
@@ -24,6 +26,10 @@ public:
 	void Normal(const CVector& n);
 	//描画
 	void Render();
+	//描画
+	//Render(行列)
+	void Render(const CMatrix& m);
+
 private:
 	CVector mUv[3]; //テクスチャマッピング
 	int mMaterialIdx; //マテリアル番号

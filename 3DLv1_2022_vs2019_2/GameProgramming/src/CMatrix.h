@@ -13,6 +13,13 @@ public:
 	CMatrix();
 	//単位行列の作成
 	CMatrix Identity();
+	//拡大縮小行列の作成
+	//Scale(倍率X, 倍率Y, 倍率Z)
+	CMatrix Scale(float sx, float sy, float sz);
+	//行列値の取得
+	//M(行, 列)
+	//mM[行][列]を取得
+	float M(int r, int c) const;
 private:
 	//4×4の行列データを設定
 	float mM[4][4];
