@@ -1,6 +1,55 @@
 #include "CMatrix.h"
 //標準入出力関数のインクルード
 #include <stdio.h>
+//円周率M_PIを有効にする
+#define _USE_MATH_DEFINES
+//数学関数のインクルード
+#include <math.h>
+
+//回転行列（Y軸）の作成
+//RotateY(角度)
+CMatrix CMatrix::RotateY(float degree) {
+	//角度からラジアンを求める
+	float rad = degree / 180.0f * M_PI;
+	//単位行列にする
+	Identity();
+	//Y軸で回転する行列の設定
+	mM[0][0] = mM[2][2] = cosf(rad);
+	mM[0][2] = -sinf(rad);
+	mM[2][0] = -mM[0][2];
+	//行列を返す
+	return *this;
+}
+
+//回転行列（Z軸）の作成
+//RotateZ(角度)
+CMatrix CMatrix::RotateZ(float degree)
+{
+	//角度からラジアンを求める
+	float rad = degree / 180.0f * M_PI;
+	//単位行列にする
+	Identity();
+	//Z軸で回転する行列の設定
+	mM[0][0] = mM[1][1] = cosf(rad);
+	mM[0][1] = sinf(rad);
+	mM[1][0] = -mM[0][1];
+	//行列を返す
+	return *this;
+}
+
+CMatrix CMatrix::RotateX(float degree)
+{
+	//角度からラジアンを求める
+	float rad = degree / 180.0f * M_PI;
+	//単位行列にする
+	Identity();
+	//Z軸で回転する行列の設定
+	mM[1][1] = mM[2][2] = cosf(rad);
+	mM[1][2] = sinf(rad);
+	mM[2][1] = -mM[1][2];
+	//行列を返す
+	return *this;
+}
 
 void CMatrix::Print() {
 	printf("%10f %10f %10f %10f\n",
