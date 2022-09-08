@@ -1,15 +1,22 @@
-#pragma once
-#include "CCharacter.h"
+#ifndef CPLAYER_H
+#define CPLAYER_H
+//キャラクタクラスのインクルード
+#include "CCharacter3.h"
 #include "CInput.h"
 
-class CPlayer : public CCharacter
-{
-private:
-	float mVy;	//Y軸速度
-	CInput mInput;
+/*
+プレイヤークラス
+キャラクタクラスを継承
+*/
+class CPlayer : public CCharacter3 {
 public:
-	void Collision();
-	void Collision(CCharacter* m, CCharacter* o);
-	CPlayer(float x, float y, float w, float h, CTexture* pt);
+	CPlayer() {}
+	//CPlayer(位置, 回転, スケール)
+	CPlayer(const CVector& pos, const CVector& rot, const CVector& scale);
+	//更新処理
 	void Update();
+private:
+	CInput mInput;
 };
+
+#endif

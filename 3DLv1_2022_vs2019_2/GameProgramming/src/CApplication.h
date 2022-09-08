@@ -20,7 +20,7 @@
 class CApplication
 {
 private:
-	CCharacter3 mPlayer;
+	CPlayer mPlayer;
 	CCharacter3 mCharacter;
 	CModel mBackGround; //”wŒiƒ‚ƒfƒ‹
 	CModel mModel;

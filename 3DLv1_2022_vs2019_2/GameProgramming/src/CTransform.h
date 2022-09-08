@@ -24,6 +24,8 @@ public:
 	const CMatrix& MatrixRotate() const;
 	//行列更新処理
 	void Update();
+	//Update(位置, 回転, スケール)
+	void Update(const CVector& pos, const CVector& rot, const CVector& scale);
 protected: //子クラスはアクセス可能
 	CVector mPosition;	//位置
 	CVector mRotation;	//回転
