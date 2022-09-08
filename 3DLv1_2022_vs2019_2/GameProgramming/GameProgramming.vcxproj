@@ -16,6 +16,7 @@
     <ClCompile Include="src\CBullet.cpp" />
     <ClCompile Include="src\CCamera.cpp" />
     <ClCompile Include="src\CCharacter.cpp" />
+    <ClCompile Include="src\CCharacter3.cpp" />
     <ClCompile Include="src\CCharacterManager.cpp" />
     <ClCompile Include="src\CEnemy.cpp" />
     <ClCompile Include="src\CEnemy2.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="src\CSound.cpp" />
     <ClCompile Include="src\CTexture.cpp" />
     <ClCompile Include="src\CInput.cpp" />
+    <ClCompile Include="src\CTransform.cpp" />
     <ClCompile Include="src\CTriangle.cpp" />
     <ClCompile Include="src\CUi.cpp" />
     <ClCompile Include="src\CVector.cpp" />
@@ -42,6 +44,7 @@
     <ClInclude Include="src\CBullet.h" />
     <ClInclude Include="src\CCamera.h" />
     <ClInclude Include="src\CCharacter.h" />
+    <ClInclude Include="src\CCharacter3.h" />
     <ClInclude Include="src\CCharacterManager.h" />
     <ClInclude Include="src\CEnemy.h" />
     <ClInclude Include="src\CEnemy2.h" />
@@ -58,6 +61,7 @@
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTexture.h" />
     <ClInclude Include="src\CInput.h" />
+    <ClInclude Include="src\CTransform.h" />
     <ClInclude Include="src\CTriangle.h" />
     <ClInclude Include="src\CUi.h" />
     <ClInclude Include="src\CVector.h" />

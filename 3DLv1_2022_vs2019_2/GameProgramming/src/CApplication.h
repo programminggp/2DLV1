@@ -1,7 +1,7 @@
 #pragma once
 #include "CRectangle.h"
 #include "CTexture.h"
-#include "CCharacter.h"
+#include "CCharacter3.h"
 #include "CBullet.h"
 #include "CEnemy.h"
 #include "CPlayer.h"
@@ -20,6 +20,8 @@
 class CApplication
 {
 private:
+	CCharacter3 mPlayer;
+	CCharacter3 mCharacter;
 	CModel mBackGround; //”wŒiƒ‚ƒfƒ‹
 	CModel mModel;
 	CVector mEye;
