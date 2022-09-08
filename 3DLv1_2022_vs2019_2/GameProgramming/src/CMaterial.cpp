@@ -40,7 +40,9 @@ void CMaterial::Disabled()
 }
 
 //デフォルトコンストラクタ
-CMaterial::CMaterial() {
+CMaterial::CMaterial()
+	:mVertexNum(0)
+{
 	//名前を0で埋め
 	memset(mName, 0, sizeof(mName));
 	//0で埋める
@@ -78,4 +80,14 @@ void CMaterial::Name(char* name)
 float* CMaterial::Diffuse()
 {
 	return mDiffuse;
+}
+
+void CMaterial::VertexNum(int num)
+{
+	mVertexNum = num;
+}
+
+int CMaterial::VertexNum()
+{
+	return mVertexNum;
 }

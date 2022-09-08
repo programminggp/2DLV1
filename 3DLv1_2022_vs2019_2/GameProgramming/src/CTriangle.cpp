@@ -87,3 +87,18 @@ void CTriangle::Render(const CMatrix& m)
 	glEnd();
 }
 
+CVector* CTriangle::V()
+{
+	return mV;
+}
+
+CVector* CTriangle::N()
+{
+	return mN;
+}
+
+CVector* CTriangle::Uv()
+{
+	return mUv;
+}
+

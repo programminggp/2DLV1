@@ -24,7 +24,14 @@ public:
 	void Name(char* name);
 	//mDiffuse配列の取得
 	float* Diffuse();
+	//頂点数の設定
+	//VertexNum(頂点数)
+	void VertexNum(int num);
+	//頂点数の取得
+	int VertexNum();
 private:
+	//マテリアル毎の頂点数
+	int mVertexNum;
 	//テクスチャ
 	CTexture mTexture;
 	//マテリアル名

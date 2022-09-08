@@ -81,6 +81,11 @@ CMatrix CMatrix::operator*(const CMatrix& m) {
 	return t;
 }
 
+float* CMatrix::M() const
+{
+	return (float*)mM[0];
+}
+
 void CMatrix::Print() {
 	printf("%10f %10f %10f %10f\n",
 		mM[0][0], mM[0][1], mM[0][2], mM[0][3]);

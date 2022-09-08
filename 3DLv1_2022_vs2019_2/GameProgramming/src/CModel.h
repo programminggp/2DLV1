@@ -4,6 +4,7 @@
 #include <vector>
 #include "CTriangle.h"
 #include "CMaterial.h"
+#include "CVertex.h"
 
 /*
 モデルクラス
@@ -25,6 +26,9 @@ private:
 	std::vector<CMaterial*> mpMaterials;
 	//三角形の可変長配列
 	std::vector<CTriangle> mTriangles;
+	//頂点の可変長配列
+	std::vector<CVertex> mVertexes;
+	void CreateVertexBuffer();
 };
 
 #include "CVertex.h"

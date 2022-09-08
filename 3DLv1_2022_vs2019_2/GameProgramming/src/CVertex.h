@@ -11,9 +11,8 @@ public:
 	CVector mPosition;
 	//法線
 	CVector mNormal;
-
-	////テクスチャマッピング
-	//CVector mTextureCoords;
+	//テクスチャマッピング
+	CVector mTextureCoords;
 
 	////スキンウェイト
 	//float mBoneWeight[4];

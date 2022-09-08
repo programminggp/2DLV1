@@ -59,6 +59,9 @@ void CModelTest::Render()
 	//法線ベクトルの位置を設定
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glNormalPointer(GL_FLOAT, sizeof(CVertex), (void*)&mVector[0].mNormal);
+	//テクスチャマッピングの位置を設定
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glTexCoordPointer(3, GL_FLOAT, sizeof(CVertex), (void*)&mVector[0].mTextureCoords);
 
 	//描画位置からのデータで三角形を描画します
 	glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -66,6 +69,8 @@ void CModelTest::Render()
 	//頂点座標の配列を無効にする
 	glDisableClientState(GL_VERTEX_ARRAY);
 	//法線の配列を無効にする
+	glDisableClientState(GL_NORMAL_ARRAY);
+	//テクスチャマッピングの配列を無効にする
 	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
@@ -229,6 +234,8 @@ void CModel::Load(char* obj, char* mtl) {
 
 	//ファイルのクローズ
 	fclose(fp);
+
+	CreateVertexBuffer();
 }
 
 void CModel::Render()
@@ -256,6 +263,48 @@ CModel::~CModel()
 //Render(行列)
 void CModel::Render(const CMatrix& m)
 {
+	//行列の退避
+	glPushMatrix();
+	//合成行列を掛ける
+	glMultMatrixf(m.M());
+
+	//頂点座標の位置を設定
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, sizeof(CVertex), (void*)&mVertexes[0].mPosition);
+	//法線ベクトルの位置を設定
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glNormalPointer(GL_FLOAT, sizeof(CVertex), (void*)&mVertexes[0].mNormal);
+	//テクスチャマッピングの位置を設定
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glTexCoordPointer(3, GL_FLOAT, sizeof(CVertex), (void*)&mVertexes[0].mTextureCoords);
+
+	//描画位置からのデータで三角形を描画します
+	//glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	int first = 0; //描画位置
+	//マテリアル毎に描画する
+	for (size_t i = 0; i < mpMaterials.size(); i++) {
+		//マテリアルを適用する
+		mpMaterials[i]->Enabled();
+		//描画位置からのデータで三角形を描画します
+		glDrawArrays(GL_TRIANGLES, first, mpMaterials[i]->VertexNum());
+		//マテリアルを無効にする
+		mpMaterials[i]->Disabled();
+		//描画位置を移動
+		first += mpMaterials[i]->VertexNum();
+	}
+	//行列を戻す
+	glPopMatrix();
+
+	//頂点座標の配列を無効にする
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//法線の配列を無効にする
+	glDisableClientState(GL_NORMAL_ARRAY);
+	//テクスチャマッピングの配列を無効にする
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	return;
+
 	//可変長配列の要素数だけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
 		//マテリアルの適用
@@ -264,6 +313,33 @@ void CModel::Render(const CMatrix& m)
 		mTriangles[i].Render(m);
 		//マテリアルを無効
 		mpMaterials[mTriangles[i].MaterialIdx()]->Disabled();
+	}
+}
+
+void CModel::CreateVertexBuffer()
+{
+	for (int i = 0; i < mpMaterials.size(); i++)
+	{
+		for (int j = 0; j < mTriangles.size(); j++)
+		{
+			if (i == mTriangles[j].MaterialIdx())
+			{
+				mpMaterials[i]->VertexNum(mpMaterials[i]->VertexNum() + 1);
+				CVertex vertex[3];
+				vertex[0].mPosition = mTriangles[j].V()[0];
+				vertex[0].mNormal = mTriangles[j].N()[0];
+				vertex[0].mTextureCoords = mTriangles[j].Uv()[0];
+				vertex[1].mPosition = mTriangles[j].V()[1];
+				vertex[1].mNormal = mTriangles[j].N()[1];
+				vertex[1].mTextureCoords = mTriangles[j].Uv()[1];
+				vertex[2].mPosition = mTriangles[j].V()[2];
+				vertex[2].mNormal = mTriangles[j].N()[2];
+				vertex[2].mTextureCoords = mTriangles[j].Uv()[2];
+				mVertexes.push_back(vertex[0]);
+				mVertexes.push_back(vertex[1]);
+				mVertexes.push_back(vertex[2]);
+			}
+		}
 	}
 }
 

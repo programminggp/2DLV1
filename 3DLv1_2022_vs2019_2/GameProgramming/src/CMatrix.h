@@ -38,7 +38,8 @@ public:
 	//*演算子のオーバーロード
 	//CMatrix * CMatrix の演算結果を返す
 	CMatrix operator*(const CMatrix& m);
-
+	//
+	float* M() const;
 private:
 	//4×4の行列データを設定
 	float mM[4][4];
