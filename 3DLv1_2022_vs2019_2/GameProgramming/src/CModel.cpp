@@ -22,28 +22,28 @@ int strcmp(const char* s1, const char* s2)
 
 #include "glut.h"
 
-#define V1 CVector(1.0f, 0.0f, 0.0f)
-#define V2 CVector(0.0f, 1.0f, 0.0f)
-#define V3 CVector(0.0f, 0.0f, 1.0f)
-#define V4 CVector(-1.0f, 0.0f, 0.0f)
-#define N1 CVector(0.5412, 0.7071, 0.5412)
-#define N2 CVector(-0.5412, 0.7071, 0.5412)
+//#define V1 CVector(1.0f, 0.0f, 0.0f)
+//#define V2 CVector(0.0f, 1.0f, 0.0f)
+//#define V3 CVector(0.0f, 0.0f, 1.0f)
+//#define V4 CVector(-1.0f, 0.0f, 0.0f)
+//#define N1 CVector(0.5412, 0.7071, 0.5412)
+//#define N2 CVector(-0.5412, 0.7071, 0.5412)
 
 CModelTest::CModelTest()
 {
-	mVertex[0].mPosition = V1;
-	mVertex[0].mNormal = N1;
-	mVertex[1].mPosition = V2;
-	mVertex[1].mNormal = N1;
-	mVertex[2].mPosition = V3;
-	mVertex[2].mNormal = N1;
+	//mVertex[0].mPosition = V1;
+	//mVertex[0].mNormal = N1;
+	//mVertex[1].mPosition = V2;
+	//mVertex[1].mNormal = N1;
+	//mVertex[2].mPosition = V3;
+	//mVertex[2].mNormal = N1;
 
-	mVertex[3].mPosition = V2;
-	mVertex[3].mNormal = N2;
-	mVertex[4].mPosition = V4;
-	mVertex[4].mNormal = N2;
-	mVertex[5].mPosition = V3;
-	mVertex[5].mNormal = N2;
+	//mVertex[3].mPosition = V2;
+	//mVertex[3].mNormal = N2;
+	//mVertex[4].mPosition = V4;
+	//mVertex[4].mNormal = N2;
+	//mVertex[5].mPosition = V3;
+	//mVertex[5].mNormal = N2;
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -313,15 +313,15 @@ void CModel::CreateVertexBuffer()
 			if (i == mTriangles[j].MaterialIdx())
 			{
 				mpMaterials[i]->VertexNum(mpMaterials[i]->VertexNum() + 3);
-				mpVertexes[idx].mPosition = mTriangles[j].V()[0];
-				mpVertexes[idx].mNormal = mTriangles[j].N()[0];
-				mpVertexes[idx++].mTextureCoords = mTriangles[j].Uv()[0];
-				mpVertexes[idx].mPosition = mTriangles[j].V()[1];
-				mpVertexes[idx].mNormal = mTriangles[j].N()[1];
-				mpVertexes[idx++].mTextureCoords = mTriangles[j].Uv()[1];
-				mpVertexes[idx].mPosition = mTriangles[j].V()[2];
-				mpVertexes[idx].mNormal = mTriangles[j].N()[2];
-				mpVertexes[idx++].mTextureCoords = mTriangles[j].Uv()[2];
+				mpVertexes[idx].mPosition = mTriangles[j].V0();
+				mpVertexes[idx].mNormal = mTriangles[j].N0();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U0();
+				mpVertexes[idx].mPosition = mTriangles[j].V1();
+				mpVertexes[idx].mNormal = mTriangles[j].N1();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U1();
+				mpVertexes[idx].mPosition = mTriangles[j].V2();
+				mpVertexes[idx].mNormal = mTriangles[j].N2();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U2();
 			}
 		}
 	}

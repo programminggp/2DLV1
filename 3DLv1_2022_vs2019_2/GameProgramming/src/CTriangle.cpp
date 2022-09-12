@@ -87,18 +87,56 @@ void CTriangle::Render(const CMatrix& m)
 	glEnd();
 }
 
-CVector* CTriangle::V()
+//CVector* CTriangle::V()
+//{
+//	return mV;
+//}
+//
+//CVector* CTriangle::N()
+//{
+//	return mN;
+//}
+//
+//CVector* CTriangle::Uv()
+//{
+//	return mUv;
+//}
+
+const CVector& CTriangle::V0() const
 {
-	return mV;
+	return mV[0];
+}
+const CVector& CTriangle::V1() const
+{
+	return mV[1];
+}
+const CVector& CTriangle::V2() const
+{
+	return mV[2];
 }
 
-CVector* CTriangle::N()
+const CVector& CTriangle::N0() const
 {
-	return mN;
+	return mN[0];
+}
+const CVector& CTriangle::N1() const
+{
+	return mN[1];
+}
+const CVector& CTriangle::N2() const
+{
+	return mN[2];
 }
 
-CVector* CTriangle::Uv()
+const CVector& CTriangle::U0() const
 {
-	return mUv;
+	return mUv[0];
 }
-
+const CVector& CTriangle::U1() const
+{
+	return mUv[1];
+}
+const CVector& CTriangle::U2() const
+{
+	return mUv[2];
+}

@@ -29,9 +29,19 @@ public:
 	//描画
 	//Render(行列)
 	void Render(const CMatrix& m);
-	CVector* V();
-	CVector* N();
-	CVector* Uv();
+	//CVector* V();
+	//CVector* N();
+	//CVector* Uv();
+
+	const CVector& V0() const;
+	const CVector& V1() const;
+	const CVector& V2() const;
+	const CVector& N0() const;
+	const CVector& N1() const;
+	const CVector& N2() const;
+	const CVector& U0() const;
+	const CVector& U1() const;
+	const CVector& U2() const;
 
 private:
 	CVector mUv[3]; //テクスチャマッピング

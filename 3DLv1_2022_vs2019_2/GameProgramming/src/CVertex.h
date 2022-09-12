@@ -2,7 +2,7 @@
 #define CVERTEX_H
 #include "CVector.h"
 /*
-頂点バッファデータクラス
+頂点データクラス
 頂点毎にデータをまとめます
 */
 class CVertex {
