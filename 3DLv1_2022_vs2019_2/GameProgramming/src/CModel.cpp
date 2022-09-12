@@ -277,7 +277,7 @@ void CModel::Render(const CMatrix& m)
 	glNormalPointer(GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mNormal);
 	//テクスチャマッピングの位置を設定
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glTexCoordPointer(3, GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mTextureCoords);
+	glTexCoordPointer(2, GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mTextureCoords);
 
 	int first = 0; //描画位置
 	//マテリアル毎に描画する
