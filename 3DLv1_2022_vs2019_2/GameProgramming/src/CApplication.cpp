@@ -98,4 +98,7 @@ void CApplication::Update()
 	mPlayer.Render();
 
 	mBackGround.Render(CMatrix());
+
+	mPlayer.bullet.Update();
+	mPlayer.bullet.Render();
 }
