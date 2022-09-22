@@ -61,7 +61,7 @@ void CSceneGame::Init() {
 	new CEnemy(&mModelC5, CVector(30.0f, 10.0f, -130.0f),
 		CVector(), CVector(0.1f, 0.1f, 0.1f));
 	//ビルボードの生成
-	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
+//	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
 	//三角コライダの確認
 	mColliderTriangle.Set(NULL, NULL
 		, CVector(-50.0f, 0.0f, -50.0f)
@@ -109,7 +109,7 @@ void CSceneGame::Update() {
 	//タスクマネージャの描画	
 	CTaskManager::Get()->Render();
 	//コリジョンマネージャのコライダ描画
-	CCollisionManager::Get()->Render();
+	//CCollisionManager::Get()->Render();
 }
 	
 
