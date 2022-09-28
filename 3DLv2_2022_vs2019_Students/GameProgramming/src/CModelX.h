@@ -16,6 +16,8 @@ class CMaterial;	//クラスの宣言
 
 #include <vector>	//vectorクラスのインクルード（動的配列）
 #include "CMatrix.h"	//マトリクスクラスのインクルード
+#include "CVector.h"
+
 class CModelX;	// CModelXクラスの宣言
 class CModelXFrame;
 class CMesh;
