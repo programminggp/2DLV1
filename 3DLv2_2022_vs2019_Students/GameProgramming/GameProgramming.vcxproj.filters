@@ -117,6 +117,9 @@
     <ClCompile Include="src\CShader.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
+    <ClCompile Include="src\CSceneTest.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Update.h">
@@ -219,6 +222,12 @@
       <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
     <ClInclude Include="src\CVertex.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CSceneTest.h">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CInput.h">
       <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
   </ItemGroup>

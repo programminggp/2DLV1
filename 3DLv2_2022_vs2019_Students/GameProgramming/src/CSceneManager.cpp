@@ -1,5 +1,6 @@
 #include "CSceneManager.h"
 #include "CSceneGame.h"
+#include "CSceneTest.h"
 
 //コンストラクタ
 CSceneManager::CSceneManager()
@@ -16,7 +17,8 @@ CSceneManager::~CSceneManager() {
 //初期化処理
 void CSceneManager::Init() {
 	//シーンを生成し、ポインタを設定する
-	mpScene = new CSceneGame();
+//	mpScene = new CSceneGame();
+	mpScene = new CSceneTest();
 	//生成したクラスのメソッドが呼ばれる
 	mpScene->Init();
 }

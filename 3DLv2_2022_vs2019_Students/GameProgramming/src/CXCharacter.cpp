@@ -10,6 +10,10 @@ void CXCharacter::Update()
 
 CXCharacter::CXCharacter()
 	:mpCombinedMatrix(nullptr)
+	, mAnimationFrame(0.0f)
+	, mAnimationFrameSize(0.0f)
+	, mAnimationIndex(0)
+	, mAnimationLoopFlg(false)
 {
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 }
