@@ -10,7 +10,7 @@
 void CMyShader::Render(CModelX* model, CMatrix* pCombinedMatrix) {
 	//シェーダーを有効にする
 	Enable();
-	for (int i = 0; i < model->mFrame.size(); i++) {
+	for (size_t i = 0; i < model->mFrame.size(); i++) {
 		if (model->mFrame[i]->mMesh.mFaceNum != 0) {
 			//面のあるメッシュは描画する
 			Render(model, &model->mFrame[i]->mMesh, pCombinedMatrix);
@@ -24,7 +24,7 @@ void CMyShader::Render(CModelX* model, CMatrix* pCombinedMatrix) {
 */
 void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	//スキンマトリックス生成
-	for (int i = 0; i < mesh->mSkinWeights.size(); i++) {
+	for (size_t i = 0; i < mesh->mSkinWeights.size(); i++) {
 		//スキンメッシュの行列配列を設定する
 		model->mpSkinningMatrix[mesh->mSkinWeights[i]->mFrameIndex]
 			//			= pCombinedMatrix[mesh->mSkinWeights[i]->mFrameIndex] * mesh->mSkinWeights[i]->mOffset;
@@ -82,7 +82,7 @@ void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	//マテリアル毎に頂点を描画します
 	int k = 0;
 
-	for (int i = 0; i < mesh->mMaterial.size(); i++) {
+	for (size_t i = 0; i < mesh->mMaterial.size(); i++) {
 		//マテリアルの値をシェーダーに設定
 		SetShader(mesh->mMaterial[i]);
 		//三角形描画、開始頂点番号、描画に使用する頂点数

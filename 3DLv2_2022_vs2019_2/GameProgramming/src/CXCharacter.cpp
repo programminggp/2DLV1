@@ -60,7 +60,7 @@ void CXCharacter::ChangeAnimation(int index, bool loop, float framesize) {
 	mpModel->AnimationSet()[mAnimationIndex]->Weight(1.0f);
 }
 void CXCharacter::Update(CMatrix& matrix) {
-	for (int i = 0; i < mpModel->AnimationSet().size(); i++)
+	for (size_t i = 0; i < mpModel->AnimationSet().size(); i++)
 	{
 		mpModel->AnimationSet()[i]->Weight(0.0f);
 	}
