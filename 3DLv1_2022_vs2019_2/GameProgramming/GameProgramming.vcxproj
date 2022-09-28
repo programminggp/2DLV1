@@ -30,6 +30,7 @@
     <ClCompile Include="src\CPoint.cpp" />
     <ClCompile Include="src\CRectangle.cpp" />
     <ClCompile Include="src\CSound.cpp" />
+    <ClCompile Include="src\CTaskManager.cpp" />
     <ClCompile Include="src\CTexture.cpp" />
     <ClCompile Include="src\CInput.cpp" />
     <ClCompile Include="src\CTransform.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="src\CRectangle.h" />
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTask.h" />
+    <ClInclude Include="src\CTaskManager.h" />
     <ClInclude Include="src\CTexture.h" />
     <ClInclude Include="src\CInput.h" />
     <ClInclude Include="src\CTransform.h" />
