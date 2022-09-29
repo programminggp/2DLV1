@@ -13,6 +13,10 @@ public:
 	//更新処理のオーバーライド
 	void Update();
 private:
+	CVector mScale;
+	bool mPushFlg;
+	float mOldMousePosX;
+	CTransform mTransform;
 	CModelX mModelX;
 	//キャラクタのインスタンス
 	CXCharacter mXCharacter;

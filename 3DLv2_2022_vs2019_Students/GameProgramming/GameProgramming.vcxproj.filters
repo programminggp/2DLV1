@@ -120,6 +120,9 @@
     <ClCompile Include="src\CSceneTest.cpp">
       <Filter>ソース ファイル\Lib</Filter>
     </ClCompile>
+    <ClCompile Include="src\CInput.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Update.h">

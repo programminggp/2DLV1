@@ -21,6 +21,7 @@
     <ClCompile Include="src\CColliderTriangle.cpp" />
     <ClCompile Include="src\CCollisionManager.cpp" />
     <ClCompile Include="src\CEffect.cpp" />
+    <ClCompile Include="src\CInput.cpp" />
     <ClCompile Include="src\CKey.cpp" />
     <ClCompile Include="src\CMaterial.cpp" />
     <ClCompile Include="src\CMatrix.cpp" />
