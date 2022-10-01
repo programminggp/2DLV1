@@ -3,7 +3,8 @@
 #include "CKey.h"
 
 //モデルのファイル名
-#define MODELX_FILE "res\\felguard\\felguard-X.X"
+//#define MODELX_FILE "res\\felguard\\felguard-X.X"
+#define MODELX_FILE "res\\paladin\\Paladin.X"
 
 void CSceneTest::Init() {
 	//モデルデータ読み込み
