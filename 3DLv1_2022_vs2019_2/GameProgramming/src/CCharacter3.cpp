@@ -1,4 +1,17 @@
 #include "CCharacter3.h"
+#include "CApplication.h"
+
+CCharacter3::CCharacter3()
+{
+	//タスクリストに追加
+	CApplication::TaskManager()->Add(this);
+}
+
+CCharacter3::~CCharacter3()
+{
+	//タスクリストから削除
+	CApplication::TaskManager()->Remove(this);
+}
 
 void CCharacter3::Model(CModel* m)
 {

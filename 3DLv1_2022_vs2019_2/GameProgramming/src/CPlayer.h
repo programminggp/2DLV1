@@ -11,7 +11,7 @@
 */
 class CPlayer : public CCharacter3 {
 public:
-	CBullet bullet;
+	//CBullet bullet;
 	CPlayer() {}
 	//CPlayer(位置, 回転, スケール)
 	CPlayer(const CVector& pos, const CVector& rot, const CVector& scale);
