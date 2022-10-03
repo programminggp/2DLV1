@@ -246,6 +246,8 @@ private:
 	//アニメーションセットの配列
 	std::vector<CAnimationSet*> mAnimationSet;
 public:
+	//アニメーションセットの追加
+	void AddAnimationSet(const char* file);
 	//シェーダーを使った描画
 	void RenderShader(CMatrix* m);
 

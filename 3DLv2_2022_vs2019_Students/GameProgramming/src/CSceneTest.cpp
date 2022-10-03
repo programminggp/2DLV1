@@ -5,6 +5,7 @@
 //モデルのファイル名
 //#define MODELX_FILE "res\\felguard\\felguard-X.X"
 #define MODELX_FILE "res\\paladin\\Paladin.X"
+#define ANIMATION_ATTACKSP1 "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Attack.x"
 
 void CSceneTest::Init() {
 	//モデルデータ読み込み
@@ -17,6 +18,11 @@ void CSceneTest::Init() {
 	//マウス操作系変数の初期化
 	mPushFlg = false;
 	mOldMousePosX = 0;
+
+	//アニメーションの追加
+	mModelX.AddAnimationSet(ANIMATION_ATTACKSP1);
+	//アニメーションを切り替え
+	mXCharacter.ChangeAnimation(1, true, 120);
 }
 
 void CSceneTest::Update() 
