@@ -7,6 +7,9 @@
 //CEnemy(ƒ‚ƒfƒ‹, ˆÊ’u, ‰ñ“], Šgk)
 CEnemy::CEnemy(CModel* model, const CVector& position,
 	const CVector& rotation, const CVector& scale)
+	: mCollider1(this, &mMatrix, CVector(0.0f, 5.0f, 0.0f), 0.8f)
+	, mCollider2(this, &mMatrix, CVector(0.0f, 5.0f, 20.0f), 0.8f)
+	, mCollider3(this, &mMatrix, CVector(0.0f, 5.0f, -20.0f), 0.8f)
 {
 
 	//ƒ‚ƒfƒ‹AˆÊ’uA‰ñ“]AŠgk‚ğİ’è‚·‚é
