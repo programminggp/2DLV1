@@ -13,6 +13,7 @@ public:
 	//更新処理のオーバーライド
 	void Update();
 private:
+	CModel mGround;
 	CVector mScale;
 	bool mPushFlg;
 	float mOldMousePosX;

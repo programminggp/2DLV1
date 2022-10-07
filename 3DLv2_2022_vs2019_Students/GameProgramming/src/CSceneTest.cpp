@@ -6,8 +6,10 @@
 //#define MODELX_FILE "res\\felguard\\felguard-X.X"
 #define MODELX_FILE "res\\paladin\\Paladin.X"
 #define ANIMATION_ATTACKSP1 "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Attack.x"
+#define MODEL_GROUND "res\\forest-terrain\\TerrainNew1016.obj","res\\forest-terrain\\TerrainNew1016.mtl"
 
 void CSceneTest::Init() {
+	mGround.Load(MODEL_GROUND);
 	//モデルデータ読み込み
 	mModelX.Load(MODELX_FILE);
 	//モデルデータ設定
@@ -94,9 +96,12 @@ void CSceneTest::Update()
 	//カメラ設定
 	gluLookAt(5, 5, 10, 0, 0, 0, 0, 1, 0);
 
+
 	//回転など
 	mTransform.Update();
 	glMultMatrixf(mTransform.Matrix().M());
+
+	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(0,0,0));
 
 	//キャラクタ更新・描画
 	mXCharacter.Update();
