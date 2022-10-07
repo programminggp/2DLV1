@@ -5,11 +5,12 @@
 //モデルのファイル名
 //#define MODELX_FILE "res\\felguard\\felguard-X.X"
 #define MODELX_FILE "res\\paladin\\Paladin.X"
+//アニメーションデータ追加
 #define ANIMATION_ATTACKSP1 "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Attack.x"
-#define MODEL_GROUND "res\\forest-terrain\\TerrainNew1016.obj","res\\forest-terrain\\TerrainNew1016.mtl"
+//地形モデルデータ
+#define MODEL_GROUND "res\\forest-terrain\\TerrainNew1000.obj","res\\forest-terrain\\TerrainNew1000.mtl"
 
 void CSceneTest::Init() {
-	mGround.Load(MODEL_GROUND);
 	//モデルデータ読み込み
 	mModelX.Load(MODELX_FILE);
 	//モデルデータ設定
@@ -25,6 +26,9 @@ void CSceneTest::Init() {
 	mModelX.AddAnimationSet(ANIMATION_ATTACKSP1);
 	//アニメーションを切り替え
 	mXCharacter.ChangeAnimation(1, true, 120);
+
+	//地形データ読み込み
+	mGround.Load(MODEL_GROUND);
 }
 
 void CSceneTest::Update() 
@@ -101,7 +105,9 @@ void CSceneTest::Update()
 	mTransform.Update();
 	glMultMatrixf(mTransform.Matrix().M());
 
-	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(0,0,0));
+//	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(-150, 0, -250));
+	//地形データ描画
+	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(0, 0, -10));
 
 	//キャラクタ更新・描画
 	mXCharacter.Update();
