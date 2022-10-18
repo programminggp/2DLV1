@@ -69,7 +69,7 @@ void CMatrix::M(int row, int col, float value)
 
 //*演算子のオーバーロード
 //CMatrix * CMatrix の演算結果を返す
-CMatrix CMatrix::operator*(const CMatrix& m) {
+const CMatrix CMatrix::operator*(const CMatrix& m) const {
 	CMatrix t;
 	for (int i = 0; i < 4; i++)
 	{
@@ -84,6 +84,19 @@ CMatrix CMatrix::operator*(const CMatrix& m) {
 float* CMatrix::M() const
 {
 	return (float*)mM[0];
+}
+
+CMatrix CMatrix::Transpose()
+{
+	CMatrix tmp;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			tmp.mM[i][j] = mM[j][i];
+		}
+	}
+	return tmp;
 }
 
 void CMatrix::Print() {

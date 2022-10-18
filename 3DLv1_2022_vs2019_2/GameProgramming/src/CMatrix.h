@@ -6,6 +6,8 @@
 */
 class CMatrix {
 public:
+	//逆行列取得
+	CMatrix Transpose();
 	//表示確認用
 	//4×4の行列を画面出力
 	void Print();
@@ -37,7 +39,7 @@ public:
 	void M(int row, int col, float value);
 	//*演算子のオーバーロード
 	//CMatrix * CMatrix の演算結果を返す
-	CMatrix operator*(const CMatrix& m);
+	const CMatrix operator*(const CMatrix& m) const;
 	//
 	float* M() const;
 private:
