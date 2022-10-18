@@ -6,6 +6,8 @@
 #include "CMatrix.h"
 #include "CTransform.h"
 
+#include "CCollisionManager.h"
+
 //クラスのstatic変数
 CTexture CApplication::mTexture;
 CCharacterManager CApplication::mCharacterManager;
@@ -123,5 +125,7 @@ void CApplication::Update()
 	CTaskManager::Instance()->Delete();
 	//タスクマネージャの描画
 	CTaskManager::Instance()->Render();
+
+	CCollisionManager::Instance()->Render();
 
 }
