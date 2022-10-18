@@ -1,4 +1,11 @@
 #include "CVector.h"
+#include <math.h>
+
+float CVector::Length() const
+{
+	//sqrtŠÖ”‚Å•½•ûª‚ğ•Ô‚·
+	return sqrtf(mX * mX + mY * mY + mZ * mZ);
+}
 //Set(XÀ•W, YÀ•W, ZÀ•W)
 void CVector::Set(float x, float y, float z)
 {

@@ -8,6 +8,8 @@
 */
 class CVector {
 public:
+	//ベクトルの長さを返す
+	float Length() const;
 	//各軸での値の設定
 	//Set(X座標, Y座標, Z座標)
 	void Set(float x, float y, float z);

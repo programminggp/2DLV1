@@ -59,7 +59,8 @@ void CApplication::Start()
 	//敵機のインスタンス作成
 	new CEnemy(&mModelC5, CVector(0.0f, 10.0f, -100.0f),
 		CVector(), CVector(0.1f, 0.1f, 0.1f));
-
+	new CEnemy(&mModelC5, CVector(20.0f, 10.0f, -130.0f),
+		CVector(), CVector(0.1f, 0.1f, 0.1f));
 }
 
 void CApplication::Update()
@@ -67,6 +68,8 @@ void CApplication::Update()
 	//タスクマネージャの更新
 	//mTaskManager.Update();
 	CTaskManager::Instance()->Update();
+	//コリジョンマネージャの衝突処理
+	CCollisionManager::Instance()->Collision();
 
 	//頂点1､頂点2､頂点3,法線データの作成
 	CVector v0, v1, v2, n;

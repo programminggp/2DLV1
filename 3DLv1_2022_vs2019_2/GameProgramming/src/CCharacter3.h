@@ -5,6 +5,8 @@
 //モデルクラスのインクルード
 #include "CModel.h"
 #include "CTask.h"
+//コライダクラスの宣言
+class CCollider;
 
 /*
 キャラクタークラス
@@ -12,6 +14,8 @@
 */
 class CCharacter3 : public CTransform, public CTask {
 public:
+	//衝突処理
+	virtual void Collision(CCollider* m, CCollider* o) {}
 	//コンストラクタ
 	CCharacter3();
 	//デストラクタ
