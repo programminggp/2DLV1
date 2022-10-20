@@ -111,6 +111,9 @@
     <ClCompile Include="src\CEffect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\CColliderTriangle.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CSound.h">
@@ -213,6 +216,9 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\CEffect.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CColliderTriangle.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
