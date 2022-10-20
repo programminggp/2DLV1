@@ -143,7 +143,7 @@ void CApplication::Update()
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = CVector(0.0f, 10.0f, -30.0f) * mPlayer.Matrix();
+	e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
 	//注視点を求める
 	c = mPlayer.Position();
 	//上方向を求める
