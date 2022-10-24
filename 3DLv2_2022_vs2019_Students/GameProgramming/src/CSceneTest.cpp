@@ -4,11 +4,14 @@
 
 //モデルのファイル名
 //#define MODELX_FILE "res\\felguard\\felguard-X.X"
-#define MODELX_FILE "res\\paladin\\Paladin.X"
+//#define MODELX_FILE "res\\paladin\\Paladin.X"
+#define MODELX_FILE "res\\paladin\\Paladin WProp J Nordstrom@Idle.fbx.x"
 //アニメーションデータ追加
 #define ANIMATION_ATTACKSP1 "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Attack.x"
 #define ANIMATION_ATTACK "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Slash.fbx.x"
 #define ANIMATION_JUMP "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Jump.fbx.x"
+#define ANIMATION_RUN "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Run.fbx.x"
+#define ANIMATION_WALK "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Walk.fbx.x"
 //地形モデルデータ
 #define MODEL_GROUND "res\\forest-terrain\\TerrainNew1000.obj","res\\forest-terrain\\TerrainNew1000.mtl"
 
@@ -24,7 +27,9 @@ void CSceneTest::Init() {
 	mPushFlg = false;
 	mOldMousePosX = 0;
 
-	//アニメーションの追加
+	//アニメーションの追加ANIMATION_RUN
+	mModelX.AddAnimationSet(ANIMATION_WALK);
+	mModelX.AddAnimationSet(ANIMATION_RUN);
 	mModelX.AddAnimationSet(ANIMATION_ATTACK);
 	mModelX.AddAnimationSet(ANIMATION_ATTACKSP1);
 	mModelX.AddAnimationSet(ANIMATION_JUMP);
