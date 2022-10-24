@@ -7,6 +7,7 @@
 #define MODELX_FILE "res\\paladin\\Paladin.X"
 //アニメーションデータ追加
 #define ANIMATION_ATTACKSP1 "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Attack.x"
+#define ANIMATION_JUMP "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Jump.fbx.x"
 //地形モデルデータ
 #define MODEL_GROUND "res\\forest-terrain\\TerrainNew1000.obj","res\\forest-terrain\\TerrainNew1000.mtl"
 
@@ -23,9 +24,9 @@ void CSceneTest::Init() {
 	mOldMousePosX = 0;
 
 	//アニメーションの追加
-	mModelX.AddAnimationSet(ANIMATION_ATTACKSP1);
+	mModelX.AddAnimationSet(ANIMATION_JUMP);
 	//アニメーションを切り替え
-	mXCharacter.ChangeAnimation(1, true, 120);
+	mXCharacter.ChangeAnimation(0, true, 120);
 
 	//地形データ読み込み
 	mGround.Load(MODEL_GROUND);
