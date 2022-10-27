@@ -74,6 +74,11 @@ void CModelTest::Render()
 	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
+std::vector<CTriangle> CModel::Triangles() const
+{
+	return mTriangles;
+}
+
 //モデルファイルの入力
 //Load(モデルファイル名, マテリアルファイル名)
 void CModel::Load(char* obj, char* mtl) {
