@@ -18,6 +18,8 @@ public:
 	virtual void Collision(CCollider* m, CCollider* o) {}
 	//コンストラクタ
 	CCharacter3();
+	//コンストラクタ
+	CCharacter3(int priority);
 	//デストラクタ
 	~CCharacter3();
 	//モデルの設定

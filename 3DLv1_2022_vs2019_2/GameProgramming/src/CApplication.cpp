@@ -80,7 +80,7 @@ void CApplication::Start()
 		CVector(), CVector(0.1f, 0.1f, 0.1f));
 
 	//ビルボードの生成
-	new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
+	//new CBillBoard(CVector(-6.0f, 3.0f, -10.0f), 1.0f, 1.0f);
 
 	////三角コライダの確認
 	//mColliderTriangle.Set(nullptr, nullptr

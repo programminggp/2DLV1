@@ -11,6 +11,8 @@ public:
 	CBillBoard();
 	//CBillBoard(位置, 幅, 高さ)
 	CBillBoard(CVector pos, float w, float h);
+	//CBillBoard(位置, 幅, 高さ, 優先度)
+	CBillBoard(CVector pos, float w, float h, int priority);
 	//位置と大きさの設定
 	//Set(位置, 幅, 高さ)
 	void Set(CVector pos, float w, float h);
