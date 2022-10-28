@@ -1,6 +1,10 @@
 #include "CSceneTest.h"
 #include "CInput.h"
 #include "CKey.h"
+#include "CTaskManager.h"
+#include "CCollisionManager.h"
+#include "CPaladin.h"
+
 
 //モデルのファイル名
 //#define MODELX_FILE "res\\felguard\\felguard-X.X"
@@ -19,7 +23,7 @@ void CSceneTest::Init() {
 	//モデルデータ読み込み
 	mModelX.Load(MODELX_FILE);
 	//モデルデータ設定
-	mXCharacter.Init(&mModelX);
+	//mXCharacter.Init(&mModelX);
 	//スケールを等倍に設定
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 	mTransform.Scale(mScale);
@@ -34,10 +38,15 @@ void CSceneTest::Init() {
 	mModelX.AddAnimationSet(ANIMATION_ATTACKSP1);
 	mModelX.AddAnimationSet(ANIMATION_JUMP);
 	//アニメーションを切り替え
-	mXCharacter.ChangeAnimation(1, true, 120);
+	//mXCharacter.ChangeAnimation(1, true, 120);
 
 	//地形データ読み込み
 	mGround.Load(MODEL_GROUND);
+
+	CPaladin* paladin;
+	paladin = new CPaladin(CVector(0.0f, 0.0f, 2.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
+	paladin->Init(&mModelX);
+
 }
 
 void CSceneTest::Update() 
@@ -119,7 +128,11 @@ void CSceneTest::Update()
 	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(0, 0, -10));
 
 	//キャラクタ更新・描画
-	mXCharacter.Update();
-	mXCharacter.Render();
+	//mXCharacter.Update();
+	//mXCharacter.Render();
+
+	CTaskManager::Get()->Update();
+	CTaskManager::Get()->Render();
+	CCollisionManager::Get()->Render();
 }
 

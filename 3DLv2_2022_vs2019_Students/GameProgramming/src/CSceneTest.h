@@ -20,7 +20,7 @@ private:
 	CTransform mTransform;
 	CModelX mModelX;
 	//キャラクタのインスタンス
-	CXCharacter mXCharacter;
+	//CXCharacter mXCharacter;
 };
 
 #endif

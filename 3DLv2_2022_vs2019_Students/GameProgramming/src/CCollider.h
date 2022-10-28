@@ -18,6 +18,7 @@ public:
 		ESPHERE,//球コライダ
 		ETRIANGLE,//三角コライダ
 		ELINE, //線分コライダ
+		ECAPSUL,//カプセルコライダ
 	};
 	//親ポインタの取得
 	CCharacter* Parent();
