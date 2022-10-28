@@ -9,6 +9,7 @@
 */
 class CTaskManager {
 public:
+	void Collision();
 	//インスタンスの取得
 	static CTaskManager* Instance();
 	//タスクの削除

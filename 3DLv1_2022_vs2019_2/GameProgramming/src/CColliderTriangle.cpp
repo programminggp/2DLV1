@@ -1,6 +1,15 @@
 #include "CColliderTriangle.h"
 #include "CCollisionManager.h"
 
+void CColliderTriangle::ChangePriority()
+{
+	//mV[0]とmV[1]とmV[2]の中心を求める
+	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix
+		+ mV[2] * *mpMatrix) * (1.0f / 3.0f);
+	//ベクトルの長さが優先度
+	CCollider::ChangePriority(pos.Length());
+}
+
 CColliderTriangle::CColliderTriangle(CCharacter3* parent, CMatrix* matrix
 	, const CVector& v0, const CVector& v1, const CVector& v2)
 {

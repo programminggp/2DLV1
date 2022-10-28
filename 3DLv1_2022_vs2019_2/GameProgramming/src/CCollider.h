@@ -11,8 +11,9 @@ class CCollider : public CTransform,public CTask {
 	friend CCollisionManager;
 public:
 	//優先度の変更
-	void ChangePriority();
-
+	virtual void ChangePriority();
+	//優先度の変更
+	void ChangePriority(int priority);
 	//コライダタイプ
 	enum EType {
 		ESPHERE,//球コライダ

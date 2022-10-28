@@ -104,7 +104,8 @@ void CApplication::Update()
 	//mTaskManager.Update();
 	CTaskManager::Instance()->Update();
 	//コリジョンマネージャの衝突処理
-	CCollisionManager::Instance()->Collision();
+	//削除	CCollisionManager::Instance()->Collision();
+	CTaskManager::Instance()->Collision();
 
 	//頂点1､頂点2､頂点3,法線データの作成
 	CVector v0, v1, v2, n;

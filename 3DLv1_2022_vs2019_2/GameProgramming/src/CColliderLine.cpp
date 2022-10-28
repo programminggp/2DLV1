@@ -1,5 +1,13 @@
 #include "CColliderLine.h"
 
+void CColliderLine::ChangePriority()
+{
+	//mV[0]とmV[1]の中心を求める
+	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix) * (0.5f);
+	//ベクトルの長さが優先度
+	CCollider::ChangePriority(pos.Length());
+}
+
 CColliderLine::CColliderLine(CCharacter3* parent, CMatrix* matrix
 	, const CVector& v0, const CVector& v1)
 {

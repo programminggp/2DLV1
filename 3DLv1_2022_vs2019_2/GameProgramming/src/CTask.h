@@ -10,8 +10,9 @@ class CTask {
 	friend CTaskManager;
 	friend CCollisionManager;
 public:
-	//優先度の変更
-	void ChangePriority(int priority);
+	//衝突処理
+	virtual void Collision() {}
+
 	//デフォルトコンストラクタ
 	CTask()
 		: mpNext(nullptr), mpPrev(nullptr), mPriority(0), mEnabled(true) {}

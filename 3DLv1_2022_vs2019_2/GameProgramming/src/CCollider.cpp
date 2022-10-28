@@ -2,6 +2,13 @@
 #include "CCollisionManager.h"
 #include "CColliderLine.h"
 
+void CCollider::ChangePriority(int priority)
+{
+	mPriority = priority;
+	CCollisionManager::Instance()->Remove(this); //ˆê’Uíœ
+	CCollisionManager::Instance()->Add(this); //’Ç‰Á
+}
+
 bool CCollider::CollisionTriangleSphere(CCollider* t, CCollider* s, CVector* a)
 {
 	CVector v[3], sv, ev;
@@ -165,7 +172,7 @@ void CCollider::ChangePriority()
 	//Ž©•ª‚ÌÀ•W~e‚Ì•ÏŠ·s—ñ‚ðŠ|‚¯‚Äƒ[ƒ‹ƒhÀ•W‚ð‹‚ß‚é
 	CVector pos = mPosition * *mpMatrix;
 	//ƒxƒNƒgƒ‹‚Ì’·‚³‚ª—Dæ“x
-	CTask::ChangePriority(pos.Length());
+	ChangePriority(pos.Length());
 	//mPriority = pos.Length();
 	//CCollisionManager::Instance()->Remove(this); //ˆê’Uíœ
 	//CCollisionManager::Instance()->Add(this); //’Ç‰Á
