@@ -37,8 +37,7 @@ void CSceneTest::Init() {
 	mModelX.AddAnimationSet(ANIMATION_ATTACK);
 	mModelX.AddAnimationSet(ANIMATION_ATTACKSP1);
 	mModelX.AddAnimationSet(ANIMATION_JUMP);
-	//アニメーションを切り替え
-	//mXCharacter.ChangeAnimation(1, true, 120);
+
 
 	//地形データ読み込み
 	mGround.Load(MODEL_GROUND);
@@ -46,7 +45,8 @@ void CSceneTest::Init() {
 	CPaladin* paladin;
 	paladin = new CPaladin(CVector(0.0f, 0.0f, 2.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
 	paladin->Init(&mModelX);
-
+	//アニメーションを切り替え
+	paladin->ChangeAnimation(1, true, 120);
 }
 
 void CSceneTest::Update() 
