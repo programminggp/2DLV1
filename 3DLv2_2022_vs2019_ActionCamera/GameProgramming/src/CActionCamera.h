@@ -7,6 +7,7 @@
 class CActionCamera : public CCharacter {
 public:
 	CActionCamera(float distance);
+	CActionCamera(float distance, float yaxis, float xaxis);
 	static CActionCamera* Instance();
 
 	//ƒJƒƒ‰XV

@@ -18,6 +18,17 @@ CActionCamera::CActionCamera(float distance)
 	CTaskManager::Get()->Add(this);
 }
 
+CActionCamera::CActionCamera(float distance, float yaxis, float xaxis)
+	: mUp(0.0f, 1.0f, 0.0f)
+{
+	Rotation(CVector(xaxis, yaxis, 0.0f));
+	Scale(CVector(0.0f, 0.0f, distance));
+	spInstance = this;
+	CTaskManager::Get()->Remove(this);
+	mPriority = 0;
+	CTaskManager::Get()->Add(this);
+}
+
 void CActionCamera::CameraUpdate()
 {
 	if (CKey::Push('J'))
