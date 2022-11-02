@@ -19,10 +19,18 @@ CXPlayer::CXPlayer()
 
 void CXPlayer::Update()
 {
+	//float dotZ =
+	//	CActionCamera::Instance()->MatrixRotate().VectorZ().Dot(mMatrixRotate.VectorZ());
+	//float dotX =
+	//	CActionCamera::Instance()->MatrixRotate().VectorX().Dot(mMatrixRotate.VectorZ());
 	float dotZ =
-		CActionCamera::Instance()->MatrixRotate().VectorZ().Dot(mMatrixRotate.VectorZ());
+		CActionCamera::Instance()->ModelViewInverse().VectorZ().Dot(mMatrixRotate.VectorZ());
 	float dotX =
-		CActionCamera::Instance()->MatrixRotate().VectorX().Dot(mMatrixRotate.VectorZ());
+		CActionCamera::Instance()->ModelViewInverse().VectorX().Dot(mMatrixRotate.VectorZ());
+	//float dotZ =
+	//	CActionCamera::Instance()->ModelView().VectorZ().Dot(mMatrixRotate.VectorZ());
+	//float dotX =
+	//	CActionCamera::Instance()->ModelView().VectorX().Dot(mMatrixRotate.VectorZ());
 
 	if (mAnimationIndex == 3)
 	{
@@ -40,7 +48,7 @@ void CXPlayer::Update()
 	}
 	else
 	{
-		if (CKey::Push('A'))
+		if (CKey::Push('D'))
 		{
 			if (dotX < 0.0f)
 			{
@@ -57,7 +65,7 @@ void CXPlayer::Update()
 			ChangeAnimation(1, true, 60);
 			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
-		else if (CKey::Push('D'))
+		else if (CKey::Push('A'))
 		{
 			if (dotX > 0.0f)
 			{
@@ -74,7 +82,7 @@ void CXPlayer::Update()
 			ChangeAnimation(1, true, 60);
 			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
-		else if (CKey::Push('W'))
+		else if (CKey::Push('S'))
 		{
 			if (dotZ < 0.0f)
 			{
@@ -91,7 +99,7 @@ void CXPlayer::Update()
 			mRotation.Y(mRotation.Y() - TURN_V*dotX);
 			mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 		}
-		else if (CKey::Push('S'))
+		else if (CKey::Push('W'))
 		{
 			if (dotZ > 0.0f)
 			{

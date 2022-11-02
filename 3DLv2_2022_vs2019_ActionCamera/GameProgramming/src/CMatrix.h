@@ -9,6 +9,8 @@ class CMatrix {
 	//friend CVector; //フレンドクラスの設定
 
 public:
+	//逆行列取得
+	CMatrix Transpose();
 	//Z軸のベクトルを得る
 	CVector VectorZ() const;
 	//X軸のベクトルを得る

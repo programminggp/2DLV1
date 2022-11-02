@@ -45,7 +45,7 @@ void CSceneGame::Init() {
 	mEnemy.ChangeAnimation(2, true, 200);
 
 	new CXTest();
-	new CActionCamera(-5.0f, 0.0f, 5.0f);
+	new CActionCamera(5.0f, -15.0f, 180.0f);
 }
 
 void CSceneGame::Update() {

@@ -6,6 +6,18 @@
 #define TURN_V 1.0f	//回転速度
 
 CActionCamera* CActionCamera::spInstance = nullptr;
+CMatrix CActionCamera::mModelViewInverse;
+CMatrix CActionCamera::mModelView;
+
+const CMatrix& CActionCamera::ModelViewInverse()
+{
+	return mModelViewInverse;
+}
+
+const CMatrix& CActionCamera::ModelView()
+{
+	return mModelView;
+}
 
 CActionCamera::CActionCamera(float distance)
 	: mUp(0.0f, 1.0f, 0.0f)
@@ -18,7 +30,7 @@ CActionCamera::CActionCamera(float distance)
 	CTaskManager::Get()->Add(this);
 }
 
-CActionCamera::CActionCamera(float distance, float yaxis, float xaxis)
+CActionCamera::CActionCamera(float distance, float xaxis, float yaxis)
 	: mUp(0.0f, 1.0f, 0.0f)
 {
 	Rotation(CVector(xaxis, yaxis, 0.0f));
@@ -65,6 +77,13 @@ void CActionCamera::CameraRender() {
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(),
 		mCenter.X(), mCenter.Y(), mCenter.Z(),
 		mUp.X(), mUp.Y(), mUp.Z());
+	//モデルビュー行列の取得
+	glGetFloatv(GL_MODELVIEW_MATRIX, mModelView.M());
+	//逆行列の取得
+	mModelViewInverse = mModelView.Transpose();
+	mModelViewInverse.M(0, 3, 0);
+	mModelViewInverse.M(1, 3, 0);
+	mModelViewInverse.M(2, 3, 0);
 }
 
 CActionCamera* CActionCamera::Instance()

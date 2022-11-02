@@ -175,6 +175,19 @@ CMatrix CMatrix::Quaternion(float x, float y, float z, float w) {
 	return *this;
 }
 
+CMatrix CMatrix::Transpose()
+{
+	CMatrix tmp;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			tmp.mM[i][j] = mM[j][i];
+		}
+	}
+	return tmp;
+}
+
 CVector CMatrix::VectorZ() const
 {
 	return CVector(mM[2][0], mM[2][1], mM[2][2]);
