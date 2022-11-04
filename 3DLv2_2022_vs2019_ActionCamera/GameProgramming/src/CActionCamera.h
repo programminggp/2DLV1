@@ -8,8 +8,8 @@
 */
 class CActionCamera : public CCharacter {
 public:
-	static const CMatrix& ModelViewInverse();
-	static const CMatrix& ModelView();
+	static CVector VectorX();
+	static CVector VectorZ();
 	CActionCamera(float distance);
 	CActionCamera(float distance, float xaxis, float yaxis);
 	static CActionCamera* Instance();
@@ -21,7 +21,6 @@ public:
 	//èàóùÇµÇ»Ç¢
 	void Render() {}
 private:
-	static CMatrix mModelViewInverse;
 	static CMatrix mModelView;
 	static CActionCamera* spInstance;
 	//éãì_
