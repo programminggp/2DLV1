@@ -1,12 +1,10 @@
 #include "CActionCamera.h"
-#include "CTaskManager.h"
 #include "CKey.h"
 #include "glut.h"
 
 #define TURN_V 1.0f	//‰ñ“]‘¬“x
 
 CActionCamera* CActionCamera::spInstance = nullptr;
-CMatrix CActionCamera::mModelView;
 
 CVector CActionCamera::VectorX()
 {
@@ -18,29 +16,15 @@ CVector CActionCamera::VectorZ()
 	return CVector(-mModelView.M(0, 2), -mModelView.M(1, 2), -mModelView.M(2, 2));
 }
 
-CActionCamera::CActionCamera(float distance)
-	: mUp(0.0f, 1.0f, 0.0f)
-{
-	Rotation(CVector(5.0f, 0.0f, 0.0f));
-	Scale(CVector(0.0f, 0.0f, distance));
-	spInstance = this;
-	CTaskManager::Get()->Remove(this);
-	mPriority = 0;
-	CTaskManager::Get()->Add(this);
-}
-
 CActionCamera::CActionCamera(float distance, float xaxis, float yaxis)
 	: mUp(0.0f, 1.0f, 0.0f)
 {
 	Rotation(CVector(xaxis, yaxis, 0.0f));
 	Scale(CVector(0.0f, 0.0f, distance));
 	spInstance = this;
-	CTaskManager::Get()->Remove(this);
-	mPriority = 0;
-	CTaskManager::Get()->Add(this);
 }
 
-void CActionCamera::CameraUpdate()
+void CActionCamera::Update()
 {
 	if (CKey::Push('J'))
 	{
@@ -71,8 +55,8 @@ void CActionCamera::CameraUpdate()
 	mEye = mPosition + mMatrixRotate.VectorZ() * mScale.Z();
 }
 
-void CActionCamera::CameraRender() {
-
+void CActionCamera::Render()
+{
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(),
 		mCenter.X(), mCenter.Y(), mCenter.Z(),
 		mUp.X(), mUp.Y(), mUp.Z());

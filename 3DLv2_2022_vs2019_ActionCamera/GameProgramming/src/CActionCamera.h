@@ -1,27 +1,26 @@
 #pragma once
 #include "CVector.h"
-#include "CCharacter.h"
+#include "CTransform.h"
 #include "CMatrix.h"
-
 /*
 カメラクラス
 */
-class CActionCamera : public CCharacter {
+class CActionCamera : public CTransform {
 public:
-	static CVector VectorX();
-	static CVector VectorZ();
-	CActionCamera(float distance);
-	CActionCamera(float distance, float xaxis, float yaxis);
+	//インスタンスの取得
 	static CActionCamera* Instance();
-
+	//カメラのX軸取得
+	CVector VectorX();
+	//カメラのZ軸取得
+	CVector VectorZ();
+	//コンストラクタ(距離, X回転,Y回転)
+	CActionCamera(float distance, float xaxis, float yaxis);
 	//カメラ更新
-	void CameraUpdate();
+	void Update();
 	//カメラ適用
-	void CameraRender();
-	//処理しない
-	void Render() {}
+	void Render();
 private:
-	static CMatrix mModelView;
+	//インスタンス
 	static CActionCamera* spInstance;
 	//視点
 	CVector mEye;
@@ -29,4 +28,6 @@ private:
 	CVector mCenter;
 	//上方向
 	CVector mUp;
+	//モデルビュー行列
+	CMatrix mModelView;
 };

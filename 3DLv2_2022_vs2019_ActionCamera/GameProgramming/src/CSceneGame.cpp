@@ -45,19 +45,19 @@ void CSceneGame::Init() {
 	mEnemy.ChangeAnimation(2, true, 200);
 
 	new CXTest();
-	new CActionCamera(5.0f, -15.0f, 180.0f);
+//	new CActionCamera(5.0f, -15.0f, 180.0f);
 }
 
 void CSceneGame::Update() {
 
 	//更新
 	CTaskManager::Get()->Update();
-	CActionCamera::Instance()->CameraUpdate();
+	CActionCamera::Instance()->Update();
 
 	//衝突処理
 	CCollisionManager::Get()->Collision();
 
-	CActionCamera::Instance()->CameraRender();
+	CActionCamera::Instance()->Render();
 	CTaskManager::Get()->Render();
 
 	//コライダの描画

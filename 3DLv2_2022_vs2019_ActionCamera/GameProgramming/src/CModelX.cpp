@@ -29,7 +29,7 @@ void CModelX::Load(char* file) {
 	//ファイルの最後へ移動
 	fseek(fp, 0L, SEEK_END);
 	//ファイルサイズの取得
-	int size = ftell(fp);
+	size_t size = ftell(fp);
 	//ファイルサイズ+1バイト分の領域を確保
 	char* buf = mpPointer = new char[size + 1];
 	//
@@ -961,7 +961,7 @@ void CMesh::CreateVertexBuffer() {
 		//頂点インデックスを使わず、全ての面データを作成
 		CVertex* pmyVertex, * vec;
 		//頂点数計算
-		int myVertexNum = mFaceNum * 3;
+		size_t myVertexNum = mFaceNum * 3;
 		//頂点数分頂点配列作成
 		pmyVertex = new CVertex[myVertexNum];
 		vec = new CVertex[mVertexNum];
@@ -991,11 +991,11 @@ void CMesh::CreateVertexBuffer() {
 				}
 			}
 		}
-		int k = 0;
+		size_t k = 0;
 		//マテリアル番号の昇順に面の頂点を設定
 		for (size_t i = 0; i < mMaterial.size(); i++) {
-			int w = k;
-			for (int j = 0; j < mMaterialIndexNum; j++) {
+			size_t w = k;
+			for (size_t j = 0; j < mMaterialIndexNum; j++) {
 				if (mpMaterialIndex[j] == i) {
 					//頂点配列に設定し、法線を設定する
 					pmyVertex[k] = vec[mpVertexIndex[j * 3]];

@@ -24,6 +24,19 @@ void CXPlayer::Update()
 	float dotX =
 		CActionCamera::Instance()->VectorX().Dot(mMatrixRotate.VectorZ());
 
+	/*
+	CVector eye, center, up, axis;
+	eye = CActionCamera::Instance()->Eye();
+	center = CActionCamera::Instance()->Center();
+	up = CActionCamera::Instance()->Up();
+	axis = center - eye;
+	float dotZ =
+		axis.Normalize().Dot(mMatrixRotate.VectorZ());
+	axis = up.Cross(axis).Normalize();
+	float dotX =
+		axis.Dot(mMatrixRotate.VectorZ());
+	*/
+
 	if (mAnimationIndex == 3)
 	{
 		if (mAnimationFrame >= mAnimationFrameSize)

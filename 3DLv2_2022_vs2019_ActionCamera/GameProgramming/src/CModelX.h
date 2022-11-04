@@ -145,7 +145,7 @@ private:
 	int mNormalNum;	//法線数
 	CVector* mpNormal;//法線ベクトル
 	int mMaterialNum;	//マテリアル数
-	int mMaterialIndexNum;//マテリアル番号数（面数）
+	size_t mMaterialIndexNum;//マテリアル番号数（面数）
 	int* mpMaterialIndex;	  //マテリアル番号
 	std::vector<CMaterial*> mMaterial;//マテリアルデータ
 	//スキンウェイト
