@@ -16,6 +16,12 @@ CTexture CApplication::mTexture;
 CCharacterManager CApplication::mCharacterManager;
 //CCamera CApplication::mCamera;
 
+CUi CApplication::sUi;
+CUi* CApplication::Ui()
+{
+	return &sUi;
+}
+
 #define SOUND_BGM "res\\mario.wav" //BGM音声ファイル
 #define SOUND_OVER "res\\mdai.wav" //ゲームオーバー音声ファイル
 //モデルデータの指定
@@ -58,6 +64,7 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
+	sUi.Start();
 	//モデルファイルの入力
 	mModel.Load(MODEL_OBJ);
 	mBackGround.Load(MODEL_BACKGROUND);
@@ -173,5 +180,9 @@ void CApplication::Update()
 	CTaskManager::Instance()->Render();
 
 	CCollisionManager::Instance()->Render();
+
+	sUi.Start2D(0, 800, 0, 600);
+	sUi.Render();
+	sUi.End2D();
 
 }
