@@ -7,6 +7,7 @@
 class CPaladin : public CXCharacter
 {
 public:
+	void Update();
 	CPaladin(CVector pos, CVector rot, CVector scale);
 	void Init(CModelX* model);
 

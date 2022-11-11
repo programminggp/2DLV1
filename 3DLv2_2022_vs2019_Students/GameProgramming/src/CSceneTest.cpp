@@ -4,6 +4,7 @@
 #include "CTaskManager.h"
 #include "CCollisionManager.h"
 #include "CPaladin.h"
+#include "CXEnemy.h"
 
 
 //モデルのファイル名
@@ -47,6 +48,8 @@ void CSceneTest::Init() {
 	paladin->Init(&mModelX);
 	//アニメーションを切り替え
 	paladin->ChangeAnimation(1, true, 120);
+
+	CXEnemy* penemy = new CXEnemy(CVector(0.0f, 0.0f, 8.0f), CVector(), CVector(0.4f, 0.4f, 0.4f));
 }
 
 void CSceneTest::Update() 
