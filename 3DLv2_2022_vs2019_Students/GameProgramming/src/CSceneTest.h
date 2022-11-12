@@ -4,6 +4,7 @@
 #include "CXCharacter.h"
 #include "CActionCamera.h"
 #include "CPaladin.h"
+#include "CColliderMesh.h"
 
 /*
 ゲームのシーン
@@ -18,6 +19,7 @@ public:
 	//更新処理のオーバーライド
 	void Update();
 private:
+	CColliderMesh mColliderMesh;
 	CPaladin* mpPlayer;
 	CActionCamera mActionCamera;
 	CModel mGround;

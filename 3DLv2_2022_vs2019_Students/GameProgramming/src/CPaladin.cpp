@@ -2,6 +2,8 @@
 #include "CKey.h"
 #include "CCollisionManager.h"
 
+#define GRAVITY  CVector(0.0f,-0.01f,0.0f)
+
 void CPaladin::Update()
 {
 	if (CKey::Push('W'))
@@ -16,6 +18,7 @@ void CPaladin::Update()
 	{
 		mRotation.Y(mRotation.Y() + 1.0f);
 	}
+	mPosition = mPosition + GRAVITY;
 	CXCharacter::Update();
 }
 
@@ -43,12 +46,20 @@ void CPaladin::TaskCollision()
 
 void CPaladin::Collision(CCollider* m, CCollider* o)
 {
-	if (o->Type() == CCollider::ECAPSUL)
+	CVector adjust;
+	switch(o->Type())
 	{
-		CVector adjust;
+	case CCollider::ECAPSUL:
 		if (CCollider::CollisionCapsule(m, o, &adjust))
 		{
 			mPosition = mPosition + adjust;
 		}
+		break;
+	case CCollider::ETRIANGLE:
+		if (CCollider::CollisionTriangleLine(o, m,&adjust))
+		{
+			mPosition = mPosition + adjust;
+		}
+		break;
 	}
 }

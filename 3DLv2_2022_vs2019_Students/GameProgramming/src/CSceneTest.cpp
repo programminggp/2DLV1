@@ -19,6 +19,8 @@
 //地形モデルデータ
 #define MODEL_GROUND "res\\forest-terrain\\TerrainNew1000.obj","res\\forest-terrain\\TerrainNew1000.mtl"
 
+CMatrix mMatrixGround;
+
 void CSceneTest::Init() {
 	//モデルデータ読み込み
 	mModelX.Load(MODELX_FILE);
@@ -41,14 +43,15 @@ void CSceneTest::Init() {
 
 	//地形データ読み込み
 	mGround.Load(MODEL_GROUND);
-
+	mMatrixGround = CMatrix().Scale(150, 150, 150) * CMatrix().Translate(0, 0, -10);
+	mColliderMesh.Set(nullptr, &mMatrixGround, &mGround);
 
 	mpPlayer = new CPaladin(CVector(0.0f, 0.0f, 2.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
 	mpPlayer->Init(&mModelX);
 	//アニメーションを切り替え
 	mpPlayer->ChangeAnimation(1, true, 120);
 
-	CXEnemy* penemy = new CXEnemy(CVector(0.0f, 0.0f, 8.0f), CVector(), CVector(0.4f, 0.4f, 0.4f));
+	CXEnemy* penemy = new CXEnemy(CVector(0.0f, -2.0f, 8.0f), CVector(), CVector(0.4f, 0.4f, 0.4f));
 
 	mActionCamera.Position(mpPlayer->Position()+CVector(0.0f, 2.0f, 0.0f));
 }
@@ -118,6 +121,7 @@ void CSceneTest::Update()
 		}
 		mTransform.Scale(mScale);
 	}
+//	mTransform.Position(mpPlayer->Position()*-1);
 
 	//カメラ設定
 //	gluLookAt(5, 5, 10, 0, 0, 0, 0, 1, 0);
@@ -125,6 +129,7 @@ void CSceneTest::Update()
 
 	//回転など
 	mTransform.Update();
+//	glMultMatrixf((CMatrix().Translate(mpPlayer->Position().X() * -1.0f, mpPlayer->Position().Y() * -1.0f, mpPlayer->Position().Z() * -1.0f) * mTransform.Matrix()).M());
 	glMultMatrixf(mTransform.Matrix().M());
 
 //	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(-150, 0, -250));
@@ -141,7 +146,7 @@ void CSceneTest::Update()
 
 	mActionCamera.Render();
 	//地形データ描画
-	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(0, 0, -10));
+	mGround.Render(mMatrixGround);
 	CTaskManager::Get()->Render();
 	CCollisionManager::Get()->Render();
 }
