@@ -1,5 +1,6 @@
 #include "CPaladin.h"
 #include "CKey.h"
+#include "CCollisionManager.h"
 
 void CPaladin::Update()
 {
@@ -32,4 +33,22 @@ void CPaladin::Init(CModelX* model)
 	//‡¬s—ñ‚ÌÝ’è
 	mColCapsule.Matrix(&mpCombinedMatrix[2]);
 
+}
+
+void CPaladin::TaskCollision()
+{
+	mColCapsule.ChangePriority();
+	CCollisionManager::Get()->Collision(&mColCapsule, 30.0f);
+}
+
+void CPaladin::Collision(CCollider* m, CCollider* o)
+{
+	if (o->Type() == CCollider::ECAPSUL)
+	{
+		CVector adjust;
+		if (CCollider::CollisionCapsule(m, o, &adjust))
+		{
+			mPosition = mPosition + adjust;
+		}
+	}
 }

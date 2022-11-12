@@ -10,7 +10,8 @@ public:
 	void Update();
 	CPaladin(CVector pos, CVector rot, CVector scale);
 	void Init(CModelX* model);
-
+	void TaskCollision();
+	void Collision(CCollider *m, CCollider* o);
 private:
 	CColliderCapsule mColCapsule;
 

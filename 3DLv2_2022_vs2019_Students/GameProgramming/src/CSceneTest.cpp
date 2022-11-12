@@ -3,7 +3,6 @@
 #include "CKey.h"
 #include "CTaskManager.h"
 #include "CCollisionManager.h"
-#include "CPaladin.h"
 #include "CXEnemy.h"
 
 
@@ -43,13 +42,15 @@ void CSceneTest::Init() {
 	//地形データ読み込み
 	mGround.Load(MODEL_GROUND);
 
-	CPaladin* paladin;
-	paladin = new CPaladin(CVector(0.0f, 0.0f, 2.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
-	paladin->Init(&mModelX);
+
+	mpPlayer = new CPaladin(CVector(0.0f, 0.0f, 2.0f), CVector(), CVector(1.0f, 1.0f, 1.0f));
+	mpPlayer->Init(&mModelX);
 	//アニメーションを切り替え
-	paladin->ChangeAnimation(1, true, 120);
+	mpPlayer->ChangeAnimation(1, true, 120);
 
 	CXEnemy* penemy = new CXEnemy(CVector(0.0f, 0.0f, 8.0f), CVector(), CVector(0.4f, 0.4f, 0.4f));
+
+	mActionCamera.Position(mpPlayer->Position()+CVector(0.0f, 2.0f, 0.0f));
 }
 
 void CSceneTest::Update() 
@@ -119,7 +120,7 @@ void CSceneTest::Update()
 	}
 
 	//カメラ設定
-	gluLookAt(5, 5, 10, 0, 0, 0, 0, 1, 0);
+//	gluLookAt(5, 5, 10, 0, 0, 0, 0, 1, 0);
 
 
 	//回転など
@@ -127,14 +128,20 @@ void CSceneTest::Update()
 	glMultMatrixf(mTransform.Matrix().M());
 
 //	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(-150, 0, -250));
-	//地形データ描画
-	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(0, 0, -10));
 
 	//キャラクタ更新・描画
 	//mXCharacter.Update();
-	//mXCharacter.Render();
+	//mXCharacter.Render
 
 	CTaskManager::Get()->Update();
+	mActionCamera.Position(mpPlayer->Position() + CVector(0.0f, 2.0f, 0.0f));
+	mActionCamera.Update();
+
+	CTaskManager::Get()->TaskCollision();
+
+	mActionCamera.Render();
+	//地形データ描画
+	mGround.Render(CMatrix().Scale(150, 150, 150) * CMatrix().Translate(0, 0, -10));
 	CTaskManager::Get()->Render();
 	CCollisionManager::Get()->Render();
 }

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\CActionCamera.cpp" />
     <ClCompile Include="src\CBillBoard.cpp" />
     <ClCompile Include="src\CBullet.cpp" />
     <ClCompile Include="src\CCamera.cpp" />
@@ -50,6 +51,7 @@
     <ClCompile Include="src\Update.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\CActionCamera.h" />
     <ClInclude Include="src\CBillBoard.h" />
     <ClInclude Include="src\CBullet.h" />
     <ClInclude Include="src\CCamera.h" />
