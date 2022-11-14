@@ -13,9 +13,10 @@ void CColliderCapsule::Set(CCharacter *parent, CMatrix *matrix
 	mpParent = parent;//親設定
 	if (matrix)
 		mpMatrix = matrix;//親行列あれば設定
-	//三角形頂点設定
+	//始点終点設定
 	mV[0] = v0;
 	mV[1] = v1;
+	//半径設定
 	mRadius = radius;
 }
 
@@ -34,8 +35,7 @@ void CColliderCapsule::Render()
 
 	//行列退避
 	glPushMatrix();
-	//行列適用
-//	glMultMatrixf(mpMatrix->M());
+
 	CVector v0 = mV[0] * *mpMatrix;
 	CVector v1 = mV[1] * *mpMatrix;
 
@@ -87,12 +87,10 @@ void CColliderCapsule::Render()
 	rot.M()[8 + 1] = line.Y();
 	glMultMatrixf(rot.M());
 
-//	glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
 	glTranslatef(0.0f, 0.0f, -lineLength / 2.0f);
 	GLUquadric* mesh;
 	mesh = gluNewQuadric();
 	gluCylinder(mesh, mRadius, mRadius, lineLength, 16, 16);
-
 
 	//ライトオン
 	glEnable(GL_LIGHTING);

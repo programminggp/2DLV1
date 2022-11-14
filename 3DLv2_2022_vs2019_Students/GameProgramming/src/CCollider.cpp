@@ -189,6 +189,8 @@ void CCollider::Tag(ETag tag)
 	mTag = tag;
 }
 
+//カプセルコライダ同士の衝突判定
+//CollisionCapsule(コライダ1, コライダ2, 調整ベクトル)
 bool CCollider::CollisionCapsule(CCollider* m, CCollider* o, CVector* adjust)
 {
 	CVector mV0 = m->mV[0] * *m->mpMatrix;
@@ -197,6 +199,7 @@ bool CCollider::CollisionCapsule(CCollider* m, CCollider* o, CVector* adjust)
 	CVector oV1 = o->mV[1] * *o->mpMatrix;
 	CVector r1 = (mV1 - mV0).Normalize() * m->mRadius;
 	CVector r2 = (oV1 - oV0).Normalize() * o->mRadius;
+	//最短のベクトルを求める
 	*adjust = VectorLineMinDist(mV0 + r1, mV1 - r1, oV0 + r2, oV1 - r2);
 	if (adjust->Length() == 0.0f)
 		return true;
@@ -207,14 +210,15 @@ bool CCollider::CollisionCapsule(CCollider* m, CCollider* o, CVector* adjust)
 	}
 	return false;
 }
-
+//おおよそゼロか？
 bool NearZero(float f)
 {
 	if (fabs(f) <= 0.001f)
 		return true;
 	return false;
 }
-
+//2線間の最短ベクトルを求める
+//VectorLineMinDist(線1始点, 線1終点, 線2始点, 線2終点)
 CVector CCollider::VectorLineMinDist(const CVector& Start1, const CVector& End1, const CVector& Start2, const CVector& End2)
 {
 	CVector   u = End1 - Start1;
