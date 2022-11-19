@@ -61,6 +61,10 @@ void CPlayer::Update() {
 	}
 	//•ÏŠ·s—ñ‚ÌXV
 	CTransform::Update();
+	//UIÝ’è
+	CApplication::Ui()->PosY(mPosition.Y());
+	CApplication::Ui()->RotX(mRotation.X());
+	CApplication::Ui()->RotY(mRotation.Y());
 }
 
 void CPlayer::Collision()

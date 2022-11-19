@@ -28,7 +28,7 @@
 class CApplication
 {
 private:
-	static CUi sUi;
+	static CUi* spUi;	//UIクラスのポインタ
 	//モデルからコライダを生成
 	CColliderMesh mColliderMesh;
 
@@ -72,7 +72,8 @@ private:
 	//CCharacterのポインタの可変長配列
 //	std::vector<CCharacter*> mCharacters;
 public:
-	static CUi* Ui();
+	~CApplication();
+	static CUi* Ui();	//UIクラスのインスタンスを取得
 	//モデルビュー行列の取得
 	static const CMatrix& ModelViewInverse();
 	//static CTaskManager* TaskManager();

@@ -172,7 +172,7 @@ void CTexture::DrawImage(float left, float right, float bottom, float top, float
 	float diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	//êFÇÃê›íË
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
-	glColor4fv(diffuse);
+//	glColor4fv(diffuse);
 
 	glBegin(GL_TRIANGLES);
 	glTexCoord2f(tleft,  ttop);

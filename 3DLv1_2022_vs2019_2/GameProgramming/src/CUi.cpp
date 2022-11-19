@@ -35,7 +35,7 @@ void CUi::Start2D(float left, float right, float bottom, float top)
 	//Depthテストオフ
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
-//	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(1.0f, 1.0f, 1.0f);
 }
 
 void CUi::End2D()
@@ -65,7 +65,6 @@ void CUi::Over()
 
 void CUi::Start()
 {
-	mFont.Load("FontWhite.png", 1, 64);
 	mFont.Draw(36, 300, 18, 36, "START PUSH ENTER KEY!");
 }
 
@@ -78,8 +77,10 @@ CUi::CUi()
 	: mHp(0)
 	, mTime(0)
 	, mEnemy(0)
+	, mPosY(0.0f)
+	, mRotX(0.0f)
 {
-	//mFont.Load("FontWhite.png", 1, 64);
+	mFont.Load("FontWhite.png", 1, 64);
 }
 
 void CUi::Hp(int hp)
@@ -94,8 +95,9 @@ void CUi::Time(int time)
 
 void CUi::Render()
 {
+	Start2D(0, 800, 0, 600);
 	//描画色の設定（緑色の半透明）
-	glColor4f(0.0f, 1.0f, 0.0f, 0.8f);
+	glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
 	//文字列編集エリアの作成
 	char buf[64];
 
@@ -111,4 +113,10 @@ void CUi::Render()
 	//文字列の描画
 	mFont.Draw(500, 300, 8, 16, buf);
 
+	//Y軸回転値の表示
+	//文字列の設定
+	sprintf(buf, "RY:%7.2f", mRotY);
+	//文字列の描画
+	mFont.Draw(500, 200, 8, 16, buf);
+	End2D();
 }

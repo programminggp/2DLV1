@@ -16,10 +16,14 @@ CTexture CApplication::mTexture;
 CCharacterManager CApplication::mCharacterManager;
 //CCamera CApplication::mCamera;
 
-CUi CApplication::sUi;
+CUi* CApplication::spUi = nullptr;
+CApplication::~CApplication()
+{
+	delete spUi;	//インスタンスUiの削除
+}
 CUi* CApplication::Ui()
 {
-	return &sUi;
+	return spUi;
 }
 
 #define SOUND_BGM "res\\mario.wav" //BGM音声ファイル
@@ -64,7 +68,7 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
-	sUi.Start();
+	spUi = new CUi();	//UIクラスの生成
 	//モデルファイルの入力
 	mModel.Load(MODEL_OBJ);
 	mBackGround.Load(MODEL_BACKGROUND);
@@ -172,7 +176,7 @@ void CApplication::Update()
 
 	//mPlayer.Render();
 
-	mBackGround.Render(CMatrix());
+	mBackGround.Render();
 
 	//タスクリストの削除
 	CTaskManager::Instance()->Delete();
@@ -181,8 +185,6 @@ void CApplication::Update()
 
 	CCollisionManager::Instance()->Render();
 
-	sUi.Start2D(0, 800, 0, 600);
-	sUi.Render();
-	sUi.End2D();
+	spUi->Render();	//UIの描画
 
 }

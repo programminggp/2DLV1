@@ -7,8 +7,8 @@
 class CUi
 {
 public:
-	void PosY(float f);
-	void RotX(float f);
+	void PosY(float f);	//高度の設定
+	void RotX(float f);	//ピッチの設定
 	void RotY(float f);
 	//2D描画スタート
 	//Start2D(左座標, 右座標, 下座標, 上座標)
@@ -30,8 +30,8 @@ public:
 	void Time(int time);
 	void Render();
 private:
-	float mPosY;	//Y座標
-	float mRotX;	//X回転値
+	float mPosY;	//高度　Y座標
+	float mRotX;	//ピッチ　X回転値
 	float mRotY;	//Y回転値
 	int mEnemy;	//敵の数
 	int mHp;
