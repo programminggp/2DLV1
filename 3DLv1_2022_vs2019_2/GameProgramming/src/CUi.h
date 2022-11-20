@@ -10,11 +10,6 @@ public:
 	void PosY(float f);	//高度の設定
 	void RotX(float f);	//ピッチの設定
 	void RotY(float f);
-	//2D描画スタート
-	//Start2D(左座標, 右座標, 下座標, 上座標)
-	void Start2D(float left, float right, float bottom, float top);
-	//2D描画終了
-	void End2D();
 
 	//ゲームクリア表示
 	void Clear();
