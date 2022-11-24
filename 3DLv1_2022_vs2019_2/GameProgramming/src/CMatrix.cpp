@@ -86,7 +86,7 @@ float* CMatrix::M() const
 	return (float*)mM[0];
 }
 
-CMatrix CMatrix::Transpose()
+CMatrix CMatrix::Transpose() const
 {
 	CMatrix tmp;
 	for (int i = 0; i < 4; i++)

@@ -7,7 +7,7 @@
 class CMatrix {
 public:
 	//逆行列取得
-	CMatrix Transpose();
+	CMatrix Transpose() const;
 	//表示確認用
 	//4×4の行列を画面出力
 	void Print();

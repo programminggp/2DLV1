@@ -22,6 +22,7 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 	void Collision();
 private:
+	int mHp;	//ヒットポイント
 	//モデルデータ
 	static CModel sModel;
 	//コライダ
