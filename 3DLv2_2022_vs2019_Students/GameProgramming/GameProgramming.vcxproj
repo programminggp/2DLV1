@@ -35,6 +35,7 @@
     <ClCompile Include="src\CSceneManager.cpp" />
     <ClCompile Include="src\CSceneTest.cpp" />
     <ClCompile Include="src\CShader.cpp" />
+    <ClCompile Include="src\CShadowMap.cpp" />
     <ClCompile Include="src\CSound.cpp" />
     <ClCompile Include="src\CTask.cpp" />
     <ClCompile Include="src\CTaskManager.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="src\CSceneManager.h" />
     <ClInclude Include="src\CSceneTest.h" />
     <ClInclude Include="src\CShader.h" />
+    <ClInclude Include="src\CShadowMap.h" />
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTask.h" />
     <ClInclude Include="src\CTaskManager.h" />

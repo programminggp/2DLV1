@@ -19,7 +19,7 @@ CCollider::CCollider()
 , mTag(EBODY)
 , mRadius(0)
 {
-	//コリジョンマネージャyに追加
+	//コリジョンマネージャに追加
 	CCollisionManager::Get()->Add(this);
 }
 

@@ -132,6 +132,9 @@
     <ClCompile Include="src\CActionCamera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\CShadowMap.cpp">
+      <Filter>ソース ファイル\Lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Update.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="src\CActionCamera.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CShadowMap.h">
+      <Filter>ソース ファイル\Lib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
