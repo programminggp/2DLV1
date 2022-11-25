@@ -145,6 +145,9 @@ void CSceneTest::Update()
 	CTaskManager::Get()->TaskCollision();
 
 	mActionCamera.Render();
+	CVector screen, world(1.0f, 1.0f, 1.0f);
+	mActionCamera.WorldToScreen(&screen, world);
+
 	//地形データ描画
 	mGround.Render(mMatrixGround);
 	CTaskManager::Get()->Render();
