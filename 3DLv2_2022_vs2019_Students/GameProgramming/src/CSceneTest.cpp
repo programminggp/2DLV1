@@ -21,7 +21,15 @@
 
 CMatrix mMatrixGround;
 
+CText CSceneTest::sText;
+
+CText* CSceneTest::Text()
+{
+	return &sText;
+}
+
 void CSceneTest::Init() {
+	sText.LoadTexture("FontG.png", 1, 4096 / 64);
 	//モデルデータ読み込み
 	mModelX.Load(MODELX_FILE);
 	//モデルデータ設定

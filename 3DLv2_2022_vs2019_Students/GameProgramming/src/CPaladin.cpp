@@ -1,8 +1,21 @@
 #include "CPaladin.h"
 #include "CKey.h"
 #include "CCollisionManager.h"
+#include "CActionCamera.h"
+#include "CUtil.h"
+#include "CSceneTest.h"
 
 #define GRAVITY  CVector(0.0f,-0.01f,0.0f)
+
+void CPaladin::Render()
+{
+	CXCharacter::Render();
+	CUtil::Start2D(0.0f, 800.0f, 0.0f, 600.0f);
+	CVector screen;
+	CActionCamera::Instance()->WorldToScreen(&screen, Position());
+	CSceneTest::Text()->DrawString("PALADIN", screen.X(), screen.Y(), 7, 14);
+	CUtil::End2D();
+}
 
 void CPaladin::Update()
 {
@@ -35,7 +48,6 @@ void CPaladin::Init(CModelX* model)
 	CXCharacter::Init(model);
 	//çáê¨çsóÒÇÃê›íË
 	mColCapsule.Matrix(&mpCombinedMatrix[2]);
-
 }
 
 void CPaladin::TaskCollision()

@@ -67,6 +67,7 @@ void CActionCamera::Render()
 		mUp.X(), mUp.Y(), mUp.Z());
 	//モデルビュー行列の取得
 	glGetFloatv(GL_MODELVIEW_MATRIX, mModelView.M());
+	//プロジェクション行列の取得
 	glGetFloatv(GL_PROJECTION_MATRIX, mProjection.M());
 }
 

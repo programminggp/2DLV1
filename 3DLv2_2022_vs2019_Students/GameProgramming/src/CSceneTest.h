@@ -5,12 +5,14 @@
 #include "CActionCamera.h"
 #include "CPaladin.h"
 #include "CColliderMesh.h"
+#include "CText.h"
 
 /*
 ゲームのシーン
 */
 class CSceneTest : public CScene {
 public:
+	static CText* Text();
 	CSceneTest()
 		: mActionCamera(3.0f,-15.0f,180.0f)
 	{}
@@ -19,6 +21,7 @@ public:
 	//更新処理のオーバーライド
 	void Update();
 private:
+	static CText sText;
 	CColliderMesh mColliderMesh;
 	CPaladin* mpPlayer;
 	CActionCamera mActionCamera;
