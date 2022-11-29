@@ -6,6 +6,7 @@
 class CXEnemy : public CXCharacter
 {
 public:
+	void Render();
 	CXEnemy(const CVector& pos, const CVector& rot, CVector& scale);
 	CXEnemy();
 	void Init(CModelX* model);

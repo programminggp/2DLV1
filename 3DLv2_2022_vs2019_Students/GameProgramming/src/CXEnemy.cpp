@@ -1,4 +1,7 @@
 #include "CXEnemy.h"
+#include "CActionCamera.h"
+#include "CSceneTest.h"
+#include "CUtil.h"
 
 #define MODEL "res\\knight\\knight_low.X"
 CModelX CXEnemy::mModel;
@@ -69,4 +72,16 @@ void CXEnemy::Collision(CCollider* m, CCollider* o)
 			}
 		}
 	}
+}
+
+void CXEnemy::Render()
+{
+	CXCharacter::Render();
+	CUtil::Start2D(0.0f, 800.0f, 0.0f, 600.0f);
+	CVector screen;
+	if (CActionCamera::Instance()->WorldToScreen(&screen, Position() + CVector(0.0f, 2.3f, 0.0f)))
+	{
+		CSceneTest::Text()->DrawString("ENEMY", screen.X(), screen.Y(), 7, 14);
+	}
+	CUtil::End2D();
 }

@@ -27,6 +27,8 @@ CActionCamera::CActionCamera(float distance, float xaxis, float yaxis)
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	mScreenWidth = viewport[2];
 	mScreenHeight = viewport[3];
+	//プロジェクション行列の取得
+	glGetFloatv(GL_PROJECTION_MATRIX, mProjection.M());
 }
 
 void CActionCamera::Update()
@@ -67,8 +69,6 @@ void CActionCamera::Render()
 		mUp.X(), mUp.Y(), mUp.Z());
 	//モデルビュー行列の取得
 	glGetFloatv(GL_MODELVIEW_MATRIX, mModelView.M());
-	//プロジェクション行列の取得
-	glGetFloatv(GL_PROJECTION_MATRIX, mProjection.M());
 }
 
 CActionCamera* CActionCamera::Instance()

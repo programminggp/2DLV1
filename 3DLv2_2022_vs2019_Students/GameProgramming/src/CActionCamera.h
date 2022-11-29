@@ -23,9 +23,10 @@ public:
 	//カメラ適用
 	void Render();
 private:
-	int mScreenWidth;
-	int mScreenHeight;
-	CMatrix mProjection;
+	int mScreenWidth; //幅
+	int mScreenHeight; //高さ
+	CMatrix mProjection; //プロジェクション行列
+	CMatrix mModelView; //モデルビュー行列
 	//インスタンス
 	static CActionCamera* spInstance;
 	//視点
@@ -34,6 +35,4 @@ private:
 	CVector mCenter;
 	//上方向
 	CVector mUp;
-	//モデルビュー行列
-	CMatrix mModelView;
 };

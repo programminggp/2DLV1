@@ -12,8 +12,10 @@ void CPaladin::Render()
 	CXCharacter::Render();
 	CUtil::Start2D(0.0f, 800.0f, 0.0f, 600.0f);
 	CVector screen;
-	CActionCamera::Instance()->WorldToScreen(&screen, Position());
-	CSceneTest::Text()->DrawString("PALADIN", screen.X(), screen.Y(), 7, 14);
+	if (CActionCamera::Instance()->WorldToScreen(&screen, Position()))
+	{
+		CSceneTest::Text()->DrawString("PALADIN", screen.X(), screen.Y(), 7, 14);
+	}
 	CUtil::End2D();
 }
 
