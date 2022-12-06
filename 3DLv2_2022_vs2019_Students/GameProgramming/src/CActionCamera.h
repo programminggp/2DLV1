@@ -7,6 +7,7 @@
 */
 class CActionCamera : public CTransform {
 public:
+	CVector& Eye();
 	//ワールド座標をスクリーン座標へ変換する
 	//WorldToScreen(スクリーン座標, ワールド座標)
 	bool WorldToScreen(CVector* screen, const CVector& world);

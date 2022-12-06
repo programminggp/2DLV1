@@ -152,6 +152,8 @@ void CSceneTest::Update()
 
 	CTaskManager::Get()->TaskCollision();
 
+	CTaskManager::Get()->Delete();
+
 	mActionCamera.Render();
 
 	//地形データ描画

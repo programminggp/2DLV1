@@ -76,6 +76,11 @@ CActionCamera* CActionCamera::Instance()
 	return spInstance;
 }
 
+CVector& CActionCamera::Eye()
+{
+	return mEye;
+}
+
 bool CActionCamera::WorldToScreen(CVector* screen, const CVector& world)
 {
 	//ç¿ïWïœä∑

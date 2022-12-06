@@ -5,6 +5,8 @@
 #include "CUtil.h"
 #include "CSceneTest.h"
 
+#include "CEffect.h"
+
 #define GRAVITY  CVector(0.0f,-0.01f,0.0f)
 
 void CPaladin::Render()
@@ -32,6 +34,38 @@ void CPaladin::Update()
 	if (CKey::Push('A'))
 	{
 		mRotation.Y(mRotation.Y() + 1.0f);
+	}
+	if (CKey::Once('1'))
+	{
+		new CEffectDarkness17(mPosition + CVector(0.0f, 2.0f, 0.0f), 6, 3, 5, 2, 2);
+	}
+	if (CKey::Once('2'))
+	{
+		new CEffectFire7(mPosition + CVector(0.0f, 2.0f, 0.0f), 4, 4, 6, 2, 2);
+	}
+	if (CKey::Once('3'))
+	{
+		new CEffectFire7(mPosition + CVector(0.0f, 1.0f, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
+	}
+	if (CKey::Once('4'))
+	{
+		float x;
+		float y;
+		x = (rand() % 10 + 1) / 10.0f;
+		y = (rand() % 10 + 1) / 10.0f;
+		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
+		x = (rand() % 10 + 1) / 10.0f;
+		y = (rand() % 10 + 1) / 10.0f;
+		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
+		x = (rand() % 10 + 1) / 10.0f;
+		y = (rand() % 10 + 1) / 10.0f;
+		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
+		x = (rand() % 10 + 1) / 10.0f;
+		y = (rand() % 10 + 1) / 10.0f;
+		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
+		x = (rand() % 10 + 1) / 10.0f;
+		y = (rand() % 10 + 1) / 10.0f;
+		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
 	}
 	mPosition = mPosition + GRAVITY;
 	CXCharacter::Update();
