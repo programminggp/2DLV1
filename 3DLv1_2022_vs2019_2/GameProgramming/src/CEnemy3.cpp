@@ -40,11 +40,11 @@ CEnemy3::CEnemy3(const CVector& position, const CVector& rotation,const CVector&
 void CEnemy3::Update()
 {
 	//左向き（X軸）のベクトルを求める
-	CVector vx = CVector(1.0f, 0.0f, 0.0f) * mMatrixRotate;
+	CVector vx = mMatrixRotate.VectorX();// CVector(1.0f, 0.0f, 0.0f)* mMatrixRotate;
 	//上向き（Y軸）のベクトルを求める
-	CVector vy = CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
+	CVector vy = mMatrixRotate.VectorY();//CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
 	//前方向（Z軸）のベクトルを求める
-	CVector vz = CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
+	CVector vz = mMatrixRotate.VectorZ();//CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
 	//プレイヤーのポインタが0以外の時
 	CPlayer* player = CPlayer::Instance();
 	if (player != nullptr)

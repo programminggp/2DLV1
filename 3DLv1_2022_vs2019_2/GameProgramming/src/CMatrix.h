@@ -1,11 +1,17 @@
 #ifndef CMATRIX_H
 #define CMATRIX_H
+
+class CVector;
+
 /*
 マトリクスクラス
 4行4列の行列データを扱います
 */
 class CMatrix {
 public:
+	CVector VectorX() const;
+	CVector VectorY() const;
+	CVector VectorZ() const;
 	//逆行列取得
 	CMatrix Transpose() const;
 	//表示確認用
