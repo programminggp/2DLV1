@@ -45,26 +45,27 @@ void CPaladin::Update()
 	}
 	if (CKey::Once('3'))
 	{
-		new CEffectFire7(mPosition + CVector(0.0f, 1.0f, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
+		new CEffectFire7(mPosition + CVector(0.0f, 2.0f, 0.0f), 4, 4, 6, 2, 20, CEffect::EFADE, 3);
 	}
 	if (CKey::Once('4'))
 	{
 		float x;
 		float y;
-		x = (rand() % 10 + 1) / 10.0f;
-		y = (rand() % 10 + 1) / 10.0f;
+		const int r = 5;
+		x = (rand() % r + 1) / 10.0f;
+		y = (rand() % r + 1) / 10.0f;
 		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
-		x = (rand() % 10 + 1) / 10.0f;
-		y = (rand() % 10 + 1) / 10.0f;
+		x = (rand() % r + 1) / 10.0f;
+		y = (rand() % r + 1) / 10.0f;
 		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
-		x = (rand() % 10 + 1) / 10.0f;
-		y = (rand() % 10 + 1) / 10.0f;
+		x = (rand() % r + 1) / 10.0f;
+		y = (rand() % r + 1) / 10.0f;
 		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
-		x = (rand() % 10 + 1) / 10.0f;
-		y = (rand() % 10 + 1) / 10.0f;
+		x = (rand() % r + 1) / 10.0f;
+		y = (rand() % r + 1) / 10.0f;
 		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
-		x = (rand() % 10 + 1) / 10.0f;
-		y = (rand() % 10 + 1) / 10.0f;
+		x = (rand() % r + 1) / 10.0f;
+		y = (rand() % r + 1) / 10.0f;
 		new CEffectFire7(mPosition + CVector(0.0f + x, 1.0f + y, 0.0f), 2, 2, 6, 2, 10, CEffect::EFADE, 7);
 	}
 	mPosition = mPosition + GRAVITY;

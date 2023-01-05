@@ -25,7 +25,7 @@ public:
 	void Render();
 	void Render(CMaterial* material);
 private:
-	float mFadeCount;
+	int mFadeCount;
 	EType mType;
 	//s”
 	int mRows;

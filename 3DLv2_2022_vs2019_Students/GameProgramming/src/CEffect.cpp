@@ -93,7 +93,7 @@ void CEffect::Render(CMaterial* material)
 {
 	if (mType == EFADE)
 	{
-		material->Diffuse()[3] *= ((mFps - 1.0f) / mFps);
+		material->Diffuse()[3] = 1.0f - ((float)mFadeCount / mFps);
 	}
 	glDisable(GL_DEPTH_TEST); //深度テスト無効
 	CBillBoard::Render(material);
