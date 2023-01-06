@@ -40,20 +40,23 @@ CEnemy3::CEnemy3(const CVector& position, const CVector& rotation,const CVector&
 void CEnemy3::Update()
 {
 	//左向き（X軸）のベクトルを求める
-	CVector vx = mMatrixRotate.VectorX();// CVector(1.0f, 0.0f, 0.0f)* mMatrixRotate;
+	//CVector vx = mMatrixRotate.VectorX();// CVector(1.0f, 0.0f, 0.0f)* mMatrixRotate;
 	//上向き（Y軸）のベクトルを求める
-	CVector vy = mMatrixRotate.VectorY();//CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
+	//CVector vy = mMatrixRotate.VectorY();//CVector(0.0f, 1.0f, 0.0f) * mMatrixRotate;
 	//前方向（Z軸）のベクトルを求める
-	CVector vz = mMatrixRotate.VectorZ();//CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
+	//CVector vz = mMatrixRotate.VectorZ();//CVector(0.0f, 0.0f, 1.0f) * mMatrixRotate;
 	//プレイヤーのポインタが0以外の時
 	CPlayer* player = CPlayer::Instance();
 	if (player != nullptr)
 	{
 		//プレイヤーまでのベクトルを求める
 		CVector vp = player->Position() - mPosition;
-		float dx = vp.Dot(vx);	//左ベクトルとの内積を求める
-		float dy = vp.Dot(vy);	//上ベクトルとの内積を求める
-		float dz = vp.Dot(vz);	//前ベクトルとの内積を求める
+		//左ベクトルとの内積を求める
+		float dx = vp.Dot(mMatrixRotate.VectorX());
+		//上ベクトルとの内積を求める
+		float dy = vp.Dot(mMatrixRotate.VectorY());
+		//前ベクトルとの内積を求める
+		float dz = vp.Dot(mMatrixRotate.VectorZ());
 		//X軸のズレが2.0以下
 		if (-2.0f < dx && dx < 2.0f && 0.0f < dz && dz <= 30.0f)
 		{
