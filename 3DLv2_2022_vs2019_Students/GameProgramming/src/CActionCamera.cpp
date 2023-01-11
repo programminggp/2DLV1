@@ -101,3 +101,24 @@ bool CActionCamera::WorldToScreen(CVector* screen, const CVector& world)
 
 	return true;
 }
+
+void CActionCamera2::TargetEye(const CVector& eye)
+{
+	mTargetEye = eye;
+}
+
+void CActionCamera2::TargetCenter(const CVector& center)
+{
+	mTargetCenter = center;
+}
+
+CActionCamera2::CActionCamera2(float distance, float xaxis, float yaxis)
+	: CActionCamera(distance, xaxis, yaxis)
+{
+
+}
+
+void CActionCamera2::Update()
+{
+	CActionCamera::Update();
+}

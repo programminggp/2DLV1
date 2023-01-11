@@ -7,7 +7,8 @@
 
 #include "CEffect.h"
 
-#define GRAVITY  CVector(0.0f,-0.01f,0.0f)
+#define GRAVITY  CVector(0.0f,-0.1f,0.0f)
+#define VELOCITY 0.1f
 
 void CPaladin::Render()
 {
@@ -25,7 +26,7 @@ void CPaladin::Update()
 {
 	if (CKey::Push('W'))
 	{
-		mPosition = mPosition + mMatrixRotate.VectorZ() * 0.03f;
+		mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 	}
 	if (CKey::Push('D'))
 	{

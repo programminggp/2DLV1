@@ -37,3 +37,23 @@ private:
 	//上方向
 	CVector mUp;
 };
+
+class CActionCamera2 : public CActionCamera {
+public:
+	void TargetEye(const CVector& eye);
+	void TargetCenter(const CVector& center);
+
+	//コンストラクタ(距離, X回転,Y回転)
+	CActionCamera2(float distance, float xaxis, float yaxis);
+	//カメラ更新
+	void Update();
+	//カメラ適用
+	//void Render();
+private:
+	//視点
+	CVector mTargetEye;
+	//注視点
+	CVector mTargetCenter;
+	//上方向
+	CVector mTargetUp;
+};

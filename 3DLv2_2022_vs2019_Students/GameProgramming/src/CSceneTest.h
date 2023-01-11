@@ -24,7 +24,7 @@ private:
 	static CText sText;
 	CColliderMesh mColliderMesh;
 	CPaladin* mpPlayer;
-	CActionCamera mActionCamera;
+	CActionCamera2 mActionCamera;
 	CModel mGround;
 	CVector mScale;
 	bool mPushFlg;
