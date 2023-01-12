@@ -115,10 +115,25 @@ void CActionCamera2::TargetCenter(const CVector& center)
 CActionCamera2::CActionCamera2(float distance, float xaxis, float yaxis)
 	: CActionCamera(distance, xaxis, yaxis)
 {
-
 }
+
+#define VELOCITY_CAMERA 0.09f
 
 void CActionCamera2::Update()
 {
+	CVector oldCenter = mCenter;
+	CVector oldEye = mEye;
+
 	CActionCamera::Update();
+	
+	CVector dirCenter = (mCenter - oldCenter);
+	CVector dirEye = (mEye - oldEye);
+	if (dirCenter.Length() > VELOCITY_CAMERA)
+	{
+		mCenter = oldCenter + dirCenter.Normalize() * VELOCITY_CAMERA;
+	}
+	if (dirEye.Length() > VELOCITY_CAMERA)
+	{
+		mEye = oldEye + dirEye.Normalize() * VELOCITY_CAMERA;
+	}
 }

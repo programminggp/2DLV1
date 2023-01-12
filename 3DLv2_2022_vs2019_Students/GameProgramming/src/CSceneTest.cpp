@@ -147,7 +147,7 @@ void CSceneTest::Update()
 	//mXCharacter.Render
 
 	CTaskManager::Get()->Update();
-	mActionCamera.Position(mpPlayer->Position() + CVector(0.0f, 2.0f, 0.0f));
+	mActionCamera.Position(mpPlayer->Position() + CVector(0.0f, 1.5f, 0.0f));
 	mActionCamera.Update();
 
 	CTaskManager::Get()->TaskCollision();

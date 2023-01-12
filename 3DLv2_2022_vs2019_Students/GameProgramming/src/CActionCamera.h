@@ -5,7 +5,11 @@
 /*
 カメラクラス
 */
-class CActionCamera : public CTransform {
+class CActionCamera2;
+
+class CActionCamera : public CTransform 
+{
+	friend CActionCamera2;
 public:
 	CVector& Eye();
 	//ワールド座標をスクリーン座標へ変換する
