@@ -13,6 +13,8 @@
 
 CMaterial::CMaterial(CModelX* model)
 	:mpTextureFilename(nullptr)
+	, mName{0}
+	, mVertexNum(0)
 {
 	//CModekX‚Éƒ}ƒeƒŠƒAƒ‹‚ð’Ç‰Á‚·‚é
 	model->Material().push_back(this);

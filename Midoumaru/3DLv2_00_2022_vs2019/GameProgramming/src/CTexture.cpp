@@ -9,6 +9,7 @@ CTexture::CTexture()
 	, mId(0)
 	, mRow(1)
 	, mCol(1)
+	, mHeader()
 {
 }
 

@@ -163,7 +163,7 @@ void CXMutant::Collision(CCollider* m, CCollider* o){
 void CXMutant::TaskCollision()
 {
 	mColCapBody.ChangePriority();
-	mColCapBody.ChangePriority();
+	mColSphereArm.ChangePriority();
 	mCore.ChangePriority();
 	CCollisionManager::Get()->Collision(&mColCapBody, COLLISIONRANGE);
 	CCollisionManager::Get()->Collision(&mColSphereArm, COLLISIONRANGE);

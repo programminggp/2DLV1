@@ -4,9 +4,15 @@
 #include "CShader.h"
 
 
-CShader::CShader(){
+CShader::CShader()
+	: mProgram(0)
+	, compiled(0)
+	, linked(0)
+{
 }
-CShader::CShader(const char* vertexPath, const char* pixelPath){
+CShader::CShader(const char* vertexPath, const char* pixelPath)
+	: CShader()
+{
 	Load(vertexPath, pixelPath);
 }
 bool CShader::readFile(GLuint program, GLuint shader, const char *file) {

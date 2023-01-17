@@ -14,6 +14,13 @@ struct STgamHeader {
 	int	height;	//‚‚³
 	int	depth;	//ƒrƒbƒg‚Ì[‚³
 	unsigned char	discripter;
+	STgamHeader()
+		: dummy1{ 0 }
+		, width(0)
+		, height(0)
+		, depth(0)
+		, discripter(0)
+	{}
 };
 
 /*

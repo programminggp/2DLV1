@@ -255,7 +255,7 @@ void CXPlayer::Render()
 		
 	}*/
 	if (mAnimationIndex == 10){
-		if (10 >= mAnimationFrame >= 0){
+		if (10 >= mAnimationFrame && mAnimationFrame >= 0){
 			mMagicRingRed.Render(CMatrix().Scale(0.3f, 0.3f, 0.3f) * mMatrix);
 		}
 	}

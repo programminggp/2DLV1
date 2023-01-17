@@ -5,7 +5,7 @@
 #include"CTransform.h"
 #include"CVector.h"
 
-class CCollision : public CXCharacter {
+class CCollision /*: public CXCharacter*/ {
 public:
     static bool CollisionAll(CCollider* m, CCollider* o, CVector* adjust);
 };
