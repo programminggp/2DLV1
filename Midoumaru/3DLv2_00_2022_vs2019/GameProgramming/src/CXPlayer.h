@@ -1,6 +1,6 @@
 #ifndef CXPLAYER_H
 #define CXPLAYER_H
-
+/*git error test*/
 #include"CXCharacter.h"
 #include"CCollider.h"
 #include"CModelX.h"
