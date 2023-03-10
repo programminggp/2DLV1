@@ -12,6 +12,7 @@
 #include "CInput.h"
 #include"CCollision.h"
 #include"CEffect.h"
+/*git error test*/
 
 #define MODEL_MagicRingRed "res\\MagicRingRed.obj","res\\MagicRingRed.mtl"
 #define TURN_V 10.0f	//‰ñ“]‘¬“x
