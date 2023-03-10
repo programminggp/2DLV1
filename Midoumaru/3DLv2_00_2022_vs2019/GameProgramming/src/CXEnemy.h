@@ -1,6 +1,6 @@
 #ifndef CXENEMY_H
 #define CXENEMY_H
-
+/*git error test*/
 #include"CXCharacter.h"
 #include"CCollider.h"
 #include"CModelX.h"
