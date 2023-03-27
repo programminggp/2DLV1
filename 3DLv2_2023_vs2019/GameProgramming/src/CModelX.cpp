@@ -3,6 +3,14 @@
 #include "CModelX.h"
 #include "glut.h"
 
+float CModelX::GetFloatToken()
+{
+	GetToken();
+	//atof
+	//文字列をfloat型へ変換
+	return atof(mToken);
+}
+
 CModelX::~CModelX()
 {
 	if (mFrame.size() > 0)
@@ -82,7 +90,7 @@ void CModelX::Load(char* file) {
 GetToken
 文字列データから、単語を1つ取得する
 */
-void CModelX::GetToken() {
+char* CModelX::GetToken() {
 	char* p = mpPointer;
 	char* q = mToken;
 
@@ -113,8 +121,9 @@ void CModelX::GetToken() {
 		//読み込み位置の更新
 		mpPointer = p;
 		//単語を取得する（再帰呼び出し）
-		GetToken();
+		return GetToken();
 	}
+	return mToken;
 }
 
 #include <ctype.h>	//isspace関数の宣言
@@ -170,6 +179,13 @@ CModelXFrame::CModelXFrame(CModelX* model)
 			mChild.push_back(
 				new CModelXFrame(model));
 		}
+		else if (strcmp(model->mToken, "FrameTransformMatrix") == 0) {
+			model->GetToken(); // {
+			for (int i = 0; i < mTransformMatrix.Size(); i++) {
+				mTransformMatrix.M()[i] = atof(model->GetToken());
+			}
+			model->GetToken(); // }
+		}
 		else {
 			//上記以外の要素は読み飛ばす
 			model->SkipNode();
@@ -178,6 +194,7 @@ CModelXFrame::CModelXFrame(CModelX* model)
 	//デバッグバージョンのみ有効
 #ifdef _DEBUG
 	printf("%s\n", mpName);
+	mTransformMatrix.Print();
 #endif
 }
 

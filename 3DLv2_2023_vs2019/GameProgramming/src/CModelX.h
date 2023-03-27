@@ -16,6 +16,8 @@ class CModelXFrame;	// CModelXFrameクラスの宣言
 class CModelX {
 	friend CModelXFrame;
 public:
+	//浮動小数点データの取得
+	float GetFloatToken();
 	~CModelX();
 	//ノードの読み飛ばし
 	void SkipNode();
@@ -27,7 +29,7 @@ private:
 	std::vector<CModelXFrame*> mFrame;	//フレームの配列
 
 	//単語の取り出し
-	void GetToken();
+	char* GetToken();
 	//cが区切り文字ならtrueを返す
 	bool IsDelimiter(char c);
 
