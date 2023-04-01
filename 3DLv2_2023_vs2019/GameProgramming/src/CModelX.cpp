@@ -222,11 +222,17 @@ CModelXFrame::~CModelXFrame()
 CMesh::CMesh()
 	: mVertexNum(0)
 	, mpVertex(nullptr)
+	, mFaceNum(0)
+	, mpVertexIndex(nullptr)
+	, mNormalNum(0)
+	, mpNormal(nullptr)
 {}
 
 //デストラクタ
 CMesh::~CMesh() {
 	SAFE_DELETE_ARRAY(mpVertex);
+	SAFE_DELETE_ARRAY(mpVertexIndex);
+	SAFE_DELETE_ARRAY(mpNormal);
 }
 /*
  Init
@@ -242,16 +248,64 @@ void CMesh::Init(CModelX* model) {
 	mVertexNum = atoi(model->GetToken());
 	//頂点数分エリア確保
 	mpVertex = new CVector[mVertexNum];
-#ifdef _DEBUG
-	printf("VertexNum:%d\n", mVertexNum);
-#endif
+
 	//頂点数分データを取り込む
 	for (int i = 0; i < mVertexNum; i++) {
 		mpVertex[i].X(atof(model->GetToken()));
 		mpVertex[i].Y(atof(model->GetToken()));
 		mpVertex[i].Z(atof(model->GetToken()));
+	}
+	mFaceNum = atoi(model->GetToken());	//面数読み込み
+
+//頂点数は1面に3頂点
+	mpVertexIndex = new int[mFaceNum * 3];
+	for (int i = 0; i < mFaceNum * 3; i += 3) {
+		model->GetToken();	//頂点数読み飛ばし
+		mpVertexIndex[i] = atoi(model->GetToken());
+		mpVertexIndex[i + 1] = atoi(model->GetToken());
+		mpVertexIndex[i + 2] = atoi(model->GetToken());
 #ifdef _DEBUG
-		printf("%10f%10f%10f\n", mpVertex[i].X(), mpVertex[i].Y(), mpVertex[i].Z());
+		printf("%10d%10d%10d\n", mpVertexIndex[i], mpVertexIndex[i+1], mpVertexIndex[i+2]);
 #endif
 	}
+	model->GetToken();	//MeshNormals
+	if (strcmp(model->mToken, "MeshNormals") == 0) {
+		model->GetToken();	// {
+		//法線データ数を取得
+		mNormalNum = atoi(model->GetToken());
+		//法線のデータを配列に取り込む
+		CVector* pNormal = new CVector[mNormalNum];
+		for (int i = 0; i < mNormalNum; i++) {
+			pNormal[i].X(atof(model->GetToken()));
+			pNormal[i].Y(atof(model->GetToken()));
+			pNormal[i].Z(atof(model->GetToken()));
+		}
+		//法線数=面数×３
+		mNormalNum = atoi(model->GetToken()) * 3; //FaceNum
+#ifdef _DEBUG
+		printf("mNormalNum:%d\n", mNormalNum);
+#endif
+		int ni;
+		//頂点毎に法線データを設定する
+		mpNormal = new CVector[mNormalNum];
+		for (int i = 0; i < mNormalNum; i += 3) {
+			model->GetToken(); // 3
+			ni = atoi(model->GetToken());
+			mpNormal[i] = pNormal[ni];
+
+			ni = atoi(model->GetToken());
+			mpNormal[i + 1] = pNormal[ni];
+
+			ni = atoi(model->GetToken());
+			mpNormal[i + 2] = pNormal[ni];
+#ifdef _DEBUG
+			printf("%10f%10f%10f\n", mpNormal[i].X(), mpNormal[i].Y(), mpNormal[i].Z());
+			printf("%10f%10f%10f\n", mpNormal[i+1].X(), mpNormal[i + 1].Y(), mpNormal[i + 1].Z());
+			printf("%10f%10f%10f\n", mpNormal[i + 2].X(), mpNormal[i + 2].Y(), mpNormal[i + 2].Z());
+#endif
+		}
+		delete[] pNormal;
+		model->GetToken();	// }
+	}
+
 }
