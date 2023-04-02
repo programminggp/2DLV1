@@ -20,6 +20,7 @@ class CModelX {
 	friend CModelXFrame;
 	friend CMesh;
 public:
+	void Render();
 	//浮動小数点データの取得
 	float GetFloatToken();
 	~CModelX();
@@ -45,6 +46,7 @@ private:
 class CModelXFrame {
 	friend CModelX;
 public:
+	void Render();
 	//コンストラクタ
 	CModelXFrame(CModelX* model);
 	//デストラクタ
@@ -62,6 +64,7 @@ class CMesh {
 	friend CModelX;
 	friend CModelXFrame;
 public:
+	void Render();
 	//コンストラクタ
 	CMesh();
 	//デストラクタ
