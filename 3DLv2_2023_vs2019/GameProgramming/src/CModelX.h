@@ -20,6 +20,7 @@ class CModelX {
 	friend CModelXFrame;
 	friend CMesh;
 public:
+	void Render();
 	//浮動小数点データの取得
 	float GetFloatToken();
 	~CModelX();
@@ -45,6 +46,7 @@ private:
 class CModelXFrame {
 	friend CModelX;
 public:
+	void Render();
 	//コンストラクタ
 	CModelXFrame(CModelX* model);
 	//デストラクタ
@@ -62,6 +64,7 @@ class CMesh {
 	friend CModelX;
 	friend CModelXFrame;
 public:
+	void Render();
 	//コンストラクタ
 	CMesh();
 	//デストラクタ
@@ -69,6 +72,10 @@ public:
 	//読み込み処理
 	void Init(CModelX* model);
 private:
+	int mNormalNum;	//法線数
+	CVector* mpNormal;//法線ベクトル
+	int mFaceNum;	//面数
+	int* mpVertexIndex;	//面を構成する頂点インデックス
 	int mVertexNum;	//頂点数
 	CVector* mpVertex;	//頂点データ
 };
