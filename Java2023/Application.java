@@ -1,17 +1,33 @@
+//インポートしたパッケージのクラスは、
+//クラス名だけで使用できます。
+import javax.swing.*;
+//インポートにクラスを指定することもできます。
+//.で区切られた最後がクラス名、それ以外はパッケージ名です。
+import java.awt.Dimension;
+
 public class Application {
     public static void main(String[] arg) {//プログラムはmainメソッドから実行開始
-        //int型の変数hを作成します
-        int h;
-        //変数hに100を代入します
-        h = 100;
-        // int型の変数wを作成し、200を代入します
-        int w = 200;
-        //frmもJFrameの変数です。
-        javax.swing.JFrame f = new javax.swing.JFrame();
-        /*wに200が、hに100が代入されているので、
-        frm.setSize(200,100)となります。	*/
-        f.setSize(w,h);
-        f.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        f.setVisible(true);
+        int height;
+        height = 400;
+        int width = 300;
+    
+        //importによりjavax.swingパッケージのクラスは、
+        //クラス名だけの記述が可能
+        JFrame frame = new JFrame();
+            
+        //フレーム内部の大きさを幅width(代入値200)
+        //高さheight(代入値100)に設定
+        //java.awt.Dimensionはインポートにより、
+        //Dimensionだけでよい
+        frame.getContentPane().setPreferredSize(
+            new Dimension(width, height));
+    
+        //フレームのサイズ調整
+        frame.pack();
+    
+        //importにより、javax.swing.の記述は不要
+        frame.setDefaultCloseOperation(
+            JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 }
