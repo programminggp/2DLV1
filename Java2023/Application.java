@@ -12,9 +12,9 @@ class Screen extends JComponent {
 	//描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
 		//描画色を青にする
-		g.setColor(Color.blue);
+		g.setColor(Color.black);
 		//X座標0、Y座標0から、幅150、高さ200の四角形を塗りつぶす
-		g.fillRect(0, 0, 150, 200);
+		g.fillRect(0,0,300,400);
 	}
 }
 
