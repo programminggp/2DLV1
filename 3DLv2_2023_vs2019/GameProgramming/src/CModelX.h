@@ -7,6 +7,7 @@
 class CModelX;	// CModelXクラスの宣言
 class CModelXFrame;	// CModelXFrameクラスの宣言
 class CMesh;	// CMeshクラスの宣言
+class CMaterial;	//マテリアルの宣言
 
 #define MODEL_FILE "res\\sample.blend.x"	//入力ファイル名
 
@@ -19,7 +20,9 @@ class CMesh;	// CMeshクラスの宣言
 class CModelX {
 	friend CModelXFrame;
 	friend CMesh;
+	friend CMaterial;
 public:
+	char* Token();
 	void Render();
 	//浮動小数点データの取得
 	float GetFloatToken();
@@ -72,6 +75,10 @@ public:
 	//読み込み処理
 	void Init(CModelX* model);
 private:
+	int mMaterialNum;	//マテリアル数
+	int mMaterialIndexNum;//マテリアル番号数（面数）
+	int* mpMaterialIndex;	  //マテリアル番号
+	std::vector<CMaterial*> mMaterial;//マテリアルデータ
 	int mNormalNum;	//法線数
 	CVector* mpNormal;//法線ベクトル
 	int mFaceNum;	//面数
