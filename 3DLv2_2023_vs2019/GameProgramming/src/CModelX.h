@@ -8,6 +8,7 @@ class CModelX;	// CModelXクラスの宣言
 class CModelXFrame;	// CModelXFrameクラスの宣言
 class CMesh;	// CMeshクラスの宣言
 class CMaterial;	//マテリアルの宣言
+class CSkinWeights;	//スキンウェイトクラス
 
 #define MODEL_FILE "res\\sample.blend.x"	//入力ファイル名
 
@@ -19,9 +20,12 @@ class CMaterial;	//マテリアルの宣言
 */
 class CModelX {
 	friend CModelXFrame;
-	friend CMesh;
-	friend CMaterial;
+//	friend CMesh;
+//	friend CMaterial;
 public:
+	bool EOT();	//トークン終了するとtrue
+	//単語の取り出し
+	char* GetToken();
 	char* Token();
 	void Render();
 	//浮動小数点データの取得
@@ -36,8 +40,6 @@ public:
 private:
 	std::vector<CModelXFrame*> mFrame;	//フレームの配列
 
-	//単語の取り出し
-	char* GetToken();
 	//cが区切り文字ならtrueを返す
 	bool IsDelimiter(char c);
 
@@ -64,8 +66,8 @@ private:
 
 //CMeshクラスの定義
 class CMesh {
-	friend CModelX;
-	friend CModelXFrame;
+//	friend CModelX;
+//	friend CModelXFrame;
 public:
 	void Render();
 	//コンストラクタ
@@ -75,6 +77,8 @@ public:
 	//読み込み処理
 	void Init(CModelX* model);
 private:
+	//スキンウェイト
+	std::vector<CSkinWeights*> mSkinWeights;
 	int mMaterialNum;	//マテリアル数
 	int mMaterialIndexNum;//マテリアル番号数（面数）
 	int* mpMaterialIndex;	  //マテリアル番号
@@ -86,5 +90,27 @@ private:
 	int mVertexNum;	//頂点数
 	CVector* mpVertex;	//頂点データ
 };
+
+/*
+ CSkinWeights
+ スキンウェイトクラス
+*/
+class CSkinWeights {
+	friend CModelX;
+	friend CMesh;
+public:
+	CSkinWeights(CModelX* model);
+	~CSkinWeights();
+	const int& FrameIndex();
+	const CMatrix& Offset();
+private:
+	char* mpFrameName;	//フレーム名
+	int mFrameIndex;	//フレーム番号
+	int mIndexNum;	//頂点番号数
+	int* mpIndex;	//頂点番号配列
+	float* mpWeight;	//頂点ウェイト配列
+	CMatrix mOffset;	//オフセットマトリックス
+};
+
 
 #endif
