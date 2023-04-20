@@ -15,6 +15,11 @@ class Screen extends JComponent {
 		g.setColor(Color.black);
 		//X座標0、Y座標0から、幅150、高さ200の四角形を塗りつぶす
 		g.fillRect(0,0,300,400);
+        //描画色を白色にします
+        g.setColor(Color.white);
+        //X座標20、Y座標10にHello world!と文字列を描画します
+        g.drawString("Score",10,20);// "で囲むと文字列データになります
+        g.drawString("High Score",100,20);
 	}
 }
 
