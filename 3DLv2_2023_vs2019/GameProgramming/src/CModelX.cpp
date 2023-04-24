@@ -18,6 +18,10 @@ CModelX::~CModelX()
 	{
 		delete mFrame[0];
 	}
+	for (size_t i = 0; i < mAnimationSet.size(); i++)
+	{
+		delete mAnimationSet[i];
+	}
 }
 
 void CModelX::SkipNode()
@@ -81,6 +85,10 @@ void CModelX::Load(char* file) {
 		if (strcmp(mToken, "Frame") == 0) {
 				//フレームを作成する
 				new CModelXFrame(this);
+		}
+		//単語がAnimationSetの場合
+		else if (strcmp(mToken, "AnimationSet") == 0) {
+			new CAnimationSet(this);
 		}
 	}
 
@@ -430,12 +438,12 @@ CSkinWeights::CSkinWeights(CModelX* model)
 	model->GetToken();	// }
 
 #ifdef _DEBUG
-	printf("SkinWeights:%s\n", mpFrameName);
-	for (int i = 0; i < mIndexNum; i++)
-	{
-		printf("%3d %10f\n", mpIndex[i], mpWeight[i]);
-	}
-	mOffset.Print();
+	//printf("SkinWeights:%s\n", mpFrameName);
+	//for (int i = 0; i < mIndexNum; i++)
+	//{
+	//	printf("%3d %10f\n", mpIndex[i], mpWeight[i]);
+	//}
+	//mOffset.Print();
 
 #endif
 
@@ -446,4 +454,33 @@ CSkinWeights::~CSkinWeights()
 	SAFE_DELETE_ARRAY(mpFrameName);
 	SAFE_DELETE_ARRAY(mpIndex);
 	SAFE_DELETE_ARRAY(mpWeight);
+}
+
+CAnimationSet::~CAnimationSet()
+{
+	SAFE_DELETE_ARRAY(mpName);
+}
+/*
+CAnimationSet
+*/
+CAnimationSet::CAnimationSet(CModelX* model)
+	: mpName(nullptr)
+{
+	model->mAnimationSet.push_back(this);
+	model->GetToken();	// Animation Name
+	//アニメーションセット名を退避
+	mpName = new char[strlen(model->Token()) + 1];
+	strcpy(mpName, model->Token());
+	model->GetToken(); // {
+	while (*model->mpPointer != '\0') {
+		model->GetToken(); // } or Animation
+		if (strchr(model->Token(), '}'))break;
+		if (strcmp(model->mToken, "Animation") == 0) {
+			//とりあえず読み飛ばし
+			model->SkipNode();
+		}
+	}
+#ifdef _DEBUG
+	printf("AnimationSet:%s\n", mpName);
+#endif
 }
