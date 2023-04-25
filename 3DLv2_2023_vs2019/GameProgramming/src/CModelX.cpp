@@ -472,10 +472,10 @@ CAnimationSet::CAnimationSet(CModelX* model)
 	mpName = new char[strlen(model->Token()) + 1];
 	strcpy(mpName, model->Token());
 	model->GetToken(); // {
-	while (*model->mpPointer != '\0') {
+	while (!model->EOT()) {
 		model->GetToken(); // } or Animation
 		if (strchr(model->Token(), '}'))break;
-		if (strcmp(model->mToken, "Animation") == 0) {
+		if (strcmp(model->Token(), "Animation") == 0) {
 			//‚Æ‚è‚ ‚¦‚¸“Ç‚Ý”ò‚Î‚µ
 			model->SkipNode();
 		}
