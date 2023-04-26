@@ -94,6 +94,24 @@ void CModelX::Load(char* file) {
 
 	SAFE_DELETE_ARRAY(buf);	//確保した領域を開放する
 }
+/*
+FindFrame(フレーム名)
+フレーム名に該当するフレームのアドレスを返す
+*/
+CModelXFrame* CModelX::FindFrame(char* name) {
+	//イテレータの作成
+	std::vector<CModelXFrame*>::iterator itr;
+	//先頭から最後まで繰り返す
+	for (itr = mFrame.begin(); itr != mFrame.end(); itr++) {
+		//名前が一致したか？
+		if (strcmp(name, (*itr)->mpName) == 0) {
+			//一致したらそのアドレスを返す
+			return *itr;
+		}
+	}
+	//一致するフレームが無い場合はnullptrを返す
+	return nullptr;
+}
 
 bool CModelX::EOT()
 {
@@ -225,6 +243,11 @@ CModelXFrame::~CModelXFrame()
 	SAFE_DELETE_ARRAY(mpName);
 	//Meshがあれば削除
 	if (mpMesh) delete mpMesh;
+}
+
+int CModelXFrame::Index()
+{
+	return mIndex;
 }
 
 //コンストラクタ
@@ -459,6 +482,10 @@ CSkinWeights::~CSkinWeights()
 CAnimationSet::~CAnimationSet()
 {
 	SAFE_DELETE_ARRAY(mpName);
+	//アニメーション要素の削除
+	for (size_t i = 0; i < mAnimation.size(); i++) {
+		delete mAnimation[i];
+	}
 }
 /*
 CAnimationSet
@@ -476,11 +503,44 @@ CAnimationSet::CAnimationSet(CModelX* model)
 		model->GetToken(); // } or Animation
 		if (strchr(model->Token(), '}'))break;
 		if (strcmp(model->Token(), "Animation") == 0) {
-			//とりあえず読み飛ばし
+			//Animation要素読み込み
+			mAnimation.push_back(new CAnimation(model));
+		}
+	}
+}
+
+CAnimation::CAnimation(CModelX* model)
+	: mpFrameName(nullptr)
+	, mFrameIndex(0)
+{
+	model->GetToken(); // { or Animation Name
+	if (strchr(model->Token(), '{')) {
+		model->GetToken(); // {
+	}
+	else {
+		model->GetToken(); // {
+		model->GetToken(); // {
+	}
+
+	model->GetToken(); //FrameName
+	mpFrameName = new char[strlen(model->Token()) + 1];
+	strcpy(mpFrameName, model->Token());
+	mFrameIndex =
+		model->FindFrame(model->Token())->Index();
+	model->GetToken(); // }
+	while (!model->EOT()) {
+		model->GetToken(); // } or AnimationKey
+		if (strchr(model->Token(), '}')) break;
+		if (strcmp(model->Token(), "AnimationKey") == 0) {
 			model->SkipNode();
 		}
 	}
 #ifdef _DEBUG
-	printf("AnimationSet:%s\n", mpName);
+	printf("Animation:%s\n", mpFrameName);
 #endif
+}
+
+CAnimation::~CAnimation()
+{
+	SAFE_DELETE_ARRAY(mpFrameName);
 }
