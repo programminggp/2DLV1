@@ -8,28 +8,57 @@ import javax.swing.*;
 //awtパッケージをインポート
 import java.awt.*;
 
-//JComponentを継承し、画面の部品を作成します
+//星クラスの定義
+class Star {
+	int x;// 星のx座標(x)
+	int y;// 星のy座標(y)
+	int w, h;// 幅(w), 高さ(h)
+	Color c;// 色(c)
+
+	// コンストラクタ
+	Star(int x, int y, int width, int height, Color color) {
+		// メンバ変数の設定
+		this.x = x; // this.xはクラスのメンバ変数、xは引数
+		this.y = y;
+		w = width;
+		h = height;
+		c = color;
+	}
+
+	// 描画する
+	void draw(Graphics g) {
+		// 円の描画
+		g.setColor(c);
+		g.fillOval(x, y, w, h);
+	}
+}
+
+// JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
-	int[] ox = { 100, 220, 252 };// 円のX座標を配列で２つ作成
-	int[] oy = { 32, 320, 0 };// 円のY座標を配列で２つ作成
-	int[] ow = { 64, 80, 48 };// 円の幅を配列で２つ作成
-	int[] oh = { 64, 80, 48 };// 円の高さを配列で２つ作成
-	// Colorクラスのインスタンスを配列で２つ作成
-	Color[] oc = { new Color(255, 0, 0), new Color(0, 255, 0), new Color(255, 255, 0) };
+	//星クラスの作成
+	Star star;
+	Star star2;
+	Star star3;
+
+	//デフォルトコンストラクタの作成
+	Screen() {
+		// 星クラスのインスタンスを
+		// X座標0、Y座標30、幅64、高さ64、緑色で作成します。
+		star = new Star(0, 30, 64, 64, new Color(0, 255, 0));
+		star2 = new Star(64, 30, 64, 64, new Color(255, 255, 0));
+		star3 = new Star(128, 30, 64, 64, new Color(255, 0, 0));
+	}
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
 		// 黒色で四角形を描画
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 300, 400);
-
-		// 繰り返し処理
-		for (int i = 1; i < ox.length; i++) {
-			// 配列の添字に変数を使用できます
-			// iが0の時はoc[0]、iが1の時はoc[1]と同様
-			g.setColor(oc[i]);
-			g.fillOval(ox[i], oy[i], ow[i], oh[i]);
-		}
+		
+		// Starクラスのdrawメソッドを呼びます
+		star.draw(g);
+		star2.draw(g);
+		star3.draw(g);
 
 		// 白色で文字列を描画
 		g.setColor(Color.white);
