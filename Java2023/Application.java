@@ -10,36 +10,30 @@ import java.awt.*;
 
 //JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
-	int[] ox = {100,220,252};// 円のX座標を配列で２つ作成
-	int[] oy = {32,320,0};// 円のY座標を配列で２つ作成
-	int[] ow = {64,80,48};// 円の幅を配列で２つ作成
-	int[] oh = {64,80,48};// 円の高さを配列で２つ作成
+	int[] ox = { 100, 220, 252 };// 円のX座標を配列で２つ作成
+	int[] oy = { 32, 320, 0 };// 円のY座標を配列で２つ作成
+	int[] ow = { 64, 80, 48 };// 円の幅を配列で２つ作成
+	int[] oh = { 64, 80, 48 };// 円の高さを配列で２つ作成
 	// Colorクラスのインスタンスを配列で２つ作成
-	Color[] oc = {new Color(255,0,0),new Color(0,255,0)
-		,new Color(255,255,0)};
+	Color[] oc = { new Color(255, 0, 0), new Color(0, 255, 0), new Color(255, 255, 0) };
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
-		// 描画色を青にする
+		// 黒色で四角形を描画
 		g.setColor(Color.black);
-		// X座標0、Y座標0から、幅150、高さ200の四角形を塗りつぶす
 		g.fillRect(0, 0, 300, 400);
 
-		g.setColor(oc[0]);// 描画色の設定
-		g.fillOval(ox[0], oy[0], ow[0], oh[0]);// 円の描画
+		// 繰り返し処理
+		for (int i = 1; i < ox.length; i++) {
+			// 配列の添字に変数を使用できます
+			// iが0の時はoc[0]、iが1の時はoc[1]と同様
+			g.setColor(oc[i]);
+			g.fillOval(ox[i], oy[i], ow[i], oh[i]);
+		}
 
-		// ２つ目の円の追加
-		g.setColor(oc[1]);// 描画色の設定
-		g.fillOval(ox[1], oy[1], ow[1], oh[1]);// 円の描画
-
-		// ３つ目の円の追加
-		g.setColor(oc[2]);// 描画色の設定
-		g.fillOval(ox[2], oy[2], ow[2], oh[2]);// 円の描画
-
-		// 描画色を白色にします
+		// 白色で文字列を描画
 		g.setColor(Color.white);
-		// X座標20、Y座標10にHello world!と文字列を描画します
-		g.drawString("Score", 10, 20);// "で囲むと文字列データになります
+		g.drawString("Score", 10, 20);
 		g.drawString("High Score", 100, 20);
 	}
 }
