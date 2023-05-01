@@ -25,6 +25,17 @@ class Star {
 		c = color;
 	}
 
+	Star()
+	{
+		x = (int)(Math.random() * 300);
+		y = (int)(Math.random() * 400);
+		w = h = (int)(Math.random() * 100);
+		c = new Color(
+			(int)(Math.random() * 256),
+			(int)(Math.random() * 256),
+			(int)(Math.random() * 256) );
+	}
+
 	// 描画する
 	void draw(Graphics g) {
 		// 円の描画
@@ -39,14 +50,31 @@ class Screen extends JComponent {
 	Star star;
 	Star star2;
 	Star star3;
+//	Star[] stars;
 
 	//デフォルトコンストラクタの作成
 	Screen() {
-		// 星クラスのインスタンスを
-		// X座標0、Y座標30、幅64、高さ64、緑色で作成します。
-		star = new Star(0, 30, 64, 64, new Color(0, 255, 0));
-		star2 = new Star(64, 30, 64, 64, new Color(255, 255, 0));
-		star3 = new Star(128, 30, 64, 64, new Color(255, 0, 0));
+		// Math.random() 0.0以上～1.0未満までのランダム値を取得する
+		// Math.random()はdouble型の値を返します
+		double dx = Math.random() * 300; //0～299のランダム値
+		double dy = Math.random() * 400; //0～399のランダム値
+		// キャスト変換　(データ型)とすることで、データ型を変換します
+		star = new Star((int)dx,(int)dy, 64, 64, new Color(0, 255, 0));
+		// int型へキャスト変換して代入します
+		int ix = (int)(Math.random() * 300);
+		int iy = (int)(Math.random() * 400);
+		star2 = new Star(ix, iy, 64, 64, new Color(255, 255, 0));
+		// int型へキャスト変換して引数へ渡します
+		star3 = new Star((int)(Math.random() * 300),(int)(Math.random() * 400),
+			64, 64, new Color(255, 0, 0));
+
+/*
+		stars = new Star[100];
+		for(int i = 0; i < stars.length; i++)
+		{
+			stars[i] = new Star();
+		}
+*/
 	}
 
 	// 描画が必要なときに実行されるメソッド
@@ -59,6 +87,13 @@ class Screen extends JComponent {
 		star.draw(g);
 		star2.draw(g);
 		star3.draw(g);
+
+/*
+		for(int i = 0; i < stars.length; i++)
+		{
+			stars[i].draw(g);
+		}
+*/
 
 		// 白色で文字列を描画
 		g.setColor(Color.white);
