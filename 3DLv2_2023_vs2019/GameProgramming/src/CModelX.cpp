@@ -95,6 +95,84 @@ void CModelX::Load(char* file) {
 	SAFE_DELETE_ARRAY(buf);	//確保した領域を開放する
 }
 /*
+AnimateFrame
+フレームの変換行列をアニメーションデータで更新する
+*/
+void CModelX::AnimateFrame() {
+	//アニメーションで適用されるフレームの
+	//変換行列をゼロクリアする
+	for (size_t i = 0; i < mAnimationSet.size(); i++) {
+		CAnimationSet* animSet = mAnimationSet[i];
+		//重みが0は飛ばす
+		if (animSet->mWeight == 0) continue;
+		//フレーム分（Animation分）繰り返す
+		for (size_t j = 0; j < animSet->Animation().size(); j++) {
+			CAnimation* animation = animSet->Animation()[j];
+			//該当するフレームの変換行列をゼロクリアする
+			memset(&mFrame[animation->mFrameIndex]->mTransformMatrix, 0, sizeof(CMatrix));
+		}
+	}
+	//アニメーションに該当するフレームの変換行列を
+	//アニメーションのデータで設定する
+	for (size_t i = 0; i < mAnimationSet.size(); i++) {
+		CAnimationSet* animSet = mAnimationSet[i];
+		//重みが0は飛ばす
+		if (animSet->mWeight == 0) continue;
+		animSet->AnimateMatrix(this);
+		/*
+		//フレーム分（Animation分）繰り返す
+		for (size_t j = 0; j < animSet->Animation().size(); j++) {
+			//フレームを取得する
+			CAnimation* animation = animSet->Animation()[j];
+			CModelXFrame* frame = mFrame[animation->FrameIndex()];
+			//キーがない場合は飛ばす
+			if (animation->Key() == nullptr) continue;
+			//時間を取得
+			float time = animSet->Time();
+			//最初の時間より小さい場合
+			if (time < animation->Key()[0].mTime) {
+				//変換行列を0コマ目の行列で更新
+				frame->mTransformMatrix += animation->Key()[0].mMatrix * animSet->Weight();
+			}
+			//最後の時間より大きい場合
+			else if (time >= animation->Key()[animation->KeyNum() - 1].mTime) {
+				//変換行列を最後のコマの行列で更新
+				frame->mTransformMatrix += animation->Key()[animation->KeyNum() - 1].mMatrix * animSet->Weight();
+			}
+			else {
+				//時間の途中の場合
+				for (int k = 1; k < animation->KeyNum(); k++) {
+					//変換行列を、線形補間にて更新
+					if (time < animation->Key()[k].mTime &&
+						animation->mpKey[k - 1].mTime != animation->mpKey[k].mTime) {
+						float r = (animation->mpKey[k].mTime - time) /
+							(animation->mpKey[k].mTime - animation->mpKey[k - 1].mTime);
+						frame->mTransformMatrix +=
+							(animation->mpKey[k - 1].mMatrix * r + animation->mpKey[k].mMatrix * (1 - r)) * anim->mWeight;
+						break;
+					}
+				}
+			}
+		}*/
+	}
+
+#ifdef _DEBUG
+	for (int i = 0; i < mFrame.size(); i++)
+	{
+		printf("Animation:%s\n", mFrame[i]->mpName);
+		mFrame[i]->mTransformMatrix.Print();
+	}
+#endif
+
+}
+
+
+std::vector<CAnimationSet*>& CModelX::AnimationSet()
+{
+	return mAnimationSet;
+}
+
+/*
 FindFrame(フレーム名)
 フレーム名に該当するフレームのアドレスを返す
 */
@@ -487,11 +565,35 @@ CAnimationSet::~CAnimationSet()
 		delete mAnimation[i];
 	}
 }
+//float CAnimationSet::Weight()
+//{
+//	return mWeight;
+//}
+std::vector<CAnimation*>& CAnimationSet::Animation()
+{
+	return mAnimation;
+}
+//float CAnimationSet::Time()
+//{
+//	return mTime;
+//}
+void CAnimationSet::Time(float time)
+{
+	mTime = time;
+}
+void CAnimationSet::Weight(float weight)
+{
+	mWeight = weight;
+}
+
 /*
 CAnimationSet
 */
 CAnimationSet::CAnimationSet(CModelX* model)
 	: mpName(nullptr)
+	, mTime(0)
+	, mWeight(0)
+	, mMaxTime(0)
 {
 	model->mAnimationSet.push_back(this);
 	model->GetToken();	// Animation Name
@@ -508,6 +610,49 @@ CAnimationSet::CAnimationSet(CModelX* model)
 		}
 	}
 }
+
+void CAnimationSet::AnimateMatrix(CModelX* model)
+{
+	//重みが0は飛ばす
+	if (mWeight == 0) return;
+	//フレーム分（Animation分）繰り返す
+	for (size_t j = 0; j < mAnimation.size(); j++) {
+		//フレームを取得する
+		CAnimation* animation = mAnimation[j];
+		//キーがない場合は飛ばす
+		if (animation->mpKey == nullptr) continue;
+		CModelXFrame* frame = model->mFrame[animation->mFrameIndex];
+		//最初の時間より小さい場合
+		if (mTime < animation->mpKey[0].mTime) {
+			//変換行列を0コマ目の行列で更新
+			frame->mTransformMatrix += animation->mpKey[0].mMatrix * mWeight;
+		}
+		//最後の時間より大きい場合
+		else if (mTime >= animation->mpKey[animation->mKeyNum - 1].mTime) {
+			//変換行列を最後のコマの行列で更新
+			frame->mTransformMatrix += animation->mpKey[animation->mKeyNum - 1].mMatrix * mWeight;
+		}
+		else {
+			//時間の途中の場合
+			for (int k = 1; k < animation->mKeyNum; k++) {
+				//変換行列を、線形補間にて更新
+				if (mTime < animation->mpKey[k].mTime &&
+					animation->mpKey[k - 1].mTime != animation->mpKey[k].mTime) {
+					float r = (animation->mpKey[k].mTime - mTime) /
+						(animation->mpKey[k].mTime - animation->mpKey[k - 1].mTime);
+					frame->mTransformMatrix +=
+						(animation->mpKey[k - 1].mMatrix * r + animation->mpKey[k].mMatrix * (1 - r)) * mWeight;
+					break;
+				}
+			}
+		}
+	}
+}
+
+//int CAnimation::FrameIndex()
+//{
+//	return mFrameIndex;
+//}
 
 CAnimation::CAnimation(CModelX* model)
 	: mpFrameName(nullptr)
@@ -621,10 +766,6 @@ CAnimation::CAnimation(CModelX* model)
 		SAFE_DELETE_ARRAY(time[i]);
 		SAFE_DELETE_ARRAY(key[i]);
 	}
-#ifdef _DEBUG
-	printf("Animation:%s\n", mpFrameName);
-	mpKey[0].mMatrix.Print();
-#endif
 }
 
 CAnimation::~CAnimation()

@@ -88,6 +88,35 @@ float* CMatrix::M() const
 	return (float*)mM[0];
 }
 
+CMatrix CMatrix::operator*(const float& f) const
+{
+	CMatrix tmp;
+	for (int i = 0; i < 16; i++)
+	{
+		tmp.mM[0][i] = mM[0][i] * f;
+	}
+	return tmp;
+}
+
+CMatrix CMatrix::operator+(const CMatrix& m) const
+{
+	CMatrix tmp;
+	for (int i = 0; i < 16; i++)
+	{
+		tmp.mM[0][i] = mM[0][i] + m.mM[0][i];
+	}
+	return tmp;
+}
+
+void CMatrix::operator+=(const CMatrix& m)
+{
+	for (int i = 0; i < 16; i++)
+	{
+		mM[0][i] += m.mM[0][i];
+	}
+}
+
+
 CMatrix CMatrix::Quaternion(float x, float y, float z, float w)
 {
 	mM[0][0] = x * x - y * y - z * z + w * w;

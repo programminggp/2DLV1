@@ -32,6 +32,8 @@ class CModelX {
 //	friend CMesh;
 //	friend CMaterial;
 public:
+	void AnimateFrame();
+	std::vector<CAnimationSet*>& AnimationSet();
 	//フレーム名に該当するフレームのアドレスを返す
 	CModelXFrame* FindFrame(char* name);
 	bool EOT();	//トークン終了するとtrue
@@ -63,6 +65,7 @@ private:
 //CModelXFrameクラスの定義
 class CModelXFrame {
 	friend CModelX;
+	friend CAnimationSet;
 public:
 	void Render();
 	//コンストラクタ
@@ -131,10 +134,21 @@ private:
  アニメーションセット
 */
 class CAnimationSet {
+	friend CModelX;
 public:
+	void AnimateMatrix(CModelX* model);
+	std::vector<CAnimation*>& Animation();
+
+	void Time(float time);
+	void Weight(float weight);
+//	float Weight();
+//	float Time();
 	CAnimationSet(CModelX* model);
 	~CAnimationSet();
 private:
+	float mTime;		//現在時間
+	float mWeight;	//重み
+	float mMaxTime;	//最大時間
 	//アニメーション
 	std::vector<CAnimation*> mAnimation;
 
@@ -148,7 +162,11 @@ private:
 */
 class CAnimation {
 	friend CAnimationSet;
+	friend CModelX;
 public:
+//	int FrameIndex();  // return mFrameIndex
+//	CAnimationKey* Key(); //return mpKey
+//	int KeyNum();  // return mKeyNum
 	CAnimation(CModelX* model);
 	~CAnimation();
 private:
@@ -165,7 +183,7 @@ private:
 class CAnimationKey {
 	friend CAnimation;
 	friend CAnimationSet;
-	friend CModelX;
+//	friend CModelX;
 private:
 	//時間
 	float mTime;
