@@ -94,6 +94,10 @@ void CModelX::Load(char* file) {
 
 	SAFE_DELETE_ARRAY(buf);	//確保した領域を開放する
 }
+std::vector<CModelXFrame*>& CModelX::Frames()
+{
+	return mFrame;
+}
 /*
 AnimateFrame
 フレームの変換行列をアニメーションデータで更新する
@@ -155,15 +159,6 @@ void CModelX::AnimateFrame() {
 			}
 		}*/
 	}
-
-#ifdef _DEBUG
-	for (int i = 0; i < mFrame.size(); i++)
-	{
-		printf("Animation:%s\n", mFrame[i]->mpName);
-		mFrame[i]->mTransformMatrix.Print();
-	}
-#endif
-
 }
 
 
@@ -480,6 +475,22 @@ void CMesh::Render() {
 	/* 頂点データ，法線データの配列を無効にする */
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+}
+/*
+ AnimateCombined
+ 合成行列の作成
+*/
+void CModelXFrame::AnimateCombined(CMatrix* parent) {
+	//自分の変換行列に、親からの変換行列を掛ける
+	mCombinedMatrix = mTransformMatrix * (*parent);
+	//子フレームの合成行列を作成する
+	for (size_t i = 0; i < mChild.size(); i++) {
+		mChild[i]->AnimateCombined(&mCombinedMatrix);
+	}
+#ifdef _DEBUG
+	printf("Frame:%s\n", mpName);
+	mCombinedMatrix.Print();
+#endif
 }
 /*
  Render
