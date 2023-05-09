@@ -23,6 +23,9 @@ char* strncpy(char* str1, const char* str2, int len)
 CMaterial::CMaterial(CModelX* model)
 	: mpTextureFilename(nullptr)
 {
+	//CModelXにマテリアルを追加する
+	model->Material().push_back(this);
+
 	model->GetToken(); // { ? Name
 	if (strcmp(model->Token(), "{") != 0) {
 		//{でないときはマテリアル名
