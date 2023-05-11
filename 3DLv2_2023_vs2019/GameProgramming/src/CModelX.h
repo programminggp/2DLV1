@@ -101,6 +101,8 @@ class CMesh {
 //	friend CModelX;
 //	friend CModelXFrame;
 public:
+	//テクスチャ座標データ
+	float* mpTextureCoords;
 	//頂点にアニメーション適用
 	void AnimateVertex(CModelX* model);
 	//スキンウェイトにフレーム番号を設定する
