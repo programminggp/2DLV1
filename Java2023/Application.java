@@ -54,19 +54,31 @@ class Screen extends JComponent {
 
 	//デフォルトコンストラクタの作成
 	Screen() {
-		// Math.random() 0.0以上～1.0未満までのランダム値を取得する
-		// Math.random()はdouble型の値を返します
-		double dx = Math.random() * 300; //0～299のランダム値
-		double dy = Math.random() * 400; //0～399のランダム値
-		// キャスト変換　(データ型)とすることで、データ型を変換します
-		star = new Star((int)dx,(int)dy, 64, 64, new Color(0, 255, 0));
-		// int型へキャスト変換して代入します
-		int ix = (int)(Math.random() * 300);
-		int iy = (int)(Math.random() * 400);
-		star2 = new Star(ix, iy, 64, 64, new Color(255, 255, 0));
-		// int型へキャスト変換して引数へ渡します
-		star3 = new Star((int)(Math.random() * 300),(int)(Math.random() * 400),
-			64, 64, new Color(255, 0, 0));
+		// 各値をランダム値にします。
+		int ix, iy, iw, ih, ir, ig, ib;
+		ix = (int)(Math.random()) * 300;
+		iy = (int)(Math.random() * 400);
+		iw = ih = (int)(Math.random() * 64) + 1;
+		ir = (int)(Math.random() * 256);
+		ig = (int)(Math.random() * 256);
+		ib = (int)(Math.random() * 256);
+		star = new Star(ix,iy,iw,ih, new Color(ir, ig, ib));
+
+		ix = (int)(Math.random() * 300);
+		iy = (int)(Math.random() * 400);
+		iw = ih = (int)(Math.random() * 64) + 1;
+		ir = (int)(Math.random() * 256);
+		ig = (int)(Math.random() * 256);
+		ib = (int)(Math.random() * 256);
+		star2 = new Star(ix,iy,iw,ih, new Color(ir, ig, ib));
+
+		ix = (int)(Math.random() * 300);
+		iy = (int)(Math.random() * 400);
+		iw = ih = (int)(Math.random() * 64) + 1;
+		ir = (int)(Math.random() * 256);
+		ig = (int)(Math.random() * 256);
+		ib = (int)(Math.random() * 256);
+		star3 = new Star(ix,iy,iw,ih, new Color(ir, ig, ib));
 
 /*
 		stars = new Star[100];
