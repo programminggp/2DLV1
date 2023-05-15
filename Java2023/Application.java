@@ -12,7 +12,7 @@ import java.awt.*;
 class Star {
 	int x; // 星のx座標(x)
 	int y; // 星のy座標(y)
-	int d; // 直径
+	int d; // 直径(d)
 	Color c; // 色(c)
 	// コンストラクタ(X座標,Y座標,直径,色)
 	Star(int x, int y, int diameter, Color color) {
@@ -30,7 +30,11 @@ class Star {
 	}
 	// 更新処理
 	void update() {
-		y += 1;
+		y += d;
+		if(y > 400)
+		{
+			y = 0;
+		}
 	}
 }
 
@@ -83,6 +87,9 @@ class Screen extends JComponent {
 		 */
 		while (true) { // 条件が常にtrue（真）のため永久ループします
 			// 更新処理を呼びます
+			for (Star star : stars) {
+				star.update();
+			}
 
 			// 再描画します（paintComponentメソッドが呼び出されます）
 			repaint();
@@ -94,7 +101,6 @@ class Screen extends JComponent {
 			}
 		}
 	}
-
 }
 
 public class Application {
@@ -128,7 +134,7 @@ public class Application {
 
 		frame.setVisible(true);
 
-		// screen.loop();
+		screen.loop();
 
 	}
 }
