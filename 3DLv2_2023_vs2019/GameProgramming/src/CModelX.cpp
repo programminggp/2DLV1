@@ -829,9 +829,9 @@ CAnimation::CAnimation(CModelX* model)
 		model->FindFrame(model->Token())->Index();
 	model->GetToken(); // }
 	//キーの配列を保存しておく配列
-	CMatrix* key[4] = { 0, 0, 0, 0 };
+	CMatrix* key[4] = { nullptr, nullptr, nullptr, nullptr };
 	//時間の配列を保存しておく配列
-	float* time[4] = { 0, 0, 0, 0 };
+	float* time[4] = { nullptr, nullptr, nullptr, nullptr };
 	while (!model->EOT()) {
 		model->GetToken(); // } or AnimationKey
 		if (strchr(model->Token(), '}')) break;
@@ -903,13 +903,13 @@ CAnimation::CAnimation(CModelX* model)
 		}
 	}
 	//行列データではない時
-	if (mpKey == 0) {
+	if (mpKey == nullptr) {
 		//時間数分キーを作成
 		mpKey = new CAnimationKey[mKeyNum];
 		for (int i = 0; i < mKeyNum; i++) {
 			//時間設定
 			mpKey[i].mTime = time[2][i]; // Time
-			//行列作成 Size * Rotation * Position
+			//行列作成 Scale * Rotation * Position
 			mpKey[i].mMatrix = key[1][i] * key[0][i] * key[2][i];
 		}
 	}
