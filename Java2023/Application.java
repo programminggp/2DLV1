@@ -1,4 +1,3 @@
-
 //インポートしたパッケージのクラスは、
 //クラス名だけで使用できます。
 import javax.swing.*;
@@ -8,15 +7,20 @@ import javax.swing.*;
 //awtパッケージをインポート
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
-class Jet implements KeyListener {
-	int x;
-	int y;
-	int width;
-	int height;
-	Color color;
+//飛行機クラス
+class Plane {
+	int x;	//中心X座標
+	int y;	//中心Y座標
+	int width;	//中心からの幅
+	int height;	//中心からの高さ
+	Color color;	//翼の色
 
-	Jet(int x, int y, int w, int h, Color c) {
+	Plane() {}
+
+	//X座標、Y座標、幅、高さ、色の設定
+	Plane(int x, int y, int w, int h, Color c) {
 		this.x = x;
 		this.y = y;
 		width = w;
@@ -24,11 +28,32 @@ class Jet implements KeyListener {
 		color = c;
 	}
 
+	void update() {}
+
+	//機体の描画
 	void draw(Graphics g) {
+		//翼の描画
 		g.setColor(color);
-		g.fillOval(x - width, y - height / 4, width * 2, height);
+		g.fillOval(x - width, y - height / 2, width * 2, height);
+		//機体の描画
 		g.setColor(Color.white);
 		g.fillOval(x - width / 4, y - height, width / 2, height * 2);
+	}
+
+}
+
+//プレイヤークラス
+class Player extends Plane implements KeyListener
+{
+	int movex;
+	Player(int x, int y, int w, int h, Color c) {
+		super(x,y,w,h,c);
+		movex = 0;
+	}
+
+	void update()
+	{
+		x = x + movex;
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -37,17 +62,22 @@ class Jet implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_A:
-				x = x - 2;
+				movex = -4;
 				break;
 			case KeyEvent.VK_D:
-				x = x + 2;
+				movex = 4;
 				break;
 		}
 	}
 
 	public void keyReleased(KeyEvent e) {
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_A:
+			case KeyEvent.VK_D:
+				movex = 0;
+				break;
+		}
 	}
-
 }
 
 // 星クラスの定義
@@ -84,7 +114,9 @@ class Star {
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
-	Jet jet;
+	ArrayList<Plane> arrayList = new ArrayList<>();
+	Plane player;
+	Plane plane;
 	// Starクラスの配列を宣言
 	Star[] stars;
 
@@ -104,8 +136,12 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128,
 							(int) (Math.random() * 128) + 128));
 		}
-		jet = new Jet(150, 300, 16, 16, Color.red);
-		this.addKeyListener(jet);
+		plane = new Plane(150, 100, 20, 16, Color.red);
+		player = new Player(150, 300, 20, 16, Color.blue);
+		addKeyListener((Player)player);
+        setFocusable(true);
+		arrayList.add(plane);
+		arrayList.add(player);
 	}
 
 	// 描画が必要なときに実行されるメソッド
@@ -119,7 +155,13 @@ class Screen extends JComponent {
 			stars[i].draw(g);
 		}
 
-		jet.draw(g);
+//		plane.draw(g);
+//		player.draw(g);
+
+		for(int i = 0; i < arrayList.size(); i++ )
+		{
+			arrayList.get(i).draw(g);
+		}
 
 		// 白色で文字列を描画
 		g.setColor(Color.white);
@@ -139,6 +181,8 @@ class Screen extends JComponent {
 			for (Star star : stars) {
 				star.update();
 			}
+
+			player.update();
 
 			// 再描画します（paintComponentメソッドが呼び出されます）
 			repaint();
@@ -184,6 +228,5 @@ public class Application {
 		frame.setVisible(true);
 
 		screen.loop();
-
 	}
 }
