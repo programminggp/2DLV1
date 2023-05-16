@@ -7,14 +7,57 @@ import javax.swing.*;
 //import java.awt.Dimension;
 //awtパッケージをインポート
 import java.awt.*;
+import java.awt.event.*;
 
-//星クラスの定義
+class Jet implements KeyListener {
+	int x;
+	int y;
+	int width;
+	int height;
+	Color color;
+
+	Jet(int x, int y, int w, int h, Color c) {
+		this.x = x;
+		this.y = y;
+		width = w;
+		height = h;
+		color = c;
+	}
+
+	void draw(Graphics g) {
+		g.setColor(color);
+		g.fillOval(x - width, y - height / 4, width * 2, height);
+		g.setColor(Color.white);
+		g.fillOval(x - width / 4, y - height, width / 2, height * 2);
+	}
+
+	public void keyTyped(KeyEvent e) {
+	}
+
+	public void keyPressed(KeyEvent e) {
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_A:
+				x = x - 2;
+				break;
+			case KeyEvent.VK_D:
+				x = x + 2;
+				break;
+		}
+	}
+
+	public void keyReleased(KeyEvent e) {
+	}
+
+}
+
+// 星クラスの定義
 class Star {
 	int x; // 星のx座標(x)
 	int y; // 星のy座標(y)
 	int d; // 直径(d)
 	Color c; // 色(c)
 	// コンストラクタ(X座標,Y座標,直径,色)
+
 	Star(int x, int y, int diameter, Color color) {
 		// メンバ変数の設定
 		this.x = x; // this.xはクラスのメンバ変数、xは引数
@@ -22,17 +65,18 @@ class Star {
 		d = diameter;
 		c = color;
 	}
+
 	// 描画する
 	void draw(Graphics g) {
 		// 円の描画
 		g.setColor(c);
 		g.fillOval(x, y, d, d);
 	}
+
 	// 更新処理
 	void update() {
 		y += d;
-		if(y > 400)
-		{
+		if (y > 400) {
 			y = 0;
 		}
 	}
@@ -40,6 +84,7 @@ class Star {
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
+	Jet jet;
 	// Starクラスの配列を宣言
 	Star[] stars;
 
@@ -59,6 +104,8 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128,
 							(int) (Math.random() * 128) + 128));
 		}
+		jet = new Jet(150, 300, 16, 16, Color.red);
+		this.addKeyListener(jet);
 	}
 
 	// 描画が必要なときに実行されるメソッド
@@ -71,6 +118,8 @@ class Screen extends JComponent {
 		for (int i = 0; i < stars.length; i++) {
 			stars[i].draw(g);
 		}
+
+		jet.draw(g);
 
 		// 白色で文字列を描画
 		g.setColor(Color.white);
