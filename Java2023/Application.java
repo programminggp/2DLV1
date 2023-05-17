@@ -17,8 +17,8 @@ class Base {
 	int w; // 中心からの幅
 	int h; // 中心からの高さ
 
-	Base() {
-	}
+	// Base() {
+	// }
 
 	// X座標、Y座標、幅、高さの設定
 	Base(int x, int y, int width, int height) {
@@ -34,10 +34,9 @@ class Base {
 	// 描画
 	void draw(Graphics g) {
 		// 四角形の描画
-		g.setColor(Color.yellow);
+		g.setColor(Color.cyan);
 		g.fillRect(x - w, y - h, w * 2, h * 2);
 	}
-
 }
 
 // プレイヤークラス
@@ -123,9 +122,9 @@ class Star {
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
-	ArrayList<Plane> arrayList = new ArrayList<>();
-	Plane player;
-	Plane plane;
+	ArrayList<Base> arrayList = new ArrayList<>();
+	Base player;
+	Base base;
 	// Starクラスの配列を宣言
 	Star[] stars;
 
@@ -145,11 +144,11 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128,
 							(int) (Math.random() * 128) + 128));
 		}
-		plane = new Plane(150, 100, 20, 16, Color.red);
+		base = new Base(150, 100, 20, 16);
 		player = new Player(150, 300, 20, 16, Color.blue);
 		addKeyListener((Player) player);
 		setFocusable(true);
-		arrayList.add(plane);
+		arrayList.add(base);
 		arrayList.add(player);
 	}
 
