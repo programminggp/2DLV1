@@ -1,3 +1,4 @@
+
 //インポートしたパッケージのクラスは、
 //クラス名だけで使用できます。
 import javax.swing.*;
@@ -9,51 +10,59 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-//飛行機クラス
-class Plane {
-	int x;	//中心X座標
-	int y;	//中心Y座標
-	int width;	//中心からの幅
-	int height;	//中心からの高さ
-	Color color;	//翼の色
+//ベースクラス
+class Base {
+	int x; // 中心X座標
+	int y; // 中心Y座標
+	int w; // 中心からの幅
+	int h; // 中心からの高さ
 
-	Plane() {}
-
-	//X座標、Y座標、幅、高さ、色の設定
-	Plane(int x, int y, int w, int h, Color c) {
-		this.x = x;
-		this.y = y;
-		width = w;
-		height = h;
-		color = c;
+	Base() {
 	}
 
-	void update() {}
+	// X座標、Y座標、幅、高さの設定
+	Base(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		w = width;
+		h = height;
+	}
 
-	//機体の描画
+	void update() {
+	}
+
+	// 描画
 	void draw(Graphics g) {
-		//翼の描画
-		g.setColor(color);
-		g.fillOval(x - width, y - height / 2, width * 2, height);
-		//機体の描画
-		g.setColor(Color.white);
-		g.fillOval(x - width / 4, y - height, width / 2, height * 2);
+		// 四角形の描画
+		g.setColor(Color.yellow);
+		g.fillRect(x - w, y - h, w * 2, h * 2);
 	}
 
 }
 
-//プレイヤークラス
-class Player extends Plane implements KeyListener
-{
+// プレイヤークラス
+class Player extends Base implements KeyListener {
+	Color color;
 	int movex;
+
 	Player(int x, int y, int w, int h, Color c) {
-		super(x,y,w,h,c);
+		super(x, y, w, h);
+		color = c;
 		movex = 0;
 	}
 
-	void update()
-	{
+	void update() {
 		x = x + movex;
+	}
+
+	// 機体の描画
+	void draw(Graphics g) {
+		// 翼の描画
+		g.setColor(color);
+		g.fillOval(x - w, y - h / 2, w * 2, h);
+		// 機体の描画
+		g.setColor(Color.white);
+		g.fillOval(x - w / 4, y - h, w / 2, h * 2);
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -138,8 +147,8 @@ class Screen extends JComponent {
 		}
 		plane = new Plane(150, 100, 20, 16, Color.red);
 		player = new Player(150, 300, 20, 16, Color.blue);
-		addKeyListener((Player)player);
-        setFocusable(true);
+		addKeyListener((Player) player);
+		setFocusable(true);
 		arrayList.add(plane);
 		arrayList.add(player);
 	}
@@ -155,11 +164,10 @@ class Screen extends JComponent {
 			stars[i].draw(g);
 		}
 
-//		plane.draw(g);
-//		player.draw(g);
+		// plane.draw(g);
+		// player.draw(g);
 
-		for(int i = 0; i < arrayList.size(); i++ )
-		{
+		for (int i = 0; i < arrayList.size(); i++) {
 			arrayList.get(i).draw(g);
 		}
 
