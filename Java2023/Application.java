@@ -34,24 +34,25 @@ class Base {
 	// 描画
 	void draw(Graphics g) {
 		// 四角形の描画
-		g.setColor(Color.cyan);
+		g.setColor(Color.yellow);
 		g.fillRect(x - w, y - h, w * 2, h * 2);
 	}
 }
 
 // プレイヤークラス
-class Player extends Base implements KeyListener {
-	Color color;
-	int movex;
+//class Player extends Base implements KeyListener {
+class Player extends Base {
+	Color color; // 色
+	//int movex;
 
 	Player(int x, int y, int w, int h, Color c) {
 		super(x, y, w, h);
 		color = c;
-		movex = 0;
+		//movex = 0;
 	}
 
 	void update() {
-		x = x + movex;
+		//x = x + movex;
 	}
 
 	// 機体の描画
@@ -64,6 +65,7 @@ class Player extends Base implements KeyListener {
 		g.fillOval(x - w / 4, y - h, w / 2, h * 2);
 	}
 
+/* 
 	public void keyTyped(KeyEvent e) {
 	}
 
@@ -86,6 +88,7 @@ class Player extends Base implements KeyListener {
 				break;
 		}
 	}
+ */
 }
 
 // 星クラスの定義
@@ -122,9 +125,12 @@ class Star {
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
-	ArrayList<Base> arrayList = new ArrayList<>();
-	Base player;
-	Base base;
+	Player player = new Player(150, 300, 20, 16, Color.red);
+	// Baseクラスのインスタンス作成
+	Base base = new Base(150, 100, 20, 16);
+
+	//ArrayList<Base> arrayList = new ArrayList<>();
+	//Base player;
 	// Starクラスの配列を宣言
 	Star[] stars;
 
@@ -144,12 +150,12 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128,
 							(int) (Math.random() * 128) + 128));
 		}
-		base = new Base(150, 100, 20, 16);
-		player = new Player(150, 300, 20, 16, Color.blue);
-		addKeyListener((Player) player);
-		setFocusable(true);
-		arrayList.add(base);
-		arrayList.add(player);
+		//base = new Base(150, 100, 20, 16);
+		//player = new Player(150, 300, 20, 16, Color.blue);
+		//addKeyListener((Player) player);
+		//setFocusable(true);
+		//arrayList.add(base);
+		//arrayList.add(player);
 	}
 
 	// 描画が必要なときに実行されるメソッド
@@ -163,12 +169,15 @@ class Screen extends JComponent {
 			stars[i].draw(g);
 		}
 
+		base.draw(g);
+		player.draw(g);
+
 		// plane.draw(g);
 		// player.draw(g);
 
-		for (int i = 0; i < arrayList.size(); i++) {
+/* 		for (int i = 0; i < arrayList.size(); i++) {
 			arrayList.get(i).draw(g);
-		}
+		} */
 
 		// 白色で文字列を描画
 		g.setColor(Color.white);
@@ -189,7 +198,7 @@ class Screen extends JComponent {
 				star.update();
 			}
 
-			player.update();
+			//player.update();
 
 			// 再描画します（paintComponentメソッドが呼び出されます）
 			repaint();
@@ -234,6 +243,6 @@ public class Application {
 
 		frame.setVisible(true);
 
-		screen.loop();
+		//screen.loop();
 	}
 }
