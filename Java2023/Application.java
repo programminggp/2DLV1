@@ -7,8 +7,9 @@ import javax.swing.*;
 //import java.awt.Dimension;
 //awtパッケージをインポート
 import java.awt.*;
+//イベントの取得
 import java.awt.event.*;
-import java.util.*;
+//import java.util.*;
 
 //ベースクラス
 class Base {
@@ -18,6 +19,7 @@ class Base {
 	int h; // 中心からの高さ
 
 	// Base() {
+	// 	System.out.println("Base constructor");
 	// }
 
 	// X座標、Y座標、幅、高さの設定
@@ -26,6 +28,7 @@ class Base {
 		this.y = y;
 		w = width;
 		h = height;
+	//	Screen.arrayList.add(this);
 	}
 
 	void update() {
@@ -64,18 +67,19 @@ class Player extends Base {
 		g.setColor(Color.white);
 		g.fillOval(x - w / 4, y - h, w / 2, h * 2);
 	}
-
-/* 
+/*
 	public void keyTyped(KeyEvent e) {
 	}
 
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_A:
-				movex = -4;
+				x -= 4;
+				//movex = -4;
 				break;
 			case KeyEvent.VK_D:
-				movex = 4;
+				x += 4;
+				//movex = 4;
 				break;
 		}
 	}
@@ -87,8 +91,9 @@ class Player extends Base {
 				movex = 0;
 				break;
 		}
+		
 	}
- */
+*/
 }
 
 // 星クラスの定義
@@ -125,6 +130,7 @@ class Star {
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
+//	public static ArrayList<Base> arrayList;
 	Player player = new Player(150, 300, 20, 16, Color.red);
 	// Baseクラスのインスタンス作成
 	Base base = new Base(150, 100, 20, 16);
@@ -152,7 +158,9 @@ class Screen extends JComponent {
 		}
 		//base = new Base(150, 100, 20, 16);
 		//player = new Player(150, 300, 20, 16, Color.blue);
-		//addKeyListener((Player) player);
+		//キーリスナーへ登録
+		//addKeyListener(player);
+		//フォーカスを得る
 		//setFocusable(true);
 		//arrayList.add(base);
 		//arrayList.add(player);
@@ -185,15 +193,15 @@ class Screen extends JComponent {
 		g.drawString("High Score", 100, 20);
 	}
 
-	// loopメソッドを追加します
-	void loop() {
+	// 更新ループ処理を追加します
+	void updateLoop() {
 		/*
 		 * while(条件)
 		 * 条件を満たす間、{ から } までの処理を繰り返します。
 		 * { } が無い場合、次の１命令だけを繰り返します。
 		 */
 		while (true) { // 条件が常にtrue（真）のため永久ループします
-			// 更新処理を呼びます
+			//更新処理を呼びます
 			for (Star star : stars) {
 				star.update();
 			}
@@ -243,6 +251,7 @@ public class Application {
 
 		frame.setVisible(true);
 
-		//screen.loop();
+		//更新ループ処理の呼び出し
+		screen.updateLoop();
 	}
 }
