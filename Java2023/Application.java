@@ -19,7 +19,7 @@ class Base {
 	int h; // 中心からの高さ
 
 	// Base() {
-	// 	System.out.println("Base constructor");
+	// System.out.println("Base constructor");
 	// }
 
 	// X座標、Y座標、幅、高さの設定
@@ -28,7 +28,7 @@ class Base {
 		this.y = y;
 		w = width;
 		h = height;
-	//	Screen.arrayList.add(this);
+		// Screen.arrayList.add(this);
 	}
 
 	void update() {
@@ -43,19 +43,19 @@ class Base {
 }
 
 // プレイヤークラス
-//class Player extends Base implements KeyListener {
+// class Player extends Base implements KeyListener {
 class Player extends Base {
 	Color color; // 色
-	//int movex;
+	// int movex;
 
 	Player(int x, int y, int w, int h, Color c) {
 		super(x, y, w, h);
 		color = c;
-		//movex = 0;
+		// movex = 0;
 	}
 
 	void update() {
-		//x = x + movex;
+		// x = x + movex;
 	}
 
 	// 機体の描画
@@ -67,33 +67,33 @@ class Player extends Base {
 		g.setColor(Color.white);
 		g.fillOval(x - w / 4, y - h, w / 2, h * 2);
 	}
-/*
-	public void keyTyped(KeyEvent e) {
-	}
-
-	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-			case KeyEvent.VK_A:
-				x -= 4;
-				//movex = -4;
-				break;
-			case KeyEvent.VK_D:
-				x += 4;
-				//movex = 4;
-				break;
-		}
-	}
-
-	public void keyReleased(KeyEvent e) {
-		switch (e.getKeyCode()) {
-			case KeyEvent.VK_A:
-			case KeyEvent.VK_D:
-				movex = 0;
-				break;
-		}
-		
-	}
-*/
+	/*
+	 * public void keyTyped(KeyEvent e) {
+	 * }
+	 * 
+	 * public void keyPressed(KeyEvent e) {
+	 * switch (e.getKeyCode()) {
+	 * case KeyEvent.VK_A:
+	 * x -= 4;
+	 * //movex = -4;
+	 * break;
+	 * case KeyEvent.VK_D:
+	 * x += 4;
+	 * //movex = 4;
+	 * break;
+	 * }
+	 * }
+	 * 
+	 * public void keyReleased(KeyEvent e) {
+	 * switch (e.getKeyCode()) {
+	 * case KeyEvent.VK_A:
+	 * case KeyEvent.VK_D:
+	 * movex = 0;
+	 * break;
+	 * }
+	 * 
+	 * }
+	 */
 }
 
 // 星クラスの定義
@@ -130,13 +130,13 @@ class Star {
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
-//	public static ArrayList<Base> arrayList;
+	// public static ArrayList<Base> arrayList;
 	Player player = new Player(150, 300, 20, 16, Color.red);
 	// Baseクラスのインスタンス作成
 	Base base = new Base(150, 100, 20, 16);
 
-	//ArrayList<Base> arrayList = new ArrayList<>();
-	//Base player;
+	// ArrayList<Base> arrayList = new ArrayList<>();
+	// Base player;
 	// Starクラスの配列を宣言
 	Star[] stars;
 
@@ -156,18 +156,23 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128,
 							(int) (Math.random() * 128) + 128));
 		}
-		//base = new Base(150, 100, 20, 16);
-		//player = new Player(150, 300, 20, 16, Color.blue);
-		//キーリスナーへ登録
-		//addKeyListener(player);
-		//フォーカスを得る
-		//setFocusable(true);
-		//arrayList.add(base);
-		//arrayList.add(player);
+		// base = new Base(150, 100, 20, 16);
+		// player = new Player(150, 300, 20, 16, Color.blue);
+		// キーリスナーへ登録
+		// addKeyListener(player);
+		// フォーカスを得る
+		// setFocusable(true);
+		// arrayList.add(base);
+		// arrayList.add(player);
 	}
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
+		// 更新処理を呼びます
+		for (Star star : stars) {
+			star.update();
+		}
+
 		// 黒色で四角形を描画
 		g.setColor(Color.black);
 		g.fillRect(0, 0, 300, 400);
@@ -180,43 +185,17 @@ class Screen extends JComponent {
 		base.draw(g);
 		player.draw(g);
 
-		// plane.draw(g);
-		// player.draw(g);
 
-/* 		for (int i = 0; i < arrayList.size(); i++) {
-			arrayList.get(i).draw(g);
-		} */
+		/*
+		 * for (int i = 0; i < arrayList.size(); i++) {
+		 * arrayList.get(i).draw(g);
+		 * }
+		 */
 
 		// 白色で文字列を描画
 		g.setColor(Color.white);
 		g.drawString("Score", 10, 20);
 		g.drawString("High Score", 100, 20);
-	}
-
-	// 更新ループ処理を追加します
-	void updateLoop() {
-		/*
-		 * while(条件)
-		 * 条件を満たす間、{ から } までの処理を繰り返します。
-		 * { } が無い場合、次の１命令だけを繰り返します。
-		 */
-		while (true) { // 条件が常にtrue（真）のため永久ループします
-			//更新処理を呼びます
-			for (Star star : stars) {
-				star.update();
-			}
-
-			//player.update();
-
-			// 再描画します（paintComponentメソッドが呼び出されます）
-			repaint();
-
-			// 停止します
-			try {
-				Thread.sleep(33); // 33ミリ秒停止します
-			} catch (InterruptedException e) {
-			}
-		}
 	}
 }
 
@@ -251,7 +230,17 @@ public class Application {
 
 		frame.setVisible(true);
 
-		//更新ループ処理の呼び出し
-		screen.updateLoop();
+		// 更新ループ処理
+		while (true) { // 条件が常にtrue（真）のため永久ループします
+
+			// 再描画します（paintComponentメソッドが呼び出されます）
+			frame.repaint();
+
+			// 停止します
+			try {
+				Thread.sleep(33); // 33ミリ秒停止します
+			} catch (InterruptedException e) {
+			}
+		}
 	}
 }
