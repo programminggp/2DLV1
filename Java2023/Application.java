@@ -43,8 +43,8 @@ class Base {
 }
 
 // プレイヤークラス
-// class Player extends Base implements KeyListener {
-class Player extends Base {
+class Player extends Base implements KeyListener {
+	// class Player extends Base {
 	Color color; // 色
 	// int movex;
 
@@ -67,33 +67,33 @@ class Player extends Base {
 		g.setColor(Color.white);
 		g.fillOval(x - w / 4, y - h, w / 2, h * 2);
 	}
-	/*
-	 * public void keyTyped(KeyEvent e) {
-	 * }
-	 * 
-	 * public void keyPressed(KeyEvent e) {
-	 * switch (e.getKeyCode()) {
-	 * case KeyEvent.VK_A:
-	 * x -= 4;
-	 * //movex = -4;
-	 * break;
-	 * case KeyEvent.VK_D:
-	 * x += 4;
-	 * //movex = 4;
-	 * break;
-	 * }
-	 * }
-	 * 
-	 * public void keyReleased(KeyEvent e) {
-	 * switch (e.getKeyCode()) {
-	 * case KeyEvent.VK_A:
-	 * case KeyEvent.VK_D:
-	 * movex = 0;
-	 * break;
-	 * }
-	 * 
-	 * }
-	 */
+
+	public void keyTyped(KeyEvent e) {
+	}
+
+	public void keyPressed(KeyEvent e) {
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_A:
+				x -= 4;
+				// movex = -4;
+				break;
+			case KeyEvent.VK_D:
+				x += 4;
+				// movex = 4;
+				break;
+		}
+	}
+
+	public void keyReleased(KeyEvent e) {
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_A:
+			case KeyEvent.VK_D:
+				//movex = 0;
+				break;
+		}
+
+	}
+
 }
 
 // 星クラスの定義
@@ -159,9 +159,9 @@ class Screen extends JComponent {
 		// base = new Base(150, 100, 20, 16);
 		// player = new Player(150, 300, 20, 16, Color.blue);
 		// キーリスナーへ登録
-		// addKeyListener(player);
+		addKeyListener(player);
 		// フォーカスを得る
-		// setFocusable(true);
+		setFocusable(true);
 		// arrayList.add(base);
 		// arrayList.add(player);
 	}
@@ -184,7 +184,6 @@ class Screen extends JComponent {
 
 		base.draw(g);
 		player.draw(g);
-
 
 		/*
 		 * for (int i = 0; i < arrayList.size(); i++) {
