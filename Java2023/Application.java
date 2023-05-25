@@ -31,14 +31,28 @@ class Base {
 		// Screen.arrayList.add(this);
 	}
 
-	void update() {
-	}
+	// void update() {
+	// }
 
 	// 描画
 	void draw(Graphics g) {
 		// 四角形の描画
 		g.setColor(Color.yellow);
 		g.fillRect(x - w, y - h, w * 2, h * 2);
+	}
+
+	boolean collision(Base a, Base b)
+	{
+		int dist;
+		dist = Math.abs(a.x - b.x);
+		if(dist >= a.w + b.w) {
+			return false;
+		}
+		dist = Math.abs(a.y - b.y);
+		if(dist >= a.h + b.h) {
+			return false;
+		}
+		return true;
 	}
 }
 
@@ -99,9 +113,16 @@ class Player extends Base implements KeyListener {
 				//movex = 0;
 				break;
 		}
-
 	}
 
+	void collision(Base base) {
+		if(collision(this, base)) {
+			color = Color.yellow;
+		}
+		else {
+			color = Color.red;
+		}
+	}
 }
 
 // 星クラスの定義
@@ -180,6 +201,9 @@ class Screen extends JComponent {
 		for (Star star : stars) {
 			star.update();
 		}
+
+		//衝突処理
+		player.collision(base);
 
 		// 黒色で四角形を描画
 		g.setColor(Color.black);
