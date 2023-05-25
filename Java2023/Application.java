@@ -81,6 +81,14 @@ class Player extends Base implements KeyListener {
 				x += 4;
 				// movex = 4;
 				break;
+			case KeyEvent.VK_W:
+				y -= 4;
+				// movex = -4;
+				break;
+			case KeyEvent.VK_S:
+				y += 4;
+				// movex = 4;
+				break;
 		}
 	}
 
