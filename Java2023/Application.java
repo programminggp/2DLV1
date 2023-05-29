@@ -44,14 +44,19 @@ class Base {
 	boolean collision(Base a, Base b)
 	{
 		int dist;
+		//X軸での距離の絶対値を求める
 		dist = Math.abs(a.x - b.x);
+		//幅の合計以上か？
 		if(dist >= a.w + b.w) {
+			//当たっていない
 			return false;
 		}
+		//課題
 		dist = Math.abs(a.y - b.y);
 		if(dist >= a.h + b.h) {
 			return false;
 		}
+		//当たっている
 		return true;
 	}
 }
