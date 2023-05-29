@@ -13,7 +13,8 @@ import java.awt.event.*;
 
 //ベースクラス
 class Base {
-	int vx, vy; // vx:x移動量 vy:y移動量
+	int vx; // vx:x移動量
+	int vy; // vx:x移動量
 	int x; // 中心X座標
 	int y; // 中心Y座標
 	int w; // 中心からの幅
@@ -25,7 +26,7 @@ class Base {
 
 	// X座標、Y座標、幅、高さの設定
 	Base(int x, int y, int width, int height) {
-		vx = vy = 0;
+		vx = 0;
 		this.x = x;
 		this.y = y;
 		w = width;
@@ -70,11 +71,11 @@ class Player extends Base implements KeyListener {
 	Player(int x, int y, int w, int h, Color c) {
 		super(x, y, w, h);
 		color = c;
-		// movex = 0;
 	}
 
 	void update() {
 		x += vx;
+		y += vy;
 	}
 
 	// 機体の描画
@@ -99,12 +100,10 @@ class Player extends Base implements KeyListener {
 				vx = 4;
 				break;
 			case KeyEvent.VK_W:
-				y -= 4;
-				// movex = -4;
+				vy = -4;
 				break;
 			case KeyEvent.VK_S:
-				y += 4;
-				// movex = 4;
+				vy = 4;
 				break;
 		}
 	}
@@ -114,6 +113,10 @@ class Player extends Base implements KeyListener {
 			case KeyEvent.VK_A:
 			case KeyEvent.VK_D:
 				vx = 0;
+				break;
+			case KeyEvent.VK_W:
+			case KeyEvent.VK_S:
+				vy = 0;
 				break;
 		}
 	}
@@ -200,8 +203,9 @@ class Screen extends JComponent {
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
+		// プレイヤーの更新処理
 		player.update();
-		
+
 		// 更新処理を呼びます
 		for (Star star : stars) {
 			star.update();
