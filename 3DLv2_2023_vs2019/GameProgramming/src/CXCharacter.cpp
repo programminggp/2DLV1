@@ -3,6 +3,17 @@
  Init
  初期化処理
 */
+CXCharacter::CXCharacter()
+{
+	mScale = CVector(1.0f, 1.0f, 1.0f);
+}
+void CXCharacter::Update()
+{
+	//変換行列の更新
+	CTransform::Update();
+	//アニメーションを更新する
+	Update(mMatrix);
+}
 void CXCharacter::Init(CModelX* model) {
 	mpModel = model;
 	//最初のアニメーションにする
