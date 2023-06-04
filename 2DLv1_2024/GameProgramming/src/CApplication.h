@@ -1,14 +1,23 @@
 #pragma once
+//
+//インクルード
+//
+#include <stdio.h>
 #include "glut.h"
+
 //
 //クラスの宣言
 //
+
+//CApplicationクラスの宣言
 class CApplication;
+//CRectクラスの宣言
 class CRect;
 
 //
 //クラスの定義
 //
+
 //四角形クラスの定義
 class CRect
 {
@@ -16,17 +25,24 @@ public:
 	//メソッドの宣言
 	//描画処理
 	void Render();
+private:
+	//変数の宣言
+	float mX;
+	float mY;
 };
 
 //四角形クラスの描画処理の定義
 void CRect::Render()
 {
+	//変数の代入
+	mX = 200.0f;
+	mY = 150.0f;
 	//画面に四角形を描画する
 	glBegin(GL_QUADS);
-	glVertex2f(0.0f, 0.0f);
-	glVertex2f(400.0f, 0.0f);
-	glVertex2f(400.0f, 300.0f);
-	glVertex2f(0.0f, 300.0f);
+	glVertex2f(mX, mY);
+	glVertex2f(mX + 400.0f, mY);
+	glVertex2f(mX + 400.0f, mY + 300.0f);
+	glVertex2f(mX, mY + 300.0f);
 	glEnd();
 }
 
@@ -47,16 +63,19 @@ private:
 
 void CApplication::Start()
 {
+	//printf("Start\n");
 	//インスタンスの生成
 	mpRect = new CRect();
 }
 
 void CApplication::Update()
 {
+	//printf("Update\n");
 	//メソッドの呼び出し
 	mpRect->Render();
 }
 
+//CApplicationの終了時に実行
 CApplication::~CApplication()
 {
 	//インスタンスの削除
