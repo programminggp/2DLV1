@@ -29,20 +29,24 @@ private:
 	//変数の宣言
 	float mX;
 	float mY;
+	float mW;
+	float mH;
 };
 
 //四角形クラスの描画処理の定義
 void CRect::Render()
 {
 	//変数の代入
-	mX = 200.0f;
-	mY = 150.0f;
+	mX = 400.0f;
+	mY = 300.0f;
+	mW = 200.0f;
+	mH = 150.0f;
 	//画面に四角形を描画する
 	glBegin(GL_QUADS);
-	glVertex2f(mX, mY);
-	glVertex2f(mX + 400.0f, mY);
-	glVertex2f(mX + 400.0f, mY + 300.0f);
-	glVertex2f(mX, mY + 300.0f);
+	glVertex2f(mX - mW, mY - mH);
+	glVertex2f(mX + mW, mY - mH);
+	glVertex2f(mX + mW, mY + mH);
+	glVertex2f(mX - mW, mY + mH);
 	glEnd();
 }
 
