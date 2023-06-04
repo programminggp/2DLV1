@@ -65,11 +65,17 @@ void CApplication::Start()
 {
 	//3Dモデルファイルの読み込み
 	mModelX.Load(MODEL_FILE);
+	//キャラクターにモデルを設定
+	mXPlayer.Init(&mModelX);
+
 	mFont.Load("FontG.png", 1, 4096 / 64);
 }
 
 void CApplication::Update()
 {
+	//キャラクタークラスの更新
+	mXPlayer.Update();
+
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
@@ -96,11 +102,20 @@ void CApplication::Update()
 	if (mInput.Key('L')) {
 		mMatrix = mMatrix * CMatrix().RotateY(1);
 	}
+	if (mInput.Key('I')) {
+		mMatrix = mMatrix * CMatrix().RotateX(-1);
+	}
+	//Y軸＋回転
+	if (mInput.Key('J')) {
+		mMatrix = mMatrix * CMatrix().RotateY(-1);
+	}
 	//行列設定
 	glMultMatrixf(mMatrix.M());
 
 	//モデル描画
-	mModelX.Render();
+//	mModelX.Render();
+	mXPlayer.Render();
+
 
 	//2D描画開始
 	CCamera::Start(0, 800, 0, 600);

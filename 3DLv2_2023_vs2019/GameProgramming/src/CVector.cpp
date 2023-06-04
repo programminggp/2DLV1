@@ -80,6 +80,13 @@ CVector CVector::operator*(const CMatrix& m)
 	);
 }
 
+void CVector::operator+=(const CVector& v)
+{
+	mX += v.mX;
+	mY += v.mY;
+	mZ += v.mZ;
+}
+
 void CVector::X(float f)
 {
 	mX = f;

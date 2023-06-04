@@ -22,10 +22,14 @@
 #include "CUi.h"
 
 #include "CModelX.h"
+#include "CXPlayer.h"
 
 class CApplication
 {
 private:
+	//キャラクタのインスタンス
+	CXPlayer mXPlayer;
+
 	CMatrix mMatrix;
 	CModelX mModelX;
 	static CUi* spUi;	//UIクラスのポインタ
