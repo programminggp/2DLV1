@@ -47,42 +47,42 @@ class Base {
 		g.fillRect(x - w, y - h, w * 2, h * 2);
 	}
 
-	boolean collision(Base a, Base b)
-	{
+	boolean collision(Base a, Base b) {
 		int dist;
-		//X軸での距離の絶対値を求める
+		// X軸での距離の絶対値を求める
 		dist = Math.abs(a.x - b.x);
-		//幅の合計以上か？
-		if(dist >= a.w + b.w) {
-			//当たっていない
+		// 幅の合計以上か？
+		if (dist >= a.w + b.w) {
+			// 当たっていない
 			return false;
 		}
-		//課題
+		// 課題
 		dist = Math.abs(a.y - b.y);
-		if(dist >= a.h + b.h) {
+		if (dist >= a.h + b.h) {
 			return false;
 		}
-		//当たっている
+		// 当たっている
 		return true;
 	}
 }
 
 class Bullet extends Base {
+	// 定数の定義
+	static final int WIDTH = 1; // 幅
+	static final int HEIGHT = 5; // 高さ
 	int life;
+
 	Bullet(int x, int y) {
-		super(x,y,1,5);
-		life = 20;
+		super(x, y, WIDTH, HEIGHT);
+		life = 25;
 	}
 
-	void update()
-	{
-		if(life > 0)
-		{
+	void update() {
+		if (life > 0) {
 			life--;
-			y -= h*2;
-		}
-		else {
-			enabled = false;
+			y -= h * 2;
+		} else {
+			// enabled = false;
 		}
 	}
 }
@@ -129,7 +129,8 @@ class Player extends Base implements KeyListener {
 				vy = 4;
 				break;
 			case KeyEvent.VK_SPACE:
-				Screen.sArrayList.add(new Bullet(x,y - h));
+				// 弾を生成して可変長配列に追加する
+				Screen.sArrayList.add(new Bullet(x, y - h));
 				break;
 		}
 	}
@@ -148,10 +149,9 @@ class Player extends Base implements KeyListener {
 	}
 
 	void collision(Base base) {
-		if(collision(this, base)) {
+		if (collision(this, base)) {
 			color = Color.yellow;
-		}
-		else {
+		} else {
 			color = Color.red;
 		}
 	}
@@ -224,32 +224,31 @@ class Screen extends JComponent {
 		addKeyListener(player);
 		// フォーカスを得る
 		setFocusable(true);
-		//可変長配列に追加
+		// 可変長配列に追加
 		sArrayList.add(base);
 		sArrayList.add(player);
-		//変数なしで配列に追加
-		sArrayList.add(new Base(100,100, 20,16));
-		sArrayList.add(new Base(200,100, 20,16));
+		// 変数なしで配列に追加
+		sArrayList.add(new Base(100, 100, 20, 16));
+		sArrayList.add(new Base(200, 100, 20, 16));
 	}
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
-		for(Base base : sArrayList)
-		{
+		for (Base base : sArrayList) {
 			base.update();
 		}
 		// プレイヤーの更新処理
-		//player.update();
+		// player.update();
 
 		// 更新処理を呼びます
 		for (Star star : stars) {
 			star.update();
 		}
 
-		//衝突処理
-		//player.collision(base);
+		// 衝突処理
+		// player.collision(base);
 
-		//enabledがfalseの要素を削除するラムダ式
+		// enabledがfalseの要素を削除するラムダ式
 		sArrayList.removeIf(n -> n.enabled == false);
 
 		// 黒色で四角形を描画
@@ -261,18 +260,18 @@ class Screen extends JComponent {
 			stars[i].draw(g);
 		}
 
-		//sArrayListの要素を取得しメソッドを呼びます
+		// sArrayListの要素を取得しメソッドを呼びます
 		for (int i = 0; i < sArrayList.size(); i++) {
 			sArrayList.get(i).draw(g);
 		}
 
-		//可変長配列の要素分繰り返し
+		// 可変長配列の要素分繰り返し
 		// for(Base base : sArrayList)
 		// {
-		// 	base.draw(g);
+		// base.draw(g);
 		// }
-		//base.draw(g);
-		//player.draw(g);
+		// base.draw(g);
+		// player.draw(g);
 
 		// 白色で文字列を描画
 		g.setColor(Color.white);
