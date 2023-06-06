@@ -166,6 +166,11 @@ bool CCollider::CollisionTriangleLine(CCollider* t, CCollider* l, CVector* a) {
 	return true;
 }
 
+void CCollider::Matrix(CMatrix* m)
+{
+	mpMatrix = m;
+}
+
 //—Dæ“x‚Ì•ÏX
 void CCollider::ChangePriority()
 {

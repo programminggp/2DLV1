@@ -32,6 +32,7 @@ class CModelX {
 //	friend CMesh;
 //	friend CMaterial;
 public:
+	void AnimateVertex(CMatrix*);
 	//マテリアル配列の取得
 	std::vector<CMaterial*>& Material();
 	//マテリアルの検索
@@ -101,6 +102,7 @@ class CMesh {
 //	friend CModelX;
 //	friend CModelXFrame;
 public:
+	void AnimateVertex(CMatrix*);
 	//テクスチャ座標データ
 	float* mpTextureCoords;
 	//頂点にアニメーション適用

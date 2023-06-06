@@ -1,22 +1,20 @@
-#ifndef CXPLAYER_H
-#define CXPLAYER_H
+#ifndef CXENEMY_H
+#define CXENEMY_H
 
 #include "CXCharacter.h"
-#include "CInput.h"
 #include "CCollider.h"
 
-class CXPlayer : public CXCharacter
+class CXEnemy : public CXCharacter
 {
 public:
-	CXPlayer();
+	CXEnemy();
 	void Init(CModelX* model);
-	void Update();
 private:
 	//ƒRƒ‰ƒCƒ_‚ÌéŒ¾
 	CCollider mColSphereBody;	//‘Ì
 	CCollider mColSphereHead;	//“ª
 	CCollider mColSphereSword;	//Œ•
-	CInput mInput;
 };
+
 
 #endif
