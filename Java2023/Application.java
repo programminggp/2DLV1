@@ -34,7 +34,7 @@ class Base {
 		this.y = y;
 		w = width;
 		h = height;
-		// Screen.arrayList.add(this);
+		//BaseManager.add(this);
 	}
 
 	void update() {
@@ -222,7 +222,7 @@ class BaseManager {
 		// }
 
 		// enabledがfalseの要素を削除するラムダ式
-		//arrayList.removeIf(n -> n.enabled == false);
+		arrayList.removeIf(n -> n.enabled == false);
 	}
 }
 
@@ -282,6 +282,8 @@ class Screen extends JComponent {
 
 		// 衝突処理
 		// player.collision(base);
+
+		BaseManager.remove();
 
 		// 黒色で四角形を描画
 		g.setColor(Color.black);
