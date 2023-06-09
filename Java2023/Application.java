@@ -14,7 +14,7 @@ import java.util.*;
 
 //ベースクラス
 class Base {
-	boolean enabled;
+	boolean enabled; // 有効フラグ：true：有効
 	int vx; // vx:x移動量
 	int vy; // vx:x移動量
 	int x; // 中心X座標
@@ -28,7 +28,7 @@ class Base {
 
 	// X座標、Y座標、幅、高さの設定
 	Base(int x, int y, int width, int height) {
-		enabled = true;
+		enabled = true; // 有効とする
 		vx = 0;
 		this.x = x;
 		this.y = y;
@@ -82,7 +82,7 @@ class Bullet extends Base {
 			life--;
 			y -= h * 2;
 		} else {
-			enabled = false;
+			enabled = false; // 無効にする
 		}
 	}
 }
@@ -222,7 +222,7 @@ class BaseManager {
 		// }
 
 		// enabledがfalseの要素を削除するラムダ式
-		arrayList.removeIf(n -> n.enabled == false);
+		arrayList.removeIf(base -> base.enabled == false);
 	}
 }
 
@@ -275,6 +275,8 @@ class Screen extends JComponent {
 
 		BaseManager.update();
 
+		BaseManager.remove();
+
 		// 更新処理を呼びます
 		for (Star star : stars) {
 			star.update();
@@ -282,8 +284,6 @@ class Screen extends JComponent {
 
 		// 衝突処理
 		// player.collision(base);
-
-		BaseManager.remove();
 
 		// 黒色で四角形を描画
 		g.setColor(Color.black);
