@@ -46,7 +46,8 @@ class Base {
 		g.setColor(Color.yellow);
 		g.fillRect(x - w, y - h, w * 2, h * 2);
 	}
-
+	//衝突検出処理
+	//a と b が衝突していればtrue
 	boolean collision(Base a, Base b) {
 		int dist;
 		// X軸での距離の絶対値を求める
@@ -63,6 +64,17 @@ class Base {
 		}
 		// 当たっている
 		return true;
+	}
+
+	//衝突処理１
+	void collision() {
+		BaseManager.collision(this);
+	}
+	//衝突処理２
+	void collision(Base base) {
+		if (collision(this, base)) {
+			enabled = false;
+		}
 	}
 }
 
@@ -83,6 +95,18 @@ class Bullet extends Base {
 			y -= h * 2;
 		} else {
 			enabled = false; // 無効にする
+		}
+	}
+	//衝突処理１
+	void collision() {
+		BaseManager.collision(this);
+	}
+	//衝突処理２
+	//base：相手のインスタンス
+	void collision(Base base) {
+		//this自分と相手が衝突したら無効にする
+		if (collision(this, base)) {
+			enabled = false;
 		}
 	}
 }
@@ -212,17 +236,33 @@ class BaseManager {
 		}
 	}
 	static void remove() {
-		//無効なBaseを配列から削除する
-		// Iterator<Base> iterator = arrayList.iterator();
-		// while (iterator.hasNext()) {
-		// 	Base element = iterator.next();
-		// 	if (element.enabled == false) {
-		// 		iterator.remove(); // 安全に要素を削除する
-		// 	}
-		// }
-
 		// enabledがfalseの要素を削除するラムダ式
 		arrayList.removeIf(base -> base.enabled == false);
+	}
+
+	//衝突処理１
+	//全要素の衝突処理１を呼び出す
+	static void collision() {
+		//拡張for文
+		for(Base base : arrayList)
+		{
+			base.collision();
+		}
+	}
+	//衝突処理２
+	//baseの衝突処理２を、全要素に対して行う
+	static void collision(Base base) {
+		//イテレータの作成
+		Iterator<Base> iterator = arrayList.iterator();
+		//次の要素があるか判定
+		while (iterator.hasNext()) {
+			//イテレータで次の要素取り出して代入
+			Base element = iterator.next();
+			if(element != base)
+			{
+				base.collision(element);
+			}
+		}
 	}
 }
 
@@ -274,7 +314,7 @@ class Screen extends JComponent {
 	public void paintComponent(Graphics g) {
 
 		BaseManager.update();
-
+		BaseManager.collision();
 		BaseManager.remove();
 
 		// 更新処理を呼びます
@@ -283,7 +323,7 @@ class Screen extends JComponent {
 		}
 
 		// 衝突処理
-		// player.collision(base);
+		//player.collision(base);
 
 		// 黒色で四角形を描画
 		g.setColor(Color.black);
