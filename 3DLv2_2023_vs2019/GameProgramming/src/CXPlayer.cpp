@@ -15,12 +15,9 @@ void CXPlayer::Init(CModelX* model)
 {
 	CXCharacter::Init(model);
 	//‡¬s—ñ‚Ìİ’è
-	mColSphereBody.Matrix(&mpCombinedMatrix[8]);
-	//“ª
-	mColSphereHead.Matrix(&mpCombinedMatrix[11]);
-	//Œ•
-	mColSphereSword.Matrix(&mpCombinedMatrix[21]);
-
+	mColSphereBody.Matrix(&mpCombinedMatrix[9]);
+	mColSphereHead.Matrix(&mpCombinedMatrix[12]);
+	mColSphereSword.Matrix(&mpCombinedMatrix[22]);
 }
 
 void CXPlayer::Update()

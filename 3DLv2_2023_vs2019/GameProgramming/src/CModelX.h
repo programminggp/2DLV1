@@ -79,6 +79,7 @@ class CModelXFrame {
 	friend CModelX;
 	friend CAnimationSet;
 public:
+	CModelXFrame();
 	const CMatrix& CombinedMatrix();
 	//‡¬s—ñ‚Ìì¬
 	void AnimateCombined(CMatrix* parent);
