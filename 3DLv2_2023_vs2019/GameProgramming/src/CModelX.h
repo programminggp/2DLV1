@@ -32,6 +32,8 @@ class CModelX {
 //	friend CMesh;
 //	friend CMaterial;
 public:
+	void CModelX::SeparateAnimationSet(
+		int idx, int start, int end, char* name);
 	void AnimateVertex(CMatrix*);
 	//マテリアル配列の取得
 	std::vector<CMaterial*>& Material();
@@ -162,6 +164,7 @@ private:
 class CAnimationSet {
 	friend CModelX;
 public:
+	CAnimationSet();
 	float Time();
 	float MaxTime();
 
@@ -192,6 +195,7 @@ class CAnimation {
 	friend CAnimationSet;
 	friend CModelX;
 public:
+	CAnimation();
 //	int FrameIndex();  // return mFrameIndex
 //	CAnimationKey* Key(); //return mpKey
 //	int KeyNum();  // return mKeyNum
@@ -211,7 +215,7 @@ private:
 class CAnimationKey {
 	friend CAnimation;
 	friend CAnimationSet;
-//	friend CModelX;
+	friend CModelX;
 private:
 	//時間
 	float mTime;
