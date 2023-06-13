@@ -82,6 +82,9 @@ void CApplication::Update()
 	//敵の更新
 	mXEnemy.Update();
 
+	//衝突処理
+	CCollisionManager::Instance()->Collision();
+
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向

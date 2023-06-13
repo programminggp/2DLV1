@@ -64,7 +64,7 @@ CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
 	const CVector& position, float radius, ETag tag) 
 	: CCollider() 
 {
-	mTag = tag;
+	mTag = tag;//タグの設定
 	//親設定
 	mpParent = parent;
 	//親行列設定
@@ -95,6 +95,11 @@ void CCollider::Render() {
 	//球描画
 	glutWireSphere(mRadius, 16, 16);
 	glPopMatrix();
+}
+
+CCollider::ETag CCollider::Tag()
+{
+	return mTag;
 }
 
 CCollider::EType CCollider::Type()
