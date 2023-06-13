@@ -308,6 +308,8 @@ class Screen extends JComponent {
 		// 変数なしで配列に追加
 		BaseManager.add(new Base(100, 100, 20, 16));
 		BaseManager.add(new Base(200, 100, 20, 16));
+
+		setBounds(50,100,200,300);
 	}
 
 	// 描画が必要なときに実行されるメソッド
@@ -372,6 +374,8 @@ public class Application {
 		// フレームにscreenを追加します
 		frame.add(screen);
 
+		frame.setLayout(null);
+
 		frame.setVisible(true);
 
 		// 更新ループ処理
@@ -379,7 +383,8 @@ public class Application {
 
 			// 再描画します（paintComponentメソッドが呼び出されます）
 			frame.repaint();
-
+			// 画面の移動を可能とする
+			screen.setBounds(0,0,300,400);
 			// 停止します
 			try {
 				Thread.sleep(33); // 33ミリ秒停止します
