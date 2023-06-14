@@ -129,6 +129,9 @@
     <ClCompile Include="src\CXEnemy.cpp">
       <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
+    <ClCompile Include="src\CPaladin.cpp">
+      <Filter>ソース ファイル\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CSound.h">
@@ -228,6 +231,9 @@
       <Filter>ソース ファイル\Character</Filter>
     </ClInclude>
     <ClInclude Include="src\CXEnemy.h">
+      <Filter>ソース ファイル\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPaladin.h">
       <Filter>ソース ファイル\Character</Filter>
     </ClInclude>
   </ItemGroup>
