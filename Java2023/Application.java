@@ -34,7 +34,8 @@ class Base {
 		this.y = y;
 		w = width;
 		h = height;
-		//BaseManager.add(this);
+		//BaseManagerに追加
+		BaseManager.add(this);
 	}
 
 	void update() {
@@ -77,6 +78,28 @@ class Base {
 		}
 	}
 }
+
+class Enemy extends Base {
+	static final int WIDTH = 20;
+	static final int HEIGHT = 16;
+	static final Color COLOR = Color.blue;
+	Enemy(int x, int y)
+	{
+		super(x,y,WIDTH,HEIGHT);
+	}
+
+	void draw(Graphics g)
+	{
+		// 翼の描画
+		g.setColor(COLOR);
+		g.fillOval(x - w, y - h / 2, w * 2, h);
+		// 機体の描画
+		g.setColor(Color.white);
+		g.fillOval(x - w / 4, y - h, w / 2, h * 2);
+	}
+}
+
+
 
 class Bullet extends Base {
 	// 定数の定義
@@ -154,7 +177,8 @@ class Player extends Base implements KeyListener {
 				break;
 			case KeyEvent.VK_SPACE:
 				// 弾を生成して可変長配列に追加する
-				BaseManager.add(new Bullet(x, y - h));
+//				BaseManager.add(new Bullet(x, y - h));
+				new Bullet(x, y - h);
 				break;
 		}
 	}
@@ -269,14 +293,12 @@ class BaseManager {
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
-	//static ArrayList<Base> arrayList = new ArrayList<Base>();
-	// public static ArrayList<Base> arrayList;
+
 	Player player = new Player(150, 300, 20, 16, Color.red);
 	// Baseクラスのインスタンス作成
-	Base base = new Base(150, 100, 20, 16);
+//	Base base = new Base(150, 100, 20, 16);
+	Base base = new Enemy(150, 100);
 
-	// ArrayList<Base> arrayList = new ArrayList<>();
-	// Base player;
 	// Starクラスの配列を宣言
 	Star[] stars;
 
@@ -303,11 +325,11 @@ class Screen extends JComponent {
 		// フォーカスを得る
 		setFocusable(true);
 		// 可変長配列に追加
-		BaseManager.add(base);
-		BaseManager.add(player);
+//		BaseManager.add(base);
+//		BaseManager.add(player);
 		// 変数なしで配列に追加
-		BaseManager.add(new Base(100, 100, 20, 16));
-		BaseManager.add(new Base(200, 100, 20, 16));
+//		BaseManager.add(new Base(100, 100, 20, 16));
+//		BaseManager.add(new Base(200, 100, 20, 16));
 
 		setBounds(50,100,200,300);
 	}
