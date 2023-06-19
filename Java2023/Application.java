@@ -14,6 +14,19 @@ import java.util.*;
 
 //ベースクラス
 class Base {
+	enum State {
+		NORMAL, //通常
+		HIT, //被弾
+	}
+	//状態Stateの変数stateの宣言
+	State state;
+	enum Tag {
+		ZERO,
+		ENEMY,
+		BULLET,
+		PLAYER,
+	}
+	Tag tag;
 	boolean enabled; // 有効フラグ：true：有効
 	int vx; // vx:x移動量
 	int vy; // vx:x移動量
@@ -28,6 +41,8 @@ class Base {
 
 	// X座標、Y座標、幅、高さの設定
 	Base(int x, int y, int width, int height) {
+		state = State.NORMAL;
+		tag = Tag.ZERO;
 		enabled = true; // 有効とする
 		vx = 0;
 		this.x = x;
@@ -92,14 +107,59 @@ class Enemy extends Base {
 	{
 		// 翼の描画
 		g.setColor(COLOR);
+		if(state == State.HIT)
+		{
+			g.setColor(Color.yellow);
+		}
 		g.fillOval(x - w, y - h / 2, w * 2, h);
 		// 機体の描画
 		g.setColor(Color.white);
 		g.fillOval(x - w / 4, y - h, w / 2, h * 2);
 	}
+
+	//衝突処理１
+	void collision() {
+		BaseManager.collision(this);
+	}
+	//衝突処理２
+	void collision(Base base) {
+		if (collision(this, base)) {
+			// 状態を被弾にします
+			state = State.HIT;
+		}
+	}
+
+	void update() {
+		if(state == State.HIT)
+		{
+			w+=2;
+			h+=2;
+			if(w > 30)
+			{
+				enabled = false;
+			}
+		}
+
+		// y += 6;
+		// if( y > 500)
+		// {
+		// 	y = 0;
+		// }
+	}
 }
 
-
+class Scene1
+{
+	static int count = 1;
+	static void update()
+	{
+		count %= 60;
+		if(count++ == 0)
+		{
+			new Enemy((int)(Math.random() * 260) + 20, 0);
+		}
+	}
+}
 
 class Bullet extends Base {
 	// 定数の定義
@@ -336,6 +396,8 @@ class Screen extends JComponent {
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
+
+		//Scene1.update();
 
 		BaseManager.update();
 		BaseManager.collision();
