@@ -14,18 +14,18 @@ public:
 	//テクスチャマッピング
 	CVector mTextureCoords;
 
-	////スキンウェイト
-	//float mBoneWeight[4];
-	////スキンインデックス
-	//float mBoneIndex[4];
+	//スキンウェイト
+	float mBoneWeight[4];
+	//スキンインデックス
+	float mBoneIndex[4];
 
-	//CVertex() {
-	//	for (int i = 0; i < 4; i++) {
-	//		mBoneIndex[i] = 0;
-	//		mBoneWeight[i] = 0.0f;
-	//	}
-	//	mBoneWeight[0] = 1.0f;
-	//}
+	CVertex() {
+		for (int i = 0; i < 4; i++) {
+			mBoneIndex[i] = 0;
+			mBoneWeight[i] = 0.0f;
+		}
+		mBoneWeight[0] = 1.0f;
+	}
 };
 #endif
 

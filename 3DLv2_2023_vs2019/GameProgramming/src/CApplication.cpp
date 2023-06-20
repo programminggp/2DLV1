@@ -63,6 +63,8 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
+	//mBackGround.Load("res\\sky.obj", "res\\sky.mtl");
+
 	mKnight.Load("res\\knight\\knight_low.x");
 	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:ˆÚ“®
 	mKnight.SeparateAnimationSet(0, 1530, 1830, "idle1");//2:‘Ò‹@
@@ -144,7 +146,7 @@ void CApplication::Update()
 	}
 	//s—ñİ’è
 	glMultMatrixf(mMatrix.M());
-
+	//mBackGround.Render(mMatrix);
 	//ƒ‚ƒfƒ‹•`‰æ
 //	mModelX.Render();
 	mXPlayer.Render();
