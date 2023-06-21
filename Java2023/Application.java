@@ -12,6 +12,45 @@ import java.awt.event.*;
 //ArrayListのインポート
 import java.util.*;
 
+class UI 
+{
+	private static int score = 0;
+	private static int highScore = 0;
+
+	public static int Score()
+	{
+		return score;
+	}
+
+	public static void Score(int score)
+	{
+		UI.score = score;
+		if(score > highScore)
+		{
+			highScore = score;
+		}
+	}
+
+	public static void draw(Graphics g)
+	{
+		// 白色で文字列を描画
+		g.setColor(Color.white);
+		g.drawString("Score " + score, 10, 20);
+		g.drawString("High Score " + highScore, 100, 20);
+	}
+
+	public static int HighScore()
+	{
+		return highScore;
+	}
+
+	public static void HighScore(int score)
+	{
+		highScore = score;
+	}
+
+} 
+
 //ベースクラス
 class Base {
 	enum State {
@@ -137,6 +176,7 @@ class Enemy extends Base {
 			if(w > 30)
 			{
 				enabled = false;
+				UI.Score(UI.Score() + 10);
 			}
 		}
 
@@ -423,9 +463,10 @@ class Screen extends JComponent {
 		BaseManager.draw(g);
 
 		// 白色で文字列を描画
-		g.setColor(Color.white);
-		g.drawString("Score", 10, 20);
-		g.drawString("High Score", 100, 20);
+	//	g.setColor(Color.white);
+	//	g.drawString("Score", 10, 20);
+	//	g.drawString("High Score", 100, 20);
+		UI.draw(g);
 	}
 }
 
