@@ -180,23 +180,23 @@ class Enemy extends Base {
 			}
 		}
 
-		// y += 6;
-		// if( y > 500)
-		// {
-		// 	y = 0;
-		// }
+		y += 6;
+		if( y > 500)
+		{
+			y = 0;
+		}
 	}
 }
 
-class Scene1
+class Stage1
 {
 	static int count = 1;
 	static void update()
 	{
-		count %= 60;
+		count %= 40;
 		if(count++ == 0)
 		{
-			new Enemy((int)(Math.random() * 260) + 20, 0);
+			new Enemy(((int)(Math.random() * 5) + 1) * 50, 0);
 		}
 	}
 }
@@ -276,8 +276,6 @@ class Player extends Base implements KeyListener {
 				vy = 4;
 				break;
 			case KeyEvent.VK_SPACE:
-				// 弾を生成して可変長配列に追加する
-//				BaseManager.add(new Bullet(x, y - h));
 				new Bullet(x, y - h);
 				break;
 		}
@@ -312,7 +310,6 @@ class Star {
 	int d; // 直径(d)
 	Color c; // 色(c)
 	// コンストラクタ(X座標,Y座標,直径,色)
-
 	Star(int x, int y, int diameter, Color color) {
 		// メンバ変数の設定
 		this.x = x; // this.xはクラスのメンバ変数、xは引数
@@ -396,8 +393,7 @@ class Screen extends JComponent {
 
 	Player player = new Player(150, 300, 20, 16, Color.red);
 	// Baseクラスのインスタンス作成
-//	Base base = new Base(150, 100, 20, 16);
-	Base base = new Enemy(150, 100);
+//	Base base = new Enemy(150, 100);
 
 	// Starクラスの配列を宣言
 	Star[] stars;
@@ -418,26 +414,18 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128,
 							(int) (Math.random() * 128) + 128));
 		}
-		// base = new Base(150, 100, 20, 16);
-		// player = new Player(150, 300, 20, 16, Color.blue);
 		// キーリスナーへ登録
 		addKeyListener(player);
 		// フォーカスを得る
 		setFocusable(true);
-		// 可変長配列に追加
-//		BaseManager.add(base);
-//		BaseManager.add(player);
-		// 変数なしで配列に追加
-//		BaseManager.add(new Base(100, 100, 20, 16));
-//		BaseManager.add(new Base(200, 100, 20, 16));
 
-		setBounds(50,100,200,300);
+//		setBounds(50,100,200,300);
 	}
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
 
-		//Scene1.update();
+		Stage1.update();
 
 		BaseManager.update();
 		BaseManager.collision();
@@ -447,9 +435,6 @@ class Screen extends JComponent {
 		for (Star star : stars) {
 			star.update();
 		}
-
-		// 衝突処理
-		//player.collision(base);
 
 		// 黒色で四角形を描画
 		g.setColor(Color.black);
@@ -462,10 +447,6 @@ class Screen extends JComponent {
 
 		BaseManager.draw(g);
 
-		// 白色で文字列を描画
-	//	g.setColor(Color.white);
-	//	g.drawString("Score", 10, 20);
-	//	g.drawString("High Score", 100, 20);
 		UI.draw(g);
 	}
 }
