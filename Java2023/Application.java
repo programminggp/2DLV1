@@ -188,7 +188,7 @@ class Enemy extends Base {
 	}
 }
 
-class Game
+/* class Game
 {
 	private static int left = 2;
 	private static Player player = new Player(10,390,8,6);
@@ -214,7 +214,7 @@ class Game
 	}
 
 }
-
+ */
 
 
 class Stage1
