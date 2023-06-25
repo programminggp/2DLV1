@@ -188,10 +188,39 @@ class Enemy extends Base {
 	}
 }
 
+class Game
+{
+	private static int left = 2;
+	private static Player player = new Player(10,390,8,6);
+
+	public static int left()
+	{
+		return left;
+	}
+
+	public static void left(int i)
+	{
+		left = i;
+	}
+
+	public static void draw(Graphics g)
+	{
+		for(int i = 0; i < left; i++)
+		{
+			player.draw(g);
+			//player.x += 20;
+			player.x = 20*i+10;
+		}
+	}
+
+}
+
+
+
 class Stage1
 {
-	static int count = 1;
-	static void update()
+	private static int count = 1;
+	public static void update()
 	{
 		count %= 40;
 		if(count++ == 0)
@@ -237,6 +266,13 @@ class Bullet extends Base {
 // プレイヤークラス
 class Player extends Base implements KeyListener {
 	Color color; // 色
+	int invincible = 0; // 無敵カウンタ
+
+	Player(int x, int y, int w, int h) {
+		super(x, y, w, h);
+		color = Color.red;
+		enabled = false;
+	}
 
 	Player(int x, int y, int w, int h, Color c) {
 		super(x, y, w, h);
@@ -246,6 +282,12 @@ class Player extends Base implements KeyListener {
 	void update() {
 		x += vx;
 		y += vy;
+		if(invincible > 0)
+		{
+			invincible--;
+			if(invincible == 0)
+				color = Color.red;
+		}
 	}
 
 	// 機体の描画
@@ -297,9 +339,21 @@ class Player extends Base implements KeyListener {
 	void collision(Base base) {
 		if (collision(this, base)) {
 			color = Color.yellow;
-		} else {
-			color = Color.red;
+			//30フレーム無敵
+			invincible = 30;
 		}
+		//  else {
+		// 	color = Color.red;
+		// }
+	}
+	//衝突処理１
+	void collision() {
+		//無敵時は衝突判定なし
+		if(invincible > 0)
+		{
+			return;
+		}
+		BaseManager.collision(this);
 	}
 }
 
@@ -448,6 +502,8 @@ class Screen extends JComponent {
 		BaseManager.draw(g);
 
 		UI.draw(g);
+
+		//Game.draw(g);
 	}
 }
 
