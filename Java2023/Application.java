@@ -12,59 +12,55 @@ import java.awt.event.*;
 //ArrayListのインポート
 import java.util.*;
 
-class UI 
-{
+class UI {
 	private static int score = 0;
 	private static int highScore = 0;
 
-	public static int Score()
-	{
+	public static int Score() {
 		return score;
 	}
 
-	public static void Score(int score)
-	{
+	public static void Score(int score) {
 		UI.score = score;
-		if(score > highScore)
-		{
+		if (score > highScore) {
 			highScore = score;
 		}
 	}
 
-	public static void draw(Graphics g)
-	{
+	public static void draw(Graphics g) {
 		// 白色で文字列を描画
 		g.setColor(Color.white);
 		g.drawString("Score " + score, 10, 20);
 		g.drawString("High Score " + highScore, 100, 20);
 	}
 
-	public static int HighScore()
-	{
+	public static int HighScore() {
 		return highScore;
 	}
 
-	public static void HighScore(int score)
-	{
+	public static void HighScore(int score) {
 		highScore = score;
 	}
 
-} 
+}
 
-//ベースクラス
+// ベースクラス
 class Base {
 	enum State {
-		NORMAL, //通常
-		HIT, //被弾
+		NORMAL, // 通常
+		HIT, // 被弾
 	}
-	//状態Stateの変数stateの宣言
+
+	// 状態Stateの変数stateの宣言
 	State state;
+
 	enum Tag {
 		ZERO,
 		ENEMY,
 		BULLET,
 		PLAYER,
 	}
+
 	Tag tag;
 	boolean enabled; // 有効フラグ：true：有効
 	int vx; // vx:x移動量
@@ -88,7 +84,7 @@ class Base {
 		this.y = y;
 		w = width;
 		h = height;
-		//BaseManagerに追加
+		// BaseManagerに追加
 		BaseManager.add(this);
 	}
 
@@ -101,8 +97,9 @@ class Base {
 		g.setColor(Color.yellow);
 		g.fillRect(x - w, y - h, w * 2, h * 2);
 	}
-	//衝突検出処理
-	//a と b が衝突していればtrue
+
+	// 衝突検出処理
+	// a と b が衝突していればtrue
 	boolean collision(Base a, Base b) {
 		int dist;
 		// X軸での距離の絶対値を求める
@@ -121,11 +118,12 @@ class Base {
 		return true;
 	}
 
-	//衝突処理１
+	// 衝突処理１
 	void collision() {
 		BaseManager.collision(this);
 	}
-	//衝突処理２
+
+	// 衝突処理２
 	void collision(Base base) {
 		if (collision(this, base)) {
 			enabled = false;
@@ -137,17 +135,15 @@ class Enemy extends Base {
 	static final int WIDTH = 20;
 	static final int HEIGHT = 16;
 	static final Color COLOR = Color.blue;
-	Enemy(int x, int y)
-	{
-		super(x,y,WIDTH,HEIGHT);
+
+	Enemy(int x, int y) {
+		super(x, y, WIDTH, HEIGHT);
 	}
 
-	void draw(Graphics g)
-	{
+	void draw(Graphics g) {
 		// 翼の描画
 		g.setColor(COLOR);
-		if(state == State.HIT)
-		{
+		if (state == State.HIT) {
 			g.setColor(Color.yellow);
 		}
 		g.fillOval(x - w, y - h / 2, w * 2, h);
@@ -156,11 +152,12 @@ class Enemy extends Base {
 		g.fillOval(x - w / 4, y - h, w / 2, h * 2);
 	}
 
-	//衝突処理１
+	// 衝突処理１
 	void collision() {
 		BaseManager.collision(this);
 	}
-	//衝突処理２
+
+	// 衝突処理２
 	void collision(Base base) {
 		if (collision(this, base)) {
 			// 状態を被弾にします
@@ -169,63 +166,99 @@ class Enemy extends Base {
 	}
 
 	void update() {
-		if(state == State.HIT)
-		{
-			w+=2;
-			h+=2;
-			if(w > 30)
-			{
+		if (state == State.HIT) {
+			w += 2;
+			h += 2;
+			if (w > 30) {
 				enabled = false;
 				UI.Score(UI.Score() + 10);
 			}
 		}
 
 		y += 6;
-		if( y > 500)
-		{
+		if (y > 500) {
 			y = 0;
 		}
 	}
 }
 
-/* class Game
+class Input implements KeyListener
 {
-	private static int left = 2;
-	private static Player player = new Player(10,390,8,6);
-
-	public static int left()
+	private static boolean key[] = new boolean[256];
+	public static boolean key(int keycode)
 	{
+		return key[keycode];
+	}
+	public void keyTyped(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {
+		key[e.getKeyCode()] = true;
+	}
+	public void keyReleased(KeyEvent e) {
+		key[e.getKeyCode()] = false;
+	}
+}
+
+
+
+class Game {
+	enum State {
+		GAME,
+		GAMEOVER,
+	}
+
+	private static State state = State.GAME;
+	private static int left = 2; // 残機
+	// 残機用の機体
+	private static Player player = new Player(10, 390, 8, 6);
+
+	public static int left() {
 		return left;
 	}
 
-	public static void left(int i)
-	{
+	public static void left(int i) {
 		left = i;
 	}
 
-	public static void draw(Graphics g)
-	{
-		for(int i = 0; i < left; i++)
-		{
-			player.draw(g);
-			//player.x += 20;
-			player.x = 20*i+10;
+	public static void draw(Graphics g) {
+		switch (state) {
+			case GAME:
+				// 残機描画
+				for (int i = 0; i < left; i++) {
+					player.draw(g);
+					// player.x += 20;
+					player.x = 20 * i + 10;
+				}
+				if (left < 0) {
+					state = State.GAMEOVER;
+				}
+				break;
+			case GAMEOVER:
+				g.drawString("Game Over !!", 120, 200);
+				break;
 		}
 	}
 
-}
- */
-
-
-class Stage1
-{
-	private static int count = 1;
-	public static void update()
+	public static State state()
 	{
+		return state;
+	}
+
+	public static void reStart()
+	{
+		left = 2;
+		state = State.GAME;
+		UI.Score((0));
+		BaseManager.clear();
+	}
+}
+
+class Stage1 {
+	private static int count = 1;
+
+	public static void update() {
 		count %= 40;
-		if(count++ == 0)
-		{
-			new Enemy(((int)(Math.random() * 5) + 1) * 50, 0);
+		if (count++ == 0) {
+			new Enemy(((int) (Math.random() * 5) + 1) * 50, 0);
 		}
 	}
 }
@@ -249,14 +282,16 @@ class Bullet extends Base {
 			enabled = false; // 無効にする
 		}
 	}
-	//衝突処理１
+
+	// 衝突処理１
 	void collision() {
 		BaseManager.collision(this);
 	}
-	//衝突処理２
-	//base：相手のインスタンス
+
+	// 衝突処理２
+	// base：相手のインスタンス
 	void collision(Base base) {
-		//this自分と相手が衝突したら無効にする
+		// this自分と相手が衝突したら無効にする
 		if (collision(this, base)) {
 			enabled = false;
 		}
@@ -282,10 +317,9 @@ class Player extends Base implements KeyListener {
 	void update() {
 		x += vx;
 		y += vy;
-		if(invincible > 0)
-		{
+		if (invincible > 0) {
 			invincible--;
-			if(invincible == 0)
+			if (invincible == 0)
 				color = Color.red;
 		}
 	}
@@ -339,18 +373,19 @@ class Player extends Base implements KeyListener {
 	void collision(Base base) {
 		if (collision(this, base)) {
 			color = Color.yellow;
-			//30フレーム無敵
+			// 30フレーム無敵
 			invincible = 30;
+			Game.left(Game.left() - 1);
 		}
-		//  else {
-		// 	color = Color.red;
+		// else {
+		// color = Color.red;
 		// }
 	}
-	//衝突処理１
+
+	// 衝突処理１
 	void collision() {
-		//無敵時は衝突判定なし
-		if(invincible > 0)
-		{
+		// 無敵時は衝突判定なし
+		if (invincible > 0) {
 			return;
 		}
 		BaseManager.collision(this);
@@ -364,6 +399,7 @@ class Star {
 	int d; // 直径(d)
 	Color c; // 色(c)
 	// コンストラクタ(X座標,Y座標,直径,色)
+
 	Star(int x, int y, int diameter, Color color) {
 		// メンバ変数の設定
 		this.x = x; // this.xはクラスのメンバ変数、xは引数
@@ -388,66 +424,72 @@ class Star {
 	}
 }
 
-//Baseクラスの管理クラス
+// Baseクラスの管理クラス
 class BaseManager {
-	//可変長配列
+	// 可変長配列
 	static ArrayList<Base> arrayList = new ArrayList<Base>();
-	//追加処理
+
+	// 追加処理
 	static void add(Base base) {
 		arrayList.add(base);
 	}
-	//更新処理
+
+	// 更新処理
 	static void update() {
-		//拡張for文
-		for(Base base : arrayList)
-		{
+		// 拡張for文
+		for (Base base : arrayList) {
 			base.update();
 		}
 	}
-	//描画処理
+
+	// 描画処理
 	static void draw(Graphics g) {
 		for (int i = 0; i < arrayList.size(); i++) {
 			arrayList.get(i).draw(g);
 		}
 	}
+
 	static void remove() {
 		// enabledがfalseの要素を削除するラムダ式
 		arrayList.removeIf(base -> base.enabled == false);
 	}
 
-	//衝突処理１
-	//全要素の衝突処理１を呼び出す
+	// 衝突処理１
+	// 全要素の衝突処理１を呼び出す
 	static void collision() {
-		//拡張for文
-		for(Base base : arrayList)
-		{
+		// 拡張for文
+		for (Base base : arrayList) {
 			base.collision();
 		}
 	}
-	//衝突処理２
-	//baseの衝突処理２を、全要素に対して行う
+
+	// 衝突処理２
+	// baseの衝突処理２を、全要素に対して行う
 	static void collision(Base base) {
-		//イテレータの作成
+		// イテレータの作成
 		Iterator<Base> iterator = arrayList.iterator();
-		//次の要素があるか判定
+		// 次の要素があるか判定
 		while (iterator.hasNext()) {
-			//イテレータで次の要素取り出して代入
+			// イテレータで次の要素取り出して代入
 			Base element = iterator.next();
-			if(element != base)
-			{
+			if (element != base) {
 				base.collision(element);
 			}
 		}
 	}
-}
 
+	static void clear()
+	{
+		arrayList.clear();
+	}
+}
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
 
 	Player player = new Player(150, 300, 20, 16, Color.red);
 	// Baseクラスのインスタンス作成
-//	Base base = new Enemy(150, 100);
+	// Base base = new Enemy(150, 100);
 
 	// Starクラスの配列を宣言
 	Star[] stars;
@@ -473,16 +515,30 @@ class Screen extends JComponent {
 		// フォーカスを得る
 		setFocusable(true);
 
-//		setBounds(50,100,200,300);
+		addKeyListener(new Input());
+
+		// setBounds(50,100,200,300);
 	}
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
 
-		Stage1.update();
+		if(Game.state() == Game.State.GAME)
+		{
+			Stage1.update();
+			BaseManager.update();
+			BaseManager.collision();
+		}
+		else{
+			if(Input.key(KeyEvent.VK_ENTER))
+			{
+				removeKeyListener(player);
+				Game.reStart();
+				player = new Player(150, 300, 20, 16, Color.red);
+				addKeyListener(player);
+			}
+		}
 
-		BaseManager.update();
-		BaseManager.collision();
 		BaseManager.remove();
 
 		// 更新処理を呼びます
@@ -503,7 +559,7 @@ class Screen extends JComponent {
 
 		UI.draw(g);
 
-		//Game.draw(g);
+		Game.draw(g);
 	}
 }
 
@@ -546,7 +602,7 @@ public class Application {
 			// 再描画します（paintComponentメソッドが呼び出されます）
 			frame.repaint();
 			// 画面の移動を可能とする
-			screen.setBounds(0,0,300,400);
+			screen.setBounds(0, 0, 300, 400);
 			// 停止します
 			try {
 				Thread.sleep(33); // 33ミリ秒停止します
