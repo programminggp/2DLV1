@@ -201,61 +201,6 @@ class Input implements KeyListener {
 	}
 }
 
-/*
- * class Game {
- * enum State {
- * GAME,
- * GAMEOVER,
- * }
- * 
- * private static State state = State.GAME;
- * private static int left = 2; // 残機
- * // 残機用の機体
- * private static Player player = new Player(10, 390, 8, 6);
- * 
- * public static int left() {
- * return left;
- * }
- * 
- * public static void left(int i) {
- * left = i;
- * }
- * 
- * public static void draw(Graphics g) {
- * switch (state) {
- * case GAME:
- * // 残機描画
- * for (int i = 0; i < left; i++) {
- * player.draw(g);
- * // player.x += 20;
- * player.x = 20 * i + 10;
- * }
- * if (left < 0) {
- * state = State.GAMEOVER;
- * }
- * break;
- * case GAMEOVER:
- * g.drawString("Game Over !!", 120, 200);
- * break;
- * }
- * }
- * 
- * public static State state()
- * {
- * return state;
- * }
- * 
- * public static void reStart()
- * {
- * left = 2;
- * state = State.GAME;
- * UI.Score((0));
- * BaseManager.clear();
- * }
- * }
- * 
- */
-
 class Game extends KeyAdapter {
 
 	private static int left = 2; // 残機
@@ -319,7 +264,7 @@ class Game extends KeyAdapter {
 	}
 
 	public void keyTyped(KeyEvent e) {
-		// keyTypedでgetKeyChar()を使う
+		// keyTypedではgetKeyChar()を使う
 		if (state == State.GAMEOVER
 			&& e.getKeyChar() == KeyEvent.VK_ENTER) {
 			// キーリスナ―から削除
@@ -380,6 +325,7 @@ class Player extends Base implements KeyListener {
 	Color color; // 色
 	int invincible = 0; // 無敵カウンタ
 
+	//残機用のコンストラクタ
 	Player(int x, int y, int w, int h) {
 		super(x, y, w, h);
 		color = Color.red;
