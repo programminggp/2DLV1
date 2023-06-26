@@ -182,35 +182,102 @@ class Enemy extends Base {
 	}
 }
 
-class Input implements KeyListener
-{
+class Input implements KeyListener {
 	private static boolean key[] = new boolean[256];
-	public static boolean key(int keycode)
-	{
+
+	public static boolean key(int keycode) {
 		return key[keycode];
 	}
-	public void keyTyped(KeyEvent e) {}
+
+	public void keyTyped(KeyEvent e) {
+	}
+
 	public void keyPressed(KeyEvent e) {
 		key[e.getKeyCode()] = true;
 	}
+
 	public void keyReleased(KeyEvent e) {
 		key[e.getKeyCode()] = false;
 	}
 }
 
+/*
+ * class Game {
+ * enum State {
+ * GAME,
+ * GAMEOVER,
+ * }
+ * 
+ * private static State state = State.GAME;
+ * private static int left = 2; // 残機
+ * // 残機用の機体
+ * private static Player player = new Player(10, 390, 8, 6);
+ * 
+ * public static int left() {
+ * return left;
+ * }
+ * 
+ * public static void left(int i) {
+ * left = i;
+ * }
+ * 
+ * public static void draw(Graphics g) {
+ * switch (state) {
+ * case GAME:
+ * // 残機描画
+ * for (int i = 0; i < left; i++) {
+ * player.draw(g);
+ * // player.x += 20;
+ * player.x = 20 * i + 10;
+ * }
+ * if (left < 0) {
+ * state = State.GAMEOVER;
+ * }
+ * break;
+ * case GAMEOVER:
+ * g.drawString("Game Over !!", 120, 200);
+ * break;
+ * }
+ * }
+ * 
+ * public static State state()
+ * {
+ * return state;
+ * }
+ * 
+ * public static void reStart()
+ * {
+ * left = 2;
+ * state = State.GAME;
+ * UI.Score((0));
+ * BaseManager.clear();
+ * }
+ * }
+ * 
+ */
 
+class Game extends KeyAdapter {
 
-class Game {
+	private static int left = 2; // 残機
+
+	// 状態管理
 	enum State {
 		GAME,
 		GAMEOVER,
 	}
+	private State state = State.GAME;
 
-	private static State state = State.GAME;
-	private static int left = 2; // 残機
 	// 残機用の機体
-	private static Player player = new Player(10, 390, 8, 6);
+	private Player playerLeft = new Player(10, 390, 8, 6);
+	// プレイヤー
+	private Player player;
 
+	Game()
+	{
+		start();
+	}
+
+	// 残機処理
 	public static int left() {
 		return left;
 	}
@@ -219,14 +286,14 @@ class Game {
 		left = i;
 	}
 
-	public static void draw(Graphics g) {
+	public void draw(Graphics g) {
 		switch (state) {
 			case GAME:
 				// 残機描画
 				for (int i = 0; i < left; i++) {
-					player.draw(g);
+					playerLeft.draw(g);
 					// player.x += 20;
-					player.x = 20 * i + 10;
+					playerLeft.x = 20 * i + 10;
 				}
 				if (left < 0) {
 					state = State.GAMEOVER;
@@ -238,17 +305,27 @@ class Game {
 		}
 	}
 
-	public static State state()
-	{
+	public State state() {
 		return state;
 	}
 
-	public static void reStart()
-	{
+	public void start() {
 		left = 2;
 		state = State.GAME;
 		UI.Score((0));
 		BaseManager.clear();
+		player = new Player(150, 300, 20, 16, Color.red);
+		Screen.instance().addKeyListener(player);
+	}
+
+	public void keyTyped(KeyEvent e) {
+		// keyTypedでgetKeyChar()を使う
+		if (state == State.GAMEOVER
+			&& e.getKeyChar() == KeyEvent.VK_ENTER) {
+			// キーリスナ―から削除
+			Screen.instance().removeKeyListener(player);
+			start();
+		}
 	}
 }
 
@@ -478,8 +555,7 @@ class BaseManager {
 		}
 	}
 
-	static void clear()
-	{
+	static void clear() {
 		arrayList.clear();
 	}
 }
@@ -487,15 +563,22 @@ class BaseManager {
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
 
-	Player player = new Player(150, 300, 20, 16, Color.red);
-	// Baseクラスのインスタンス作成
-	// Base base = new Enemy(150, 100);
+	Game game;
+
+	private static Screen instance;
+	public static Screen instance() {
+		return instance;
+	}
+
+	//Player player = new Player(150, 300, 20, 16, Color.red);
 
 	// Starクラスの配列を宣言
 	Star[] stars;
 
 	// デフォルトコンストラクタの作成
 	Screen() {
+		instance = this;
+		game = new Game();
 		// Starクラスの配列を作成
 		stars = new Star[100];
 		// 配列の要素分、インスタンスを作成
@@ -511,32 +594,22 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128));
 		}
 		// キーリスナーへ登録
-		addKeyListener(player);
+		// addKeyListener(player);
+		addKeyListener(game);
 		// フォーカスを得る
 		setFocusable(true);
 
-		addKeyListener(new Input());
+		// addKeyListener(new Input());
 
 		// setBounds(50,100,200,300);
 	}
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
-
-		if(Game.state() == Game.State.GAME)
-		{
+		if (game.state() == Game.State.GAME) {
 			Stage1.update();
 			BaseManager.update();
 			BaseManager.collision();
-		}
-		else{
-			if(Input.key(KeyEvent.VK_ENTER))
-			{
-				removeKeyListener(player);
-				Game.reStart();
-				player = new Player(150, 300, 20, 16, Color.red);
-				addKeyListener(player);
-			}
 		}
 
 		BaseManager.remove();
@@ -559,7 +632,7 @@ class Screen extends JComponent {
 
 		UI.draw(g);
 
-		Game.draw(g);
+		game.draw(g);
 	}
 }
 
