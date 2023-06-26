@@ -201,28 +201,12 @@ class Input implements KeyListener {
 	}
 }
 
-class Game extends KeyAdapter {
-
-	private static int left = 2; // 残機
-
-	// 状態管理
-	enum State {
-		GAME,
-		GAMEOVER,
-	}
-	private State state = State.GAME;
-
-	// 残機用の機体
+class Game {
+	private static int left = 2; // 残数
+	// 残機表示用の機体
 	private Player playerLeft = new Player(10, 390, 8, 6);
-	// プレイヤー
-	private Player player;
 
-	Game()
-	{
-		start();
-	}
-
-	// 残機処理
+	// 残数処理
 	public static int left() {
 		return left;
 	}
@@ -232,47 +216,88 @@ class Game extends KeyAdapter {
 	}
 
 	public void draw(Graphics g) {
-		switch (state) {
-			case GAME:
-				// 残機描画
-				for (int i = 0; i < left; i++) {
-					playerLeft.draw(g);
-					// player.x += 20;
-					playerLeft.x = 20 * i + 10;
-				}
-				if (left < 0) {
-					state = State.GAMEOVER;
-				}
-				break;
-			case GAMEOVER:
-				g.drawString("Game Over !!", 120, 200);
-				break;
-		}
-	}
-
-	public State state() {
-		return state;
-	}
-
-	public void start() {
-		left = 2;
-		state = State.GAME;
-		UI.Score((0));
-		BaseManager.clear();
-		player = new Player(150, 300, 20, 16, Color.red);
-		Screen.instance().addKeyListener(player);
-	}
-
-	public void keyTyped(KeyEvent e) {
-		// keyTypedではgetKeyChar()を使う
-		if (state == State.GAMEOVER
-			&& e.getKeyChar() == KeyEvent.VK_ENTER) {
-			// キーリスナ―から削除
-			Screen.instance().removeKeyListener(player);
-			start();
+		// 残機描画
+		for (int i = 0; i < left; i++) {
+			playerLeft.draw(g);
+			playerLeft.x = 20 * i + 10;
 		}
 	}
 }
+
+/*
+ * class Game extends KeyAdapter {
+ * 
+ * private static int left = 2; // 残機
+ * 
+ * // 状態管理
+ * enum State {
+ * GAME,
+ * GAMEOVER,
+ * }
+ * private State state = State.GAME;
+ * 
+ * // 残機用の機体
+ * private Player playerLeft = new Player(10, 390, 8, 6);
+ * // プレイヤー
+ * private Player player;
+ * 
+ * Game()
+ * {
+ * start();
+ * }
+ * 
+ * // 残機処理
+ * public static int left() {
+ * return left;
+ * }
+ * 
+ * public static void left(int i) {
+ * left = i;
+ * }
+ * 
+ * public void draw(Graphics g) {
+ * switch (state) {
+ * case GAME:
+ * // 残機描画
+ * for (int i = 0; i < left; i++) {
+ * playerLeft.draw(g);
+ * // player.x += 20;
+ * playerLeft.x = 20 * i + 10;
+ * }
+ * if (left < 0) {
+ * state = State.GAMEOVER;
+ * }
+ * break;
+ * case GAMEOVER:
+ * g.drawString("Game Over !!", 120, 200);
+ * break;
+ * }
+ * }
+ * 
+ * public State state() {
+ * return state;
+ * }
+ * 
+ * public void start() {
+ * left = 2;
+ * state = State.GAME;
+ * UI.Score((0));
+ * BaseManager.clear();
+ * player = new Player(150, 300, 20, 16, Color.red);
+ * Screen.instance().addKeyListener(player);
+ * }
+ * 
+ * public void keyTyped(KeyEvent e) {
+ * // keyTypedではgetKeyChar()を使う
+ * if (state == State.GAMEOVER
+ * && e.getKeyChar() == KeyEvent.VK_ENTER) {
+ * // キーリスナ―から削除
+ * Screen.instance().removeKeyListener(player);
+ * start();
+ * }
+ * }
+ * }
+ */
 
 class Stage1 {
 	private static int count = 1;
@@ -325,7 +350,7 @@ class Player extends Base implements KeyListener {
 	Color color; // 色
 	int invincible = 0; // 無敵カウンタ
 
-	//残機用のコンストラクタ
+	// 残機用のコンストラクタ
 	Player(int x, int y, int w, int h) {
 		super(x, y, w, h);
 		color = Color.red;
@@ -512,11 +537,12 @@ class Screen extends JComponent {
 	Game game;
 
 	private static Screen instance;
+
 	public static Screen instance() {
 		return instance;
 	}
 
-	//Player player = new Player(150, 300, 20, 16, Color.red);
+	Player player = new Player(150, 300, 20, 16, Color.red);
 
 	// Starクラスの配列を宣言
 	Star[] stars;
@@ -540,8 +566,8 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128));
 		}
 		// キーリスナーへ登録
-		// addKeyListener(player);
-		addKeyListener(game);
+		addKeyListener(player);
+	//	addKeyListener(game);
 		// フォーカスを得る
 		setFocusable(true);
 
@@ -552,11 +578,11 @@ class Screen extends JComponent {
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
-		if (game.state() == Game.State.GAME) {
+	//	if (game.state() == Game.State.GAME) {
 			Stage1.update();
 			BaseManager.update();
 			BaseManager.collision();
-		}
+	//	}
 
 		BaseManager.remove();
 
