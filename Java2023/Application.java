@@ -202,6 +202,20 @@ class Input implements KeyListener {
 }
 
 class Game {
+	// 状態管理
+	enum State {
+		GAME, // ゲーム中
+		GAMEOVER, // ゲームオーバー
+	}
+
+	// 状態の変数
+	private State state = State.GAME;
+
+	// 状態の取得
+	public State state() {
+		return state;
+	}
+
 	private static int left = 2; // 残数
 	// 残機表示用の機体
 	private Player playerLeft = new Player(10, 390, 8, 6);
@@ -216,6 +230,10 @@ class Game {
 	}
 
 	public void draw(Graphics g) {
+		if (left < 0) {
+			state = State.GAMEOVER;
+			g.drawString("Game Over !!", 120, 200);
+		}
 		// 残機描画
 		for (int i = 0; i < left; i++) {
 			playerLeft.draw(g);
@@ -533,14 +551,15 @@ class BaseManager {
 
 // JComponentを継承し、画面の部品を作成します
 class Screen extends JComponent {
-
-	Game game;
-
+	// インスタンスの保存
 	private static Screen instance;
 
+	// インスタンスの取得
 	public static Screen instance() {
 		return instance;
 	}
+
+	Game game;
 
 	Player player = new Player(150, 300, 20, 16, Color.red);
 
@@ -549,6 +568,7 @@ class Screen extends JComponent {
 
 	// デフォルトコンストラクタの作成
 	Screen() {
+		// インスタンスの退避
 		instance = this;
 		game = new Game();
 		// Starクラスの配列を作成
@@ -567,7 +587,7 @@ class Screen extends JComponent {
 		}
 		// キーリスナーへ登録
 		addKeyListener(player);
-	//	addKeyListener(game);
+		// addKeyListener(game);
 		// フォーカスを得る
 		setFocusable(true);
 
@@ -578,12 +598,11 @@ class Screen extends JComponent {
 
 	// 描画が必要なときに実行されるメソッド
 	public void paintComponent(Graphics g) {
-	//	if (game.state() == Game.State.GAME) {
+		if (game.state() == Game.State.GAME) {
 			Stage1.update();
 			BaseManager.update();
 			BaseManager.collision();
-	//	}
-
+		}
 		BaseManager.remove();
 
 		// 更新処理を呼びます
