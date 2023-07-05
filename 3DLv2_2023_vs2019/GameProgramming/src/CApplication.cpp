@@ -63,6 +63,9 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
+	//29
+	mActionCamera.Set(5.0f, -15.0f, 180.0f);
+
 	//mBackGround.Load("res\\sky.obj", "res\\sky.mtl");
 
 	mKnight.Load("res\\knight\\knight_low.x");
@@ -110,7 +113,7 @@ void CApplication::Update()
 	//衝突処理
 	CCollisionManager::Instance()->Collision();
 
-
+/*
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
@@ -121,6 +124,12 @@ void CApplication::Update()
 	u = CVector(0.0f, 1.0f, 0.0f);
 	//カメラの設定
 	gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
+*/
+	// カメラ設定
+	mActionCamera.Position(mXPlayer.Position() + CVector(0.0f, 2.0f, 0.0f));
+	mActionCamera.Update();
+	mActionCamera.Render();
+
 	//モデルビュー行列の取得
 	glGetFloatv(GL_MODELVIEW_MATRIX, mModelViewInverse.M());
 	//逆行列の取得
@@ -129,6 +138,7 @@ void CApplication::Update()
 	mModelViewInverse.M(1, 3, 0);
 	mModelViewInverse.M(2, 3, 0);
 
+	/*
 	//X軸＋回転
 	if (mInput.Key('K')) {
 		mMatrix = mMatrix * CMatrix().RotateX(1);
@@ -146,9 +156,12 @@ void CApplication::Update()
 	}
 	//行列設定
 	glMultMatrixf(mMatrix.M());
+	*/
+
 	//mBackGround.Render(mMatrix);
 	//モデル描画
 //	mModelX.Render();
+
 	mXPlayer.Render();
 	//敵描画
 	mXEnemy.Render();
