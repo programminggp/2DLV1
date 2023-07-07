@@ -86,8 +86,8 @@ void CXPlayer::Update()
 			else if (dot < 1.0f - MARGIN) {
 				mRotation.Y(mRotation.Y() - 5.0f);
 			}
-//			ChangeAnimation(1, true, 60);
-//			mPosition = mPosition + move * 0.1f;
+			ChangeAnimation(1, true, 60);
+			mPosition = mPosition + move * 0.1f;
 		}
 		else
 		{
