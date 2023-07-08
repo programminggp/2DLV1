@@ -201,7 +201,7 @@ class Input implements KeyListener {
 	}
 }
 
-class Game {
+class Game extends KeyAdapter {
 	// 状態管理
 	enum State {
 		GAME, // ゲーム中
@@ -232,12 +232,22 @@ class Game {
 	public void draw(Graphics g) {
 		if (left < 0) {
 			state = State.GAMEOVER;
-			g.drawString("Game Over !!", 120, 200);
 		}
+			g.drawString("Game Over !!", 120, 200);
+			g.drawString("Push Enter", 120, 220);
 		// 残機描画
 		for (int i = 0; i < left; i++) {
 			playerLeft.draw(g);
 			playerLeft.x = 20 * i + 10;
+		}
+	}
+
+	public void keyTyped(KeyEvent e) {
+		// keyTypedではgetKeyChar()を使う
+		if (state == State.GAMEOVER
+				&& e.getKeyChar() == KeyEvent.VK_ENTER) {
+			state = State.GAME;
+			left = 2;
 		}
 	}
 }
@@ -587,7 +597,7 @@ class Screen extends JComponent {
 		}
 		// キーリスナーへ登録
 		addKeyListener(player);
-		// addKeyListener(game);
+		addKeyListener(game);
 		// フォーカスを得る
 		setFocusable(true);
 
