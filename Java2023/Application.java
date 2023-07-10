@@ -202,6 +202,13 @@ class Input implements KeyListener {
 }
 
 class Game extends KeyAdapter {
+	// プレイヤー
+	private Player player;
+	Game() {
+		player = new Player(150, 300, 20, 16, Color.red);
+		Screen.instance().addKeyListener(player);
+	}
+
 	// 状態管理
 	enum State {
 		GAME, // ゲーム中
@@ -232,9 +239,9 @@ class Game extends KeyAdapter {
 	public void draw(Graphics g) {
 		if (left < 0) {
 			state = State.GAMEOVER;
-		}
 			g.drawString("Game Over !!", 120, 200);
 			g.drawString("Push Enter", 120, 220);
+		}
 		// 残機描画
 		for (int i = 0; i < left; i++) {
 			playerLeft.draw(g);
@@ -248,6 +255,11 @@ class Game extends KeyAdapter {
 				&& e.getKeyChar() == KeyEvent.VK_ENTER) {
 			state = State.GAME;
 			left = 2;
+			Screen.instance().removeKeyListener(player);
+			BaseManager.clear();
+			player = new Player(150, 300, 20, 16, Color.red);
+			Screen.instance().addKeyListener(player);
+			UI.Score((0));
 		}
 	}
 }
@@ -571,7 +583,7 @@ class Screen extends JComponent {
 
 	Game game;
 
-	Player player = new Player(150, 300, 20, 16, Color.red);
+//	Player player = new Player(150, 300, 20, 16, Color.red);
 
 	// Starクラスの配列を宣言
 	Star[] stars;
@@ -596,7 +608,7 @@ class Screen extends JComponent {
 							(int) (Math.random() * 128) + 128));
 		}
 		// キーリスナーへ登録
-		addKeyListener(player);
+//		addKeyListener(player);
 		addKeyListener(game);
 		// フォーカスを得る
 		setFocusable(true);
