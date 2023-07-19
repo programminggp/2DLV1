@@ -5,6 +5,7 @@
 class CPlayer : public CCharacter
 {
 private:
+	int mCountShot;
 	float mVy;	//YŽ²‘¬“x
 	CInput mInput;
 public:

@@ -16,6 +16,8 @@ public:
 		EPLAYER,	//プレイヤー
 		ETURN,		//折り返し
 		EBLOCK,		//ブロック
+		EEBULLET,	//弾
+
 	};
 	enum class EState	//状態
 	{
@@ -23,8 +25,10 @@ public:
 		ESTOP,	//停止
 		EJUMP,	//ジャンプ
 		ECRY,	//泣く
+		EFLY,	//飛ぶ
 	};
 protected:
+	float mTx, mTy;
 	float mVx;	//X軸速度
 	float mVy;	//Y軸速度
 	bool mEnabled;
@@ -48,4 +52,7 @@ public:
 	void Texture(CTexture *pTexture, int left, int right, int bottom, int top);
 	virtual void Render();
 	void Move();
+	//
+	void Fly();
+	void Txy(float x, float y);
 };

@@ -38,18 +38,35 @@ void CCharacter::Texture(CTexture *pTexture, int left, int right, int bottom, in
 
 void CCharacter::Render()
 {
-	mpTexture->DrawImage(
-		X() - W(),
-		X() + W(),
-		Y() - H(),
-		Y() + H(),
-		mLeft, mRight, mBottom, mTop
-	);
+	if (mpTexture != nullptr) {
+		mpTexture->DrawImage(
+			X() - W(),
+			X() + W(),
+			Y() - H(),
+			Y() + H(),
+			mLeft, mRight, mBottom, mTop
+		);
+	}
+	else
+	{
+		CRectangle::Render();
+	}
 }
 
 void CCharacter::Move()
 {
 	mState = EState::EMOVE;
+}
+
+void CCharacter::Fly()
+{
+	mState = EState::EFLY;
+}
+
+void CCharacter::Txy(float x, float y)
+{
+	mTx = x;
+	mTy = y;
 }
 
 CTexture* CCharacter::Texture()

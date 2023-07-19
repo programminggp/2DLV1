@@ -49,11 +49,51 @@ CGame::CGame()
 	, mTime(0)
 	, mCdx(0)
 	, mCdy(0)
+	, mCountFly(0)
+	, mIntervalFly(180)
 {
+	mpPlayer = new CPlayer(400,50,20,20,nullptr);
+	CApplication::CharacterManager()->Add(mpPlayer);
+
+	for (int y = 4; y > 0; y--)
+	{
+		for (int x = 0; x < 8; x++)
+		{
+			CApplication::CharacterManager()->Add(new CEnemy((800 - 7 * 80)/2+ x * 80, 600 - y * 60, 20.0f, 20.0f, 0, 0, 0, 0, nullptr));
+		}
+	}
 }
 
 void CGame::Update()
 {
+	if(++mCountFly > mIntervalFly) {
+		std::vector<CCharacter*> character = CApplication::CharacterManager()->Characters();
+		float max = 0.0f;
+		CEnemy* flyEnemy = nullptr;
+		for (int i = 0; i < character.size(); i++)
+		{
+			if (character[i]->Tag() == CCharacter::ETag::EENEMY && character[i]->State() != CCharacter::EState::EFLY)
+			{
+				float length = (character[i]->X() - mpPlayer->X()) * (character[i]->X() - mpPlayer->X())
+					+ (character[i]->Y() - mpPlayer->Y()) * (character[i]->Y() - mpPlayer->Y());
+				if (max < length)
+				{
+					max = length;
+					flyEnemy = (CEnemy*)character[i];
+				}
+			}
+		}
+		if (flyEnemy != nullptr)
+		{
+			flyEnemy->Fly();
+			flyEnemy->Txy(mpPlayer->X(), mpPlayer->Y() - 100.0f);
+			mCountFly = 0;
+			mIntervalFly -= 6;
+			if (mIntervalFly < 90)
+				mIntervalFly = 90;
+		}
+	}
+
 	//更新、衝突、削除、描画
 	CApplication::CharacterManager()->Update();
 	CApplication::CharacterManager()->Collision();

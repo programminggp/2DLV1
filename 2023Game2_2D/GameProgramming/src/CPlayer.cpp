@@ -8,6 +8,7 @@
 
 CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
 	: mVy(0.0f)
+	, mCountShot(0)
 {
 	Set(x, y, w, h);
 	Texture(pt, TEXCOORD);
@@ -16,11 +17,16 @@ CPlayer::CPlayer(float x, float y, float w, float h, CTexture* pt)
 
 void CPlayer::Update()
 {
-	if (mInput.Key(VK_SPACE))
+	if (mCountShot++ > 40)
 	{
-		CApplication::CharacterManager()->Add(
-			new CBullet(X(), Y() + H() + 10.0f
-				, 3.0f, 10.0f, 1396, 1420, 750, 592, CApplication::Texture()));
+		mCountShot = 40;
+		if (mInput.Key(VK_SPACE))
+		{
+			mCountShot = 0;
+			CApplication::CharacterManager()->Add(
+				new CBullet(X(), Y() + H() + 10.0f
+					, 3.0f, 10.0f, 1396, 1420, 750, 592, nullptr));
+		}
 	}
 	if (mInput.Key('A'))
 	{
@@ -34,16 +40,16 @@ void CPlayer::Update()
 		X(x);
 	}
 
-	if (mInput.Key('J') 
-		&& mState != EState::EJUMP
-		&& mVy >= 0.0f)
-	{
-		mVy = JUMPV0;
-		mState = EState::EJUMP;
-	}
+	//if (mInput.Key('J') 
+	//	&& mState != EState::EJUMP
+	//	&& mVy >= 0.0f)
+	//{
+	//	mVy = JUMPV0;
+	//	mState = EState::EJUMP;
+	//}
 
-	Y(Y() + mVy);
-	mVy -= GRAVITY;
+	//Y(Y() + mVy);
+	//mVy -= GRAVITY;
 }
 
 void CPlayer::Collision()
@@ -57,6 +63,13 @@ void CPlayer::Collision(CCharacter* m, CCharacter* o)
 	switch (o->Tag())
 	{
 	case ETag::EPLAYER:
+		break;
+	case ETag::EENEMY:
+	case ETag::EEBULLET:
+		if (CRectangle::Collision(o))
+		{
+			o->Collision(o, m);
+		}
 		break;
 	default:
 		if (CRectangle::Collision(o, &x, &y))

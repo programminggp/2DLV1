@@ -16,3 +16,20 @@ public:
 	//void Render();
 	bool Collision(CRectangle* rect);
 };
+
+class CEBullet : public CCharacter
+{
+public:
+	//衝突処理２
+	void Collision();
+	//衝突処理４
+	//Collision(自分のポインタ, 衝突相手のポインタ)
+	void Collision(CCharacter* m, CCharacter* o);
+	//CBullet(X座標,Y座標,幅,高さ,目標x, 目標y)
+	CEBullet(float x, float y, float w, float h, float tx, float ty);
+	CEBullet();
+	void Update();
+	//void Render();
+private:
+	float mVx, mVy;
+};

@@ -10,4 +10,9 @@ public:
 	bool Collision(CRectangle* rect);
 	void Collision();
 	void Collision(CCharacter* m, CCharacter* o);
+private:
+	float mFx, mFy; //‰‰ñƒ|ƒWƒVƒ‡ƒ“
+	float mVx;
+	int mCountTurn;
+	int mCountShot;
 };

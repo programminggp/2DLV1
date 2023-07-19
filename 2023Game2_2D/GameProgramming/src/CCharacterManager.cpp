@@ -46,6 +46,11 @@ void CCharacterManager::Render()
 	}
 }
 
+std::vector<CCharacter*>& CCharacterManager::Characters()
+{
+	return mpCharacters;
+}
+
 void CCharacterManager::AllDelete()
 {
 	//イテレータの生成
