@@ -6,7 +6,9 @@
 #include "CMaterial.h"
 #include "CVertex.h"
 
-float CModelX::GetFloatToken()
+namespace modelx {
+
+	float CModelX::GetFloatToken()
 {
 	GetToken();
 	//atof
@@ -1204,4 +1206,6 @@ CAnimation::~CAnimation()
 {
 	SAFE_DELETE_ARRAY(mpFrameName);
 	SAFE_DELETE_ARRAY(mpKey);
+}
+
 }

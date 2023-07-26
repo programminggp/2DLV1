@@ -68,6 +68,8 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
+	mModelX.Load("res\\ラグナ.x");
+
 	spUi = new CUi();	//UIクラスの生成
 	//モデルファイルの入力
 	mModel.Load(MODEL_OBJ);
@@ -187,6 +189,8 @@ void CApplication::Update()
 	CTaskManager::Instance()->Render();
 
 	CCollisionManager::Instance()->Render();
+
+	mModelX.Render();
 
 	spUi->Render();	//UIの描画
 
