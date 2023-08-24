@@ -2,7 +2,9 @@
 #include "CActionCamera.h"
 
 CXPlayer::CXPlayer()
-	: mColSphereBody(this, nullptr, CVector(), 0.5f)
+	:
+	mColSphereBody(this, nullptr, CVector(0.0f,-50.0f, 0.0f), CVector(0.0f, 50.0f, 0.0f), 0.5f)
+//	mColSphereBody(this, nullptr, CVector(), 0.5f)
 	, mColSphereHead(this, nullptr,
 		CVector(0.0f, 5.0f, -3.0f), 0.5f)
 	, mColSphereSword(this, nullptr,
@@ -102,4 +104,21 @@ void CXPlayer::Update()
 
 	}
 	CXCharacter::Update();
+}
+
+void CXPlayer::Collision(CCollider* m, CCollider* o)
+{
+	switch (m->Type())
+	{
+	case CCollider::ECAPSULE:
+		if (o->Type() == CCollider::ECAPSULE)
+		{
+			CVector adjust;
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+			{
+				mPosition = mPosition + adjust;
+				CTransform::Update();
+			}
+		}
+	}
 }

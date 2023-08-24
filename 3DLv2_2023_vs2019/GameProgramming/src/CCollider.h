@@ -10,6 +10,16 @@ class CCollisionManager;
 class CCollider : public CTransform,public CTask {
 	friend CCollisionManager;
 public:
+	CVector* V()
+	{
+		return mV;
+	}
+	const CVector& V(int i)
+	{
+		return mV[i];
+	}
+	//
+	static bool CollisionCapsuleCapsule(CCollider* m, CCollider* o, CVector* adjust);
 	enum class ETag {
 		EBODY,	//体
 		ESWORD,	//剣
@@ -26,6 +36,7 @@ public:
 		ESPHERE,//球コライダ
 		ETRIANGLE,//三角コライダ
 		ELINE, //線分コライダ
+		ECAPSULE, //カプセルコライダ
 	};
 
 	EType Type();

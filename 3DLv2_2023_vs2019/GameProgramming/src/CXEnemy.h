@@ -2,7 +2,7 @@
 #define CXENEMY_H
 
 #include "CXCharacter.h"
-#include "CCollider.h"
+#include "CColliderCapsule.h"
 
 class CXEnemy : public CXCharacter
 {
@@ -13,6 +13,7 @@ public:
 	void Init(CModelX* model);
 private:
 	//ƒRƒ‰ƒCƒ_‚ÌéŒ¾
+	CColliderCapsule mColBody;	//‘Ì
 	CCollider mColSphereBody;	//‘Ì
 	CCollider mColSphereHead;	//“ª
 	CCollider mColSphereSword0;	//Œ•
