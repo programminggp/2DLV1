@@ -14,11 +14,12 @@ bool CCollider::CollisionTriangleSphere(CCollider* t, CCollider* s, CVector* a)
 {
 	CVector v[3], sv, ev;
 	//各コライダの頂点をワールド座標へ変換
-	v[0] = t->mV[0] * *t->mpMatrix;
-	v[1] = t->mV[1] * *t->mpMatrix;
-	v[2] = t->mV[2] * *t->mpMatrix;
+	//v[0] = t->mV[0] * *t->mpMatrix;
+	//v[1] = t->mV[1] * *t->mpMatrix;
+	//v[2] = t->mV[2] * *t->mpMatrix;
 	//面の法線を、外積を正規化して求める
-	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	//CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	CVector normal = t->mV[3];
 	//線コライダをワールド座標で作成
 	sv = s->mPosition * *s->mpMatrix + normal * s->mRadius;
 	ev = s->mPosition * *s->mpMatrix - normal * s->mRadius;
@@ -111,13 +112,17 @@ CCollider::EType CCollider::Type()
 bool CCollider::CollisionTriangleLine(CCollider* t, CCollider* l, CVector* a) {
 	CVector v[3], sv, ev;
 	//各コライダの頂点をワールド座標へ変換
-	v[0] = t->mV[0] * *t->mpMatrix;
-	v[1] = t->mV[1] * *t->mpMatrix;
-	v[2] = t->mV[2] * *t->mpMatrix;
+	//v[0] = t->mV[0] * *t->mpMatrix;
+	//v[1] = t->mV[1] * *t->mpMatrix;
+	//v[2] = t->mV[2] * *t->mpMatrix;
+	v[0] = t->mV[0];
+	v[1] = t->mV[1];
+	v[2] = t->mV[2];
 	sv = l->mV[0] * *l->mpMatrix;
 	ev = l->mV[1] * *l->mpMatrix;
 	//面の法線を、外積を正規化して求める
-	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+//	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	CVector normal = t->mV[3];
 	//三角の頂点から線分始点へのベクトルを求める
 	CVector v0sv = sv - v[0];
 	//三角の頂点から線分終点へのベクトルを求める
@@ -176,6 +181,70 @@ bool CCollider::CollisionTriangleLine(CCollider* t, CCollider* l, CVector* a) {
 void CCollider::Matrix(CMatrix* m)
 {
 	mpMatrix = m;
+}
+
+
+
+bool CollisionPointTriangle(
+	const CVector& p, 
+	const CVector& v0, 
+	const CVector& v1, 
+	const CVector& v2, 
+	const CVector& normal
+)
+{
+	if (normal.Dot((v1 - v0).Cross(p - v0)) < 0.0f)
+	{
+		return false;
+	}
+	if (normal.Dot((v2 - v1).Cross(p - v1)) < 0.0f)
+	{
+		return false;
+	}
+	if (normal.Dot((v0 - v2).Cross(p - v2)) < 0.0f)
+	{
+		return false;
+	}
+	return true;
+}
+
+
+bool CCollider::CollisionCapsuleTriangle(CCollider* capsule, CCollider* triangle, CVector* adjust)
+{
+	float dist;
+	dist = triangle->mV[3].Dot(capsule->mV[0] - triangle->mV[0]);
+	if (dist < capsule->mRadius)
+	{
+		if (CollisionPointTriangle((capsule->mV[0] - triangle->mV[3] * dist), triangle->mV[0], triangle->mV[1], triangle->mV[2], triangle->mV[3]))
+		{
+			float dist2 = triangle->mV[3].Dot(capsule->mV[1] - triangle->mV[0]);
+			if (dist2 < capsule->mRadius)
+			{
+				if (CollisionPointTriangle((capsule->mV[1] - triangle->mV[3] * dist2), triangle->mV[0], triangle->mV[1], triangle->mV[2], triangle->mV[3]))
+				{
+					if (dist > dist2)
+					{
+						*adjust = triangle->mV[3] * (capsule->mRadius - dist2);
+						return true;
+					}
+				}
+			}
+			*adjust = triangle->mV[3] * (capsule->mRadius - dist);
+			return true;
+		}
+	}
+	else {
+		dist = triangle->mV[3].Dot(capsule->mV[1] - triangle->mV[0]);
+		if (dist < capsule->mRadius)
+		{
+			if (CollisionPointTriangle((capsule->mV[1] - triangle->mV[3] * dist), triangle->mV[0], triangle->mV[1], triangle->mV[2], triangle->mV[3]))
+			{
+				*adjust = triangle->mV[3] * (capsule->mRadius - dist);
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 float calcPointLineDist(CVector* p, CCollider* c, CVector* mp, float* t)
@@ -362,12 +431,13 @@ bool CCollider::CollisionCapsuleCapsule(CCollider* m, CCollider* o, CVector* adj
 	//s1.mV[1] = s1.mV[1] * *s1.mpMatrix;
 	//s2.mV[0] = s2.mV[0] * *s2.mpMatrix;
 	//s2.mV[1] = s2.mV[1] * *s2.mpMatrix;
-	m->mV[0] = ((CColliderCapsule*)m)->Sp() * *m->mpMatrix;
-	m->mV[1] = ((CColliderCapsule*)m)->Ep() * *m->mpMatrix;
-	m->mV[2] = m->mV[1] - m->mV[0];
-	o->mV[0] = ((CColliderCapsule*)o)->Sp() * *o->mpMatrix;
-	o->mV[1] = ((CColliderCapsule*)o)->Ep() * *o->mpMatrix;
-	o->mV[2] = o->mV[1] - o->mV[0];
+	
+	//m->mV[0] = ((CColliderCapsule*)m)->Sp() * *m->mpMatrix;
+	//m->mV[1] = ((CColliderCapsule*)m)->Ep() * *m->mpMatrix;
+	//m->mV[2] = m->mV[1] - m->mV[0];
+	//o->mV[0] = ((CColliderCapsule*)o)->Sp() * *o->mpMatrix;
+	//o->mV[1] = ((CColliderCapsule*)o)->Ep() * *o->mpMatrix;
+	//o->mV[2] = o->mV[1] - o->mV[0];
 
 	CVector mp1, mp2;
 	float t1, t2, radius = m->mRadius + o->mRadius;

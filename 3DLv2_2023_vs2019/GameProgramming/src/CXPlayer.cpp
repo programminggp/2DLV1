@@ -3,7 +3,7 @@
 
 CXPlayer::CXPlayer()
 	:
-	mColSphereBody(this, nullptr, CVector(0.0f,-50.0f, 0.0f), CVector(0.0f, 50.0f, 0.0f), 0.5f)
+	mColSphereBody(this, nullptr, CVector(0.0f,25.0f, 0.0f), CVector(0.0f, 150.0f, 0.0f), 0.5f)
 //	mColSphereBody(this, nullptr, CVector(), 0.5f)
 	, mColSphereHead(this, nullptr,
 		CVector(0.0f, 5.0f, -3.0f), 0.5f)
@@ -18,13 +18,16 @@ void CXPlayer::Init(CModelX* model)
 {
 	CXCharacter::Init(model);
 	//合成行列の設定
-	mColSphereBody.Matrix(&mpCombinedMatrix[9]);
+	mColSphereBody.Matrix(&mpCombinedMatrix[1]);
+//	mColSphereBody.Matrix(&mpCombinedMatrix[9]);
 	mColSphereHead.Matrix(&mpCombinedMatrix[12]);
 	mColSphereSword.Matrix(&mpCombinedMatrix[22]);
 }
 
 void CXPlayer::Update()
 {
+	mPosition.Y(mPosition.Y() - 0.1f);
+
 	//カメラの前方
 	CVector cameraZ = CActionCamera::Instance()->VectorZ();
 	//カメラの左方向
@@ -104,6 +107,7 @@ void CXPlayer::Update()
 
 	}
 	CXCharacter::Update();
+	mColSphereBody.Update();
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
@@ -120,5 +124,15 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 				CTransform::Update();
 			}
 		}
+		else if (o->Type() == CCollider::ETRIANGLE)
+		{
+			CVector adjust;
+			if (CCollider::CollisionCapsuleTriangle(m, o, &adjust))
+			{
+				mPosition = mPosition + adjust;
+				CTransform::Update();
+			}
+		}
+		break;
 	}
 }

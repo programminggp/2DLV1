@@ -15,6 +15,7 @@ public:
 	void Render();
 	CVector& Sp() { return mSp; }
 	CVector& Ep() { return mEp; }
+	void Update();
 private:
 	CVector mSp;
 	CVector mEp;

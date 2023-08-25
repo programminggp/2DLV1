@@ -21,20 +21,38 @@ void CXEnemy::Collision(CCollider* m, CCollider* o)
 				}
 			}
 		}
+		break;
+	case CCollider::ECAPSULE:
+		if (o->Type() == CCollider::ETRIANGLE)
+		{
+			CVector adjust;
+			if (CCollider::CollisionCapsuleTriangle(m, o, &adjust))
+			{
+				mPosition = mPosition + adjust;
+				CTransform::Update();
+			}
+		}
+		break;
 	}
 }
 
 CXEnemy::CXEnemy()
 	:
-	mColBody(this, nullptr, CVector(0.f, -1.0f, 0.0f), CVector(0.f, 1.0f, 0.0f), 1.0f)
+	mColBody(this, nullptr, CVector(0.f, -1.5f, 0.0f), CVector(0.f, 1.0f, 0.0f), 1.0f)
 	, mColSphereBody(this, nullptr, CVector(0.5f, -1.0f, 0.0f), 1.0f)
 	, mColSphereHead(this, nullptr, CVector(0.0f, 1.f, 0.0f), 1.5f)
 	, mColSphereSword0(this, nullptr, CVector(0.7f, 3.5f, -0.2f), 0.5f)
 	, mColSphereSword1(this, nullptr, CVector(0.5f, 2.5f, -0.2f), 0.5f)
 	, mColSphereSword2(this, nullptr, CVector(0.3f, 1.5f, -0.2f), 0.5f)
-
 {
 
+}
+
+void CXEnemy::Update()
+{
+	mPosition.Y(mPosition.Y() - 0.1f);
+	CXCharacter::Update();
+	mColBody.Update();
 }
 
 

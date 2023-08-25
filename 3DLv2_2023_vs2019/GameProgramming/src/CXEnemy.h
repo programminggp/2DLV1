@@ -11,6 +11,7 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 	CXEnemy();
 	void Init(CModelX* model);
+	void Update();
 private:
 	//ƒRƒ‰ƒCƒ_‚ÌéŒ¾
 	CColliderCapsule mColBody;	//‘Ì

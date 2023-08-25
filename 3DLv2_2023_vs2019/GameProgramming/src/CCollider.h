@@ -10,6 +10,8 @@ class CCollisionManager;
 class CCollider : public CTransform,public CTask {
 	friend CCollisionManager;
 public:
+	//
+	static bool CollisionCapsuleTriangle(CCollider* capsule, CCollider* triangle, CVector* adjust);
 	CVector* V()
 	{
 		return mV;
@@ -71,7 +73,7 @@ protected:
 	ETag mTag;//タグ
 	EType mType;//コライダタイプ
 	//頂点
-	CVector mV[3];
+	CVector mV[4];
 
 	CCharacter3* mpParent;//親
 	CMatrix* mpMatrix;//親行列

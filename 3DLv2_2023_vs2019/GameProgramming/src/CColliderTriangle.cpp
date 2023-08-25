@@ -4,8 +4,9 @@
 void CColliderTriangle::ChangePriority()
 {
 	//mV[0]とmV[1]とmV[2]の中心を求める
-	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix
-		+ mV[2] * *mpMatrix) * (1.0f / 3.0f);
+//	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix
+//		+ mV[2] * *mpMatrix) * (1.0f / 3.0f);
+	CVector pos = (mV[0] + mV[1] + mV[2]) * (1.0f / 3.0f);
 	//ベクトルの長さが優先度
 	CCollider::ChangePriority(pos.Length());
 }
@@ -23,9 +24,9 @@ void CColliderTriangle::Set(CCharacter3* parent, CMatrix* matrix
 	if (matrix)
 		mpMatrix = matrix;//親行列あれば設定
 	//三角形頂点設定
-	mV[0] = v0;
-	mV[1] = v1;
-	mV[2] = v2;
+	mV0 = mV[0] = v0;
+	mV1 = mV[1] = v1;
+	mV2 = mV[2] = v2;
 }
 
 void CColliderTriangle::Render()
@@ -59,4 +60,13 @@ void CColliderTriangle::Render()
 	glDisable(GL_ALPHA);
 	//行列復帰
 	glPopMatrix();
+}
+
+void CColliderTriangle::Update()
+{
+	mV[0] = mV0 * *mpMatrix;
+	mV[1] = mV1 * *mpMatrix;
+	mV[2] = mV2 * *mpMatrix;
+	mV[3] = (mV[1] - mV[0]).Cross(mV[2] - mV[0]).Normalize();
+	ChangePriority();
 }

@@ -66,7 +66,9 @@ void CApplication::Start()
 	//29
 	mActionCamera.Set(5.0f, -15.0f, 180.0f);
 
-	//mBackGround.Load("res\\sky.obj", "res\\sky.mtl");
+	mBackGround.Load("res\\sky.obj", "res\\sky.mtl");
+
+	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
 
 	mKnight.Load("res\\knight\\knight_low.x");
 	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:ˆÚ“®
@@ -158,7 +160,7 @@ void CApplication::Update()
 	glMultMatrixf(mMatrix.M());
 	*/
 
-	//mBackGround.Render(mMatrix);
+	mBackGround.Render(mMatrix);
 	//ƒ‚ƒfƒ‹•`‰æ
 //	mModelX.Render();
 

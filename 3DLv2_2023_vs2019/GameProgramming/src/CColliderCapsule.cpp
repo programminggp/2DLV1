@@ -96,3 +96,10 @@ void CColliderCapsule::Render()
 	//s—ñ•œ‹A
 	glPopMatrix();
 }
+
+void CColliderCapsule::Update()
+{
+	mV[0] = mSp * *mpMatrix;
+	mV[1] = mEp * *mpMatrix;
+	mV[2] = mV[1] - mV[0];
+}
