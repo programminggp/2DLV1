@@ -247,7 +247,7 @@ bool CCollider::CollisionCapsuleTriangle(CCollider* capsule, CCollider* triangle
 	return false;
 }
 
-float calcPointLineDist(const CVector& p, const CVector& lines, const CVector& linee,  CVector* mp, float* t)
+float CalcPointLineDist(const CVector& p, const CVector& lines, const CVector& linee,  CVector* mp, float* t)
 {
 	*t = 0.0f;
 	CVector v = linee - lines;
@@ -275,7 +275,7 @@ float calcLineLineDist(const CVector& s1, const CVector& e1, const CVector& s2, 
 		//ü•ª1‚Ìn“_‚©‚ç’¼ü2‚Ü‚Å‚ÌÅ’Z‹——£–â‘è‚É‹A’…‚·‚é
 		*t1 = 0.0f;
 		*mp1 = s1;
-		float dist = calcPointLineDist(*mp1, s2, e2, mp2, t2);
+		float dist = CalcPointLineDist(*mp1, s2, e2, mp2, t2);
 		return dist;
 	}
 	//2’¼ü‚ª•½s‚Å‚È‚¢
@@ -336,7 +336,7 @@ void clamp0to1(float& v) {
 }
 
 //2ü•ªŠÔ‚ÌÅ’Z‹——£
-float calcSegmentSegmentDist
+float CalcSegmentSegmentDist
 (
 //	CCollider& s1,//ü•ª1
 //	CCollider& s2,//ü•ª2
@@ -399,7 +399,7 @@ float calcSegmentSegmentDist
 	//mp1,t1‚ğ‹‚ß’¼‚· Ë t2‚ğ0`1‚ÉƒNƒ‰ƒ“ƒv‚µ‚Ämp2‚©‚çs1.v‚É‚ü‚ğ~‚ë‚µ‚Ä‚İ‚é
 	clamp0to1(t2);
 	*mp2 = s2 + (e2 - s2) * t2;
-	dist = calcPointLineDist(*mp2, s1, e1, mp1, &t1);
+	dist = CalcPointLineDist(*mp2, s1, e1, mp1, &t1);
 	if (0.0f <= t1 && t1 <= 1.0f) {
 		//mp1‚ªü•ª“à‚É‚ ‚Á‚½
 		return dist;
@@ -410,7 +410,7 @@ float calcSegmentSegmentDist
 	//mp2,t2‚ğ‹‚ß’¼‚· Ë t1‚ğ0`1‚ÉƒNƒ‰ƒ“ƒv‚µ‚Ämp1‚©‚çs2.v‚É‚ü‚ğ~‚ë‚µ‚Ä‚İ‚é
 	clamp0to1(t1);
 	*mp1 = s1 + (e1 - s1) * t1;
-	dist = calcPointLineDist(*mp1, s2, e2, mp2, &t2);
+	dist = CalcPointLineDist(*mp1, s2, e2, mp2, &t2);
 	if (0.0f <= t2 && t2 <= 1.0f) {
 		//mp2‚ªü•ª“à‚É‚ ‚Á‚½
 		return dist;
@@ -446,7 +446,7 @@ bool CCollider::CollisionCapsuleCapsule(CCollider* m, CCollider* o, CVector* adj
 	CVector mp1, mp2;
 	float t1, t2, radius = m->mRadius + o->mRadius;
 
-	if (calcSegmentSegmentDist(m->V(0), m->V(1), o->V(0), o->V(1), &mp1, &mp2) < radius)
+	if (CalcSegmentSegmentDist(m->V(0), m->V(1), o->V(0), o->V(1), &mp1, &mp2) < radius)
 	{
 		*adjust = mp1 - mp2;
 		float len = radius - adjust->Length();
