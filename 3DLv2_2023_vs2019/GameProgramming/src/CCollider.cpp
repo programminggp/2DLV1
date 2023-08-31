@@ -246,32 +246,44 @@ bool CCollider::CollisionCapsuleTriangle(CCollider* capsule, CCollider* triangle
 	}
 	return false;
 }
-
-float CalcPointLineDist(const CVector& p, const CVector& lines, const CVector& linee,  CVector* mp, float* t)
+//CalcCalcPointLineDist(点, 始点, 終点, 線上の最短点, 割合)
+//点と線（始点、終点）の最短距離を求める
+float CalcPointLineDist(const CVector& p, const CVector& s, const CVector& e, CVector* mp, float* t)
 {
-	*t = 0.0f;
-	CVector v = linee - lines;
-	float dvv = v.Dot(v);
+	*t = 0.0f; //割合の初期化
+	CVector v = e - s; //始点から終点へのベクトルを求める
+	float dvv = v.Dot(v); //ベクトルの長さの2乗を求める
 	if (dvv > 0.0f) {
-		*t = v.Dot(p - lines) / dvv;
+		*t = v.Dot(p - s) / dvv; //線上の垂線となる点の割合を求める
 		// 上の式の説明
 		// dot(v, p-sp) は |v||p-sp|cosΘ
 		// dvvは|v|の２乗
 		// 上の計算で、tは |p-sp|cosΘ / |v|となる。
 		// つまりtは「dotで投影した長さ÷vの長さ」という割合になる
 	}
-	*mp = lines + v * *t;
-	return (p - *mp).Length();
+	*mp = s + v * *t; //線上の垂線となる点を求める
+	return (p - *mp).Length(); //垂線の長さを返す
 }
 
 //float calcLineLineDist(CCollider* m, CCollider* o, CVector* mp1, CVector* mp2, float* t1, float* t2)
-float calcLineLineDist(const CVector& s1, const CVector& e1, const CVector& s2, const CVector& e2, CVector* mp1, CVector* mp2, float* t1, float* t2)
+//CalcLineLineDist(始点1, 終点1, 始点2, 終点2, 交点1, 交点2, 比率1, 比率2)
+//2線間の最短距離を返す
+float CalcLineLineDist(
+	const CVector& s1, //始点1
+	const CVector& e1, //終点1
+	const CVector& s2, //始点2
+	const CVector& e2, //終点2
+	CVector* mp1, //交点1
+	CVector* mp2, //交点2
+	float* t1, //比率1
+	float* t2  //比率2
+)
 {
-	CVector mv = e1 - s1;
-	CVector ov = e2 - s2;
+	CVector v1 = e1 - s1;
+	CVector v2 = e2 - s2;
 
 	//2直線が平行
-	if (mv.Cross(ov).Length() < 0.000001f) {
+	if (v1.Cross(v2).Length() < 0.000001f) {
 		//線分1の始点から直線2までの最短距離問題に帰着する
 		*t1 = 0.0f;
 		*mp1 = s1;
@@ -317,15 +329,20 @@ t1 = dot(s2.v,s2.v)*dot(s1.v, s1.sp-s2.sp)  - dot(s1.v,s2.v) * dot(s2.v, s1.sp -
 t1 = -dot(s2.v,s2.v)*dot(s1.v, s1.sp-s2.sp)  + dot(s1.v,s2.v) * dot(s2.v, s1.sp - s2.sp) / dot(s2.v,s2.v)*dot(s1.v,s1.v) - dot(s1.v,s2.v) * dot(s2.v,s1.v)
 t1 = dot(s1.v,s2.v) * dot(s2.v, s1.sp - s2.sp) -　dot(s2.v,s2.v) * dot(s1.v, s1.sp-s2.sp)  / dot(s1.v,s1.v) * dot(s2.v,s2.v) - dot(s1.v,s2.v) * dot(s1.v,s2.v)
 */
-	float dv1v2 = mv.Dot(ov);
-	float dv1v1 = mv.Dot(mv);//dot(s1.v,s1.v)と同じ
-	float dv2v2 = ov.Dot(ov);//dot(s2.v,s2.v)と同じ
-	CVector vp2p1 = s1 - s2;
-	*t1 = (dv1v2 * ov.Dot(vp2p1) - dv2v2 * mv.Dot(vp2p1))
+	float dv1v2 = v1.Dot(v2);
+	float dv1v1 = v1.Dot(v1);
+	float dv2v2 = v2.Dot(v2);
+	CVector vs2s1 = s1 - s2;
+	//比率1を求める
+	*t1 = (dv1v2 * v2.Dot(vs2s1) - dv2v2 * v1.Dot(vs2s1))
 		/ (dv1v1 * dv2v2 - dv1v2 * dv1v2);
-	*mp1 = s1 + mv * *t1;
-	*t2 = ov.Dot(*mp1 - s2) / dv2v2;
-	*mp2 = s2 + ov * *t2;
+	//交点1を求める
+	*mp1 = s1 + v1 * *t1;
+	//比率2を求める
+	*t2 = v2.Dot(*mp1 - s2) / dv2v2;
+	//交点2を求める
+	*mp2 = s2 + v2 * *t2;
+	//最短距離を返す
 	return (*mp2 - *mp1).Length();
 }
 
@@ -387,7 +404,7 @@ float CalcSegmentSegmentDist
 
 	//----------------------------------------------------------------
 	//とりあえず2直線間の最短距離,mp1,mp2,t1,t2を求めてみる
-	dist = calcLineLineDist(s1, e1, s2, e2, mp1, mp2, &t1, &t2);
+	dist = CalcLineLineDist(s1, e1, s2, e2, mp1, mp2, &t1, &t2);
 	if (0.0f <= t1 && t1 <= 1.0f &&
 		0.0f <= t2 && t2 <= 1.0f) {
 		//mp1,mp2が両方とも線分内にあった
