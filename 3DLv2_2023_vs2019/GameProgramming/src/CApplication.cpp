@@ -87,6 +87,7 @@ void CApplication::Start()
 	mModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
 	mXPlayer.Init(&mModelX);
+	mXPlayer.Position(CVector(1, 1, 1));
 
 	mFont.Load("FontG.png", 1, 4096 / 64);
 	//敵の初期設定
