@@ -59,7 +59,7 @@ CXEnemy::CXEnemy()
 
 void CXEnemy::Update()
 {
-	mPosition.Y(mPosition.Y() - 0.1f);
+//	mPosition.Y(mPosition.Y() - 0.1f);
 	CXCharacter::Update();
 	mColBody.Update();
 }

@@ -3,8 +3,8 @@
 
 CXPlayer::CXPlayer()
 	:
-	mColSphereBody(this, nullptr, CVector(0.0f,25.0f, 0.0f), CVector(0.0f, 150.0f, 0.0f), 0.5f)
-//	mColSphereBody(this, nullptr, CVector(), 0.5f)
+	mColBody(this, nullptr, CVector(0.0f,25.0f, 0.0f), CVector(0.0f, 150.0f, 0.0f), 0.5f)
+	, mColSphereBody(this, nullptr, CVector(), 0.5f)
 	, mColSphereHead(this, nullptr,
 		CVector(0.0f, 5.0f, -3.0f), 0.5f)
 	, mColSphereSword(this, nullptr,
@@ -18,15 +18,15 @@ void CXPlayer::Init(CModelX* model)
 {
 	CXCharacter::Init(model);
 	//‡¬s—ñ‚ÌÝ’è
-	mColSphereBody.Matrix(&mpCombinedMatrix[1]);
-//	mColSphereBody.Matrix(&mpCombinedMatrix[9]);
+	mColBody.Matrix(&mpCombinedMatrix[1]);
+	mColSphereBody.Matrix(&mpCombinedMatrix[9]);
 	mColSphereHead.Matrix(&mpCombinedMatrix[12]);
 	mColSphereSword.Matrix(&mpCombinedMatrix[22]);
 }
 
 void CXPlayer::Update()
 {
-	mPosition.Y(mPosition.Y() - 0.1f);
+//	mPosition.Y(mPosition.Y() - 0.1f);
 
 	//ƒJƒƒ‰‚Ì‘O•û
 	CVector cameraZ = CActionCamera::Instance()->VectorZ();
@@ -107,7 +107,7 @@ void CXPlayer::Update()
 
 	}
 	CXCharacter::Update();
-	mColSphereBody.Update();
+	mColBody.Update();
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)

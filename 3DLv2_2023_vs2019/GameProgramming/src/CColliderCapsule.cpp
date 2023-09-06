@@ -7,12 +7,29 @@ CColliderCapsule::CColliderCapsule(CCharacter3* parent, CMatrix* matrix, const C
 
 void CColliderCapsule::Set(CCharacter3* parent, CMatrix* matrix, const CVector& v0, const CVector& v1, float radius)
 {
-	CColliderLine::Set(parent, matrix, v0, v1);
-	mRadius = radius;
+//	CColliderLine::Set(parent, matrix, v0, v1);
 	mType = ECAPSULE;
-	mV[2] = v1 - v0;
+	mpParent = parent;
+	mpMatrix = matrix;
 	mSp = v0;
 	mEp = v1;
+	mRadius = radius;
+}
+
+void CColliderCapsule::Update()
+{
+	//ワールド座標に更新し、線の向きを求める
+	mV[0] = mSp * *mpMatrix;
+	mV[1] = mEp * *mpMatrix;
+	mV[2] = mV[1] - mV[0];
+}
+
+void CColliderCapsule::ChangePriority()
+{
+	//mV[0]とmV[1]の中心を求める
+	CVector pos = (mV[0] + mV[1]) * (0.5f);
+	//ベクトルの長さが優先度
+	CCollider::ChangePriority(pos.Length());
 }
 
 void CColliderCapsule::Render()
@@ -31,15 +48,10 @@ void CColliderCapsule::Render()
 	//行列退避
 	glPushMatrix();
 
-//	CVector v0 = mV[0] * *mpMatrix;
-//	CVector v1 = mV[1] * *mpMatrix;
-	CVector v0 = mSp * *mpMatrix;
-	CVector v1 = mEp * *mpMatrix;
-
 	//行列退避
 	glPushMatrix();
 	CVector center;
-	center = v0;// -(v1 - v0).Normalize() * mRadius;
+	center = mV[0];// -(v1 - v0).Normalize() * mRadius;
 	glTranslatef(center.X(), center.Y(), center.Z());
 	//球描画
 	glutWireSphere(mRadius, 16, 16);
@@ -47,15 +59,15 @@ void CColliderCapsule::Render()
 
 	//行列退避
 	glPushMatrix();
-	center = v1;// +(v1 - v0).Normalize() * mRadius;
+	center = mV[1];// +(v1 - v0).Normalize() * mRadius;
 	glTranslatef(center.X(), center.Y(), center.Z());
 	//球描画
 	glutWireSphere(mRadius, 16, 16);
 	glPopMatrix();
 
 	//円柱描画
-	CVector line = (v1 - v0);
-	center = v0 + line * 0.5f;
+	CVector line = (mV[1] - mV[0]);
+	center = mV[0] + line * 0.5f;
 	CVector lineXZ = line;
 	lineXZ.Y(0.0f);
 	if (lineXZ.Length() > 0.0)
@@ -63,7 +75,7 @@ void CColliderCapsule::Render()
 		lineXZ = lineXZ.Normalize();
 	}
 	line = line.Normalize();
-	float lineLength = (v1 - v0).Length();// -mRadius * 2;
+	float lineLength = (mV[1] - mV[0]).Length();// -mRadius * 2;
 	glTranslatef(center.X(), center.Y(), center.Z());
 
 	//rotate Y-axis
@@ -97,9 +109,4 @@ void CColliderCapsule::Render()
 	glPopMatrix();
 }
 
-void CColliderCapsule::Update()
-{
-	mV[0] = mSp * *mpMatrix;
-	mV[1] = mEp * *mpMatrix;
-	mV[2] = mV[1] - mV[0];
-}
+

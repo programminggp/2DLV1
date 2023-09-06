@@ -461,8 +461,9 @@ bool CCollider::CollisionCapsuleCapsule(CCollider* m, CCollider* o, CVector* adj
 	//o->mV[2] = o->mV[1] - o->mV[0];
 
 	CVector mp1, mp2;
-	float t1, t2, radius = m->mRadius + o->mRadius;
+	float radius = m->mRadius + o->mRadius;
 
+	*adjust = CVector();
 	if (CalcSegmentSegmentDist(m->V(0), m->V(1), o->V(0), o->V(1), &mp1, &mp2) < radius)
 	{
 		*adjust = mp1 - mp2;
@@ -470,13 +471,7 @@ bool CCollider::CollisionCapsuleCapsule(CCollider* m, CCollider* o, CVector* adj
 		*adjust = adjust->Normalize() * len;
 		return true;
 	}
-	else
-	{
-		*adjust = CVector();
-	}
-
 	return false;
-
 }
 
 

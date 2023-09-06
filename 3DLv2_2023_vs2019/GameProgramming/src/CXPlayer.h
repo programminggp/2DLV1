@@ -14,8 +14,8 @@ public:
 	void Collision(CCollider* m, CCollider* o);
 private:
 	//ƒRƒ‰ƒCƒ_‚ÌéŒ¾
-//	CCollider mColSphereBody;	//‘Ì
-	CColliderCapsule mColSphereBody;	//‘Ì
+	CCollider mColSphereBody;	//‘Ì
+	CColliderCapsule mColBody;	//‘Ì
 	CCollider mColSphereHead;	//“ª
 	CCollider mColSphereSword;	//Œ•
 	CInput mInput;
