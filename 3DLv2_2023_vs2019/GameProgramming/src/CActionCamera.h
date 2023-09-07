@@ -9,6 +9,7 @@
 */
 class CActionCamera : public CTransform {
 public:
+	bool WorldToScreen(CVector* screen, const CVector& world);
 	CActionCamera();
 	//インスタンスの取得
 	static CActionCamera* Instance();
@@ -23,6 +24,9 @@ public:
 	//カメラ適用
 	void Render();
 private:
+	int mScreenWidth; //幅
+	int mScreenHeight; //高さ
+	CMatrix mProjection; //プロジェクション行列
 	//インスタンス
 	static CActionCamera* spInstance;
 	//視点
