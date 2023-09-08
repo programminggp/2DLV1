@@ -14,7 +14,7 @@ class CSceneTest : public CScene {
 public:
 	static CText* Text();
 	CSceneTest()
-		: mActionCamera(1.5f,-5.0f,180.0f)
+		: mActionCamera(1.95f,-5.0f,180.0f)
 	{}
 	//初期化処理のオーバーライド
 	void Init();
@@ -24,7 +24,8 @@ private:
 	static CText sText;
 	CColliderMesh mColliderMesh;
 	CPaladin* mpPlayer;
-	CActionCamera2 mActionCamera;
+//	CActionCamera2 mActionCamera;
+	CActionCamera mActionCamera;
 	CModel mGround;
 	CVector mScale;
 	bool mPushFlg;
