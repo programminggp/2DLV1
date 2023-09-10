@@ -1,9 +1,9 @@
 #ifndef CCOLLIDERCUPSULE_H
 #define CCOLLIDERCUPSULE_H
 
-#include "CColliderLine.h"
-
-class CColliderCapsule : public CColliderLine
+#include "CCollider.h"
+//カプセルコライダクラス
+class CColliderCapsule : public CCollider
 {
 public:
 	//コンストラクタ（カプセルコライダ）
@@ -12,13 +12,12 @@ public:
 	//カプセルコライダの設定
 	//Set(親, 親行列, 頂点1, 頂点2, 直径)
 	void Set(CCharacter3* parent, CMatrix* matrix, const CVector& v0, const CVector& v1, float radius);
-	void Render();
-	CVector& Sp() { return mSp; }
-	CVector& Ep() { return mEp; }
-	void Update();
+	void Render(); //コライダの描画
+	void Update(); //座標の更新
+	void ChangePriority(); //優先順位の更新
 private:
-	CVector mSp;
-	CVector mEp;
+	CVector mSp; //始点
+	CVector mEp; //終点
 };
 
 

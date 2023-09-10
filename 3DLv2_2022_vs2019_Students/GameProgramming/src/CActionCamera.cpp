@@ -85,13 +85,14 @@ bool CActionCamera::WorldToScreen(CVector* screen, const CVector& world)
 {
 	//座標変換
 	CVector modelview_pos = world * mModelView;
-	CVector	screen_pos = modelview_pos * mProjection;
 
 	//画面外なのでリターン
 	if (modelview_pos.Z() >= 0.0f) {
 		return false;
 	}
+
 	//座標調整
+	CVector	screen_pos = modelview_pos * mProjection;
 	screen_pos = screen_pos * (1.0f / -modelview_pos.Z());
 
 	//スクリーン変換

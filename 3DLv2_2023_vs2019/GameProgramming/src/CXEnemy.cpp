@@ -23,7 +23,16 @@ void CXEnemy::Collision(CCollider* m, CCollider* o)
 		}
 		break;
 	case CCollider::ECAPSULE:
-		if (o->Type() == CCollider::ETRIANGLE)
+		if (o->Type() == CCollider::ECAPSULE)
+		{
+			CVector adjust;
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+			{
+				mPosition = mPosition + adjust;
+				CTransform::Update();
+			}
+		}
+		else if (o->Type() == CCollider::ETRIANGLE)
 		{
 			CVector adjust;
 			if (CCollider::CollisionCapsuleTriangle(m, o, &adjust))
@@ -50,7 +59,7 @@ CXEnemy::CXEnemy()
 
 void CXEnemy::Update()
 {
-	mPosition.Y(mPosition.Y() - 0.1f);
+//	mPosition.Y(mPosition.Y() - 0.1f);
 	CXCharacter::Update();
 	mColBody.Update();
 }
