@@ -1,4 +1,3 @@
-#pragma once
 #include "CApplication.h"
 
 void CApplication::Start()
