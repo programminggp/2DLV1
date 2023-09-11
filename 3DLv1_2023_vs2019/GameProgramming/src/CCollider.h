@@ -15,7 +15,7 @@ public:
 	//優先度の変更
 	void ChangePriority(int priority);
 	//コライダタイプ
-	enum EType {
+	enum class EType {
 		ESPHERE,//球コライダ
 		ETRIANGLE,//三角コライダ
 		ELINE, //線分コライダ

@@ -18,7 +18,7 @@ CColliderTriangle::CColliderTriangle(CCharacter3* parent, CMatrix* matrix
 
 void CColliderTriangle::Set(CCharacter3* parent, CMatrix* matrix
 	, const CVector& v0, const CVector& v1, const CVector& v2) {
-	mType = ETRIANGLE;//三角コライダ
+	mType = EType::ETRIANGLE;//三角コライダ
 	mpParent = parent;//親設定
 	if (matrix)
 		mpMatrix = matrix;//親行列あれば設定

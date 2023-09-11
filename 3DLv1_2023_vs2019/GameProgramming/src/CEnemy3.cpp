@@ -140,7 +140,7 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 	//相手のコライダタイプの判定
 	switch (o->Type())
 	{
-	case CCollider::ESPHERE: //球コライダの時
+	case CCollider::EType::ESPHERE: //球コライダの時
 		//コライダのmとoが衝突しているか判定
 		if (CCollider::Collision(m, o)) {
 			//エフェクト生成
@@ -150,7 +150,7 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 			mHp--;	//ヒットポイントの減算
 		}
 		break;
-	case CCollider::ETRIANGLE: //三角コライダの時
+	case CCollider::EType::ETRIANGLE: //三角コライダの時
 		CVector ad;
 		//コライダのmとoが衝突しているか判定
 		if (CCollider::CollisionTriangleSphere(o, m, &ad)) {

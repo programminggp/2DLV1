@@ -29,7 +29,7 @@ bool CCollider::CollisionTriangleSphere(CCollider* t, CCollider* s, CVector* a)
 CCollider::CCollider()
 	: mpParent(nullptr)
 	, mpMatrix(&mMatrix)
-	, mType(ESPHERE)
+	, mType(EType::ESPHERE)
 	, mRadius(0)
 {
 	//コリジョンマネージャに追加
