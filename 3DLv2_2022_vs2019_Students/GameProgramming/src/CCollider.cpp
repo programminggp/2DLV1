@@ -135,11 +135,13 @@ bool CCollider::CollisionTriangleLine(CCollider *t, CCollider *l, CVector *a) {
 	//調整値計算（衝突しない位置まで戻す）
 	if (dots < 0.0f) {
 		//始点が裏面
-		*a = normal * -dots;
+		*a = normal * -dots; //斜面を滑る
+		*a = cross - sv; //斜面を滑らない
 	}
 	else {
 		//終点が裏面
-		*a = normal * -dote;
+		*a = normal * -dote; //斜面を滑る
+		*a = cross - ev; //斜面を滑らない
 	}
 	return true;
 }
