@@ -209,6 +209,7 @@ public:
 	const CMatrix& CombinedMatrix();	//合成行列
 	//合成行列の作成
 	void AnimateCombined(CMatrix* parent);
+	void AnimateCombined(const CMatrix& parent);
 	void Render();
 	//コンストラクタ
 	CModelXFrame(CModelX* model);

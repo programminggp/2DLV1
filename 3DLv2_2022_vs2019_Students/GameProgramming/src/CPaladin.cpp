@@ -103,12 +103,34 @@ void CPaladin::Collision(CCollider* m, CCollider* o)
 		if (CCollider::CollisionCapsule(m, o, &adjust))
 		{
 			mPosition = mPosition + adjust;
+			CTransform::Update();
+			//フレームの変換行列をアニメーションで更新する
+			mpModel->AnimateFrame();
+			//フレームの合成行列を計算する
+			mpModel->Frames()[0]->AnimateCombined(Matrix());
+			// 合成行列の退避
+			for (size_t i = 0; i < mpModel->Frames().size(); i++) {
+				mpCombinedMatrix[i] =
+					mpModel->Frames()[i]->CombinedMatrix();
+			}
+
 		}
 		break;
 	case CCollider::ETRIANGLE:
 		if (CCollider::CollisionTriangleLine(o, m,&adjust))
 		{
 			mPosition = mPosition + adjust;
+			CTransform::Update();
+			//フレームの変換行列をアニメーションで更新する
+			mpModel->AnimateFrame();
+			//フレームの合成行列を計算する
+			mpModel->Frames()[0]->AnimateCombined(Matrix());
+			// 合成行列の退避
+			for (size_t i = 0; i < mpModel->Frames().size(); i++) {
+				mpCombinedMatrix[i] =
+					mpModel->Frames()[i]->CombinedMatrix();
+			}
+
 		}
 		break;
 	}

@@ -796,9 +796,17 @@ void CModelXFrame::AnimateCombined(CMatrix* parent) {
 		mChild[i]->AnimateCombined(&mCombinedMatrix);
 	}
 #ifdef _DEBUG
-//	printf("Frame:%s\n", mpName);
-//	mCombinedMatrix.Print();
+	//	printf("Frame:%s\n", mpName);
+	//	mCombinedMatrix.Print();
 #endif
+}
+void CModelXFrame::AnimateCombined(const CMatrix& parent) {
+	//自分の変換行列に、親からの変換行列を掛ける
+	mCombinedMatrix = mTransformMatrix * (parent);
+	//子フレームの合成行列を作成する
+	for (size_t i = 0; i < mChild.size(); i++) {
+		mChild[i]->AnimateCombined(&mCombinedMatrix);
+	}
 }
 
 /*
