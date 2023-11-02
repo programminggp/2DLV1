@@ -114,7 +114,7 @@ void CEnemy3::Update()
 		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f); //下へ回転
 	}
 	//機体前方へ移動する
-//	mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
+	mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 	CTransform::Update();	//行列更新
 
 	//およそ3秒毎に目標地点を更新

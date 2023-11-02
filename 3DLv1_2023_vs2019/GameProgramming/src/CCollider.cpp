@@ -11,16 +11,16 @@ void CCollider::ChangePriority(int priority)
 
 bool CCollider::CollisionTriangleSphere(CCollider* t, CCollider* s, CVector* a)
 {
-	CVector v[3], sv, ev;
-	//各コライダの頂点をワールド座標へ変換
-	v[0] = t->mV[0] * *t->mpMatrix;
-	v[1] = t->mV[1] * *t->mpMatrix;
-	v[2] = t->mV[2] * *t->mpMatrix;
-	//面の法線を、外積を正規化して求める
-	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	/*CVector v[3], sv, ev;*/
+	////各コライダの頂点をワールド座標へ変換
+	//v[0] = t->mV[0];
+	//v[1] = t->mV[1];
+	//v[2] = t->mV[2];
+	////面の法線を、外積を正規化して求める
+	//CVector normal = t->mV[3];
 	//線コライダをワールド座標で作成
-	sv = s->mPosition * *s->mpMatrix + normal * s->mRadius;
-	ev = s->mPosition * *s->mpMatrix - normal * s->mRadius;
+	CVector sv = s->mV[0] + t->mV[3] * s->mRadius;
+	CVector ev = s->mV[0] - t->mV[3] * s->mRadius;
 	CColliderLine line(nullptr, nullptr, sv, ev);
 	//三角コライダと線コライダの衝突処理
 	return CollisionTriangleLine(t, &line, a);
@@ -72,8 +72,6 @@ CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
 	mPosition = position; //位置
 	//半径設定
 	mRadius = radius;
-	//コリジョンマネージャyに追加
-	//CApplication::CollisionManager()->Add(this);
 }
 
 CCharacter3* CCollider::Parent()
@@ -82,10 +80,7 @@ CCharacter3* CCollider::Parent()
 }
 
 void CCollider::Render() {
-	glPushMatrix();
-	//コライダの中心座標を計算
-	//自分の座標×親の変換行列を掛ける
-//	CVector pos = mPosition * *mpMatrix;
+	glPushMatrix(); //行列退避
 	//中心座標へ移動
 	glMultMatrixf(CMatrix().Translate(mV[0].X(), mV[0].Y(), mV[0].Z()).M());
 	//DIFFUSE赤色設定
@@ -93,7 +88,7 @@ void CCollider::Render() {
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
 	//球描画
 	glutWireSphere(mRadius, 16, 16);
-	glPopMatrix();
+	glPopMatrix(); //行列復帰
 }
 
 void CCollider::Update()
@@ -110,13 +105,13 @@ CCollider::EType CCollider::Type()
 bool CCollider::CollisionTriangleLine(CCollider* t, CCollider* l, CVector* a) {
 	CVector v[3], sv, ev;
 	//各コライダの頂点をワールド座標へ変換
-	v[0] = t->mV[0] * *t->mpMatrix;
-	v[1] = t->mV[1] * *t->mpMatrix;
-	v[2] = t->mV[2] * *t->mpMatrix;
-	sv = l->mV[0] * *l->mpMatrix;
-	ev = l->mV[1] * *l->mpMatrix;
+	v[0] = t->mV[0];
+	v[1] = t->mV[1];
+	v[2] = t->mV[2];
+	sv = l->mV[0];
+	ev = l->mV[1];
 	//面の法線を、外積を正規化して求める
-	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	CVector normal = t->mV[3];
 	//三角の頂点から線分始点へのベクトルを求める
 	CVector v0sv = sv - v[0];
 	//三角の頂点から線分終点へのベクトルを求める
@@ -175,11 +170,6 @@ bool CCollider::CollisionTriangleLine(CCollider* t, CCollider* l, CVector* a) {
 //優先度の変更
 void CCollider::ChangePriority()
 {
-	//自分の座標×親の変換行列を掛けてワールド座標を求める
-//	CVector pos = mPosition * *mpMatrix;
 	//ベクトルの長さが優先度
 	ChangePriority(mV[0].Length());
-	//mPriority = pos.Length();
-	//CApplication::CollisionManager()->Remove(this); //一旦削除
-	//CApplication::CollisionManager()->Add(this); //追加
 }

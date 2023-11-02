@@ -68,6 +68,10 @@ void CPlayer::Update() {
 	CApplication::Ui()->PosY(mPosition.Y());
 	CApplication::Ui()->RotX(mRotation.X());
 	CApplication::Ui()->RotY(mRotation.Y());
+
+	mLine.Update();
+	mLine2.Update();
+	mLine3.Update();
 }
 
 CPlayer* CPlayer::Instance()
@@ -77,10 +81,6 @@ CPlayer* CPlayer::Instance()
 
 void CPlayer::Collision()
 {
-	//コライダの優先度変更
-	mLine.ChangePriority();
-	mLine2.ChangePriority();
-	mLine3.ChangePriority();
 	//衝突処理を実行
 	CApplication::CollisionManager()->Collision(&mLine, COLLISIONRANGE);
 	CApplication::CollisionManager()->Collision(&mLine2, COLLISIONRANGE);

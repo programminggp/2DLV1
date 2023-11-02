@@ -20,5 +20,8 @@ public:
 		, const CVector& v0, const CVector& v1, const CVector& v2);
 	//•`‰æ
 	void Render();
+	void Update();
+private:
+	CVector mV[3];
 };
 #endif

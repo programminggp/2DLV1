@@ -57,11 +57,11 @@ CEnemy::CEnemy(CModel* model, const CVector& position,
 
 //更新処理
 void CEnemy::Update() {
-	//行列を更新
-	CTransform::Update();
 	//位置を移動
 	mPosition = mPosition + VELOCITY * mMatrixRotate;
-	//
+	//行列を更新
+	CTransform::Update();
+	//コライダを更新
 	mCollider1.Update();
 	mCollider2.Update();
 	mCollider3.Update();

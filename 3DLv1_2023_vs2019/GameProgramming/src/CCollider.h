@@ -10,18 +10,19 @@ class CTaskManager;
 class CCollider : public CTransform,public CTask {
 	friend CTaskManager;
 public:
-	//優先度の変更
+	//優先度の取得
 	virtual void ChangePriority();
 	//優先度の変更
 	void ChangePriority(int priority);
+
 	//コライダタイプ
 	enum class EType {
 		ESPHERE,//球コライダ
 		ETRIANGLE,//三角コライダ
 		ELINE, //線分コライダ
 	};
-
 	EType Type();
+
 	//CollisionTriangleLine(三角コライダ, 線分コライダ, 調整値)
 	//retrun:true（衝突している）false(衝突していない)
 	//調整値:衝突しない位置まで戻す値
@@ -51,8 +52,7 @@ public:
 	void Update();
 protected:
 	EType mType;//コライダタイプ
-	//頂点
-	CVector mV[4];
+	CVector mV[4]; //0～2：頂点 3:法線
 
 	CCharacter3* mpParent;//親
 	CMatrix* mpMatrix;//親行列

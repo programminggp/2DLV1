@@ -3,7 +3,7 @@
 void CColliderLine::ChangePriority()
 {
 	//mV[0]とmV[1]の中心を求める
-	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix) * (0.5f);
+	CVector pos = (CCollider::mV[0] + CCollider::mV[1]) * (0.5f);
 	//ベクトルの長さが優先度
 	CCollider::ChangePriority(pos.Length());
 }
@@ -24,14 +24,15 @@ void CColliderLine::Set(CCharacter3* parent, CMatrix* matrix
 	//線分頂点設定
 	mV[0] = v0;
 	mV[1] = v1;
+	Update();
 }
 
 void CColliderLine::Render()
 {
-	//行列退避
-	glPushMatrix();
-	//行列適用
-	glMultMatrixf(mpMatrix->M());
+	////行列退避
+	//glPushMatrix();
+	////行列適用
+	//glMultMatrixf(mpMatrix->M());
 
 	//アルファブレンドを有効にする
 	glEnable(GL_BLEND);
@@ -47,14 +48,21 @@ void CColliderLine::Render()
 
 	//三角形描画
 	glBegin(GL_LINES);
-	glVertex3f(mV[0].X(), mV[0].Y(), mV[0].Z());
-	glVertex3f(mV[1].X(), mV[1].Y(), mV[1].Z());
+	glVertex3f(CCollider::mV[0].X(), CCollider::mV[0].Y(), CCollider::mV[0].Z());
+	glVertex3f(CCollider::mV[1].X(), CCollider::mV[1].Y(), CCollider::mV[1].Z());
 	glEnd();
 
 	//ライトオン
 	glEnable(GL_LIGHTING);
 	//アルファブレンド無効
 	glDisable(GL_ALPHA);
-	//行列復帰
-	glPopMatrix();
+	////行列復帰
+	//glPopMatrix();
+}
+
+void CColliderLine::Update()
+{
+	CCollider::mV[0] = mV[0] * *mpMatrix;
+	CCollider::mV[1] = mV[1] * *mpMatrix;
+	ChangePriority();
 }
