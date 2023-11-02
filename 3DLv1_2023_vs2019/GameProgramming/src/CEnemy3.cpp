@@ -83,6 +83,7 @@ void CEnemy3::Update()
 		//下降させる
 		mPosition = mPosition - CVector(0.0f, 0.03f, 0.0f);
 		CTransform::Update();
+		mCollider.Update();
 		return;
 	}
 
@@ -113,7 +114,7 @@ void CEnemy3::Update()
 		mRotation = mRotation + CVector(1.0f, 0.0f, 0.0f); //下へ回転
 	}
 	//機体前方へ移動する
-	mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
+//	mPosition = mPosition + mMatrixRotate.VectorZ() * VELOCITY;
 	CTransform::Update();	//行列更新
 
 	//およそ3秒毎に目標地点を更新
@@ -130,7 +131,7 @@ void CEnemy3::Update()
 			mPoint = mPoint * CMatrix().RotateY(45);
 		}
 	}
-
+	mCollider.Update();
 }
 
 //衝突処理
@@ -166,8 +167,6 @@ void CEnemy3::Collision(CCollider* m, CCollider* o)
 
 void CEnemy3::Collision()
 {
-	//コライダの優先度変更
-	mCollider.ChangePriority();
 	//衝突処理を実行
 	CApplication::CollisionManager()->Collision(&mCollider, COLLISIONRANGE);
 }

@@ -21,6 +21,7 @@ CTaskManager* CApplication::TaskManager()
 	return spTaskManager;
 }
 
+//コリジョンマネージャ追加
 CTaskManager* CApplication::spCollisionManager;
 CTaskManager* CApplication::CollisionManager()
 {

@@ -49,6 +49,8 @@ void CBullet::Update() {
 		//無効にする
 		mEnabled = false;
 	}
+	//コライダの更新
+	mCollider.Update();
 }
 
 //描画

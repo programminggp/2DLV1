@@ -7,10 +7,6 @@
 
 void CEnemy::Collision()
 {
-	//コライダの優先度変更
-	mCollider1.ChangePriority();
-	mCollider2.ChangePriority();
-	mCollider3.ChangePriority();
 	//衝突処理を実行
 	CApplication::CollisionManager()->Collision(&mCollider1, COLLISIONRANGE);
 	CApplication::CollisionManager()->Collision(&mCollider2, COLLISIONRANGE);
@@ -65,4 +61,8 @@ void CEnemy::Update() {
 	CTransform::Update();
 	//位置を移動
 	mPosition = mPosition + VELOCITY * mMatrixRotate;
+	//
+	mCollider1.Update();
+	mCollider2.Update();
+	mCollider3.Update();
 }
