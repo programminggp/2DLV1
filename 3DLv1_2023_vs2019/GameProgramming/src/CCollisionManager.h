@@ -17,10 +17,10 @@ public:
 	//衝突処理
 	void Collision();
 	//インスタンスの取得
-	static CCollisionManager* Instance();
+//	static CCollisionManager* Instance();
 private:
 	//マネージャのインスタンス
-	static CCollisionManager* mpInstance;
+//	static CCollisionManager* mpInstance;
 };
 
 #endif

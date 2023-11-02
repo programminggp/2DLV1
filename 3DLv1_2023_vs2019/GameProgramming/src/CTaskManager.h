@@ -2,6 +2,10 @@
 #define CTASKMANAGER_H
 //タスククラスのインクルード
 #include "CTask.h"
+#include "CCollider.h"
+
+//衝突処理範囲より離れているコライダは衝突処理しない
+#define COLLISIONRANGE 30
 
 /*
 タスクマネージャ
@@ -9,6 +13,8 @@
 */
 class CTaskManager {
 public:
+	void Collision(CCollider* c, int range);
+
 	//デフォルトコンストラクタ
 	CTaskManager();
 	void Collision();

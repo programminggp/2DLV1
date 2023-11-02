@@ -1,12 +1,12 @@
 #include "CCollider.h"
-#include "CCollisionManager.h"
 #include "CColliderLine.h"
+#include "CApplication.h"
 
 void CCollider::ChangePriority(int priority)
 {
 	mPriority = priority;
-	CCollisionManager::Instance()->Remove(this); //一旦削除
-	CCollisionManager::Instance()->Add(this); //追加
+	CApplication::CollisionManager()->Remove(this); //一旦削除
+	CApplication::CollisionManager()->Add(this); //追加
 }
 
 bool CCollider::CollisionTriangleSphere(CCollider* t, CCollider* s, CVector* a)
@@ -33,7 +33,7 @@ CCollider::CCollider()
 	, mRadius(0)
 {
 	//コリジョンマネージャに追加
-	CCollisionManager::Instance()->Add(this);
+	CApplication::CollisionManager()->Add(this);
 }
 
 //衝突判定
@@ -57,7 +57,7 @@ bool CCollider::Collision(CCollider* m, CCollider* o) {
 
 CCollider::~CCollider() {
 	//コリジョンリストから削除
-	CCollisionManager::Instance()->Remove(this);
+	CApplication::CollisionManager()->Remove(this);
 }
 
 CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
@@ -73,7 +73,7 @@ CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
 	//半径設定
 	mRadius = radius;
 	//コリジョンマネージャyに追加
-	//CCollisionManager::Instance()->Add(this);
+	//CApplication::CollisionManager()->Add(this);
 }
 
 CCharacter3* CCollider::Parent()
@@ -174,6 +174,6 @@ void CCollider::ChangePriority()
 	//ベクトルの長さが優先度
 	ChangePriority(pos.Length());
 	//mPriority = pos.Length();
-	//CCollisionManager::Instance()->Remove(this); //一旦削除
-	//CCollisionManager::Instance()->Add(this); //追加
+	//CApplication::CollisionManager()->Remove(this); //一旦削除
+	//CApplication::CollisionManager()->Add(this); //追加
 }

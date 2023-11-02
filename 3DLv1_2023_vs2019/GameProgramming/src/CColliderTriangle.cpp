@@ -1,5 +1,4 @@
 #include "CColliderTriangle.h"
-#include "CCollisionManager.h"
 
 void CColliderTriangle::ChangePriority()
 {

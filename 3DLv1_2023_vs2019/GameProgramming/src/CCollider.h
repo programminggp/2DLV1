@@ -2,13 +2,13 @@
 #define CCOLLIDER_H
 //キャラクタクラスのインクルード
 #include "CCharacter3.h"
-class CCollisionManager;
+class CTaskManager;
 /*
 コライダクラス
 衝突判定データ
 */
 class CCollider : public CTransform,public CTask {
-	friend CCollisionManager;
+	friend CTaskManager;
 public:
 	//優先度の変更
 	virtual void ChangePriority();

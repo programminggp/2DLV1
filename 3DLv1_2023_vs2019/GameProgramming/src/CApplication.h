@@ -29,6 +29,7 @@ class CApplication
 {
 private:
 	static CTaskManager* spTaskManager;
+	static CTaskManager* spCollisionManager;
 	static CUi* spUi;	//UIクラスのポインタ
 	//モデルからコライダを生成
 	CColliderMesh mColliderMesh;
@@ -74,6 +75,7 @@ private:
 //	std::vector<CCharacter*> mCharacters;
 public:
 	static CTaskManager* TaskManager();
+	static CTaskManager* CollisionManager();
 
 	~CApplication();
 	static CUi* Ui();	//UIクラスのインスタンスを取得

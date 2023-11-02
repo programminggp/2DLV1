@@ -1,7 +1,6 @@
 //プレイヤークラスのインクルード
 #include "CPlayer.h"
 #include "CApplication.h"
-#include "CCollisionManager.h"
 
 #define ROTATION_YV	CVector(0.0f, 1.0f, 0.0f) //回転速度
 #define VELOCITY CVector(0.0f, 0.0f, 0.1f) //移動速度
@@ -83,9 +82,9 @@ void CPlayer::Collision()
 	mLine2.ChangePriority();
 	mLine3.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mLine, COLLISIONRANGE);
-	CCollisionManager::Instance()->Collision(&mLine2, COLLISIONRANGE);
-	CCollisionManager::Instance()->Collision(&mLine3, COLLISIONRANGE);
+	CApplication::CollisionManager()->Collision(&mLine, COLLISIONRANGE);
+	CApplication::CollisionManager()->Collision(&mLine2, COLLISIONRANGE);
+	CApplication::CollisionManager()->Collision(&mLine3, COLLISIONRANGE);
 }
 
 void CPlayer::Collision(CCollider* m, CCollider* o) {

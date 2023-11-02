@@ -1,5 +1,5 @@
 #include "CEnemy3.h"
-#include "CCollisionManager.h"
+#include "CApplication.h"
 #include "CEffect.h"
 #include "CPlayer.h"
 
@@ -169,6 +169,6 @@ void CEnemy3::Collision()
 	//コライダの優先度変更
 	mCollider.ChangePriority();
 	//衝突処理を実行
-	CCollisionManager::Instance()->Collision(&mCollider, COLLISIONRANGE);
+	CApplication::CollisionManager()->Collision(&mCollider, COLLISIONRANGE);
 }
 

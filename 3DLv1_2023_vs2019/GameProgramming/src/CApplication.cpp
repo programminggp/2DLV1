@@ -6,8 +6,6 @@
 #include "CMatrix.h"
 #include "CTransform.h"
 
-#include "CCollisionManager.h"
-
 #include "CBillBoard.h"
 #include "CEnemy3.h"
 
@@ -23,6 +21,12 @@ CTaskManager* CApplication::TaskManager()
 	return spTaskManager;
 }
 
+CTaskManager* CApplication::spCollisionManager;
+CTaskManager* CApplication::CollisionManager()
+{
+	return spCollisionManager;
+}
+
 CUi* CApplication::spUi = nullptr;
 CApplication::~CApplication()
 {
@@ -32,6 +36,11 @@ CApplication::~CApplication()
 	{
 		delete spTaskManager;
 		spTaskManager = nullptr;
+	}
+	if (spCollisionManager)
+	{
+		delete spCollisionManager;
+		spCollisionManager = nullptr;
 	}
 }
 
@@ -86,6 +95,10 @@ void CApplication::Start()
 	{
 		spTaskManager = new CTaskManager();
 	}
+	if (spCollisionManager == nullptr)
+	{
+		spCollisionManager = new CTaskManager();
+	}
 	spUi = new CUi();	//UIクラスの生成
 	//モデルファイルの入力
 	mModel.Load(MODEL_OBJ);
@@ -137,7 +150,7 @@ void CApplication::Update()
 	//mTaskManager.Update();
 	spTaskManager->Update();
 	//コリジョンマネージャの衝突処理
-	//削除	CCollisionManager::Instance()->Collision();
+	//削除	CApplication::CollisionManager()->Collision();
 	spTaskManager->Collision();
 
 	//頂点1､頂点2､頂点3,法線データの作成
@@ -205,7 +218,7 @@ void CApplication::Update()
 	//タスクマネージャの描画
 	spTaskManager->Render();
 
-	CCollisionManager::Instance()->Render();
+	spCollisionManager->Render();
 
 	spUi->Render();	//UIの描画
 
