@@ -5,22 +5,23 @@ CCharacter3::CCharacter3()
 	:mpModel(nullptr)
 {
 	//タスクリストに追加
-//	CApplication::TaskManager()->Add(this);
-	CTaskManager::Instance()->Add(this);
+	CApplication::TaskManager()->Add(this);
+//	CTaskManager::Instance()->Add(this);
 }
 
 CCharacter3::CCharacter3(int priority)
 	:mpModel(nullptr)
 {
 	mPriority = priority;
-	CTaskManager::Instance()->Add(this);
+	CApplication::TaskManager()->Add(this);
+//	CTaskManager::Instance()->Add(this);
 }
 
 CCharacter3::~CCharacter3()
 {
 	//タスクリストから削除
-//	CApplication::TaskManager()->Remove(this);
-	CTaskManager::Instance()->Remove(this);
+	CApplication::TaskManager()->Remove(this);
+//	CTaskManager::Instance()->Remove(this);
 }
 
 void CCharacter3::Model(CModel* m)

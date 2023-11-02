@@ -16,11 +16,25 @@ CTexture CApplication::mTexture;
 CCharacterManager CApplication::mCharacterManager;
 //CCamera CApplication::mCamera;
 
+//タスクマネージャ追加
+CTaskManager* CApplication::spTaskManager = nullptr;
+CTaskManager* CApplication::TaskManager()
+{
+	return spTaskManager;
+}
+
 CUi* CApplication::spUi = nullptr;
 CApplication::~CApplication()
 {
 	delete spUi;	//インスタンスUiの削除
+	//タスクマネージャの削除
+	if (spTaskManager)
+	{
+		delete spTaskManager;
+		spTaskManager = nullptr;
+	}
 }
+
 CUi* CApplication::Ui()
 {
 	return spUi;
@@ -68,6 +82,10 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
+	if (spTaskManager == nullptr)
+	{
+		spTaskManager = new CTaskManager();
+	}
 	spUi = new CUi();	//UIクラスの生成
 	//モデルファイルの入力
 	mModel.Load(MODEL_OBJ);
@@ -77,10 +95,11 @@ void CApplication::Start()
 
 	mEye = CVector(1.0f, 2.0f, 3.0f);
 
-	mPlayer.Model(&mModel);
-	mPlayer.Scale(CVector(0.1f, 0.1f, 0.1f));
-	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f));
-	mPlayer.Rotation(CVector(0.0f, 180.0f, 0.0f));
+	mpPlayer = new CPlayer();
+	mpPlayer->Model(&mModel);
+	mpPlayer->Scale(CVector(0.1f, 0.1f, 0.1f));
+	mpPlayer->Position(CVector(0.0f, 0.0f, -3.0f));
+	mpPlayer->Rotation(CVector(0.0f, 180.0f, 0.0f));
 
 	//C5モデルの読み込み
 	mModelC5.Load(MODEL_C5);
@@ -116,10 +135,10 @@ void CApplication::Update()
 {
 	//タスクマネージャの更新
 	//mTaskManager.Update();
-	CTaskManager::Instance()->Update();
+	spTaskManager->Update();
 	//コリジョンマネージャの衝突処理
 	//削除	CCollisionManager::Instance()->Collision();
-	CTaskManager::Instance()->Collision();
+	spTaskManager->Collision();
 
 	//頂点1､頂点2､頂点3,法線データの作成
 	CVector v0, v1, v2, n;
@@ -162,11 +181,11 @@ void CApplication::Update()
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
 	//視点を求める
-	e = mPlayer.Position() + CVector(-0.2f, 1.0f, -3.0f) * mPlayer.MatrixRotate();
+	e = mpPlayer->Position() + CVector(-0.2f, 1.0f, -3.0f) * mpPlayer->MatrixRotate();
 	//注視点を求める
-	c = mPlayer.Position();
+	c = mpPlayer->Position();
 	//上方向を求める
-	u = CVector(0.0f, 1.0f, 0.0f) * mPlayer.MatrixRotate();
+	u = CVector(0.0f, 1.0f, 0.0f) * mpPlayer->MatrixRotate();
 	//カメラの設定
 	gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
 	//モデルビュー行列の取得
@@ -182,9 +201,9 @@ void CApplication::Update()
 	mBackGround.Render();
 
 	//タスクリストの削除
-	CTaskManager::Instance()->Delete();
+	spTaskManager->Delete();
 	//タスクマネージャの描画
-	CTaskManager::Instance()->Render();
+	spTaskManager->Render();
 
 	CCollisionManager::Instance()->Render();
 

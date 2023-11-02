@@ -28,6 +28,7 @@
 class CApplication
 {
 private:
+	static CTaskManager* spTaskManager;
 	static CUi* spUi;	//UIクラスのポインタ
 	//モデルからコライダを生成
 	CColliderMesh mColliderMesh;
@@ -43,7 +44,7 @@ private:
 	CModel mModelC5;
 
 	//static CTaskManager mTaskManager;
-	CPlayer mPlayer;
+//	CPlayer mPlayer;
 
 	CModel mBackGround; //背景モデル
 	CModel mModel;
@@ -72,6 +73,8 @@ private:
 	//CCharacterのポインタの可変長配列
 //	std::vector<CCharacter*> mCharacters;
 public:
+	static CTaskManager* TaskManager();
+
 	~CApplication();
 	static CUi* Ui();	//UIクラスのインスタンスを取得
 	//モデルビュー行列の取得
