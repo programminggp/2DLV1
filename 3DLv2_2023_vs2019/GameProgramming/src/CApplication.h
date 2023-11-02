@@ -96,4 +96,6 @@ public:
 	void Start();
 	//ŒJ‚è•Ô‚µÀs‚·‚éƒvƒƒOƒ‰ƒ€
 	void Update();
+	//
+	void Render();
 };

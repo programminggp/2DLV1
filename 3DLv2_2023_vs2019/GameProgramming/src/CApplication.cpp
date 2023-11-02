@@ -61,6 +61,13 @@ CTexture* CApplication::Texture()
 	return &mTexture;
 }
 
+void gRender()
+{
+
+}
+
+void (*RENDER)();
+
 void CApplication::Start()
 {
 	//29
@@ -102,6 +109,8 @@ void CApplication::Start()
 
 	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ğØ‚è‘Ö‚¦‚ÄŠm”F
 	mpPaladin->ChangeAnimation(1, true, 60);
+
+	RENDER = gRender;
 }
 
 void CApplication::Update()
@@ -161,15 +170,7 @@ void CApplication::Update()
 	glMultMatrixf(mMatrix.M());
 	*/
 
-//	mBackGround.Render(mMatrix);
-	//ƒ‚ƒfƒ‹•`‰æ
-//	mModelX.Render();
-
-	mXPlayer.Render();
-	//“G•`‰æ
-	mXEnemy.Render();
-
-	mpPaladin->Render();
+	Render();
 
 	//ƒRƒ‰ƒCƒ_‚Ì•`‰æ
 	CCollisionManager::Instance()->Render();
@@ -190,3 +191,17 @@ void CApplication::Update()
 	//2D‚Ì•`‰æI—¹
 	CCamera::End();
 }
+
+void CApplication::Render()
+{
+	mBackGround.Render(mMatrix);
+	//ƒ‚ƒfƒ‹•`‰æ
+//	mModelX.Render();
+
+	mXPlayer.Render();
+	//“G•`‰æ
+	mXEnemy.Render();
+
+	mpPaladin->Render();
+}
+
