@@ -93,8 +93,12 @@ void CShadowMap::Render()
 	//日向のライト
 	const GLfloat lightcol[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	GLint	viewport[4]; //ビューポートの保存用
-	CMatrix	modelview; //モデルビュー変換行列の保存用
+	CMatrix	modelviewLight; //モデルビュー変換行列の保存用
 	CMatrix	projection; //透視変換行列の保存用
+	/* モデルビュー変換行列を保存しておく */
+	CMatrix modelviewCamera;
+	glGetFloatv(GL_MODELVIEW_MATRIX, modelviewCamera.M());
+
 	/*
 	** 第１ステップ：デプステクスチャの作成
 	*/
@@ -111,23 +115,21 @@ void CShadowMap::Render()
 	/* ビューポートをテクスチャのサイズに設定する */
 	glViewport(0, 0, mTextureWidth, mTextureHeight);
 
+	/* 現在の透視変換行列を保存しておく */
+	glGetFloatv(GL_PROJECTION_MATRIX, projection.M());
+
 	/* 透視変換行列を設定する */
 	glMatrixMode(GL_PROJECTION); //透視変換行列に切り替え
-	glPushMatrix(); //現在の設定はスタックに保存
 	glLoadIdentity(); //行列の初期化
-
-	/* Depthテクスチャの透視変換行列を保存しておく */
-	gluPerspective(75.0, (GLdouble)mTextureWidth / (GLdouble)mTextureHeight, 1.0, 100000.0);
-	glGetFloatv(GL_PROJECTION_MATRIX, projection.M()); //透視変換行列の保存
 
 	/* 光源位置を視点としシーンが視野に収まるようモデルビュー変換行列を設定する */
 	glMatrixMode(GL_MODELVIEW); //モデルビュー行列に切り替え
-	glPushMatrix(); //現在の設定はスタックに保存
 	glLoadIdentity(); //行列の初期化
 	//光源位置から見るように行列を設定する
+	gluPerspective(75.0, (GLdouble)mTextureWidth / (GLdouble)mTextureHeight, 1.0, 100000.0);
 	gluLookAt(mLightPos[0], mLightPos[1], mLightPos[2], mLightPos[0] - 1, 0, mLightPos[2] - 1, 0.0, 1.0, 0.0);
 	/* 設定したモデルビュー変換行列を保存しておく */
-	glGetFloatv(GL_MODELVIEW_MATRIX, modelview.M());
+	glGetFloatv(GL_MODELVIEW_MATRIX, modelviewLight.M());
 
 	/* デプスバッファの内容だけを取得するのでフレームバッファには書き込まない */
 	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
@@ -146,16 +148,11 @@ void CShadowMap::Render()
 
 	/* フレームバッファオブジェクトへのレンダリング終了 */
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-	/* テクスチャユニット１に切り替える */
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
 
 	/* 通常の描画の設定に戻す */
 	glViewport(viewport[0], viewport[1], viewport[2], viewport[3]);
-
 	glMatrixMode(GL_PROJECTION); //透視変換行列に切り替え
-	glPopMatrix(); //設定をスタックから戻す
-
+	glLoadMatrixf(projection.M());
 	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
 	glEnable(GL_LIGHTING);
 	glCullFace(GL_BACK);
@@ -169,10 +166,21 @@ void CShadowMap::Render()
 
 	/* モデルビュー変換行列の設定 */
 	glMatrixMode(GL_MODELVIEW); //モデルビュー行列に切り替え
-	glPopMatrix(); //スタックから元に戻す
-	/* モデルビュー変換行列を保存しておく */
-	CMatrix modelviewCamera;
-	glGetFloatv(GL_MODELVIEW_MATRIX, modelviewCamera.M());
+	glLoadIdentity();
+	glMultMatrixf(modelviewCamera.M());
+
+	/* 光源の明るさを影の部分での明るさに設定 */
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, mShadowCol);
+
+	//影の描画
+	if (mpRender)
+	{
+		(*mpRender)();
+	}
+
+	//デプステクスチャの設定
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, mDepthTextureID);
 
 	/* テクスチャ変換行列を設定する */
 	glMatrixMode(GL_TEXTURE);
@@ -182,8 +190,8 @@ void CShadowMap::Render()
 	glTranslated(0.5, 0.5, 0.5);
 	glScaled(0.5, 0.5, 0.5);
 	/* テクスチャのモデルビュー変換行列と透視変換行列の積をかける */
-	glMultMatrixf(projection.M());
-	glMultMatrixf(modelview.M());
+	glMultMatrixf(modelviewLight.M());
+
 	/* 現在のモデルビュー変換の逆変換をかけておく */
 	CMatrix inverse = modelviewCamera.Transpose();
 	inverse.M(0, 3, 0);
@@ -219,42 +227,27 @@ void CShadowMap::Render()
 		(*mpRender)();
 	}
 
-	//テクスチャユニット1に切り替える
-	glActiveTexture(GL_TEXTURE1);
-
 	/* 奥行きの比較関数を元に戻す */
 	glDepthFunc(GL_LESS);
 	/* アルファテストを無効にする */
 	glDisable(GL_ALPHA_TEST);
+
 	/* テクスチャマッピングとテクスチャ座標の自動生成を無効にする */
 	glDisable(GL_TEXTURE_GEN_S);
 	glDisable(GL_TEXTURE_GEN_T);
 	glDisable(GL_TEXTURE_GEN_R);
 	glDisable(GL_TEXTURE_GEN_Q);
 	glDisable(GL_TEXTURE_2D);
-	//テクスチャを解除する
+
+	//デプステクスチャを解除する
+	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	/* テクスチャ変換行列を設定する */
 	glMatrixMode(GL_TEXTURE);
 	glLoadIdentity();
-
-	glMatrixMode(GL_MODELVIEW);
-
 	glActiveTexture(GL_TEXTURE0);
 
-	/* 光源の明るさを影の部分での明るさに設定 */
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, mShadowCol);
-
-	//影の描画
-	if (mpRender)
-	{
-		(*mpRender)();
-	}
-
-
-	/* 光源の明るさを元の明るさに設定 */
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcol);
-
+	glMatrixMode(GL_MODELVIEW);
 }
 
 CShadowMap::CShadowMap()
