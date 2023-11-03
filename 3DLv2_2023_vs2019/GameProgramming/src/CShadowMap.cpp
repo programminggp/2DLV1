@@ -102,7 +102,6 @@ void CShadowMap::Render()
 	/*
 	** 第１ステップ：デプステクスチャの作成
 	*/
-
 	//* フレームバッファオブジェクトへのレンダリング開始
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, mFb);
 
@@ -160,7 +159,6 @@ void CShadowMap::Render()
 	/*
 	** 第２ステップ：全体の描画
 	*/
-
 	/* フレームバッファとデプスバッファをクリアする */
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -210,6 +208,7 @@ void CShadowMap::Render()
 	glEnable(GL_TEXTURE_GEN_T);
 	glEnable(GL_TEXTURE_GEN_R);
 	glEnable(GL_TEXTURE_GEN_Q);
+
 	/* アルファテストを有効にして影の部分だけを描画する */
 	glEnable(GL_ALPHA_TEST);
 	///* 日向の部分がもとの図形に重ねて描かれるように奥行きの比較関数を変更する */
@@ -217,10 +216,8 @@ void CShadowMap::Render()
 
 	/* 光源の明るさを日向の部分での明るさに設定 */
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightcol);
-
 	//テクスチャユニット0に切り替える
 	glActiveTexture(GL_TEXTURE0);
-
 	//日向の描画
 	if (mpRender)
 	{
@@ -248,6 +245,7 @@ void CShadowMap::Render()
 	glActiveTexture(GL_TEXTURE0);
 
 	glMatrixMode(GL_MODELVIEW);
+
 }
 
 CShadowMap::CShadowMap()
