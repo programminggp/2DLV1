@@ -29,9 +29,13 @@
 //29
 #include "CActionCamera.h"
 
+#include "CShadowMap.h"
+
 class CApplication
 {
 private:
+	CShadowMap mShadowMap;
+
 	//29
 	CActionCamera mActionCamera;
 
@@ -86,6 +90,7 @@ private:
 	//CCharacterのポインタの可変長配列
 //	std::vector<CCharacter*> mCharacters;
 public:
+	static CApplication* spInstance;
 	~CApplication();
 	static CUi* Ui();	//UIクラスのインスタンスを取得
 	//モデルビュー行列の取得

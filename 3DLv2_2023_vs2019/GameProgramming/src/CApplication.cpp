@@ -14,6 +14,8 @@
 #include "CCamera.h"
 
 //クラスのstatic変数
+CApplication* CApplication::spInstance = nullptr;
+
 CTexture CApplication::mTexture;
 
 CUi* CApplication::spUi = nullptr;
@@ -63,13 +65,14 @@ CTexture* CApplication::Texture()
 
 void gRender()
 {
-
+	CApplication::spInstance->Render();
 }
 
 void (*RENDER)();
 
 void CApplication::Start()
 {
+	spInstance = this;
 	//29
 	mActionCamera.Set(5.0f, -15.0f, 180.0f);
 
@@ -110,7 +113,16 @@ void CApplication::Start()
 	//アニメーションを切り替えて確認
 	mpPaladin->ChangeAnimation(1, true, 60);
 
-	RENDER = gRender;
+//	RENDER = gRender;
+
+#define TEXWIDTH  8192  //テクスチャ幅
+#define TEXHEIGHT  6144  //テクスチャ高さ
+
+	float shadowColor[] = { 0.4f, 0.4f, 0.4f, 0.2f };  //影の色
+	float lightPos[] = { 50.0f, 160.0f, 50.0f };  //光源の位置
+	mShadowMap.Init(TEXWIDTH, TEXHEIGHT, gRender, shadowColor, lightPos);
+
+	mMatrix.Translate(0.0f, 1.0f, 0.0f);
 }
 
 void CApplication::Update()
@@ -170,7 +182,8 @@ void CApplication::Update()
 	glMultMatrixf(mMatrix.M());
 	*/
 
-	Render();
+	//Render();
+	mShadowMap.Render();
 
 	//コライダの描画
 	CCollisionManager::Instance()->Render();
