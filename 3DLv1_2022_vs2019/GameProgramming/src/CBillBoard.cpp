@@ -14,12 +14,10 @@ void CBillBoard::Set(CVector pos, float w, float h) {
 	//位置
 	mPosition = pos;
 	//大きさの設定
-	mScale = CVector(w, h, 0.0f);
+	mScale = CVector(1.0f, 1.0f, 1.0f);
 	//三角形の頂点座標設定
-	mT[0].Vertex(CVector(1.0f, 1.0f, 0.0f),
-		CVector(-1.0f, -1.0f, 0.0f), CVector(1.0f, -1.0f, 0.0f));
-	mT[1].Vertex(CVector(-1.0f, 1.0f, 0.0f),
-		CVector(-1.0f, -1.0f, 0.0f), CVector(1.0f, 1.0f, 0.0f));
+	mT[0].Vertex(CVector(w, h, 0.0f), CVector(-w, -h, 0.0f), CVector(w, -h, 0.0f));
+	mT[1].Vertex(CVector(-w, h, 0.0f), CVector(-w, -h, 0.0f), CVector(w, h, 0.0f));
 	//法線をZ軸方向
 	mT[0].Normal(CVector(0.0f, 0.0f, 1.0f));
 	mT[1].Normal(CVector(0.0f, 0.0f, 1.0f));
