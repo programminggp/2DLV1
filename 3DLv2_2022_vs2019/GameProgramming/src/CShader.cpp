@@ -10,11 +10,11 @@ CShader::CShader()
 	, linked(0)
 {
 }
-CShader::CShader(const char* vertexPath, const char* pixelPath){
+CShader::CShader(const char* vertexPath, const char* pixelPath) {
 	Load(vertexPath, pixelPath);
 }
-bool CShader::readFile(GLuint program, GLuint shader, const char *file) {
-	FILE *fp;
+bool CShader::readFile(GLuint program, GLuint shader, const char* file) {
+	FILE* fp;
 	if (!(fp = fopen(file, "rb"))) {
 		printf("ファイルが開けません[%s]\n", file);
 		return false;
@@ -22,17 +22,17 @@ bool CShader::readFile(GLuint program, GLuint shader, const char *file) {
 	fseek(fp, 0, SEEK_END);
 	int size = ftell(fp);
 	fseek(fp, 0, SEEK_SET);
-	GLchar *code = new char[size];
+	GLchar* code = new char[size];
 	fread(code, size, 1, fp);
 	fclose(fp);
 
-	glShaderSource(shader, 1, (const GLchar **)&code, &size);
+	glShaderSource(shader, 1, (const GLchar**)&code, &size);
 	glCompileShader(shader);
 	glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
 
 	if (compiled == GL_FALSE) {
 		GLint length;
-		GLchar *log;
+		GLchar* log;
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
 		log = (GLchar*)malloc(length);
 		glGetShaderInfoLog(shader, length, &length, log);
@@ -51,7 +51,7 @@ bool CShader::readFile(GLuint program, GLuint shader, const char *file) {
 	}
 	else {
 		GLint length;
-		GLchar *log;
+		GLchar* log;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
 		log = (GLchar*)malloc(length);
 		glGetProgramInfoLog(program, length, &length, log);
@@ -66,7 +66,7 @@ bool CShader::readFile(GLuint program, GLuint shader, const char *file) {
 	return true;
 
 }
-bool CShader::Load(const char* vertexPath, const char* flagPath){
+bool CShader::Load(const char* vertexPath, const char* flagPath) {
 	mProgram = glCreateProgram();
 	if (vertexPath) {
 
@@ -83,13 +83,13 @@ bool CShader::Load(const char* vertexPath, const char* flagPath){
 	return true;
 
 }
-CShader::~CShader(){
+CShader::~CShader() {
 	glDeleteProgram(mProgram);
 
 }
-void CShader::Enable(){
+void CShader::Enable() {
 	glUseProgram(mProgram);
 }
-void CShader::Disable(){
+void CShader::Disable() {
 	glUseProgram(0);
 }

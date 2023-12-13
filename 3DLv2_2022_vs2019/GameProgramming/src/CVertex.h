@@ -1,9 +1,8 @@
 #ifndef CVERTEX_H
 #define CVERTEX_H
-
 #include "CVector.h"
 /*
-頂点バッファデータクラス
+頂点データクラス
 頂点毎にデータをまとめます
 */
 class CVertex {
@@ -14,6 +13,7 @@ public:
 	CVector mNormal;
 	//テクスチャマッピング
 	CVector mTextureCoords;
+
 	//スキンウェイト
 	float mBoneWeight[4];
 	//スキンインデックス
@@ -24,9 +24,9 @@ public:
 			mBoneIndex[i] = 0;
 			mBoneWeight[i] = 0.0f;
 		}
-		//mBoneWeight[3] = 1.0f;
+		mBoneWeight[0] = 1.0f;
 	}
 };
-
 #endif
+
 

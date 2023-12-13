@@ -17,6 +17,7 @@ class CMyShader : public CShader {
 public:
 	//•`‰æˆ—
 	void Render(CModelX* model, CMatrix* combinedMatrix);
+	void Render(const CModel& model, const CMatrix& matrix);
 	//	void Render(CModel *mesh);
 };
 

@@ -34,8 +34,8 @@ void CEffect::Update() {
 	//UV下
 	float bot = top - 1.0f / mRows;
 	//テクスチャマッピング
-	mT[0].SetUv(CVector(right, top, 0.0f), CVector(left, bot, 0.0f), CVector(right, bot, 0.0f));
-	mT[1].SetUv(CVector(left, top, 0.0f), CVector(left, bot, 0.0f), CVector(right, top, 0.0f));
+	mT[0].UV(CVector(right, top, 0.0f), CVector(left, bot, 0.0f), CVector(right, bot, 0.0f));
+	mT[1].UV(CVector(left, top, 0.0f), CVector(left, bot, 0.0f), CVector(right, top, 0.0f));
 	//ビルボード更新
 	CBillBoard::Update();
 }

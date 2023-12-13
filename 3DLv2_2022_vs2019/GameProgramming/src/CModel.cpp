@@ -1,26 +1,99 @@
+#include "glew.h"
 #include "CModel.h"
-//標準入出力のインクルード
-#include <stdio.h>
 //文字列関数のインクルード
-#include <string.h>
+//#include <string.h>
 //CVectorのインクルード
 #include "CVector.h"
 
-//デフォルトコンストラクタ
-CModel::CModel()
-: mpVertex(nullptr), mpNormal(nullptr), mpTextureCoord(nullptr)
+//文字列s1と文字列s2の比較
+//s1とs2が等しければ0を
+//等しくなければ0以外を返す
+//int strcmp(const char* s1, const char* s2)
+//{
+//	int i = 0;
+//	//文字が同じ間は繰り返し
+//	//どちらかの文字が終わりになるとループの終わり
+//	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+//	{
+//		i++;
+//	}
+//	//同じなら引いて0
+//	return s1[i] - s2[i];
+//}
+#include <string.h>
+#include "glut.h"
+
+//#define V1 CVector(1.0f, 0.0f, 0.0f)
+//#define V2 CVector(0.0f, 1.0f, 0.0f)
+//#define V3 CVector(0.0f, 0.0f, 1.0f)
+//#define V4 CVector(-1.0f, 0.0f, 0.0f)
+//#define N1 CVector(0.5412, 0.7071, 0.5412)
+//#define N2 CVector(-0.5412, 0.7071, 0.5412)
+
+CModelTest::CModelTest()
 {
+	//mVertex[0].mPosition = V1;
+	//mVertex[0].mNormal = N1;
+	//mVertex[1].mPosition = V2;
+	//mVertex[1].mNormal = N1;
+	//mVertex[2].mPosition = V3;
+	//mVertex[2].mNormal = N1;
+
+	//mVertex[3].mPosition = V2;
+	//mVertex[3].mNormal = N2;
+	//mVertex[4].mPosition = V4;
+	//mVertex[4].mNormal = N2;
+	//mVertex[5].mPosition = V3;
+	//mVertex[5].mNormal = N2;
+
+	for (int i = 0; i < 6; i++)
+	{
+		mVector.push_back(mVertex[i]);
+	}
+}
+
+void CModelTest::Render()
+{
+	//頂点座標の位置を設定
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(3, GL_FLOAT, sizeof(CVertex), (void*)&mVector[0].mPosition);
+	//法線ベクトルの位置を設定
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glNormalPointer(GL_FLOAT, sizeof(CVertex), (void*)&mVector[0].mNormal);
+	//テクスチャマッピングの位置を設定
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glTexCoordPointer(3, GL_FLOAT, sizeof(CVertex), (void*)&mVector[0].mTextureCoords);
+
+	//描画位置からのデータで三角形を描画します
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	//頂点座標の配列を無効にする
+	glDisableClientState(GL_VERTEX_ARRAY);
+	//法線の配列を無効にする
+	glDisableClientState(GL_NORMAL_ARRAY);
+	//テクスチャマッピングの配列を無効にする
+	glDisableClientState(GL_NORMAL_ARRAY);
+}
+
+std::vector<CTriangle> CModel::Triangles() const
+{
+	return mTriangles;
 }
 
 //モデルファイルの入力
 //Load(モデルファイル名, マテリアルファイル名)
-void CModel::Load(char *obj, char *mtl) {
+void CModel::Load(char* obj, char* mtl) {
 	//頂点データの保存(CVector型)
 	std::vector<CVector> vertex;
 	std::vector<CVector> normal;
+	//テクスチャマッピングの保存(CVector型)
+	std::vector<CVector> uv;
 
 	//ファイルポインタ変数の作成
-	FILE *fp;
+	FILE* fp;
+	//ファイルからデータを入力
+	//入力エリアを作成する
+	char buf[256];
 
 	//ファイルのオープン
 	//fopen(ファイル名,モード)
@@ -30,13 +103,10 @@ void CModel::Load(char *obj, char *mtl) {
 	//fpがNULLの時はエラー
 	if (fp == NULL) {
 		//コンソールにエラー出力して戻る
-		printf("%s file open error￥n", obj);
+		printf("%s file open error￥n", mtl);
 		return;
 	}
 
-	//ファイルからデータを入力
-	//入力エリアを作成する
-	char buf[256];
 	//マテリアルインデックス
 	int idx = 0;
 	//ファイルから1行入力
@@ -44,12 +114,12 @@ void CModel::Load(char *obj, char *mtl) {
 	//ファイルの最後になるとNULLを返す
 	while (fgets(buf, sizeof(buf), fp) != NULL) {
 		//データを分割する
-		char str[4][64] = { "", "", "", "" };
+		char str[4][64*2] = { "", "", "", "" };
 		//文字列からデータを4つ変数へ代入する
-		(void)sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
+		sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
 		//先頭がnewmtlの時、マテリアルを追加する
 		if (strcmp(str[0], "newmtl") == 0) {
-			CMaterial *pm = new CMaterial();
+			CMaterial* pm = new CMaterial();
 			//マテリアル名の設定
 			pm->Name(str[1]);
 			//マテリアルの可変長配列に追加
@@ -67,11 +137,11 @@ void CModel::Load(char *obj, char *mtl) {
 		else if (strcmp(str[0], "d") == 0) {
 			mpMaterials[idx]->Diffuse()[3] = atof(str[1]);
 		}
-		//先頭がmap_Kdの時、テクスチャを読み込む
+		//先頭がmap_Kdの時、テクスチャを入力する
 		else if (strcmp(str[0], "map_Kd") == 0) {
-//			mpMaterials[idx]->LoadTexture(str[1]);
 			mpMaterials[idx]->Texture()->Load(str[1]);
 		}
+
 	}
 
 	//ファイルのクローズ
@@ -85,20 +155,19 @@ void CModel::Load(char *obj, char *mtl) {
 	//fpがNULLの時はエラー
 	if (fp == NULL) {
 		//コンソールにエラー出力して戻る
-		printf("%s file open error￥n", obj);
+		printf("%s file open error￥n", mtl);
 		return;
 	}
 
-	//ファイルからデータを入力
 	//ファイルから1行入力
 	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
 	//ファイルの最後になるとNULLを返す
 	while (fgets(buf, sizeof(buf), fp) != NULL) {
 		//データを分割する
-		char str[4][64] = { "", "", "", "" };
+		char str[4][64*2] = { "", "", "", "" };
 		//文字列からデータを4つ変数へ代入する
 		//sscanf(文字列, 変換指定子, 変数)
-		(void)sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
+		sscanf(buf, "%s %s %s %s", str[0], str[1], str[2], str[3]);
 		//文字列の比較
 		//strcmp(文字列1, 文字列2)
 		//文字列1と文字列2が同じ時0、異なる時0以外を返す
@@ -120,15 +189,14 @@ void CModel::Load(char *obj, char *mtl) {
 			//テクスチャマッピングの有無を判定
 			if (strstr(str[1], "//")) {
 				//頂点と法線の番号取得
-				(void)sscanf(str[1], "%d//%d", &v[0], &n[0]);
-				(void)sscanf(str[2], "%d//%d", &v[1], &n[1]);
-				(void)sscanf(str[3], "%d//%d", &v[2], &n[2]);
+				sscanf(str[1], "%d//%d", &v[0], &n[0]);
+				sscanf(str[2], "%d//%d", &v[1], &n[1]);
+				sscanf(str[3], "%d//%d", &v[2], &n[2]);
 				//三角形作成
 				CTriangle t;
 				t.Vertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
 				t.Normal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
 				//マテリアル番号の設定
-//				t.mMaterialIdx = idx;
 				t.MaterialIdx(idx);
 				//可変長配列mTrianglesに三角形を追加
 				mTriangles.push_back(t);
@@ -137,21 +205,17 @@ void CModel::Load(char *obj, char *mtl) {
 				//テクスチャマッピング有り
 				int u[3]; //テクスチャマッピングの番号
 				//頂点と法線の番号取得とマッピングの番号取得
-				(void)sscanf(str[1], "%d/%d/%d", &v[0], &u[0], &n[0]);
-				(void)sscanf(str[2], "%d/%d/%d", &v[1], &u[1], &n[1]);
-				(void)sscanf(str[3], "%d/%d/%d", &v[2], &u[2], &n[2]);
+				sscanf(str[1], "%d/%d/%d", &v[0], &u[0], &n[0]);
+				sscanf(str[2], "%d/%d/%d", &v[1], &u[1], &n[1]);
+				sscanf(str[3], "%d/%d/%d", &v[2], &u[2], &n[2]);
 				//三角形作成
 				CTriangle t;
 				t.Vertex(vertex[v[0] - 1], vertex[v[1] - 1], vertex[v[2] - 1]);
 				t.Normal(normal[n[0] - 1], normal[n[1] - 1], normal[n[2] - 1]);
 				//テクスチャマッピングの設定
-				//t.mUv[0] = uv[u[0] - 1];
-				//t.mUv[1] = uv[u[1] - 1];
-				//t.mUv[2] = uv[u[2] - 1];
-				t.SetUv(uv[u[0] - 1], uv[u[1] - 1], uv[u[2] - 1]);
+				t.UV(uv[u[0] - 1], uv[u[1] - 1], uv[u[2] - 1]);
 				//マテリアル番号の設定
 				t.MaterialIdx(idx);
-				//t.mMaterialIdx = idx;
 				//可変長配列mTrianglesに三角形を追加
 				mTriangles.push_back(t);
 			}
@@ -172,68 +236,18 @@ void CModel::Load(char *obj, char *mtl) {
 			//atof(文字列)　文字列からfloat型の値を返す
 			uv.push_back(CVector(atof(str[1]), atof(str[2]), 0.0));
 		}
-
 	}
+
 	//ファイルのクローズ
 	fclose(fp);
 
-	//頂点配列の作成
-	//全ての座標の値をマテリアルの順番に保存する
-	mpVertex = new float[mTriangles.size() * 9];
-	//全ての法線の値をマテリアルの順番に保存する
-	mpNormal = new float[mTriangles.size() * 9];
-	//全てのテクスチャマッピングの値をマテリアルの順番に保存する
-	mpTextureCoord = new float[mTriangles.size() * 6];
-
-	unsigned int  v = 0, t = 0;
-	//マテリアル毎に頂点配列に設定する
-	for (size_t i = 0; i < mpMaterials.size(); i++) {
-		//全ての三角形を比較
-		for (size_t j = 0; j < mTriangles.size(); j++) {
-			//マテリアル番号が一致する時
-			if (i == mTriangles[j].MaterialIdx()) {
-				//頂点配列に設定する
-				//頂点座標
-				mpVertex[v++] = mTriangles[j].V0().X();
-				mpVertex[v++] = mTriangles[j].V0().Y();
-				mpVertex[v++] = mTriangles[j].V0().Z();
-				mpVertex[v++] = mTriangles[j].V1().X();
-				mpVertex[v++] = mTriangles[j].V1().Y();
-				mpVertex[v++] = mTriangles[j].V1().Z();
-				mpVertex[v++] = mTriangles[j].V2().X();
-				mpVertex[v++] = mTriangles[j].V2().Y();
-				mpVertex[v++] = mTriangles[j].V2().Z();
-				v -= 9;
-				//法線
-				mpNormal[v++] = mTriangles[j].N0().X();
-				mpNormal[v++] = mTriangles[j].N0().Y();
-				mpNormal[v++] = mTriangles[j].N0().Z();
-				mpNormal[v++] = mTriangles[j].N1().X();
-				mpNormal[v++] = mTriangles[j].N1().Y();
-				mpNormal[v++] = mTriangles[j].N1().Z();
-				mpNormal[v++] = mTriangles[j].N2().X();
-				mpNormal[v++] = mTriangles[j].N2().Y();
-				mpNormal[v++] = mTriangles[j].N2().Z();
-				//テクスチャマッピング
-				mpTextureCoord[t++] = mTriangles[j].UV0().X();
-				mpTextureCoord[t++] = mTriangles[j].UV0().Y();
-				mpTextureCoord[t++] = mTriangles[j].UV1().X();
-				mpTextureCoord[t++] = mTriangles[j].UV1().Y();
-				mpTextureCoord[t++] = mTriangles[j].UV2().X();
-				mpTextureCoord[t++] = mTriangles[j].UV2().Y();
-			}
-		}
-		//頂点数を設定
-//		mpMaterials[i]->mVertexNum = v / 3;
-		mpMaterials[i]->VertexNum(v / 3);
-	}
-
+	CreateVertexBuffer();
 }
 
-//描画
-void CModel::Render() {
+void CModel::Render()
+{
 	//可変長配列の要素数だけ繰り返し
-	for (size_t i = 0; i < mTriangles.size(); i++) {
+	for (int i = 0; i < mTriangles.size(); i++) {
 		//マテリアルの適用
 		mpMaterials[mTriangles[i].MaterialIdx()]->Enabled();
 		//可変長配列に添え字でアクセスする
@@ -245,56 +259,46 @@ void CModel::Render() {
 
 CModel::~CModel()
 {
-	for (size_t i = 0; i < mpMaterials.size(); i++)
+	for (int i = 0; i < mpMaterials.size(); i++)
 	{
 		delete mpMaterials[i];
 	}
-	if (mpVertex != nullptr) {
-		//頂点座標配列削除
-		delete[] mpVertex;
-	}
-	if (mpNormal != nullptr) {
-		//法線配列削除
-		delete[] mpNormal;
-	}
-	if (mpTextureCoord != nullptr) {
-		//テクスチャマッピング配列削除
-		delete[] mpTextureCoord;
-	}
+	delete[] mpVertexes;
 }
+
 //描画
 //Render(行列)
-void CModel::Render(const CMatrix &m)
+void CModel::Render(const CMatrix& m)
 {
+	mShader.Render(*this, m);
+	return;
+
 	//行列の退避
 	glPushMatrix();
 	//合成行列を掛ける
 	glMultMatrixf(m.M());
 
-	//頂点座標の配列を有効にする
+	//頂点座標の位置を設定
 	glEnableClientState(GL_VERTEX_ARRAY);
-	//法線の配列を有効にする
+	glVertexPointer(3, GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mPosition);
+	//法線ベクトルの位置を設定
 	glEnableClientState(GL_NORMAL_ARRAY);
-	//テクスチャマッピングの配列を有効にする
+	glNormalPointer(GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mNormal);
+	//テクスチャマッピングの位置を設定
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	glTexCoordPointer(2, GL_FLOAT, sizeof(CVertex), (void*)&mpVertexes[0].mTextureCoords);
 
-	//頂点座標の配列を指定する
-	glVertexPointer(3, GL_FLOAT, 0, mpVertex);
-	//法線の配列を指定する
-	glNormalPointer(GL_FLOAT, 0, mpNormal);
-	//テクスチャコードの配列を指定する
-	glTexCoordPointer(2, GL_FLOAT, 0, mpTextureCoord);
 	int first = 0; //描画位置
 	//マテリアル毎に描画する
 	for (size_t i = 0; i < mpMaterials.size(); i++) {
 		//マテリアルを適用する
 		mpMaterials[i]->Enabled();
 		//描画位置からのデータで三角形を描画します
-		glDrawArrays(GL_TRIANGLES, first, mpMaterials[i]->VertexNum() - first);
+		glDrawArrays(GL_TRIANGLES, first, mpMaterials[i]->VertexNum());
 		//マテリアルを無効にする
 		mpMaterials[i]->Disabled();
 		//描画位置を移動
-		first = mpMaterials[i]->VertexNum();
+		first += mpMaterials[i]->VertexNum();
 	}
 	//行列を戻す
 	glPopMatrix();
@@ -305,12 +309,53 @@ void CModel::Render(const CMatrix &m)
 	glDisableClientState(GL_NORMAL_ARRAY);
 	//テクスチャマッピングの配列を無効にする
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	return;
 }
 
-std::vector<CTriangle> CModel::Triangles() const
+void CModel::CreateVertexBuffer()
 {
-	return mTriangles;
+	int myVertexNum = mTriangles.size() * 3;
+	mpVertexes = new CVertex[myVertexNum];
+	int idx = 0;
+	for (int i = 0; i < mpMaterials.size(); i++)
+	{
+		for (int j = 0; j < mTriangles.size(); j++)
+		{
+			if (i == mTriangles[j].MaterialIdx())
+			{
+				mpMaterials[i]->VertexNum(mpMaterials[i]->VertexNum() + 3);
+				mpVertexes[idx].mPosition = mTriangles[j].V0();
+				mpVertexes[idx].mNormal = mTriangles[j].N0();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U0();
+				mpVertexes[idx].mPosition = mTriangles[j].V1();
+				mpVertexes[idx].mNormal = mTriangles[j].N1();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U1();
+				mpVertexes[idx].mPosition = mTriangles[j].V2();
+				mpVertexes[idx].mNormal = mTriangles[j].N2();
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U2();
+			}
+		}
+	}
+	//頂点バッファの作成
+	glGenBuffers(1, &mMyVertexBufferId);
+	//頂点バッファをバインド
+	glBindBuffer(GL_ARRAY_BUFFER, mMyVertexBufferId);
+	//バインドしたバッファにデータを転送
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(CVertex) * myVertexNum
+		, mpVertexes, GL_STATIC_DRAW);
+	//バインド解除
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//シェーダー読み込み
+	mShader.Load("res\\skinmesh.vert", "res\\skinmesh.flag");
+
 }
 
+void CModel::RenderShader(const CMatrix& m)
+{
+	mShader.Render(*this, m);
+}
+
+std::vector<CMaterial*> CModel::Material()
+{
+	return mpMaterials;
+}

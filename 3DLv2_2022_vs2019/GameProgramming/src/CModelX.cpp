@@ -1,241 +1,38 @@
 #include "glew.h"
 #include <stdio.h>
-#include <string.h>	//文字列関数のインクルード
-
+#include <string.h>
 #include "CModelX.h"
-
+#include "glut.h"
 #include "CMaterial.h"
-
 #include "CVertex.h"
 
-#define VERTEX_SHADER "res\\skinmesh.vert"		//頂点シェーダー
-#define FRAGMENT_SHADER "res\\skinmesh.frag"	//フラグメントシェーダー
-
-std::vector<CMaterial*>& CModelX::Materials()
+float CModelX::GetFloatToken()
 {
-	return mMaterials;
+	GetToken();
+	//atof
+	//文字列をfloat型へ変換
+	return atof(mToken);
 }
 
-char* CModelX::Token()
+CModelX::~CModelX()
 {
-	return mToken;
-}
-
-std::vector<CModelXFrame*>& CModelX::Frames()
-{
-	return mFrames;
-}
-
-CMatrix* CModelX::SkinningMatrix()
-{
-	return mpSkinningMatrix;
-}
-
-std::vector<CAnimationSet*>& CModelX::AnimationSets()
-{
-	return mAnimationSets;
-}
-
-CModelX::CModelX()
-	: mpPointer(nullptr)
-	, mpSkinningMatrix(nullptr)
-{
-	//mTokenを初期化
-	memset(mToken, 0, sizeof(mToken));
-}
-
-CModelX::~CModelX() 
-{
-	if (mFrames.size() > 0)
+	if (mFrame.size() > 0)
 	{
-		delete mFrames[0];
+		delete mFrame[0];
 	}
-	for (size_t i = 0; i < mAnimationSets.size(); i++) {
-		delete mAnimationSets[i];
+	for (size_t i = 0; i < mAnimationSet.size(); i++)
+	{
+		delete mAnimationSet[i];
 	}
 	//マテリアルの解放
-	for (size_t i = 0; i < mMaterials.size(); i++) {
-		delete mMaterials[i];
+	for (size_t i = 0; i < mMaterial.size(); i++) {
+		delete mMaterial[i];
 	}
 	SAFE_DELETE_ARRAY(mpSkinningMatrix);
 }
 
-void CModelX::Load(char* file)
+void CModelX::SkipNode()
 {
-	FILE *fp;
-	fp = fopen(file, "rb");
-	if (fp == NULL)
-	{
-		printf("fopen error:%s\n", file);
-		return;
-	}
-	fseek(fp, 0L, SEEK_END);
-	unsigned int size = ftell(fp);
-	char *buf = mpPointer = new char[size + 1];
-	fseek(fp, 0L, SEEK_SET);
-	fread(buf, size, 1, fp);
-	buf[size] = '\0';
-	fclose(fp);
-
-	//ダミールートフレームの作成
-	CModelXFrame* p = new CModelXFrame();
-	//名前なし
-	p->mpName = new char[1];
-	p->mpName[0] = '\0';
-	//フレーム配列に追加
-	mFrames.push_back(p);
-
-	//文字列の最後まで繰り返し
-	while (*mpPointer != '\0') {
-		GetToken();	//単語の取得
-		//template 読み飛ばし
-		if (strcmp(mToken, "template") == 0) {
-			SkipNode();
-		}
-		//Material の時
-		else if (strcmp(mToken, "Material") == 0) {
-			new CMaterial(this);
-		}
-		//単語がFrameの場合
-		else if (strcmp(mToken, "Frame") == 0) {
-			//フレーム名取得
-			GetToken();
-			if (strchr(mToken, '{')) {
-				//フレーム名なし：スキップ
-				SkipNode();
-				GetToken(); //}
-			}
-			else {
-				//フレームが無ければ
-				if (FindFrame(mToken) == 0) {
-					//フレームを作成する
-					p->mChild.push_back(
-						new CModelXFrame(this));
-				}
-			}
-		}
-		//単語がAnimationSetの場合
-		else if (strcmp(mToken, "AnimationSet") == 0) {
-			new CAnimationSet(this);
-		}
-	}
-
-	SAFE_DELETE_ARRAY(buf);
-	//スキンウェイトのフレーム番号設定
-	SetSkinWeightFrameIndex();
-	//頂点バッファの作成
-	for (size_t i = 0; i < mFrames.size(); i++) {
-		if (mFrames[i]->mMesh.mFaceNum > 0) {
-			mFrames[i]->mMesh.CreateVertexBuffer();
-		}
-	}
-	//スキンマトリックスのエリア作成
-	mpSkinningMatrix = new CMatrix[mFrames.size()];
-	//シェーダー読み込み
-	mShader.Load(VERTEX_SHADER, FRAGMENT_SHADER);
-}
-
-void CModelX::AddAnimationSet(char* file)
-{
-	FILE* fp;
-	fp = fopen(file, "rb");
-	if (fp == NULL)
-	{
-		printf("fopen error:%s\n", file);
-		return;
-	}
-	fseek(fp, 0L, SEEK_END);
-	unsigned int size = ftell(fp);
-	char* buf = mpPointer = new char[size + 1];
-	fseek(fp, 0L, SEEK_SET);
-	fread(buf, size, 1, fp);
-	buf[size] = '\0';
-	fclose(fp);
-
-	//文字列の最後まで繰り返し
-	while (*mpPointer != '\0') {
-		GetToken();	//単語の取得
-		//template 読み飛ばし
-		if (strcmp(mToken, "template") == 0) {
-			SkipNode();
-		}
-		/*
-		//Material の時
-		else if (strcmp(mToken, "Material") == 0) {
-			new CMaterial(this);
-		}
-		//単語がFrameの場合
-		else if (strcmp(mToken, "Frame") == 0) {
-			//フレーム名取得
-			GetToken();
-			if (strchr(mToken, '{')) {
-				//フレーム名なし：スキップ
-				SkipNode();
-				GetToken(); //}
-			}
-			else {
-				//フレームが無ければ
-				if (FindFrame(mToken) == 0) {
-					//フレームを作成する
-					p->mChild.push_back(
-						new CModelXFrame(this));
-				}
-			}
-		}
-		*/
-		//単語がAnimationSetの場合
-		else if (strcmp(mToken, "AnimationSet") == 0) {
-			new CAnimationSet(this);
-		}
-	}
-	SAFE_DELETE_ARRAY(buf);
-}
-/*
-GetToken
-文字列データから、単語を1つ取得する
-*/
-void CModelX::GetToken() {
-	char* p = mpPointer;
-	char* q = mToken;
-	//空白( )タブ(\t)改行(\r)(\n)，；”以外の文字になるまで読み飛ばす
-	/*
-	strchr(文字列, 文字)
-	文字列に文字が含まれていれば、見つかった文字へのポインタを返す
-	見つからなかったらNULLを返す
-	*/
-	while (*p != '\0' && strchr(" \t\r\n,;\"", *p)) p++;
-	if (*p == '{' || *p == '}') {
-		//{または}ならmTokenに代入し次の文字へ
-		*q++ = *p++;
-	}
-	else {
-		//空白( )タブ(\t)改行(\r)(\n)，；”}の文字になるまでmTokenに代入する
-		while (*p != '\0' && !strchr(" \t\r\n,;\"}", *p))
-			*q++ = *p++;
-	}
-	*q = '\0';	//mTokenの最後に\0を代入
-	mpPointer = p;	//次の読み込むポイントを更新する
-
-	//もしmTokenが//の場合は、コメントなので改行まで読み飛ばす
-	/*
-	strcmp(文字列1, 文字列2)
-	文字列1と文字列2が等しい場合、0を返します。
-	文字列1と文字列2が等しくない場合、0以外を返します。
-	*/
-	if (!strcmp("//", mToken)) {
-		//改行まで読み飛ばす
-		while (*p != '\0' && !strchr("\r\n", *p)) p++;
-		//読み込み位置の更新
-		mpPointer = p;
-		//単語を取得する（再帰呼び出し）
-		GetToken();
-	}
-}
-/*
-SkipNode
-ノードを読み飛ばす
-*/
-void CModelX::SkipNode() {
 	//文字が終わったら終了
 	while (*mpPointer != '\0') {
 		GetToken();	//次の単語取得
@@ -253,33 +50,418 @@ void CModelX::SkipNode() {
 	}
 }
 
-CMesh& CModelXFrame::Mesh()
+CModelX::CModelX()
+	: mpPointer(nullptr)
+	, mLoaded(false)
+	, mpSkinningMatrix(nullptr)
 {
-	return mMesh;
+	//mTokenを初期化
+	memset(mToken, 0, sizeof(mToken));
 }
 
-const CMatrix& CModelXFrame::CombinedMatrix()
-{
-	return mCombinedMatrix;
+void CModelX::Load(char* file) {
+	//
+	//ファイルサイズを取得する
+	//
+	FILE* fp;	//ファイルポインタ変数の作成
+	fp = fopen(file, "rb");	//ファイルをオープンする
+	if (fp == NULL) {	//エラーチェック
+		printf("fopen error:%s￥n", file);
+		return;
+	}
+
+	//ファイルの最後へ移動
+	fseek(fp, 0L, SEEK_END);
+	//ファイルサイズの取得
+	int size = ftell(fp);
+	//ファイルサイズ+1バイト分の領域を確保
+	char* buf = mpPointer = new char[size + 1];
+	//
+	//ファイルから3Dモデルのデータを読み込む
+	//
+	//ファイルの先頭へ移動
+	fseek(fp, 0L, SEEK_SET);
+	//確保した領域にファイルサイズ分データを読み込む
+	fread(buf, size, 1, fp);
+	//最後に\0を設定する（文字列の終端）
+	buf[size] = '\0';
+	fclose(fp);	//ファイルをクローズする
+
+	//ダミールートフレームの作成
+	CModelXFrame* p = new CModelXFrame();
+	//名前なし
+	p->mpName = new char[1];
+	p->mpName[0] = '\0';
+	//フレーム配列に追加
+	mFrame.push_back(p);
+
+	//文字列の最後まで繰り返し
+	while (*mpPointer != '\0') {
+		GetToken();	//単語の取得
+		//template 読み飛ばし
+		if (strcmp(mToken, "template") == 0) {
+			SkipNode();
+		}
+		//Material の時
+		else if (strcmp(mToken, "Material") == 0) {
+			new CMaterial(this);
+		}
+		//単語がFrameの場合
+		else if (strcmp(mToken, "Frame") == 0) {
+			//フレーム名取得
+			GetToken();
+			if (strchr(mToken, '{')) {
+				//フレーム名なし：スキップ
+				SkipNode();
+				GetToken(); //}
+			}
+			else {
+				//フレームが無ければ
+				if (FindFrame(mToken) == 0) {
+					//フレームを作成する
+					p->mChild.push_back(
+						new CModelXFrame(this));
+				}
+			}
+		}
+		//単語がAnimationSetの場合
+		else if (strcmp(mToken, "AnimationSet") == 0) {
+			new CAnimationSet(this);
+		}
+	}
+
+	SAFE_DELETE_ARRAY(buf);	//確保した領域を開放する
+
+	//スキンウェイトのフレーム番号設定
+	SetSkinWeightFrameIndex();
+
+	mLoaded = true;
+	//頂点バッファの作成
+	for (size_t i = 0; i < mFrame.size(); i++) {
+		if (mFrame[i]->mpMesh != nullptr) {
+			mFrame[i]->mpMesh->CreateVertexBuffer();
+		}
+	}
+	//スキンマトリックスのエリア作成
+	mpSkinningMatrix = new CMatrix[mFrame.size()];
+	//シェーダー読み込み
+	mShader.Load("res\\skinmesh.vert", "res\\skinmesh.flag");
+
 }
 
-void CModelXFrame::TransformMatrix(const CMatrix& matrix)
+bool CModelX::IsLoaded()
 {
-	mTransformMatrix = matrix;
+	return mLoaded;
+}
+
+void CModelX::RenderShader(CMatrix* pCombinedMatrix) {
+	mShader.Render(this, pCombinedMatrix);
+}
+
+void CModelX::AddAnimationSet(const char* file)
+{
+	//
+//ファイルサイズを取得する
+//
+	FILE* fp;	//ファイルポインタ変数の作成
+	fp = fopen(file, "rb");	//ファイルをオープンする
+	if (fp == NULL) {	//エラーチェック
+		printf("fopen error:%s￥n", file);
+		return;
+	}
+	//ファイルの最後へ移動
+	fseek(fp, 0L, SEEK_END);
+	//ファイルサイズの取得
+	int size = ftell(fp);
+	//ファイルサイズ+1バイト分の領域を確保
+	char* buf = mpPointer = new char[size + 1];
+	//
+	//ファイルから3Dモデルのデータを読み込む
+	//
+	//ファイルの先頭へ移動
+	fseek(fp, 0L, SEEK_SET);
+	//確保した領域にファイルサイズ分データを読み込む
+	fread(buf, size, 1, fp);
+	//最後に\0を設定する（文字列の終端）
+	buf[size] = '\0';
+	fclose(fp);	//ファイルをクローズする
+
+	//文字列の最後まで繰り返し
+	while (*mpPointer != '\0') {
+		GetToken();	//単語の取得
+			//template 読み飛ばし
+		if (strcmp(mToken, "template") == 0) {
+			SkipNode();
+		}
+		//単語がAnimationSetの場合
+		else if (strcmp(mToken, "AnimationSet") == 0) {
+			new CAnimationSet(this);
+		}
+	}
+	SAFE_DELETE_ARRAY(buf);	//確保した領域を開放する
+
+}
+
+void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name)
+{
+	CAnimationSet* anim = mAnimationSet[idx];//分割するアニメーションセットを確定
+	CAnimationSet* as = new CAnimationSet();//アニメーションセットの生成
+	as->mpName = new char[strlen(name) + 1];
+	strcpy(as->mpName, name);
+	as->mMaxTime = end - start;
+	for (size_t i = 0; i < anim->mAnimation.size(); i++) {//既存のアニメーション分繰り返し
+		CAnimation* animation = new CAnimation();//アニメーションの生成
+		animation->mpFrameName = new char[strlen(anim->mAnimation[i]->mpFrameName) + 1];
+		strcpy(animation->mpFrameName, anim->mAnimation[i]->mpFrameName);
+		animation->mFrameIndex = anim->mAnimation[i]->mFrameIndex;
+		animation->mKeyNum = end - start + 1;
+		animation->mpKey = new CAnimationKey[animation->mKeyNum];//アニメーションキーの生成
+		animation->mKeyNum = 0;
+		for (int j = start; j <= end && j < anim->mAnimation[i]->mKeyNum; j++) {
+			if (j < anim->mAnimation[i]->mKeyNum)
+			{
+				animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
+			}
+			else
+			{
+				animation->mpKey[animation->mKeyNum] =
+					anim->mAnimation[i]->mpKey[anim->mAnimation[i]->mKeyNum - 1];
+			}
+			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum++;
+		}//アニメーションキーのコピー
+		as->mAnimation.push_back(animation);//アニメーションの追加
+	}
+	mAnimationSet.push_back(as);//アニメーションセットの追加
+
+
+}
+void CModelX::AnimateVertex(CMatrix* mat)
+{
+	//フレーム数分繰り返し
+	for (size_t i = 0; i < mFrame.size(); i++) {
+		//メッシュがあれば
+		if (mFrame[i]->mpMesh) {
+			//頂点をアニメーションで更新する
+			mFrame[i]->
+				mpMesh->AnimateVertex(mat);
+		}
+	}
+}
+std::vector<CMaterial*>& CModelX::Material()
+{
+	return mMaterial;
+}
+CMaterial* CModelX::FindMaterial(char* name)
+{
+	//マテリアル配列のイテレータ作成
+	std::vector<CMaterial*>::iterator itr;
+	//マテリアル配列を先頭から順に検索
+	for (itr = mMaterial.begin(); itr != mMaterial.end(); itr++) {
+		//名前が一致すればマテリアルのポインタを返却
+		if (strcmp(name, (*itr)->Name()) == 0) {
+			return *itr;
+		}
+	}
+	//無い時はnullptrを返却
+	return nullptr;
+}
+void CModelX::AnimateVertex()
+{
+	//フレーム数分繰り返し
+	for (size_t i = 0; i < mFrame.size(); i++) {
+		//メッシュに面があれば
+		if (mFrame[i]->mpMesh != nullptr) {
+			//頂点をアニメーションで更新する
+			mFrame[i]->mpMesh->AnimateVertex(this);
+		}
+	}
+}
+/*
+SetSkinWeightFrameIndex
+スキンウェイトにフレーム番号を設定する
+*/
+void CModelX::SetSkinWeightFrameIndex() {
+	//フレーム数分繰り返し
+	for (size_t i = 0; i < mFrame.size(); i++) {
+		//メッシュがあれば
+		if (mFrame[i]->mpMesh != nullptr) {
+			mFrame[i]->mpMesh->SetSkinWeightFrameIndex(this);
+		}
+	}
+}
+
+std::vector<CModelXFrame*>& CModelX::Frames()
+{
+	return mFrame;
+}
+/*
+AnimateFrame
+フレームの変換行列をアニメーションデータで更新する
+*/
+void CModelX::AnimateFrame() {
+	//アニメーションで適用されるフレームの
+	//変換行列をゼロクリアする
+	for (size_t i = 0; i < mAnimationSet.size(); i++) {
+		CAnimationSet* animSet = mAnimationSet[i];
+		//重みが0は飛ばす
+		if (animSet->mWeight == 0) continue;
+		//フレーム分（Animation分）繰り返す
+		for (size_t j = 0; j < animSet->Animation().size(); j++) {
+			CAnimation* animation = animSet->Animation()[j];
+			//該当するフレームの変換行列をゼロクリアする
+			memset(&mFrame[animation->mFrameIndex]->mTransformMatrix, 0, sizeof(CMatrix));
+		}
+	}
+	//アニメーションに該当するフレームの変換行列を
+	//アニメーションのデータで設定する
+	for (size_t i = 0; i < mAnimationSet.size(); i++) {
+		CAnimationSet* animSet = mAnimationSet[i];
+		//重みが0は飛ばす
+		if (animSet->mWeight == 0) continue;
+		animSet->AnimateMatrix(this);
+		/*
+		//フレーム分（Animation分）繰り返す
+		for (size_t j = 0; j < animSet->Animation().size(); j++) {
+			//フレームを取得する
+			CAnimation* animation = animSet->Animation()[j];
+			CModelXFrame* frame = mFrame[animation->FrameIndex()];
+			//キーがない場合は飛ばす
+			if (animation->Key() == nullptr) continue;
+			//時間を取得
+			float time = animSet->Time();
+			//最初の時間より小さい場合
+			if (time < animation->Key()[0].mTime) {
+				//変換行列を0コマ目の行列で更新
+				frame->mTransformMatrix += animation->Key()[0].mMatrix * animSet->Weight();
+			}
+			//最後の時間より大きい場合
+			else if (time >= animation->Key()[animation->KeyNum() - 1].mTime) {
+				//変換行列を最後のコマの行列で更新
+				frame->mTransformMatrix += animation->Key()[animation->KeyNum() - 1].mMatrix * animSet->Weight();
+			}
+			else {
+				//時間の途中の場合
+				for (int k = 1; k < animation->KeyNum(); k++) {
+					//変換行列を、線形補間にて更新
+					if (time < animation->Key()[k].mTime &&
+						animation->mpKey[k - 1].mTime != animation->mpKey[k].mTime) {
+						float r = (animation->mpKey[k].mTime - time) /
+							(animation->mpKey[k].mTime - animation->mpKey[k - 1].mTime);
+						frame->mTransformMatrix +=
+							(animation->mpKey[k - 1].mMatrix * r + animation->mpKey[k].mMatrix * (1 - r)) * anim->mWeight;
+						break;
+					}
+				}
+			}
+		}*/
+	}
+}
+
+
+std::vector<CAnimationSet*>& CModelX::AnimationSet()
+{
+	return mAnimationSet;
 }
 
 /*
- CModelXFrame
- model：CModelXインスタンスへのポインタ
- フレームを作成する
- 読み込み中にFrameが見つかれば、フレームを作成し、
- 子フレームに追加する
+FindFrame(フレーム名)
+フレーム名に該当するフレームのアドレスを返す
 */
-CModelXFrame::CModelXFrame(CModelX* model) {
+CModelXFrame* CModelX::FindFrame(char* name) {
+	//イテレータの作成
+	std::vector<CModelXFrame*>::iterator itr;
+	//先頭から最後まで繰り返す
+	for (itr = mFrame.begin(); itr != mFrame.end(); itr++) {
+		//名前が一致したか？
+		if (strcmp(name, (*itr)->mpName) == 0) {
+			//一致したらそのアドレスを返す
+			return *itr;
+		}
+	}
+	//一致するフレームが無い場合はnullptrを返す
+	return nullptr;
+}
+
+bool CModelX::EOT()
+{
+	return *mpPointer == '\0';
+}
+
+/*
+GetToken
+文字列データから、単語を1つ取得する
+*/
+char* CModelX::GetToken() {
+	char* p = mpPointer;
+	char* q = mToken;
+
+	//タブ(\t)空白( )改行(\r)(\n)，；”の区切り文字以外になるまで読み飛ばす
+	while (*p != '\0' && IsDelimiter(*p)) p++;
+	if (*p == '{' || *p == '}') {
+		//{または}ならmTokenに代入し次の文字へ
+		*q++ = *p++;
+	}
+	else {
+		//タブ(\t)空白( )改行(\r)(\n)，；”の区切り文字、
+		//または、}の文字になるまでmTokenに代入する
+		while (*p != '\0' && !IsDelimiter(*p) && *p != '}')
+			*q++ = *p++;
+	}
+	*q = '\0';	//mTokenの最後に\0を代入
+	mpPointer = p;	//次の読み込むポイントを更新する
+
+	//もしmTokenが//の場合は、コメントなので改行まで読み飛ばす
+	/*
+	strcmp(文字列1, 文字列2)
+	文字列1と文字列2が等しい場合、0を返します。
+	文字列1と文字列2が等しくない場合、0以外を返します。
+	*/
+	if (!strcmp("//", mToken)) {
+		//改行まで読み飛ばす
+		while (*p != '\0' && !strchr("\r\n", *p)) p++;
+		//読み込み位置の更新
+		mpPointer = p;
+		//単語を取得する（再帰呼び出し）
+		return GetToken();
+	}
+	return mToken;
+}
+
+#include <ctype.h>	//isspace関数の宣言
+/*
+* IsDelimiter(c)
+* cが\t \r \n スペースなどの空白文字
+* または、,:"などの文字であれば
+* 区切り文字としてtrueを返す
+*/
+bool CModelX::IsDelimiter(char c)
+{
+	if (c < 0) return false;
+	//isspace(c)
+	//cが空白文字なら0以外を返す
+	if (isspace(c) != 0)
+		return true;
+	/*
+	strchr(文字列, 文字)
+	文字列に文字が含まれていれば、
+	見つかった文字へのポインタを返す
+	見つからなかったらNULLを返す
+	*/
+	if (strchr(",;\"", c) != NULL)
+		return true;
+	//区切り文字ではない
+	return false;
+}
+
+CModelXFrame::CModelXFrame(CModelX* model)
+	: mpName(nullptr)
+	, mIndex(0)
+	, mpMesh(nullptr)
+{
 	//現在のフレーム配列の要素数を取得し設定する
-	mIndex = model->mFrames.size();
+	mIndex = model->mFrame.size();
 	//CModelXのフレーム配列に追加する
-	model->mFrames.push_back(this);
+	model->mFrame.push_back(this);
 	//変換行列を単位行列にする
 	mTransformMatrix.Identity();
 	//次の単語（フレーム名の予定）を取得する
@@ -290,7 +472,7 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 	strcpy(mpName, model->mToken);
 	//次の単語（{の予定）を取得する
 	model->GetToken();  // {
-		//文字が無くなったら終わり
+	//文字が無くなったら終わり
 	while (*model->mpPointer != '\0') {
 		//次の単語取得
 		model->GetToken(); // Frame
@@ -316,12 +498,13 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 		else if (strcmp(model->mToken, "FrameTransformMatrix") == 0) {
 			model->GetToken(); // {
 			for (int i = 0; i < mTransformMatrix.Size(); i++) {
-				mTransformMatrix.M()[i] = model->GetFloatToken();
+				mTransformMatrix.M()[i] = atof(model->GetToken());
 			}
 			model->GetToken(); // }
 		}
 		else if (strcmp(model->mToken, "Mesh") == 0) {
-			mMesh.Init(model);
+			mpMesh = new CMesh();
+			mpMesh->Init(model);
 		}
 		else {
 			//上記以外の要素は読み飛ばす
@@ -329,44 +512,56 @@ CModelXFrame::CModelXFrame(CModelX* model) {
 		}
 	}
 }
-/*
-GetFloatToken
-単語を浮動小数点型のデータで返す
-*/
-float CModelX::GetFloatToken() {
-	GetToken();
-	//atof
-	//文字列をfloat型へ変換
-	return atof(mToken);
-}
-/*
-GetIntToken
-単語を整数型のデータで返す
-*/
-int CModelX::GetIntToken() {
-	GetToken();
-	return atoi(mToken);
-}
-const unsigned int& CMesh::FaceNum()
+
+CModelXFrame::~CModelXFrame()
 {
-	return mFaceNum;
+	//子フレームを全て解放する
+	std::vector<CModelXFrame*>::iterator itr;
+	for (itr = mChild.begin(); itr != mChild.end(); itr++) {
+		delete* itr;
+	}
+	//名前のエリアを解放する
+	SAFE_DELETE_ARRAY(mpName);
+	//Meshがあれば削除
+	if (mpMesh) delete mpMesh;
 }
 
-std::vector<CSkinWeights*>& CMesh::SkinWeights()
+int CModelXFrame::Index()
 {
-	return mSkinWeights;
+	return mIndex;
 }
-const GLuint& CMesh::MyVertexBufferId()
-{
-	return mMyVertexBufferId;
-}
-std::vector<CMaterial*>& CMesh::Materials()
-{
-	return mMaterials;
-}
-std::vector<int>& CMesh::MaterialVertexCount()
-{
-	return mMaterialVertexCount;
+
+//コンストラクタ
+CMesh::CMesh()
+	: mVertexNum(0)
+	, mpVertex(nullptr)
+	, mFaceNum(0)
+	, mpVertexIndex(nullptr)
+	, mNormalNum(0)
+	, mpNormal(nullptr)
+	, mMaterialNum(0)
+	, mMaterialIndexNum(0)
+	, mpMaterialIndex(nullptr)
+	, mpAnimateVertex(nullptr)
+	, mpAnimateNormal(nullptr)
+	, mpTextureCoords(nullptr)
+	, mMyVertexBufferId(0)
+{}
+
+//デストラクタ
+CMesh::~CMesh() {
+	SAFE_DELETE_ARRAY(mpVertex);
+	SAFE_DELETE_ARRAY(mpVertexIndex);
+	SAFE_DELETE_ARRAY(mpNormal);
+	SAFE_DELETE_ARRAY(mpMaterialIndex);
+	//スキンウェイトの削除
+	for (size_t i = 0; i < mSkinWeights.size(); i++)
+	{
+		delete mSkinWeights[i];
+	}
+	SAFE_DELETE_ARRAY(mpAnimateVertex);
+	SAFE_DELETE_ARRAY(mpAnimateNormal);
+	SAFE_DELETE_ARRAY(mpTextureCoords);
 }
 /*
  Init
@@ -374,110 +569,113 @@ std::vector<int>& CMesh::MaterialVertexCount()
 */
 void CMesh::Init(CModelX* model) {
 	model->GetToken();	// { or 名前
-	if (!strchr(model->mToken, '{')) {
+	if (!strchr(model->Token(), '{')) {
 		//名前の場合、次が{
 		model->GetToken();	// {
 	}
 	//頂点数の取得
-	mVertexNum = model->GetIntToken(); //printf("VertexNum:%d\n", mVertexNum);
+	mVertexNum = atoi(model->GetToken());
 	//頂点数分エリア確保
 	mpVertex = new CVector[mVertexNum];
 	mpAnimateVertex = new CVector[mVertexNum];
+
 	//頂点数分データを取り込む
-	for (unsigned int i = 0; i < mVertexNum; i++) {
-		mpVertex[i].X(model->GetFloatToken());
-		mpVertex[i].Y(model->GetFloatToken());
-		mpVertex[i].Z(model->GetFloatToken());
+	for (int i = 0; i < mVertexNum; i++) {
+		mpVertex[i].X(atof(model->GetToken()));
+		mpVertex[i].Y(atof(model->GetToken()));
+		mpVertex[i].Z(atof(model->GetToken()));
 	}
-	mFaceNum = model->GetIntToken();	//面数読み込み
+	mFaceNum = atoi(model->GetToken());	//面数読み込み
+
 //頂点数は1面に3頂点
-	mpVertexIndex = new unsigned int[mFaceNum * 3];
-	for (unsigned int i = 0; i < mFaceNum * 3; i += 3) {
+	mpVertexIndex = new int[mFaceNum * 3];
+	for (int i = 0; i < mFaceNum * 3; i += 3) {
 		model->GetToken();	//頂点数読み飛ばし
-		mpVertexIndex[i] = model->GetIntToken();
-		mpVertexIndex[i + 1] = model->GetIntToken();
-		mpVertexIndex[i + 2] = model->GetIntToken();
+		mpVertexIndex[i] = atoi(model->GetToken());
+		mpVertexIndex[i + 1] = atoi(model->GetToken());
+		mpVertexIndex[i + 2] = atoi(model->GetToken());
+
 	}
-	//文字が無くなったら終わり
-	while (model->mpPointer != '\0') {
+	//単語がある間繰り返し
+	while (!model->EOT()) {
 		model->GetToken();	//MeshNormals
 		//}かっこの場合は終了
-		if (strchr(model->mToken, '}'))
+		if (strchr(model->Token(), '}'))
 			break;
-		if (strcmp(model->mToken, "MeshNormals") == 0) {
+		if (strcmp(model->Token(), "MeshNormals") == 0) {
 			model->GetToken();	// {
 			//法線データ数を取得
-			mNormalNum = model->GetIntToken();
+			mNormalNum = atoi(model->GetToken());
 			//法線のデータを配列に取り込む
 			CVector* pNormal = new CVector[mNormalNum];
-			for (unsigned int i = 0; i < mNormalNum; i++) {
-				pNormal[i].X(model->GetFloatToken());
-				pNormal[i].Y(model->GetFloatToken());
-				pNormal[i].Z(model->GetFloatToken());
+			for (int i = 0; i < mNormalNum; i++) {
+				pNormal[i].X(atof(model->GetToken()));
+				pNormal[i].Y(atof(model->GetToken()));
+				pNormal[i].Z(atof(model->GetToken()));
 			}
 			//法線数=面数×３
-			mNormalNum = model->GetIntToken() * 3; //FaceNum
+			mNormalNum = atoi(model->GetToken()) * 3; //FaceNum
+
 			int ni;
 			//頂点毎に法線データを設定する
 			mpNormal = new CVector[mNormalNum];
 			mpAnimateNormal = new CVector[mNormalNum];
-			for (unsigned int i = 0; i < mNormalNum; i += 3) {
+			for (int i = 0; i < mNormalNum; i += 3) {
 				model->GetToken(); // 3
-				ni = model->GetIntToken();
+				ni = atoi(model->GetToken());
 				mpNormal[i] = pNormal[ni];
 
-				ni = model->GetIntToken();
+				ni = atoi(model->GetToken());
 				mpNormal[i + 1] = pNormal[ni];
 
-				ni = model->GetIntToken();
+				ni = atoi(model->GetToken());
 				mpNormal[i + 2] = pNormal[ni];
 			}
 			delete[] pNormal;
 			model->GetToken();	// }
-		}
+		}	// End of MeshNormals
 		// MeshMaterialListのとき
-		else if (strcmp(model->mToken, "MeshMaterialList") == 0) {
+		else if (strcmp(model->Token(), "MeshMaterialList") == 0) {
 			model->GetToken(); // {
 			// Materialの数
-			mMaterialNum = model->GetIntToken();
+			mMaterialNum = atoi(model->GetToken());
 			// FaceNum
-			mMaterialIndexNum = model->GetIntToken();
+			mMaterialIndexNum = atoi(model->GetToken());
 			//マテリアルインデックスの作成
-			mpMaterialIndex = new unsigned int[mMaterialIndexNum];
-			for (unsigned int i = 0; i < mMaterialIndexNum; i++) {
-				mpMaterialIndex[i] = model->GetIntToken();
+			mpMaterialIndex = new int[mMaterialIndexNum];
+			for (int i = 0; i < mMaterialIndexNum; i++) {
+				mpMaterialIndex[i] = atoi(model->GetToken());
 			}
 			//マテリアルデータの作成
-			for (unsigned int i = 0; i < mMaterialNum; i++) {
+			for (int i = 0; i < mMaterialNum; i++) {
 				model->GetToken();	// Material
-				if (strcmp(model->mToken, "Material") == 0) {
-					mMaterials.push_back(new CMaterial(model));
+				if (strcmp(model->Token(), "Material") == 0) {
+					mMaterial.push_back(new CMaterial(model));
 				}
 				else {
 					// {  既出
 					model->GetToken();	//MaterialName
-					mMaterials.push_back(
-						model->FindMaterial(model->mToken));
+					mMaterial.push_back(
+						model->FindMaterial(model->Token()));
 					model->GetToken();	// }
 				}
-
 			}
 			model->GetToken();	// } //End of MeshMaterialList
-		}
+		} //End of MeshMaterialList
 		//SkinWeightsのとき
-		else if (strcmp(model->mToken, "SkinWeights") == 0) {
+		else if (strcmp(model->Token(), "SkinWeights") == 0) {
 			//CSkinWeightsクラスのインスタンスを作成し、配列に追加
 			mSkinWeights.push_back(new CSkinWeights(model));
 		}
 		//テクスチャ座標の時
-		else if (strcmp(model->mToken, "MeshTextureCoords") == 0) {
+		else if (strcmp(model->Token(), "MeshTextureCoords") == 0) {
 			model->GetToken();	// {
 			//テクスチャ座標数を取得
-			int textureCoordsNum = model->GetIntToken() * 2;
+			int textureCoordsNum = atoi(model->GetToken()) * 2;
 			//テクスチャ座標のデータを配列に取り込む
 			mpTextureCoords = new float[textureCoordsNum];
 			for (int i = 0; i < textureCoordsNum; i++) {
-				mpTextureCoords[i] = model->GetFloatToken();
+				mpTextureCoords[i] = atof(model->GetToken());
 			}
 			model->GetToken();	// }
 		}
@@ -485,528 +683,16 @@ void CMesh::Init(CModelX* model) {
 			//以外のノードは読み飛ばし
 			model->SkipNode();
 		}
-
-	}
-}
-/*
- Render
- 画面に描画する
-*/
-void CMesh::Render() {
-	/* 頂点データ，法線データの配列を有効にする */
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	//テクスチャマッピングの配列を有効にする
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-	/* 頂点データ，法線データの場所を指定する */
-	glVertexPointer(3, GL_FLOAT, 0, mpAnimateVertex);
-	glNormalPointer(GL_FLOAT, 0, mpAnimateNormal);
-	glTexCoordPointer(2, GL_FLOAT, 0, mpTextureCoords);
-
-	/* 頂点のインデックスの場所を指定して図形を描画する */
-	for (unsigned int i = 0; i < mFaceNum; i++) {
-		//マテリアルを適用する
-		mMaterials[mpMaterialIndex[i]]->Enabled();
-		glDrawElements(GL_TRIANGLES, 3,
-			GL_UNSIGNED_INT, (mpVertexIndex + i * 3));
-		mMaterials[mpMaterialIndex[i]]->Disabled();
-	}
-
-	/* 頂点データ，法線データの配列を無効にする */
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-}
-/*
- Render
- メッシュの面数が0以外なら描画する
-*/
-void CModelXFrame::Render() {
-	if (mMesh.mFaceNum != 0)
-		mMesh.Render();
-}
-/*
-Render
-全てのフレームの描画処理を呼び出す
-*/
-void CModelX::Render() {
-	for (size_t i = 0; i < mFrames.size(); i++) {
-		mFrames[i]->Render();
 	}
 }
 
-/*
-CSkinWeights
-スキンウェイトの読み込み
-*/
-CSkinWeights::CSkinWeights(CModelX* model)
-	: mpFrameName(0)
-	, mFrameIndex(0)
-	, mIndexNum(0)
-	, mpIndex(nullptr)
-	, mpWeight(nullptr)
+std::vector<CSkinWeights*>& CMesh::SkinWeights()
 {
-	model->GetToken();	// {
-	model->GetToken();	// FrameName
-	//フレーム名エリア確保、設定
-	mpFrameName = new char[strlen(model->mToken) + 1];
-	strcpy(mpFrameName, model->mToken);
-	//頂点番号数取得
-	mIndexNum = model->GetIntToken();
-	//頂点番号数が0を超える
-	if (mIndexNum > 0) {
-		//頂点番号と頂点ウェイトのエリア確保
-		mpIndex = new int[mIndexNum];
-		mpWeight = new float[mIndexNum];
-		//頂点番号取得
-		for (int i = 0; i < mIndexNum; i++)
-			mpIndex[i] = model->GetIntToken();
-		//頂点ウェイト取得
-		for (int i = 0; i < mIndexNum; i++)
-			mpWeight[i] = model->GetFloatToken();
-	}
-	//オフセット行列取得
-	for (int i = 0; i < 16; i++) {
-		mOffset.M()[i] = model->GetFloatToken();
-	}
-	model->GetToken();	// }
-}
-const int& CSkinWeights::FrameIndex()
-{
-	return mFrameIndex;
-}
-const CMatrix& CSkinWeights::Offset()
-{
-	return mOffset;
-}
-CAnimationSet::CAnimationSet()
-	:mpName(nullptr)
-	, mMaxTime(0.0f)
-	, mTime(0.0f)
-	, mWeight(0.0f)
-{
-}
-/*
-CAnimationSet
-*/
-CAnimationSet::CAnimationSet(CModelX* model)
-	: mpName(nullptr)
-	, mTime(0)
-	, mWeight(0)
-	, mMaxTime(0)
-{
-	model->mAnimationSets.push_back(this);
-	model->GetToken();	// Animation Name
-	//アニメーションセット名を退避
-	mpName = new char[strlen(model->mToken) + 1];
-	strcpy(mpName, model->mToken);
-	model->GetToken(); // {
-	while (*model->mpPointer != '\0') {
-		model->GetToken(); // } or Animation
-		if (strchr(model->mToken, '}'))break;
-		if (strcmp(model->mToken, "Animation") == 0) {
-			 //Animation要素読み込み
-			mAnimation.push_back(new CAnimation(model));
-		}
-	}
-	//終了時間設定
-	mMaxTime = mAnimation[0]->mpKey[mAnimation[0]->mKeyNum - 1].mTime;
+	return mSkinWeights;
 }
 
-const float& CAnimationSet::Time()
+void CMesh::CreateVertexBuffer()
 {
-	return mTime;
-}
-
-const float& CAnimationSet::MaxTime()
-{
-	return mMaxTime;
-}
-
-void CAnimationSet::Time(float time)
-{
-	mTime = time;
-}
-
-void CAnimationSet::Weight(float wight)
-{
-	mWeight = wight;
-}
-/*
- FindFrame
- フレーム名に該当するフレームのアドレスを返す
-*/
-CModelXFrame* CModelX::FindFrame(char* name) {
-	//イテレータの作成
-	std::vector<CModelXFrame*>::iterator itr;
-	//先頭から最後まで繰り返す
-	for (itr = mFrames.begin(); itr != mFrames.end(); itr++) {
-		//名前が一致したか？
-		if (strcmp(name, (*itr)->mpName) == 0) {
-			//一致したらそのアドレスを返す
-			return *itr;
-		}
-	}
-	//一致するフレーム無い場合はnullptrを返す
-	return nullptr;
-}
-CAnimation::CAnimation()
-	:mpFrameName(nullptr)
-	, mFrameIndex(0)
-	, mKeyNum(0)
-	, mpKey(nullptr)
-{
-}
-CAnimation::CAnimation(CModelX* model)
-	: mpFrameName(0)
-	, mFrameIndex(0)
-	, mKeyNum(0)
-	, mpKey(nullptr)
-{
-	model->GetToken(); // { or Animation Name
-	if (strchr(model->mToken, '{')) {
-		model->GetToken(); // {
-	}
-	else {
-		model->GetToken(); // {
-		model->GetToken(); // {
-	}
-
-	model->GetToken(); //FrameName
-	mpFrameName = new char[strlen(model->mToken) + 1];
-	strcpy(mpFrameName, model->mToken);
-	mFrameIndex =
-		model->FindFrame(model->mToken)->mIndex;
-	model->GetToken(); // }
-	//キーの配列を保存しておく配列
-	CMatrix* key[4] = { 0, 0, 0, 0 };
-	//時間の配列を保存しておく配列
-	float* time[4] = { 0, 0, 0, 0 };
-	while (*model->mpPointer != '\0') {
-		model->GetToken(); // } or AnimationKey
-		if (strchr(model->mToken, '}')) break;
-		if (strcmp(model->mToken, "AnimationKey") == 0) {
-			model->GetToken(); // {
-			//データのタイプ取得
-			int type = model->GetIntToken();
-			//時間数取得
-			mKeyNum = model->GetIntToken();
-			switch (type) {
-			case 0:
-				// Rotation Quaternion
-				//行列の配列を時間数分確保
-				key[type] = new CMatrix[mKeyNum];
-				//時間の配列を時間数分確保
-				time[type] = new float[mKeyNum];
-				//時間数分繰り返す
-				for (int i = 0; i < mKeyNum; i++) {
-					//時間取得
-					time[type][i] = model->GetFloatToken();
-					model->GetToken(); // 4を読み飛ばし
-					//w,x,y,zを取得
-					float w = model->GetFloatToken();
-					float x = model->GetFloatToken();
-					float y = model->GetFloatToken();
-					float z = model->GetFloatToken();
-					//クォータニオンを回転行列へ変換
-					key[type][i].Quaternion(x, y, z, w);
-				}
-				break;
-			case 1:
-				//拡大・縮小の行列作成
-				key[type] = new CMatrix[mKeyNum];
-				time[type] = new float[mKeyNum];
-				for (int i = 0; i < mKeyNum; i++) {
-					time[type][i] = model->GetFloatToken();
-					model->GetToken(); // 3
-					float x = model->GetFloatToken();
-					float y = model->GetFloatToken();
-					float z = model->GetFloatToken();
-					key[type][i].Scale(x,y,z);
-				}
-				break;
-			case 2: //移動の行列作成
-				key[type] = new CMatrix[mKeyNum];
-				time[type] = new float[mKeyNum];
-				for (int i = 0; i < mKeyNum; i++) {
-					time[type][i] = model->GetFloatToken();
-					model->GetToken(); // 3
-					float x = model->GetFloatToken();
-					float y = model->GetFloatToken();
-					float z = model->GetFloatToken();
-					key[type][i].Translate(x, y, z);
-				}
-				break;
-			case 4: //行列データを取得
-				mpKey = new CAnimationKey[mKeyNum];
-				for (int i = 0; i < mKeyNum; i++) {
-					mpKey[i].mTime = model->GetFloatToken(); // Time
-					model->GetToken(); // 16
-					for (int j = 0; j < 16; j++) {
-						mpKey[i].mMatrix.M()[j] = model->GetFloatToken();
-					}
-				}
-				break;
-			}
-			model->GetToken(); // }
-		}
-		else {
-			model->SkipNode();
-		}
-	}
-	//行列データではない時
-	if (mpKey == 0) {
-		//時間数分キーを作成
-		mpKey = new CAnimationKey[mKeyNum];
-		for (int i = 0; i < mKeyNum; i++) {
-			//時間設定
-			mpKey[i].mTime = time[2][i]; // Time
-			//行列作成 Size * Rotation * Position
-			mpKey[i].mMatrix = key[1][i] * key[0][i] * key[2][i];
-		}
-	}
-	//確保したエリア解放
-	for (int i = 0; i < ARRAY_SIZE(key); i++) {
-		SAFE_DELETE_ARRAY(time[i]);
-		SAFE_DELETE_ARRAY(key[i]);
-	}
-}
-/*
-AnimateFrame
-フレームの変換行列をアニメーションデータで更新する
-*/
-void CModelX::AnimateFrame() {
-	//アニメーションで適用されるフレームの
-	//変換行列をゼロクリアする
-	for (size_t i = 0; i < mAnimationSets.size(); i++) {
-		CAnimationSet* anim = mAnimationSets[i];
-		//重みが0は飛ばす
-		if (anim->mWeight == 0) continue;
-		//フレーム分（Animation分）繰り返す
-		for (size_t j = 0; j < anim->mAnimation.size(); j++) {
-			CAnimation* animation = anim->mAnimation[j];
-			//該当するフレームの変換行列をゼロクリアする
-			memset(&mFrames[animation->mFrameIndex]->mTransformMatrix, 0, sizeof(CMatrix));
-		}
-	}
-	//アニメーションに該当するフレームの変換行列を
-	//アニメーションのデータで設定する
-	for (size_t i = 0; i < mAnimationSets.size(); i++) {
-		CAnimationSet* anim = mAnimationSets[i];
-		//重みが0は飛ばす
-		if (anim->mWeight == 0) continue;
-		//フレーム分（Animation分）繰り返す
-		for (size_t j = 0; j < anim->mAnimation.size(); j++) {
-			//フレームを取得する
-			CAnimation* animation = anim->mAnimation[j];
-			CModelXFrame* frame = mFrames[animation->mFrameIndex];
-			//キーがない場合は飛ばず
-			if (animation->mpKey == 0) continue;
-			//時間を取得
-			float time = anim->mTime;
-			//最初の時間より小さい場合
-			if (time < animation->mpKey[0].mTime) {
-				//変換行列を0コマ目の行列で更新
-				frame->mTransformMatrix += animation->mpKey[0].mMatrix * anim->mWeight;
-			}
-			//最後の時間より大きい場合
-			else if (time >= animation->mpKey[animation->mKeyNum - 1].mTime) {
-				//変換行列を最後のコマの行列で更新
-				frame->mTransformMatrix += animation->mpKey[animation->mKeyNum - 1].mMatrix * anim->mWeight;
-			}
-			else {
-				//時間の途中の場合
-				for (int k = 1; k < animation->mKeyNum; k++) {
-					//変換行列を、線形補間にて更新
-					if (time < animation->mpKey[k].mTime &&
-						animation->mpKey[k - 1].mTime != animation->mpKey[k].mTime) {
-						float r = (animation->mpKey[k].mTime - time) /
-							(animation->mpKey[k].mTime - animation->mpKey[k - 1].mTime);
-						frame->mTransformMatrix +=
-							(animation->mpKey[k - 1].mMatrix * r + animation->mpKey[k].mMatrix * (1 - r)) * anim->mWeight;
-						break;
-					}
-				}
-			}
-		}
-	}
-
-}
-/*
- AnimateCombined
- 合成行列の作成
-*/
-void CModelXFrame::AnimateCombined(CMatrix* parent) {
-	//自分の変換行列に、親からの変換行列を掛ける
-	mCombinedMatrix = mTransformMatrix * (*parent);
-	//子フレームの合成行列を作成する
-	for (size_t i = 0; i < mChild.size(); i++) {
-		mChild[i]->AnimateCombined(&mCombinedMatrix);
-	}
-
-}
-/*
-SetSkinWeightFrameIndex
-スキンウェイトにフレーム番号を設定する
-*/
-void CModelX::SetSkinWeightFrameIndex() {
-	//フレーム数分繰り返し
-	for (size_t i = 0; i < mFrames.size(); i++) {
-		//メッシュに面があれば
-		if (mFrames[i]->mMesh.mFaceNum > 0) {
-			//スキンウェイト分繰り返し
-			for (size_t j = 0; j < mFrames[i]->mMesh.mSkinWeights.size(); j++) {
-				//フレーム名のフレームを取得する
-				CModelXFrame* frame = FindFrame(mFrames[i]->mMesh.mSkinWeights[j]->mpFrameName);
-				//フレーム番号を設定する
-				mFrames[i]->mMesh.mSkinWeights[j]->mFrameIndex = frame->mIndex;
-			}
-		}
-	}
-}
-/* AnimateVertex 頂点にアニメーションを適用 */
-void CMesh::AnimateVertex(CModelX* model) {
-	//アニメーション用の頂点エリアクリア
-	memset(mpAnimateVertex, 0, sizeof(CVector) * mVertexNum);
-	memset(mpAnimateNormal, 0, sizeof(CVector) * mNormalNum);
-	//スキンウェイト分繰り返し
-	for (size_t i = 0; i < mSkinWeights.size(); i++) {
-		//フレーム番号取得
-		int frameIndex = mSkinWeights[i]->mFrameIndex;
-		//オフセット行列とフレーム合成行列を合成
-		CMatrix mSkinningMatrix = mSkinWeights[i]->mOffset * model->mFrames[frameIndex]->CombinedMatrix();
-		//頂点数分繰り返し
-		for (int j = 0; j < mSkinWeights[i]->mIndexNum; j++) {
-			//頂点番号取得
-			int index = mSkinWeights[i]->mpIndex[j];
-			//重み取得
-			float weight = mSkinWeights[i]->mpWeight[j];
-			//頂点と法線を更新する
-			mpAnimateVertex[index] += mpVertex[index] * mSkinningMatrix * weight;
-			mpAnimateNormal[index] += mpNormal[index] * mSkinningMatrix * weight;
-		}
-	}
-	//法線を正規化する
-	for (unsigned int i = 0; i < mNormalNum; i++) {
-		mpAnimateNormal[i] = mpAnimateNormal[i].Normalize();
-	}
-}
-/*
-AnimateVertex
-頂点にアニメーションを適用する
-*/
-void CModelX::AnimateVertex() {
-	//フレーム数分繰り返し
-	for (size_t i = 0; i < mFrames.size(); i++) {
-		//メッシュに面があれば
-		if (mFrames[i]->mMesh.mFaceNum > 0) {
-			//頂点をアニメーションで更新する
-			mFrames[i]->mMesh.AnimateVertex(this);
-		}
-	}
-}
-/*
- FindMaterial
- マテリアル名に該当するマテリアルを返却する
-*/
-CMaterial* CModelX::FindMaterial(char* name) {
-	//マテリアル配列のイテレータ作成
-	std::vector<CMaterial*>::iterator itr;
-	//マテリアル配列を先頭から順に検索
-	for (itr = mMaterials.begin(); itr != mMaterials.end(); itr++) {
-		//名前が一致すればマテリアルのポインタを返却
-		if (strcmp(name, (*itr)->Name()) == 0) {
-			return *itr;
-		}
-	}
-	//無い時はNULLを返却
-	return NULL;
-}
-void CModelX::SeparateAnimationSet(int idx, int start, int end, char* name)
-{
-	CAnimationSet* anim = mAnimationSets[idx];//分割するアニメーションセットを確定
-	CAnimationSet* as = new CAnimationSet();//アニメーションセットの生成
-	as->mpName = new char[strlen(name) + 1];
-	strcpy(as->mpName, name);
-	as->mMaxTime = end - start;
-	for (size_t i = 0; i < anim->mAnimation.size(); i++) {//既存のアニメーション分繰り返し
-		CAnimation* animation = new CAnimation();//アニメーションの生成
-		animation->mpFrameName = new char[strlen(anim->mAnimation[i]->mpFrameName) + 1];
-		strcpy(animation->mpFrameName, anim->mAnimation[i]->mpFrameName);
-		animation->mFrameIndex = anim->mAnimation[i]->mFrameIndex;
-		animation->mKeyNum = end - start + 1;
-		animation->mpKey = new CAnimationKey[animation->mKeyNum];//アニメーションキーの生成
-		animation->mKeyNum = 0;
-		for (int j = start; j <= end && j < anim->mAnimation[i]->mKeyNum; j++) {
-			if (j < anim->mAnimation[i]->mKeyNum)
-			{
-				animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
-			}
-			else
-			{
-				animation->mpKey[animation->mKeyNum] =
-					anim->mAnimation[i]->mpKey[anim->mAnimation[i]->mKeyNum - 1];
-			}
-			animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum++;
-			//animation->mpKey[animation->mKeyNum] = anim->mAnimation[i]->mpKey[j];
-			//animation->mpKey[animation->mKeyNum].mTime = animation->mKeyNum;
-			//animation->mKeyNum++;
-		}//アニメーションキーのコピー
-		as->mAnimation.push_back(animation);//アニメーションの追加
-	}
-	mAnimationSets.push_back(as);//アニメーションセットの追加
-
-}
-void CModelX::AnimateVertex(CMatrix* mat) {
-	//フレーム数分繰り返し
-	for (size_t i = 0; i < mFrames.size(); i++) {
-		//メッシュに面があれば
-		if (mFrames[i]->mMesh.mFaceNum > 0) {
-			//頂点をアニメーションで更新する
-			mFrames[i]->
-				mMesh.AnimateVertex(mat);
-		}
-	}
-}
-void CMesh::AnimateVertex(CMatrix* mat) {
-	//アニメーション用の頂点エリアクリア
-	memset(mpAnimateVertex, 0, sizeof(CVector) * mVertexNum);
-	memset(mpAnimateNormal, 0, sizeof(CVector) * mNormalNum);
-	//スキンウェイト分繰り返し
-	for (size_t i = 0; i < mSkinWeights.size(); i++) {
-		//フレーム番号取得
-		int frameIndex = mSkinWeights[i]->mFrameIndex;
-		//フレーム合成行列にオフセット行列を合成
-		CMatrix mSkinningMatrix = mSkinWeights[i]->mOffset * mat[frameIndex];
-		//頂点数分繰り返し
-		for (int j = 0; j < mSkinWeights[i]->mIndexNum; j++) {
-			//頂点番号取得
-			int index = mSkinWeights[i]->mpIndex[j];
-			//重み取得
-			float weight = mSkinWeights[i]->mpWeight[j];
-			//頂点と法線を更新する
-			mpAnimateVertex[index] += mpVertex[index] * mSkinningMatrix * weight;
-			mpAnimateNormal[index] += mpNormal[index] * mSkinningMatrix * weight;
-		}
-	}
-	//法線を正規化する
-	for (unsigned int i = 0; i < mNormalNum; i++) {
-		mpAnimateNormal[i] = mpAnimateNormal[i].Normalize();
-	}
-}
-
-void CModelX::RenderShader(CMatrix* pCombinedMatrix)
-{
-	mShader.Render(this, pCombinedMatrix);
-}
-
-bool CModelX::IsLoaded()
-{
-	return mFrames.size() != 0;
-}
-
-void CMesh::CreateVertexBuffer() {
 	//メッシュ毎に一回作成すればよい
 	if (mMyVertexBufferId > 0)
 		return;
@@ -1014,17 +700,17 @@ void CMesh::CreateVertexBuffer() {
 		//頂点インデックスを使わず、全ての面データを作成
 		CVertex* pmyVertex, * vec;
 		//頂点数計算
-		unsigned int myVertexNum = mFaceNum * 3;
+		int myVertexNum = mFaceNum * 3;
 		//頂点数分頂点配列作成
 		pmyVertex = new CVertex[myVertexNum];
 		vec = new CVertex[mVertexNum];
-		for (unsigned int j = 0; j < mVertexNum; j++) {
+		for (int j = 0; j < mVertexNum; j++) {
 			//頂点座標設定
 			vec[j].mPosition = mpVertex[j];
 			//テクスチャマッピング設定
 			if (mpTextureCoords != NULL) {
-				vec[j].mTextureCoords.Set(mpTextureCoords[j * 2]
-					, mpTextureCoords[j * 2 + 1],0.0f);
+				vec[j].mTextureCoords.X(mpTextureCoords[j * 2]);
+				vec[j].mTextureCoords.Y(mpTextureCoords[j * 2 + 1]);
 			}
 			vec[j].mBoneWeight[0] = 1.0f;
 		}
@@ -1033,19 +719,7 @@ void CMesh::CreateVertexBuffer() {
 		for (size_t k = 0; k < mSkinWeights.size(); k++) {
 			for (int l = 0; l < mSkinWeights[k]->mIndexNum; l++) {
 				int idx = mSkinWeights[k]->mpIndex[l];
-				int m;
-				for (m = 0; m < 3; m++) {
-					//if (vec[idx].mBoneWeight[m] < mSkinWeights[k]->mpWeight[l])
-					//{
-					//	if (vec[idx].mBoneIndex[m + 1] != 0)
-					//	{
-					//		vec[idx].mBoneIndex[m] = vec[idx].mBoneIndex[m + 1];
-					//		vec[idx].mBoneWeight[m] = vec[idx].mBoneWeight[m + 1];
-					//	}
-					//}
-					//else {
-					//	break;
-					//}
+				for (int m = 0; m < 4; m++) {
 					if (vec[idx].mBoneIndex[m] == 0) {
 						vec[idx].mBoneIndex[m] =
 							mSkinWeights[k]->mFrameIndex;
@@ -1054,31 +728,13 @@ void CMesh::CreateVertexBuffer() {
 						break;
 					}
 				}
-				//if (vec[idx].mBoneIndex[m] == 0 ||
-				//	vec[idx].mBoneWeight[m] <= mSkinWeights[k]->mpWeight[l])
-				//{
-				//	vec[idx].mBoneIndex[m] =
-				//		mSkinWeights[k]->mFrameIndex;
-				//	vec[idx].mBoneWeight[m] =
-				//		mSkinWeights[k]->mpWeight[l];
-				//}
-				//else
-				//{
-				//	if (m > 0)
-				//	{
-				//		vec[idx].mBoneIndex[m-1] =
-				//			mSkinWeights[k]->mFrameIndex;
-				//		vec[idx].mBoneWeight[m-1] =
-				//			mSkinWeights[k]->mpWeight[l];
-				//	}
-				//}
 			}
 		}
-		unsigned int k = 0;
+		int k = 0;
 		//マテリアル番号の昇順に面の頂点を設定
-		for (size_t i = 0; i < mMaterials.size(); i++) {
-			unsigned int w = k;
-			for (unsigned int j = 0; j < mMaterialIndexNum; j++) {
+		for (size_t i = 0; i < mMaterial.size(); i++) {
+			int w = k;
+			for (int j = 0; j < mMaterialIndexNum; j++) {
 				if (mpMaterialIndex[j] == i) {
 					//頂点配列に設定し、法線を設定する
 					pmyVertex[k] = vec[mpVertexIndex[j * 3]];
@@ -1105,11 +761,447 @@ void CMesh::CreateVertexBuffer() {
 		//配列解放
 		delete[] pmyVertex;
 		delete[] vec;
-		pmyVertex = NULL;
+		pmyVertex = nullptr;
 	}
 }
 
-CAnimationKey::CAnimationKey()
-	: mTime(0.0f)
+void CMesh::AnimateVertex(CMatrix* mat) {
+	//アニメーション用の頂点エリアクリア
+	memset(mpAnimateVertex, 0, sizeof(CVector) * mVertexNum);
+	memset(mpAnimateNormal, 0, sizeof(CVector) * mNormalNum);
+	//スキンウェイト分繰り返し
+	for (size_t i = 0; i < mSkinWeights.size(); i++) {
+		//フレーム番号取得
+		int frameIndex = mSkinWeights[i]->mFrameIndex;
+		//フレーム合成行列にオフセット行列を合成
+		CMatrix mSkinningMatrix = mSkinWeights[i]->mOffset * mat[frameIndex];
+		//頂点数分繰り返し
+		for (int j = 0; j < mSkinWeights[i]->mIndexNum; j++) {
+			//頂点番号取得
+			int index = mSkinWeights[i]->mpIndex[j];
+			//重み取得
+			float weight = mSkinWeights[i]->mpWeight[j];
+			//頂点と法線を更新する
+			mpAnimateVertex[index] += mpVertex[index] * mSkinningMatrix * weight;
+			mpAnimateNormal[index] += mpNormal[index] * mSkinningMatrix * weight;
+		}
+	}
+	//法線を正規化する
+	for (int i = 0; i < mNormalNum; i++) {
+		mpAnimateNormal[i] = mpAnimateNormal[i].Normalize();
+	}
+}
+
+void CMesh::AnimateVertex(CModelX* model)
 {
+	//アニメーション用の頂点エリアクリア
+	memset(mpAnimateVertex, 0, sizeof(CVector) * mVertexNum);
+	memset(mpAnimateNormal, 0, sizeof(CVector) * mNormalNum);
+	//スキンウェイト分繰り返し
+	for (size_t i = 0; i < mSkinWeights.size(); i++) {
+		//フレーム番号取得
+		int frameIndex = mSkinWeights[i]->mFrameIndex;
+		//オフセット行列とフレーム合成行列を合成
+		CMatrix mSkinningMatrix = mSkinWeights[i]->mOffset * model->Frames()[frameIndex]->CombinedMatrix();
+		//頂点数分繰り返し
+		for (int j = 0; j < mSkinWeights[i]->mIndexNum; j++) {
+			//頂点番号取得
+			int index = mSkinWeights[i]->mpIndex[j];
+			//重み取得
+			float weight = mSkinWeights[i]->mpWeight[j];
+			//頂点と法線を更新する
+			mpAnimateVertex[index] += mpVertex[index] * mSkinningMatrix * weight;
+			mpAnimateNormal[index] += mpNormal[index] * mSkinningMatrix * weight;
+		}
+	}
+	//法線を正規化する
+	for (int i = 0; i < mNormalNum; i++) {
+		mpAnimateNormal[i] = mpAnimateNormal[i].Normalize();
+	}
+}
+
+void CMesh::SetSkinWeightFrameIndex(CModelX* model)
+{
+	//スキンウェイト分繰り返し
+	for (size_t i = 0; i < mSkinWeights.size(); i++) {
+		//フレーム名のフレームを取得する
+		CModelXFrame* frame = model->FindFrame(mSkinWeights[i]->mpFrameName);
+		//フレーム番号を設定する
+		mSkinWeights[i]->mFrameIndex = frame->Index();
+	}
+}
+
+/*
+ Render
+ 画面に描画する
+*/
+void CMesh::Render() {
+	/* 頂点データ，法線データの配列を有効にする */
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	//テクスチャマッピングの配列を有効にする
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	/* 頂点データ，法線データの場所を指定する */
+	glVertexPointer(3, GL_FLOAT, 0, mpAnimateVertex);
+	glNormalPointer(GL_FLOAT, 0, mpAnimateNormal);
+	glTexCoordPointer(2, GL_FLOAT, 0, mpTextureCoords);
+
+	/* 頂点のインデックスの場所を指定して図形を描画する */
+/* 頂点のインデックスの場所を指定して図形を描画する */
+	for (int i = 0; i < mFaceNum; i++) {
+		//マテリアルを適用する
+		mMaterial[mpMaterialIndex[i]]->Enabled();
+		glDrawElements(GL_TRIANGLES, 3,
+			GL_UNSIGNED_INT, (mpVertexIndex + i * 3));
+		mMaterial[mpMaterialIndex[i]]->Disabled();
+	}
+
+	/* 頂点データ，法線データの配列を無効にする */
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+}
+
+//デフォルトコンストラクタ
+CModelXFrame::CModelXFrame()
+	: mpMesh(nullptr)
+	, mpName(nullptr)
+	, mIndex(0)
+{}
+
+const CMatrix& CModelXFrame::CombinedMatrix()
+{
+	return mCombinedMatrix;
+}
+/*
+ AnimateCombined
+ 合成行列の作成
+*/
+void CModelXFrame::AnimateCombined(CMatrix* parent) {
+	//自分の変換行列に、親からの変換行列を掛ける
+	mCombinedMatrix = mTransformMatrix * (*parent);
+	//子フレームの合成行列を作成する
+	for (size_t i = 0; i < mChild.size(); i++) {
+		mChild[i]->AnimateCombined(&mCombinedMatrix);
+	}
+}
+/*
+ Render
+ メッシュの面数が0以外なら描画する
+*/
+void CModelXFrame::Render() {
+	if (mpMesh != nullptr)
+		mpMesh->Render();
+}
+
+char* CModelX::Token()
+{
+	return mToken;
+}
+
+/*
+Render
+全てのフレームの描画処理を呼び出す
+*/
+void CModelX::Render() {
+	for (size_t i = 0; i < mFrame.size(); i++) {
+		mFrame[i]->Render();
+	}
+}
+
+CSkinWeights::CSkinWeights(CModelX* model)
+	: mpFrameName(0)
+	, mFrameIndex(0)
+	, mIndexNum(0)
+	, mpIndex(nullptr)
+	, mpWeight(nullptr)
+{
+	model->GetToken();	// {
+	model->GetToken();	// FrameName
+	//フレーム名エリア確保、設定
+	mpFrameName = new char[strlen(model->Token()) + 1];
+	strcpy(mpFrameName, model->Token());
+
+	//頂点番号数取得
+	mIndexNum = atoi(model->GetToken());
+	//頂点番号数が0を超える
+	if (mIndexNum > 0) {
+		//頂点番号と頂点ウェイトのエリア確保
+		mpIndex = new int[mIndexNum];
+		mpWeight = new float[mIndexNum];
+		//頂点番号取得
+		for (int i = 0; i < mIndexNum; i++)
+			mpIndex[i] = atoi(model->GetToken());
+		//頂点ウェイト取得
+		for (int i = 0; i < mIndexNum; i++)
+			mpWeight[i] = atof(model->GetToken());
+	}
+	//オフセット行列取得
+	for (int i = 0; i < 16; i++) {
+		mOffset.M()[i] = atof(model->GetToken());
+	}
+	model->GetToken();	// }
+
+#ifdef _DEBUG
+	//printf("SkinWeights:%s\n", mpFrameName);
+	//for (int i = 0; i < mIndexNum; i++)
+	//{
+	//	printf("%3d %10f\n", mpIndex[i], mpWeight[i]);
+	//}
+	//mOffset.Print();
+
+#endif
+
+}
+
+CSkinWeights::~CSkinWeights()
+{
+	SAFE_DELETE_ARRAY(mpFrameName);
+	SAFE_DELETE_ARRAY(mpIndex);
+	SAFE_DELETE_ARRAY(mpWeight);
+}
+
+CAnimationSet::~CAnimationSet()
+{
+	SAFE_DELETE_ARRAY(mpName);
+	//アニメーション要素の削除
+	for (size_t i = 0; i < mAnimation.size(); i++) {
+		delete mAnimation[i];
+	}
+}
+//float CAnimationSet::Weight()
+//{
+//	return mWeight;
+//}
+std::vector<CAnimation*>& CAnimationSet::Animation()
+{
+	return mAnimation;
+}
+//float CAnimationSet::Time()
+//{
+//	return mTime;
+//}
+void CAnimationSet::Time(float time)
+{
+	mTime = time;
+}
+void CAnimationSet::Weight(float weight)
+{
+	mWeight = weight;
+}
+
+/*
+CAnimationSet
+*/
+CAnimationSet::CAnimationSet(CModelX* model)
+	: mpName(nullptr)
+	, mTime(0)
+	, mWeight(0)
+	, mMaxTime(0)
+{
+	model->mAnimationSet.push_back(this);
+	model->GetToken();	// Animation Name
+	//アニメーションセット名を退避
+	mpName = new char[strlen(model->Token()) + 1];
+	strcpy(mpName, model->Token());
+	model->GetToken(); // {
+	while (!model->EOT()) {
+		model->GetToken(); // } or Animation
+		if (strchr(model->Token(), '}'))break;
+		if (strcmp(model->Token(), "Animation") == 0) {
+			//Animation要素読み込み
+			mAnimation.push_back(new CAnimation(model));
+		}
+	}
+	//終了時間設定
+	mMaxTime = mAnimation[0]->mpKey[mAnimation[0]->mKeyNum - 1].mTime;
+}
+
+CAnimationSet::CAnimationSet()
+	: mpName(nullptr)
+	, mTime(0)
+	, mWeight(0)
+	, mMaxTime(0)
+{
+}
+
+float CAnimationSet::Time()
+{
+	return mTime;
+}
+
+float CAnimationSet::MaxTime()
+{
+	return mMaxTime;
+}
+
+void CAnimationSet::AnimateMatrix(CModelX* model)
+{
+	//重みが0は飛ばす
+	if (mWeight == 0) return;
+	//フレーム分（Animation分）繰り返す
+	for (size_t j = 0; j < mAnimation.size(); j++) {
+		//フレームを取得する
+		CAnimation* animation = mAnimation[j];
+		//キーがない場合は飛ばす
+		if (animation->mpKey == nullptr) continue;
+		CModelXFrame* frame = model->mFrame[animation->mFrameIndex];
+		//最初の時間より小さい場合
+		if (mTime < animation->mpKey[0].mTime) {
+			//変換行列を0コマ目の行列で更新
+			frame->mTransformMatrix += animation->mpKey[0].mMatrix * mWeight;
+		}
+		//最後の時間より大きい場合
+		else if (mTime >= animation->mpKey[animation->mKeyNum - 1].mTime) {
+			//変換行列を最後のコマの行列で更新
+			frame->mTransformMatrix += animation->mpKey[animation->mKeyNum - 1].mMatrix * mWeight;
+		}
+		else {
+			//時間の途中の場合
+			for (int k = 1; k < animation->mKeyNum; k++) {
+				//変換行列を、線形補間にて更新
+				if (mTime < animation->mpKey[k].mTime &&
+					animation->mpKey[k - 1].mTime != animation->mpKey[k].mTime) {
+					float r = (animation->mpKey[k].mTime - mTime) /
+						(animation->mpKey[k].mTime - animation->mpKey[k - 1].mTime);
+					frame->mTransformMatrix +=
+						(animation->mpKey[k - 1].mMatrix * r + animation->mpKey[k].mMatrix * (1 - r)) * mWeight;
+					break;
+				}
+			}
+		}
+	}
+}
+
+//int CAnimation::FrameIndex()
+//{
+//	return mFrameIndex;
+//}
+
+CAnimation::CAnimation()
+	: mpFrameName(nullptr)
+	, mFrameIndex(0)
+	, mKeyNum(0)
+	, mpKey(nullptr)
+{
+}
+
+CAnimation::CAnimation(CModelX* model)
+	: mpFrameName(nullptr)
+	, mFrameIndex(0)
+	, mKeyNum(0)
+	, mpKey(nullptr)
+
+{
+	model->GetToken(); // { or Animation Name
+	if (strchr(model->Token(), '{')) {
+		model->GetToken(); // {
+	}
+	else {
+		model->GetToken(); // {
+		model->GetToken(); // {
+	}
+
+	model->GetToken(); //FrameName
+	mpFrameName = new char[strlen(model->Token()) + 1];
+	strcpy(mpFrameName, model->Token());
+	mFrameIndex =
+		model->FindFrame(model->Token())->Index();
+	model->GetToken(); // }
+	//キーの配列を保存しておく配列
+	CMatrix* key[4] = { nullptr, nullptr, nullptr, nullptr };
+	//時間の配列を保存しておく配列
+	float* time[4] = { nullptr, nullptr, nullptr, nullptr };
+	while (!model->EOT()) {
+		model->GetToken(); // } or AnimationKey
+		if (strchr(model->Token(), '}')) break;
+		if (strcmp(model->Token(), "AnimationKey") == 0) {
+			model->GetToken(); // {
+			//データのタイプ取得
+			int type = atoi(model->GetToken());
+			//時間数取得
+			mKeyNum = atoi(model->GetToken());
+			switch (type) {
+			case 0: // Rotation Quaternion
+				//行列の配列を時間数分確保
+				key[type] = new CMatrix[mKeyNum];
+				//時間の配列を時間数分確保
+				time[type] = new float[mKeyNum];
+				//時間数分繰り返す
+				for (int i = 0; i < mKeyNum; i++) {
+					//時間取得
+					time[type][i] = atof(model->GetToken());
+					model->GetToken(); // 4を読み飛ばし
+					//w,x,y,zを取得
+					float w = atof(model->GetToken());
+					float x = atof(model->GetToken());
+					float y = atof(model->GetToken());
+					float z = atof(model->GetToken());
+					//クォータニオンから回転行列に変換
+					key[type][i].Quaternion(x, y, z, w);
+				}
+				break;
+			case 1: //拡大・縮小の行列作成
+				key[type] = new CMatrix[mKeyNum];
+				time[type] = new float[mKeyNum];
+				for (int i = 0; i < mKeyNum; i++) {
+					time[type][i] = atof(model->GetToken());
+					model->GetToken(); // 3
+					float x = atof(model->GetToken());
+					float y = atof(model->GetToken());
+					float z = atof(model->GetToken());
+					key[type][i].Scale(x, y, z);
+				}
+				break;
+			case 2: //移動の行列作成
+				key[type] = new CMatrix[mKeyNum];
+				time[type] = new float[mKeyNum];
+				for (int i = 0; i < mKeyNum; i++) {
+					time[type][i] = atof(model->GetToken());
+					model->GetToken(); // 3
+					float x = atof(model->GetToken());
+					float y = atof(model->GetToken());
+					float z = atof(model->GetToken());
+					key[type][i].Translate(x, y, z);
+				}
+				break;
+			case 4: //行列データを取得
+				mpKey = new CAnimationKey[mKeyNum];
+				for (int i = 0; i < mKeyNum; i++) {
+					mpKey[i].mTime = atof(model->GetToken()); // Time
+					model->GetToken(); // 16
+					for (int j = 0; j < 16; j++) {
+						mpKey[i].mMatrix.M()[j] = atof(model->GetToken());
+					}
+				}
+				break;
+			}
+			model->GetToken(); // }
+		}
+		else {
+			model->SkipNode();
+		}
+	}
+	//行列データではない時
+	if (mpKey == nullptr) {
+		//時間数分キーを作成
+		mpKey = new CAnimationKey[mKeyNum];
+		for (int i = 0; i < mKeyNum; i++) {
+			//時間設定
+			mpKey[i].mTime = time[2][i]; // Time
+			//行列作成 Scale * Rotation * Position
+			mpKey[i].mMatrix = key[1][i] * key[0][i] * key[2][i];
+		}
+	}
+	//確保したエリア解放
+	for (int i = 0; i < ARRAY_SIZE(key); i++) {
+		SAFE_DELETE_ARRAY(time[i]);
+		SAFE_DELETE_ARRAY(key[i]);
+	}
+}
+
+CAnimation::~CAnimation()
+{
+	SAFE_DELETE_ARRAY(mpFrameName);
+	SAFE_DELETE_ARRAY(mpKey);
 }
