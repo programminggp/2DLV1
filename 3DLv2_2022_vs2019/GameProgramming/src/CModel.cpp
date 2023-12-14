@@ -75,7 +75,7 @@ void CModelTest::Render()
 	glDisableClientState(GL_NORMAL_ARRAY);
 }
 
-std::vector<CTriangle> CModel::Triangles() const
+const std::vector<CTriangle>& CModel::Triangles() const
 {
 	return mTriangles;
 }

@@ -7,8 +7,8 @@ CModelX CFelguard::mModel;
 #define MODEL "res\\felguard\\felguard-X.X"
 
 CFelguard::CFelguard()
-	:mColHit(this,nullptr,CVector(0.0f, 0.0f, 0.0f), 1.8f)
-	, mColCapsule(this, &mMatrix, CVector(0.0f, -2.5f, 0.0f), CVector(0.0f, 2.5f, 0.0f), 1.2f)
+	:mColHit(this, &mMatrix,CVector(0.0f, 0.0f, 0.0f), 1.8f)
+	, mColCapsule(this, &mMatrix, CVector(0.0f, -2.5f, 0.0f), CVector(0.0f, 2.5f, 0.0f))//, 1.2f)
 {
 	if (!mModel.IsLoaded())
 	{
@@ -74,8 +74,9 @@ void CFelguard::Update()
 		}
 	}
 	CXCharacter::Update();
-	mColCapsule.ChangePriority();
 	ChangeState(state);
+	mColCapsule.Update();
+	mColHit.Update();
 }
 
 void CFelguard::ChangeState(EState state)
@@ -107,8 +108,8 @@ void CFelguard::ChangeState(EState state)
 
 void CFelguard::TaskCollision()
 {
-	mColHit.ChangePriority();
-	CCollisionManager::Get()->Collision(&mColHit, 20);
+	//CCollisionManager::Get()->Collision(&mColHit, 20);
+	CCollisionManager2::Instance()->TM(&mColHit)->Collision(&mColHit);
 }
 
 void CFelguard::Collision(CCollider* m, CCollider* o)

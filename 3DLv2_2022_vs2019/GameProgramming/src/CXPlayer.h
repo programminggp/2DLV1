@@ -20,8 +20,8 @@ class CXPlayer : public CXCharacter
 	CCollider mColSphereSword0;	//Œ•
 	CCollider mColSphereSword1;	//Œ•
 	CCollider mColSphereSword2;	//Œ•
-//	CColliderLine mColLine;
-	CColliderCapsule mColLine;
+	CColliderLine mColLine;
+//	CColliderCapsule mColLine;
 
 public:
 	CXPlayer();

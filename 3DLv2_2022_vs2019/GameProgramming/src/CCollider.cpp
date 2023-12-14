@@ -14,8 +14,9 @@ CCollider::CCollider()
 , mTag(EBODY)
 , mRadius(0)
 {
-	//コリジョンマネージャyに追加
-	CCollisionManager::Get()->Add(this);
+	//コリジョンマネージャに追加
+	//CCollisionManager::Get()->Add(this);
+	CCollisionManager2::Instance()->TM(this)->Add(this);
 }
 
 //コンストラクタ
@@ -32,6 +33,7 @@ CCollider::CCollider(CCharacter *parent, CMatrix *matrix,
 	mPosition = position; //位置
 	//半径設定
 	mRadius = radius;
+	Update();
 }
 
 //描画
@@ -39,7 +41,7 @@ void CCollider::Render() {
 	glPushMatrix();
 	//コライダの中心座標を計算
 	//自分の座標×親の変換行列を掛ける
-	CVector pos = mPosition * *mpMatrix;
+	CVector pos = mV[0];
 	//中心座標へ移動
 	glMultMatrixf(CMatrix().Translate(pos.X(), pos.Y(), pos.Z()).M());
 	//DIFFUSE赤色設定
@@ -52,7 +54,8 @@ void CCollider::Render() {
 
 CCollider::~CCollider()
 {
-	CCollisionManager::Get()->Remove(this);
+//	CCollisionManager::Get()->Remove(this);
+	CCollisionManager2::Instance()->TM(this)->Remove(this);
 }
 //衝突判定
 //Collision(コライダ1, コライダ2)
@@ -60,8 +63,10 @@ CCollider::~CCollider()
 bool CCollider::Collision(CCollider *m, CCollider *o) {
 	//各コライダの中心座標を求める
 	//原点×コライダの変換行列×親の変換行列
-	CVector mpos = m->mPosition * *m->mpMatrix;
-	CVector opos = o->mPosition * *o->mpMatrix;
+//	CVector mpos = m->mPosition * *m->mpMatrix;
+//	CVector opos = o->mPosition * *o->mpMatrix;
+	CVector mpos = m->mV[0];
+	CVector opos = o->mV[0];
 	//中心から中心へのベクトルを求める
 	mpos = mpos - opos;
 	//中心の距離が半径の合計より小さいと衝突
@@ -76,13 +81,19 @@ bool CCollider::Collision(CCollider *m, CCollider *o) {
 bool CCollider::CollisionTriangleLine(CCollider *t, CCollider *l, CVector *a) {
 	CVector v[3], sv, ev;
 	//各コライダの頂点をワールド座標へ変換
-	v[0] = t->mV[0] * *t->mpMatrix;
-	v[1] = t->mV[1] * *t->mpMatrix;
-	v[2] = t->mV[2] * *t->mpMatrix;
-	sv = l->mV[0] * *l->mpMatrix;
-	ev = l->mV[1] * *l->mpMatrix;
+	//v[0] = t->mV[0] * *t->mpMatrix;
+	//v[1] = t->mV[1] * *t->mpMatrix;
+	//v[2] = t->mV[2] * *t->mpMatrix;
+	//sv = l->mV[0] * *l->mpMatrix;
+	//ev = l->mV[1] * *l->mpMatrix;
+	v[0] = t->mV[0];
+	v[1] = t->mV[1];
+	v[2] = t->mV[2];
+	sv = l->mV[0];
+	ev = l->mV[1];
 	//面の法線を、外積を正規化して求める
-	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	//CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	CVector normal = t->mV[3];
 	//三角の頂点から線分始点へのベクトルを求める
 	CVector v0sv = sv - v[0];
 	//三角の頂点から線分終点へのベクトルを求める
@@ -145,14 +156,20 @@ bool CCollider::CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a)
 {
 	CVector v[3], sv, ev;
 	//各コライダの頂点をワールド座標へ変換
-	v[0] = t->mV[0] * *t->mpMatrix;
-	v[1] = t->mV[1] * *t->mpMatrix;
-	v[2] = t->mV[2] * *t->mpMatrix;
+	//v[0] = t->mV[0] * *t->mpMatrix;
+	//v[1] = t->mV[1] * *t->mpMatrix;
+	//v[2] = t->mV[2] * *t->mpMatrix;
+	v[0] = t->mV[0];
+	v[1] = t->mV[1];
+	v[2] = t->mV[2];
 	//面の法線を、外積を正規化して求める
-	CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	//CVector normal = (v[1] - v[0]).Cross(v[2] - v[0]).Normalize();
+	CVector normal = t->mV[3];
 	//線コライダをワールド座標で作成
-	sv = s->mPosition * *s->mpMatrix + normal * s->mRadius;
-	ev = s->mPosition * *s->mpMatrix - normal * s->mRadius;
+	//sv = s->mPosition * *s->mpMatrix + normal * s->mRadius;
+	//ev = s->mPosition * *s->mpMatrix - normal * s->mRadius;
+	sv = s->mV[0] + normal * s->mRadius;
+	ev = s->mV[0] - normal * s->mRadius;
 	CColliderLine line(NULL, NULL, sv, ev);
 	//三角コライダと線コライダの衝突処理
 	return CollisionTriangleLine(t, &line, a);
@@ -258,12 +275,15 @@ CVector CCollider::VectorLineMinDist(const CVector& Start1, const CVector& End1,
 //優先度の変更
 void CCollider::ChangePriority()
 {
+	CCollisionManager2::Instance()->TM(this)->Remove(this);
 	//自分の座標×親の変換行列を掛ける
-	CVector pos = mPosition * *mpMatrix;
+	//CVector pos = mPosition * *mpMatrix;
 	//ベクトルの長さが優先度
-	mPriority = pos.Length();
-	CCollisionManager::Get()->Remove(this); //一旦削除
-	CCollisionManager::Get()->Add(this); //追加
+	mCenter = mV[0];
+	mPriority = mV[0].Length();
+	//CCollisionManager::Get()->Remove(this); //一旦削除
+	//CCollisionManager::Get()->Add(this); //追加
+	CCollisionManager2::Instance()->TM(this)->Add(this);
 }
 
 CCollider::EType CCollider::Type()
@@ -284,4 +304,10 @@ void CCollider::Tag(ETag tag)
 void CCollider::Matrix(CMatrix* p)
 {
 	mpMatrix = p;
+}
+
+void CCollider::Update()
+{
+	mV[0] = mPosition * *mpMatrix;
+	ChangePriority();
 }

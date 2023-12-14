@@ -67,3 +67,23 @@ void CCollisionManager::Collision(CCollider *c, int range) {
 		task = (CCollider*)task->mpNext;
 	}
 }
+
+//マネージャのインスタンス
+CCollisionManager2* CCollisionManager2::mpInstance = 0;
+//インスタンスの取得
+CCollisionManager2* CCollisionManager2::Instance()
+{
+	if (mpInstance == 0)
+	{
+		mpInstance = new CCollisionManager2();
+	}
+	return mpInstance;
+}
+
+CTaskManager2* CCollisionManager2::TM(const CCollider* col)
+{
+//	return &mTM[col->mPriority % TASK_LINE];
+	int x = col->mCenter.X() + 100;
+	int w = x % TASK_LINE;
+	return &mTM[w];
+}

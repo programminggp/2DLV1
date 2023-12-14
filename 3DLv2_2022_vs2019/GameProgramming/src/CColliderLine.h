@@ -21,6 +21,10 @@ public:
 	//—Dæ“x‚Ì•ÏX
 	void ChangePriority();
 
+	void Update();
+private:
+	//’¸“_
+	CVector mV[4];
 };
 
 #endif

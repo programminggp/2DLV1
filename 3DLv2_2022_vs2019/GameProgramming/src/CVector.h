@@ -57,6 +57,40 @@ public:
 	//+=演算子のオーバーロード
 	//CVector1 += CVector2 の演算を行う
 	void operator+=(const CVector& v);
+	CVector Less(const CVector& v)
+	{
+		CVector m = v;
+		if (m.X() > mX)
+		{
+			m.X(mX);
+		}
+		if (m.Y() > mY)
+		{
+			m.Y(mY);
+		}
+		if (m.Z() > mZ)
+		{
+			m.Z(mZ);
+		}
+		return m;
+	}
+	CVector Greater(const CVector& v)
+	{
+		CVector m = v;
+		if (m.X() < mX)
+		{
+			m.X(mX);
+		}
+		if (m.Y() < mY)
+		{
+			m.Y(mY);
+		}
+		if (m.Z() < mZ)
+		{
+			m.Z(mZ);
+		}
+		return m;
+	}
 private:
 	//3D各軸での値を設定
 	float mX, mY, mZ;

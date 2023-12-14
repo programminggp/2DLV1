@@ -69,13 +69,16 @@ public:
 	void Tag(ETag tag);
 	//Matrix(CMatrix* p)
 	void Matrix(CMatrix* p);
+
+	void Update();
+	CVector mCenter;
 protected:
 	CCharacter* mpParent;//親
 	CMatrix* mpMatrix;//親行列
 	float mRadius;	//半径
 	EType mType;//コライダタイプ
 	//頂点
-	CVector mV[3];
+	CVector mV[4];
 	ETag mTag;
 };
 

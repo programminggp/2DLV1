@@ -17,12 +17,12 @@ CCharacter* CXPlayer::spInstance = nullptr;
 #define PLAYER_MODEL "res\\knight\\knight_low.X"
 
 CXPlayer::CXPlayer()
-	: mColSphereBody(this, nullptr, CVector(0.5f, -1.0f, 0.0f), 1.0f)
-	, mColSphereHead(this, nullptr, CVector(0.0f, 1.0f, 0.0f), 1.2f)
-	, mColSphereSword0(this, nullptr, CVector(0.7f, 3.5f, -0.2f), 0.5f)
-	, mColSphereSword1(this, nullptr, CVector(0.5f, 2.5f, -0.2f), 0.5f)
-	, mColSphereSword2(this, nullptr, CVector(0.3f, 1.5f, -0.2f), 0.5f)
-	, mColLine(this, &mMatrix, CVector(0.0f, -2.5f, 0.0f), CVector(0.0f, 2.5f, 0.0f), 1.2f)
+	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.0f, 0.0f), 1.0f)
+	, mColSphereHead(this, &mMatrix, CVector(0.0f, 1.0f, 0.0f), 1.2f)
+	, mColSphereSword0(this, &mMatrix, CVector(0.7f, 3.5f, -0.2f), 0.5f)
+	, mColSphereSword1(this, &mMatrix, CVector(0.5f, 2.5f, -0.2f), 0.5f)
+	, mColSphereSword2(this, &mMatrix, CVector(0.3f, 1.5f, -0.2f), 0.5f)
+	, mColLine(this, &mMatrix, CVector(0.0f, -2.5f, 0.0f), CVector(0.0f, 2.5f, 0.0f))//, 1.2f)
 	, mJumpV(0.0f)
 {
 	//ÉÇÉfÉãÇ™ñ¢ì¸óÕÇ»ÇÁì«Ç›çûÇ›
@@ -132,28 +132,35 @@ void CXPlayer::Update()
 	mJumpV -= GRAVITY;
 	mPosition.Y( mPosition.Y() + mJumpV );
 #ifdef _DEBUG
-	if (mPosition.Y() < 0.0f)
-	{
-		if (mState == EJUMP)
-		{
-			ChangeState(EIDLE);
-		}
-		mPosition.Y(0.0f);
-		mJumpV = 0.0f;
-	}
+	//if (mPosition.Y() < 0.0f)
+	//{
+	//	if (mState == EJUMP)
+	//	{
+	//		ChangeState(EIDLE);
+	//	}
+	//	mPosition.Y(0.0f);
+	//	mJumpV = 0.0f;
+	//}
 #endif
 	CXCharacter::Update();
 	CCamera::Get()->Position(mPosition + CVector(0.0f, 4.0f, 0.0f));
+	mColLine.Update();
+	mColSphereHead.Update();
+	mColSphereBody.Update();
+	mColSphereSword0.Update();
+	mColSphereSword1.Update();
+	mColSphereSword2.Update();
 }
 
 void CXPlayer::TaskCollision()
 {
-	mColLine.ChangePriority();
-	mColSphereBody.ChangePriority();
-	mColSphereSword0.ChangePriority();
-	mColSphereSword1.ChangePriority();
-	mColSphereSword2.ChangePriority();
-	CCollisionManager::Get()->Collision(&mColLine, 20);
+	//mColLine.ChangePriority();
+	//mColSphereBody.ChangePriority();
+	//mColSphereSword0.ChangePriority();
+	//mColSphereSword1.ChangePriority();
+	//mColSphereSword2.ChangePriority();
+	//CCollisionManager::Get()->Collision(&mColLine, 20);
+	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
 
 }
 
@@ -174,7 +181,8 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		break;
 	case CCollider::ELINE:
 		//ínñ ÅAï«Ç∆ÇÃè’ìÀîªíË
-		if (o->Tag() == CCollider::EGROUND)
+//		if (o->Tag() == CCollider::EGROUND)
+		if (o->Type() == CCollider::ETRIANGLE)
 		{
 			CVector ad;
 			if (CCollider::CollisionTriangleLine(o, m, &ad))

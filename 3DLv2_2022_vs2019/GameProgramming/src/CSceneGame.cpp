@@ -24,9 +24,13 @@
 
 #include "CModel.h"
 CModel gModel;
+#include "CColliderMesh.h"
+CColliderMesh gColliderMesh;
+CMatrix gMatrix;
 
 void CSceneGame::Init() {
 	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl");
+	gColliderMesh.Set(nullptr, &gMatrix, &gModel);
 
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
 	//Camera.Set(CVector(1.0f, 6.0f, 7.0f), CVector(0.0f, 4.0f, 0.0f), CVector(0.0f, 1.0f, 0.0f));
@@ -76,7 +80,7 @@ void CSceneGame::Update() {
 
 #ifdef _DEBUG
 	//コライダの描画
-	CCollisionManager::Get()->Render();
+//	CCollisionManager::Get()->Render();
 #endif
 
 	//2D描画開始

@@ -2,7 +2,9 @@
 #define CTASK_H
 
 class CTaskManager;
+class CTaskManager2;
 class CCollisionManager;
+class CCollisionManager2;
 
 /*
 タスククラス
@@ -10,7 +12,9 @@ class CCollisionManager;
 */
 class CTask {
 	friend CTaskManager;
+	friend CTaskManager2;
 	friend CCollisionManager;
+	friend CCollisionManager2;
 public:
 	//デフォルトコンストラクタ
 	CTask()

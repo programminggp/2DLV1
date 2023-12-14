@@ -23,6 +23,28 @@ public:
 	//モデルからコライダの生成
 	//Mesh(親, 親行列, モデル)
 	static void Mesh(CCharacter* parent, CMatrix* matrix, CModel *model);
+
+	void Update();
+
+	CVector WorldGreater()
+	{
+		CVector m = CCollider::mV[0];
+		m = m.Greater(CCollider::mV[1]);
+		m = m.Greater(CCollider::mV[2]);
+		return m;
+	}
+
+	CVector WorldLess()
+	{
+		CVector m = CCollider::mV[0];
+		m = m.Less(CCollider::mV[1]);
+		m = m.Less(CCollider::mV[2]);
+		return m;
+	}
+
+private:
+	//頂点
+	CVector mV[4];
 };
 
 #endif

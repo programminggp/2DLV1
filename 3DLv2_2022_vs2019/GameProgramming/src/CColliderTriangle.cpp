@@ -17,6 +17,7 @@ void CColliderTriangle::Set(CCharacter *parent, CMatrix *matrix
 	mV[0] = v0;
 	mV[1] = v1;
 	mV[2] = v2;
+	Update();
 }
 
 void CColliderTriangle::Render()
@@ -55,12 +56,14 @@ void CColliderTriangle::Render()
 //—Dæ“x‚Ì•ÏX
 void CColliderTriangle::ChangePriority()
 {
+	CCollisionManager2::Instance()->TM(this)->Remove(this);
 	//mV[0]‚ÆmV[1]‚ÆmV[2]‚Ì’†S‚ð‹‚ß‚é
-	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix + mV[2] * *mpMatrix) * (1.0f/3.0f);
+	mCenter = (CCollider::mV[0] + CCollider::mV[1] + CCollider::mV[2]) * (1.0f/3.0f);
 	//ƒxƒNƒgƒ‹‚Ì’·‚³‚ª—Dæ“x
-	mPriority = pos.Length();
-	CCollisionManager::Get()->Remove(this); //ˆê’Uíœ
-	CCollisionManager::Get()->Add(this); //’Ç‰Á
+	mPriority = mCenter.Length();
+//	CCollisionManager::Get()->Remove(this); //ˆê’Uíœ
+//	CCollisionManager::Get()->Add(this); //’Ç‰Á
+	CCollisionManager2::Instance()->TM(this)->Add(this);
 #ifdef _DEBUG
 
 //	printf("%d,", mPriority);
@@ -79,4 +82,13 @@ void CColliderTriangle::Mesh(CCharacter* parent, CMatrix* matrix, CModel* model)
 		);
 		p->ChangePriority();
 	}
+}
+
+void CColliderTriangle::Update()
+{
+	CCollider::mV[0] = mV[0] * *mpMatrix;
+	CCollider::mV[1] = mV[1] * *mpMatrix;
+	CCollider::mV[2] = mV[2] * *mpMatrix;
+	CCollider::mV[3] = (mV[1] - mV[0]).Cross(mV[2] - mV[0]).Normalize();
+	ChangePriority();
 }

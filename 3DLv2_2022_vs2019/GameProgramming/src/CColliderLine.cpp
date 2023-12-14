@@ -16,6 +16,7 @@ void CColliderLine::Set(CCharacter *parent, CMatrix *matrix
 	//ŽOŠpŒ`’¸“_Ý’è
 	mV[0] = v0;
 	mV[1] = v1;
+	Update();
 }
 
 void CColliderLine::Render()
@@ -53,10 +54,21 @@ void CColliderLine::Render()
 //—Dæ“x‚Ì•ÏX
 void CColliderLine::ChangePriority()
 {
+	CCollisionManager2::Instance()->TM(this)->Remove(this);
+
 	//mV[0]‚ÆmV[1]‚Ì’†S‚ð‹‚ß‚é
-	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix) * (0.5f);
+	mCenter = (CCollider::mV[0] + CCollider::mV[1]) * (0.5f);
 	//ƒxƒNƒgƒ‹‚Ì’·‚³‚ª—Dæ“x
-	mPriority = pos.Length();
-	CCollisionManager::Get()->Remove(this); //ˆê’Uíœ
-	CCollisionManager::Get()->Add(this); //’Ç‰Á
+	mPriority = mCenter.Length();
+//	CCollisionManager::Get()->Remove(this); //ˆê’Uíœ
+//	CCollisionManager::Get()->Add(this); //’Ç‰Á
+
+	CCollisionManager2::Instance()->TM(this)->Add(this);
+}
+
+void CColliderLine::Update()
+{
+	CCollider::mV[0] = mV[0] * *mpMatrix;
+	CCollider::mV[1] = mV[1] * *mpMatrix;
+	ChangePriority();
 }
