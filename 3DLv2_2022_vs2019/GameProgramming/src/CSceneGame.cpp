@@ -22,7 +22,12 @@
 //
 //CModelX ModelSample;
 
+#include "CModel.h"
+CModel gModel;
+
 void CSceneGame::Init() {
+	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl");
+
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
 	//Camera.Set(CVector(1.0f, 6.0f, 7.0f), CVector(0.0f, 4.0f, 0.0f), CVector(0.0f, 1.0f, 0.0f));
 	//ModelSample.Load(MODEL_X);
@@ -64,10 +69,10 @@ void CSceneGame::Update() {
 	////頂点にアニメーションを適用する
 	//ModelSample.AnimateVertex();
 	//ModelSample.Render();
-
 	//タスクリストの削除
 	CTaskManager::Get()->Delete();
 	CTaskManager::Get()->Render();
+	gModel.Render();
 
 #ifdef _DEBUG
 	//コライダの描画

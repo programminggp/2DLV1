@@ -141,7 +141,15 @@ void CModel::Load(char* obj, char* mtl) {
 		else if (strcmp(str[0], "map_Kd") == 0) {
 			mpMaterials[idx]->Texture()->Load(str[1]);
 		}
-
+		else if (strcmp(str[0], "Ns") == 0) {
+			mpMaterials[idx]->Power(atof(str[1]));
+		}
+		else if (strcmp(str[0], "Ks") == 0) {
+			mpMaterials[idx]->Specular(atof(str[1]), atof(str[2]), atof(str[3]));
+		}
+		else if (strcmp(str[0], "Ke") == 0) {
+			mpMaterials[idx]->Emissive(atof(str[1]), atof(str[2]), atof(str[3]));
+		}
 	}
 
 	//ファイルのクローズ
@@ -246,6 +254,10 @@ void CModel::Load(char* obj, char* mtl) {
 
 void CModel::Render()
 {
+	CMatrix matrix;
+	Render(matrix);
+	return;
+	/*
 	//可変長配列の要素数だけ繰り返し
 	for (int i = 0; i < mTriangles.size(); i++) {
 		//マテリアルの適用
@@ -255,6 +267,7 @@ void CModel::Render()
 		//マテリアルを無効
 		mpMaterials[mTriangles[i].MaterialIdx()]->Disabled();
 	}
+	*/
 }
 
 CModel::~CModel()
@@ -272,7 +285,7 @@ void CModel::Render(const CMatrix& m)
 {
 	mShader.Render(*this, m);
 	return;
-
+/*
 	//行列の退避
 	glPushMatrix();
 	//合成行列を掛ける
@@ -309,6 +322,7 @@ void CModel::Render(const CMatrix& m)
 	glDisableClientState(GL_NORMAL_ARRAY);
 	//テクスチャマッピングの配列を無効にする
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+*/
 }
 
 void CModel::CreateVertexBuffer()
@@ -346,7 +360,7 @@ void CModel::CreateVertexBuffer()
 	//バインド解除
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//シェーダー読み込み
-	mShader.Load("res\\skinmesh.vert", "res\\skinmesh.flag");
+	mShader.Load("res\\skinmesh.vert", "res\\skinmesh.frag");
 
 }
 

@@ -33,6 +33,25 @@ public:
 	void VertexNum(int num);
 	//頂点数の取得
 	int VertexNum();
+	void Specular(float r, float g, float b)
+	{
+		mSpecular[0] = r;
+		mSpecular[1] = g;
+		mSpecular[2] = b;
+	}
+
+	void Emissive(float r, float g, float b)
+	{
+		mEmissive[0] = r;
+		mEmissive[1] = g;
+		mEmissive[2] = b;
+	}
+
+	void Power(float p)
+	{
+		mPower = p;
+	}
+
 private:
 	//マテリアル毎の頂点数
 	int mVertexNum;
