@@ -18,7 +18,9 @@ char* strncpy(char* str1, const char* str2, int len)
 	}
 	str1[i] = '\0'; //コピー先の文字列に終わり
 	return str1; //コピー先の先頭アドレスを返却
-}CMaterial::CMaterial(CModelX* model)
+}
+
+CMaterial::CMaterial(CModelX* model)
 	: mpTextureFilename(nullptr)
 {
 	//CModelXにマテリアルを追加する
