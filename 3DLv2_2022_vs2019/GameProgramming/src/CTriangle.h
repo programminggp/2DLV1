@@ -43,6 +43,22 @@ public:
 	const CVector& U1() const;
 	const CVector& U2() const;
 
+	CVector Greater()
+	{
+		CVector m = mV[0];
+		m = m.Greater(mV[1]);
+		m = m.Greater(mV[2]);
+		return m;
+	}
+
+	CVector Less()
+	{
+		CVector m = mV[0];
+		m = m.Less(mV[1]);
+		m = m.Less(mV[2]);
+		return m;
+	}
+
 private:
 	CVector mUv[3]; //テクスチャマッピング
 	int mMaterialIdx; //マテリアル番号

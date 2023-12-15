@@ -111,6 +111,7 @@ void CTaskManager::TaskCollision()
 //CTaskManager2
 
 CTaskManager2::CTaskManager2()
+	: size(0)
 {
 	mHead.mpNext = &mTail;
 	mTail.mpPrev = &mHead;
@@ -144,6 +145,7 @@ void CTaskManager2::Add(CTask* addTask)
 	addTask->mpPrev->mpNext = addTask;
 	//taskの前をaddTaskに
 	task->mpPrev = addTask;
+	size++;
 }
 //更新
 void CTaskManager2::Update() {
@@ -174,6 +176,7 @@ void CTaskManager2::Remove(CTask* task) {
 	task->mpPrev->mpNext = task->mpNext;
 	//タスクの次の前を、タスクの前にする
 	task->mpNext->mpPrev = task->mpPrev;
+	size--;
 }
 //タスクの削除
 void CTaskManager2::Delete() {

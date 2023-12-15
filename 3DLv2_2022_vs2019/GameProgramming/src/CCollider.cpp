@@ -16,7 +16,8 @@ CCollider::CCollider()
 {
 	//コリジョンマネージャに追加
 	//CCollisionManager::Get()->Add(this);
-	CCollisionManager2::Instance()->TM(this)->Add(this);
+	//CCollisionManager2::Instance()->TM(this)->Add(this);
+	CCollisionManager2::Instance()->Add(this);
 }
 
 //コンストラクタ
@@ -55,7 +56,7 @@ void CCollider::Render() {
 CCollider::~CCollider()
 {
 //	CCollisionManager::Get()->Remove(this);
-	CCollisionManager2::Instance()->TM(this)->Remove(this);
+	CCollisionManager2::Instance()->Remove(this);
 }
 //衝突判定
 //Collision(コライダ1, コライダ2)
@@ -275,7 +276,7 @@ CVector CCollider::VectorLineMinDist(const CVector& Start1, const CVector& End1,
 //優先度の変更
 void CCollider::ChangePriority()
 {
-	CCollisionManager2::Instance()->TM(this)->Remove(this);
+	CCollisionManager2::Instance()->Remove(this);
 	//自分の座標×親の変換行列を掛ける
 	//CVector pos = mPosition * *mpMatrix;
 	//ベクトルの長さが優先度
@@ -283,7 +284,7 @@ void CCollider::ChangePriority()
 	mPriority = mV[0].Length();
 	//CCollisionManager::Get()->Remove(this); //一旦削除
 	//CCollisionManager::Get()->Add(this); //追加
-	CCollisionManager2::Instance()->TM(this)->Add(this);
+	CCollisionManager2::Instance()->Add(this);
 }
 
 CCollider::EType CCollider::Type()

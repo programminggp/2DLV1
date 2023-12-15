@@ -64,6 +64,7 @@ protected:
 	CTask mHead;//先頭タスク
 	CTask mTail;//最終タスク
 private:
+	int size;
 };
 
 #endif

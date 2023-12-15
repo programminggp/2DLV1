@@ -15,6 +15,13 @@
 //
 #include "CFelguard.h"
 
+CField CSceneGame::sField;
+
+CField& CSceneGame::Field()
+{
+	return sField;
+}
+
 ////モデルデータの指定
 //#define MODEL_X "res\\knight\\knight_low.X"
 //
@@ -29,7 +36,7 @@ CColliderMesh gColliderMesh;
 CMatrix gMatrix;
 
 void CSceneGame::Init() {
-	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl");
+	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
 	gColliderMesh.Set(nullptr, &gMatrix, &gModel);
 
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
@@ -39,7 +46,7 @@ void CSceneGame::Init() {
 	//ModelSample.AnimationSets()[0]->Time(45);
 	////最初のアニメーションの重みを1.0（100%)にする
 	//ModelSample.AnimationSets()[0]->Weight(1.0f);
-	new CXPlayer(CVector(), CVector(), CVector(1.0f, 1.0f, 1.0f));
+	new CXPlayer(CVector(100,13,100), CVector(), CVector(1.0f, 1.0f, 1.0f));
 	new CFelguard();
 	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 0.0f, 0.0f), 7.0f);
 }
@@ -92,3 +99,12 @@ void CSceneGame::Update() {
 	CUtil::End2D();
 }
 
+void CField::Load(char* obj, char* mtl)
+{
+	mModelField.Load(obj, mtl, true);
+}
+
+void CField::Render()
+{
+	mModelField.Render(mMatrix);
+}

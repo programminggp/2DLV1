@@ -18,7 +18,7 @@ public:
 	const std::vector<CTriangle>& Triangles() const;
 	//モデルファイルの入力
 	//Load(モデルファイル名, マテリアルファイル名)
-	void Load(char* obj, char* mtl);
+	void Load(char* obj, char* mtl, bool positive = false);
 	//描画
 	void Render();
 	~CModel();
@@ -30,6 +30,7 @@ public:
 
 	void RenderShader(const CMatrix& m);
 	std::vector<CMaterial*> Material();
+	CVector mMax;
 private:
 	//マテリアルポインタの可変長配列
 	std::vector<CMaterial*> mpMaterials;

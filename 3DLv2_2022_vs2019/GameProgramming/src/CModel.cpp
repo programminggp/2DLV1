@@ -82,7 +82,7 @@ const std::vector<CTriangle>& CModel::Triangles() const
 
 //モデルファイルの入力
 //Load(モデルファイル名, マテリアルファイル名)
-void CModel::Load(char* obj, char* mtl) {
+void CModel::Load(char* obj, char* mtl, bool positive) {
 	//頂点データの保存(CVector型)
 	std::vector<CVector> vertex;
 	std::vector<CVector> normal;
@@ -167,6 +167,7 @@ void CModel::Load(char* obj, char* mtl) {
 		return;
 	}
 
+	CVector min;
 	//ファイルから1行入力
 	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
 	//ファイルの最後になるとNULLを返す
@@ -183,6 +184,8 @@ void CModel::Load(char* obj, char* mtl) {
 		if (strcmp(str[0], "v") == 0) {
 			//可変長配列vertexに追加
 			//atof(文字列)　文字列からfloat型の値を返す
+			CVector vec(atof(str[1]), atof(str[2]), atof(str[3]));
+			min = min.Less(vec);
 			vertex.push_back(CVector(atof(str[1]), atof(str[2]), atof(str[3])));
 		}
 		else if (strcmp(str[0], "vn") == 0) {
@@ -248,6 +251,23 @@ void CModel::Load(char* obj, char* mtl) {
 
 	//ファイルのクローズ
 	fclose(fp);
+
+#ifdef _DEBUG
+	printf("MIN:%10f%10f%10f\n", min.X(), min.Y(), min.Z());
+#endif
+
+	if (positive)
+	{
+//		min.Y(0.0f);
+		for (int i = 0; i < mTriangles.size(); ++i)
+		{
+			CVector v0 = mTriangles[i].V0() - min;
+			CVector v1 = mTriangles[i].V1() - min;
+			CVector v2 = mTriangles[i].V2() - min;
+			mTriangles[i].Vertex(v0, v1, v2);
+			mMax = mMax.Greater(mTriangles[i].Greater());
+		}
+	}
 
 	CreateVertexBuffer();
 }

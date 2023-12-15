@@ -160,6 +160,7 @@ void CXPlayer::TaskCollision()
 	//mColSphereSword1.ChangePriority();
 	//mColSphereSword2.ChangePriority();
 	//CCollisionManager::Get()->Collision(&mColLine, 20);
+	CCollisionManager2::Instance()->TM(&mColSphereBody)->Collision(&mColSphereBody);
 	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
 
 }
@@ -196,7 +197,7 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 		break;
 	case CCollider::ESPHERE:
 		//’n–ÊA•Ç‚Æ‚ÌÕ“Ë”»’è
-		if (o->Tag() == CCollider::EGROUND)
+		if (o->Type() == CCollider::ETRIANGLE)
 		{
 			CVector ad;
 			if (CCollider::CollisionTriangleSphere(o, m, &ad))
