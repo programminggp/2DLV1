@@ -72,6 +72,8 @@ public:
 
 	void Update();
 	CVector mCenter;
+
+	CCollider* mpSubCollider[9];
 protected:
 	CCharacter* mpParent;//êe
 	CMatrix* mpMatrix;//êeçsóÒ

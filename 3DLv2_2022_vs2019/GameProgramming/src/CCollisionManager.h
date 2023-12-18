@@ -34,8 +34,8 @@ public:
 	{
 		mDiv = max * (1.0f / TASK_LINE);
 	}
-	void Add(const CCollider* col);
-	void Remove(const CCollider* col);
+	void Add(CCollider* col);
+	void Remove(CCollider* col);
 private:
 	CVector mDiv;
 	CTaskManager2 mTM[TASK_LINE][TASK_LINE];

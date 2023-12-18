@@ -14,6 +14,10 @@ CCollider::CCollider()
 , mTag(EBODY)
 , mRadius(0)
 {
+	for (int i = 0; i < 9; i++)
+	{
+		mpSubCollider[i] = nullptr;
+	}
 	//コリジョンマネージャに追加
 	//CCollisionManager::Get()->Add(this);
 	//CCollisionManager2::Instance()->TM(this)->Add(this);

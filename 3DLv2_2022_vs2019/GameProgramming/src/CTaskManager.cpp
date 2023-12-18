@@ -204,6 +204,7 @@ void CTaskManager2::Collision(CCollider* task)
 	while (next->mpNext) {
 		//e‚ÌÕ“Ëˆ—‚ğŒÄ‚Ño‚·
 		//©•ª‚ÌÕ“Ëˆ—
+		if(task->Parent() != next->Parent())
 		if (task->Parent() && task != next)
 			task->Parent()->Collision(task, next);
 		//Ÿ‚ğ‹‚ß‚é
