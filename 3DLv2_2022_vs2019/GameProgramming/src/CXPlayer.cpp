@@ -17,7 +17,7 @@ CCharacter* CXPlayer::spInstance = nullptr;
 #define PLAYER_MODEL "res\\knight\\knight_low.X"
 
 CXPlayer::CXPlayer()
-	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.0f, 0.0f), 1.0f)
+	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.0f, 0.0f), 1.5f)
 	, mColSphereHead(this, &mMatrix, CVector(0.0f, 1.0f, 0.0f), 1.2f)
 	, mColSphereSword0(this, &mMatrix, CVector(0.7f, 3.5f, -0.2f), 0.5f)
 	, mColSphereSword1(this, &mMatrix, CVector(0.5f, 2.5f, -0.2f), 0.5f)
@@ -161,7 +161,7 @@ void CXPlayer::TaskCollision()
 	//mColSphereSword2.ChangePriority();
 	//CCollisionManager::Get()->Collision(&mColLine, 20);
 	CCollisionManager2::Instance()->TM(&mColSphereBody)->Collision(&mColSphereBody);
-	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
+//	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
 
 }
 
@@ -309,4 +309,10 @@ void CXPlayer::ChangeState(EState state)
 		ChangeAnimation(EJUMP, false, 70);
 		break;
 	}
+}
+
+void CXPlayer::Render()
+{
+	CXCharacter::Render();
+	mColSphereBody.Render();
 }

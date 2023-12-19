@@ -43,6 +43,8 @@ public:
 	void Attack();
 	void Jump();
 	void ChangeState(EState state);
+
+	void Render();
 };
 
 #endif
