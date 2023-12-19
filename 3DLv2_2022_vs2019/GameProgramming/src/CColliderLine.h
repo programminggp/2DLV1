@@ -7,7 +7,8 @@
 class CColliderLine : public CCollider
 {
 public:
-	CColliderLine(){}
+	CColliderLine() {}
+	CColliderLine(bool flg) : CCollider(flg) {}
 	//コンストラクタ（線分コライダ）
 	//CColliderLine(親, 親行列, 頂点1, 頂点2)
 	CColliderLine(CCharacter *parent, CMatrix *matrix

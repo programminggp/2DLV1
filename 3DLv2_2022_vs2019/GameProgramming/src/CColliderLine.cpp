@@ -54,7 +54,8 @@ void CColliderLine::Render()
 //—Dæ“x‚Ì•ÏX
 void CColliderLine::ChangePriority()
 {
-	CCollisionManager2::Instance()->Remove(this);
+//	CCollisionManager2::Instance()->Remove(this);
+	CCollisionManager2::Instance()->Delete(this);
 
 	//mV[0]‚ÆmV[1]‚Ì’†S‚ğ‹‚ß‚é
 	mCenter = (CCollider::mV[0] + CCollider::mV[1]) * (0.5f);

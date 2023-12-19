@@ -36,6 +36,8 @@ public:
 	}
 	void Add(CCollider* col);
 	void Remove(CCollider* col);
+	void Delete(CCollider* col);
+
 private:
 	CVector mDiv;
 	CTaskManager2 mTM[TASK_LINE][TASK_LINE];

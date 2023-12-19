@@ -2,6 +2,7 @@
 //
 #include "CCollider.h"
 #include "CColliderTriangle.h"
+#include "CColliderLine.h"
 
 //マネージャのインスタンス
 CCollisionManager* CCollisionManager::mpInstance = 0;
@@ -93,9 +94,9 @@ void CCollisionManager2::Add(CCollider* col)
 {
 	int x = (int)(col->mCenter.X()) % 100 / (100 / TASK_LINE);
 	int z = (int)(col->mCenter.Z()) % 100 / (100 / TASK_LINE);
-	int sx = x - 1;
+	int sx = x - 0;
 	int ex = x + 1;
-	int sz = z - 1;
+	int sz = z - 0;
 	int ez = z + 1;
 	if (sx < 0) sx = 0;
 	if (ex >= TASK_LINE) ex = TASK_LINE - 1;
@@ -106,9 +107,24 @@ void CCollisionManager2::Add(CCollider* col)
 	{
 		for (z = sz; z <= ez; ++z)
 		{
-			col->mpSubCollider[i] = new CColliderTriangle();
-			*(col->mpSubCollider[i]) = *(CColliderTriangle*)col;
-			mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
+			switch (col->Type())
+			{
+			case CCollider::EType::ESPHERE:
+				col->mpSubCollider[i] = new CCollider(false);
+				*(col->mpSubCollider[i]) = *(CCollider*)col;
+				mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
+				break;
+			case CCollider::EType::ELINE:
+				col->mpSubCollider[i] = new CColliderLine(false);
+				*(col->mpSubCollider[i]) = *(CColliderLine*)col;
+				mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
+				break;
+			case CCollider::EType::ETRIANGLE:
+				col->mpSubCollider[i] = new CColliderTriangle(false);
+				*(col->mpSubCollider[i]) = *(CColliderTriangle*)col;
+				mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
+				break;
+			}
 		}
 	}
 	//mTM[x][z].Add((CTask*)col);
@@ -118,9 +134,9 @@ void CCollisionManager2::Remove(CCollider* col)
 {
 	int x = (int)(col->mCenter.X()) % 100 / (100 / TASK_LINE);
 	int z = (int)(col->mCenter.Z()) % 100 / (100 / TASK_LINE);
-	int sx = x - 1;
+	int sx = x - 0;
 	int ex = x + 1;
-	int sz = z - 1;
+	int sz = z - 0;
 	int ez = z + 1;
 	if (sx < 0) sx = 0;
 	if (ex >= TASK_LINE) ex = TASK_LINE - 1;
@@ -131,12 +147,23 @@ void CCollisionManager2::Remove(CCollider* col)
 	{
 		for (z = sz; z <= ez; ++z)
 		{
-			if (col->mpSubCollider[i] != nullptr)
+			if (col != nullptr)
 			{
-				mTM[x][z].Remove((CTask*)col->mpSubCollider[i]);
+				mTM[x][z].Remove((CTask*)col);
 			}
-			col->mpSubCollider[i++] = nullptr;
 		}
 	}
 	//mTM[x][z].Remove((CTask*)col);
+}
+
+void CCollisionManager2::Delete(CCollider* col)
+{
+	for (int i = 0; i < 9; ++i)
+	{
+		if (col->mpSubCollider[i] != nullptr)
+		{
+			delete col->mpSubCollider[i];
+			col->mpSubCollider[i] = nullptr;
+		}
+	}
 }

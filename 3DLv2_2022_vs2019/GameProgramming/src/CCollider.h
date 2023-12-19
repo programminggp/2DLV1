@@ -31,6 +31,7 @@ public:
 
 	//デフォルトコンストラクタ
 	CCollider();
+	CCollider(bool flgAdd);
 
 	//コンストラクタ
 	//CCollider(親, 行列, 位置, 半径)

@@ -24,6 +24,25 @@ CCollider::CCollider()
 	CCollisionManager2::Instance()->Add(this);
 }
 
+CCollider::CCollider(bool flgAdd)
+	: mpParent(nullptr)
+	, mpMatrix(&mMatrix)
+	, mType(ESPHERE)
+	, mTag(EBODY)
+	, mRadius(0)
+{
+	for (int i = 0; i < 9; i++)
+	{
+		mpSubCollider[i] = nullptr;
+	}
+	//コリジョンマネージャに追加
+	//CCollisionManager::Get()->Add(this);
+	//CCollisionManager2::Instance()->TM(this)->Add(this);
+	if(flgAdd)
+		CCollisionManager2::Instance()->Add(this);
+}
+
+
 //コンストラクタ
 //CCollider(親, 位置, 回転, 拡縮, 半径)
 CCollider::CCollider(CCharacter *parent, CMatrix *matrix,
@@ -280,7 +299,8 @@ CVector CCollider::VectorLineMinDist(const CVector& Start1, const CVector& End1,
 //優先度の変更
 void CCollider::ChangePriority()
 {
-	CCollisionManager2::Instance()->Remove(this);
+//	CCollisionManager2::Instance()->Remove(this);
+	CCollisionManager2::Instance()->Delete(this);
 	//自分の座標×親の変換行列を掛ける
 	//CVector pos = mPosition * *mpMatrix;
 	//ベクトルの長さが優先度

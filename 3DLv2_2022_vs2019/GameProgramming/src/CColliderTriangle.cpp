@@ -56,7 +56,8 @@ void CColliderTriangle::Render()
 //優先度の変更
 void CColliderTriangle::ChangePriority()
 {
-	CCollisionManager2::Instance()->Remove(this);
+//	CCollisionManager2::Instance()->Remove(this);
+	CCollisionManager2::Instance()->Delete(this);
 	//mV[0]とmV[1]とmV[2]の中心を求める
 	mCenter = (CCollider::mV[0] + CCollider::mV[1] + CCollider::mV[2]) * (1.0f/3.0f);
 	//ベクトルの長さが優先度
