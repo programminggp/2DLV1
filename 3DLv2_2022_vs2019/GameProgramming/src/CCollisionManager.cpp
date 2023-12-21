@@ -94,9 +94,9 @@ void CCollisionManager2::Add(CCollider* col)
 {
 	int x = (int)(col->mCenter.X()) % 100 / (100 / TASK_LINE);
 	int z = (int)(col->mCenter.Z()) % 100 / (100 / TASK_LINE);
-	int sx = x - 0;
+	int sx = x - 1;
 	int ex = x + 1;
-	int sz = z - 0;
+	int sz = z - 1;
 	int ez = z + 1;
 	if (sx < 0) sx = 0;
 	if (ex >= TASK_LINE) ex = TASK_LINE - 1;
@@ -134,9 +134,9 @@ void CCollisionManager2::Remove(CCollider* col)
 {
 	int x = (int)(col->mCenter.X()) % 100 / (100 / TASK_LINE);
 	int z = (int)(col->mCenter.Z()) % 100 / (100 / TASK_LINE);
-	int sx = x - 0;
+	int sx = x - 1;
 	int ex = x + 1;
-	int sz = z - 0;
+	int sz = z - 1;
 	int ez = z + 1;
 	if (sx < 0) sx = 0;
 	if (ex >= TASK_LINE) ex = TASK_LINE - 1;
