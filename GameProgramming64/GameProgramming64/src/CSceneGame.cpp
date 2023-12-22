@@ -46,7 +46,8 @@ void CSceneGame::Init() {
 	//ModelSample.AnimationSets()[0]->Time(45);
 	////最初のアニメーションの重みを1.0（100%)にする
 	//ModelSample.AnimationSets()[0]->Weight(1.0f);
-	new CXPlayer(CVector(105,10,100), CVector(), CVector(1.0f, 1.0f, 1.0f));
+	const float size = 0.5f;
+	new CXPlayer(CVector(105,10,100), CVector(), CVector(size, size, size));
 	new CFelguard();
 	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 0.0f, 0.0f), 7.0f);
 }
