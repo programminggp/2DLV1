@@ -314,5 +314,7 @@ void CXPlayer::ChangeState(EState state)
 void CXPlayer::Render()
 {
 	CXCharacter::Render();
+#ifdef _DEBUG
 	mColSphereBody.Render();
+#endif
 }

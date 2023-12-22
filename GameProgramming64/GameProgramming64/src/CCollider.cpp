@@ -1,6 +1,8 @@
 #include "CCollider.h"
 #include "CCollisionManager.h"
 #include "CColliderLine.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 CCharacter* CCollider::Parent()
 {
@@ -60,6 +62,21 @@ CCollider::CCollider(CCharacter *parent, CMatrix *matrix,
 	Update();
 }
 
+void WireSphere(float r, int slices, int stacks)
+{
+	if (slices <= 0 || stacks <= 0) return;
+	//Slices
+	for (float thl = 0.0f; thl < M_PI * 2; thl += M_PI / slices)
+	{
+		glBegin(GL_LINE_STRIP);
+		for (float tht = 0.0f; tht < M_PI; tht += M_PI / stacks)
+		{
+			glVertex3f(r*sinf(tht)*sinf(thl), r*cosf(tht), r*sinf(tht)*cosf(thl));
+		}
+		glEnd();
+	}
+}
+
 //描画
 void CCollider::Render() {
 	glPushMatrix();
@@ -70,9 +87,19 @@ void CCollider::Render() {
 	glMultMatrixf(CMatrix().Translate(pos.X(), pos.Y(), pos.Z()).M());
 	//DIFFUSE赤色設定
 	float c[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
+//	glMaterialfv(GL_FRONT, GL_DIFFUSE, c);
+	//ライトオフ
+	glDisable(GL_LIGHTING);
+	glColor4fv(c);
+
 	//球描画
 	//glutWireSphere(mRadius, 16, 16);
+	WireSphere(mRadius, 16, 16);
+	//glutSolidSphere(mRadius, 16, 16);
+
+		//ライトオン
+	glEnable(GL_LIGHTING);
+
 	glPopMatrix();
 }
 
