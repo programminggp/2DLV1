@@ -9,7 +9,9 @@
 //#define GRAVITY 0.00f	//重力
 #define VELOCITY 0.1f	//移動速度
 #define JUMPV0 0.7f		//ジャンプ力
-#define TURN 8.0f		//
+#define TURN 8.0f		//回転スピード
+#define COL_BODY_R 1.0f	//
+#define COL_SWORD_R 0.5f	//
 
 CModelX CXPlayer::mModel;
 CCharacter* CXPlayer::spInstance = nullptr;
@@ -17,11 +19,12 @@ CCharacter* CXPlayer::spInstance = nullptr;
 #define PLAYER_MODEL "res\\knight\\knight_low.X"
 
 CXPlayer::CXPlayer()
-	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.0f, 0.0f), 1.5f)
-	, mColSphereHead(this, &mMatrix, CVector(0.0f, 1.0f, 0.0f), 1.2f)
-	, mColSphereSword0(this, &mMatrix, CVector(0.7f, 3.5f, -0.2f), 0.5f)
-	, mColSphereSword1(this, &mMatrix, CVector(0.5f, 2.5f, -0.2f), 0.5f)
-	, mColSphereSword2(this, &mMatrix, CVector(0.3f, 1.5f, -0.2f), 0.5f)
+	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.5f, 0.0f), COL_BODY_R)
+//	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.5f, 1.0f), COL_BODY_R)
+	, mColSphereHead(this, &mMatrix, CVector(0.5f, -1.5f, -1.0f), COL_BODY_R)
+	, mColSphereSword0(this, &mMatrix, CVector(0.7f, 3.5f, -0.2f), COL_SWORD_R)
+	, mColSphereSword1(this, &mMatrix, CVector(0.5f, 2.5f, -0.2f), COL_SWORD_R)
+	, mColSphereSword2(this, &mMatrix, CVector(0.3f, 1.5f, -0.2f), COL_SWORD_R)
 	, mColLine(this, &mMatrix, CVector(0.0f, -2.5f, 0.0f), CVector(0.0f, 2.5f, 0.0f))//, 1.2f)
 	, mJumpV(0.0f)
 {
@@ -85,12 +88,15 @@ CXPlayer::CXPlayer(const CVector& pos, const CVector& rot, const CVector& scale)
 
 	//合成行列の設定
 	mColSphereBody.Matrix(&mpCombinedMatrix[1]);
+	mColSphereBody.Radius(scale.X() * COL_BODY_R);
 	//頭
 	mColSphereHead.Matrix(&mpCombinedMatrix[1]);
+	mColSphereHead.Radius(scale.X() * COL_BODY_R);
 	//剣
 	mColSphereSword0.Matrix(&mpCombinedMatrix[26]);
 	mColSphereSword1.Matrix(&mpCombinedMatrix[26]);
 	mColSphereSword2.Matrix(&mpCombinedMatrix[26]);
+	mColSphereSword2.Radius(scale.X() * COL_SWORD_R);
 	//
 	mColLine.Matrix(&mpCombinedMatrix[1]);
 }
@@ -111,6 +117,8 @@ CXPlayer::CXPlayer(const CVector& pos, const CVector& rot, const CVector& scale)
 
 void CXPlayer::Update()
 {
+
+
 	switch (mState)
 	{
 	case EIDLE:
@@ -160,8 +168,9 @@ void CXPlayer::TaskCollision()
 	//mColSphereSword1.ChangePriority();
 	//mColSphereSword2.ChangePriority();
 	//CCollisionManager::Get()->Collision(&mColLine, 20);
+//	CCollisionManager2::Instance()->TM(&mColSphereHead)->Collision(&mColSphereHead);
 	CCollisionManager2::Instance()->TM(&mColSphereBody)->Collision(&mColSphereBody);
-//	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
+	//	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
 
 }
 
@@ -176,7 +185,8 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			if (CCollider::CollisionCapsule(m, o, &ad))
 			{
 				//当たらない位置まで下がる
-				mPosition = mPosition + ad;
+//				mPosition = mPosition + ad;
+				mAdjust = mAdjust.Greater(ad);
 			}
 		}
 		break;
@@ -189,7 +199,8 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			if (CCollider::CollisionTriangleLine(o, m, &ad))
 			{
 				//当たらない位置まで下がる
-				mPosition = mPosition + ad;
+//				mPosition = mPosition + ad;
+				mAdjust = mAdjust.Greater(ad);
 				//着地とする
 				mJumpV = 0.0f;
 			}
@@ -203,7 +214,8 @@ void CXPlayer::Collision(CCollider* m, CCollider* o)
 			if (CCollider::CollisionTriangleSphere(o, m, &ad))
 			{
 				//当たらない位置まで下がる
-				mPosition = mPosition + ad;
+//				mPosition = mPosition + ad;
+				mAdjust = mAdjust.Greater(ad);
 				//着地とする
 				mJumpV = 0.0f;
 			}
@@ -313,8 +325,14 @@ void CXPlayer::ChangeState(EState state)
 
 void CXPlayer::Render()
 {
+	mPosition = mPosition + mAdjust;
+	mAdjust.Set(0.0f, 0.0f, 0.0f);
+	//CXCharacter::Update();
 	CXCharacter::Render();
 #ifdef _DEBUG
+	mColSphereHead.Render();
 	mColSphereBody.Render();
+	mColSphereSword2.Render();
+	
 #endif
 }

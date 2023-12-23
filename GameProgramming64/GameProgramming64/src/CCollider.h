@@ -75,6 +75,10 @@ public:
 	CVector mCenter;
 
 	CCollider* mpSubCollider[9];
+	void Radius(float r)
+	{
+		mRadius = r;
+	}
 protected:
 	CCharacter* mpParent;//êe
 	CMatrix* mpMatrix;//êeçsóÒ

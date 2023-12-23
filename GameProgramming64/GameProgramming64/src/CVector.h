@@ -74,23 +74,7 @@ public:
 		}
 		return m;
 	}
-	CVector Greater(const CVector& v)
-	{
-		CVector m = v;
-		if (m.X() < mX)
-		{
-			m.X(mX);
-		}
-		if (m.Y() < mY)
-		{
-			m.Y(mY);
-		}
-		if (m.Z() < mZ)
-		{
-			m.Z(mZ);
-		}
-		return m;
-	}
+	CVector Greater(const CVector& v);
 private:
 	//3DŠeŽ²‚Å‚Ì’l‚ðÝ’è
 	float mX, mY, mZ;

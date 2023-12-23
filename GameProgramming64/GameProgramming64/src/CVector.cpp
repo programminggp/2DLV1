@@ -1,4 +1,6 @@
 #include "CVector.h"
+#include <cmath>
+
 //
 #define  _USE_MATH_DEFINES
 #include <math.h>
@@ -153,4 +155,22 @@ void CVector::operator+=(const CVector& v)
 	mX += v.mX;
 	mY += v.mY;
 	mZ += v.mZ;
+}
+
+CVector CVector::Greater(const CVector& v)
+{
+	CVector m = v;
+	if (abs(m.X()) < abs(mX))
+	{
+		m.X(mX);
+	}
+	if (abs(m.Y()) < abs(mY))
+	{
+		m.Y(mY);
+	}
+	if (abs(m.Z()) < abs(mZ))
+	{
+		m.Z(mZ);
+	}
+	return m;
 }

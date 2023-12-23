@@ -54,6 +54,7 @@ public:
 	//衝突処理
 	virtual void Collision(CCollider *m, CCollider *o) {}
 protected:
+	CVector mAdjust; //調整データ
 	CModel* mpModel; //モデルのポインタ
 	ETag mTag;
 	EState mState;
