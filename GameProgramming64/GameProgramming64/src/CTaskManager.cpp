@@ -198,16 +198,16 @@ void CTaskManager2::Delete() {
 void CTaskManager2::Collision(CCollider* task)
 {
 	//現在位置を先頭にする
-	CCollider* next = (CCollider*)mHead.mpNext;
+	CColliderTask* next = (CColliderTask*)mHead.mpNext;
 	//最後まできたら終了する
-		//次が0になったら終了
+	//次が0になったら終了
 	while (next->mpNext) {
 		//親の衝突処理を呼び出す
 		//自分の衝突処理
-		if(task->Parent() != next->Parent())
-		if (task->Parent() && task != next)
-			task->Parent()->Collision(task, next);
+		if(task->Parent() != next->Collider()->Parent())
+		if (task->Parent() && task != next->Collider())
+			task->Parent()->Collision(task, next->Collider());
 		//次を求める
-		next = (CCollider*)next->mpNext;
+		next = (CColliderTask*)next->mpNext;
 	}
 }

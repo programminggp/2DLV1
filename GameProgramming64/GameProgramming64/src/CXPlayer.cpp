@@ -10,7 +10,7 @@
 #define VELOCITY 0.1f	//移動速度
 #define JUMPV0 0.7f		//ジャンプ力
 #define TURN 8.0f		//回転スピード
-#define COL_BODY_R 1.0f	//
+#define COL_BODY_R 1.5f	//
 #define COL_SWORD_R 0.5f	//
 
 CModelX CXPlayer::mModel;
@@ -19,7 +19,7 @@ CCharacter* CXPlayer::spInstance = nullptr;
 #define PLAYER_MODEL "res\\knight\\knight_low.X"
 
 CXPlayer::CXPlayer()
-	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.5f, 0.0f), COL_BODY_R)
+	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.0f, 0.0f), COL_BODY_R)
 //	: mColSphereBody(this, &mMatrix, CVector(0.5f, -1.5f, 1.0f), COL_BODY_R)
 	, mColSphereHead(this, &mMatrix, CVector(0.5f, -1.5f, -1.0f), COL_BODY_R)
 	, mColSphereSword0(this, &mMatrix, CVector(0.7f, 3.5f, -0.2f), COL_SWORD_R)
@@ -170,7 +170,7 @@ void CXPlayer::TaskCollision()
 	//CCollisionManager::Get()->Collision(&mColLine, 20);
 //	CCollisionManager2::Instance()->TM(&mColSphereHead)->Collision(&mColSphereHead);
 	CCollisionManager2::Instance()->TM(&mColSphereBody)->Collision(&mColSphereBody);
-	//	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
+	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
 
 }
 
@@ -330,7 +330,7 @@ void CXPlayer::Render()
 	//CXCharacter::Update();
 	CXCharacter::Render();
 #ifdef _DEBUG
-	mColSphereHead.Render();
+	mColLine.Render();
 	mColSphereBody.Render();
 	mColSphereSword2.Render();
 	

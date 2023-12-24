@@ -5,6 +5,7 @@
 //トランスフォームクラスのインクルード
 #include "CTransform.h"
 class CCollisionManager;
+class CColliderTask;
 /*
 コライダクラス
 衝突判定データ
@@ -74,7 +75,7 @@ public:
 	void Update();
 	CVector mCenter;
 
-	CCollider* mpSubCollider[9];
+	CColliderTask* mpColliderTask[9];
 	void Radius(float r)
 	{
 		mRadius = r;
@@ -87,6 +88,17 @@ protected:
 	//頂点
 	CVector mV[4];
 	ETag mTag;
+};
+
+class CColliderTask : public CTask
+{
+public:
+	CColliderTask(CCollider* col);
+	CCollider* Collider();
+	void Collider(CCollider* col);
+	~CColliderTask();
+private:
+	CCollider* mpCollider;
 };
 
 #endif

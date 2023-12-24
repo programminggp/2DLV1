@@ -18,7 +18,7 @@ CCollider::CCollider()
 {
 	for (int i = 0; i < 9; i++)
 	{
-		mpSubCollider[i] = nullptr;
+		mpColliderTask[i] = nullptr;
 	}
 	//コリジョンマネージャに追加
 	//CCollisionManager::Get()->Add(this);
@@ -35,7 +35,7 @@ CCollider::CCollider(bool flgAdd)
 {
 	for (int i = 0; i < 9; i++)
 	{
-		mpSubCollider[i] = nullptr;
+		mpColliderTask[i] = nullptr;
 	}
 	//コリジョンマネージャに追加
 	//CCollisionManager::Get()->Add(this);
@@ -106,7 +106,7 @@ void CCollider::Render() {
 CCollider::~CCollider()
 {
 //	CCollisionManager::Get()->Remove(this);
-	CCollisionManager2::Instance()->Remove(this);
+	CCollisionManager2::Instance()->Delete(this);
 }
 //衝突判定
 //Collision(コライダ1, コライダ2)
@@ -192,11 +192,13 @@ bool CCollider::CollisionTriangleLine(CCollider *t, CCollider *l, CVector *a) {
 	//調整値計算（衝突しない位置まで戻す）
 	if (dots < 0.0f) {
 		//始点が裏面
-		*a = normal * -dots;
+//		*a = normal * -dots;
+		*a = cross - sv;
 	}
 	else {
 		//終点が裏面
-		*a = normal * -dote;
+//		*a = normal * -dote;
+		*a = cross - ev;
 	}
 	return true;
 }
@@ -269,14 +271,13 @@ bool CCollider::CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a)
 	//調整値計算（衝突しない位置まで戻す）
 	if (dots < 0.0f) {
 		//始点が裏面
-//		*a = normal * -dots;
-		*a = cross - sv;
+		*a = normal * -dots;
 	}
 	else {
 		//終点が裏面
-//		*a = normal * -dote;
-		*a = cross - ev;
+		*a = normal * -dote;
 	}
+
 	return true;
 //	CColliderLine line(NULL, NULL, sv, ev);
 	//三角コライダと線コライダの衝突処理
@@ -419,4 +420,24 @@ void CCollider::Update()
 {
 	mV[0] = mPosition * *mpMatrix;
 	ChangePriority();
+}
+
+CColliderTask::CColliderTask(CCollider* col)
+	: mpCollider(col)
+{
+}
+
+CCollider* CColliderTask::Collider()
+{
+	return mpCollider;
+}
+
+void CColliderTask::Collider(CCollider* col)
+{
+	mpCollider = col;
+}
+
+CColliderTask::~CColliderTask()
+{
+	CCollisionManager2::Instance()->Remove(this);
 }

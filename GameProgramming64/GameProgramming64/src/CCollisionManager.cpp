@@ -19,11 +19,11 @@ CCollisionManager* CCollisionManager::Get()
 //衝突処理
 void CCollisionManager::Collision() {
 	//現在位置を先頭にする
-	CCollider *task = (CCollider*)mHead.mpNext;
+	CCollider*task = (CCollider*)mHead.mpNext;
 	//最後まできたら終了する
 	while (task->mpNext) {
 		//現在位置の次を求める
-		CCollider *next = (CCollider*)task->mpNext;
+		CCollider*next = (CCollider*)task->mpNext;
 		//次が0になったら終了
 		while (next->mpNext) {
 			//親の衝突処理を呼び出す
@@ -107,33 +107,40 @@ void CCollisionManager2::Add(CCollider* col)
 	{
 		for (z = sz; z <= ez; ++z)
 		{
-			switch (col->Type())
-			{
-			case CCollider::EType::ESPHERE:
-				col->mpSubCollider[i] = new CCollider(false);
-				*(col->mpSubCollider[i]) = *(CCollider*)col;
-				mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
-				break;
-			case CCollider::EType::ELINE:
-				col->mpSubCollider[i] = new CColliderLine(false);
-				*(col->mpSubCollider[i]) = *(CColliderLine*)col;
-				mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
-				break;
-			case CCollider::EType::ETRIANGLE:
-				col->mpSubCollider[i] = new CColliderTriangle(false);
-				*(col->mpSubCollider[i]) = *(CColliderTriangle*)col;
-				mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
-				break;
-			}
+			col->mpColliderTask[i] = new CColliderTask(col);
+			mTM[x][z].Add((CTask*)col->mpColliderTask[i++]);
+			//switch (col->Type())
+			//{
+			//case CCollider::EType::ESPHERE:
+			//	col->mpSubCollider[i] = new CCollider(false);
+			//	*(col->mpSubCollider[i]) = *(CCollider*)col;
+			//	mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
+			//	break;
+			//case CCollider::EType::ELINE:
+			//	col->mpSubCollider[i] = new CColliderLine(false);
+			//	*(col->mpSubCollider[i]) = *(CColliderLine*)col;
+			//	mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
+			//	break;
+			//case CCollider::EType::ETRIANGLE:
+			//	col->mpSubCollider[i] = new CColliderTriangle(false);
+			//	*(col->mpSubCollider[i]) = *(CColliderTriangle*)col;
+			//	mTM[x][z].Add((CTask*)col->mpSubCollider[i++]);
+			//	break;
+			//}
 		}
 	}
 	//mTM[x][z].Add((CTask*)col);
 }
 
-void CCollisionManager2::Remove(CCollider* col)
+void CCollisionManager2::Remove(CColliderTask* col)
 {
-	int x = (int)(col->mCenter.X()) % 100 / (100 / TASK_LINE);
-	int z = (int)(col->mCenter.Z()) % 100 / (100 / TASK_LINE);
+	//タスクの前の次を、タスクの次にする
+	col->mpPrev->mpNext = col->mpNext;
+	//タスクの次の前を、タスクの前にする
+	col->mpNext->mpPrev = col->mpPrev;
+	return;
+	int x = (int)(col->Collider()->mCenter.X()) % 100 / (100 / TASK_LINE);
+	int z = (int)(col->Collider()->mCenter.Z()) % 100 / (100 / TASK_LINE);
 	int sx = x - 1;
 	int ex = x + 1;
 	int sz = z - 1;
@@ -160,10 +167,10 @@ void CCollisionManager2::Delete(CCollider* col)
 {
 	for (int i = 0; i < 9; ++i)
 	{
-		if (col->mpSubCollider[i] != nullptr)
+		if (col->mpColliderTask[i] != nullptr)
 		{
-			delete col->mpSubCollider[i];
-			col->mpSubCollider[i] = nullptr;
+			delete col->mpColliderTask[i];
+			col->mpColliderTask[i] = nullptr;
 		}
 	}
 }

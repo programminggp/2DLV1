@@ -30,16 +30,12 @@ public:
 //	void Collision();
 //	void Collision(CCollider* collider, int range);
 	CTaskManager2* TM(const CCollider* col);
-	void Div(CVector& max)
-	{
-		mDiv = max * (1.0f / TASK_LINE);
-	}
+
 	void Add(CCollider* col);
-	void Remove(CCollider* col);
+	void Remove(CColliderTask* col);
 	void Delete(CCollider* col);
 
 private:
-	CVector mDiv;
 	CTaskManager2 mTM[TASK_LINE][TASK_LINE];
 	//マネージャのインスタンス
 	static CCollisionManager2* mpInstance;

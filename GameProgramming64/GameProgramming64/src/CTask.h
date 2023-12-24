@@ -35,4 +35,6 @@ private:
 	CTask* mpPrev;//前のポインタ
 };
 
+
+
 #endif
