@@ -380,8 +380,8 @@ void CModel::CreateVertexBuffer()
 	//バインド解除
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	//シェーダー読み込み
-	mShader.Load("res\\skinmesh.vert", "res\\skinmesh.frag");
-	//mShader.Load("res\\shadow.vert", "res\\shadow.frag");
+	//mShader.Load("res\\skinmesh.vert", "res\\skinmesh.frag");
+	mShader.Load("res\\shadow.vert", "res\\shadow.frag");
 
 }
 

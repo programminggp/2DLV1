@@ -59,8 +59,8 @@ void CSceneGame::Update() {
 	CTaskManager::Get()->Delete();
 
 
-	Render();
-	//mShadowMap.Render();
+	//Render();
+	mShadowMap.Render();
 
 
 	//2D•`‰æŠJŽn
@@ -74,7 +74,7 @@ void CSceneGame::Update() {
 
 void CSceneGame::Render()
 {
-//	gModel.Render();
+
 	CTaskManager::Get()->Render();
 	gModel.Render();
 
