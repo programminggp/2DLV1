@@ -36,7 +36,8 @@ CColliderMesh gColliderMesh;
 CMatrix gMatrix;
 
 void CSceneGame::Init() {
-	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
+//	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
+	gModel.Load("res\\sky.obj", "res\\sky.mtl", true);
 	gColliderMesh.Set(nullptr, &gMatrix, &gModel);
 
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
