@@ -1,5 +1,6 @@
 #include "CColliderLine.h"
 #include "CCollisionManager.h"
+#include "CCollisionManager2.h"
 
 CColliderLine::CColliderLine(CCharacter *parent, CMatrix *matrix
 	, const CVector &v0, const CVector &v1)

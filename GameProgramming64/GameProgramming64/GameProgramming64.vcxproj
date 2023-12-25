@@ -159,6 +159,7 @@
     <ClCompile Include="src\CColliderMesh.cpp" />
     <ClCompile Include="src\CColliderTriangle.cpp" />
     <ClCompile Include="src\CCollisionManager.cpp" />
+    <ClCompile Include="src\CCollisionManager2.cpp" />
     <ClCompile Include="src\CEffect.cpp" />
     <ClCompile Include="src\CEnemy.cpp" />
     <ClCompile Include="src\CEnemy2.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="src\CSceneGame.cpp" />
     <ClCompile Include="src\CSceneManager.cpp" />
     <ClCompile Include="src\CShader.cpp" />
+    <ClCompile Include="src\CShadowMap.cpp" />
     <ClCompile Include="src\CSound.cpp" />
     <ClCompile Include="src\CTank.cpp" />
     <ClCompile Include="src\CTask.cpp" />
@@ -199,6 +201,7 @@
     <ClInclude Include="src\CColliderMesh.h" />
     <ClInclude Include="src\CColliderTriangle.h" />
     <ClInclude Include="src\CCollisionManager.h" />
+    <ClInclude Include="src\CCollisionManager2.h" />
     <ClInclude Include="src\CEffect.h" />
     <ClInclude Include="src\CEnemy.h" />
     <ClInclude Include="src\CEnemy2.h" />
@@ -214,6 +217,7 @@
     <ClInclude Include="src\CSceneGame.h" />
     <ClInclude Include="src\CSceneManager.h" />
     <ClInclude Include="src\CShader.h" />
+    <ClInclude Include="src\CShadowMap.h" />
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTank.h" />
     <ClInclude Include="src\CTask.h" />

@@ -8,7 +8,7 @@ class CColliderTriangle : public CCollider
 {
 public:
 	CColliderTriangle() {}
-	CColliderTriangle(bool flg) : CCollider(flg) {}
+//	CColliderTriangle(bool flg) : CCollider(flg) {}
 	//コンストラクタ（三角コライダ）
 	//CColliderTriangle(親, 親行列, 頂点1, 頂点2, 頂点3)
 	CColliderTriangle(CCharacter *parent, CMatrix *matrix

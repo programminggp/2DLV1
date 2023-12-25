@@ -146,6 +146,7 @@ void CModelX::Load(const char* file) {
 	mpSkinningMatrix = new CMatrix[mFrame.size()];
 	//シェーダー読み込み
 	mShader.Load("res\\skinmesh.vert", "res\\skinmesh.frag");
+	//mShader.Load("res\\shadow.vert", "res\\shadow.frag");
 
 }
 

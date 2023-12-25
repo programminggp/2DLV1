@@ -55,6 +55,8 @@ public:
 	void operator+=(const CMatrix& m);
 	//
 	int Size();
+	//
+	CMatrix Transpose();
 private:
 	//4×4の行列データを設定
 	float mM[4][4];

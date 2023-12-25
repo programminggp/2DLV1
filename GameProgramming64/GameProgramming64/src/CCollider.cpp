@@ -3,6 +3,7 @@
 #include "CColliderLine.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "CCollisionManager2.h"
 
 CCharacter* CCollider::Parent()
 {
@@ -21,28 +22,27 @@ CCollider::CCollider()
 		mpColliderTask[i] = nullptr;
 	}
 	//コリジョンマネージャに追加
-	//CCollisionManager::Get()->Add(this);
-	//CCollisionManager2::Instance()->TM(this)->Add(this);
+//	CCollisionManager::Get()->Add(this);
 	CCollisionManager2::Instance()->Add(this);
 }
 
-CCollider::CCollider(bool flgAdd)
-	: mpParent(nullptr)
-	, mpMatrix(&mMatrix)
-	, mType(ESPHERE)
-	, mTag(EBODY)
-	, mRadius(0)
-{
-	for (int i = 0; i < 9; i++)
-	{
-		mpColliderTask[i] = nullptr;
-	}
-	//コリジョンマネージャに追加
-	//CCollisionManager::Get()->Add(this);
-	//CCollisionManager2::Instance()->TM(this)->Add(this);
-	if(flgAdd)
-		CCollisionManager2::Instance()->Add(this);
-}
+//CCollider::CCollider(bool flgAdd)
+//	: mpParent(nullptr)
+//	, mpMatrix(&mMatrix)
+//	, mType(ESPHERE)
+//	, mTag(EBODY)
+//	, mRadius(0)
+//{
+//	for (int i = 0; i < 9; i++)
+//	{
+//		mpColliderTask[i] = nullptr;
+//	}
+//	//コリジョンマネージャに追加
+//	//CCollisionManager::Get()->Add(this);
+//	//CCollisionManager2::Instance()->TM(this)->Add(this);
+//	if(flgAdd)
+//		CCollisionManager2::Instance()->Add(this);
+//}
 
 
 //コンストラクタ
@@ -279,9 +279,6 @@ bool CCollider::CollisionTriangleSphere(CCollider *t, CCollider *s, CVector *a)
 	}
 
 	return true;
-//	CColliderLine line(NULL, NULL, sv, ev);
-	//三角コライダと線コライダの衝突処理
-//	return CollisionTriangleLine(t, &line, a);
 }
 
 bool CCollider::CollisionCapsule(CCollider* m, CCollider* o, CVector* adjust)

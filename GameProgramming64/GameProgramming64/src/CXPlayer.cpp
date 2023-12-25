@@ -4,6 +4,8 @@
 #include "CKey.h"
 #include "CCollisionManager.h"
 #include "CCamera.h"
+#include "CCollisionManager2.h"
+
 
 #define GRAVITY 0.02f	//èdóÕ
 //#define GRAVITY 0.00f	//èdóÕ
@@ -25,7 +27,7 @@ CXPlayer::CXPlayer()
 	, mColSphereSword0(this, &mMatrix, CVector(0.7f, 3.5f, -0.2f), COL_SWORD_R)
 	, mColSphereSword1(this, &mMatrix, CVector(0.5f, 2.5f, -0.2f), COL_SWORD_R)
 	, mColSphereSword2(this, &mMatrix, CVector(0.3f, 1.5f, -0.2f), COL_SWORD_R)
-	, mColLine(this, &mMatrix, CVector(0.0f, -2.5f, 0.0f), CVector(0.0f, 2.5f, 0.0f))//, 1.2f)
+	, mColLine(this, &mMatrix, CVector(0.5f, -2.5f, 0.5f), CVector(-0.5f, 2.5f, -0.5f))//, 1.2f)
 	, mJumpV(0.0f)
 {
 	//ÉÇÉfÉãÇ™ñ¢ì¸óÕÇ»ÇÁì«Ç›çûÇ›

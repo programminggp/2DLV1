@@ -1,5 +1,6 @@
 #include "CColliderTriangle.h"
 #include "CCollisionManager.h"
+#include "CCollisionManager2.h"
 
 CColliderTriangle::CColliderTriangle(CCharacter *parent, CMatrix *matrix
 	, const CVector &v0, const CVector &v1, const CVector &v2)

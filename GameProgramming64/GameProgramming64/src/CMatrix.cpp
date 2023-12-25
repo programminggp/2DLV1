@@ -201,3 +201,16 @@ int CMatrix::Size()
 {
 	return sizeof(mM) / sizeof(float);
 }
+
+CMatrix CMatrix::Transpose()
+{
+	CMatrix t;
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			t.mM[i][j] = mM[j][i];
+		}
+	}
+	return t;
+}

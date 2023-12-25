@@ -15,19 +15,6 @@
 //
 #include "CFelguard.h"
 
-CField CSceneGame::sField;
-
-CField& CSceneGame::Field()
-{
-	return sField;
-}
-
-////モデルデータの指定
-//#define MODEL_X "res\\knight\\knight_low.X"
-//
-//CMatrix Matrix;
-//
-//CModelX ModelSample;
 
 #include "CModel.h"
 CModel gModel;
@@ -35,22 +22,31 @@ CModel gModel;
 CColliderMesh gColliderMesh;
 CMatrix gMatrix;
 
+
+void gRender()
+{
+	CSceneGame::Render();
+}
+
+
 void CSceneGame::Init() {
-//	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
-	gModel.Load("res\\sky.obj", "res\\sky.mtl", true);
+	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
+//	gModel.Load("res\\sky.obj", "res\\sky.mtl", true);
 	gColliderMesh.Set(nullptr, &gMatrix, &gModel);
 
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
-	//Camera.Set(CVector(1.0f, 6.0f, 7.0f), CVector(0.0f, 4.0f, 0.0f), CVector(0.0f, 1.0f, 0.0f));
-	//ModelSample.Load(MODEL_X);
-	////最初のアニメーションの現在時間を45にする
-	//ModelSample.AnimationSets()[0]->Time(45);
-	////最初のアニメーションの重みを1.0（100%)にする
-	//ModelSample.AnimationSets()[0]->Weight(1.0f);
-	const float size = 0.5f;
+
+	const float size = 1.0f;
 	new CXPlayer(CVector(105,10,100), CVector(), CVector(size, size, size));
 	new CFelguard();
 	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 0.0f, 0.0f), 7.0f);
+
+#define TEXWIDTH  8192  //テクスチャ幅
+#define TEXHEIGHT  6144  //テクスチャ高さ
+
+	float shadowColor[] = { 0.4f, 0.4f, 0.4f, 0.2f };  //影の色
+	float lightPos[] = { 100.0f,100.0f,100.0f };  //光源の位置
+	mShadowMap.Init(TEXWIDTH, TEXHEIGHT, gRender, shadowColor, lightPos);
 }
 
 void CSceneGame::Update() {
@@ -58,39 +54,14 @@ void CSceneGame::Update() {
 	CTaskManager::Get()->Update();
 	//コリジョンマネージャの衝突処理
 	CTaskManager::Get()->TaskCollision();
-	//Camera.Render();
 
-	////X軸＋回転
-	//if (CKey::Push('K')) {
-	//	Matrix = Matrix * CMatrix().RotateX(1);
-	//}
-	////Y軸＋回転
-	//if (CKey::Push('L')) {
-	//	Matrix = Matrix * CMatrix().RotateY(1);
-	//}
-
-	//ModelSample.AnimationSets()[0]->Time(
-	//	ModelSample.AnimationSets()[0]->Time() + 1.0f);
-	//ModelSample.AnimationSets()[0]->Time(
-	//	(int)ModelSample.AnimationSets()[0]->Time() %
-	//	(int)(ModelSample.AnimationSets()[0]->MaxTime() + 1));
-	////フレームの変換行列をアニメーションで更新する
-	//ModelSample.AnimateFrame();
-	////フレームの合成行列を計算する
-	//ModelSample.Frames()[0]->AnimateCombined(&Matrix);
-
-	////頂点にアニメーションを適用する
-	//ModelSample.AnimateVertex();
-	//ModelSample.Render();
 	//タスクリストの削除
 	CTaskManager::Get()->Delete();
-	CTaskManager::Get()->Render();
-	gModel.Render();
 
-#ifdef _DEBUG
-	//コライダの描画
-//	CCollisionManager::Get()->Render();
-#endif
+
+	Render();
+	//mShadowMap.Render();
+
 
 	//2D描画開始
 	CUtil::Start2D(0, 800, 0, 600);
@@ -101,12 +72,17 @@ void CSceneGame::Update() {
 	CUtil::End2D();
 }
 
-void CField::Load(char* obj, char* mtl)
+void CSceneGame::Render()
 {
-	mModelField.Load(obj, mtl, true);
+//	gModel.Render();
+	CTaskManager::Get()->Render();
+	gModel.Render();
+
+#ifdef _DEBUG
+	//コライダの描画
+//	CCollisionManager::Get()->Render();
+#endif
+
+
 }
 
-void CField::Render()
-{
-	mModelField.Render(mMatrix);
-}

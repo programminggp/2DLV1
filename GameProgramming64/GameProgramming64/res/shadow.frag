@@ -36,8 +36,9 @@ void main(void)
 	//デプステクスチャの値を取得
 	float shd = shadow2DProj(DepthTexture, gl_TexCoord[1]).r;
 	//値が0は影にする
-	if(shd < 0.5) {
-		texColor = texColor * 0.5;
+	if(shd == 0.0) 
+	{
+		texColor = texColor * 0.3;
 	}
    
 	gl_FragColor= texColor * (Diffuse * clamp(NL,0,1.0)* vec4(lightDiffuseColor,1.0)+ Ambient * vec4(lightAmbientColor,1.0) + vec4(specular*Specular + Emissive,1.0));

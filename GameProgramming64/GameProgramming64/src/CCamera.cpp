@@ -3,6 +3,7 @@
 #include "CCamera.h"
 #include "CKey.h"
 #include "gl/freeglut.h"
+#include "CShadowMap.h"
 
 //ƒJƒƒ‰‚ÌŠO•”•Ï”
 //CCamera Camera;
@@ -70,7 +71,7 @@ void CCamera::Update()
 
 void CCamera::Render() {
 
-
+	if (CShadowMap::Shadow()) return;
 
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(),
 		mCenter.X(), mCenter.Y(), mCenter.Z(),

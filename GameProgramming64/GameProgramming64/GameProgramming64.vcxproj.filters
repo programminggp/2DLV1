@@ -129,6 +129,12 @@
     <ClCompile Include="src\Update.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\CShadowMap.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CCollisionManager2.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CBillBoard.h">
@@ -246,6 +252,12 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="src\Update.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CShadowMap.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CCollisionManager2.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

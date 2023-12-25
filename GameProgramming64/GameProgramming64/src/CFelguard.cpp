@@ -1,6 +1,7 @@
 #include "CFelguard.h"
 #include "CKey.h"
 #include "CCollisionManager.h"
+#include "CCollisionManager2.h"
 
 CModelX CFelguard::mModel;
 

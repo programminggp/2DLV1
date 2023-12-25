@@ -19,26 +19,4 @@ private:
 	static CCollisionManager* mpInstance;
 };
 
-#define TASK_LINE 10
-
-class CCollisionManager2
-{
-public:
-	//インスタンスの取得
-	static CCollisionManager2* Instance();
-	//衝突処理
-//	void Collision();
-//	void Collision(CCollider* collider, int range);
-	CTaskManager2* TM(const CCollider* col);
-
-	void Add(CCollider* col);
-	void Remove(CColliderTask* col);
-	void Delete(CCollider* col);
-
-private:
-	CTaskManager2 mTM[TASK_LINE][TASK_LINE];
-	//マネージャのインスタンス
-	static CCollisionManager2* mpInstance;
-};
-
 #endif

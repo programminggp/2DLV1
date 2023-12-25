@@ -128,7 +128,7 @@ void CMyShader::SetShader(CMaterial* material) {
 	GLint samplerId = glGetUniformLocation(GetProgram(), "Sampler");
 	GLint textureFlg = glGetUniformLocation(GetProgram(), "TextureFlg");
 	//if (material->mTextureId > 0) {
-	if (material->mTexture.Id()) {
+	if (material->mTexture.Id() > 0) {
 		//テクスチャあり
 		material->Enabled();
 		glUniform1i(samplerId, 0);//GL_TEXTURE0を適用
@@ -151,6 +151,7 @@ void CMyShader::Render(const CModel& model, const CMatrix& matrix) {
 	ライト設定
 	*/
 	CVector vec(100.0f, 700.0f, -300.0f), ambient(0.9f, 0.9f, 0.9f), diffuse(1.0f, 1.0f, 1.0f);
+//	vec = (CVector() - vec).Normalize();
 	vec = vec.Normalize();
 	int lightId = glGetUniformLocation(GetProgram(), "lightVec");  //ライトの向きを設定
 	glUniform3fv(lightId, 1, (float*)&vec);
@@ -166,7 +167,7 @@ void CMyShader::Render(const CModel& model, const CMatrix& matrix) {
 	//	glUniformMatrix4fv(worldId, 1, GL_FALSE, model->mFrame[0]->mCombinedMatrix.f);
 
 	/* テクスチャユニット1を指定する */
-//	glUniform1i(glGetUniformLocation(GetProgram(), "DepthTexture"), 1);
+	glUniform1i(glGetUniformLocation(GetProgram(), "DepthTexture"), 1);
 
 	//頂点バッファをバインドする
 	glBindBuffer(GL_ARRAY_BUFFER, model.mMyVertexBufferId);
@@ -210,8 +211,8 @@ void CMyShader::Render(const CModel& model, const CMatrix& matrix) {
 	}
 
 	//無効にする
-	glDisableVertexAttribArray(weightLoc);
-	glDisableVertexAttribArray(indexLoc);
+//	glDisableVertexAttribArray(weightLoc);
+//	glDisableVertexAttribArray(indexLoc);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
