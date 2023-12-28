@@ -13,12 +13,11 @@ class CMyShader : public CShader {
 	//ƒ}ƒeƒŠƒAƒ‹‚Ìİ’è
 	void SetShader(CMaterial* material);
 	//•`‰æˆ—
-	void Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix);
+	void Render(CModelX* model, CMesh* mesh, CMatrix* pSkinningMatrix);
 public:
 	//•`‰æˆ—
 	void Render(CModelX* model, CMatrix* combinedMatrix);
 	void Render(const CModel& model, const CMatrix& matrix);
-	//	void Render(CModel *mesh);
 };
 
 #endif

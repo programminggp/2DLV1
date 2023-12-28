@@ -12,8 +12,14 @@ void CMyShader::Render(CModelX* model, CMatrix* pCombinedMatrix) {
 	Enable();
 	for (size_t i = 0; i < model->mFrame.size(); i++) {
 		if (model->mFrame[i]->mpMesh != nullptr) {
+			//スキンマトリックス生成
+			for (size_t j = 0; j < model->mFrame[i]->mpMesh->mSkinWeights.size(); j++) {
+				//スキンメッシュの行列配列を設定する
+				model->mpSkinningMatrix[model->mFrame[i]->mpMesh->mSkinWeights[j]->mFrameIndex]
+					= model->mFrame[i]->mpMesh->mSkinWeights[j]->mOffset * pCombinedMatrix[model->mFrame[i]->mpMesh->mSkinWeights[j]->mFrameIndex];
+			}
 			//面のあるメッシュは描画する
-			Render(model, model->mFrame[i]->mpMesh, pCombinedMatrix);
+			Render(model, model->mFrame[i]->mpMesh, &model->mpSkinningMatrix[0]);
 		}
 	}
 	//シェーダーを無効にする
@@ -22,13 +28,7 @@ void CMyShader::Render(CModelX* model, CMatrix* pCombinedMatrix) {
 /*
 メッシュの描画
 */
-void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
-	//スキンマトリックス生成
-	for (size_t i = 0; i < mesh->mSkinWeights.size(); i++) {
-		//スキンメッシュの行列配列を設定する
-		model->mpSkinningMatrix[mesh->mSkinWeights[i]->mFrameIndex]
-			= mesh->mSkinWeights[i]->mOffset * pCombinedMatrix[mesh->mSkinWeights[i]->mFrameIndex];
-	}
+void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pSkinningMatrix) {
 
 	/*
 	ライト設定
@@ -41,7 +41,7 @@ void CMyShader::Render(CModelX* model, CMesh* mesh, CMatrix* pCombinedMatrix) {
 	glUniform3fv(glGetUniformLocation(GetProgram(), "lightDiffuseColor"), 1, (float*)&diffuse);
 	//スキンメッシュ行列設定
 	int MatrixLocation = glGetUniformLocation(GetProgram(), "Transforms");
-	glUniformMatrix4fv(MatrixLocation, model->mFrame.size(), GL_FALSE, model->mpSkinningMatrix[0].M());
+	glUniformMatrix4fv(MatrixLocation, model->mFrame.size(), GL_FALSE, pSkinningMatrix->M());
 	/*
 	ワールドトランスフォーム
 	*/
@@ -211,8 +211,8 @@ void CMyShader::Render(const CModel& model, const CMatrix& matrix) {
 	}
 
 	//無効にする
-//	glDisableVertexAttribArray(weightLoc);
-//	glDisableVertexAttribArray(indexLoc);
+	glDisableVertexAttribArray(weightLoc);
+	glDisableVertexAttribArray(indexLoc);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -222,3 +222,4 @@ void CMyShader::Render(const CModel& model, const CMatrix& matrix) {
 	//シェーダーを無効にする
 	Disable();
 }
+
