@@ -17,10 +17,13 @@
 
 
 #include "CModel.h"
-CModel gModel;
 #include "CColliderMesh.h"
+CModel gModel;
+CModel gModel2;
 CColliderMesh gColliderMesh;
+CColliderMesh gColliderMesh2;
 CMatrix gMatrix;
+CMatrix gMatrix2;
 
 
 void gRender()
@@ -30,14 +33,19 @@ void gRender()
 
 
 void CSceneGame::Init() {
+	//gModel.Load("res\\medieval-pentagon-castle\\source\\castle_05\\castle_06.obj", "res\\medieval-pentagon-castle\\source\\castle_05\\castle_06.mtl", true);
 	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
-//	gModel.Load("res\\sky.obj", "res\\sky.mtl", true);
 	gColliderMesh.Set(nullptr, &gMatrix, &gModel);
+
+	gModel2.Load("res\\sky.obj", "res\\sky.mtl", true);
+	gMatrix2.Translate(-100.0f, 0.0f, -100.f);
+	gColliderMesh2.Set(nullptr, &gMatrix2, &gModel2);
 
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
 
 	const float size = 1.0f;
-	new CXPlayer(CVector(105,10,100), CVector(), CVector(size, size, size));
+	new CXPlayer(CVector(100, 10, 100), CVector(), CVector(size, size, size));
+//	new CXPlayer(CVector(60, 10, 60), CVector(), CVector(size, size, size));
 	new CFelguard();
 	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 0.0f, 0.0f), 7.0f);
 
@@ -77,6 +85,7 @@ void CSceneGame::Render()
 
 	CTaskManager::Get()->Render();
 	gModel.Render();
+	gModel2.Render(gMatrix2);
 
 #ifdef _DEBUG
 	//ƒRƒ‰ƒCƒ_‚Ì•`‰æ

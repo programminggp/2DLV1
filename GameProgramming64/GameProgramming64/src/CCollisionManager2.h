@@ -3,6 +3,7 @@
 #include "CCollider.h"
 
 #define TASK_LINE 20	//リストをTASK_LINE*TASK_LINEで分散する
+#define MAP_SIZE 200
 
 class CTaskManager2 {
 public:
@@ -13,6 +14,8 @@ public:
 	void Collision(CCollider* task);
 	//デフォルトコンストラクタ
 	CTaskManager2();
+	//
+	void Render();
 protected:
 	CTask mHead;//先頭タスク
 	CTask mTail;//最終タスク
@@ -32,7 +35,7 @@ public:
 	void Delete(CCollider* col);
 
 private:
-	CTaskManager2 mTM[TASK_LINE][TASK_LINE];
+	CTaskManager2 mTM[TASK_LINE][TASK_LINE][TASK_LINE];
 	//マネージャのインスタンス
 	static CCollisionManager2* mpInstance;
 };

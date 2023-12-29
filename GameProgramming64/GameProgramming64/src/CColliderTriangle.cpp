@@ -34,6 +34,7 @@ void CColliderTriangle::Render()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//ライトオフ
 	glDisable(GL_LIGHTING);
+	glDisable(GL_DEPTH_TEST);
 
 	//DIFFUSE赤色設定
 	float c[] = { 1.0f, 0.0f, 0.0f, 0.2f };
@@ -47,6 +48,7 @@ void CColliderTriangle::Render()
 	glVertex3f(mV[2].X(), mV[2].Y(), mV[2].Z());
 	glEnd();
 
+	glEnable(GL_DEPTH_TEST);
 	//ライトオン
 	glEnable(GL_LIGHTING);
 	//アルファブレンド無効

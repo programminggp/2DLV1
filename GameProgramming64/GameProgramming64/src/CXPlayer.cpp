@@ -173,7 +173,6 @@ void CXPlayer::TaskCollision()
 //	CCollisionManager2::Instance()->TM(&mColSphereHead)->Collision(&mColSphereHead);
 	CCollisionManager2::Instance()->TM(&mColSphereBody)->Collision(&mColSphereBody);
 	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
-
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
@@ -327,14 +326,14 @@ void CXPlayer::ChangeState(EState state)
 
 void CXPlayer::Render()
 {
+#ifdef _DEBUG
+//	CCollisionManager2::Instance()->TM(&mColLine)->Render();
+	mColLine.Render();
+	mColSphereBody.Render();
+	mColSphereSword2.Render();
+#endif
 	mPosition = mPosition + mAdjust;
 	mAdjust.Set(0.0f, 0.0f, 0.0f);
 	//CXCharacter::Update();
 	CXCharacter::Render();
-#ifdef _DEBUG
-	mColLine.Render();
-	mColSphereBody.Render();
-	mColSphereSword2.Render();
-	
-#endif
 }

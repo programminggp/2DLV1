@@ -167,7 +167,12 @@ void CModel::Load(const char* obj, const char* mtl, bool positive) {
 		return;
 	}
 
+#ifdef _DEBUG
+	CVector min, max;
+#else
 	CVector min;
+#endif
+
 	//ファイルから1行入力
 	//fgets(入力エリア,エリアサイズ,ファイルポインタ)
 	//ファイルの最後になるとNULLを返す
@@ -185,7 +190,12 @@ void CModel::Load(const char* obj, const char* mtl, bool positive) {
 			//可変長配列vertexに追加
 			//atof(文字列)　文字列からfloat型の値を返す
 			CVector vec(atof(str[1]), atof(str[2]), atof(str[3]));
+#ifdef _DEBUG
 			min = min.Less(vec);
+			max = max.Greater(vec);
+#else
+			min = min.Less(vec);
+#endif
 			vertex.push_back(CVector(atof(str[1]), atof(str[2]), atof(str[3])));
 		}
 		else if (strcmp(str[0], "vn") == 0) {
@@ -253,7 +263,7 @@ void CModel::Load(const char* obj, const char* mtl, bool positive) {
 	fclose(fp);
 
 #ifdef _DEBUG
-	printf("MIN:%10f%10f%10f\n", min.X(), min.Y(), min.Z());
+	printf("MIN:%10f %10f %10f MAX:%10f %10f %10f\n", min.X(), min.Y(), min.Z(), max.X(), max.Y(), max.Z());
 #endif
 
 	if (positive)

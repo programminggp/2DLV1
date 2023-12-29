@@ -75,7 +75,7 @@ public:
 	void Update();
 	CVector mCenter;
 
-	CColliderTask* mpColliderTask[9];
+	CColliderTask* mpColliderTask[9*3];
 	void Radius(float r)
 	{
 		mRadius = r;
