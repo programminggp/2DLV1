@@ -1,0 +1,981 @@
+# Blender MTL File: 'None'
+# Material Count: 89
+
+newmtl stone_lime_01_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0001.jpg
+
+newmtl stone_lime_01_m_0002
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0002.jpg
+
+newmtl stone_lime_01_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0003.jpg
+
+newmtl stone_lime_01_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0004.jpg
+
+newmtl stone_lime_01_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0005.jpg
+
+newmtl stone_lime_01_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0006.jpg
+
+newmtl stone_lime_01_m_0007
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0007.jpg
+
+newmtl stone_lime_01_m_0008
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0008.jpg
+
+newmtl stone_lime_01_m_0009
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0009.jpg
+
+newmtl stone_lime_01_m_0010
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_01_m_0010.jpg
+
+newmtl stone_lime_02_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_02_m_0001.jpg
+
+newmtl stone_lime_02_m_0002
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_02_m_0002.jpg
+
+newmtl stone_lime_02_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_02_m_0003.jpg
+
+newmtl stone_lime_02_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_02_m_0004.jpg
+
+newmtl stone_lime_02_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_02_m_0005.jpg
+
+newmtl stone_lime_02_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_02_m_0006.jpg
+
+newmtl stone_lime_02_m_0007
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_02_m_0007.jpg
+
+newmtl stone_lime_02_m_0008
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_02_m_0008.jpg
+
+newmtl stone_lime_beige_01_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0001.jpg
+
+newmtl stone_lime_beige_01_m_0002
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0002.jpg
+
+newmtl stone_lime_beige_01_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0003.jpg
+
+newmtl stone_lime_beige_01_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0004.jpg
+
+newmtl stone_lime_beige_01_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0005.jpg
+
+newmtl stone_lime_beige_01_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0006.jpg
+
+newmtl stone_lime_beige_01_m_0007
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0007.jpg
+
+newmtl stone_lime_beige_01_m_0008
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0008.jpg
+
+newmtl stone_lime_beige_01_m_0009
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_beige_01_m_0009.jpg
+
+newmtl stone_lime_rose_01_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_rose_01_m_0001.jpg
+
+newmtl stone_lime_rose_01_m_0002
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_rose_01_m_0002.jpg
+
+newmtl stone_lime_rose_01_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_rose_01_m_0003.jpg
+
+newmtl stone_lime_rose_01_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_rose_01_m_0004.jpg
+
+newmtl stone_lime_rose_01_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_rose_01_m_0005.jpg
+
+newmtl stone_lime_rose_01_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_rose_01_m_0006.jpg
+
+newmtl stone_lime_white_01_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0001.jpg
+
+newmtl stone_lime_white_01_m_0002
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0002.jpg
+
+newmtl stone_lime_white_01_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0003.jpg
+
+newmtl stone_lime_white_01_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0004.jpg
+
+newmtl stone_lime_white_01_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0005.jpg
+
+newmtl stone_lime_white_01_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0006.jpg
+
+newmtl stone_lime_white_01_m_0007
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0007.jpg
+
+newmtl stone_lime_white_01_m_0008
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0008.jpg
+
+newmtl stone_lime_white_01_m_0009
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0009.jpg
+
+newmtl stone_lime_white_01_m_0010
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_lime_white_01_m_0010.jpg
+
+newmtl stone_sand_01_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_sand_01_m_0001.jpg
+
+newmtl stone_sand_01_m_0002
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_sand_01_m_0002.jpg
+
+newmtl stone_sand_01_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_sand_01_m_0003.jpg
+
+newmtl stone_sand_01_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_sand_01_m_0004.jpg
+
+newmtl stone_sand_01_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_sand_01_m_0005.jpg
+
+newmtl stone_sand_01_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_sand_01_m_0006.jpg
+
+newmtl stone_sand_01_m_0007
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_sand_01_m_0007.jpg
+
+newmtl stone_sand_01_m_0008
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\stone_sand_01_m_0008.jpg
+
+newmtl wood_board_grey_01_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0001.jpg
+
+newmtl wood_board_grey_01_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0003.jpg
+
+newmtl wood_board_grey_01_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0004.jpg
+
+newmtl wood_board_grey_01_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0005.jpg
+
+newmtl wood_board_grey_01_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0006.jpg
+
+newmtl wood_board_grey_01_m_0007
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0007.jpg
+
+newmtl wood_board_grey_01_m_0008
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0008.jpg
+
+newmtl wood_board_grey_01_m_0009
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0009.jpg
+
+newmtl wood_board_grey_01_m_0010
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0010.jpg
+
+newmtl wood_board_grey_01_m_0012
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0012.jpg
+
+newmtl wood_board_grey_01_m_0013
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0013.jpg
+
+newmtl wood_board_grey_01_m_0014
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_grey_01_m_0014.jpg
+
+newmtl wood_board_red_01_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0001.jpg
+
+newmtl wood_board_red_01_m_0002
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0002.jpg
+
+newmtl wood_board_red_01_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0003.jpg
+
+newmtl wood_board_red_01_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0004.jpg
+
+newmtl wood_board_red_01_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0005.jpg
+
+newmtl wood_board_red_01_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0006.jpg
+
+newmtl wood_board_red_01_m_0007
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0007.jpg
+
+newmtl wood_board_red_01_m_0008
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0008.jpg
+
+newmtl wood_board_red_01_m_0009
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0009.jpg
+
+newmtl wood_board_red_01_m_0010
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_board_red_01_m_0010.jpg
+
+newmtl wood_shindle_grey_02_m_0001
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0001.jpg
+
+newmtl wood_shindle_grey_02_m_0002
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0002.jpg
+
+newmtl wood_shindle_grey_02_m_0003
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0003.jpg
+
+newmtl wood_shindle_grey_02_m_0004
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0004.jpg
+
+newmtl wood_shindle_grey_02_m_0005
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0005.jpg
+
+newmtl wood_shindle_grey_02_m_0006
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0006.jpg
+
+newmtl wood_shindle_grey_02_m_0007
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0007.jpg
+
+newmtl wood_shindle_grey_02_m_0008
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0008.jpg
+
+newmtl wood_shindle_grey_02_m_0009
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0009.jpg
+
+newmtl wood_shindle_grey_02_m_0010
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0010.jpg
+
+newmtl wood_shindle_grey_02_m_0011
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0011.jpg
+
+newmtl wood_shindle_grey_02_m_0012
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0012.jpg
+
+newmtl wood_shindle_grey_02_m_0013
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0013.jpg
+
+newmtl wood_shindle_grey_02_m_0014
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0014.jpg
+
+newmtl wood_shindle_grey_02_m_0015
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0015.jpg
+
+newmtl wood_shindle_grey_02_m_0016
+Ns 2.000002
+Ka 0.200000 0.200000 0.200000
+Kd 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd medieval-pentagon-castle\source\castle_05\wood_shindle_grey_02_m_0016.jpg
