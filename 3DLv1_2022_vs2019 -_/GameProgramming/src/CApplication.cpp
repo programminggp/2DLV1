@@ -9,7 +9,7 @@
 #include "CBillBoard.h"
 #include "CEnemy3.h"
 //背景モデルデータの指定
-#define MODEL_BACKGROUND "res\\city.obj","res\\city.mtl"
+#define MODEL_BACKGROUND "res\\city2.obj","res\\city2.mtl"
 #define MODEL_OBJ "res\\f14.obj","res\\f14.mtl"
 //敵輸送機モデル
 #define MODEL_C5 "res\\c5.obj","res\\c5.mtl"
@@ -70,7 +70,7 @@ void CApplication::Start()
 	mCharacter.Scale(CVector(0.1f, 0.1f, 0.1f));*/
 	mPlayer.Model(&mModel);
 	mPlayer.Scale(CVector(0.1f, 0.1f, 0.1f));
-	mPlayer.Position(CVector(0.0f, 0.0f, -3.0f));
+	mPlayer.Position(CVector(0.0f, 1.0f, -3.0f));
 	mPlayer.Rotation(CVector(0.0f, 180.0f, 0.0f));
 
 	//敵機のインスタンス作成
@@ -93,7 +93,7 @@ void CApplication::Start()
 		, CVector(-50.0f, 0.0f, 50.0f));*/
 	//背景モデルアkら三角コライダを生成
 	//親インスタンスと親行列はなし
-	//mColliderMesh.Set(nullptr, nullptr, &mBackGround);
+	mColliderMesh.Set(nullptr, nullptr, &mBackGround);
 }
 
 void CApplication::Update()

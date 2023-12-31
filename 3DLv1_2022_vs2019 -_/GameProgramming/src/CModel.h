@@ -15,7 +15,7 @@ class CModel {
 	friend CMyShader;
 public:
 	GLuint mMyVertexBufferId;
-	std::vector<CTriangle>Triangles() const;
+	const std::vector<CTriangle>& Triangles() const;
 	//モデルファイルの入力
 	//Load(モデルファイル名、マテリアルファイル名)
 	void Load(char* obj, char* mtl);

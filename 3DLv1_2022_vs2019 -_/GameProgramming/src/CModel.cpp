@@ -22,7 +22,7 @@ int strcmp(const char* s1, const char* s2)
 
 #endif
 
-std::vector<CTriangle> CModel::Triangles() const
+const std::vector<CTriangle>& CModel::Triangles() const
 {
 	return mTriangles;
 }

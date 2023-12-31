@@ -1,6 +1,8 @@
 #include "CCollider.h"
 #include "CCollisionManager.h"
 #include "CColliderLine.h"
+#include "CCollisionManager2.h"
+
 CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
 	const CVector& position, float radius)
 	: CCollider()
@@ -14,15 +16,19 @@ CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
 	//半径設定
 	mRadius = radius;
 	//コリジョンマネージャｙに追加
-	//CCollisionManager::Instance()->Add(this);
+//	CCollisionManager::Instance()->Add(this);
+	ChangePriority();
 }
 
 void CCollider::ChangePriority()
 {
+	CCollisionManager2::Instance()->Delete(this);
 	//自分の座標x親の変更行列をかけてワールド座標を求める
 	CVector pos = mPosition * *mpMatrix;
+	mCenter = pos;
 	//ベクトルの長さが優先
-	CCollider::ChangePriority(pos.Length());
+//	CCollider::ChangePriority(pos.Length());
+	CCollisionManager2::Instance()->Add(this);
 }
 
 void CCollider::ChangePriority(int priority)
@@ -107,7 +113,7 @@ bool CCollider::CollisionTriangleLine(CCollider* t, CCollider* l, CVector* a){
 	//調整値計算(衝突しない位置まで戻す)
 	if (dots < 0.0f) {
 		//始点が裏面
-		*a = normal * -dote;
+		*a = normal * -dots;
 	}
 	else {
 		//終点が裏面
@@ -144,8 +150,13 @@ CCollider::CCollider()
 	, mType(ESPHERE)
 	, mRadius(0)
 {
+	for (int i = 0; i < COLLIDERTASK_SIZE; i++)
+	{
+		mpColliderTask[i] = nullptr;
+	}
 	//コリジョンマネージャに追加
-	CCollisionManager::Instance()->Add(this);
+//	CCollisionManager::Instance()->Add(this);
+	CCollisionManager2::Instance()->Add(this);
 }
 
 //衝突判定
@@ -169,7 +180,8 @@ bool CCollider::Collision(CCollider* m, CCollider* o) {
 
 CCollider::~CCollider() {
 	//コリジョンから削除
-	CCollisionManager::Instance()->Remove(this);
+//	CCollisionManager::Get()->Remove(this);
+	CCollisionManager2::Instance()->Delete(this);
 }
 
 CCharacter3* CCollider::Parent()

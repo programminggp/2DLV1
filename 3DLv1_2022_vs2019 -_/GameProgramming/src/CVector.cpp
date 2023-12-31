@@ -8,6 +8,8 @@ CVector::CVector()
 }
 
 CVector CVector::Normalize() const {
+	if (Length() == 0.0f)
+		return CVector();
 	//ベクトルの大きさで割ったベクトルを返す(長さ１のベクトル)
 	return *this * (1.0f / Length());
 }

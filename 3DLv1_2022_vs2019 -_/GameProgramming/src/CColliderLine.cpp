@@ -1,11 +1,15 @@
 #include "CColliderLine.h"
+#include "CCollisionManager2.h"
 
 void CColliderLine::ChangePriority()
 {
+	CCollisionManager2::Instance()->Delete(this);
 	//mV[0]とmV[1]の中心を求める
 	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix) * (0.5f);
+	mCenter = pos;
 	//ベクトルの長さが優先度
-	CCollider::ChangePriority(pos.Length());
+//	CCollider::ChangePriority(pos.Length());
+	CCollisionManager2::Instance()->Add(this);
 }
 
 CColliderLine::CColliderLine(CCharacter3* parent, CMatrix* matrix
@@ -24,6 +28,7 @@ void CColliderLine::Set(CCharacter3* parent, CMatrix* matrix
 	//線分頂点設定
 	mV[0] = v0;
 	mV[1] = v1;
+	ChangePriority();
 }
 
 void CColliderLine::Render()
@@ -41,15 +46,15 @@ void CColliderLine::Render()
 	glDisable(GL_LIGHTING);
 
 	//DIFFUSE赤色設定
-	/*float c[] = { 1.0f,0.0f,0.0f,1.0f };
+	float c[] = { 1.0f,0.0f,0.0f,1.0f };
 	glMaterialfv(GL_FLOAT, GL_DIFFUSE, c);
-	glColor4fv(c);*/
+	glColor4fv(c);
 
 	//三角形描画
-	/*glBegin(GL_LINES);
+	glBegin(GL_LINES);
 	glVertex3f(mV[0].X(), mV[0].Y(), mV[0].Z());
 	glVertex3f(mV[1].X(), mV[1].Y(), mV[1].Z());
-	glEnd();*/
+	glEnd();
 
 	//ライトオン
 	glEnable(GL_LIGHTING);
@@ -58,3 +63,10 @@ void CColliderLine::Render()
 	//行列復帰
 	glPopMatrix();
 }
+
+//void CColliderLine::Update()
+//{
+//	CCollider::mV[0] = mV[0] * *mpMatrix;
+//	CCollider::mV[1] = mV[1] * *mpMatrix;
+//	ChangePriority();
+//}

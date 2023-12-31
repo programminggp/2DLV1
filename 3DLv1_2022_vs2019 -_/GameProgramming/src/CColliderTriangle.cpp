@@ -1,12 +1,15 @@
 #include "CColliderTriangle.h"
-#include "CCollisionManager.h"
+#include "CCollisionManager2.h"
 
 void CColliderTriangle::ChangePriority()
 {
+	CCollisionManager2::Instance()->Delete(this);
 	//mV[0]Ç∆mV[1]ÇÃíÜêSÇãÅÇﬂÇÈ
 	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix
 		+ mV[2] * *mpMatrix) * (1.0f / 3.0f);
-	CCollider::ChangePriority(pos.Length());
+	mCenter = pos;
+	//CCollider::ChangePriority(pos.Length());0
+	CCollisionManager2::Instance()->Add(this);
 }
 
 CColliderTriangle::CColliderTriangle(CCharacter3* parent, CMatrix* matrix
@@ -25,6 +28,7 @@ void CColliderTriangle::Set(CCharacter3* parent, CMatrix* matrix
 	mV[0] = v0;
 	mV[1] = v1;
 	mV[2] = v2;
+	ChangePriority();
 }
 
 void CColliderTriangle::Render()
@@ -59,3 +63,12 @@ void CColliderTriangle::Render()
 	//çsóÒïúãA
 	glPopMatrix();
 }
+
+//void CColliderTriangle::Update()
+//{
+//	CCollider::mV[0] = mV[0] * *mpMatrix;
+//	CCollider::mV[1] = mV[1] * *mpMatrix;
+//	CCollider::mV[2] = mV[2] * *mpMatrix;
+//	CCollider::mV[3] = (mV[1] - mV[0]).Cross(mV[2] - mV[0]).Normalize();
+//	ChangePriority();
+//}
