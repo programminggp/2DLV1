@@ -69,19 +69,19 @@ CCollisionManager2* CCollisionManager2::Instance()
 	return mpInstance;
 }
 
-CTaskManager2* CCollisionManager2::TM(const CCollider* col)
-{
-	int y = (int)(col->mCenter.Y() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
-	int x = (int)(col->mCenter.X() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
-	int z = (int)(col->mCenter.Z() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
-	if (y < 0) y = 0;
-	if (y >= TASK_LINE) y = TASK_LINE - 1;
-	if (x < 0) x = 0;
-	if (x >= TASK_LINE) x = TASK_LINE - 1;
-	if (z < 0) z = 0;
-	if (z >= TASK_LINE) z = TASK_LINE - 1;
-	return &mTM[y][x][z];
-}
+//CTaskManager2* CCollisionManager2::TM(const CCollider* col)
+//{
+//	int y = (int)(col->mCenter.Y() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
+//	int x = (int)(col->mCenter.X() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
+//	int z = (int)(col->mCenter.Z() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
+//	if (y < 0) y = 0;
+//	if (y >= TASK_LINE) y = TASK_LINE - 1;
+//	if (x < 0) x = 0;
+//	if (x >= TASK_LINE) x = TASK_LINE - 1;
+//	if (z < 0) z = 0;
+//	if (z >= TASK_LINE) z = TASK_LINE - 1;
+//	return &mTM[y][x][z];
+//}
 
 void CCollisionManager2::Add(CCollider* col)
 {
@@ -125,7 +125,7 @@ void CCollisionManager2::Remove(CColliderTask* col)
 
 void CCollisionManager2::Delete(CCollider* col)
 {
-	for (int i = 0; i < 9; ++i)
+	for (int i = 0; i < COLLIDERTASK_SIZE; ++i)
 	{
 		if (col->mpColliderTask[i] != nullptr)
 		{
@@ -133,4 +133,18 @@ void CCollisionManager2::Delete(CCollider* col)
 			col->mpColliderTask[i] = nullptr;
 		}
 	}
+}
+
+void CCollisionManager2::Collision(CCollider* col)
+{
+	int y = (int)(col->mCenter.Y() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
+	int x = (int)(col->mCenter.X() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
+	int z = (int)(col->mCenter.Z() * 100 / MAP_SIZE) % 100 / (100 / TASK_LINE);
+	if (y < 0) y = 0;
+	if (y >= TASK_LINE) y = TASK_LINE - 1;
+	if (x < 0) x = 0;
+	if (x >= TASK_LINE) x = TASK_LINE - 1;
+	if (z < 0) z = 0;
+	if (z >= TASK_LINE) z = TASK_LINE - 1;
+	mTM[y][x][z].Collision(col);
 }

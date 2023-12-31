@@ -17,33 +17,13 @@ CCollider::CCollider()
 , mTag(EBODY)
 , mRadius(0)
 {
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < COLLIDERTASK_SIZE; i++)
 	{
 		mpColliderTask[i] = nullptr;
 	}
 	//コリジョンマネージャに追加
-//	CCollisionManager::Get()->Add(this);
 	CCollisionManager2::Instance()->Add(this);
 }
-
-//CCollider::CCollider(bool flgAdd)
-//	: mpParent(nullptr)
-//	, mpMatrix(&mMatrix)
-//	, mType(ESPHERE)
-//	, mTag(EBODY)
-//	, mRadius(0)
-//{
-//	for (int i = 0; i < 9; i++)
-//	{
-//		mpColliderTask[i] = nullptr;
-//	}
-//	//コリジョンマネージャに追加
-//	//CCollisionManager::Get()->Add(this);
-//	//CCollisionManager2::Instance()->TM(this)->Add(this);
-//	if(flgAdd)
-//		CCollisionManager2::Instance()->Add(this);
-//}
-
 
 //コンストラクタ
 //CCollider(親, 位置, 回転, 拡縮, 半径)
@@ -427,11 +407,6 @@ CColliderTask::CColliderTask(CCollider* col)
 CCollider* CColliderTask::Collider()
 {
 	return mpCollider;
-}
-
-void CColliderTask::Collider(CCollider* col)
-{
-	mpCollider = col;
 }
 
 CColliderTask::~CColliderTask()

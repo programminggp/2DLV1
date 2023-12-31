@@ -2,8 +2,8 @@
 
 #include "CCollider.h"
 
-#define TASK_LINE 20	//リストをTASK_LINE*TASK_LINEで分散する
-#define MAP_SIZE 200
+#define TASK_LINE 20	//リストをTASK_LINE*TASK_LINE*TASK_LINEで分散する
+#define MAP_SIZE 200	//マップの1辺の大きさ
 
 class CTaskManager2 {
 public:
@@ -27,14 +27,17 @@ public:
 	//インスタンスの取得
 	static CCollisionManager2* Instance();
 
-	//タスクリストの取得
-	CTaskManager2* TM(const CCollider* col);
-
+	//コライダの追加
 	void Add(CCollider* col);
-	void Remove(CColliderTask* col);
+	//コライダの削除
 	void Delete(CCollider* col);
+	//コライダの衝突処理
+	void Collision(CCollider* col);
 
+	//コライダタスクリストから削除
+	void Remove(CColliderTask* col);
 private:
+	//コライダタスクリスト配列
 	CTaskManager2 mTM[TASK_LINE][TASK_LINE][TASK_LINE];
 	//マネージャのインスタンス
 	static CCollisionManager2* mpInstance;

@@ -171,8 +171,8 @@ void CXPlayer::TaskCollision()
 	//mColSphereSword2.ChangePriority();
 	//CCollisionManager::Get()->Collision(&mColLine, 20);
 //	CCollisionManager2::Instance()->TM(&mColSphereHead)->Collision(&mColSphereHead);
-	CCollisionManager2::Instance()->TM(&mColSphereBody)->Collision(&mColSphereBody);
-	CCollisionManager2::Instance()->TM(&mColLine)->Collision(&mColLine);
+	CCollisionManager2::Instance()->Collision(&mColSphereBody);
+	CCollisionManager2::Instance()->Collision(&mColLine);
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)

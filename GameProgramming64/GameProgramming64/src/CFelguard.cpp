@@ -110,7 +110,8 @@ void CFelguard::ChangeState(EState state)
 void CFelguard::TaskCollision()
 {
 	//CCollisionManager::Get()->Collision(&mColHit, 20);
-	CCollisionManager2::Instance()->TM(&mColHit)->Collision(&mColHit);
+//	CCollisionManager2::Instance()->TM(&mColHit)->Collision(&mColHit);
+	CCollisionManager2::Instance()->Collision(&mColHit);
 }
 
 void CFelguard::Collision(CCollider* m, CCollider* o)

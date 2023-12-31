@@ -6,6 +6,7 @@
 #include "CTransform.h"
 class CCollisionManager;
 class CColliderTask;
+#define COLLIDERTASK_SIZE 27
 /*
 コライダクラス
 衝突判定データ
@@ -75,7 +76,9 @@ public:
 	void Update();
 	CVector mCenter;
 
-	CColliderTask* mpColliderTask[9*3];
+	//コライダタスクの作成
+	CColliderTask* mpColliderTask[COLLIDERTASK_SIZE];
+
 	void Radius(float r)
 	{
 		mRadius = r;
@@ -95,7 +98,6 @@ class CColliderTask : public CTask
 public:
 	CColliderTask(CCollider* col);
 	CCollider* Collider();
-	void Collider(CCollider* col);
 	~CColliderTask();
 private:
 	CCollider* mpCollider;
