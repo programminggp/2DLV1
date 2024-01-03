@@ -1,13 +1,13 @@
 #include "CColliderLine.h"
-#include "CCollisionManager2.h"
+#include "CColliderManager.h"
 
 void CColliderLine::ChangePriority()
 {
-	CCollisionManager2::Instance()->Remove(this);
+	//コライダマネージャの更新
+	CColliderManager::Instance()->Remove(this);
 	//mV[0]とmV[1]の中心を求める
 	mCenter = (mV[0] * *mpMatrix + mV[1] * *mpMatrix) * (0.5f);
-	//ベクトルの長さが優先度
-	CCollisionManager2::Instance()->Add(this);
+	CColliderManager::Instance()->Add(this);
 }
 
 CColliderLine::CColliderLine(CCharacter3* parent, CMatrix* matrix

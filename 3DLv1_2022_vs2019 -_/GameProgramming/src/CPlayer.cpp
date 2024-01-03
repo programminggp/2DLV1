@@ -2,7 +2,7 @@
 #include <math.h>
 #include "CPlayer.h"
 #include "CApplication.h"
-#include "CCollisionManager2.h"
+#include "CColliderManager.h"
 
 #define ROTATION_YV CVector(0.0f,1.0f,0.0f) //‰ñ“]‘¬“x
 #define VELOCITY CVector(0.0f,0.0f,0.5f) //ˆÚ“®‘¬“x
@@ -49,9 +49,9 @@ void CPlayer::Collision()
 	//CCollisionManager::Instance()->Collision(&mLine1, COLLISIONRANGE);
 	//CCollisionManager::Instance()->Collision(&mLine2, COLLISIONRANGE);
 	//CCollisionManager::Instance()->Collision(&mLine3, COLLISIONRANGE);
-	CCollisionManager2::Instance()->Collision(&mLine1);
-	CCollisionManager2::Instance()->Collision(&mLine2);
-	CCollisionManager2::Instance()->Collision(&mLine3);
+	CColliderManager::Instance()->Collision(&mLine1);
+	CColliderManager::Instance()->Collision(&mLine2);
+	CColliderManager::Instance()->Collision(&mLine3);
 }
 
 void CPlayer::Collision(CCollider* m, CCollider* o) {

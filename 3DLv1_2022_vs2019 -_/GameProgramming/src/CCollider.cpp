@@ -1,7 +1,7 @@
 #include "CCollider.h"
 #include "CCollisionManager.h"
 #include "CColliderLine.h"
-#include "CCollisionManager2.h"
+#include "CColliderManager.h"
 
 CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
 	const CVector& position, float radius)
@@ -22,10 +22,10 @@ CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
 
 void CCollider::ChangePriority()
 {
-	CCollisionManager2::Instance()->Remove(this);
+	CColliderManager::Instance()->Remove(this);
 	//自分の座標x親の変更行列をかけてワールド座標を求める
 	mCenter = mPosition * *mpMatrix;
-	CCollisionManager2::Instance()->Add(this);
+	CColliderManager::Instance()->Add(this);
 }
 
 void CCollider::ChangePriority(int priority)
@@ -147,13 +147,13 @@ CCollider::CCollider()
 	, mType(ESPHERE)
 	, mRadius(0)
 {
+	//コライダタスク配列の初期化
 	for (int i = 0; i < COLLIDERTASK_SIZE; i++)
 	{
 		mpColliderTask[i] = nullptr;
 	}
-	//コリジョンマネージャに追加
-//	CCollisionManager::Instance()->Add(this);
-	CCollisionManager2::Instance()->Add(this);
+	//コライダマネージャに追加
+	CColliderManager::Instance()->Add(this);
 }
 
 //衝突判定
@@ -176,9 +176,9 @@ bool CCollider::Collision(CCollider* m, CCollider* o) {
 }
 
 CCollider::~CCollider() {
-	//コリジョンから削除
-//	CCollisionManager::Get()->Remove(this);
-	CCollisionManager2::Instance()->Delete(this);
+	//コライダマネージャから削除
+	CColliderManager::Instance()->Remove(this);
+//	CColliderManager::Instance()->Delete(this);
 }
 
 CCharacter3* CCollider::Parent()

@@ -1,16 +1,12 @@
 #include "CCOlliderMesh.h"
 
 CColliderMesh::CColliderMesh()
-	:mpColliderTriangles(nullptr)
 {
 }
 
 CColliderMesh::~CColliderMesh()
 {
-	//if (mpColliderTriangles != nullptr)
-	//{    //三角コライダ配列の削除
-	//	delete[] mpColliderTriangles;
-	//}
+	//リスト内のコライダを全て削除
 	for (auto idx : mpColliders)
 	{
 		delete idx;
@@ -20,15 +16,14 @@ CColliderMesh::~CColliderMesh()
 //Set(親、親行列、モデル)
 //モデルから三角コライダの生成
 void CColliderMesh::Set(CCharacter3* parent, CMatrix* matrix, CModel* model)
-{   //モデルから三角ポリゴンで三角コライダの配列作成
-	//mpColliderTriangles = new
-	//	CColliderTriangle[model->Triangles().size()];
+{
+	//モデルから三角ポリゴンで三角コライダの配列作成
 	for (size_t i = 0; i < model->Triangles().size(); i++)
-	{   //三角コライダの設定
-		mpColliders.push_back(new CColliderTriangle(parent, matrix
-			, model->Triangles()[i].V0()
-			, model->Triangles()[i].V1()
-			, model->Triangles()[i].V2()));
-//		mpColliderTriangles[i].ChangePriority();
+	{	//三角コライダを生成し、リストへ追加
+		mpColliders.push_back(
+			new CColliderTriangle(parent, matrix
+				, model->Triangles()[i].V0()
+				, model->Triangles()[i].V1()
+				, model->Triangles()[i].V2()));
 	}
 }

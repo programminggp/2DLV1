@@ -6,15 +6,15 @@ class CTaskManager;
 タスクリストの要素
 */
 class CCollisionManager;
-class CCollisionManager2;
-class CTaskManager2;
+class CColliderManager;
+class CColliderList;
 class CColliderTask;
 
 class CTask {
 	friend CColliderTask;
 	friend CCollisionManager;
-	friend CCollisionManager2;
-	friend CTaskManager2;
+//	friend CColliderManager;
+	friend CColliderList;
 	friend CTaskManager;
 public:
 	//衝突処理

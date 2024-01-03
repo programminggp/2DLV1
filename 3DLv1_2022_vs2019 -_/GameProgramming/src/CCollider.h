@@ -3,19 +3,19 @@
 //キャラクタクラスのインクルード
 #include "CCharacter3.h"
 
-#define COLLIDERTASK_SIZE 27
+#define COLLIDERTASK_SIZE 27 //コライダタスク数
 
 /*
 コライダクラス
 衝突判定データ
 */
 class CCollisionManager;
-class CCollisionManager2;
+class CColliderManager;
 class CColliderTask;
 
 class CCollider : public CTransform,public CTask {
 	friend CCollisionManager;
-	friend CCollisionManager2;
+	friend CColliderManager;
 public:
 	//優先度の変更
 	virtual void ChangePriority();
@@ -57,7 +57,8 @@ public:
 	//描画
 	void Render();
 protected:
-	CVector mCenter;
+	CVector mCenter; //中心座標
+	//コライダタスクの配列
 	CColliderTask* mpColliderTask[COLLIDERTASK_SIZE];
 	EType mType;//コライダタイプ
 	//頂点

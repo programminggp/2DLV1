@@ -1,13 +1,13 @@
 #include "CColliderTriangle.h"
-#include "CCollisionManager2.h"
+#include "CColliderManager.h"
 
 void CColliderTriangle::ChangePriority()
 {
-	CCollisionManager2::Instance()->Remove(this);
+	CColliderManager::Instance()->Remove(this);
 	//ŽOŠpŒ`‚Ì’†S‚ð‹‚ß‚é
 	mCenter = (mV[0] * *mpMatrix + mV[1] * *mpMatrix
 		+ mV[2] * *mpMatrix) * (1.0f / 3.0f);
-	CCollisionManager2::Instance()->Add(this);
+	CColliderManager::Instance()->Add(this);
 }
 
 CColliderTriangle::CColliderTriangle(CCharacter3* parent, CMatrix* matrix
