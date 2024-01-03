@@ -3,12 +3,10 @@
 
 void CColliderLine::ChangePriority()
 {
-	CCollisionManager2::Instance()->Delete(this);
+	CCollisionManager2::Instance()->Remove(this);
 	//mV[0]とmV[1]の中心を求める
-	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix) * (0.5f);
-	mCenter = pos;
+	mCenter = (mV[0] * *mpMatrix + mV[1] * *mpMatrix) * (0.5f);
 	//ベクトルの長さが優先度
-//	CCollider::ChangePriority(pos.Length());
 	CCollisionManager2::Instance()->Add(this);
 }
 

@@ -44,8 +44,8 @@ public:
 	//コライダの衝突処理
 	void Collision(CCollider* col);
 
-	//コライダタスクリストから削除
-	void Remove(CColliderTask* col);
+	//コライダタスクの削除
+	void Remove(CCollider* col);
 
 private:
 	CTaskManager2 mTM[TASK_LINE][TASK_LINE][TASK_LINE];

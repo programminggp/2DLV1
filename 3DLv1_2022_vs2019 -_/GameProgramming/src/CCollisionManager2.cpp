@@ -14,7 +14,11 @@ CCollider* CColliderTask::Collider()
 
 CColliderTask::~CColliderTask()
 {
-	CCollisionManager2::Instance()->Remove(this);
+	//タスクの前の次を、タスクの次にする
+	mpPrev->mpNext = mpNext;
+	//タスクの次の前を、タスクの前にする
+	mpNext->mpPrev = mpPrev;
+//	CCollisionManager2::Instance()->Remove(this);
 }
 
 
@@ -120,13 +124,21 @@ void CCollisionManager2::Add(CCollider* col)
 	}
 }
 
-void CCollisionManager2::Remove(CColliderTask* col)
+void CCollisionManager2::Remove(CCollider* col)
 {
-	//タスクの前の次を、タスクの次にする
-	col->mpPrev->mpNext = col->mpNext;
-	//タスクの次の前を、タスクの前にする
-	col->mpNext->mpPrev = col->mpPrev;
-	return;
+	for (int i = 0; i < COLLIDERTASK_SIZE; ++i)
+	{
+		if (col->mpColliderTask[i] != nullptr)
+		{
+			delete col->mpColliderTask[i];
+			col->mpColliderTask[i] = nullptr;
+		}
+	}
+	////タスクの前の次を、タスクの次にする
+	//col->mpPrev->mpNext = col->mpNext;
+	////タスクの次の前を、タスクの前にする
+	//col->mpNext->mpPrev = col->mpPrev;
+	//return;
 }
 
 void CCollisionManager2::Delete(CCollider* col)

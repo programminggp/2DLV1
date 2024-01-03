@@ -22,12 +22,9 @@ CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
 
 void CCollider::ChangePriority()
 {
-	CCollisionManager2::Instance()->Delete(this);
+	CCollisionManager2::Instance()->Remove(this);
 	//自分の座標x親の変更行列をかけてワールド座標を求める
-	CVector pos = mPosition * *mpMatrix;
-	mCenter = pos;
-	//ベクトルの長さが優先
-//	CCollider::ChangePriority(pos.Length());
+	mCenter = mPosition * *mpMatrix;
 	CCollisionManager2::Instance()->Add(this);
 }
 

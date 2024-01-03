@@ -3,12 +3,10 @@
 
 void CColliderTriangle::ChangePriority()
 {
-	CCollisionManager2::Instance()->Delete(this);
-	//mV[0]とmV[1]の中心を求める
-	CVector pos = (mV[0] * *mpMatrix + mV[1] * *mpMatrix
+	CCollisionManager2::Instance()->Remove(this);
+	//三角形の中心を求める
+	mCenter = (mV[0] * *mpMatrix + mV[1] * *mpMatrix
 		+ mV[2] * *mpMatrix) * (1.0f / 3.0f);
-	mCenter = pos;
-	//CCollider::ChangePriority(pos.Length());0
 	CCollisionManager2::Instance()->Add(this);
 }
 

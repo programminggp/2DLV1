@@ -8,8 +8,10 @@ class CTaskManager;
 class CCollisionManager;
 class CCollisionManager2;
 class CTaskManager2;
+class CColliderTask;
 
 class CTask {
+	friend CColliderTask;
 	friend CCollisionManager;
 	friend CCollisionManager2;
 	friend CTaskManager2;
