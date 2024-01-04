@@ -4,7 +4,7 @@
 #include "CKey.h"
 #include "CCollisionManager.h"
 #include "CCamera.h"
-#include "CCollisionManager2.h"
+#include "CColliderManager.h"
 
 
 #define GRAVITY 0.02f	//d—Í
@@ -170,9 +170,9 @@ void CXPlayer::TaskCollision()
 	//mColSphereSword1.ChangePriority();
 	//mColSphereSword2.ChangePriority();
 	//CCollisionManager::Get()->Collision(&mColLine, 20);
-//	CCollisionManager2::Instance()->TM(&mColSphereHead)->Collision(&mColSphereHead);
-	CCollisionManager2::Instance()->Collision(&mColSphereBody);
-	CCollisionManager2::Instance()->Collision(&mColLine);
+//	CColliderManager::Instance()->TM(&mColSphereHead)->Collision(&mColSphereHead);
+	CColliderManager::Instance()->Collision(&mColSphereBody);
+	CColliderManager::Instance()->Collision(&mColLine);
 }
 
 void CXPlayer::Collision(CCollider* m, CCollider* o)
@@ -327,7 +327,7 @@ void CXPlayer::ChangeState(EState state)
 void CXPlayer::Render()
 {
 #ifdef _DEBUG
-//	CCollisionManager2::Instance()->TM(&mColLine)->Render();
+//	CColliderManager::Instance()->TM(&mColLine)->Render();
 	mColLine.Render();
 	mColSphereBody.Render();
 	mColSphereSword2.Render();

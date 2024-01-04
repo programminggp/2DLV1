@@ -2,19 +2,19 @@
 #define CTASK_H
 
 class CTaskManager;
-class CTaskManager2;
+class CColliderList;
 class CCollisionManager;
-class CCollisionManager2;
+class CColliderTask;
 
 /*
 タスククラス
 タスクリストの要素
 */
 class CTask {
+	friend CColliderTask;
 	friend CTaskManager;
-	friend CTaskManager2;
+	friend CColliderList;
 	friend CCollisionManager;
-	friend CCollisionManager2;
 public:
 	//デフォルトコンストラクタ
 	CTask()

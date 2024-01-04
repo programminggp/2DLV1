@@ -1,6 +1,6 @@
 #include "CColliderLine.h"
 #include "CCollisionManager.h"
-#include "CCollisionManager2.h"
+#include "CColliderManager.h"
 
 CColliderLine::CColliderLine(CCharacter *parent, CMatrix *matrix
 	, const CVector &v0, const CVector &v1)
@@ -55,17 +55,10 @@ void CColliderLine::Render()
 //優先度の変更
 void CColliderLine::ChangePriority()
 {
-//	CCollisionManager2::Instance()->Remove(this);
-	CCollisionManager2::Instance()->Delete(this);
-
+	CColliderManager::Instance()->Remove(this);
 	//mV[0]とmV[1]の中心を求める
 	mCenter = (CCollider::mV[0] + CCollider::mV[1]) * (0.5f);
-	//ベクトルの長さが優先度
-	mPriority = mCenter.Length();
-//	CCollisionManager::Get()->Remove(this); //一旦削除
-//	CCollisionManager::Get()->Add(this); //追加
-
-	CCollisionManager2::Instance()->Add(this);
+	CColliderManager::Instance()->Add(this);
 }
 
 void CColliderLine::Update()

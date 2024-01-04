@@ -132,7 +132,7 @@
     <ClCompile Include="src\CShadowMap.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\CCollisionManager2.cpp">
+    <ClCompile Include="src\CColliderManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -257,7 +257,7 @@
     <ClInclude Include="src\CShadowMap.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CCollisionManager2.h">
+    <ClInclude Include="src\CColliderManager.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>

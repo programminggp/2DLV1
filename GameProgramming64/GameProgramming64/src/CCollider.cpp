@@ -3,7 +3,7 @@
 #include "CColliderLine.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include "CCollisionManager2.h"
+#include "CColliderManager.h"
 
 CCharacter* CCollider::Parent()
 {
@@ -17,12 +17,13 @@ CCollider::CCollider()
 , mTag(EBODY)
 , mRadius(0)
 {
+	//コライダタスク配列の初期化
 	for (int i = 0; i < COLLIDERTASK_SIZE; i++)
 	{
 		mpColliderTask[i] = nullptr;
 	}
-	//コリジョンマネージャに追加
-	CCollisionManager2::Instance()->Add(this);
+	//コライダマネージャに追加
+	CColliderManager::Instance()->Add(this);
 }
 
 //コンストラクタ
@@ -39,6 +40,7 @@ CCollider::CCollider(CCharacter *parent, CMatrix *matrix,
 	mPosition = position; //位置
 	//半径設定
 	mRadius = radius;
+
 	Update();
 }
 
@@ -85,8 +87,8 @@ void CCollider::Render() {
 
 CCollider::~CCollider()
 {
-//	CCollisionManager::Get()->Remove(this);
-	CCollisionManager2::Instance()->Delete(this);
+	//コライダマネージャから削除
+	CColliderManager::Instance()->Remove(this);
 }
 //衝突判定
 //Collision(コライダ1, コライダ2)
@@ -361,16 +363,9 @@ CVector CCollider::VectorLineMinDist(const CVector& Start1, const CVector& End1,
 //優先度の変更
 void CCollider::ChangePriority()
 {
-//	CCollisionManager2::Instance()->Remove(this);
-	CCollisionManager2::Instance()->Delete(this);
-	//自分の座標×親の変換行列を掛ける
-	//CVector pos = mPosition * *mpMatrix;
-	//ベクトルの長さが優先度
+	CColliderManager::Instance()->Remove(this);
 	mCenter = mV[0];
-	mPriority = mV[0].Length();
-	//CCollisionManager::Get()->Remove(this); //一旦削除
-	//CCollisionManager::Get()->Add(this); //追加
-	CCollisionManager2::Instance()->Add(this);
+	CColliderManager::Instance()->Add(this);
 }
 
 CCollider::EType CCollider::Type()
@@ -397,19 +392,4 @@ void CCollider::Update()
 {
 	mV[0] = mPosition * *mpMatrix;
 	ChangePriority();
-}
-
-CColliderTask::CColliderTask(CCollider* col)
-	: mpCollider(col)
-{
-}
-
-CCollider* CColliderTask::Collider()
-{
-	return mpCollider;
-}
-
-CColliderTask::~CColliderTask()
-{
-	CCollisionManager2::Instance()->Remove(this);
 }

@@ -5,7 +5,7 @@
 //トランスフォームクラスのインクルード
 #include "CTransform.h"
 class CCollisionManager;
-class CColliderTask;
+class CColliderManager;;
 #define COLLIDERTASK_SIZE 27
 /*
 コライダクラス
@@ -13,6 +13,7 @@ class CColliderTask;
 */
 class CCollider : public CTransform, public CTask {
 	friend CCollisionManager;
+	friend CColliderManager;
 public:
 	//コライダタイプ
 	enum EType {
@@ -74,16 +75,16 @@ public:
 	void Matrix(CMatrix* p);
 
 	void Update();
-	CVector mCenter;
-
-	//コライダタスクの作成
-	CColliderTask* mpColliderTask[COLLIDERTASK_SIZE];
 
 	void Radius(float r)
 	{
 		mRadius = r;
 	}
 protected:
+	//コライダタスクの配列
+	CColliderTask* mpColliderTask[COLLIDERTASK_SIZE];
+	CVector mCenter; //中心座標
+
 	CCharacter* mpParent;//親
 	CMatrix* mpMatrix;//親行列
 	float mRadius;	//半径
@@ -91,16 +92,6 @@ protected:
 	//頂点
 	CVector mV[4];
 	ETag mTag;
-};
-
-class CColliderTask : public CTask
-{
-public:
-	CColliderTask(CCollider* col);
-	CCollider* Collider();
-	~CColliderTask();
-private:
-	CCollider* mpCollider;
 };
 
 #endif
