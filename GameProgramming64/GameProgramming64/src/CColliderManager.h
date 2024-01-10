@@ -31,7 +31,7 @@ private:
 	CTask mTail;//最終タスク
 };
 
-#define TASK_LINE 30	//リストをTASK_LINE*TASK_LINE*TASK_LINEで分散する
+#define TASK_LINE 24	//リストをTASK_LINE*TASK_LINE*TASK_LINEで分散する
 #define MAP_SIZE 160	//マップの1辺の大きさ
 //コライダマネージャクラス
 class CColliderManager

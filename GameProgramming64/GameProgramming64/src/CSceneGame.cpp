@@ -34,8 +34,8 @@ void gRender()
 
 void CSceneGame::Init() {
 	//gModel.Load("res\\medieval-pentagon-castle\\source\\castle_05\\castle_06.obj", "res\\medieval-pentagon-castle\\source\\castle_05\\castle_06.mtl", true);
-	//gModel.Load("res\\caernarfon-castle\\CaernarfonCastle2.obj", "res\\caernarfon-castle\\CaernarfonCastle2.mtl", false);
-	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
+	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle2.obj", "res\\caernarfon-castle\\CaernarfonCastle2.mtl", false);
+	//gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
 	gColliderMesh.Set(nullptr, &gMatrix, &gModel);
 
 	gModel2.Load("res\\sky.obj", "res\\sky.mtl", true);
@@ -46,7 +46,7 @@ void CSceneGame::Init() {
 
 	const float size = 1.0f;
 //	new CXPlayer(CVector(100, 10, 100), CVector(), CVector(size, size, size));
-	new CXPlayer(CVector(100, 10, 100), CVector(), CVector(size, size, size));
+	new CXPlayer(CVector(100, 20, 80), CVector(), CVector(size, size, size));
 	new CFelguard();
 	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 0.0f, 0.0f), 7.0f);
 

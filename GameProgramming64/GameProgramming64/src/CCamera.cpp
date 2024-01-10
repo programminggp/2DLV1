@@ -23,6 +23,8 @@ CCamera::CCamera(const CVector& pos, const CVector& rot, float distance)
 	Rotation(rot);
 	Scale(CVector(distance, distance, distance));
 	glGetFloatv(GL_PROJECTION_MATRIX, mProjection.M());
+	mInput.ShowCursor(false);
+	mInput.GetMousePos(&mMousePosX, &mMousePosY);
 }
 
 const CVector& CCamera::Eye() const
@@ -39,11 +41,14 @@ void CCamera::Set(const CVector &eye, const CVector &center,
 
 void CCamera::Update()
 {
-	if (CKey::Push('J'))
+	float x, y;
+	mInput.GetMousePos(&x,&y);
+
+	if (CKey::Push('J') || mMousePosX - x > 0.5f)
 	{
 		mRotation.Y(mRotation.Y() + 2.0f);
 	}
-	if (CKey::Push('L'))
+	if (CKey::Push('L') || mMousePosX - x < -0.5f)
 	{
 		mRotation.Y(mRotation.Y() - 2.0f);
 	}
@@ -67,6 +72,9 @@ void CCamera::Update()
 	mUp = CVector(sinf(mRotation.Y() / 180.0f * M_PI)
 		, cosf(mRotation.X() / 180.0f * M_PI)
 		, cosf(mRotation.Y() / 180.0f * M_PI)).Normalize();
+
+	mMousePosX = x;
+	mMousePosY = y;
 }
 
 void CCamera::Render() {
