@@ -34,18 +34,19 @@ void gRender()
 
 void CSceneGame::Init() {
 	//gModel.Load("res\\medieval-pentagon-castle\\source\\castle_05\\castle_06.obj", "res\\medieval-pentagon-castle\\source\\castle_05\\castle_06.mtl", true);
-	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
+	gModel.Load("res\\caernarfon-castle\\CaernarfonCastle2.obj", "res\\caernarfon-castle\\CaernarfonCastle2.mtl", false);
+	//gModel.Load("res\\caernarfon-castle\\CaernarfonCastle1.obj", "res\\caernarfon-castle\\CaernarfonCastle1.mtl", true);
 	gColliderMesh.Set(nullptr, &gMatrix, &gModel);
 
 	gModel2.Load("res\\sky.obj", "res\\sky.mtl", true);
 	gMatrix2.Translate(-100.0f, 0.0f, -100.f);
-	gColliderMesh2.Set(nullptr, &gMatrix2, &gModel2);
+//	gColliderMesh2.Set(nullptr, &gMatrix2, &gModel2);
 
 	mFont.LoadTexture("FontG.png", 1, 4096 / 64);
 
 	const float size = 1.0f;
-	new CXPlayer(CVector(100, 10, 100), CVector(), CVector(size, size, size));
-//	new CXPlayer(CVector(60, 10, 60), CVector(), CVector(size, size, size));
+//	new CXPlayer(CVector(100, 10, 100), CVector(), CVector(size, size, size));
+	new CXPlayer(CVector(100, 20, 80), CVector(), CVector(size, size, size));
 	new CFelguard();
 	new CCamera(CVector(0.0f, 4.0f, 0.0f), CVector(20.0f, 0.0f, 0.0f), 7.0f);
 
@@ -54,7 +55,7 @@ void CSceneGame::Init() {
 
 	float shadowColor[] = { 0.4f, 0.4f, 0.4f, 0.2f };  //影の色
 	float lightPos[] = { 100.0f,100.0f,100.0f };  //光源の位置
-	mShadowMap.Init(TEXWIDTH, TEXHEIGHT, gRender, shadowColor, lightPos);
+//	mShadowMap.Init(TEXWIDTH, TEXHEIGHT, gRender, shadowColor, lightPos);
 }
 
 void CSceneGame::Update() {
@@ -67,8 +68,8 @@ void CSceneGame::Update() {
 	CTaskManager::Get()->Delete();
 
 
-	//Render();
-	mShadowMap.Render();
+	Render();
+	//mShadowMap.Render();
 
 
 	//2D描画開始

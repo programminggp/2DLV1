@@ -2,6 +2,8 @@
 #define CCAMERA_H
 #include "CVector.h"
 #include "CCharacter.h"
+#include "CInput.h"
+
 /*
 ƒJƒƒ‰ƒNƒ‰ƒX
 */
@@ -24,6 +26,8 @@ public:
 	const CVector& VectorX();
 
 private:
+	CInput mInput;
+	float mMousePosX, mMousePosY;
 	static CCamera* spInstance;
 	CMatrix mModelView;
 	CMatrix mProjection;
