@@ -1,0 +1,890 @@
+newmtl stone_lime_02_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_02_m_0004.jpg
+
+newmtl stone_lime_02_m_0007
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_02_m_0007.jpg
+
+newmtl stone_lime_02_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_02_m_0005.jpg
+
+newmtl stone_lime_02_m_0002
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_02_m_0002.jpg
+
+newmtl stone_lime_02_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_02_m_0006.jpg
+
+newmtl stone_lime_02_m_0008
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_02_m_0008.jpg
+
+newmtl stone_lime_rose_01_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_rose_01_m_0001.jpg
+
+newmtl stone_lime_rose_01_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_rose_01_m_0004.jpg
+
+newmtl stone_lime_rose_01_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_rose_01_m_0005.jpg
+
+newmtl stone_lime_rose_01_m_0002
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_rose_01_m_0002.jpg
+
+newmtl stone_lime_rose_01_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_rose_01_m_0003.jpg
+
+newmtl stone_lime_rose_01_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_rose_01_m_0006.jpg
+
+newmtl stone_lime_beige_01_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0006.jpg
+
+newmtl stone_lime_beige_01_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0001.jpg
+
+newmtl stone_lime_beige_01_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0004.jpg
+
+newmtl stone_lime_beige_01_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0003.jpg
+
+newmtl stone_lime_beige_01_m_0002
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0002.jpg
+
+newmtl stone_lime_beige_01_m_0007
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0007.jpg
+
+newmtl stone_lime_beige_01_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0005.jpg
+
+newmtl stone_lime_beige_01_m_0008
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0008.jpg
+
+newmtl stone_lime_beige_01_m_0009
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_beige_01_m_0009.jpg
+
+newmtl stone_lime_02_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_02_m_0003.jpg
+
+newmtl stone_lime_02_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_02_m_0001.jpg
+
+newmtl stone_lime_01_m_0008
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0008.jpg
+
+newmtl stone_lime_01_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0004.jpg
+
+newmtl stone_lime_01_m_0010
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0010.jpg
+
+newmtl stone_lime_01_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0006.jpg
+
+newmtl stone_lime_01_m_0007
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0007.jpg
+
+newmtl stone_lime_01_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0005.jpg
+
+newmtl stone_lime_01_m_0002
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0002.jpg
+
+newmtl stone_lime_01_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0003.jpg
+
+newmtl stone_lime_01_m_0009
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0009.jpg
+
+newmtl stone_lime_01_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_01_m_0001.jpg
+
+newmtl stone_lime_white_01_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0003.jpg
+
+newmtl stone_lime_white_01_m_0007
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0007.jpg
+
+newmtl stone_lime_white_01_m_0009
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0009.jpg
+
+newmtl stone_lime_white_01_m_0008
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0008.jpg
+
+newmtl stone_lime_white_01_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0004.jpg
+
+newmtl stone_lime_white_01_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0006.jpg
+
+newmtl stone_lime_white_01_m_0010
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0010.jpg
+
+newmtl stone_lime_white_01_m_0002
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0002.jpg
+
+newmtl stone_lime_white_01_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0005.jpg
+
+newmtl stone_lime_white_01_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_lime_white_01_m_0001.jpg
+
+newmtl stone_sand_01_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_sand_01_m_0003.jpg
+
+newmtl stone_sand_01_m_0007
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_sand_01_m_0007.jpg
+
+newmtl stone_sand_01_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_sand_01_m_0004.jpg
+
+newmtl stone_sand_01_m_0008
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_sand_01_m_0008.jpg
+
+newmtl stone_sand_01_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_sand_01_m_0006.jpg
+
+newmtl stone_sand_01_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_sand_01_m_0001.jpg
+
+newmtl stone_sand_01_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_sand_01_m_0005.jpg
+
+newmtl stone_sand_01_m_0002
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\stone_sand_01_m_0002.jpg
+
+newmtl wood_board_red_01_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0004.jpg
+
+newmtl wood_board_red_01_m_0007
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0007.jpg
+
+newmtl wood_board_red_01_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0006.jpg
+
+newmtl wood_board_red_01_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0003.jpg
+
+newmtl wood_board_red_01_m_0010
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0010.jpg
+
+newmtl wood_board_red_01_m_0002
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0002.jpg
+
+newmtl wood_board_red_01_m_0009
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0009.jpg
+
+newmtl wood_board_red_01_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0005.jpg
+
+newmtl wood_board_red_01_m_0008
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0008.jpg
+
+newmtl wood_board_red_01_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_red_01_m_0001.jpg
+
+newmtl wood_board_grey_01_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0005.jpg
+
+newmtl wood_board_grey_01_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0004.jpg
+
+newmtl wood_board_grey_01_m_0014
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0014.jpg
+
+newmtl wood_board_grey_01_m_0012
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0012.jpg
+
+newmtl wood_board_grey_01_m_0013
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0013.jpg
+
+newmtl wood_board_grey_01_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0003.jpg
+
+newmtl wood_board_grey_01_m_0010
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0010.jpg
+
+newmtl wood_board_grey_01_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0006.jpg
+
+newmtl wood_board_grey_01_m_0007
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0007.jpg
+
+newmtl wood_board_grey_01_m_0009
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0009.jpg
+
+newmtl wood_board_grey_01_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0001.jpg
+
+newmtl wood_board_grey_01_m_0008
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_board_grey_01_m_0008.jpg
+
+newmtl wood_shindle_grey_02_m_0010
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0010.jpg
+
+newmtl wood_shindle_grey_02_m_0016
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0016.jpg
+
+newmtl wood_shindle_grey_02_m_0008
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0008.jpg
+
+newmtl wood_shindle_grey_02_m_0004
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0004.jpg
+
+newmtl wood_shindle_grey_02_m_0011
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0011.jpg
+
+newmtl wood_shindle_grey_02_m_0012
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0012.jpg
+
+newmtl wood_shindle_grey_02_m_0002
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0002.jpg
+
+newmtl wood_shindle_grey_02_m_0009
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0009.jpg
+
+newmtl wood_shindle_grey_02_m_0005
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0005.jpg
+
+newmtl wood_shindle_grey_02_m_0013
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0013.jpg
+
+newmtl wood_shindle_grey_02_m_0015
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0015.jpg
+
+newmtl wood_shindle_grey_02_m_0007
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0007.jpg
+
+newmtl wood_shindle_grey_02_m_0006
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0006.jpg
+
+newmtl wood_shindle_grey_02_m_0003
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0003.jpg
+
+newmtl wood_shindle_grey_02_m_0014
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0014.jpg
+
+newmtl wood_shindle_grey_02_m_0001
+Ka 0.2 0.2 0.2
+Kd 1 1 1
+Ks 1 1 1
+Tr 0
+illum 5
+d 1
+Ns 2
+map_Kd t:\pov3dmodel\textures\wood_shindle_grey_02_m_0001.jpg
+
