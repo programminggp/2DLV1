@@ -15,12 +15,64 @@
 class GL;
 class Application;
 
+class A;
+class B;
+
+class A
+{
+public:
+	A();
+	void render();
+	void renderB();
+};
+
+class B
+{
+public:
+	B();
+	void render();
+	void renderA();
+};
+
+A::A()
+{
+}
+
+void A::render()
+{
+	printf("A::render()\n");
+}
+
+void A::renderB()
+{
+	B b;
+	b.render();
+}
+
+B::B()
+{
+}
+
+void B::render()
+{
+	printf("B::render()\n");
+}
+
+void B::renderA()
+{
+	A a;
+	a.render();
+}
 
 class Application
 {
+	A a;
+	B b;
 public:
 	void start()
 	{
+		a.renderB();
+		b.renderA();
 	}
 
 	void update()
