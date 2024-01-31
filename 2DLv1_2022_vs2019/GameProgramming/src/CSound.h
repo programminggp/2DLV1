@@ -30,7 +30,7 @@ class CSound {
 public:
 
 	CSound()
-		: mpSourceVoice(0)
+		: mpSourceVoice(nullptr)
 		, g_hmmio(0)
 		, buf(nullptr)
 		, mVolume(1.0f)
@@ -49,15 +49,15 @@ public:
 			if (FAILED(hr))
 			{
 				CoUninitialize();
-				mpXAudio = 0;
+				mpXAudio = nullptr;
 				return;
 			}
 			hr = mpXAudio->CreateMasteringVoice(&mpMasterVoice, XAUDIO2_DEFAULT_CHANNELS, XAUDIO2_DEFAULT_SAMPLERATE, 0, 0, NULL);
 			if (FAILED(hr))
 			{
-				if (mpXAudio != NULL){ mpXAudio->Release(); }
-				mpXAudio = 0;
-				mpMasterVoice = 0;
+				if (mpXAudio != nullptr){ mpXAudio->Release(); }
+				mpXAudio = nullptr;
+				mpMasterVoice = nullptr;
 				CoUninitialize();
 				return;
 			}
@@ -75,7 +75,7 @@ public:
 
 	bool Load(char	*filename, float volume)
 	{
-		if (mpSourceVoice == 0)
+		if (mpSourceVoice == nullptr && mpXAudio != nullptr)
 		{
 			//ƒtƒ@ƒCƒ‹–¼•Û‘¶
 			strcpy(file, filename);
@@ -198,16 +198,16 @@ public:
 		Stop();		//’âŽ~‚·‚é
 		mNum--;
 		if (buf != NULL){ delete[] buf; }
-		if (mpSourceVoice != NULL){ mpSourceVoice->DestroyVoice(); }
+		if (mpSourceVoice != nullptr){ mpSourceVoice->DestroyVoice(); }
 		if (g_hmmio != NULL){ mmioClose(g_hmmio, 0); }
 		if (mNum == 0)
 		{
-			if (mpMasterVoice != NULL)
+			if (mpMasterVoice != nullptr)
 			{
 				mpMasterVoice->DestroyVoice();
 				mpMasterVoice = 0;
 			}
-			if (mpXAudio != NULL)
+			if (mpXAudio != nullptr)
 			{
 				mpXAudio->Release();
 				mpXAudio = 0;
