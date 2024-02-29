@@ -11,6 +11,8 @@ class CAnimationSet; //アニメーションセットクラス
 class CAnimation; //アニメーションクラス
 class CAnimationKey;  //アニメーションキークラス
 
+class CFbxModel;
+
 #define MODEL_FILE "res\\tsample.fbx"	//入力ファイル名
 
 //領域解放をマクロ化
@@ -18,6 +20,28 @@ class CAnimationKey;  //アニメーションキークラス
 
 //配列のサイズ取得をマクロ化
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+
+class CFbxModel
+{
+public:
+	CFbxModel(CModelX* p);
+
+private:
+	enum class EState
+	{
+		EZERO,
+		EVERTICES,
+		EPOLYGONVERTEXINDEX,
+		ENORMALS,
+	};
+	EState mState;
+	CModelX* mpModelX;
+	std::vector<float> mVertices;
+	std::vector<int> mIndexes;
+	std::vector<float> mNormals;
+	EState CheckState();
+};
+
 
 /*
  CModelX

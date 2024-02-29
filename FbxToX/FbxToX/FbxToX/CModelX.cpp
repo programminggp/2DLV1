@@ -81,11 +81,19 @@ void CModelX::Load(const char* file) {
 	buf[size] = '\0';
 	fclose(fp);	//ファイルをクローズする
 
+	CFbxModel* pFbx = nullptr;
 	//文字列の最後まで繰り返し
 	while (*mpPointer != '\0') {
 		GetToken();	//単語の取得
-		printf("%s\n", mToken);
+//		if (strcmp(mToken, "Model::Model") == 0)
+		if (strcmp(mToken, "Mesh")== 0 )
+		{
+			pFbx = new CFbxModel(this);
+			break;
+		}
 	}
+
+	if (pFbx != nullptr) delete pFbx;
 
 	SAFE_DELETE_ARRAY(buf);	//確保した領域を開放する
 
@@ -113,30 +121,36 @@ GetToken
 char* CModelX::GetToken() {
 	char* p = mpPointer;
 	char* q = mToken;
+	do {
+		p = mpPointer;
+		q = mToken;
 
-	//タブ(\t)空白( )改行(\r)(\n)，；”の区切り文字以外になるまで読み飛ばす
-	while (*p != '\0' && IsDelimiter(*p)) p++;
-	if (*p == '\"') {
-		p++;
-		//タブ(\t)空白( )改行(\r)(\n)，；”の区切り文字、
-		//または、}の文字になるまでmTokenに代入する
-		while (*p != '\0' && *p != '\"')
-			*q++ = *p++;
-		if (*p == '\"')
+		//タブ(\t)空白( )改行(\r)(\n)，；”の区切り文字以外になるまで読み飛ばす
+		while (*p != '\0' && IsDelimiter(*p)) p++;
+		if (*p == '\"') {
 			p++;
-	}
-	else if (*p == '{' || *p == '}') {
-		//{または}ならmTokenに代入し次の文字へ
-		*q++ = *p++;
-	}
-	else {
-		//タブ(\t)空白( )改行(\r)(\n)，；”の区切り文字、
-		//または、}の文字になるまでmTokenに代入する
-		while (*p != '\0' && !IsDelimiter(*p) && *p != '}')
+			//タブ(\t)空白( )改行(\r)(\n)，；”の区切り文字、
+			//または、}の文字になるまでmTokenに代入する
+			while (*p != '\0' && *p != '\"')
+				*q++ = *p++;
+			if (*p == '\"')
+				p++;
+		}
+		else if (*p == '{' || *p == '}') {
+			//{または}ならmTokenに代入し次の文字へ
 			*q++ = *p++;
-	}
-	*q = '\0';	//mTokenの最後に\0を代入
-	mpPointer = p;	//次の読み込むポイントを更新する
+		}
+		else {
+			//タブ(\t)空白( )改行(\r)(\n)，；”の区切り文字、
+			//または、}の文字になるまでmTokenに代入する
+			while (*p != '\0' && !IsDelimiter(*p) && *p != '}')
+				*q++ = *p++;
+		}
+		*q = '\0';	//mTokenの最後に\0を代入
+		mpPointer = p;	//次の読み込むポイントを更新する
+
+	} while (strlen(mToken) == 0 && *p != '\0');
+
 
 	//もしmTokenが//の場合は、コメントなので改行まで読み飛ばす
 	/*
@@ -185,4 +199,96 @@ bool CModelX::IsDelimiter(char c)
 		return true;
 	//区切り文字ではない
 	return false;
+}
+
+CFbxModel::CFbxModel(CModelX* p)
+	: mpModelX(p)
+	, mState(EState::EZERO)
+{
+	while (p->GetToken()[0] != '\0') {
+		switch (mState)
+		{
+		case EState::EZERO:
+			CheckState();
+			if (strcmp(p->Token(), "Properties60:") == 0)
+			{
+				p->SkipNode();
+			}
+			else if (strcmp(p->Token(), "Model:") == 0)
+			{
+				//break;
+			}
+			else if (strcmp(p->Token(), "Vertices:") == 0)
+			{
+				mState = EState::EVERTICES;
+				printf("\n%s\n", p->Token());
+			}
+			break;
+		case EState::EVERTICES:
+			if (strcmp(p->Token(), "PolygonVertexIndex:") == 0)
+			{
+				mState = EState::EPOLYGONVERTEXINDEX;
+				printf("\n%s\n", p->Token());
+			}
+			else
+			{
+				mVertices.push_back(atof(p->Token()));
+				printf("%s,", p->Token());
+			}
+			break;
+		case EState::EPOLYGONVERTEXINDEX:
+		{
+			int i = atoi(p->Token());
+			if (i != 0)
+			{
+				mIndexes.push_back(i);
+				printf("%s,", p->Token());
+			}
+			else if (isdigit(p->Token()[0]))
+			{
+				mIndexes.push_back(i);
+				printf("%s,", p->Token());
+			}
+			else
+			{
+				mState = EState::EZERO;
+			}
+		}
+			break;
+		case EState::ENORMALS:
+			if (strcmp(p->Token(), "}") == 0)
+			{
+				mState = EState::EZERO;
+//				printf("\n%s\n", p->Token());
+			}
+			else
+			{
+				mNormals.push_back(atof(p->Token()));
+				printf("%s,", p->Token());
+			}
+			break;
+		}
+	}
+}
+
+CFbxModel::EState CFbxModel::CheckState()
+{
+	if (strcmp(mpModelX->Token(), "Vertices:") == 0)
+	{
+		mState = EState::EVERTICES;
+	}
+	else if (strcmp(mpModelX->Token(), "PolygonVertexIndex:") == 0)
+	{
+		mState = EState::EPOLYGONVERTEXINDEX;
+	}
+	else if (strcmp(mpModelX->Token(), "Normals:") == 0)
+	{
+		mState = EState::ENORMALS;
+		printf("\n%s\n", mpModelX->Token());
+	}
+	else
+	{
+		//mState = EState::EZERO;
+	}
+	return mState;
 }
