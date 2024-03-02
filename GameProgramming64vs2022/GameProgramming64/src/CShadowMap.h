@@ -12,12 +12,13 @@ class CShadowMap
 	GLuint mFb; //フレームバッファ識別子
 	void (*mpRender)(); //Render関数のポインタ
 	static bool sShadow;	//trueの時は、影データ作成なのでシェーダー時カメラ使わない
+	//初期化処理
+	void Init();
 public:
 	static bool Shadow();
 	CShadowMap();
 	~CShadowMap();
-	//初期化処理
-	void Init();
+
 	/* 初期化処理
 	void Init(int width, int height, void (*funcRender)(), float shadowCol[], float lightPos[])
 	width:デプステクスチャの幅
