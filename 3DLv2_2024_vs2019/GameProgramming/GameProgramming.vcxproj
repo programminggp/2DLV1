@@ -13,12 +13,9 @@
   <ItemGroup>
     <ClCompile Include="src\CApplication.cpp" />
     <ClCompile Include="src\CBillBoard.cpp" />
-    <ClCompile Include="src\CBlock.cpp" />
     <ClCompile Include="src\CBullet.cpp" />
     <ClCompile Include="src\CCamera.cpp" />
-    <ClCompile Include="src\CCharacter.cpp" />
     <ClCompile Include="src\CCharacter3.cpp" />
-    <ClCompile Include="src\CCharacterManager.cpp" />
     <ClCompile Include="src\CCollider.cpp" />
     <ClCompile Include="src\CColliderLine.cpp" />
     <ClCompile Include="src\CColliderMesh.cpp" />
@@ -26,17 +23,12 @@
     <ClCompile Include="src\CCollisionManager.cpp" />
     <ClCompile Include="src\CEffect.cpp" />
     <ClCompile Include="src\CEnemy.cpp" />
-    <ClCompile Include="src\CEnemy2.cpp" />
     <ClCompile Include="src\CEnemy3.cpp" />
     <ClCompile Include="src\CFont.cpp" />
-    <ClCompile Include="src\CGame.cpp" />
     <ClCompile Include="src\CMaterial.cpp" />
     <ClCompile Include="src\CMatrix.cpp" />
     <ClCompile Include="src\CModel.cpp" />
     <ClCompile Include="src\CPlayer.cpp" />
-    <ClCompile Include="src\CPlayer2.cpp" />
-    <ClCompile Include="src\CPoint.cpp" />
-    <ClCompile Include="src\CRectangle.cpp" />
     <ClCompile Include="src\CSound.cpp" />
     <ClCompile Include="src\CTaskManager.cpp" />
     <ClCompile Include="src\CTexture.cpp" />
@@ -50,12 +42,9 @@
   <ItemGroup>
     <ClInclude Include="src\CApplication.h" />
     <ClInclude Include="src\CBillBoard.h" />
-    <ClInclude Include="src\CBlock.h" />
     <ClInclude Include="src\CBullet.h" />
     <ClInclude Include="src\CCamera.h" />
-    <ClInclude Include="src\CCharacter.h" />
     <ClInclude Include="src\CCharacter3.h" />
-    <ClInclude Include="src\CCharacterManager.h" />
     <ClInclude Include="src\CCollider.h" />
     <ClInclude Include="src\CColliderLine.h" />
     <ClInclude Include="src\CColliderMesh.h" />
@@ -63,18 +52,12 @@
     <ClInclude Include="src\CCollisionManager.h" />
     <ClInclude Include="src\CEffect.h" />
     <ClInclude Include="src\CEnemy.h" />
-    <ClInclude Include="src\CEnemy2.h" />
     <ClInclude Include="src\CEnemy3.h" />
     <ClInclude Include="src\CFont.h" />
-    <ClInclude Include="src\CGame.h" />
     <ClInclude Include="src\CMaterial.h" />
     <ClInclude Include="src\CMatrix.h" />
-    <ClInclude Include="src\CMiss.h" />
     <ClInclude Include="src\CModel.h" />
     <ClInclude Include="src\CPlayer.h" />
-    <ClInclude Include="src\CPlayer2.h" />
-    <ClInclude Include="src\CPoint.h" />
-    <ClInclude Include="src\CRectangle.h" />
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTask.h" />
     <ClInclude Include="src\CTaskManager.h" />
