@@ -21,9 +21,13 @@
 
 #include "CUi.h"
 
+#include "CModelX.h"
+
 class CApplication
 {
 private:
+	CModelX mModelX;
+
 	static CUi* spUi;	//UIクラスのポインタ
 	//モデルからコライダを生成
 	CColliderMesh mColliderMesh;

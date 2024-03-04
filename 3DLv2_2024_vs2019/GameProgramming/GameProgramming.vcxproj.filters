@@ -117,6 +117,9 @@
     <ClCompile Include="src\CTaskManager.cpp">
       <Filter>ソース ファイル\Task</Filter>
     </ClCompile>
+    <ClCompile Include="src\CModelX.cpp">
+      <Filter>ソース ファイル\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CSound.h">
@@ -205,6 +208,9 @@
     </ClInclude>
     <ClInclude Include="src\CTaskManager.h">
       <Filter>ソース ファイル\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CModelX.h">
+      <Filter>ソース ファイル\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
