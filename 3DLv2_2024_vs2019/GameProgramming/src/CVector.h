@@ -8,6 +8,10 @@
 */
 class CVector {
 public:
+	void X(float f);
+	void Y(float f);
+	void Z(float f);
+
 	//³‹K‰»
 	//‘å‚«‚³1‚ÌƒxƒNƒgƒ‹‚ğ•Ô‚·
 	CVector Normalize() const;

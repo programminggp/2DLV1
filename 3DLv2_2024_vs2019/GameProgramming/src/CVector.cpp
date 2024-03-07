@@ -12,6 +12,22 @@ float CVector::Length() const
 	return sqrtf(mX * mX + mY * mY + mZ * mZ);
 }
 
+void CVector::X(float f)
+{
+	mX = f;
+}
+
+void CVector::Y(float f)
+{
+	mY = f;
+}
+
+void CVector::Z(float f)
+{
+	mZ = f;
+}
+
+
 CVector CVector::Normalize() const {
 	//ベクトルの大きさで割ったベクトルを返す（長さ1のベクトル）
 	return *this * (1.0f / Length());
