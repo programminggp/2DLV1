@@ -90,6 +90,29 @@ void CApplication::Update()
 	mModelViewInverse.M(1, 3, 0);
 	mModelViewInverse.M(2, 3, 0);
 
+	//X²{‰ñ“]
+	if (mInput.Key('K')) {
+		mMatrix = mMatrix * CMatrix().RotateX(1);
+	}
+	//Y²{‰ñ“]
+	if (mInput.Key('L')) {
+		mMatrix = mMatrix * CMatrix().RotateY(1);
+	}
+	if (mInput.Key('I')) {
+		mMatrix = mMatrix * CMatrix().RotateX(-1);
+	}
+	//Y²{‰ñ“]
+	if (mInput.Key('J')) {
+		mMatrix = mMatrix * CMatrix().RotateY(-1);
+	}
+	//s—ñİ’è
+	glMultMatrixf(mMatrix.M());
+
+
+	//ƒ‚ƒfƒ‹•`‰æ
+	mModelX.Render();
+
+
 	//2D•`‰æŠJn
 	CCamera::Start(0, 800, 0, 600);
 
