@@ -11,6 +11,25 @@ class CMaterial;		//マテリアルの宣言
 class CSkinWeights;		//スキンウェイトクラス
 class CAnimationSet;	//アニメーションセットクラス
 class CAnimation;		//アニメーションクラス
+class CAnimationKey;  //アニメーションキークラス
+
+//配列のサイズ取得をマクロ化
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
+
+/*
+ CAnimationKey
+ アニメーションキークラス
+*/
+class CAnimationKey {
+	friend CAnimation;
+	friend CAnimationSet;
+private:
+	//時間
+	float mTime;
+	//行列
+	CMatrix mMatrix;
+};
+
 
 /*
  CAnimation
@@ -22,6 +41,8 @@ public:
 	CAnimation(CModelX* model);
 	~CAnimation();
 private:
+	int mKeyNum;	//キー数（時間数）
+	CAnimationKey* mpKey;	//キーの配列
 	char* mpFrameName;//フレーム名
 	int mFrameIndex;	//フレーム番号
 };
