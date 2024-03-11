@@ -55,6 +55,8 @@ private:
 class CAnimationSet {
 	friend CModelX;
 public:
+	float Time();
+	float MaxTime();
 	void AnimateMatrix(CModelX* model);
 	std::vector<CAnimation*>& Animation();
 
@@ -102,6 +104,11 @@ private:
 //CMeshクラスの定義
 class CMesh {
 public:
+	//頂点にアニメーション適用
+	void AnimateVertex(CModelX* model);
+	//スキンウェイトにフレーム番号を設定する
+	void SetSkinWeightFrameIndex(CModelX* model);
+
 	void Render();
 	//コンストラクタ
 	CMesh();
@@ -110,6 +117,8 @@ public:
 	//読み込み処理
 	void Init(CModelX* model);
 private:
+	CVector* mpAnimateVertex;  //アニメーション用頂点
+	CVector* mpAnimateNormal;  //アニメーション用法線
 	//スキンウェイト
 	std::vector<CSkinWeights*> mSkinWeights;
 	int mMaterialNum;	//マテリアル数
@@ -132,6 +141,7 @@ class CModelXFrame {
 	friend CAnimation;
 	friend CAnimationSet;
 public:
+	const CMatrix& CombinedMatrix();
 	//合成行列の作成
 	void AnimateCombined(CMatrix* parent);
 	int Index();
@@ -162,6 +172,11 @@ class CModelX {
 	friend CModelXFrame;
 	friend CAnimation;
 public:
+	//頂点にアニメーションを適用
+	void AnimateVertex();
+	//スキンウェイトのフレーム番号設定
+	void SetSkinWeightFrameIndex();
+
 	std::vector<CModelXFrame*>& Frames();
 	void AnimateFrame();
 	std::vector<CAnimationSet*>& AnimationSet();

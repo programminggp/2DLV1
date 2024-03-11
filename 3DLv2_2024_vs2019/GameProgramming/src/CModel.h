@@ -12,7 +12,9 @@
 */
 class CModel {
 public:
-	std::vector<CTriangle> Triangles() const;
+	//std::vector<CTriangle> Triangles() const;
+	const std::vector<CTriangle>& Triangles() const;
+
 	//モデルファイルの入力
 	//Load(モデルファイル名, マテリアルファイル名)
 	void Load(char* obj, char* mtl);
