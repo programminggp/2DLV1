@@ -88,6 +88,43 @@ float* CMatrix::M() const
 	return (float*)mM[0];
 }
 
+CMatrix CMatrix::operator*(const float& x) const
+{
+	CMatrix tmp;
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			tmp.mM[i][j] = mM[i][j] * x;
+		}
+	}
+	return tmp;
+}
+
+CMatrix CMatrix::operator+(const CMatrix& m) const
+{
+	CMatrix tmp;
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			tmp.mM[i][j] = mM[i][j] + m.mM[i][j];
+		}
+	}
+	return tmp;
+}
+
+void CMatrix::operator+=(const CMatrix& m)
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		for (int j = 0; j < 4; ++j)
+		{
+			mM[i][j] += m.mM[i][j];
+		}
+	}
+}
+
 //クオータニオンで回転行列を設定する
 CMatrix CMatrix::Quaternion(float x, float y, float z, float w) {
 	mM[0][0] = x * x - y * y - z * z + w * w;
