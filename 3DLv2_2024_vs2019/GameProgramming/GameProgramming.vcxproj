@@ -38,6 +38,7 @@
     <ClCompile Include="src\CTriangle.cpp" />
     <ClCompile Include="src\CUi.cpp" />
     <ClCompile Include="src\CVector.cpp" />
+    <ClCompile Include="src\CXCharacter.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,7 @@
     <ClInclude Include="src\CUi.h" />
     <ClInclude Include="src\CVector.h" />
     <ClInclude Include="src\CVertex.h" />
+    <ClInclude Include="src\CXCharacter.h" />
     <ClInclude Include="src\main.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

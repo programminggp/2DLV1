@@ -23,9 +23,14 @@
 
 #include "CModelX.h"
 
+#include "CXCharacter.h"
+
 class CApplication
 {
 private:
+	//キャラクタのインスタンス
+	CXCharacter mCharacter;
+
 	CMatrix mMatrix;
 	CModelX mModelX;
 
