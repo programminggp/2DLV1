@@ -10,6 +10,7 @@ class CCollisionManager;
 class CCollider : public CTransform,public CTask {
 	friend CCollisionManager;
 public:
+	void Matrix(CMatrix* m);
 	//優先度の変更
 	virtual void ChangePriority();
 	//優先度の変更

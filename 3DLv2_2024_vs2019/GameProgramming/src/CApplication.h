@@ -52,7 +52,7 @@ private:
 	CModel mModelC5;
 
 	//static CTaskManager mTaskManager;
-	CPlayer mPlayer;
+	//CPlayer mPlayer;
 
 	CModel mBackGround; //”wŒiƒ‚ƒfƒ‹
 	CModel mModel;

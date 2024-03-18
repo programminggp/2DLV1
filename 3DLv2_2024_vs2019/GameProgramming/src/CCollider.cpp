@@ -177,3 +177,7 @@ void CCollider::ChangePriority()
 	//CCollisionManager::Instance()->Remove(this); //ˆê’Uíœ
 	//CCollisionManager::Instance()->Add(this); //’Ç‰Á
 }
+void CCollider::Matrix(CMatrix* m)
+{
+	mpMatrix = m;
+}
