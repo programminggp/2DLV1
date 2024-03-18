@@ -24,10 +24,13 @@
 #include "CModelX.h"
 
 #include "CXPlayer.h"
+#include "CXEnemy.h"
+
 
 class CApplication
 {
 private:
+	CXEnemy mXEnemy;
 	//キャラクタのインスタンス
 	CXPlayer mXPlayer;
 
