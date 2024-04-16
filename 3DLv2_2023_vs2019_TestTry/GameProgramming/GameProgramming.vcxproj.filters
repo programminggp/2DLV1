@@ -147,6 +147,9 @@
     <ClCompile Include="src\CColliderCapsule.cpp">
       <Filter>ソース ファイル\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="src\CDengeki.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CSound.h">
@@ -262,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="src\CColliderCapsule.h">
       <Filter>ソース ファイル\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CDengeki.h">
+      <Filter>ソース ファイル\TestTry</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
