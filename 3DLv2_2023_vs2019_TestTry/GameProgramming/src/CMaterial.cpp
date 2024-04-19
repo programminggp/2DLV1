@@ -83,13 +83,14 @@ void CMaterial::Disabled()
 	//テクスチャ有り
 	if (mTexture.Id())
 	{
-		//アルファブレンドを無効
-		glDisable(GL_BLEND);
 		//テクスチャのバインドを解く
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//テクスチャを無効にする
 		glDisable(GL_TEXTURE_2D);
 	}
+	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	//アルファブレンドを無効
+	glDisable(GL_BLEND);
 }
 
 //デフォルトコンストラクタ
@@ -104,8 +105,13 @@ CMaterial::CMaterial()
 }
 //マテリアルを有効にする
 void CMaterial::Enabled() {
+	//アルファブレンドを有効にする
+	glEnable(GL_BLEND);
+	//ブレンド方法を指定
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//拡散光の設定
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mDiffuse);
+	glColor4fv(mDiffuse);
 	//テクスチャ有り
 	if (mTexture.Id())
 	{
@@ -113,10 +119,7 @@ void CMaterial::Enabled() {
 		glEnable(GL_TEXTURE_2D);
 		//テクスチャをバインドする
 		glBindTexture(GL_TEXTURE_2D, mTexture.Id());
-		//アルファブレンドを有効にする
-		glEnable(GL_BLEND);
-		//ブレンド方法を指定
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	}
 }
 //マテリアルの名前の取得

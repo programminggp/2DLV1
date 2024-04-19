@@ -29,9 +29,12 @@
 //29
 #include "CActionCamera.h"
 
+#include "CDengeki.h"
+
 class CApplication
 {
 private:
+	CDengeki mDengeki;
 	//29
 	CActionCamera mActionCamera;
 

@@ -102,6 +102,8 @@ void CApplication::Start()
 
 	//アニメーションを切り替えて確認
 	mpPaladin->ChangeAnimation(1, true, 60);
+
+	mDengeki.Set(CVector(), CVector(0.0f, 0.0f, 10.0f), 1.0);
 }
 
 void CApplication::Update()
@@ -112,6 +114,8 @@ void CApplication::Update()
 	mXEnemy.Update();
 
 	mpPaladin->Update();
+
+	mDengeki.Update();
 
 	//衝突処理
 	CCollisionManager::Instance()->Collision();
@@ -171,6 +175,8 @@ void CApplication::Update()
 	mXEnemy.Render();
 
 	mpPaladin->Render();
+
+	mDengeki.Render();
 
 	//コライダの描画
 	CCollisionManager::Instance()->Render();
