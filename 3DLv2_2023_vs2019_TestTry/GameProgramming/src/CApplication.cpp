@@ -129,7 +129,8 @@ void CApplication::Update()
 	gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
 */
 	// ÉJÉÅÉâê›íË
-	mActionCamera.Position(mXPlayer.Position() + CVector(0.0f, 2.0f, 0.0f));
+//	mActionCamera.Position(mXPlayer.Position() + CVector(0.0f, 2.0f, 0.0f));
+	mActionCamera.Position(CVector() + CVector(0.0f, 2.0f, 0.0f));
 	mActionCamera.Update();
 	mActionCamera.Render();
 

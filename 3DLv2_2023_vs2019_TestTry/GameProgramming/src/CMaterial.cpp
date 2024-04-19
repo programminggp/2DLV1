@@ -136,6 +136,14 @@ float* CMaterial::Diffuse()
 	return mDiffuse;
 }
 
+void CMaterial::Diffuse(float r, float g, float b, float a)
+{
+	mDiffuse[0] = r;
+	mDiffuse[1] = g;
+	mDiffuse[2] = b;
+	mDiffuse[3] = a;
+}
+
 void CMaterial::VertexNum(int num)
 {
 	mVertexNum = num;

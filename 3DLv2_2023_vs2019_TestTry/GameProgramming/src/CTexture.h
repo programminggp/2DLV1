@@ -23,6 +23,13 @@ struct STgamHeader {
 
 class CTexture {
 public:
+	bool IsLoaded()
+	{
+		if (mId == 0)
+			return false;
+		return true;
+	}
+
 	int Row();
 	int Col();
 	const STgamHeader& Header() const;

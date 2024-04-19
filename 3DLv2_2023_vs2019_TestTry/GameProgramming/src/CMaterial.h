@@ -28,6 +28,7 @@ public:
 	void Name(char* name);
 	//mDiffuse”z—ñ‚Ìæ“¾
 	float* Diffuse();
+	void Diffuse(float r, float g, float b, float a);
 	//’¸“_”‚Ìİ’è
 	//VertexNum(’¸“_”)
 	void VertexNum(int num);
