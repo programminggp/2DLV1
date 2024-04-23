@@ -84,6 +84,7 @@ void CApplication::Start()
 	mKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
 
 	//3Dモデルファイルの読み込み
+
 	mModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
 	mXPlayer.Init(&mModelX);
@@ -103,7 +104,7 @@ void CApplication::Start()
 	//アニメーションを切り替えて確認
 	mpPaladin->ChangeAnimation(1, true, 60);
 
-	mDengeki.Set(CVector(), CVector(0.0f, 0.0f, 10.0f), 1.0);
+	mDengeki.Set(CVector(), CVector(0.0f, 0.0f, 10.0f), 2.0);
 }
 
 void CApplication::Update()

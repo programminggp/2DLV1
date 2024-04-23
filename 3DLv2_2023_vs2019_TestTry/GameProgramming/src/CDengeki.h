@@ -23,6 +23,7 @@ private:
 	static CMaterial sMaterial;
 	int mState;
 	CInput mInput;
+	float mUV[4][4];
 };
 
 #endif
