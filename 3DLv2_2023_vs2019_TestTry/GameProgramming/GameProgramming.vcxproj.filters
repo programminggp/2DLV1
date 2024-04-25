@@ -150,6 +150,39 @@
     <ClCompile Include="src\CDengeki.cpp">
       <Filter>ソース ファイル\TestTry</Filter>
     </ClCompile>
+    <ClCompile Include="src\CElectricShock.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CElectricShockEffect.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CBillBoardImage.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CColor.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CRect.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Maths.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CResource.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CObjectBase.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CCharaBase.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Easing.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharaStatus.cpp">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CSound.h">
@@ -267,6 +300,48 @@
       <Filter>ソース ファイル\Collider</Filter>
     </ClInclude>
     <ClInclude Include="src\CDengeki.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CElectricShock.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CElectricShockEffect.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CBillBoardImage.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CColor.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CRect.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TaskPauseType.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Maths.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CResource.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CObjectBase.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CCharaBase.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Easing.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ObjectTag.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharaStatus.h">
+      <Filter>ソース ファイル\TestTry</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TaskPriority.h">
       <Filter>ソース ファイル\TestTry</Filter>
     </ClInclude>
   </ItemGroup>
