@@ -14,10 +14,8 @@
     <ClCompile Include="src\CActionCamera.cpp" />
     <ClCompile Include="src\CApplication.cpp" />
     <ClCompile Include="src\CBillBoard.cpp" />
-    <ClCompile Include="src\CBillBoardImage.cpp" />
     <ClCompile Include="src\CBullet.cpp" />
     <ClCompile Include="src\CCamera.cpp" />
-    <ClCompile Include="src\CCharaBase.cpp" />
     <ClCompile Include="src\CCharacter3.cpp" />
     <ClCompile Include="src\CCollider.cpp" />
     <ClCompile Include="src\CColliderCapsule.cpp" />
@@ -25,25 +23,18 @@
     <ClCompile Include="src\CColliderMesh.cpp" />
     <ClCompile Include="src\CColliderTriangle.cpp" />
     <ClCompile Include="src\CCollisionManager.cpp" />
-    <ClCompile Include="src\CColor.cpp" />
     <ClCompile Include="src\CDengeki.cpp" />
     <ClCompile Include="src\CEffect.cpp" />
-    <ClCompile Include="src\CElectricShock.cpp" />
-    <ClCompile Include="src\CElectricShockEffect.cpp" />
     <ClCompile Include="src\CEnemy.cpp" />
     <ClCompile Include="src\CEnemy3.cpp" />
     <ClCompile Include="src\CFont.cpp" />
-    <ClCompile Include="src\CharaStatus.cpp" />
     <ClCompile Include="src\CMaterial.cpp" />
     <ClCompile Include="src\CMatrix.cpp" />
     <ClCompile Include="src\CModel.cpp" />
     <ClCompile Include="src\CModelX.cpp" />
     <ClCompile Include="src\CMyShader.cpp" />
-    <ClCompile Include="src\CObjectBase.cpp" />
     <ClCompile Include="src\CPaladin.cpp" />
     <ClCompile Include="src\CPlayer.cpp" />
-    <ClCompile Include="src\CRect.cpp" />
-    <ClCompile Include="src\CResource.cpp" />
     <ClCompile Include="src\CShader.cpp" />
     <ClCompile Include="src\CSound.cpp" />
     <ClCompile Include="src\CTaskManager.cpp" />
@@ -56,18 +47,14 @@
     <ClCompile Include="src\CXCharacter.cpp" />
     <ClCompile Include="src\CXEnemy.cpp" />
     <ClCompile Include="src\CXPlayer.cpp" />
-    <ClCompile Include="src\Easing.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Maths.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CActionCamera.h" />
     <ClInclude Include="src\CApplication.h" />
     <ClInclude Include="src\CBillBoard.h" />
-    <ClInclude Include="src\CBillBoardImage.h" />
     <ClInclude Include="src\CBullet.h" />
     <ClInclude Include="src\CCamera.h" />
-    <ClInclude Include="src\CCharaBase.h" />
     <ClInclude Include="src\CCharacter3.h" />
     <ClInclude Include="src\CCollider.h" />
     <ClInclude Include="src\CColliderCapsule.h" />
@@ -75,25 +62,18 @@
     <ClInclude Include="src\CColliderMesh.h" />
     <ClInclude Include="src\CColliderTriangle.h" />
     <ClInclude Include="src\CCollisionManager.h" />
-    <ClInclude Include="src\CColor.h" />
     <ClInclude Include="src\CDengeki.h" />
     <ClInclude Include="src\CEffect.h" />
-    <ClInclude Include="src\CElectricShock.h" />
-    <ClInclude Include="src\CElectricShockEffect.h" />
     <ClInclude Include="src\CEnemy.h" />
     <ClInclude Include="src\CEnemy3.h" />
     <ClInclude Include="src\CFont.h" />
-    <ClInclude Include="src\CharaStatus.h" />
     <ClInclude Include="src\CMaterial.h" />
     <ClInclude Include="src\CMatrix.h" />
     <ClInclude Include="src\CModel.h" />
     <ClInclude Include="src\CModelX.h" />
     <ClInclude Include="src\CMyShader.h" />
-    <ClInclude Include="src\CObjectBase.h" />
     <ClInclude Include="src\CPaladin.h" />
     <ClInclude Include="src\CPlayer.h" />
-    <ClInclude Include="src\CRect.h" />
-    <ClInclude Include="src\CResource.h" />
     <ClInclude Include="src\CShader.h" />
     <ClInclude Include="src\CSound.h" />
     <ClInclude Include="src\CTask.h" />
@@ -108,12 +88,7 @@
     <ClInclude Include="src\CXCharacter.h" />
     <ClInclude Include="src\CXEnemy.h" />
     <ClInclude Include="src\CXPlayer.h" />
-    <ClInclude Include="src\Easing.h" />
     <ClInclude Include="src\main.h" />
-    <ClInclude Include="src\Maths.h" />
-    <ClInclude Include="src\ObjectTag.h" />
-    <ClInclude Include="src\TaskPauseType.h" />
-    <ClInclude Include="src\TaskPriority.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8802AF2F-2920-4700-89F2-CA6778727283}</ProjectGuid>
@@ -127,7 +102,6 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
-    <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>

@@ -2,7 +2,6 @@
 #include <stdio.h>	//ファイルの入力に使用
 #include <string.h>
 #include "soil.h"
-#include <string>
 //std::map<std::string, CTexture>CTexture::mTexFile;
 
 CTexture::CTexture()
@@ -11,6 +10,12 @@ CTexture::CTexture()
 	, mRow(1)
 	, mCol(1)
 {
+}
+
+CTexture::CTexture(char *file)
+	: CTexture()
+{
+	Load(file);
 }
 
 CTexture::~CTexture() {
@@ -30,13 +35,14 @@ void CTexture::Destory() {
 	}
 }
 
-bool CTexture::Load(std::string path, bool dontDelete)
+#include <string>
+void CTexture::Load(const char* filename)
 {
 	//ファイルオープン
-	std::string file(path);
+	std::string file(filename);
 	file = RES_DIR + file;	//ファイル名の退避
-	mpName = new char[strlen(path.c_str()) + 1];
-	strcpy(mpName, path.c_str());
+	mpName = new char[strlen(filename) + 1];
+	strcpy(mpName, filename);
 	//画像データ
 	unsigned char* data;
 	//ファイルの入力
@@ -46,7 +52,7 @@ bool CTexture::Load(std::string path, bool dontDelete)
 	if (!data)
 	{
 		printf("CTexture::Load Error:%s\n", file.data());
-		return false;
+		return;
 	}
 	//テクスチャの作成
 	mId = SOIL_create_OGL_texture(data,
@@ -63,7 +69,7 @@ bool CTexture::Load(std::string path, bool dontDelete)
 	//データの解放
 	SOIL_free_image_data(data);
 	mHeader.depth *= 8;
-	return true;
+	return;
 }
 
 //	//if (mTexFile.count(filename)) {
@@ -194,51 +200,6 @@ void CTexture::DrawImage(float left, float right, float bottom, float top, float
 void CTexture::Draw(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop) const
 {
 	DrawImage(left, right, bottom, top, tleft, tright, tbottom, ttop);
-}
-
-// 行数と列数を指定してUVを計算
-CRect CTexture::CalcUV(int row, int col, int num) const
-{
-	CRect ret = CRect(0.0f, 0.0f, 1.0f, 1.0f);
-	if (row == 0 || col == 0) return ret;
-
-	int x = num % col;
-	int y = num / col;
-
-	ret.X((float)x / col);
-	ret.Y(1.0f - (float)y / row);
-	ret.W(1.0f / col);
-	ret.H(-1.0f / row);
-
-	return ret;
-}
-
-// 座標を指定してUVを計算
-CRect CTexture::CalcUV(float left, float top, float right, float bottom) const
-{
-	CRect ret = CRect(0.0f, 0.0f, 1.0f, 1.0f);
-	if (mHeader.width == 0 || mHeader.height == 0) return ret;
-
-	ret.X(left / mHeader.width);
-	ret.Y(top / mHeader.height);
-	ret.W((right - left) / mHeader.width);
-	ret.H((bottom - top) / mHeader.height);
-
-	return ret;
-}
-
-// 開始位置とサイズを指定してUVを計算
-CRect CTexture::CalcUV(const CVector2& pos, const CVector2& size) const
-{
-	CRect ret = CRect(0.0f, 0.0f, 1.0f, 1.0f);
-	if (mHeader.width == 0 || mHeader.height == 0) return ret;
-
-	ret.X(pos.X() / mHeader.width);
-	ret.Y(pos.Y() / mHeader.height);
-	ret.W(size.X() / mHeader.width);
-	ret.H(size.Y() / mHeader.height);
-
-	return ret;
 }
 
 void CTexture::DrawImage(float left, float right, float bottom, float top, int tleft, int tright, int tbottom, int ttop) const
