@@ -2,9 +2,10 @@
 Effect\tktk_Impact_14.png 2,5,4.0,1,2,5,nullptr
 Effect\Impact.png 3,5,4.0,1,1,5,nullptr
 Effect\tktk_Impact_4.png 2,5,5.0,1,5,10,nullptr
-Effect\tktk_Impact_30.png 5,5,3.0,1,2,5,nullptr
 Effect\tktk_Impact_35.png 5,5,5.0,1,2,5,nullptr
 Effect\tktk_Impact_40.png 3,5,3.0,0,11,15,nullptr
 Effect\tktk_Impact_46.png 2,5,3.0,1,2,5,nullptr
-tktk_Magic_3.png 5,5,3.0,1,2,5,nullptr
-tktk_Magic_5.png 5,5,3.0,1,2,5,nullptr
+Effect\tktk_Sword_2.png 1,5,3.0,1,2,5,nullptr
+Effect\tktk_Sword_34.png 4,5,4.0,1,2,5,nullptr
+Effect\tktk_Sword_35.png 4,5,4.0,1,2,5,nullptr
+Effect\tktk_Sword_37.png 4,5,4.0,1,2,5,nullptr

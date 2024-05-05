@@ -91,7 +91,7 @@ int main(void)
 	glfwMakeContextCurrent(window);
 
 
-	glClearColor(0.7f, 0.7f, 0.7f, 1.0f);
+	glClearColor(0.4f, 0.4f, 0.4f, 1.0f);
 
 	// GLEW ‚ğ‰Šú‰»‚·‚é
 	glewExperimental = GL_TRUE;
