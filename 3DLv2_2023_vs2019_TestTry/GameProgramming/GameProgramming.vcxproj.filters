@@ -150,6 +150,9 @@
     <ClCompile Include="src\CDengeki.cpp">
       <Filter>ソース ファイル\TestTry</Filter>
     </ClCompile>
+    <ClCompile Include="src\CEffectManager.cpp">
+      <Filter>ソース ファイル\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CSound.h">
@@ -269,5 +272,13 @@
     <ClInclude Include="src\CDengeki.h">
       <Filter>ソース ファイル\TestTry</Filter>
     </ClInclude>
+    <ClInclude Include="src\CEffectManager.h">
+      <Filter>ソース ファイル\Character</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\EffectData.txt">
+      <Filter>リソース ファイル</Filter>
+    </Text>
   </ItemGroup>
 </Project>

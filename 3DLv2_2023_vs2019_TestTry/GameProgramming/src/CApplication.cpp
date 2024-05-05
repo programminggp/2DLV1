@@ -13,6 +13,8 @@
 
 #include "CCamera.h"
 
+#include "CEffectManager.h"
+
 //クラスのstatic変数
 CTexture CApplication::mTexture;
 
@@ -105,19 +107,24 @@ void CApplication::Start()
 	mpPaladin->ChangeAnimation(1, true, 60);
 
 	mDengeki.Set(CVector(), CVector(0.0f, 0.0f, 10.0f), 2.0);
+
+	CEffectManager::Instance();
 }
 
 void CApplication::Update()
 {
-	//キャラクタークラスの更新
-	mXPlayer.Update();
-	//敵の更新
-	mXEnemy.Update();
+	////キャラクタークラスの更新
+	//mXPlayer.Update();
+	////敵の更新
+	//mXEnemy.Update();
 
-	mpPaladin->Update();
+	//mpPaladin->Update();
 
 	mDengeki.Update();
 
+	CEffectManager::Instance()->Update();
+
+	CTaskManager::Instance()->Update();
 	//衝突処理
 	CCollisionManager::Instance()->Collision();
 
@@ -171,16 +178,18 @@ void CApplication::Update()
 	//モデル描画
 //	mModelX.Render();
 
-	mXPlayer.Render();
-	//敵描画
-	mXEnemy.Render();
+	//mXPlayer.Render();
+	////敵描画
+	//mXEnemy.Render();
 
-	mpPaladin->Render();
-
+	//mpPaladin->Render();
 	mDengeki.Render();
 
+	CTaskManager::Instance()->Delete();
+	CTaskManager::Instance()->Render();
+
 	//コライダの描画
-	CCollisionManager::Instance()->Render();
+//	CCollisionManager::Instance()->Render();
 
 	//2D描画開始
 	CCamera::Start(0, 800, 0, 600);

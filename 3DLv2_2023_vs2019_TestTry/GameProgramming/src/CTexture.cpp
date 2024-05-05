@@ -54,6 +54,11 @@ void CTexture::Load(const char* filename)
 		printf("CTexture::Load Error:%s\n", file.data());
 		return;
 	}
+	if (mId != 0) {
+		//テクスチャデータの削除
+		glDeleteTextures(1, &mId);
+		mId = 0;
+	}
 	//テクスチャの作成
 	mId = SOIL_create_OGL_texture(data,
 		mHeader.width, mHeader.height, mHeader.depth,

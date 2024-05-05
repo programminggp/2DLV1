@@ -1,5 +1,6 @@
 #include "CXPlayer.h"
 #include "CActionCamera.h"
+#include "CTaskManager.h"
 
 CXPlayer::CXPlayer()
 	:
@@ -12,6 +13,9 @@ CXPlayer::CXPlayer()
 {
 	//タグにプレイヤーを設定します
 	mTag = EPLAYER;
+	//mPriority = EPLAYER;
+	//CTaskManager::Instance()->Remove(this);
+	//CTaskManager::Instance()->Add(this);
 }
 
 void CXPlayer::Init(CModelX* model)
