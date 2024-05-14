@@ -126,6 +126,10 @@ void CApplication::Update()
 
 	//モデル描画
 //	mModelX.Render();
+
+	//衝突処理
+	CCollisionManager::Instance()->Collision();
+
 	mXPlayer.Render();
 	mXEnemy.Render();
 	//コライダの描画

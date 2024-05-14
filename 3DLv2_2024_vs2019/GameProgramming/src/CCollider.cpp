@@ -61,9 +61,10 @@ CCollider::~CCollider() {
 }
 
 CCollider::CCollider(CCharacter3* parent, CMatrix* matrix,
-	const CVector& position, float radius) 
+	const CVector& position, float radius, ETag tag)
 	: CCollider() 
 {
+	mTag = tag;//タグの設定
 	//親設定
 	mpParent = parent;
 	//親行列設定
@@ -177,6 +178,12 @@ void CCollider::ChangePriority()
 	//CCollisionManager::Instance()->Remove(this); //一旦削除
 	//CCollisionManager::Instance()->Add(this); //追加
 }
+
+CCollider::ETag CCollider::Tag()
+{
+	return mTag;
+}
+
 void CCollider::Matrix(CMatrix* m)
 {
 	mpMatrix = m;
