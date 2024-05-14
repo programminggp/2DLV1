@@ -65,6 +65,7 @@ CTexture* CApplication::Texture()
 
 void CApplication::Start()
 {
+	mKnight.Load("res\\knight\\knight_low.x");
 	//3Dモデルファイルの読み込み
 	mModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
@@ -72,7 +73,7 @@ void CApplication::Start()
 
 	mFont.Load("FontG.png", 1, 4096 / 64);
 
-	mXEnemy.Init(&mModelX);
+	mXEnemy.Init(&mKnight);
 	mXEnemy.Position(CVector(7.0f, 0.0f, 0.0f));
 
 }

@@ -30,6 +30,7 @@
 class CApplication
 {
 private:
+	CModelX mKnight;
 	CXEnemy mXEnemy;
 	//キャラクタのインスタンス
 	CXPlayer mXPlayer;
