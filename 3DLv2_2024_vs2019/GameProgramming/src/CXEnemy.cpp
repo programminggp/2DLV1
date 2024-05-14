@@ -24,9 +24,12 @@ void CXEnemy::Init(CModelX* model)
 {
 	CXCharacter::Init(model);
 	//‡¬s—ñ‚Ìİ’è
-	mColSphereBody.Matrix(&mpCombinedMatrix[8]);
+	mColSphereBody.Matrix(&mpCombinedMatrix[1]);
 	//“ª
-	mColSphereHead.Matrix(&mpCombinedMatrix[11]);
+	mColSphereHead.Matrix(&mpCombinedMatrix[1]);
 	//Œ•
-	mColSphereSword.Matrix(&mpCombinedMatrix[21]);
+	mColSphereSword0.Matrix(&mpCombinedMatrix[26]);
+	mColSphereSword1.Matrix(&mpCombinedMatrix[26]);
+	mColSphereSword2.Matrix(&mpCombinedMatrix[26]);
+
 }

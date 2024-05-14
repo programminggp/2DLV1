@@ -23,6 +23,7 @@ class CAnimationKey;  //アニメーションキークラス
 class CAnimationKey {
 	friend CAnimation;
 	friend CAnimationSet;
+	friend CModelX;
 private:
 	//時間
 	float mTime;
@@ -40,6 +41,13 @@ class CAnimation {
 	friend CModelX;
 public:
 	CAnimation(CModelX* model);
+	CAnimation()
+		: mKeyNum(0)
+		, mpKey(nullptr)
+		, mpFrameName(nullptr)
+		, mFrameIndex(0)
+	{}
+
 	~CAnimation();
 private:
 	int mKeyNum;	//キー数（時間数）
@@ -65,6 +73,13 @@ public:
 
 	CAnimationSet(CModelX* model);
 	~CAnimationSet();
+	CAnimationSet()
+		: mTime(0.0f)
+		, mWeight(0.0f)
+		, mMaxTime(0.0f)
+		, mpName(nullptr)
+	{}
+
 private:
 	float mTime;	//現在時間
 	float mWeight;	//重み
@@ -178,6 +193,16 @@ class CModelX {
 	friend CModelXFrame;
 	friend CAnimation;
 public:
+	/*
+	アニメーションを抜き出す
+	idx:分割したいアニメーションセットの番号
+	start:分割したいアニメーションの開始時間
+	end:分割したいアニメーションの終了時間
+	name:追加するアニメーションセットの名前
+	*/
+	void CModelX::SeparateAnimationSet(
+		int idx, int start, int end, char* name);
+
 	void AnimateVertex(CMatrix*);
 	//マテリアル配列の取得
 	std::vector<CMaterial*>& Material();
