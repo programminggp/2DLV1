@@ -88,6 +88,10 @@ void CApplication::Start()
 	mXEnemy.Init(&mKnight);
 	mXEnemy.Position(CVector(7.0f, 0.0f, 0.0f));
 	mXEnemy.ChangeAnimation(2, true, 200);
+
+	mpPaladin = new CPaladin();
+	mpPaladin->Position(CVector(-1.0f, 0.0f, 5.0f));
+	mpPaladin->ChangeAnimation(1, true, 60);
 }
 
 void CApplication::Update()
@@ -96,6 +100,7 @@ void CApplication::Update()
 	//キャラクタークラスの更新
 	mXPlayer.Update();
 	mXEnemy.Update();
+	mpPaladin->Update();
 
 	//カメラのパラメータを作成する
 	CVector e, c, u;//視点、注視点、上方向
@@ -145,6 +150,8 @@ void CApplication::Update()
 
 	mXPlayer.Render();
 	mXEnemy.Render();
+	mpPaladin->Render();
+
 	//コライダの描画
 	CCollisionManager::Instance()->Render();
 
