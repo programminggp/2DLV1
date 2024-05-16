@@ -3,6 +3,7 @@
 #include <vector>		//vectorクラスのインクルード（動的配列）
 #include "CMatrix.h"	//マトリクスクラスのインクルード
 #include "CVector.h"
+#include "CMyShader.h" //シェーダーのインクルード
 
 class CModelX;			// CModelXクラスの宣言
 class CModelXFrame;		// CModelXFrameクラスの宣言
@@ -99,6 +100,7 @@ private:
 class CSkinWeights {
 	friend CModelX;
 	friend CMesh;
+	friend CMyShader;
 public:
 	CSkinWeights(CModelX* model);
 	~CSkinWeights();
@@ -119,7 +121,11 @@ private:
 
 //CMeshクラスの定義
 class CMesh {
+	friend CMyShader;
 public:
+	//頂点バッファの作成
+	void CreateVertexBuffer();
+
 	void AnimateVertex(CMatrix*);
 	//頂点にアニメーション適用
 	void AnimateVertex(CModelX* model);
@@ -134,6 +140,11 @@ public:
 	//読み込み処理
 	void Init(CModelX* model);
 private:
+	//マテリアル毎の面数
+	std::vector<int> mMaterialVertexCount;
+	//頂点バッファ識別子
+	GLuint	  mMyVertexBufferId;
+
 	//テクスチャ座標データ
 	float* mpTextureCoords;
 
@@ -160,6 +171,7 @@ class CModelXFrame {
 	friend CModelX;
 	friend CAnimation;
 	friend CAnimationSet;
+	friend CMyShader;
 public:
 	CModelXFrame();
 	const CMatrix& CombinedMatrix();
@@ -192,7 +204,11 @@ class CModelX {
 	friend CAnimationSet;
 	friend CModelXFrame;
 	friend CAnimation;
+	friend CMyShader;
 public:
+	//シェーダーを使った描画
+	void RenderShader(CMatrix* m);
+
 	//アニメーションセットの追加
 	void AddAnimationSet(const char* file);
 
@@ -239,6 +255,10 @@ public:
 	//ファイル読み込み
 	void Load(char* file);
 private:
+	//シェーダー用スキンマトリックス
+	CMatrix* mpSkinningMatrix;
+	CMyShader mShader; //シェーダーのインスタンス
+
 	bool mLoaded;
 	std::vector<CMaterial*> mMaterial;  //マテリアル配列
 	//アニメーションセットの配列
