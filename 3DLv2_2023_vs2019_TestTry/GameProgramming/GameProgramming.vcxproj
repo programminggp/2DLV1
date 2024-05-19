@@ -35,6 +35,7 @@
     <ClCompile Include="src\CModelX.cpp" />
     <ClCompile Include="src\CMyShader.cpp" />
     <ClCompile Include="src\CPaladin.cpp" />
+    <ClCompile Include="src\CParticle.cpp" />
     <ClCompile Include="src\CPlayer.cpp" />
     <ClCompile Include="src\CShader.cpp" />
     <ClCompile Include="src\CSound.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="src\CModelX.h" />
     <ClInclude Include="src\CMyShader.h" />
     <ClInclude Include="src\CPaladin.h" />
+    <ClInclude Include="src\CParticle.h" />
     <ClInclude Include="src\CPlayer.h" />
     <ClInclude Include="src\CShader.h" />
     <ClInclude Include="src\CSound.h" />

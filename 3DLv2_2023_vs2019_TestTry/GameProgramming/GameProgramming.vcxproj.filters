@@ -153,6 +153,9 @@
     <ClCompile Include="src\CEffectManager.cpp">
       <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
+    <ClCompile Include="src\CParticle.cpp">
+      <Filter>ソース ファイル\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CSound.h">
@@ -273,6 +276,9 @@
       <Filter>ソース ファイル\TestTry</Filter>
     </ClInclude>
     <ClInclude Include="src\CEffectManager.h">
+      <Filter>ソース ファイル\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CParticle.h">
       <Filter>ソース ファイル\Character</Filter>
     </ClInclude>
   </ItemGroup>
