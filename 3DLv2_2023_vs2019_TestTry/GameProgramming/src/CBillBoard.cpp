@@ -48,6 +48,8 @@ void CBillBoard::Render()
 //Render(マテリアルのポインタ)
 void CBillBoard::Render(CMaterial* mpMaterial)
 {
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_CULL_FACE);
 	//行列の保存
 	glPushMatrix();
 	//拡縮、回転、移動させる
@@ -67,4 +69,7 @@ void CBillBoard::Render(CMaterial* mpMaterial)
 	glEnable(GL_LIGHTING);
 	//行列を戻す
 	glPopMatrix();
+
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
 }

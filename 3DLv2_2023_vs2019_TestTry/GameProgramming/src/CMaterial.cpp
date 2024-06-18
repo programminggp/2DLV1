@@ -102,6 +102,7 @@ CMaterial::CMaterial()
 	memset(mName, 0, sizeof(mName));
 	//0で埋める
 	memset(mDiffuse, 0, sizeof(mDiffuse));
+	mDiffuse[0] = mDiffuse[1] = mDiffuse[2] = mDiffuse[3] = 1.0f;
 }
 //マテリアルを有効にする
 void CMaterial::Enabled() {

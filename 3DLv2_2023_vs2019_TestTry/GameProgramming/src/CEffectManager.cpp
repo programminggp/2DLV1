@@ -1,8 +1,12 @@
 #include "CEffectManager.h"
 #include "CMaterial.h"
 #include "CEffect.h"
+#include "CParticle.h"
 
 #define EFFECTDATA_FILENAME "res\\effectdata.txt"
+#define PARTICLE_FILENAME "effect2\\Slash.png"
+
+CMaterial* spParticleMaterial = nullptr;
 
 
 CEffectData CEffectManager::sEffectData[] =
@@ -38,6 +42,9 @@ CEffectManager::CEffectManager()
 		}
 		fclose(fp);
 	}
+
+	spParticleMaterial = new CMaterial();
+	spParticleMaterial->Texture()->Load(PARTICLE_FILENAME);
 
 	/*
 	mSize = sizeof(sEffectData) / sizeof(CEffectData);
@@ -126,7 +133,20 @@ void CEffectManager::Update()
 			}
 		}
 	}
-
+	if (mInput.Key('P'))
+	{
+		new CParticle(
+			spParticleMaterial
+			, CVector(0, 0, 0)
+			, CVector(0, 0, 0)
+			, CVector(3, 3, 1)
+			, CVector()
+			, CVector(0, 0, 18)
+			, CVector()
+			, -0.15
+			, 5
+			, false);
+	}
 	/*
 	if (mInput.Key('1'))
 	{
