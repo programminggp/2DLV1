@@ -10,6 +10,11 @@
 */
 class CActionCamera : public CTransform {
 public:
+	//カメラのX軸取得
+	CVector VectorX();
+	//カメラのZ軸取得
+	CVector VectorZ();
+
 	CActionCamera();
 	//インスタンスの取得
 	static CActionCamera* Instance();
