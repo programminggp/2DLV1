@@ -28,9 +28,15 @@
 
 #include "CPaladin.h"
 
+#include "CActionCamera.h"
+
+
 class CApplication
 {
 private:
+	//CActionCamera
+	CActionCamera mActionCamera;
+
 	CPaladin* mpPaladin;
 	CModelX mKnight;
 	CXEnemy mXEnemy;
