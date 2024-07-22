@@ -2,8 +2,21 @@
 
 void CXEnemy::Collision(CCollider* m, CCollider* o)
 {
-	if (m->Type() == CCollider::EType::ESPHERE)
+	switch (m->Type())
 	{
+	case CCollider::EType::ECAPSULE:
+		if (o->Type() == CCollider::EType::ECAPSULE)
+		{
+			CVector adjust;
+			if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+			{
+				mPosition = mPosition + adjust;
+				CTransform::Update();
+			}
+		}
+		break;
+
+	case CCollider::EType::ESPHERE:
 		if (o->Type() == CCollider::EType::ESPHERE)
 		{
 			if (o->Tag() == CCollider::ETag::ESWORD)
@@ -12,11 +25,12 @@ void CXEnemy::Collision(CCollider* m, CCollider* o)
 				{
 					if (CCollider::Collision(m, o))
 					{
-						ChangeAnimation(11, false, 30);
+						//ChangeAnimation(11, false, 30);
 					}
 				}
 			}
 		}
+		break;
 	}
 }
 
@@ -31,5 +45,5 @@ void CXEnemy::Init(CModelX* model)
 	mColSphereSword0.Matrix(&mpCombinedMatrix[26]);
 	mColSphereSword1.Matrix(&mpCombinedMatrix[26]);
 	mColSphereSword2.Matrix(&mpCombinedMatrix[26]);
-
+	mColBody.Matrix(&mpCombinedMatrix[1]);
 }

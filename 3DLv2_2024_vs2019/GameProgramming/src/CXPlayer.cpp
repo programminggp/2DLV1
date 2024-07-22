@@ -5,6 +5,8 @@ void CXPlayer::Init(CModelX* model)
 {
 	CXCharacter::Init(model);
 	//‡¬s—ñ‚Ìİ’è
+	mColBody.Matrix(&mpCombinedMatrix[1]);
+
 	mColSphereBody.Matrix(&mpCombinedMatrix[9]);
 	//“ª
 	mColSphereHead.Matrix(&mpCombinedMatrix[12]);
@@ -105,4 +107,5 @@ void CXPlayer::Update()
 		}
 	}
 	CXCharacter::Update();
+	mColBody.Update();
 }

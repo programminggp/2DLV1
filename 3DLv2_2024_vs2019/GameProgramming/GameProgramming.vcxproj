@@ -18,6 +18,7 @@
     <ClCompile Include="src\CCamera.cpp" />
     <ClCompile Include="src\CCharacter3.cpp" />
     <ClCompile Include="src\CCollider.cpp" />
+    <ClCompile Include="src\CColliderCapsule.cpp" />
     <ClCompile Include="src\CColliderLine.cpp" />
     <ClCompile Include="src\CColliderMesh.cpp" />
     <ClCompile Include="src\CColliderTriangle.cpp" />
@@ -55,6 +56,7 @@
     <ClInclude Include="src\CCamera.h" />
     <ClInclude Include="src\CCharacter3.h" />
     <ClInclude Include="src\CCollider.h" />
+    <ClInclude Include="src\CColliderCapsule.h" />
     <ClInclude Include="src\CColliderLine.h" />
     <ClInclude Include="src\CColliderMesh.h" />
     <ClInclude Include="src\CColliderTriangle.h" />
