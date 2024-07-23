@@ -4,10 +4,16 @@
 #include "CXCharacter.h"
 
 #include "CCollider.h"
+#include "CColliderCapsule.h"
 
 class CXEnemy : public CXCharacter
 {
 public:
+	void Update()
+	{
+		CXCharacter::Update();
+		mColBody.Update();
+	}
 	//Õ“Ëˆ—
 	void Collision(CCollider* m, CCollider* o);
 
@@ -19,11 +25,12 @@ public:
 		, mColSphereSword0(this, nullptr, CVector(0.7f, 3.5f, -0.2f), 0.5f)
 		, mColSphereSword1(this, nullptr, CVector(0.5f, 2.5f, -0.2f), 0.5f)
 		, mColSphereSword2(this, nullptr, CVector(0.3f, 1.5f, -0.2f), 0.5f)
-
-
+		, mColBody(this, nullptr, CVector(0.f, -1.5f, 0.0f),
+			CVector(0.f, 1.0f, 0.0f), 1.0f)
 	{
 	}
 private:
+	CColliderCapsule mColBody;	//‘Ì
 	//ƒRƒ‰ƒCƒ_‚ÌéŒ¾
 	CCollider mColSphereBody;	//‘Ì
 	CCollider mColSphereHead;	//“ª
