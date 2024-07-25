@@ -53,7 +53,7 @@ public:
 	//CVector - CVector ‚Ì‰‰ZŒ‹‰Ê‚ğ•Ô‚·
 	CVector operator-(const CVector& v) const;
 	//CVector * CMatrix‚ÌŒ‹‰Ê‚ğCVector‚Å•Ô‚·
-	CVector operator*(const CMatrix& m);
+	CVector operator*(const CMatrix& m) const;
 
 private:
 	//3DŠe²‚Å‚Ì’l‚ğİ’è

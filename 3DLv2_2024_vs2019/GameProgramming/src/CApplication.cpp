@@ -170,6 +170,14 @@ void CApplication::Update()
 
 	mFont.Draw(20, 20, 10, 12, "3D PROGRAMMING");
 
+	CVector screen;
+	//Enemyの座標をスクリーン座標へ変換します
+	if (CActionCamera::Instance()->WorldToScreen(&screen, mXEnemy.Position()))
+	{
+		//変換先の座標に文字列を出力する
+		mFont.Draw(screen.X(), screen.Y(), 7, 14, "ENEMY");
+	}
+
 	//2Dの描画終了
 	CCamera::End();
 }
