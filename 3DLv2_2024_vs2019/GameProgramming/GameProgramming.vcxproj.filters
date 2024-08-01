@@ -138,6 +138,12 @@
     <ClCompile Include="src\CShader.cpp">
       <Filter>ソース ファイル\Model</Filter>
     </ClCompile>
+    <ClCompile Include="src\CActionCamera.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CColliderCapsule.cpp">
+      <Filter>ソース ファイル\Collider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CSound.h">
@@ -247,6 +253,12 @@
     </ClInclude>
     <ClInclude Include="src\CShader.h">
       <Filter>ソース ファイル\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CActionCamera.h">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CColliderCapsule.h">
+      <Filter>ソース ファイル\Collider</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
