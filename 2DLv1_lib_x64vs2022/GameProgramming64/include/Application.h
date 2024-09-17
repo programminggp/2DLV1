@@ -4,23 +4,22 @@ class Application
 {
 public:
 
-	Application(void (*start)()=nullptr, void (*update)()=nullptr);
+	Application (
+		void (*start)()=nullptr,  //初期処理
+		void (*update)()=nullptr  //更新処理
+	);
+
+	Application	(
+		const char* title,
+		int width,
+		int height,
+		int fps,
+		void (*start)() = nullptr,  //初期処理
+		void (*update)() = nullptr,  //更新処理
+		bool game2d = true,
+		bool fullscreen = false
+	);
 
 	int main();
-
-	static bool game2d;
-	static bool fullScreen;
-
-private:
-
-	int fps;
-	int width;
-	int height;
-
-	void (*pStart)();
-	void (*pUpdate)();
-
-	void update();
-	void idle();
 };
 
