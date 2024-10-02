@@ -1,0 +1,8 @@
+1439,Hurley          , 95
+ 743,Allan           , 86
+ 767,Warbeck         , 76
+1823,Morton          , 64
+1919,Walter          , 54
+1063,Edison          , 41
+1511,Nicholls        , 41
+  87,Ryle            ,  0
