@@ -37,6 +37,10 @@ void CPlayer::Update() {
 	if (CInput::GetMouseButton(VK_LBUTTON)) {
 		printf("Push Mouse LButton\n");
 	}
+
+	printf("position:%f,%f,%f\n", mPosition.mX, mPosition.mY, mPosition.mZ);
+	printf("rotation:%f,%f,%f\n\n", mRotation.mX, mRotation.mY, mRotation.mZ);
+
 }
 
 CPlayer::CPlayer()

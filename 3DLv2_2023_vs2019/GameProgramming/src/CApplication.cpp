@@ -64,7 +64,7 @@ CTexture* CApplication::Texture()
 void CApplication::Start()
 {
 	//29
-	mActionCamera.Set(5.0f, -15.0f, 180.0f);
+	mActionCamera.Set(15.0f, -15.0f, 180.0f);
 
 	mBackGround.Load("res\\sky.obj", "res\\sky.mtl");
 
@@ -84,10 +84,13 @@ void CApplication::Start()
 	mKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
 
 	//3Dモデルファイルの読み込み
-	mModelX.Load(MODEL_FILE);
+//	mModelX.Load(MODEL_FILE);
+	mModelX.Load("res\\Human_09.blend.x");
 	//キャラクターにモデルを設定
 	mXPlayer.Init(&mModelX);
 //	mXPlayer.Position(CVector(1, 1, 1));
+	const float s = 1.1f;
+	mXPlayer.Scale(CVector(s, s, s));
 
 	mFont.Load("FontG.png", 1, 4096 / 64);
 	//敵の初期設定

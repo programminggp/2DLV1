@@ -13,6 +13,8 @@
 
 #include "CCamera.h"
 
+#include "CMap.h"
+
 //クラスのstatic変数
 CTexture CApplication::mTexture;
 
@@ -95,15 +97,20 @@ void CApplication::Start()
 	mpPaladin = new CPaladin();
 	mpPaladin->Position(CVector(-1.0f, 0.0f, 5.0f));
 	mpPaladin->ChangeAnimation(1, true, 60);
+
+	new CMap();
 }
 
 void CApplication::Update()
 {
 
 	//キャラクタークラスの更新
-	mXPlayer.Update();
-	mXEnemy.Update();
-	mpPaladin->Update();
+	//mXPlayer.Update();
+	//mXEnemy.Update();
+	//mpPaladin->Update();
+
+	CTaskManager::Instance()->Update();
+
 
 	////カメラのパラメータを作成する
 	//CVector e, c, u;//視点、注視点、上方向
@@ -150,7 +157,7 @@ void CApplication::Update()
 
 
 	//頂点にアニメーションを適用する
-	mModelX.AnimateVertex();
+//	mModelX.AnimateVertex();
 
 	//モデル描画
 //	mModelX.Render();
@@ -158,9 +165,11 @@ void CApplication::Update()
 	//衝突処理
 	CCollisionManager::Instance()->Collision();
 
-	mXPlayer.Render();
-	mXEnemy.Render();
-	mpPaladin->Render();
+	CTaskManager::Instance()->Render();
+
+	//mXPlayer.Render();
+	//mXEnemy.Render();
+	//mpPaladin->Render();
 
 	//コライダの描画
 	CCollisionManager::Instance()->Render();
