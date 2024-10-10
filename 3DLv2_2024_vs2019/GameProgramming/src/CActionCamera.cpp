@@ -62,6 +62,8 @@ void CActionCamera::Update()
 	mEye = mPosition + mMatrixRotate.VectorZ() * mScale.Z();
 }
 
+#include <stdio.h>
+
 void CActionCamera::Render()
 {
 	gluLookAt(mEye.X(), mEye.Y(), mEye.Z(),
@@ -69,6 +71,10 @@ void CActionCamera::Render()
 		mUp.X(), mUp.Y(), mUp.Z());
 	//モデルビュー行列の取得
 	glGetFloatv(GL_MODELVIEW_MATRIX, mModelView.M());
+
+	float x, y;
+	mInput.GetMousePos(&x, &y);
+	printf("%f,%f\n", x, y);
 }
 
 bool CActionCamera::WorldToScreen(CVector* screen, const CVector& world)
