@@ -31,6 +31,7 @@ public:
 	//カメラ適用
 	void Render();
 private:
+	float mx, my;
 	int mScreenWidth; //幅
 	int mScreenHeight; //高さ
 	CMatrix mProjection; //プロジェクション行列

@@ -5,6 +5,7 @@
 class CInput
 {
 public:
+	static GLFWwindow* Window();
 	static void Window(GLFWwindow* pwindow);
 	void GetMousePos(float* px, float* py);
 

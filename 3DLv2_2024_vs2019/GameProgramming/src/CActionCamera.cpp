@@ -1,7 +1,7 @@
 #include "CActionCamera.h"
 #include "glut.h"
 
-#define TURN_V 1.0f	//回転速度
+#define TURN_V 3.0f	//回転速度
 
 CActionCamera* CActionCamera::spInstance = nullptr;
 
@@ -28,38 +28,86 @@ void CActionCamera::Set(float distance, float xaxis, float yaxis)
 	mScreenHeight = viewport[3]; //高さを取得
 	//プロジェクション行列の取得
 	glGetFloatv(GL_PROJECTION_MATRIX, mProjection.M());
-
+	mInput.GetMousePos(&mx, &my);
 }
 
 void CActionCamera::Update()
 {
+	int ry = 0, rx = 0;
 	if (mInput.Key('J'))
 	{
-		mRotation = mRotation + CVector(0.0f, TURN_V, 0.0f);
+		ry += TURN_V;
 	}
 	if (mInput.Key('L'))
 	{
-		mRotation = mRotation - CVector(0.0f, TURN_V, 0.0f);
+		ry -= TURN_V;
 	}
 	if (mInput.Key('I'))
 	{
-		mRotation = mRotation - CVector(TURN_V, 0.0f, 0.0f);
-		if (mRotation.X() < -80.0f)
-		{
-			mRotation.X(-80.0f);
-		}
+		rx -= TURN_V;
 	}
 	if (mInput.Key('K'))
 	{
-		mRotation = mRotation + CVector(TURN_V, 0.0f, 0.0f);
-		if (mRotation.X() > 80.0f)
-		{
-			mRotation.X(80.0f);
-		}
+		rx += TURN_V;
 	}
+
+	float x, y;
+	mInput.GetMousePos(&x, &y);
+	ry += (mx - x);
+	rx += (my - y);
+	mx = x;
+	my = y;
+
+	mRotation = mRotation + CVector(0.0f, ry, 0.0f);
+	mRotation = mRotation + CVector(rx, 0.0f, 0.0f);
+	if (mRotation.X() < -80.0f)
+	{
+		mRotation.X(-80.0f);
+	}
+	if (mRotation.X() > 80.0f)
+	{
+		mRotation.X(80.0f);
+	}
+
+	//if (y != 0)
+	//{
+	//	mRotation = mRotation + CVector(0.0f, TURN_V, 0.0f);
+	//}
+	//if (y < 0)
+	//{
+	//	mRotation = mRotation - CVector(0.0f, TURN_V, 0.0f);
+	//}
+	//if (x < 0)
+	//{
+	//	mRotation = mRotation + CVector(x, 0.0f, 0.0f);
+	//	if (mRotation.X() < -80.0f)
+	//	{
+	//		mRotation.X(-80.0f);
+	//	}
+	//}
+	//if (x > 0)
+	//{
+	//	mRotation = mRotation + CVector(x, 0.0f, 0.0f);
+	//	if (mRotation.X() > 80.0f)
+	//	{
+	//		mRotation.X(80.0f);
+	//	}
+	//}
+
 	CTransform::Update();
+
 	mCenter = mPosition;
 	mEye = mPosition + mMatrixRotate.VectorZ() * mScale.Z();
+
+	if (mInput.Key('N'))
+	{
+		glfwSetInputMode(mInput.Window(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		//		glfwSetInputMode(mInput.Window(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	}
+	if (mInput.Key('M'))
+	{
+		glfwSetInputMode(mInput.Window(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 }
 
 #include <stdio.h>
@@ -72,9 +120,9 @@ void CActionCamera::Render()
 	//モデルビュー行列の取得
 	glGetFloatv(GL_MODELVIEW_MATRIX, mModelView.M());
 
-	float x, y;
-	mInput.GetMousePos(&x, &y);
-	printf("%f,%f\n", x, y);
+	//float x, y;
+	//mInput.GetMousePos(&x, &y);
+	//printf("%f,%f\n", x, y);
 }
 
 bool CActionCamera::WorldToScreen(CVector* screen, const CVector& world)

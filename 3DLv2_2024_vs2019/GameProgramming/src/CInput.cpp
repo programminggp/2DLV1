@@ -3,6 +3,11 @@
 
 GLFWwindow* CInput::spWindow = nullptr;	//ウィンドウのポインタ
 
+GLFWwindow* CInput::Window()
+{
+	return spWindow;
+}
+
 void CInput::Window(GLFWwindow* pwindow)
 {
 	spWindow = pwindow;
