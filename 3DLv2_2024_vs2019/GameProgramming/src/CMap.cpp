@@ -2,7 +2,7 @@
 
 #define CMAP_GROUND "res\\sky.obj", "res\\sky.mtl"
 
-#define POSITION 0.0f,0.0f,0.0f
+#define POSITION 0.0f,1.0f,0.0f
 #define ROTATION 0.0f,0.0f,0.0f
 #define SCALE 1.0f,1.0f,1.0f
 
@@ -21,4 +21,5 @@ CMap::CMap()
 	Position(CVector(POSITION));
 	Rotation(CVector(ROTATION));
 	Scale(CVector(SCALE));
+	CTransform::Update();
 }
