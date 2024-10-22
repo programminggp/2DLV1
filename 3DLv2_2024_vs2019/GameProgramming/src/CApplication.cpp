@@ -14,6 +14,7 @@
 #include "CCamera.h"
 
 #include "CMap.h"
+#include "CZombie.h"
 
 //ƒNƒ‰ƒX‚Ìstatic•Ï”
 CTexture CApplication::mTexture;
@@ -94,9 +95,9 @@ void CApplication::Start()
 	mXEnemy.Position(CVector(7.0f, 0.0f, 0.0f));
 	mXEnemy.ChangeAnimation(2, true, 200);
 
-	mpPaladin = new CPaladin();
-	mpPaladin->Position(CVector(-1.0f, 0.0f, 5.0f));
-	mpPaladin->ChangeAnimation(1, true, 60);
+	mpPaladin = new CPaladin(CVector(-1.0f, 0.0f, 5.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0f));
+
+	new CZombie(CVector(1.0f, 0.0f, 5.0f), CVector(0.0f, 180.0f, 0.0f), CVector(2.0f, 2.0f, 2.0f));
 
 	new CMap();
 }

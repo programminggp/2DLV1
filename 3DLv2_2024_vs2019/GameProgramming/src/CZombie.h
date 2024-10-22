@@ -1,14 +1,14 @@
-#ifndef CPALADIN_H
-#define CPALADIN_H
+#ifndef CZOMBIE_H
+#define CZOMBIE_H
 
 #include "CXCharacter.h"
 #include "CColliderCapsule.h"
 
-class CPaladin : public CXCharacter
+class CZombie : public CXCharacter
 {
 public:
-	CPaladin();
-	CPaladin(const CVector& pos, const CVector& rot, const CVector& scale);
+	CZombie();
+	CZombie(const CVector& pos, const CVector& rot, const CVector& scale );
 	void Update();
 private:
 	CColliderCapsule mColBody;	//‘Ì

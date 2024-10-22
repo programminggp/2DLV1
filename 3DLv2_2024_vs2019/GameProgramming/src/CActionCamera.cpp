@@ -99,7 +99,7 @@ void CActionCamera::Update()
 	mCenter = mPosition;
 	mEye = mPosition + mMatrixRotate.VectorZ() * mScale.Z();
 
-	if (mInput.Key('N'))
+	if (mInput.Key('N') || mInput.Key(VK_MBUTTON))
 	{
 		glfwSetInputMode(mInput.Window(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		//		glfwSetInputMode(mInput.Window(), GLFW_CURSOR, GLFW_CURSOR_HIDDEN);

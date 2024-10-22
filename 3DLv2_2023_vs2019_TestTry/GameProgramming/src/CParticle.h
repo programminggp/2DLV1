@@ -2,7 +2,7 @@
 #define CPARTICLE_H
 
 #include "CBillBoard.h"
-#include "glm/vec3.hpp"
+//#include "glm/vec3.hpp"
 
 /*
 
