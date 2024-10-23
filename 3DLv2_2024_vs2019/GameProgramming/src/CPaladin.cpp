@@ -58,7 +58,6 @@ void CPaladin::Update()
 		break;
 	case EState::EIDLE:
 		Idle();
-		Walk();
 		break;
 	case EState::EATTACK:
 		Attack();
@@ -72,6 +71,7 @@ void CPaladin::Update()
 void CPaladin::Idle()
 {
 	ChangeAnimation(1, true, 221);
+	Walk();
 }
 
 void CPaladin::Walk()
