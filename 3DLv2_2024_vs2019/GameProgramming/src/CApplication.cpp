@@ -71,31 +71,31 @@ void CApplication::Start()
 	//カメラの設定
 	mActionCamera.Set(5.0f, -15.0f, 180.0f);
 
-	mKnight.Load("res\\knight\\knight_low.x");
-	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:移動
-	mKnight.SeparateAnimationSet(0, 1530, 1830, "idle1");//2:待機
-	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//3:ダミー
-	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//4:ダミー
-	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//5:ダミー
-	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//6:ダミー
-	mKnight.SeparateAnimationSet(0, 440, 520, "attack1");//7:Attack1
-	mKnight.SeparateAnimationSet(0, 520, 615, "attack2");//8:Attack2
-	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//9:ダミー
-	mKnight.SeparateAnimationSet(0, 10, 80, "walk");//10:ダミー
-	mKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
+	//mKnight.Load("res\\knight\\knight_low.x");
+	//mKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:移動
+	//mKnight.SeparateAnimationSet(0, 1530, 1830, "idle1");//2:待機
+	//mKnight.SeparateAnimationSet(0, 10, 80, "walk");//3:ダミー
+	//mKnight.SeparateAnimationSet(0, 10, 80, "walk");//4:ダミー
+	//mKnight.SeparateAnimationSet(0, 10, 80, "walk");//5:ダミー
+	//mKnight.SeparateAnimationSet(0, 10, 80, "walk");//6:ダミー
+	//mKnight.SeparateAnimationSet(0, 440, 520, "attack1");//7:Attack1
+	//mKnight.SeparateAnimationSet(0, 520, 615, "attack2");//8:Attack2
+	//mKnight.SeparateAnimationSet(0, 10, 80, "walk");//9:ダミー
+	//mKnight.SeparateAnimationSet(0, 10, 80, "walk");//10:ダミー
+	//mKnight.SeparateAnimationSet(0, 1160, 1260, "death1");//11:ダウン
 
 	//3Dモデルファイルの読み込み
-	mModelX.Load(MODEL_FILE);
+//	mModelX.Load(MODEL_FILE);
 	//キャラクターにモデルを設定
-	mXPlayer.Init(&mModelX);
+//	mXPlayer.Init(&mModelX);
 
 	mFont.Load("FontG.png", 1, 4096 / 64);
 
-	mXEnemy.Init(&mKnight);
-	mXEnemy.Position(CVector(7.0f, 0.0f, 0.0f));
-	mXEnemy.ChangeAnimation(2, true, 200);
+	//mXEnemy.Init(&mKnight);
+	//mXEnemy.Position(CVector(7.0f, 0.0f, 0.0f));
+	//mXEnemy.ChangeAnimation(2, true, 200);
 
-	mpPaladin = new CPaladin(CVector(-1.0f, 0.0f, 5.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0f));
+	mpPaladin = new CPaladin(CVector(-1.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0f));
 
 	new CZombie(CVector(1.0f, 0.0f, 5.0f), CVector(0.0f, 180.0f, 0.0f), CVector(2.0f, 2.0f, 2.0f));
 
@@ -125,7 +125,9 @@ void CApplication::Update()
 	//gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
 
 	// カメラ設定
-	mActionCamera.Position(mXPlayer.Position()
+//	mActionCamera.Position(mXPlayer.Position()
+//		+ CVector(0.0f, 2.0f, 0.0f));
+	mActionCamera.Position(mpPaladin->Position()
 		+ CVector(0.0f, 2.0f, 0.0f));
 	mActionCamera.Update();
 	mActionCamera.Render();
@@ -182,10 +184,10 @@ void CApplication::Update()
 
 	CVector screen;
 	//Enemyの座標をスクリーン座標へ変換します
-	if (CActionCamera::Instance()->WorldToScreen(&screen, mXEnemy.Position()))
+	if (CActionCamera::Instance()->WorldToScreen(&screen, mpPaladin->Position()))
 	{
 		//変換先の座標に文字列を出力する
-		mFont.Draw(screen.X(), screen.Y(), 7, 14, "ENEMY");
+		mFont.Draw(screen.X(), screen.Y() - 25, 7, 14, "PLAYER");
 	}
 
 	//2Dの描画終了

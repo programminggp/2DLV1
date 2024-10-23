@@ -38,10 +38,10 @@ private:
 	CActionCamera mActionCamera;
 
 	CPaladin* mpPaladin;
-	CModelX mKnight;
-	CXEnemy mXEnemy;
+//	CModelX mKnight;
+//	CXEnemy mXEnemy;
 	//キャラクタのインスタンス
-	CXPlayer mXPlayer;
+//	CXPlayer mXPlayer;
 
 	CMatrix mMatrix;
 	CModelX mModelX;

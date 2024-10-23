@@ -3,6 +3,7 @@
 
 CCharacter3::CCharacter3()
 	:mpModel(nullptr)
+	, mState(EState::EZERO)
 {
 	//タスクリストに追加
 //	CApplication::TaskManager()->Add(this);

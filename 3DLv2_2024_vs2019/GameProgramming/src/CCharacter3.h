@@ -14,6 +14,14 @@ class CCollider;
 */
 class CCharacter3 : public CTransform, public CTask {
 public:
+	enum class EState
+	{
+		EZERO,
+		EIDLE,
+		EWALK,
+		ERUN,
+		EATTACK,
+	};
 	//衝突処理
 	virtual void Collision(CCollider* m, CCollider* o) {}
 	//コンストラクタ
@@ -28,6 +36,7 @@ public:
 	//描画処理
 	void Render();
 protected:
+	EState mState;
 	CModel* mpModel; //モデルのポインタ
 };
 

@@ -3,6 +3,7 @@
 
 #include "CXCharacter.h"
 #include "CColliderCapsule.h"
+#include "CInput.h"
 
 class CPaladin : public CXCharacter
 {
@@ -11,8 +12,13 @@ public:
 	CPaladin(const CVector& pos, const CVector& rot, const CVector& scale);
 	void Update();
 private:
+	void Idle();
+	void Walk();
+	void Attack();
 	CColliderCapsule mColBody;	//‘Ì
+	CColliderCapsule mColSword;
 	static CModelX sModel;
+	CInput mInput;
 };
 
 #endif
