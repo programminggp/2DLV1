@@ -12,6 +12,7 @@ public:
 	void Update();
 	void Collision(CCollider* m, CCollider* o);
 	void Hit();
+	void Death();
 private:
 	CColliderCapsule mColBody;	//‘Ì
 	static CModelX sModel;

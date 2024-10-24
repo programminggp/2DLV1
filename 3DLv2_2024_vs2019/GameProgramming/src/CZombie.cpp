@@ -3,6 +3,7 @@
 //追加のアニメーションセット
 #define ANIMATION_WALK "res\\WorldZombie\\Zombie_Walk.fbx.x"
 #define ANIMATION_HIT "res\\WorldZombie\\Zombie Reaction Hit.x"
+#define ANIMATION_DEATH "res\\WorldZombie\\Zombie Death.x"
 
 CModelX CZombie::sModel;
 
@@ -21,6 +22,7 @@ CZombie::CZombie()
 		//アニメーションの追加
 		sModel.AddAnimationSet(ANIMATION_WALK); //0
 		sModel.AddAnimationSet(ANIMATION_HIT); //1
+		sModel.AddAnimationSet(ANIMATION_DEATH); //2
 	}
 	Init(&sModel);
 	mColBody.Matrix(&mpCombinedMatrix[3]);
@@ -41,6 +43,9 @@ void CZombie::Update()
 	{
 	case CCharacter3::EState::EHIT:
 		Hit();
+		break;
+	case CCharacter3::EState::EDEATH:
+		Death();
 		break;
 	default:
 		ChangeAnimation(0, false, 243);
@@ -72,6 +77,12 @@ void CZombie::Collision(CCollider* m, CCollider* o)
 							ChangeAnimation(1, false, 121);
 							AnimationFrame(0.3f);
 						}
+						else if (mState == CCharacter3::EState::EHIT)
+						{
+							mState = CCharacter3::EState::EDEATH;
+							ChangeAnimation(2, false, 178);
+							AnimationFrame(0.3f);
+						}
 					}
 				}
 			}
@@ -88,4 +99,9 @@ void CZombie::Hit()
 	{
 		mState = CCharacter3::EState::EWALK;
 	}
+}
+
+void CZombie::Death()
+{
+	ChangeAnimation(2, false, 178);
 }
