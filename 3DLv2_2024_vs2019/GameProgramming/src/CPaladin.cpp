@@ -12,7 +12,8 @@
 CModelX CPaladin::sModel;
 
 CPaladin::CPaladin()
-	: mColBody(
+	: CXCharacter(CCharacter3::ETag::EPLAYER)
+	, mColBody(
 		this,
 		nullptr,
 		CVector(0.0f, -60.0f, 0.0f),

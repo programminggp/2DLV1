@@ -184,6 +184,16 @@ CCollider::ETag CCollider::Tag()
 	return mTag;
 }
 
+CCharacter3::ETag CCollider::ParentTag()
+{
+	return mpParent->Tag();
+}
+
+CCharacter3::EState CCollider::ParentState()
+{
+	return mpParent->State();
+}
+
 void CCollider::Matrix(CMatrix* m)
 {
 	mpMatrix = m;

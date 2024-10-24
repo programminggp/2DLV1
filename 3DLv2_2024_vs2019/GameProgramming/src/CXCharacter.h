@@ -7,11 +7,13 @@
 
 class CXCharacter : public CCharacter3 {
 public:
+	void AnimationFrame(float per);
 	virtual ~CXCharacter() {
 		SAFE_DELETE_ARRAY(mpCombinedMatrix);
 	}
 
 	CXCharacter();
+	CXCharacter(CCharacter3::ETag tag);
 	void Update();
 	//‰Šú‰»ˆ—
 	void Init(CModelX* model);

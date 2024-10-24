@@ -10,6 +10,7 @@ class CCollisionManager;
 class CCollider : public CTransform,public CTask {
 	friend CCollisionManager;
 public:
+	
 	//カプセルコライダとカプセルコライダの衝突判定
 	//static bool CollisionCapsuleCapsule(カプセル1, カプセル2, 調整値)
 	//調整値：衝突していば場合、カプセル1が衝突しない位置まで移動する移動量
@@ -26,6 +27,8 @@ public:
 		ESWORD,	//剣
 	};
 	ETag Tag();// タグの取得
+	CCharacter3::ETag ParentTag();
+	CCharacter3::EState ParentState();
 
 	void Matrix(CMatrix* m);
 	//優先度の変更

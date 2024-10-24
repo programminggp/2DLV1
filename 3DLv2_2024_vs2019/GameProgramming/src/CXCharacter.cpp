@@ -1,7 +1,19 @@
 #include "CXCharacter.h"
 
+void CXCharacter::AnimationFrame(float per)
+{
+	mAnimationFrame = mAnimationFrameSize * per;
+}
+
 CXCharacter::CXCharacter()
 	: mpCombinedMatrix(nullptr)
+{
+	mScale = CVector(1.0f, 1.0f, 1.0f);
+}
+
+CXCharacter::CXCharacter(CCharacter3::ETag tag)
+	: CCharacter3(tag)
+	, mpCombinedMatrix(nullptr)
 {
 	mScale = CVector(1.0f, 1.0f, 1.0f);
 }

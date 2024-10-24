@@ -10,11 +10,17 @@ CCharacter3::CCharacter3()
 	CTaskManager::Instance()->Add(this);
 }
 
-CCharacter3::CCharacter3(int priority)
-	:mpModel(nullptr)
+CCharacter3::CCharacter3(int priority, ETag tag)
+	:mpModel(nullptr), mTag(tag)
 {
 	mPriority = priority;
 	CTaskManager::Instance()->Add(this);
+}
+
+CCharacter3::CCharacter3(ETag tag)
+	: CCharacter3()
+{
+	mTag = tag;
 }
 
 CCharacter3::~CCharacter3()

@@ -14,6 +14,12 @@ class CCollider;
 */
 class CCharacter3 : public CTransform, public CTask {
 public:
+	enum class ETag
+	{
+		EZERO,
+		EPLAYER,
+		EENEMY,
+	};
 	enum class EState
 	{
 		EZERO,
@@ -21,13 +27,15 @@ public:
 		EWALK,
 		ERUN,
 		EATTACK,
+		EHIT,
 	};
 	//衝突処理
 	virtual void Collision(CCollider* m, CCollider* o) {}
 	//コンストラクタ
 	CCharacter3();
 	//コンストラクタ
-	CCharacter3(int priority);
+	CCharacter3(int priority, ETag tag);
+	CCharacter3(ETag tag);
 	//デストラクタ
 	~CCharacter3();
 	//モデルの設定
@@ -35,7 +43,20 @@ public:
 	void Model(CModel* m);
 	//描画処理
 	void Render();
+	void Tag(ETag t)
+	{
+		mTag = t;
+	}
+	ETag Tag()
+	{
+		return mTag;
+	}
+	EState State()
+	{
+		return mState;
+	}
 protected:
+	ETag mTag;
 	EState mState;
 	CModel* mpModel; //モデルのポインタ
 };
