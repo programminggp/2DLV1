@@ -16,6 +16,7 @@ public:
 private:
 	CColliderCapsule mColBody;	//‘Ì
 	static CModelX sModel;
+	int mCntNoDame;
 };
 
 #endif

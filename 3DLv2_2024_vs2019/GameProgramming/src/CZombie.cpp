@@ -15,6 +15,7 @@ CZombie::CZombie()
 		CVector(0.0f, -70.0f, 0.0f),
 		CVector(0.0f, 70.0f, 0.0f), 
 		0.5f)
+	, mCntNoDame(0)
 {
 	if (sModel.IsLoaded() == false)
 	{
@@ -69,11 +70,13 @@ void CZombie::Collision(CCollider* m, CCollider* o)
 			case CCharacter3::ETag::EPLAYER:
 				if (o->ParentState() == CCharacter3::EState::EATTACK)
 				{
+					if (mCntNoDame > 0) return;
 					if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 					{
 						if (mState != CCharacter3::EState::EHIT)
 						{
 							mState = CCharacter3::EState::EHIT;
+							mCntNoDame = 60;
 							ChangeAnimation(1, false, 121);
 							AnimationFrame(0.3f);
 						}
@@ -94,6 +97,7 @@ void CZombie::Collision(CCollider* m, CCollider* o)
 
 void CZombie::Hit()
 {
+	if (mCntNoDame > 0) mCntNoDame--;
 	ChangeAnimation(1, false, 121);
 	if (IsAnimationFinished())
 	{

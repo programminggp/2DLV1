@@ -11,6 +11,8 @@ public:
 	CPaladin();
 	CPaladin(const CVector& pos, const CVector& rot, const CVector& scale);
 	void Update();
+	void Collision(CCollider* m, CCollider* o);
+
 private:
 	void Idle();
 	void Walk();

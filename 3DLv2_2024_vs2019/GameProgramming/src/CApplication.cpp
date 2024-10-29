@@ -69,7 +69,7 @@ CTexture* CApplication::Texture()
 void CApplication::Start()
 {
 	//ÉJÉÅÉâÇÃê›íË
-	mActionCamera.Set(5.0f, -15.0f, 180.0f);
+	mActionCamera.Set(2.5f, -15.0f, 180.0f);
 
 	//mKnight.Load("res\\knight\\knight_low.x");
 	//mKnight.SeparateAnimationSet(0, 10, 80, "walk");//1:à⁄ìÆ
@@ -95,9 +95,9 @@ void CApplication::Start()
 	//mXEnemy.Position(CVector(7.0f, 0.0f, 0.0f));
 	//mXEnemy.ChangeAnimation(2, true, 200);
 
-	mpPaladin = new CPaladin(CVector(-1.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(2.0f, 2.0f, 2.0f));
+	mpPaladin = new CPaladin(CVector(-1.0f, 0.0f, 0.0f), CVector(0.0f, 0.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f));
 
-	new CZombie(CVector(1.0f, 0.0f, 5.0f), CVector(0.0f, 180.0f, 0.0f), CVector(2.0f, 2.0f, 2.0f));
+	new CZombie(CVector(1.0f, 0.0f, 5.0f), CVector(0.0f, 180.0f, 0.0f), CVector(1.0f, 1.0f, 1.0f));
 
 	new CMap();
 }

@@ -24,10 +24,23 @@ void CInput::GetMousePos(float* px, float* py)
 
 CInput::CInput()
 {
-	printf("入力インスタンスが生まれました\n");
+	//printf("入力インスタンスが生まれました\n");
+	memset(mPush, 0, sizeof(mPush));
 }
 
 bool CInput::Key(char key)
 {
-	return GetAsyncKeyState(key) < 0;
+	return mPush[key] = GetAsyncKeyState(key) < 0; //true:Push 
+}
+
+bool CInput::KeyDown(char key)
+{
+	if (GetAsyncKeyState(key) < 0)
+	{
+		if (mPush[key])
+		{
+			return false;
+		}
+	}
+	return mPush[key] = GetAsyncKeyState(key) < 0; //true:Push 
 }

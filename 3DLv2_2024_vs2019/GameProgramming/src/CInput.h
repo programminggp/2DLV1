@@ -15,6 +15,12 @@ public:
 	//true:文字のキーが押されている
 	//false:文字のキーが押されていない
 	bool Key(char key);
+	//bool KeyDown(文字)
+	//戻り値
+	//true:文字のキーが押された時
+	//false:文字のキーが押された時以外
+	bool KeyDown(char key);
 private:
 	static GLFWwindow* spWindow;	//ウィンドウのポインタ
+	bool mPush[256];
 };

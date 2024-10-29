@@ -69,6 +69,29 @@ void CPaladin::Update()
 	mColSword.Update();
 }
 
+void CPaladin::Collision(CCollider* m, CCollider* o)
+{
+	CVector adjust;
+	switch (m->Type())
+	{
+	case CCollider::EType::ECAPSULE:
+		switch (o->Type())
+		{
+		case CCollider::EType::ECAPSULE:
+			switch (o->ParentTag())
+			{
+			case CCharacter3::ETag::EENEMY:
+					if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
+					{
+						mPosition = mPosition + adjust;
+					}
+			}
+			break;
+		}
+		break;
+	}
+}
+
 void CPaladin::Idle()
 {
 	ChangeAnimation(1, true, 221);
