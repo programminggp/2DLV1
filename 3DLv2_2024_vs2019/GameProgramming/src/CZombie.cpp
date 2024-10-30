@@ -1,4 +1,6 @@
 #include "CZombie.h"
+#include "CCollisionManager.h"
+
 #define MODEL_PATH "res\\WorldZombie\\world_war_zombie.x"
 //追加のアニメーションセット
 #define ANIMATION_WALK "res\\WorldZombie\\Zombie_Walk.fbx.x"
@@ -54,6 +56,9 @@ void CZombie::Update()
 	}
 	CXCharacter::Update();
 	mColBody.Update();
+
+	mVelocityG += mGravity;
+	mPosition = mPosition + CVector(0.0f, mVelocityG, 0.0f);
 }
 
 void CZombie::Collision(CCollider* m, CCollider* o)
@@ -90,6 +95,13 @@ void CZombie::Collision(CCollider* m, CCollider* o)
 				}
 			}
 			break;
+		case CCollider::EType::ETRIANGLE:
+			if (CCollider::CollisionCapsuleTriangle(m, o, &adjust))
+			{
+				mVelocityG = 0.0f;
+				mPosition = mPosition + adjust;
+			}
+			break;
 		}
 		break;
 	}
@@ -108,4 +120,9 @@ void CZombie::Hit()
 void CZombie::Death()
 {
 	ChangeAnimation(2, false, 178);
+}
+
+void CZombie::Collision()
+{
+	CCollisionManager::Instance()->Collision(&mColBody, COLLISIONRANGE);
 }

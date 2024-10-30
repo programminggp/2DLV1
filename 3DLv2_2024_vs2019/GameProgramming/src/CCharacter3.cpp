@@ -1,9 +1,13 @@
 #include "CCharacter3.h"
 #include "CApplication.h"
 
+#define GRAVITY -0.1f
+
 CCharacter3::CCharacter3()
 	:mpModel(nullptr)
 	, mState(EState::EZERO)
+	, mGravity(GRAVITY)
+	, mVelocityG(0.0f)
 {
 	//タスクリストに追加
 //	CApplication::TaskManager()->Add(this);

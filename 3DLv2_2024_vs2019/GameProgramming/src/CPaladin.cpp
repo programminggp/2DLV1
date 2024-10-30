@@ -1,5 +1,6 @@
 #include "CPaladin.h"
 #include "CActionCamera.h"
+#include "CCollisionManager.h"
 
 #define PALADIN_MODEL_PATH "res\\paladin\\paladin.x"
 //追加のアニメーションセット
@@ -67,6 +68,9 @@ void CPaladin::Update()
 	CXCharacter::Update();
 	mColBody.Update();
 	mColSword.Update();
+
+	mVelocityG += mGravity;
+	mPosition = mPosition + CVector(0.0f, mVelocityG, 0.0f);
 }
 
 void CPaladin::Collision(CCollider* m, CCollider* o)
@@ -87,9 +91,22 @@ void CPaladin::Collision(CCollider* m, CCollider* o)
 					}
 			}
 			break;
+		case CCollider::EType::ETRIANGLE:
+			if (CCollider::CollisionCapsuleTriangle(m, o, &adjust))
+			{
+				mVelocityG = 0.0f;
+				mPosition = mPosition + adjust;
+			}
+			break;
 		}
 		break;
 	}
+}
+
+void CPaladin::Collision()
+{
+	CCollisionManager::Instance()->Collision(&mColBody, COLLISIONRANGE);
+	CCollisionManager::Instance()->Collision(&mColSword, COLLISIONRANGE);
 }
 
 void CPaladin::Idle()

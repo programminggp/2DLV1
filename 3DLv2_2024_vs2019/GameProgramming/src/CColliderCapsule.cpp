@@ -21,6 +21,7 @@ void CColliderCapsule::Update()
 	mV[0] = mSp * *mpMatrix;
 	mV[1] = mEp * *mpMatrix;
 	mV[2] = mV[1] - mV[0];
+	ChangePriority();
 }
 
 void CColliderCapsule::Render()

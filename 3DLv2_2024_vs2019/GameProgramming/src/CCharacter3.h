@@ -60,6 +60,8 @@ protected:
 	ETag mTag;
 	EState mState;
 	CModel* mpModel; //モデルのポインタ
+	float mGravity;
+	float mVelocityG;
 };
 
 #endif

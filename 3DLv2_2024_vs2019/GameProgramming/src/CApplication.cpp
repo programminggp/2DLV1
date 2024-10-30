@@ -104,29 +104,8 @@ void CApplication::Start()
 
 void CApplication::Update()
 {
-
-	//キャラクタークラスの更新
-	//mXPlayer.Update();
-	//mXEnemy.Update();
-	//mpPaladin->Update();
-
 	CTaskManager::Instance()->Update();
 
-
-	////カメラのパラメータを作成する
-	//CVector e, c, u;//視点、注視点、上方向
-	////視点を求める
-	//e = CVector(1.0f, 2.0f, 10.0f);
-	////注視点を求める
-	//c = CVector();
-	////上方向を求める
-	//u = CVector(0.0f, 1.0f, 0.0f);
-	////カメラの設定
-	//gluLookAt(e.X(), e.Y(), e.Z(), c.X(), c.Y(), c.Z(), u.X(), u.Y(), u.Z());
-
-	// カメラ設定
-//	mActionCamera.Position(mXPlayer.Position()
-//		+ CVector(0.0f, 2.0f, 0.0f));
 	mActionCamera.Position(mpPaladin->Position()
 		+ CVector(0.0f, 2.0f, 0.0f));
 	mActionCamera.Update();
@@ -140,39 +119,11 @@ void CApplication::Update()
 	mModelViewInverse.M(1, 3, 0);
 	mModelViewInverse.M(2, 3, 0);
 
-	////X軸＋回転
-	//if (mInput.Key('K')) {
-	//	mMatrix = mMatrix * CMatrix().RotateX(1);
-	//}
-	////Y軸＋回転
-	//if (mInput.Key('L')) {
-	//	mMatrix = mMatrix * CMatrix().RotateY(1);
-	//}
-	//if (mInput.Key('I')) {
-	//	mMatrix = mMatrix * CMatrix().RotateX(-1);
-	//}
-	////Y軸＋回転
-	//if (mInput.Key('J')) {
-	//	mMatrix = mMatrix * CMatrix().RotateY(-1);
-	//}
-	////行列設定
-	//glMultMatrixf(mMatrix.M());
-
-
-	//頂点にアニメーションを適用する
-//	mModelX.AnimateVertex();
-
-	//モデル描画
-//	mModelX.Render();
-
 	//衝突処理
-	CCollisionManager::Instance()->Collision();
+	CTaskManager::Instance()->Collision();
+//	CCollisionManager::Instance()->Collision();
 
 	CTaskManager::Instance()->Render();
-
-	//mXPlayer.Render();
-	//mXEnemy.Render();
-	//mpPaladin->Render();
 
 	//コライダの描画
 	CCollisionManager::Instance()->Render();

@@ -10,7 +10,12 @@ class CCollisionManager;
 class CCollider : public CTransform,public CTask {
 	friend CCollisionManager;
 public:
-	
+	//カプセルコライダとカプセルコライダの衝突判定
+	//static bool CollisionCapsuleTriangle(カプセル1, 三角形, 調整値)
+	//調整値：衝突していば場合、カプセル1が衝突しない位置まで移動する移動量
+	//戻り値：true　衝突している　false　衝突していない
+	static bool CollisionCapsuleTriangle(CCollider* m, CCollider* o, CVector* adjust);
+
 	//カプセルコライダとカプセルコライダの衝突判定
 	//static bool CollisionCapsuleCapsule(カプセル1, カプセル2, 調整値)
 	//調整値：衝突していば場合、カプセル1が衝突しない位置まで移動する移動量

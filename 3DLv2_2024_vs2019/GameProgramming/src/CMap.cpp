@@ -23,4 +23,5 @@ CMap::CMap()
 	Rotation(CVector(ROTATION));
 	Scale(CVector(SCALE));
 	CTransform::Update();
+	mColMesh.Set(this, &mMatrix, &mModel);
 }
