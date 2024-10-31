@@ -59,6 +59,13 @@ void CZombie::Update()
 
 	mVelocityG += mGravity;
 	mPosition = mPosition + CVector(0.0f, mVelocityG, 0.0f);
+
+#ifdef _DEBUG
+
+	printf("y=%f\n", mPosition.Y());
+
+#endif
+
 }
 
 void CZombie::Collision(CCollider* m, CCollider* o)

@@ -8,6 +8,7 @@ CCharacter3::CCharacter3()
 	, mState(EState::EZERO)
 	, mGravity(GRAVITY)
 	, mVelocityG(0.0f)
+	, mVelocity(0.0f)
 {
 	//タスクリストに追加
 //	CApplication::TaskManager()->Add(this);

@@ -372,10 +372,12 @@ bool CCollider::CollisionCapsuleTriangle(CCollider* m, CCollider* t, CVector* a)
 	if (dots < 0.0f) {
 		//始点が裏面
 		*a = normal * -dots;
+//		*a = cross - sv;
 	}
 	else {
 		//終点が裏面
 		*a = normal * -dote;
+//		*a = cross - ev;
 	}
 	return true;
 }

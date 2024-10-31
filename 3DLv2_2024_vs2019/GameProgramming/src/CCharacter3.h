@@ -57,11 +57,14 @@ public:
 		return mState;
 	}
 protected:
+	CVector mTargetPosition;
+	float mGravity;
+	float mVelocityG;
+	float mVelocity;
+
 	ETag mTag;
 	EState mState;
 	CModel* mpModel; //モデルのポインタ
-	float mGravity;
-	float mVelocityG;
 };
 
 #endif

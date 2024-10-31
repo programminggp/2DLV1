@@ -9,6 +9,7 @@
 #define ANIMATION_ATTACK "res\\paladin\\Sword And Shield Slash.x"
 #define ANIMATION_ATTACKSP1 "res\\paladin\\SwordAndShieldAttack.x"
 
+#define VELOCITY 0.1f
 
 CModelX CPaladin::sModel;
 
@@ -54,23 +55,49 @@ void CPaladin::Update()
 {
 	switch (mState)
 	{
-	case EState::EWALK:
-		ChangeAnimation(2, true, 33);
-		Walk();
-		break;
 	case EState::EIDLE:
 		Idle();
 		break;
 	case EState::EATTACK:
 		Attack();
 		break;
+	case EState::EWALK:
+		ChangeAnimation(2, true, 33);
+		Walk();
+
+
+
+		break;
 	}
-	CXCharacter::Update();
-	mColBody.Update();
-	mColSword.Update();
+	//CXCharacter::Update();
+	//mColBody.Update();
+	//mColSword.Update();
 
 	mVelocityG += mGravity;
-	mPosition = mPosition + CVector(0.0f, mVelocityG, 0.0f);
+	mTargetPosition = mTargetPosition + CVector(0.0f, mVelocityG, 0.0f);
+
+	CVector v = mTargetPosition - mPosition;
+
+	if (v.Length() > 0.001f)
+	{
+		if (v.Length() < mVelocity)
+		{
+			mVelocity -= 0.01f;
+		}
+		else if (mVelocity < VELOCITY)
+		{
+			mVelocity += 0.01f;
+		}
+		mPosition = mPosition + v.Normalize() * mVelocity;
+
+		CXCharacter::Update();
+		mColBody.Update();
+		mColSword.Update();
+	}
+	else
+	{
+		mVelocity = 0.0f;
+	}
 }
 
 void CPaladin::Collision(CCollider* m, CCollider* o)
@@ -87,7 +114,7 @@ void CPaladin::Collision(CCollider* m, CCollider* o)
 			case CCharacter3::ETag::EENEMY:
 					if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 					{
-						mPosition = mPosition + adjust;
+						mTargetPosition = mPosition + adjust;
 					}
 			}
 			break;
@@ -95,7 +122,7 @@ void CPaladin::Collision(CCollider* m, CCollider* o)
 			if (CCollider::CollisionCapsuleTriangle(m, o, &adjust))
 			{
 				mVelocityG = 0.0f;
-				mPosition = mPosition + adjust;
+				mTargetPosition = mPosition + adjust;
 			}
 			break;
 		}
@@ -166,7 +193,7 @@ void CPaladin::Walk()
 			mRotation.Y(mRotation.Y() - 5.0f);
 		}
 		//ˆÚ“®•ûŒü‚ÖˆÚ“®
-		mPosition = mPosition + move * 0.1f;
+		mTargetPosition = mTargetPosition + move * VELOCITY;
 		mState = EState::EWALK;
 	}
 	else
