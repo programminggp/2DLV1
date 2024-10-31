@@ -371,13 +371,13 @@ bool CCollider::CollisionCapsuleTriangle(CCollider* m, CCollider* t, CVector* a)
 	//調整値計算（衝突しない位置まで戻す）
 	if (dots < 0.0f) {
 		//始点が裏面
-		*a = normal * -dots;
-//		*a = cross - sv;
+//		*a = normal * -dots;
+		*a = cross - sv;
 	}
 	else {
 		//終点が裏面
-		*a = normal * -dote;
-//		*a = cross - ev;
+//		*a = normal * -dote;
+		*a = cross - ev;
 	}
 	return true;
 }
