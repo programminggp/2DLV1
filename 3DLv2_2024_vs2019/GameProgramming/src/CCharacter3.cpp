@@ -5,10 +5,12 @@
 
 CCharacter3::CCharacter3()
 	:mpModel(nullptr)
+	, mTag(ETag::EZERO)
 	, mState(EState::EZERO)
 	, mGravity(GRAVITY)
 	, mVelocityG(0.0f)
 	, mVelocity(0.0f)
+	, mGrounded(false)
 {
 	//タスクリストに追加
 //	CApplication::TaskManager()->Add(this);

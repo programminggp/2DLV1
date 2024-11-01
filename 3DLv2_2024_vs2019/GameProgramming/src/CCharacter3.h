@@ -57,6 +57,8 @@ public:
 		return mState;
 	}
 protected:
+	CVector mAdjust;
+	bool mGrounded;
 	CVector mTargetPosition;
 	float mGravity;
 	float mVelocityG;

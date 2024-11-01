@@ -53,6 +53,8 @@ CPaladin::CPaladin(const CVector& pos, const CVector& rot, const CVector& scale)
 
 void CPaladin::Update()
 {
+	mTargetPosition = mPosition + mAdjust;
+
 	switch (mState)
 	{
 	case EState::EIDLE:
@@ -64,40 +66,40 @@ void CPaladin::Update()
 	case EState::EWALK:
 		ChangeAnimation(2, true, 33);
 		Walk();
-
-
-
 		break;
 	}
-	//CXCharacter::Update();
-	//mColBody.Update();
-	//mColSword.Update();
 
-	mVelocityG += mGravity;
-	mTargetPosition = mTargetPosition + CVector(0.0f, mVelocityG, 0.0f);
-
-	CVector v = mTargetPosition - mPosition;
-
-	if (v.Length() > 0.001f)
+	if (mState != EState::EIDLE || !mGrounded)
 	{
-		if (v.Length() < mVelocity)
-		{
-			mVelocity -= 0.01f;
-		}
-		else if (mVelocity < VELOCITY)
-		{
-			mVelocity += 0.01f;
-		}
-		mPosition = mPosition + v.Normalize() * mVelocity;
+		mVelocityG += mGravity;
+		mTargetPosition = mTargetPosition + CVector(0.0f, mVelocityG, 0.0f);
 
-		CXCharacter::Update();
-		mColBody.Update();
-		mColSword.Update();
+		CVector v = mTargetPosition - mPosition;
+
+		if (v.Length() > 0.001f)
+		{
+			if (v.Length() < mVelocity)
+			{
+				mVelocity -= 0.01f;
+			}
+			else if (mVelocity < VELOCITY)
+			{
+				mVelocity += 0.01f;
+			}
+			mPosition = mPosition + v.Normalize() * mVelocity;
+		}
+		else
+		{
+			mVelocity = 0.0f;
+		}
 	}
-	else
-	{
-		mVelocity = 0.0f;
-	}
+
+	CXCharacter::Update();
+	mColBody.Update();
+	mColSword.Update();
+
+	mGrounded = false;
+	mAdjust = CVector();
 }
 
 void CPaladin::Collision(CCollider* m, CCollider* o)
@@ -114,7 +116,7 @@ void CPaladin::Collision(CCollider* m, CCollider* o)
 			case CCharacter3::ETag::EENEMY:
 					if (CCollider::CollisionCapsuleCapsule(m, o, &adjust))
 					{
-						mTargetPosition = mPosition + adjust;
+						mAdjust = mAdjust + adjust;
 					}
 			}
 			break;
@@ -122,7 +124,8 @@ void CPaladin::Collision(CCollider* m, CCollider* o)
 			if (CCollider::CollisionCapsuleTriangle(m, o, &adjust))
 			{
 				mVelocityG = 0.0f;
-				mTargetPosition = mPosition + adjust;
+				mGrounded = true;
+				mAdjust = mAdjust + adjust;
 			}
 			break;
 		}
