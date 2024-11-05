@@ -29,6 +29,7 @@ public:
 		EATTACK,
 		EHIT,
 		EDEATH,
+		EJUMP,
 	};
 	//Õ“Ëˆ—
 	virtual void Collision(CCollider* m, CCollider* o) {}

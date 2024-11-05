@@ -15,6 +15,7 @@ public:
 	void Collision();
 
 private:
+	void Jump();
 	void Idle();
 	void Walk();
 	void Attack();

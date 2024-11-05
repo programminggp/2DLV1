@@ -7,7 +7,10 @@
 #define ANIMATION_IDLE "res\\paladin\\Sword And Shield Idle.x"
 #define ANIMATION_WALK "res\\paladin\\Paladin WProp J Nordstrom@Sword And Shield Walk.fbx.x"
 #define ANIMATION_ATTACK "res\\paladin\\Sword And Shield Slash.x"
-#define ANIMATION_ATTACKSP1 "res\\paladin\\SwordAndShieldAttack.x"
+#define ANIMATION_JUMP "res\\paladin\\Sword And Shield Jump.x"
+
+//#define ANIMATION_ATTACKSP1 "res\\paladin\\SwordAndShieldAttack.x"
+
 
 #define VELOCITY 0.1f
 
@@ -35,6 +38,7 @@ CPaladin::CPaladin()
 		sModel.AddAnimationSet(ANIMATION_IDLE);
 		sModel.AddAnimationSet(ANIMATION_WALK);
 		sModel.AddAnimationSet(ANIMATION_ATTACK);
+		sModel.AddAnimationSet(ANIMATION_JUMP);
 	}
 	Init(&sModel);
 	mColBody.Matrix(&mpCombinedMatrix[3]);
@@ -57,6 +61,9 @@ void CPaladin::Update()
 
 	switch (mState)
 	{
+	case EState::EJUMP:
+		Jump();
+		break;
 	case EState::EIDLE:
 		Idle();
 		break;
@@ -139,6 +146,15 @@ void CPaladin::Collision()
 	CCollisionManager::Instance()->Collision(&mColSword, COLLISIONRANGE);
 }
 
+void CPaladin::Jump()
+{
+	ChangeAnimation(1, true, 51);
+	if (IsAnimationFinished())
+	{
+		mState = EState::EIDLE;
+	}
+}
+
 void CPaladin::Idle()
 {
 	ChangeAnimation(1, true, 221);
@@ -207,6 +223,12 @@ void CPaladin::Walk()
 	if (mInput.Key(VK_LBUTTON))
 	{
 		mState = EState::EATTACK;
+	}
+
+	if (mInput.Key(VK_SPACE))
+	{
+		mState = EState::EJUMP;
+		mVelocityG = 1.0f;
 	}
 }
 
