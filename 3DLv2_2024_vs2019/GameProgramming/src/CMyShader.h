@@ -2,6 +2,7 @@
 #define CMYSHADER_H
 
 #include "CShader.h"
+#include <vector>
 
 class CModelX;
 class CMaterial;
@@ -18,6 +19,31 @@ public:
 	//ï`âÊèàóù
 	void Render(CModelX* model, CMatrix* combinedMatrix);
 	//	void Render(CModel *mesh);
+};
+
+class CMyShader2 : public CShader
+{
+public:
+	void Update(
+		int FrameSize,
+		CMatrix* pSkinningMatrix,
+		std::vector<CMaterial*>* pMaterials,
+		GLuint VertexBufferId
+	);
+	void Render(
+		int FrameSize,
+		CMatrix* pSkinningMatrix,
+		std::vector<CMaterial*>* pMaterials,
+		GLuint VertexBufferId
+	);
+	void Render();
+private:
+	int mFrameSize;
+	GLuint mVertexBufferId;
+	CMatrix* mpSkinningMatrix;
+	std::vector<CMaterial*>* mpMaterials;
+	//int mVertexSize;
+	//CVertex* mpVertex;
 };
 
 #endif

@@ -1,3 +1,4 @@
+#include "glew.h"
 #include "CModel.h"
 //文字列関数のインクルード
 //#include <string.h>
@@ -241,6 +242,10 @@ void CModel::Load(char* obj, char* mtl) {
 	fclose(fp);
 
 	CreateVertexBuffer();
+	//シェーダー読み込み
+	mShader.Load("Shader\\skinmesh.vert", "Shader\\skinmesh.flag");
+	mShader.Update(1, &mDummySkinningMatrix, &mpMaterials, mMyVertexBufferId);
+
 }
 
 void CModel::Render()
@@ -269,6 +274,15 @@ CModel::~CModel()
 //Render(行列)
 void CModel::Render(const CMatrix& m)
 {
+	//行列の退避
+	glPushMatrix();
+	//合成行列を掛ける
+	glMultMatrixf(m.M());
+	mShader.Render();
+	//行列を戻す
+	glPopMatrix();
+	return;
+
 	//行列の退避
 	glPushMatrix();
 	//合成行列を掛ける
@@ -309,8 +323,51 @@ void CModel::Render(const CMatrix& m)
 
 void CModel::CreateVertexBuffer()
 {
+	//メッシュ毎に一回作成すればよい
+	if (mMyVertexBufferId > 0)
+		return;
 	mpVertexes = new CVertex[mTriangles.size() * 3];
 	int idx = 0;
+	for (int i = 0; i < mpMaterials.size(); i++)
+	{
+		for (int j = 0; j < mTriangles.size(); j++)
+		{
+			if (i == mTriangles[j].MaterialIdx())
+			{
+				mpMaterials[i]->VertexNum(mpMaterials[i]->VertexNum() + 3);
+				mpVertexes[idx].mPosition = mTriangles[j].V0();
+				mpVertexes[idx].mNormal = mTriangles[j].N0();
+				mpVertexes[idx].mBoneIndex[0] = 0;
+				mpVertexes[idx].mBoneWeight[0] = 1.0f;
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U0();
+				mpVertexes[idx].mPosition = mTriangles[j].V1();
+				mpVertexes[idx].mNormal = mTriangles[j].N1();
+				mpVertexes[idx].mBoneIndex[0] = 0;
+				mpVertexes[idx].mBoneWeight[0] = 1.0f;
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U1();
+				mpVertexes[idx].mPosition = mTriangles[j].V2();
+				mpVertexes[idx].mNormal = mTriangles[j].N2();
+				mpVertexes[idx].mBoneIndex[0] = 0;
+				mpVertexes[idx].mBoneWeight[0] = 1.0f;
+				mpVertexes[idx++].mTextureCoords = mTriangles[j].U2();
+			}
+		}
+	}
+	//頂点バッファの作成
+	glGenBuffers(1, &mMyVertexBufferId);
+	//頂点バッファをバインド
+	glBindBuffer(GL_ARRAY_BUFFER, mMyVertexBufferId);
+	//バインドしたバッファにデータを転送
+	glBufferData(GL_ARRAY_BUFFER
+		, sizeof(CVertex) * mTriangles.size() * 3
+		, mpVertexes, GL_STATIC_DRAW);
+	//バインド解除
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	return;
+
+	mpVertexes = new CVertex[mTriangles.size() * 3];
+	//int idx = 0;
 	for (int i = 0; i < mpMaterials.size(); i++)
 	{
 		for (int j = 0; j < mTriangles.size(); j++)

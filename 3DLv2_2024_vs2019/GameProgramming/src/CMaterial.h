@@ -35,7 +35,7 @@ public:
 	void VertexNum(int num);
 	//’¸“_”‚Ìæ“¾
 	int VertexNum();
-private:
+//private:
 	float mPower;
 	float mSpecular[3];
 	float mEmissive[3];

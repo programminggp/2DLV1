@@ -5,12 +5,14 @@
 #include "CTriangle.h"
 #include "CMaterial.h"
 #include "CVertex.h"
+#include "CModelX.h"
 
 /*
 モデルクラス
 モデルデータの入力や表示
 */
-class CModel {
+class CModel : public CMesh 
+{
 public:
 	//std::vector<CTriangle> Triangles() const;
 	const std::vector<CTriangle>& Triangles() const;
@@ -24,7 +26,9 @@ public:
 	//描画
 	//Render(行列)
 	void Render(const CMatrix& m);
+	CMatrix mDummySkinningMatrix;
 private:
+	CMyShader2 mShader;
 	//マテリアルポインタの可変長配列
 	std::vector<CMaterial*> mpMaterials;
 	//三角形の可変長配列

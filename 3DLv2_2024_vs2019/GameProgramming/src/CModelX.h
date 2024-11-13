@@ -140,6 +140,7 @@ public:
 	//読み込み処理
 	void Init(CModelX* model);
 private:
+protected:
 	//マテリアル毎の面数
 	std::vector<int> mMaterialVertexCount;
 	//頂点バッファ識別子
